@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Water
+  m_EditorClassIdentifier: 
+  opponentName: Drowned
+  maxHP: 100
+  mark: 11
+  deck:
+  - {fileID: 11400000, guid: b2890eec98615bc4087468bfe3303af5, type: 2}
+  - {fileID: 11400000, guid: 19267fd1f12b14a3d9c06fd867bce714, type: 2}
+  - {fileID: 11400000, guid: f1e20ad5e89d24496a73f10704d83a65, type: 2}
+  - {fileID: 11400000, guid: f1e20ad5e89d24496a73f10704d83a65, type: 2}
+  - {fileID: 11400000, guid: f1e20ad5e89d24496a73f10704d83a65, type: 2}
+  - {fileID: 11400000, guid: e2c3bdb55a8834a43a2c3467fb3a14e1, type: 2}
+  - {fileID: 11400000, guid: 7b9ed1ce7bb3c45758adabb2409bd329, type: 2}
+  - {fileID: 11400000, guid: bda767d7a5d9b4d16b3413cb6c4741b4, type: 2}
+  - {fileID: 11400000, guid: bda767d7a5d9b4d16b3413cb6c4741b4, type: 2}
+  - {fileID: 11400000, guid: afa528106f3a5410cb325b8df9e8887c, type: 2}
+  - {fileID: 11400000, guid: a4448feee601743abbdb6d47be9fc8ee, type: 2}
+  - {fileID: 11400000, guid: a4448feee601743abbdb6d47be9fc8ee, type: 2}
+  - {fileID: 11400000, guid: a4448feee601743abbdb6d47be9fc8ee, type: 2}
+  - {fileID: 11400000, guid: a4448feee601743abbdb6d47be9fc8ee, type: 2}
+  - {fileID: 11400000, guid: a4448feee601743abbdb6d47be9fc8ee, type: 2}
+  - {fileID: 11400000, guid: a4448feee601743abbdb6d47be9fc8ee, type: 2}
+  - {fileID: 11400000, guid: f031e58098796410b86891eb2c1d726a, type: 2}
+  - {fileID: 11400000, guid: f031e58098796410b86891eb2c1d726a, type: 2}
+  - {fileID: 11400000, guid: 9da035e3c3b70493c8af6c91066ab4e3, type: 2}
+  - {fileID: 11400000, guid: 9da035e3c3b70493c8af6c91066ab4e3, type: 2}
+  - {fileID: 11400000, guid: 9da035e3c3b70493c8af6c91066ab4e3, type: 2}
+  - {fileID: 11400000, guid: 4986fa821eb1b4c13befc47d40879a56, type: 2}
+  - {fileID: 11400000, guid: 4986fa821eb1b4c13befc47d40879a56, type: 2}
+  - {fileID: 11400000, guid: 4986fa821eb1b4c13befc47d40879a56, type: 2}
+  - {fileID: 11400000, guid: 31fb84ccad0424ef19edbf3e7a65bf59, type: 2}
+  - {fileID: 11400000, guid: 31fb84ccad0424ef19edbf3e7a65bf59, type: 2}
+  - {fileID: 11400000, guid: 31fb84ccad0424ef19edbf3e7a65bf59, type: 2}
+  - {fileID: 11400000, guid: 2e6094562bef849c9a0df84c1f1e0411, type: 2}
+  - {fileID: 11400000, guid: 8715a4d112e7c43b2b5c5c6851639b25, type: 2}
+  - {fileID: 11400000, guid: 8715a4d112e7c43b2b5c5c6851639b25, type: 2}
+  - {fileID: 11400000, guid: 15df8bf565fef4247adacf2074158e1a, type: 2}
+  - {fileID: 11400000, guid: 15df8bf565fef4247adacf2074158e1a, type: 2}
+  - {fileID: 11400000, guid: 15df8bf565fef4247adacf2074158e1a, type: 2}
+  - {fileID: 11400000, guid: b5b6165e3738543d0afc36a7422820ac, type: 2}
+  - {fileID: 11400000, guid: 52f61fa50a5eb4633b1e747143a4ce4c, type: 2}
+  - {fileID: 11400000, guid: 52f61fa50a5eb4633b1e747143a4ce4c, type: 2}
+  - {fileID: 11400000, guid: 077ee61ed98d24e718d7ffedeb3d935e, type: 2}
+  spins: 2
+  coinAvg: 10
+  costToPlay: 5
+  scoreWin: 6
+  drawComponent: BaseAiDrawComponent
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: BaseAiTurnComponent

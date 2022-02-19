@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Decay
+  m_EditorClassIdentifier: 
+  opponentName: Decay
+  maxHP: 200
+  mark: 2
+  deck:
+  - {fileID: 11400000, guid: 96107c101edf34188ac1e8b79422f377, type: 2}
+  - {fileID: 11400000, guid: 96107c101edf34188ac1e8b79422f377, type: 2}
+  - {fileID: 11400000, guid: 96107c101edf34188ac1e8b79422f377, type: 2}
+  - {fileID: 11400000, guid: 96107c101edf34188ac1e8b79422f377, type: 2}
+  - {fileID: 11400000, guid: 96107c101edf34188ac1e8b79422f377, type: 2}
+  - {fileID: 11400000, guid: 96107c101edf34188ac1e8b79422f377, type: 2}
+  - {fileID: 11400000, guid: b2c7859167a3b415c9cac0691519f2b4, type: 2}
+  - {fileID: 11400000, guid: d160266a5dca9411c975264bff195a50, type: 2}
+  - {fileID: 11400000, guid: d160266a5dca9411c975264bff195a50, type: 2}
+  - {fileID: 11400000, guid: 7dc52e2ae5a8849278034bcfc1c72e18, type: 2}
+  - {fileID: 11400000, guid: 0242b3e46234a49cf8eb7441a9d90c9e, type: 2}
+  - {fileID: 11400000, guid: 0242b3e46234a49cf8eb7441a9d90c9e, type: 2}
+  - {fileID: 11400000, guid: 0242b3e46234a49cf8eb7441a9d90c9e, type: 2}
+  - {fileID: 11400000, guid: 0242b3e46234a49cf8eb7441a9d90c9e, type: 2}
+  - {fileID: 11400000, guid: 0242b3e46234a49cf8eb7441a9d90c9e, type: 2}
+  - {fileID: 11400000, guid: 0242b3e46234a49cf8eb7441a9d90c9e, type: 2}
+  - {fileID: 11400000, guid: 16a1ccb6882bc4e73bb10b162dde7fe5, type: 2}
+  - {fileID: 11400000, guid: 16a1ccb6882bc4e73bb10b162dde7fe5, type: 2}
+  - {fileID: 11400000, guid: 16a1ccb6882bc4e73bb10b162dde7fe5, type: 2}
+  - {fileID: 11400000, guid: 16a1ccb6882bc4e73bb10b162dde7fe5, type: 2}
+  - {fileID: 11400000, guid: 16a1ccb6882bc4e73bb10b162dde7fe5, type: 2}
+  - {fileID: 11400000, guid: 16a1ccb6882bc4e73bb10b162dde7fe5, type: 2}
+  - {fileID: 11400000, guid: 16a1ccb6882bc4e73bb10b162dde7fe5, type: 2}
+  - {fileID: 11400000, guid: 5b3442176ccc44bbea02e83e8f6b5ed2, type: 2}
+  - {fileID: 11400000, guid: 2ad1e80c1e24240418abaf304747409c, type: 2}
+  - {fileID: 11400000, guid: 2ad1e80c1e24240418abaf304747409c, type: 2}
+  - {fileID: 11400000, guid: 2ad1e80c1e24240418abaf304747409c, type: 2}
+  - {fileID: 11400000, guid: 2ad1e80c1e24240418abaf304747409c, type: 2}
+  - {fileID: 11400000, guid: 2ad1e80c1e24240418abaf304747409c, type: 2}
+  - {fileID: 11400000, guid: 2ad1e80c1e24240418abaf304747409c, type: 2}
+  spins: 3
+  coinAvg: 60
+  costToPlay: 30
+  scoreWin: 64
+  drawComponent: FalseGodDrawComponenet
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: BaseAiTurnComponent

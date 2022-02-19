@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Earth
+  m_EditorClassIdentifier: 
+  opponentName: Mountain
+  maxHP: 100
+  mark: 5
+  deck:
+  - {fileID: 11400000, guid: 5b1f9eb131a5b439db57e813b4184157, type: 2}
+  - {fileID: 11400000, guid: 5b1f9eb131a5b439db57e813b4184157, type: 2}
+  - {fileID: 11400000, guid: 5b1f9eb131a5b439db57e813b4184157, type: 2}
+  - {fileID: 11400000, guid: 6c52fb3f2ca9846cfb6018afbbd704c8, type: 2}
+  - {fileID: 11400000, guid: 6c52fb3f2ca9846cfb6018afbbd704c8, type: 2}
+  - {fileID: 11400000, guid: ce47afca32bb241f8aff091b59709159, type: 2}
+  - {fileID: 11400000, guid: d5cfa1a85e0c34f9c88c69b26f021c8d, type: 2}
+  - {fileID: 11400000, guid: 3d48abf4196854425943fdd3b9de7a1e, type: 2}
+  - {fileID: 11400000, guid: 554ebb5b9ae2541f19915a0a8db744b3, type: 2}
+  - {fileID: 11400000, guid: 554ebb5b9ae2541f19915a0a8db744b3, type: 2}
+  - {fileID: 11400000, guid: e8a9f9466de844f47ab7db1edafc1078, type: 2}
+  - {fileID: 11400000, guid: 3c2a59853489540f7b65ed8feb3679a9, type: 2}
+  - {fileID: 11400000, guid: 3c2a59853489540f7b65ed8feb3679a9, type: 2}
+  - {fileID: 11400000, guid: 52f27ff7928b049868161383f07c6075, type: 2}
+  - {fileID: 11400000, guid: 52f27ff7928b049868161383f07c6075, type: 2}
+  - {fileID: 11400000, guid: 52f27ff7928b049868161383f07c6075, type: 2}
+  - {fileID: 11400000, guid: 52f27ff7928b049868161383f07c6075, type: 2}
+  - {fileID: 11400000, guid: 52f27ff7928b049868161383f07c6075, type: 2}
+  - {fileID: 11400000, guid: 52f27ff7928b049868161383f07c6075, type: 2}
+  - {fileID: 11400000, guid: 60c18c6b2d0964ffeade649b5639d8f1, type: 2}
+  - {fileID: 11400000, guid: 60c18c6b2d0964ffeade649b5639d8f1, type: 2}
+  - {fileID: 11400000, guid: 60c18c6b2d0964ffeade649b5639d8f1, type: 2}
+  - {fileID: 11400000, guid: 60c18c6b2d0964ffeade649b5639d8f1, type: 2}
+  - {fileID: 11400000, guid: 60c18c6b2d0964ffeade649b5639d8f1, type: 2}
+  - {fileID: 11400000, guid: 60c18c6b2d0964ffeade649b5639d8f1, type: 2}
+  - {fileID: 11400000, guid: 60c18c6b2d0964ffeade649b5639d8f1, type: 2}
+  - {fileID: 11400000, guid: 60c18c6b2d0964ffeade649b5639d8f1, type: 2}
+  - {fileID: 11400000, guid: 60c18c6b2d0964ffeade649b5639d8f1, type: 2}
+  - {fileID: 11400000, guid: 60c18c6b2d0964ffeade649b5639d8f1, type: 2}
+  - {fileID: 11400000, guid: f573ff753d68042dd8ed313e3a596162, type: 2}
+  - {fileID: 11400000, guid: 40c1a021a3f26412bbb2426eeef1a03e, type: 2}
+  - {fileID: 11400000, guid: 66baa020184f34abf8298f9c71bce149, type: 2}
+  - {fileID: 11400000, guid: 5ad2f7b2b22c1434b9c41c31e53ab1ae, type: 2}
+  - {fileID: 11400000, guid: bcfc2df561ee04cb6b8bd830af0b494a, type: 2}
+  - {fileID: 11400000, guid: bcfc2df561ee04cb6b8bd830af0b494a, type: 2}
+  - {fileID: 11400000, guid: 6e1a66fd742d547afa23d7c946bd2b10, type: 2}
+  - {fileID: 11400000, guid: 6e1a66fd742d547afa23d7c946bd2b10, type: 2}
+  - {fileID: 11400000, guid: 6e1a66fd742d547afa23d7c946bd2b10, type: 2}
+  - {fileID: 11400000, guid: b4a0819e3636a48289b65a9b6912c67f, type: 2}
+  - {fileID: 11400000, guid: b4a0819e3636a48289b65a9b6912c67f, type: 2}
+  - {fileID: 11400000, guid: b4a0819e3636a48289b65a9b6912c67f, type: 2}
+  - {fileID: 11400000, guid: b4a0819e3636a48289b65a9b6912c67f, type: 2}
+  spins: 3
+  coinAvg: 20
+  costToPlay: 10
+  scoreWin: 17
+  drawComponent: BaseAiDrawComponent
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: BaseAiTurnComponent

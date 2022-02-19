@@ -1,0 +1,843 @@
+{
+	"cardBodyStrings": [{
+			"cardName": "Aether Pendulum",
+			"bodyString": "The world will feel like a foreign place, but if you're quick, you'll learn the language in time."
+		},
+		{
+			"cardName": "Aether Pillar",
+			"bodyString": "The world will feel like a foreign place, but if you're quick, you'll learn the language in time."
+		},
+		{
+			"cardName": "Dimensional Shield",
+			"bodyString": "Just don't let your defensiveness block out the entire world, which it is prone to do today."
+		},
+		{
+			"cardName": "Fractal",
+			"bodyString": "It's like looking at yourself looking at yourself look at yourself...only without a mirror."
+		},
+		{
+			"cardName": "Immortal",
+			"bodyString": "You may feel invincible, but you might alienate someone if you're not careful."
+		},
+		{
+			"cardName": "Lobotomizer",
+			"bodyString": "Just don't take brainless ones. Let your enemies make that mistake this time."
+		},
+		{
+			"cardName": "Parallel Universe",
+			"bodyString": "It might even feel like an entirely different place, even though nothing has changed..."
+		},
+		{
+			"cardName": "Phase Dragon",
+			"bodyString": "You will be completely untouchable. Live large!"
+		},
+		{
+			"cardName": "Phase Spider",
+			"bodyString": "If you're patient, however, what you desire most will be drawn into your web."
+		},
+		{
+			"cardName": "Quintessence",
+			"bodyString": "Disaster turns into mere spectacle, and everything dangerous will stay at bay."
+		},
+		{
+			"cardName": "Spark",
+			"bodyString": "Keep close watch for a burst of genius, or it will die before you can grasp it."
+		},
+		{
+			"cardName": "Lightning",
+			"bodyString": "Beware, however, because it will reach you quite suddenly, and very unexpectedly."
+		},
+		{
+			"cardName": "Turquoise Nymph",
+			"bodyString": "Your touch will make the world's problems slide off of your friends' backs. Use it."
+		},
+		{
+			"cardName": "Silence",
+			"bodyString": "It's better to keep one's mouth closed and be thought a fool than to open one's mouth...and remove all doubt."
+		},
+		{
+			"cardName": "Mindgate",
+			"bodyString": "Have you ever wanted to get inside someone else's head? This is your chance - delve deep, and learn everything you can."
+		},
+		{
+			"cardName": "Phase Salvager",
+			"bodyString": "Don't it always seem to go that you don't know what you've got til its gone?"
+		},
+		{
+			"cardName": "Psion",
+			"bodyString": "You'll feel full of energy, electrified."
+		},
+		{
+			"cardName": "Air Pendulum",
+			"bodyString": "The world is entirely up in the air today. Catch what you care most about, and let the rest fall."
+		},
+		{
+			"cardName": "Azure Dragon",
+			"bodyString": "You will feel like diving into new things today, but you can't. Just fly high and stay fly."
+		},
+		{
+			"cardName": "Blue Nymph",
+			"bodyString": "Your touch will contain volatility and package what yearns to destroy. Use it."
+		},
+		{
+			"cardName": "Dragonfly",
+			"bodyString": "You're just zipping here and there -- but don't act like a Damsel in distress, and the answers will come."
+		},
+		{
+			"cardName": "Firefly",
+			"bodyString": "You will illuminate those around you with your inner energy -- just don't burn them along the way!"
+		},
+		{
+			"cardName": "Flying Weapon",
+			"bodyString": "Your power will seem to stretch past your reach; use today to attack problems normally beyond you."
+		},
+		{
+			"cardName": "Fog Shield",
+			"bodyString": "If you're not careful, you'll end up missing something that's coming straight at you!"
+		},
+		{
+			"cardName": "Owl’s Eye",
+			"bodyString": "Accuracy is the watch-word of the day. Don't strike where it's not going to do the most damage."
+		},
+		{
+			"cardName": "Thunderstorm",
+			"bodyString": "Everything around you will rumble, but if you can find the eye of the storm, you'll also find what you seek."
+		},
+		{
+			"cardName": "Unstable Gas",
+			"bodyString": "A single spark will cause a detonation of brilliance -- will it be your own, or someone elses?"
+		},
+		{
+			"cardName": "Wind Pillar",
+			"bodyString": "The world is entirely up in the air today. Catch what you care most about, and let the rest fall."
+		},
+		{
+			"cardName": "Wyrm",
+			"bodyString": "You will feel like diving into new things today -- and you should; that's where your power lies!"
+		},
+		{
+			"cardName": "Sky Blitz",
+			"bodyString": "The higher you soar, the harder they fall. Aim for the clouds and fall like rain upon your foes."
+		},
+		{
+			"cardName": "Shockwave",
+			"bodyString": "Something unexpected might happen, and it will happen fast."
+		},
+		{
+			"cardName": "Wings",
+			"bodyString": " Maybe the problems will be like ants below your feet - but watch out for the few that can get to you!"
+		},
+		{
+			"cardName": "Firefly Queen",
+			"bodyString": " Your mind will be a fertile womb for numerous, brilliant ideas."
+		},
+		{
+			"cardName": "Dark Pendulum",
+			"bodyString": "The world is your victim, but all eyes are on you. Subtlety is your only path; take it with confidence."
+		},
+		{
+			"cardName": "Black Dragon",
+			"bodyString": "You may feel surrounded by Pests today, but they only give you power. It's your time to strike!"
+		},
+		{
+			"cardName": "Black Nymph",
+			"bodyString": "Your touch will bring the mighty down, but not right away. Use it, but don't get drained waiting."
+		},
+		{
+			"cardName": "Devourer",
+			"bodyString": "Keep yourself grounded and stay under the radar, and no one will notice your little evils."
+		},
+		{
+			"cardName": "Drain Life",
+			"bodyString": "Someone has to suffer for you to thrive. Don't feel badly, but don't gloat -- it calls too much attention"
+		},
+		{
+			"cardName": "Dusk Mantle",
+			"bodyString": "Stay out of sight if at all possible. Obscurity is your best ally."
+		},
+		{
+			"cardName": "Liquid Shadow",
+			"bodyString": "Will you support your allies at the cost of your own well-being, or sacrifice others for your own benefit?"
+		},
+		{
+			"cardName": "Minor Vampire",
+			"bodyString": "Be assertive -- even agressive -- today. Every attack you make strengthens your grip on life."
+		},
+		{
+			"cardName": "Nightmare",
+			"bodyString": "They just can't get you out of their head, and the more they think about you the less they can think about anything else..."
+		},
+		{
+			"cardName": "Nightfall",
+			"bodyString": "Gather your allies in secret. Your presence brings each one strength and assurance."
+		},
+		{
+			"cardName": "Obsidian Pillar",
+			"bodyString": "The world is your victim, but all eyes are on you. Subtlety is your only path; take it with confidence."
+		},
+		{
+			"cardName": "Parasite",
+			"bodyString": "Don't worry if your tactics don't work right away. Bide your time; success is inevitable."
+		},
+		{
+			"cardName": "Steal",
+			"bodyString": "Today is a day for taking what you want, but not by force. Trick -- then treat!"
+		},
+		{
+			"cardName": "Vampire Stiletto",
+			"bodyString": "Just attack. Keep attacking. Don't sneak, don't dodge, don't block. KEEP ATTACKING!"
+		},
+		{
+			"cardName": "Cloak",
+			"bodyString": " Your chances of success today are vanishing - as in, only vanishing will lead to success."
+		},
+		{
+			"cardName": "Gargoyle",
+			"bodyString": "A moment of vulnerability cannot be avoided -- but survive it, and you'll be nigh-invulnerable."
+		},
+		{
+			"cardName": "Voodoo Doll",
+			"bodyString": "Ever had, that pins-and-needles feeling in your legs? How about in your spleen?"
+		},
+		{
+			"cardName": "Bone Pillar",
+			"bodyString": "The world is on the edge. Find a way to take advantage of it's fall."
+		},
+		{
+			"cardName": "Aflatoxin",
+			"bodyString": "Someone around you is having a meltdown -- can you handle what they will become?"
+		},
+		{
+			"cardName": "Arsenic",
+			"bodyString": "Every move you make today will have lingering effects. Act quickly and decisively."
+		},
+		{
+			"cardName": "Bone Dragon",
+			"bodyString": "Yours is one giant footprint among a horde of smaller. Lead the masses!"
+		},
+		{
+			"cardName": "Death Pendulum",
+			"bodyString": "The world is on the edge. Find a way to take advantage of it's fall."
+		},
+		{
+			"cardName": "Bone Wall",
+			"bodyString": "Every fall -- your enemies' and your henchemens' -- benefits you today. Let God sort 'em out."
+		},
+		{
+			"cardName": "Flesh Spider",
+			"bodyString": "No matter how you struggle, you are caught in Death's web. Only deep change can free you."
+		},
+		{
+			"cardName": "Boneyard",
+			"bodyString": "Destruction brings about new life...or something like it. Don't be afraid; just be in control."
+		},
+		{
+			"cardName": "Grey Nymph",
+			"bodyString": "Your touch will corrupt the mighty and give rise to the meek. Use it."
+		},
+		{
+			"cardName": "Plague",
+			"bodyString": "Everything slowly descends into oblivion around you, and you can only watch."
+		},
+		{
+			"cardName": "Poison",
+			"bodyString": "Drink plenty of liquids, avoid sugar and white flour, and eat your veggies. I'm sure it's just a flu."
+		},
+		{
+			"cardName": "Skeleton",
+			"bodyString": "Some things truly are worthless. Today might be one of those things."
+		},
+		{
+			"cardName": "Skull Shield",
+			"bodyString": "Remember those 'meek' I mentioned? They're coming for you..."
+		},
+		{
+			"cardName": "Soul Catcher",
+			"bodyString": "Every obstacle in your path is also an opportunity. Conquer all and be the sole victor."
+		},
+		{
+			"cardName": "Virus",
+			"bodyString": " Someone near you will sacrifice themselves to bring your challenges down to size."
+		},
+		{
+			"cardName": "Vulture",
+			"bodyString": "It may seem distasteful to profit from others' suffering. Ask yourself: so what?"
+		},
+		{
+			"cardName": "Mummy",
+			"bodyString": " Are you sure you want to live forever?"
+		},
+		{
+			"cardName": "Deathstalker",
+			"bodyString": "You feel powerless during the day - but just wait for Nightfall!/color]"
+		},
+		{
+			"cardName": "Stone Pillar",
+			"bodyString": " The world resists all change. Adjust to your circumstances, because they won't adjust themselves."
+		},
+		{
+			"cardName": "Antlion",
+			"bodyString": "You may not be effective today, but you can at least be left alone. Shoot for that."
+		},
+		{
+			"cardName": "Auburn Nymph",
+			"bodyString": "EYour touch halts progress in it's tracks. Be careful how you use it."
+		},
+		{
+			"cardName": "Basilisk's Blood",
+			"bodyString": "Stop, and take a breath -- or six. You won't get much done, but you'll feel much better."
+		},
+		{
+			"cardName": "Earthquake",
+			"bodyString": "The ground itself may not be as stable as you like. Do you know where you stand?"
+		},
+		{
+			"cardName": "Gnome Rider",
+			"bodyString": "Stop and take a moment to thank the little people who helped you get where you are today."
+		},
+		{
+			"cardName": "Graboid",
+			"bodyString": "A threat may lurk unseen nearby -- but only Time will tell."
+		},
+		{
+			"cardName": "Hematite Golem",
+			"bodyString": "You will need to have thick skin and an iron-like fist to make the most of the day."
+		},
+		{
+			"cardName": "Plate Armor",
+			"bodyString": "It's also a day to charge into the thick of things; you're hard to stop!"
+		},
+		{
+			"cardName": "Enchant Artifact",
+			"bodyString": "Put all of your eggs in one basket; don't worry, nothing will happen to the basket."
+		},
+		{
+			"cardName": "Pulverizer",
+			"bodyString": "As long as you treat things with the appropriate gravity today, nothing will stand in your path."
+		},
+		{
+			"cardName": "Shrieker",
+			"bodyString": "A hefty shock lies Burrowed in the events of the day. Watch out!"
+		},
+		{
+			"cardName": "Stone Dragon",
+			"bodyString": "Remember: Body like mountain, mind like meatloaf."
+		},
+		{
+			"cardName": "Earth Pendulum",
+			"bodyString": " The world resists all change. Adjust to your circumstances, because they won't adjust themselves."
+		},
+		{
+			"cardName": "Stone Skin",
+			"bodyString": "The more in tune with the Earth you are, the more endurable your circumstances will become."
+		},
+		{
+			"cardName": "Titanium Shield",
+			"bodyString": "Small nuisances can be safely ignored, but if big problems come, you'd better have Gratitude."
+		},
+		{
+			"cardName": "Iridium Warden",
+			"bodyString": "You can not just walk through a wall; there are smarter ways to get in: find a door."
+		},
+		{
+			"cardName": "Amethyst Pillar",
+			"bodyString": "The world will pass through an etherial elderberry bush full of kippers. No one will notice."
+		},
+		{
+			"cardName": "Abomination",
+			"bodyString": "A man wearing a blue top hat will assault your best friend if she rides the subway."
+		},
+		{
+			"cardName": "Entropy Pendulum",
+			"bodyString": "The world will pass through an etherial elderberry bush full of kippers. No one will notice."
+		},
+		{
+			"cardName": "Antimatter",
+			"bodyString": "BOOM!"
+		},
+		{
+			"cardName": "Butterfly Effect",
+			"bodyString": "...the buttered bread falling on the floor, my mother in law slipping on it, her purse hitting the goldfish bowl. Poor goldfish."
+		},
+		{
+			"cardName": "Chaos Seed",
+			"bodyString": "You don't want to see the tree. Or the foe. Or the vibe, sicks, heaven, ate!"
+		},
+		{
+			"cardName": "Discord",
+			"bodyString": "Focusing your energy is like eating your hat. Er: hatte. Eating your hatte. Look it up."
+		},
+		{
+			"cardName": "Dissipation Shield",
+			"bodyString": "What's it called when the tiny drink you're about to take evaporates?"
+		},
+		{
+			"cardName": "Fallen Elf",
+			"bodyString": "A girl in a monocle will die today unless you get back up. Stupid Elf."
+		},
+		{
+			"cardName": "Lycanthrope",
+			"bodyString": "I had Strep Thrope once. This promises to be much worse."
+		},
+		{
+			"cardName": "Maxwell’s Demon",
+			"bodyString": "Minwell's Angel will stand on your left shoulder all day, encouraging you to do algebra to the poor."
+		},
+		{
+			"cardName": "Mutation",
+			"bodyString": "No! It at...um... Norway? Forget Norway! Only in Kenya!"
+		},
+		{
+			"cardName": "Nova",
+			"bodyString": "But the light will still take 2.4197 x10^21242 years to reach our planet, so we'll never know..."
+		},
+		{
+			"cardName": "Purple Dragon",
+			"bodyString": "But yesterday wasn't small...it was just really...far away."
+		},
+		{
+			"cardName": "Purple Nymph",
+			"bodyString": " Your touch will cause Zanzarino's head to explode. For our sake, don't use it!"
+		},
+		{
+			"cardName": "Schrödinger's Cat",
+			"bodyString": "It may -- or may not -- be possible to think inside the box today, so be ready to give outside the box a solid try."
+		},
+		{
+			"cardName": "Pandemonium",
+			"bodyString": "Ever seen a lobotomized dragon ? Prepare for the worst, expect the best."
+		},
+		{
+			"cardName": "Burning Pillar",
+			"bodyString": "The world is on fire, but is it a conflagration, or a controllable tool? You must decide."
+		},
+		{
+			"cardName": "Ash Eater",
+			"bodyString": "If you can upgrade your place in life, you'll become a real contributor."
+		},
+		{
+			"cardName": "Fire Pendulum",
+			"bodyString": "The world is on fire, but is it a conflagration, or a controllable tool? You must decide."
+		},
+		{
+			"cardName": "Crimson Dragon",
+			"bodyString": "The change you can effect is enormous -- but don't let your inner fragility get the best of you!"
+		},
+		{
+			"cardName": "Deflagration",
+			"bodyString": "Something that has been a major thorn in your side will finally give way. Take advantage!"
+		},
+		{
+			"cardName": "Fahrenheit",
+			"bodyString": "Don't waste any effort on any side projects. Pick your battle, and fight it with your all."
+		},
+		{
+			"cardName": "Fire Bolt",
+			"bodyString": "Concentrate all of your focus on one last-ditch effort -- success will surely follow."
+		},
+		{
+			"cardName": "Fire Shield",
+			"bodyString": "Offense really is the best defense this time around."
+		},
+		{
+			"cardName": "Fire Spirit",
+			"bodyString": "If at first you don't succeed, keep trying: every attempt will bring you greater strength."
+		},
+		{
+			"cardName": "Immolation",
+			"bodyString": "Sacrifice something unimportant, and you will find the energy to attain your goals."
+		},
+		{
+			"cardName": "Lava Golem",
+			"bodyString": "That energy will benefit greatly from a stable, grounded perspective."
+		},
+		{
+			"cardName": "Rage Potion",
+			"bodyString": "When you risk your health to achieve your goals, you'd better be healthy before you start!"
+		},
+		{
+			"cardName": "Rain of Fire",
+			"bodyString": "The small and the weak are offered up in burning sacrifice. Will you be the sacrificed, or the glorified?"
+		},
+		{
+			"cardName": "Red Nymph",
+			"bodyString": "Your touch brings an anger that will drive the meek to their knees in impotent rage. Use it -- carefully."
+		},
+		{
+			"cardName": "Phoenix",
+			"bodyString": " They have taken advantage of you, insulted you, and reduced you to a lifeless nothing - they think. They do not know, what you are capable of -yet."
+		},
+		{
+			"cardName": "Seraph",
+			"bodyString": "Your guardian angel is in one hell of a mood today. Say your prayers and chaaaaarge!"
+		},
+		{
+			"cardName": "Gravity Pillar",
+			"bodyString": "The world seems to orbit you today. Your pull is irresistable, but be careful what gathers around."
+		},
+		{
+			"cardName": "Amber Nymph",
+			"bodyString": "Your touch saps energy but motiviates you. Use it on your more apathetic victims for best effect."
+		},
+		{
+			"cardName": "Armagio",
+			"bodyString": "A slow but strong ally steps between you and your critics. Let him take the heat."
+		},
+		{
+			"cardName": "Black Hole",
+			"bodyString": "You gain momentum as your rivals come up short. Run with it!"
+		},
+		{
+			"cardName": "Graviton Fire Eater",
+			"bodyString": "Power builds slowly like geothermic energy pushing magma ever upwards. Wait for it."
+		},
+		{
+			"cardName": "Graviton Mercenary",
+			"bodyString": "Some local 'heavies' will offer their assistance to you, cheap. Don't risk turning them down."
+		},
+		{
+			"cardName": "Gravity Pendulum",
+			"bodyString": "The world seems to orbit you today. Your pull is irresistable, but be careful what gathers around."
+		},
+		{
+			"cardName": "Gravity Pull",
+			"bodyString": "If you make another person the center of your world, you can avoid some significant troubles."
+		},
+		{
+			"cardName": "Gravity Shield",
+			"bodyString": "Your big worries will slide right off your back, but ignore that advice about not sweating the small stuff."
+		},
+		{
+			"cardName": "Colossal Dragon",
+			"bodyString": "You're the big kid on campus today. Talk the talk, because walking the walk will come naturally."
+		},
+		{
+			"cardName": "Momentum",
+			"bodyString": "This is the time to attempt the impossible. With just a little extra effort, you can be Unstoppable!"
+		},
+		{
+			"cardName": "Otyugh",
+			"bodyString": "You Food is critical to your success today. Eat well, power up, and attack the day."
+		},
+		{
+			"cardName": "Sapphire Charger",
+			"bodyString": "Nothing will try to get in your way today. Every time life closes a door, kick it back open!"
+		},
+		{
+			"cardName": "Titan",
+			"bodyString": " Your efforts are best focused on tackling great challenges today. You will succeed where others fail."
+		},
+		{
+			"cardName": "Acceleration",
+			"bodyString": "Today you will be a (Mass * Acceleration) to be reckoned with. Use it, Luke."
+		},
+		{
+			"cardName": "Chimera",
+			"bodyString": "What do you call a cross between a Blue Crawler and a Cockatrice and a Maxwel's Demon and a Purple Nymph?"
+		},
+		{
+			"cardName": "Catapult",
+			"bodyString": "You will be called on to make great sacrifice today...so choose who to sacrifice carefully."
+		},
+		{
+			"cardName": "Graviton Salvager",
+			"bodyString": "Recycle. Green is the new black."
+		},
+		{
+			"cardName": "Emerald Pillar",
+			"bodyString": "The world is growing faster than ever. Blossom -- or be overrun."
+		},
+		{
+			"cardName": "Adrenaline",
+			"bodyString": "Activity is the name of the game. Keep moving, far past your supposed limits, and success will come."
+		},
+		{
+			"cardName": "Carapace Shield",
+			"bodyString": "Only the most minor annoyances can be successfully shrugged off. Be ready."
+		},
+		{
+			"cardName": "Cockatrice",
+			"bodyString": "Something that you thought would petrify you turns out to be a significant ally. Keep an eye out."
+		},
+		{
+			"cardName": "Druidic Staff",
+			"bodyString": "You will recover from your setbacks with vim and vigor. Don't be afraid of a little adversity."
+		},
+		{
+			"cardName": "Emerald Dragon",
+			"bodyString": "When the morning sun hits the Rustling leaves, you will arrive on the scene with alacrity and power."
+		},
+		{
+			"cardName": "Life Pendulum",
+			"bodyString": "The world is growing faster than ever. Blossom -- or be overrun."
+		},
+		{
+			"cardName": "Emerald Shield",
+			"bodyString": "Reflect on your challenges, and don't sweat the small stuff. Put your effort where it is due."
+		},
+		{
+			"cardName": "Empathic Bond",
+			"bodyString": "Understanding those around you will infuse your life with fresh energy and renewed determination."
+		},
+		{
+			"cardName": "Forest Spirit",
+			"bodyString": "Nurture your smaller allies. They will Grow beyond your expectations if the environment is right."
+		},
+		{
+			"cardName": "Green Nymph",
+			"bodyString": "Your touch will turn the weak into forces to be reckoned with. Use it!"
+		},
+		{
+			"cardName": "Heal",
+			"bodyString": "If the best offense is a good defense, than the best vengeance is outliving them all."
+		},
+		{
+			"cardName": "Horned Frog",
+			"bodyString": "What sounds like an innocent or even pathetic proposal will jump out at you with startling strength."
+		},
+		{
+			"cardName": "Rustler",
+			"bodyString": "All Life feeds on the energy of the sun. You would be wise to harness that energy for yourself."
+		},
+		{
+			"cardName": "Forest Scorpion",
+			"bodyString": "Best to tackle your problems before they're ready for you - and get in a hti that will keep on hurting after they are!"
+		},
+		{
+			"cardName": "Mitosis",
+			"bodyString": "It's a rare occasion that one person can generate something of significance all by themselves. This is a rare occasion."
+		},
+		{
+			"cardName": "Light Pillar",
+			"bodyString": "The world has no secrets; the sacredness of All is illuminated. Access your inner Power and LIVE."
+		},
+		{
+			"cardName": "Blessing",
+			"bodyString": "A force beyond human ken empowers your efforts. You can do the superhuman today."
+		},
+		{
+			"cardName": "Guardian Angel",
+			"bodyString": "A force beyond human ken watches over you. No lasting harm can come to you."
+		},
+		{
+			"cardName": "Holy Light",
+			"bodyString": "Dwell not in the shadows, or the Light that could be thy guide will in its stead smite and defy thee."
+		},
+		{
+			"cardName": "Golden Dragon",
+			"bodyString": "And you are the BIGGEST of them all. This big light of y'ine, you'd better let it shine..."
+		},
+		{
+			"cardName": "Light Pendulum",
+			"bodyString": "The world has no secrets; the sacredness of All is illuminated. Access your inner Power and LIVE."
+		},
+		{
+			"cardName": "Luciferin",
+			"bodyString": "Enlightenment comes from several unexpected sources. Keep your mind open."
+		},
+		{
+			"cardName": "Morning Star",
+			"bodyString": "Your efforts cannot be ignored. Get Animated, and you will find Glory in the struggle."
+		},
+		{
+			"cardName": "Pegasus",
+			"bodyString": "Like a shooting star, your progress today cannot be followed by the naked eye. Soar!"
+		},
+		{
+			"cardName": "Photon",
+			"bodyString": "You know they are. But what are you? No, really: what ARE you?"
+		},
+		{
+			"cardName": "Reflective Shield",
+			"bodyString": "Dwell not in the shadows, or the Light that could be thy guide will in its stead smite and defy thee."
+		},
+		{
+			"cardName": "Solar Shield",
+			"bodyString": "The light of truth will be your aegis, protecting you...a little."
+		},
+		{
+			"cardName": "Light Nymph",
+			"bodyString": "Your touch brings forth the inner light of those you hold dear. Use it."
+		},
+		{
+			"cardName": "Sanctuary",
+			"bodyString": "Find a place nobody can disturb you; shut the door and close that chaotic world outside."
+		},
+		{
+			"cardName": "Crusader",
+			"bodyString": "Draw your blade - or someone else's blade, for that matter - and step boldly into the fray."
+		},
+		{
+			"cardName": "Hope",
+			"bodyString": "Never despair, you are alive, it's a gift; use it."
+		},
+		{
+			"cardName": "Miracle",
+			"bodyString": "Just as failure seems inevitable, you will snatch victory from the jaws of defeat."
+		},
+		{
+			"cardName": "Time Pendulum",
+			"bodyString": " The world feels both ancient and new. Draw on the success of the past to guide your future."
+		},
+		{
+			"cardName": "Anubis",
+			"bodyString": "The old gods still hold sway, so be careful to whom you sacrifice. Immortality may be at stake."
+		},
+		{
+			"cardName": "Deja Vu",
+			"bodyString": "Take your time today."
+		},
+		{
+			"cardName": "Devonian Dragon",
+			"bodyString": "You are a timeless juggernaut; an eternal powerhouse before which little can stand. Charge!"
+		},
+		{
+			"cardName": "Eternity",
+			"bodyString": "If your risky behavior doesn't pay off, you can always ask for a do-over."
+		},
+		{
+			"cardName": "Fate Egg",
+			"bodyString": "One of your long-term investments will unexpectedly hatch today. Can you make use of it?"
+		},
+		{
+			"cardName": "Golden Hourglass",
+			"bodyString": "Ideas will come fast and furious all day. Bring a notebook."
+		},
+		{
+			"cardName": "Golden Nymph",
+			"bodyString": "Your touch brings sudden insight and new inspiration. Use it generously."
+		},
+		{
+			"cardName": "Turtle Shield",
+			"bodyString": "Don't think about the past -- look to the future for a useful new idea."
+		},
+		{
+			"cardName": "Reverse Time",
+			"bodyString": "In fact, take someone else's time, too. They won't miss it."
+		},
+		{
+			"cardName": "Scarab",
+			"bodyString": "Use it to gather like-minded people around you. Strength in numbers is the name of the game."
+		},
+		{
+			"cardName": "Sundial",
+			"bodyString": "Everyone else will do the same. Use the pause to enlighten yourself."
+		},
+		{
+			"cardName": "Time Factory",
+			"bodyString": " The world feels both ancient and new. Draw on the success of the past to guide your future."
+		},
+		{
+			"cardName": "Turtle Shield",
+			"bodyString": "The ones working against you will be delayed and confounded. Take advantage while you can."
+		},
+		{
+			"cardName": "Ghost of the Past",
+			"bodyString": "Obsession; you stop and you stare too much, afraid that you care to much, and you hardly dare to touch for fear that your mind may be broken."
+		},
+		{
+			"cardName": "Pharoah",
+			"bodyString": "No, you are not a divinity, but you might trick naive people into believing that you are one."
+		},
+		{
+			"cardName": "Dune Scorpion",
+			"bodyString": "You have the opportunity to be a real headache today."
+		},
+		{
+			"cardName": "Water Pillar",
+			"bodyString": "he world flows. Like a moving stream, you can never be in the same world twice. Flow with it."
+		},
+		{
+			"cardName": "Arctic Squid",
+			"bodyString": "Someone who holds you dear will easily handle a few big problems for you -- for a while."
+		},
+		{
+			"cardName": "Blue Crawler",
+			"bodyString": "Don't underestimate yourself; even if you feel small and blue, you still have the power you need.."
+		},
+		{
+			"cardName": "Chrysaora",
+			"bodyString": "It's not a day to tackle things head-on. A more subtle, backhanded approach will get you far."
+		},
+		{
+			"cardName": "Freeze",
+			"bodyString": "Problems have a way of seeming like they'll never come to bear today, but take care - they will."
+		},
+		{
+			"cardName": "Ice Bolt",
+			"bodyString": "The more energy you put into solving a problem, the better -- even if you just delay things."
+		},
+		{
+			"cardName": "Ice Dragon",
+			"bodyString": "Some may think you frigid, but the truth is just that you have MUCH bigger things to attend to."
+		},
+		{
+			"cardName": "Ice Shield",
+			"bodyString": "Your caution will be rewarded when your biggest annoyances are held at bay for a time."
+		},
+		{
+			"cardName": "Mind Flayer",
+			"bodyString": "A little abstract thought will reveal a way to disable your most pervasive annoyances."
+		},
+		{
+			"cardName": "Nymph Queen",
+			"bodyString": "Your touch will bring new life to the same-old same-old. Use it."
+		},
+		{
+			"cardName": "Nymph’s Tears",
+			"bodyString": "The world gives way to entirely new ways of life. Pay attention to your environment for true inspiration."
+		},
+		{
+			"cardName": "Purify",
+			"bodyString": "A 24-hour detoxification fast of lemon juice and almonds will bring great health."
+		},
+		{
+			"cardName": "Water Pendulum",
+			"bodyString": "he world flows. Like a moving stream, you can never be in the same world twice. Flow with it."
+		},
+		{
+			"cardName": "Toadfish",
+			"bodyString": "hen threats arise, make yourself appear as big and dangerous as possible."
+		},
+		{
+			"cardName": "Trident",
+			"bodyString": "he Earth itself trembles before your will. Be careful what you will!"
+		},
+		{
+			"cardName": "Flooding",
+			"bodyString": "Life is overwhelming sometime; try to stay afloat, prioritize."
+		},
+		{
+			"cardName": "Steam Machine",
+			"bodyString": " Some like it hot. Today, be one of them - just don't forget to let off some steam."
+		},
+		{
+			"cardName": "Dry Spell",
+			"bodyString": "In particular, let your problems ebb -- you enjoy the flow."
+		},
+		{
+			"cardName": "Dagger",
+			"bodyString": "You are more dangerous than anyone gives you credit for. Stay concealed until absolutely necessary."
+		},
+		{
+			"cardName": "Hammer",
+			"bodyString": "Kinetic energy is your ally. Strike first, strike hard, no mercy, Sir!"
+		},
+		{
+			"cardName": "Quantum Pillar",
+			"bodyString": "The world could go in any direction. Only true flexibility can maximize your circumstances today."
+		},
+		{
+			"cardName": "Short Sword",
+			"bodyString": "Your best role today is that of last-minute addition to a solid team. Find one, and join it."
+		},
+		{
+			"cardName": "Shield",
+			"bodyString": "Like water off a Blue Crawler's back; that's how your troubles will feel today."
+		},
+		{
+			"cardName": "Short Bow",
+			"bodyString": "They might think they can soar past on their way to glory, but they're about to get shafted."
+		}
+	]
+}

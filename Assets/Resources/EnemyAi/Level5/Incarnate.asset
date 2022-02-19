@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Incarnate
+  m_EditorClassIdentifier: 
+  opponentName: Incarnate
+  maxHP: 200
+  mark: 4
+  deck:
+  - {fileID: 11400000, guid: 0c1afb6ae26874089b63124f3e2d39a8, type: 2}
+  - {fileID: 11400000, guid: 0c1afb6ae26874089b63124f3e2d39a8, type: 2}
+  - {fileID: 11400000, guid: 0c1afb6ae26874089b63124f3e2d39a8, type: 2}
+  - {fileID: 11400000, guid: 0c1afb6ae26874089b63124f3e2d39a8, type: 2}
+  - {fileID: 11400000, guid: a01819fc5a88340239cc2ac1accc2cd8, type: 2}
+  - {fileID: 11400000, guid: a01819fc5a88340239cc2ac1accc2cd8, type: 2}
+  - {fileID: 11400000, guid: a01819fc5a88340239cc2ac1accc2cd8, type: 2}
+  - {fileID: 11400000, guid: a01819fc5a88340239cc2ac1accc2cd8, type: 2}
+  - {fileID: 11400000, guid: a01819fc5a88340239cc2ac1accc2cd8, type: 2}
+  - {fileID: 11400000, guid: e2dcb3230832042b2b60aef70b788d24, type: 2}
+  - {fileID: 11400000, guid: e2dcb3230832042b2b60aef70b788d24, type: 2}
+  - {fileID: 11400000, guid: e2dcb3230832042b2b60aef70b788d24, type: 2}
+  - {fileID: 11400000, guid: e2dcb3230832042b2b60aef70b788d24, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: c15b1ac7e46914f579ffbc00e3d84dcb, type: 2}
+  - {fileID: 11400000, guid: aba6d7eb2621043a7990cf7f739aed81, type: 2}
+  - {fileID: 11400000, guid: aba6d7eb2621043a7990cf7f739aed81, type: 2}
+  - {fileID: 11400000, guid: aba6d7eb2621043a7990cf7f739aed81, type: 2}
+  - {fileID: 11400000, guid: aba6d7eb2621043a7990cf7f739aed81, type: 2}
+  - {fileID: 11400000, guid: 7dc52e2ae5a8849278034bcfc1c72e18, type: 2}
+  - {fileID: 11400000, guid: 7dc52e2ae5a8849278034bcfc1c72e18, type: 2}
+  - {fileID: 11400000, guid: 7dc52e2ae5a8849278034bcfc1c72e18, type: 2}
+  - {fileID: 11400000, guid: 7dc52e2ae5a8849278034bcfc1c72e18, type: 2}
+  - {fileID: 11400000, guid: f0bdb77374c0149aab6386d21fa3d6e7, type: 2}
+  - {fileID: 11400000, guid: 48e302e6e7696454c9481aa28757b362, type: 2}
+  - {fileID: 11400000, guid: 48e302e6e7696454c9481aa28757b362, type: 2}
+  - {fileID: 11400000, guid: 48e302e6e7696454c9481aa28757b362, type: 2}
+  - {fileID: 11400000, guid: 48e302e6e7696454c9481aa28757b362, type: 2}
+  - {fileID: 11400000, guid: 48e302e6e7696454c9481aa28757b362, type: 2}
+  - {fileID: 11400000, guid: 48e302e6e7696454c9481aa28757b362, type: 2}
+  spins: 3
+  coinAvg: 60
+  costToPlay: 30
+  scoreWin: 64
+  drawComponent: FalseGodDrawComponenet
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: BaseAiTurnComponent

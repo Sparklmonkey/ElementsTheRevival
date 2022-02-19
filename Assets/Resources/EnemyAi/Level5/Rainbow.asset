@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Rainbow
+  m_EditorClassIdentifier: 
+  opponentName: Rainbow
+  maxHP: 200
+  mark: 7
+  deck:
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 1d40166a0df0847bc85cff0eae0449d8, type: 2}
+  - {fileID: 11400000, guid: 1d40166a0df0847bc85cff0eae0449d8, type: 2}
+  - {fileID: 11400000, guid: 1d40166a0df0847bc85cff0eae0449d8, type: 2}
+  - {fileID: 11400000, guid: 1d40166a0df0847bc85cff0eae0449d8, type: 2}
+  - {fileID: 11400000, guid: 934e9d14784974c81a8aa9c466409226, type: 2}
+  - {fileID: 11400000, guid: 934e9d14784974c81a8aa9c466409226, type: 2}
+  - {fileID: 11400000, guid: 934e9d14784974c81a8aa9c466409226, type: 2}
+  - {fileID: 11400000, guid: 41385b70c77ee43cb8075864970f4815, type: 2}
+  - {fileID: 11400000, guid: 41385b70c77ee43cb8075864970f4815, type: 2}
+  - {fileID: 11400000, guid: 41385b70c77ee43cb8075864970f4815, type: 2}
+  - {fileID: 11400000, guid: 41385b70c77ee43cb8075864970f4815, type: 2}
+  - {fileID: 11400000, guid: 965c650e6a8284471b268eba3e38689f, type: 2}
+  - {fileID: 11400000, guid: 965c650e6a8284471b268eba3e38689f, type: 2}
+  - {fileID: 11400000, guid: 965c650e6a8284471b268eba3e38689f, type: 2}
+  - {fileID: 11400000, guid: 965c650e6a8284471b268eba3e38689f, type: 2}
+  - {fileID: 11400000, guid: 564cbb4a19d094cf689cf7f5dd9ca274, type: 2}
+  - {fileID: 11400000, guid: 564cbb4a19d094cf689cf7f5dd9ca274, type: 2}
+  - {fileID: 11400000, guid: 564cbb4a19d094cf689cf7f5dd9ca274, type: 2}
+  - {fileID: 11400000, guid: 564cbb4a19d094cf689cf7f5dd9ca274, type: 2}
+  - {fileID: 11400000, guid: 77f6302fe6d3849669ff1fd2cb0470ef, type: 2}
+  - {fileID: 11400000, guid: 77f6302fe6d3849669ff1fd2cb0470ef, type: 2}
+  - {fileID: 11400000, guid: 77f6302fe6d3849669ff1fd2cb0470ef, type: 2}
+  - {fileID: 11400000, guid: b19346b386d4b49c0a9f26bc2443d9e3, type: 2}
+  - {fileID: 11400000, guid: b19346b386d4b49c0a9f26bc2443d9e3, type: 2}
+  - {fileID: 11400000, guid: 8593a6f7bc10d41a887b4b8fb841d555, type: 2}
+  - {fileID: 11400000, guid: 8593a6f7bc10d41a887b4b8fb841d555, type: 2}
+  - {fileID: 11400000, guid: be9824561da1140d9b49ae0da6a5d75a, type: 2}
+  - {fileID: 11400000, guid: be9824561da1140d9b49ae0da6a5d75a, type: 2}
+  - {fileID: 11400000, guid: be9824561da1140d9b49ae0da6a5d75a, type: 2}
+  - {fileID: 11400000, guid: be9824561da1140d9b49ae0da6a5d75a, type: 2}
+  - {fileID: 11400000, guid: be9824561da1140d9b49ae0da6a5d75a, type: 2}
+  - {fileID: 11400000, guid: d160266a5dca9411c975264bff195a50, type: 2}
+  - {fileID: 11400000, guid: d160266a5dca9411c975264bff195a50, type: 2}
+  - {fileID: 11400000, guid: d160266a5dca9411c975264bff195a50, type: 2}
+  - {fileID: 11400000, guid: c03e1c3d7c16d4e89b752dedc529ec26, type: 2}
+  - {fileID: 11400000, guid: c03e1c3d7c16d4e89b752dedc529ec26, type: 2}
+  spins: 3
+  coinAvg: 60
+  costToPlay: 30
+  scoreWin: 64
+  drawComponent: FalseGodDrawComponenet
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: BaseAiTurnComponent

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SplashScreen.unity
+    guid: 818c4108a05b64c89b1170fcb32597f6
+  - enabled: 1
+    path: Assets/Scenes/LoginScreen.unity
+    guid: 70b92f94db26662429a50db8e35c0ce6
+  - enabled: 1
+    path: Assets/Scenes/Battlefield.unity
+    guid: 8a19677df02be2f4ea0abafaa0c4f5c7
+  - enabled: 1
+    path: Assets/Scenes/Dashboard.unity
+    guid: dad7152a518114b4c8b2721525f48a42
+  - enabled: 1
+    path: Assets/Scenes/DeckSelector.unity
+    guid: 705c03b77c4ff467cb2b5500baea60d3
+  - enabled: 1
+    path: Assets/Scenes/SpinnerScene.unity
+    guid: c4ff4f35491e14198aa34dd28f947112
+  - enabled: 1
+    path: Assets/Scenes/DeckManagement.unity
+    guid: 330c27dad33ebf34fae94bdad68eb75b
+  - enabled: 1
+    path: Assets/Scenes/Bazaar.unity
+    guid: fee18d64624ca80479f533dcffe0ac95
+  - enabled: 1
+    path: Assets/Scenes/CardUpgrade.unity
+    guid: b3e476ec73fa6ae4bbac3c632c46d56d
+  - enabled: 1
+    path: Assets/Scenes/Oracle.unity
+    guid: 7d36dee075e9b8a4398689a8218eb170
+  - enabled: 1
+    path: Assets/Scenes/TestScene.unity
+    guid: 8bc07e0fa34464609b95a4ada63e40f2
+  - enabled: 1
+    path: Assets/Scenes/PvPBattlefield.unity
+    guid: 4afb30e99942dee4ea8d2e62ee6a2313
+  - enabled: 1
+    path: Assets/Scenes/PvpStartScreen.unity
+    guid: c2e56ac1d3c38c54ca4329c4c00527ae
+  m_configObjects: {}

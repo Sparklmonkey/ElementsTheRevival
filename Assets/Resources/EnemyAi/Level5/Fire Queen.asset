@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Fire Queen
+  m_EditorClassIdentifier: 
+  opponentName: Fire Queen
+  maxHP: 200
+  mark: 1
+  deck:
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 71c18d33f0475491e81253910350fe11, type: 2}
+  - {fileID: 11400000, guid: 29ff40e8debf5477b9bb79892f00e6fb, type: 2}
+  - {fileID: 11400000, guid: 29ff40e8debf5477b9bb79892f00e6fb, type: 2}
+  - {fileID: 11400000, guid: 29ff40e8debf5477b9bb79892f00e6fb, type: 2}
+  - {fileID: 11400000, guid: 29ff40e8debf5477b9bb79892f00e6fb, type: 2}
+  - {fileID: 11400000, guid: 29ff40e8debf5477b9bb79892f00e6fb, type: 2}
+  - {fileID: 11400000, guid: 29ff40e8debf5477b9bb79892f00e6fb, type: 2}
+  - {fileID: 11400000, guid: 1c2aecc91700448e6af8e17548d19c62, type: 2}
+  - {fileID: 11400000, guid: 1c2aecc91700448e6af8e17548d19c62, type: 2}
+  - {fileID: 11400000, guid: 1c2aecc91700448e6af8e17548d19c62, type: 2}
+  - {fileID: 11400000, guid: 7c315da0ccfb0449e8f349928e2ba8a3, type: 2}
+  - {fileID: 11400000, guid: 7c315da0ccfb0449e8f349928e2ba8a3, type: 2}
+  - {fileID: 11400000, guid: 2b93fb911defc420aad183b1590302dc, type: 2}
+  - {fileID: 11400000, guid: 2b93fb911defc420aad183b1590302dc, type: 2}
+  - {fileID: 11400000, guid: 2b93fb911defc420aad183b1590302dc, type: 2}
+  - {fileID: 11400000, guid: 2b93fb911defc420aad183b1590302dc, type: 2}
+  - {fileID: 11400000, guid: 2b93fb911defc420aad183b1590302dc, type: 2}
+  - {fileID: 11400000, guid: 2b93fb911defc420aad183b1590302dc, type: 2}
+  - {fileID: 11400000, guid: 2b93fb911defc420aad183b1590302dc, type: 2}
+  - {fileID: 11400000, guid: 2b93fb911defc420aad183b1590302dc, type: 2}
+  - {fileID: 11400000, guid: 2b93fb911defc420aad183b1590302dc, type: 2}
+  - {fileID: 11400000, guid: 2b93fb911defc420aad183b1590302dc, type: 2}
+  - {fileID: 11400000, guid: 2b93fb911defc420aad183b1590302dc, type: 2}
+  - {fileID: 11400000, guid: 480c791cc630340f690cf740ea98f3ed, type: 2}
+  - {fileID: 11400000, guid: 480c791cc630340f690cf740ea98f3ed, type: 2}
+  - {fileID: 11400000, guid: 480c791cc630340f690cf740ea98f3ed, type: 2}
+  - {fileID: 11400000, guid: d9ec000e7e1ed46169fd1a58b881bad6, type: 2}
+  - {fileID: 11400000, guid: d9ec000e7e1ed46169fd1a58b881bad6, type: 2}
+  - {fileID: 11400000, guid: d9ec000e7e1ed46169fd1a58b881bad6, type: 2}
+  - {fileID: 11400000, guid: d9ec000e7e1ed46169fd1a58b881bad6, type: 2}
+  - {fileID: 11400000, guid: d9ec000e7e1ed46169fd1a58b881bad6, type: 2}
+  - {fileID: 11400000, guid: d9ec000e7e1ed46169fd1a58b881bad6, type: 2}
+  - {fileID: 11400000, guid: 8593a6f7bc10d41a887b4b8fb841d555, type: 2}
+  - {fileID: 11400000, guid: 8593a6f7bc10d41a887b4b8fb841d555, type: 2}
+  - {fileID: 11400000, guid: 8593a6f7bc10d41a887b4b8fb841d555, type: 2}
+  spins: 3
+  coinAvg: 60
+  costToPlay: 30
+  scoreWin: 64
+  drawComponent: FalseGodDrawComponenet
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: BaseAiTurnComponent

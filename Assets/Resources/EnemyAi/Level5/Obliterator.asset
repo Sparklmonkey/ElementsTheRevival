@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Obliterator
+  m_EditorClassIdentifier: 
+  opponentName: Obliterator
+  maxHP: 200
+  mark: 9
+  deck:
+  - {fileID: 11400000, guid: 51594f6fb0b0140e79b1093bd4147f6b, type: 2}
+  - {fileID: 11400000, guid: 51594f6fb0b0140e79b1093bd4147f6b, type: 2}
+  - {fileID: 11400000, guid: 51594f6fb0b0140e79b1093bd4147f6b, type: 2}
+  - {fileID: 11400000, guid: 51594f6fb0b0140e79b1093bd4147f6b, type: 2}
+  - {fileID: 11400000, guid: 934e9d14784974c81a8aa9c466409226, type: 2}
+  - {fileID: 11400000, guid: 934e9d14784974c81a8aa9c466409226, type: 2}
+  - {fileID: 11400000, guid: 934e9d14784974c81a8aa9c466409226, type: 2}
+  - {fileID: 11400000, guid: 934e9d14784974c81a8aa9c466409226, type: 2}
+  - {fileID: 11400000, guid: 934e9d14784974c81a8aa9c466409226, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: b035de285c315487490ff64d7a120b95, type: 2}
+  - {fileID: 11400000, guid: fde1173983b8e4f0b821a881f02a2442, type: 2}
+  - {fileID: 11400000, guid: fde1173983b8e4f0b821a881f02a2442, type: 2}
+  - {fileID: 11400000, guid: fde1173983b8e4f0b821a881f02a2442, type: 2}
+  - {fileID: 11400000, guid: fde1173983b8e4f0b821a881f02a2442, type: 2}
+  - {fileID: 11400000, guid: fde1173983b8e4f0b821a881f02a2442, type: 2}
+  - {fileID: 11400000, guid: 77fe4d806ece04650882f56e6e88a3ef, type: 2}
+  - {fileID: 11400000, guid: 77fe4d806ece04650882f56e6e88a3ef, type: 2}
+  - {fileID: 11400000, guid: de1eef64c3da7403291fe24997d83b7e, type: 2}
+  - {fileID: 11400000, guid: de1eef64c3da7403291fe24997d83b7e, type: 2}
+  - {fileID: 11400000, guid: 027bc0a3dff924105847842e7392f8d0, type: 2}
+  - {fileID: 11400000, guid: 027bc0a3dff924105847842e7392f8d0, type: 2}
+  - {fileID: 11400000, guid: 027bc0a3dff924105847842e7392f8d0, type: 2}
+  - {fileID: 11400000, guid: 027bc0a3dff924105847842e7392f8d0, type: 2}
+  - {fileID: 11400000, guid: 027bc0a3dff924105847842e7392f8d0, type: 2}
+  - {fileID: 11400000, guid: 027bc0a3dff924105847842e7392f8d0, type: 2}
+  - {fileID: 11400000, guid: d080cfd6c841346048be63382f2dcd19, type: 2}
+  - {fileID: 11400000, guid: d080cfd6c841346048be63382f2dcd19, type: 2}
+  - {fileID: 11400000, guid: d080cfd6c841346048be63382f2dcd19, type: 2}
+  spins: 3
+  coinAvg: 60
+  costToPlay: 30
+  scoreWin: 64
+  drawComponent: FalseGodDrawComponenet
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: BaseAiTurnComponent

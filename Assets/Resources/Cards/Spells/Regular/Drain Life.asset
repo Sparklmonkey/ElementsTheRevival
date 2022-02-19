@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b27e1d8a8394247d2abadc4bc55fb137, type: 3}
+  m_Name: Drain Life
+  m_EditorClassIdentifier: 
+  cardImage: {fileID: 0}
+  description: Drains 2 HP's from the target for each 10 darkness quantums in your
+    possession.
+  buyPrice: 57
+  sellPrice: 39
+  imageID: 511
+  cost: 3
+  element: 2
+  type: 2
+  isUpgradable: 1
+  isRare: 0
+  upgradedVersion: {fileID: 11400000, guid: 0242b3e46234a49cf8eb7441a9d90c9e, type: 2}
+  power: 0
+  hp: 0
+  maxHP: 0
+  cardAbilities:
+    activeAbilityScript: 
+    endTurnAbilityScript: 
+    onPlayAbilityScript: 
+    onDeathAbilityScript: 
+    shieldAbilityScript: 
+    weaponAbilityScript: 
+    spellAbilityScript: SpellDrainLife
+  cardCounters:
+    freeze: 0
+    delay: 0
+    poison: 0
+    invisibility: 0
+    purity: 0
+    charge: 0
+    bone: 0
+    silence: 0
+  cardPassives:
+    isImmaterial: 0
+    isBurrowed: 0
+    willSkeleton: 0
+    isAirborne: 0
+    hasReach: 0
+    hasMomentum: 0
+    isAntimatter: 0
+    isUndead: 0
+    isMummy: 0
+    hasAflatoxin: 0
+    isVenemous: 0
+    isPoisonous: 0
+    hasGravity: 0
+    isReflect: 0
+    isMutant: 0
+    isDiving: 0
+    isVampire: 0
+    isVoodoo: 0
+    isPsion: 0
+    isPhoenix: 0
+    isDeadlyVenemous: 0
+    hasAdrenaline: 0
+  firstTurn: 0
+  pendulumTurn: 0
+  abilityUsed: 1
+  turnsInPlay: 999999

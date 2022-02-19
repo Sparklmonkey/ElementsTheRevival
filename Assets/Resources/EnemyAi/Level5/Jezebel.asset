@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Jezebel
+  m_EditorClassIdentifier: 
+  opponentName: Jezebel
+  maxHP: 200
+  mark: 2
+  deck:
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 29d3919204af5334a93b919e767577ca, type: 2}
+  - {fileID: 11400000, guid: 3b7d2ed28df0e4d388fa36f6f446ebf1, type: 2}
+  - {fileID: 11400000, guid: 3b7d2ed28df0e4d388fa36f6f446ebf1, type: 2}
+  - {fileID: 11400000, guid: 3b7d2ed28df0e4d388fa36f6f446ebf1, type: 2}
+  - {fileID: 11400000, guid: 3b7d2ed28df0e4d388fa36f6f446ebf1, type: 2}
+  - {fileID: 11400000, guid: 3b7d2ed28df0e4d388fa36f6f446ebf1, type: 2}
+  - {fileID: 11400000, guid: 3b7d2ed28df0e4d388fa36f6f446ebf1, type: 2}
+  - {fileID: 11400000, guid: 3b7d2ed28df0e4d388fa36f6f446ebf1, type: 2}
+  - {fileID: 11400000, guid: 6fba3527151cd40f78855867ef473ce4, type: 2}
+  - {fileID: 11400000, guid: 98340fcfd794e4749a2d9a78d91a31a1, type: 2}
+  - {fileID: 11400000, guid: 98340fcfd794e4749a2d9a78d91a31a1, type: 2}
+  - {fileID: 11400000, guid: 98340fcfd794e4749a2d9a78d91a31a1, type: 2}
+  - {fileID: 11400000, guid: 98340fcfd794e4749a2d9a78d91a31a1, type: 2}
+  - {fileID: 11400000, guid: 98340fcfd794e4749a2d9a78d91a31a1, type: 2}
+  - {fileID: 11400000, guid: 98340fcfd794e4749a2d9a78d91a31a1, type: 2}
+  - {fileID: 11400000, guid: d160266a5dca9411c975264bff195a50, type: 2}
+  - {fileID: 11400000, guid: d160266a5dca9411c975264bff195a50, type: 2}
+  - {fileID: 11400000, guid: d160266a5dca9411c975264bff195a50, type: 2}
+  - {fileID: 11400000, guid: d160266a5dca9411c975264bff195a50, type: 2}
+  - {fileID: 11400000, guid: f0bdb77374c0149aab6386d21fa3d6e7, type: 2}
+  - {fileID: 11400000, guid: 0242b3e46234a49cf8eb7441a9d90c9e, type: 2}
+  - {fileID: 11400000, guid: 0242b3e46234a49cf8eb7441a9d90c9e, type: 2}
+  - {fileID: 11400000, guid: 1a3bf6e2f65a84285acbb7b36d82a2a9, type: 2}
+  - {fileID: 11400000, guid: 1a3bf6e2f65a84285acbb7b36d82a2a9, type: 2}
+  - {fileID: 11400000, guid: 1a3bf6e2f65a84285acbb7b36d82a2a9, type: 2}
+  spins: 3
+  coinAvg: 60
+  costToPlay: 30
+  scoreWin: 64
+  drawComponent: FalseGodDrawComponenet
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: BaseAiTurnComponent

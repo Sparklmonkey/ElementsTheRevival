@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Eternal Phoenix
+  m_EditorClassIdentifier: 
+  opponentName: Eternal Phoenix
+  maxHP: 200
+  mark: 0
+  deck:
+  - {fileID: 11400000, guid: a1735d5f45669443ab0de31778d907b5, type: 2}
+  - {fileID: 11400000, guid: a1735d5f45669443ab0de31778d907b5, type: 2}
+  - {fileID: 11400000, guid: a1735d5f45669443ab0de31778d907b5, type: 2}
+  - {fileID: 11400000, guid: a1735d5f45669443ab0de31778d907b5, type: 2}
+  - {fileID: 11400000, guid: a1735d5f45669443ab0de31778d907b5, type: 2}
+  - {fileID: 11400000, guid: a1735d5f45669443ab0de31778d907b5, type: 2}
+  - {fileID: 11400000, guid: a1735d5f45669443ab0de31778d907b5, type: 2}
+  - {fileID: 11400000, guid: a1735d5f45669443ab0de31778d907b5, type: 2}
+  - {fileID: 11400000, guid: a1735d5f45669443ab0de31778d907b5, type: 2}
+  - {fileID: 11400000, guid: a1735d5f45669443ab0de31778d907b5, type: 2}
+  - {fileID: 11400000, guid: a1735d5f45669443ab0de31778d907b5, type: 2}
+  - {fileID: 11400000, guid: 0eb0954f81b0d4278a4db5eb8f4d9e4e, type: 2}
+  - {fileID: 11400000, guid: 0eb0954f81b0d4278a4db5eb8f4d9e4e, type: 2}
+  - {fileID: 11400000, guid: 1c2aecc91700448e6af8e17548d19c62, type: 2}
+  - {fileID: 11400000, guid: 1c2aecc91700448e6af8e17548d19c62, type: 2}
+  - {fileID: 11400000, guid: 564cbb4a19d094cf689cf7f5dd9ca274, type: 2}
+  - {fileID: 11400000, guid: 564cbb4a19d094cf689cf7f5dd9ca274, type: 2}
+  - {fileID: 11400000, guid: 564cbb4a19d094cf689cf7f5dd9ca274, type: 2}
+  - {fileID: 11400000, guid: 564cbb4a19d094cf689cf7f5dd9ca274, type: 2}
+  - {fileID: 11400000, guid: 0f225c76a733347c9ae64a45f9ef8fcb, type: 2}
+  - {fileID: 11400000, guid: 683d2b5add85f470c80d6b821dc942b1, type: 2}
+  - {fileID: 11400000, guid: 683d2b5add85f470c80d6b821dc942b1, type: 2}
+  - {fileID: 11400000, guid: 683d2b5add85f470c80d6b821dc942b1, type: 2}
+  - {fileID: 11400000, guid: 683d2b5add85f470c80d6b821dc942b1, type: 2}
+  - {fileID: 11400000, guid: 683d2b5add85f470c80d6b821dc942b1, type: 2}
+  - {fileID: 11400000, guid: 683d2b5add85f470c80d6b821dc942b1, type: 2}
+  - {fileID: 11400000, guid: c03e1c3d7c16d4e89b752dedc529ec26, type: 2}
+  - {fileID: 11400000, guid: 2ad1e80c1e24240418abaf304747409c, type: 2}
+  - {fileID: 11400000, guid: 2ad1e80c1e24240418abaf304747409c, type: 2}
+  - {fileID: 11400000, guid: 2ad1e80c1e24240418abaf304747409c, type: 2}
+  spins: 3
+  coinAvg: 60
+  costToPlay: 30
+  scoreWin: 64
+  drawComponent: FalseGodDrawComponenet
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: BaseAiTurnComponent
