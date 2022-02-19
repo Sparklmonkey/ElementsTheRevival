@@ -505,12 +505,49 @@ public class PlayerManager : MonoBehaviour
         }
 
         Card card = GetCard(iD);
-        if (PlayerPrefs.GetInt("QuickPlay") == 0 && iD.Field.Equals(FieldEnum.Hand) && playerQuantaManager.HasEnoughQuanta(card.element, card.cost) && !card.type.Equals(CardType.Spell))
+        if (PlayerPrefs.GetInt("QuickPlay") == 0)
         {
-            if (playerCounters.silence > 0) { return; }
-            PlayCardFromHandLogic(iD);
+            if (iD.Field.Equals(FieldEnum.Hand) && playerQuantaManager.HasEnoughQuanta(card.element, card.cost))
+            {
+                if (playerCounters.silence > 0) { return; }
+                if (!card.type.Equals(CardType.Spell))
+                {
+                    PlayCardFromHandLogic(iD);
+                }
+                else
+                {
+                    BattleVars.shared.originId = iD;
+                    BattleVars.shared.spellOnStandBy = card.spellAbility;
+                    if (card.spellAbility.isTargetFixed)
+                    {
+                        ActivateAbility(iD);
+                    }
+                    else
+                    {
+                        BattleVars.shared.isSelectingTarget = true;
+                        DuelManager.SetupHighlight(BattleVars.shared.spellOnStandBy, BattleVars.shared.abilityOnStandBy);
+                    }
+                }
+            }
+            else if (iD.Field.Equals(FieldEnum.Creature) || iD.Field.Equals(FieldEnum.Passive) || iD.Field.Equals(FieldEnum.Permanent) && IsAbilityUsable(card))
+            {
+                BattleVars.shared.originId = iD;
+                BattleVars.shared.abilityOnStandBy = card.activeAbility;
+                if (card.activeAbility.ShouldSelectTarget)
+                {
+                    BattleVars.shared.isSelectingTarget = true;
+                    DuelManager.SetupHighlight(BattleVars.shared.spellOnStandBy, BattleVars.shared.abilityOnStandBy);
+                }
+                else
+                {
+                    ActivateAbility(iD);
+                }
+
+            }
+
             return;
         }
+
 
         cardDetailView.SetupCardDisplay(iD, GetCard(iD), playerQuantaManager.HasEnoughQuanta(card.element, card.cost));
         cardDetailManager.SetCardOnDisplay(iD);
