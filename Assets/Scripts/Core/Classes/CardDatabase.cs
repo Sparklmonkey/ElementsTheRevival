@@ -45,7 +45,7 @@ public class CardDatabase : MonoBehaviour
         list.AddRange(Resources.LoadAll<Card>(baseSOpath + "/Pillars/Regular/"));
         foreach (Card card in list)
         {
-            if(card.isRare) { continue; }
+            if (card.isRare) { continue; }
             listToReturn.Add(card);
         }
         return listToReturn;
@@ -225,13 +225,10 @@ public class CardDatabase : MonoBehaviour
     {
         string upgradedFolder = shouldBeUpgraded ? "Upgraded" : "Regular";
         List<Card> list = new List<Card>(Resources.LoadAll<Card>(baseSOpath + $"/{type.FastCardTypeString()}s/{upgradedFolder}/"));
-        Card card = list[Random.Range(0, list.Count)];
-        
 
-        while (!card.element.Equals(element))
-        {
-            card = list[Random.Range(0, list.Count)];
-        }
+        List<Card> reducedList = list.FindAll(x => x.element.Equals(element) && x.type.Equals(type) && x.isUpgradable.Equals(!shouldBeUpgraded));
+        Card card = list[Random.Range(0, reducedList.Count)];
+
         Card cardToReturn = Instantiate(card);
         cardToReturn.name = cardToReturn.name.Replace("(Clone)", "");
         return cardToReturn;
@@ -239,50 +236,119 @@ public class CardDatabase : MonoBehaviour
 
     public static List<Card> GetHalfBloodDeck(Element primary, Element secondary)
     {
-        int upgradedCount = 21;
         List<Card> deckToReturn = new List<Card>();
 
-        bool shouldBeUpgraded = Random.Range(0, 100) < 30 && upgradedCount > 0;
+        bool shouldBeUpgraded = Random.Range(0, 100) < 30;
+        //Get Quantum Pillars
         for (int i = 0; i < 4; i++)
         {
             deckToReturn.Add(GetCardFromResources("Quantum Pillar", CardType.Pillar.FastCardTypeString(), false));
         }
 
+        //Get Major Element Pillars
         for (int i = 0; i < 20; i++)
         {
             deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Pillar, primary, shouldBeUpgraded));
-            if (shouldBeUpgraded) { upgradedCount--; }
-
-            shouldBeUpgraded = Random.Range(0, 100) < 30 && upgradedCount > 0;
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
         }
 
-        for (int i = 0; i < 30; i++)
+        //Get Major Element Cards
+        int cardTotal = 30;
+        int cardCount = Random.Range(0, cardTotal);
+        // Creatures
+        for (int i = 0; i < cardCount; i++)
         {
-            CardType typeToAdd = (CardType)Random.Range(1, 6);
-            while(primary.Equals(Element.Earth) && typeToAdd.Equals(CardType.Artifact))
-            {
-                typeToAdd = (CardType)Random.Range(1, 6);
-            }
-
-            deckToReturn.Add(GetRandomCardOfTypeWithElement(typeToAdd, primary, shouldBeUpgraded));
-            if (shouldBeUpgraded) { upgradedCount--; }
-
-            shouldBeUpgraded = Random.Range(0, 100) < 30 && upgradedCount > 0;
+            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Creature, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
         }
+        cardTotal -= cardCount;
 
-        for (int i = 0; i < 10; i++)
+        //Spells
+        cardCount = Random.Range(0, cardTotal);
+        for (int i = 0; i < cardCount; i++)
         {
-            CardType typeToAdd = (CardType)Random.Range(1, 6);
-            while (secondary.Equals(Element.Earth) && typeToAdd.Equals(CardType.Artifact))
+            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Spell, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+        cardTotal -= cardCount;
+
+        cardCount = 0;
+        //Artifacts
+        if (!primary.Equals(Element.Earth))
+        {
+            cardCount = Random.Range(0, cardTotal);
+            for (int i = 0; i < cardCount; i++)
             {
-                typeToAdd = (CardType)Random.Range(1, 6);
+                deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Artifact, primary, shouldBeUpgraded));
+                shouldBeUpgraded = Random.Range(0, 100) < 30;
             }
+        }
+        cardTotal -= cardCount;
 
+        //Weapon
+        cardCount = Random.Range(0, cardTotal);
+        for (int i = 0; i < cardCount; i++)
+        {
+            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Weapon, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+        cardTotal -= cardCount;
 
-            deckToReturn.Add(GetRandomCardOfTypeWithElement(typeToAdd, secondary, shouldBeUpgraded));
-            if (shouldBeUpgraded) { upgradedCount--; }
+        //Shield
+        cardCount = cardTotal;
+        for (int i = 0; i < cardCount; i++)
+        {
+            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Shield, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+        //Get Major Element Cards
+        cardTotal = 10;
+        cardCount = Random.Range(0, cardTotal);
+        // Creatures
+        for (int i = 0; i < cardCount; i++)
+        {
+            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Creature, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+        cardTotal -= cardCount;
 
-            shouldBeUpgraded = Random.Range(0, 100) < 30 && upgradedCount > 0;
+        //Spells
+        cardCount = Random.Range(0, cardTotal);
+        for (int i = 0; i < cardCount; i++)
+        {
+            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Spell, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+        cardTotal -= cardCount;
+
+        cardCount = 0;
+        //Artifacts
+        if (!primary.Equals(Element.Earth))
+        {
+            cardCount = Random.Range(0, cardTotal);
+            for (int i = 0; i < cardCount; i++)
+            {
+                deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Artifact, primary, shouldBeUpgraded));
+                shouldBeUpgraded = Random.Range(0, 100) < 30;
+            }
+        }
+        cardTotal -= cardCount;
+
+        //Weapon
+        cardCount = Random.Range(0, cardTotal);
+        for (int i = 0; i < cardCount; i++)
+        {
+            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Weapon, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+        cardTotal -= cardCount;
+
+        //Shield
+        cardCount = cardTotal;
+        for (int i = 0; i < cardCount; i++)
+        {
+            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Shield, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
         }
 
         return deckToReturn;
@@ -356,14 +422,14 @@ public class CardDatabase : MonoBehaviour
 
     public static Card GetRandomRegularNymph(Element element)
     {
-        return GetCardFromResources(regularNymphNames[element], "Creature", false);
+        return GetCardFromResources(regularNymphNames[element], "Nymph", false);
     }
-public static Card GetRandomEliteNymph(Element element)
-{
-    return GetCardFromResources(regularNymphNames[element], "Creature", false);
-}
+    public static Card GetRandomEliteNymph(Element element)
+    {
+        return GetCardFromResources(regularNymphNames[element], "Nymph", false);
+    }
 
-public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
+    public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
     {
         switch (shardElementLast.element)
         {
@@ -378,20 +444,8 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                         golem.cardPassives.isImmaterial = true;
                         golem.description = "Immaterial: \n Golem can not be targeted.";
                         break;
-                    case 3:
-                        golem.activeAbility = "ActiveALobotomizer".GetScriptFromName<IActivateAbility>();
-                        golem.description = "<sprite=0><sprite=0> : Lobotomize \n Remove any skill from the target creature.";
-                        break;
-                    case 4:
-                        golem.activeAbility = "ActiveALobotomizer".GetScriptFromName<IActivateAbility>();
-                        golem.description = "<sprite=0><sprite=0> : Lobotomize \n Remove any skill from the target creature.";
-                        break;
-                    case 5:
-                        golem.activeAbility = "ActiveALobotomizer".GetScriptFromName<IActivateAbility>();
-                        golem.description = "<sprite=0><sprite=0> : Lobotomize \n Remove any skill from the target creature.";
-                        break;
                     default:
-                        golem.activeAbility = "ActiveAImmortality".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveALobotomizer();
                         golem.description = "<sprite=0><sprite=0> : Immortality \n The target creature is now immortal (untargetable).";
                         break;
                 }
@@ -403,16 +457,16 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                         golem.cardPassives.isAirborne = true;
                         break;
                     case 2:
-                        golem.activeAbility = "ActiveASpawnFirefly".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveASpawnFirefly();
                         break;
                     case 3:
-                        golem.activeAbility = "ActiveASniper".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveASniper();
                         break;
                     case 4:
-                        golem.activeAbility = "ActiveADive".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveADive();
                         break;
                     default:
-                        golem.activeAbility = "ActiveASpawnUnstableGas".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveASpawnUnstableGas();
                         break;
                 }
                 break;
@@ -420,7 +474,7 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                 switch (shardElementLast.count)
                 {
                     case 1:
-                        golem.endTurnAbility = "EndTurnDevourer".GetScriptFromName<IEndTurnAbility>();
+                        golem.endTurnAbility = new EndTurnDevourer();
                         break;
                     case 2:
                         golem.cardPassives.isVoodoo = true;
@@ -432,10 +486,10 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                         golem.cardPassives.isVampire = true;
                         break;
                     case 5:
-                        golem.activeAbility = "ActiveALiquidShadow".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveALiquidShadow();
                         break;
                     default:
-                        golem.activeAbility = "ActiveASteal".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveASteal();
                         break;
                 }
                 break;
@@ -443,16 +497,16 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                 switch (shardElementLast.count)
                 {
                     case 1:
-                        golem.activeAbility = "ActiveAHeal".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAHeal();
                         break;
                     case 2:
-                        golem.activeAbility = "ActiveAEndow".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAEndowThree();
                         break;
                     case 3:
-                        golem.activeAbility = "ActiveAEndow".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAEndowThree();
                         break;
                     default:
-                        golem.activeAbility = "ActiveALuciferinFour".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveALuciferinFour();
                         break;
                 }
                 break;
@@ -460,11 +514,11 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                 switch (shardElementLast.count)
                 {
                     case 1:
-                        golem.activeAbility = "ActiveAInfection".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAInfection();
                         break;
                     case 2:
-                        golem.cardAbilities.onDeathAbilityScript = "OnDeathScavenger";
-                        golem.cardAbilities.onPlayAbilityScript = "OnPlayAddDeathTrigger";
+                        golem.onDeathAbility = new OnDeathScavenger();
+                        golem.onPlayAbility = new OnPlayAddDeathTrigger();
                         break;
                     case 3:
                         golem.cardPassives.isVenemous = true;
@@ -473,7 +527,7 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                         golem.cardPassives.isVenemous = true;
                         break;
                     case 5:
-                        golem.activeAbility = "ActiveAAflatoxin".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAAflatoxin();
                         break;
                     default:
                         golem.cardPassives.isDeadlyVenemous = true;
@@ -484,19 +538,19 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                 switch (shardElementLast.count)
                 {
                     case 1:
-                        golem.activeAbility = "ActiveABurrow".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveABurrow();
                         break;
                     case 2:
-                        golem.activeAbility = "ActiveAStoneForm".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAStoneForm();
                         break;
                     case 3:
-                        golem.activeAbility = "ActiveAGuard".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAGuard();
                         break;
                     case 4:
-                        golem.activeAbility = "ActiveAGuard".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAGuard();
                         break;
                     default:
-                        golem.activeAbility = "ActiveAPetrify".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAPetrify();
                         break;
                 }
                 break;
@@ -504,21 +558,21 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                 switch (shardElementLast.count)
                 {
                     case 1:
-                        golem.activeAbility = "ActiveADeadAndAlive".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveADeadAlive();
                         break;
                     case 2:
-                        golem.activeAbility = "ActiveAMutation".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAMutation();
                         break;
                     case 3:
-                        golem.activeAbility = "ActiveAParadox".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAParadox();
                         break;
                     case 4:
-                        golem.activeAbility = "ActiveAImprovedMutation".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAImprovedMutation();
                         break;
                     //case 5:
                     //    return "ActiveAScramble";
                     default:
-                        golem.activeAbility = "ActiveAAntimatter".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAAntimatter();
                         break;
                 }
                 break;
@@ -526,13 +580,13 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                 switch (shardElementLast.count)
                 {
                     case 1:
-                        golem.activeAbility = "ActiveASpawnScarab".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveASpawnScarab();
                         break;
                     case 2:
-                        golem.activeAbility = "ActiveASpawnScarab".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveASpawnScarab();
                         break;
                     case 3:
-                        golem.activeAbility = "ActiveADejaVu".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveADejaVu();
                         break;
                     case 4:
                         golem.cardPassives.hasNuerotoxin = true;
@@ -541,7 +595,7 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                         golem.cardPassives.hasNuerotoxin = true;
                         break;
                     default:
-                        golem.activeAbility = "ActiveAPrecognition".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAPrecognition();
                         break;
                 }
                 break;
@@ -549,10 +603,10 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                 switch (shardElementLast.count)
                 {
                     case 1:
-                        golem.activeAbility = "ActiveAAblaze".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAAblaze();
                         break;
                     case 2:
-                        golem.activeAbility = "ActiveAAblaze".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAAblaze();
                         break;
                     case 3:
                         golem.cardPassives.isFiery = true;
@@ -564,7 +618,7 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                         golem.cardPassives.isFiery = true;
                         break;
                     default:
-                        golem.activeAbility = "ActiveARageThree".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveARageThree();
                         break;
                 }
                 break;
@@ -578,16 +632,16 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                         golem.cardPassives.hasMomentum = true;
                         break;
                     case 3:
-                        golem.activeAbility = "ActiveADevour".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveADevour();
                         break;
                     case 4:
-                        golem.activeAbility = "ActiveADevour".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveADevour();
                         break;
                     case 5:
-                        golem.activeAbility = "ActiveADevour".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveADevour();
                         break;
                     default:
-                        golem.activeAbility = "ActiveABlackHole".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveABlackHole();
                         break;
                 }
                 break;
@@ -595,7 +649,7 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                 switch (shardElementLast.count)
                 {
                     case 1:
-                        golem.activeAbility = "ActiveAGrowth".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAGrowth();
                         break;
                     case 2:
                         golem.cardPassives.hasAdrenaline = true;
@@ -607,10 +661,10 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                         golem.cardPassives.hasAdrenaline = true;
                         break;
                     case 5:
-                        golem.activeAbility = "ActiveAAdrenaline".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAAdrenaline();
                         break;
                     default:
-                        golem.activeAbility = "ActiveAMitosis".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAMitosis();
                         golem.description = "Mitosis: \n Generate a daughter creature";
                         break;
                 }
@@ -619,22 +673,22 @@ public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
                 switch (shardElementLast.count)
                 {
                     case 1:
-                        golem.activeAbility = "ActiveASteam".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveASteam();
                         break;
                     case 2:
-                        golem.activeAbility = "ActiveASteam".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveASteam();
                         break;
                     case 3:
-                        golem.activeAbility = "ActiveASteam".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveASteam();
                         break;
                     case 4:
-                        golem.activeAbility = "ActiveAFreeze".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAFreeze();
                         break;
                     case 5:
-                        golem.activeAbility = "ActiveAFreeze".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveAFreeze();
                         break;
                     default:
-                        golem.activeAbility = "ActiveANymphTear".GetScriptFromName<IActivateAbility>();
+                        golem.activeAbility = new ActiveANymphTear();
                         break;
                 }
                 break;

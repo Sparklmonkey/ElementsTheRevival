@@ -28,17 +28,17 @@ public class GameStartManager : MonoBehaviour
                 break;
             case 2:
                 Element elementDeck = (Element)Random.Range(0, 12);
-                while(elementDeck == Element.Entropy)
+                if (elementDeck == Element.Entropy)
                 {
-                    elementDeck = (Element)Random.Range(0, 12);
+                    elementDeck = Element.Aether;
                 }
                 ai = Resources.Load<EnemyAi>($"EnemyAi/Level2/{elementDeck.FastElementString()}");
                 break;
             case 3:
                 elementDeck = (Element)Random.Range(0, 12);
-                while (elementDeck == Element.Entropy)
+                if(elementDeck == Element.Entropy)
                 {
-                    elementDeck = (Element)Random.Range(0, 12);
+                    elementDeck = Element.Aether;
                 }
                 ai = Resources.Load<EnemyAi>($"EnemyAi/Level3/{elementDeck.FastElementString()}");
                 break;
@@ -58,12 +58,13 @@ public class GameStartManager : MonoBehaviour
                     falseGod = falseGodNameList[Random.Range(0, falseGodNameList.Count)];
                 }
                 ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/{falseGod}");
+                PlayerData.shared.nextFalseGod = "";
                 break;
             default:
                 elementDeck = (Element)Random.Range(0, 12);
-                while (elementDeck == Element.Entropy)
+                if (elementDeck == Element.Entropy)
                 {
-                    elementDeck = (Element)Random.Range(0, 12);
+                    elementDeck = Element.Aether;
                 }
                 ai = Resources.Load<EnemyAi>($"EnemyAi/Level3/{elementDeck.FastElementString()}");
                 break;

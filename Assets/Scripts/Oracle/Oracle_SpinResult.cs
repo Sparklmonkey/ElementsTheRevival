@@ -45,19 +45,13 @@ public class Oracle_SpinResult : MonoBehaviour
         else if (cardTypeToSpawn > 57)
         {
             oracleResult.Item1 = CardDatabase.GetRandomCardOfTypeWithElement(CardType.Creature, (Element)finalRotation, false);
-            while (oracleResult.Item1.name.Contains("Nymph") || oracleResult.Item1.name.Contains("Shard"))
-            {
                 oracleResult.Item1 = CardDatabase.GetRandomCardOfTypeWithElement(CardType.Creature, (Element)finalRotation, false);
-            }
             oracleResult.Item2 = commonCardElectrum[Random.Range(0, commonCardElectrum.Count)];
         }
         else if (cardTypeToSpawn > 37)
         {
             oracleResult.Item1 = CardDatabase.GetRandomCardOfTypeWithElement(CardType.Spell, (Element)finalRotation, false);
-            while (oracleResult.Item1.name.Contains("Shard"))
-            {
                 oracleResult.Item1 = CardDatabase.GetRandomCardOfTypeWithElement(CardType.Spell, (Element)finalRotation, false);
-            }
             oracleResult.Item2 = commonCardElectrum[Random.Range(0, commonCardElectrum.Count)];
         }
         else if (cardTypeToSpawn > 27)
