@@ -1124,7 +1124,7 @@ public class ActiveAHatch : IActivateAbility
 
     public void ActivateAbility(ID target)
     {
-        Card rndCreature = CardDatabase.GetRandomCreature();
+        Card rndCreature = CardDatabase.GetRandomHatchCreature();
         DuelManager.GetIDOwner(target).PlayCardOnFieldLogic(rndCreature);
         DuelManager.GetIDOwner(target).RemoveCardFromFieldLogic(target);
     }
@@ -1145,7 +1145,7 @@ public class ActiveAHatchPlus : IActivateAbility
 
     public void ActivateAbility(ID target)
     {
-        Card rndCreature = CardDatabase.GetRandomEliteCreature();
+        Card rndCreature = CardDatabase.GetRandomEliteHatchCreature();
         DuelManager.GetIDOwner(target).PlayCardOnFieldLogic(rndCreature);
         DuelManager.GetIDOwner(target).RemoveCardFromFieldLogic(target);
     }

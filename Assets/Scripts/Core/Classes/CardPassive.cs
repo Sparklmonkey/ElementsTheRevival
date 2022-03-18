@@ -47,8 +47,6 @@ public class CardPassives
     public bool isDeadlyVenemous;
     //If creature has Adrenaline
     public bool hasAdrenaline;
-    //If was targeted by Shard Of Readiness
-    public bool isReady;
     //Add Extra poison for each card played by opponent
     public bool hasNuerotoxin;
     //add 5 damage for each Fire quanta in pool on attack only

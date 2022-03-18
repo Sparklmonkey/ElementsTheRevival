@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class ExtensionMethods
 {
+
+
     public static List<CardObject> SerializeCard(this List<Card> cardList)
     {
         List<CardObject> listToReturn = new List<CardObject>();
@@ -15,6 +17,11 @@ public static class ExtensionMethods
         }
 
         return listToReturn;
+    }
+
+    public static T GetRandomValue<T>(this List<T> list)
+    {
+        return list[UnityEngine.Random.Range(0, list.Count)];
     }
 
     public static List<Card> DeserializeCard(this List<CardObject> cardObjectList)
@@ -67,6 +74,17 @@ public static class ExtensionMethods
         return count;
     }
 
+    public static int GetIntTotal(this List<int> list)
+    {
+        int count = 0;
+
+        foreach (int item in list)
+        {
+            count += item;
+        }
+
+        return count;
+    }
 
     [ThreadStatic] private static System.Random Local;
 
@@ -175,5 +193,18 @@ public static class ExtensionMethods
         };
     }
 
+    public static CardType GetSerendipityWeighted()
+    {
+        List<int> weights = new List<int> { 40, 30, 10, 10, 5, 5 }; // Creature > Spell > Pillar > Artifact > Weapon > Shield
+        List<CardType> cardTypes = new List<CardType> { CardType.Creature, CardType.Spell, CardType.Pillar, CardType.Artifact, CardType.Weapon, CardType.Shield };
+        int rndValue = UnityEngine.Random.Range(0, 100);
+
+        for (int i = 0; i < weights.Count; i++)
+        {
+            rndValue -= weights[i];
+            if(rndValue <= 0) { return cardTypes[i]; }
+        }
+        return CardType.Pillar;
+    }
 }
 
