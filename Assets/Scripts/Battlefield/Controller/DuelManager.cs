@@ -445,38 +445,6 @@ public class DuelManager : MonoBehaviour
         return listToReturn;
     }
 
-    public static void DamageAllValidTargets(int damage, ISpellAbility spell, IActivateAbility ability)
-    {
-        SetupValidTargets(spell, ability);
-        GetAllValidTargets();
-        foreach (ID target in validTargets)
-        {
-            if (target.Owner.Equals(OwnerEnum.Opponent))
-            {
-                if (target.Field.Equals(FieldEnum.Creature))
-                {
-                    enemy.ModifyCreatureLogic(target, null, 0, 0, 0, null, false, damage);
-                }
-                else
-                {
-                    enemy.ModifyHealthLogic(damage, true, true);
-                }
-            }
-            else
-            {
-                if (target.Field.Equals(FieldEnum.Creature))
-                {
-                    player.ModifyCreatureLogic(target, null, 0, 0, 0, null, false, damage);
-                }
-                else
-                {
-                    player.ModifyHealthLogic(damage, true, true);
-                }
-            }
-        }
-
-    }
-
     public static int GetAllQuantaOfElement(Element element)
     {
         if (BattleVars.shared.isPlayerTurn)
@@ -498,15 +466,9 @@ public class DuelManager : MonoBehaviour
         }
     }
 
-    public static PlayerManager GetOtherPlayer()
-    {
-        return BattleVars.shared.isPlayerTurn ? enemy : player;
-    }
+    public static PlayerManager GetOtherPlayer() => BattleVars.shared.isPlayerTurn ? enemy : player;
 
-    public static List<ID> GetAllValidTargets()
-    {
-        return validTargets;
-    }
+    public static List<ID> GetAllValidTargets() => validTargets;
 
     public static void RevealOpponentsHand()
     {

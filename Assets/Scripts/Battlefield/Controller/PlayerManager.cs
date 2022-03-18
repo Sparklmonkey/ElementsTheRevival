@@ -158,12 +158,17 @@ public class PlayerManager : MonoBehaviour
 
     public void ScrambleQuanta()
     {
-        List<int> newQuanta = playerQuantaManager.ScrambleQuanta();
-        for (int i = 0; i < newQuanta.Count; i++)
+        int total = playerQuantaManager.GetCurrentQuanta().GetIntTotal();
+        
+        if(total <= 9)
         {
-            quantaDisplayers[i].SetNewQuantaAmount(playerQuantaManager.GetQuantaForElement((Element)i).ToString());
+            playerQuantaManager.SpendQuanta(Element.Other, total);
+            GenerateQuantaLogic(Element.Other, total);
+            return;
         }
 
+        playerQuantaManager.SpendQuanta(Element.Other, 9);
+        GenerateQuantaLogic(Element.Other, 9);
     }
 
 
@@ -529,7 +534,7 @@ public class PlayerManager : MonoBehaviour
                     }
                 }
             }
-            else if (iD.Field.Equals(FieldEnum.Creature) || iD.Field.Equals(FieldEnum.Passive) || iD.Field.Equals(FieldEnum.Permanent) && IsAbilityUsable(card))
+            else if ((iD.Field.Equals(FieldEnum.Creature) || iD.Field.Equals(FieldEnum.Passive) || iD.Field.Equals(FieldEnum.Permanent)) && IsAbilityUsable(card))
             {
                 BattleVars.shared.originId = iD;
                 BattleVars.shared.abilityOnStandBy = card.activeAbility;
@@ -602,10 +607,10 @@ public class PlayerManager : MonoBehaviour
     {
         if (BattleVars.shared.spellOnStandBy != null)
         {
-            BattleVars.shared.spellOnStandBy.ActivateAbility(BattleVars.shared.originId);
+            BattleVars.shared.spellOnStandBy.ActivateAbility(iD);
 
-            ActionManager.AddCardPlayedAction(isPlayer, GetCard(iD));
-            PlayCardFromHandLogic(iD);
+            ActionManager.AddCardPlayedAction(isPlayer, GetCard(BattleVars.shared.originId));
+            PlayCardFromHandLogic(BattleVars.shared.originId);
         }
         else if (BattleVars.shared.abilityOnStandBy != null)
         {
@@ -620,6 +625,7 @@ public class PlayerManager : MonoBehaviour
         BattleVars.shared.spellOnStandBy = null;
         BattleVars.shared.isSelectingTarget = false;
         BattleVars.shared.originId = null;
+        DisplayPlayableGlow();
     }
 
 

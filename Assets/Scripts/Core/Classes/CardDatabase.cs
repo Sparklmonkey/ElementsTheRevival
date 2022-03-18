@@ -180,6 +180,42 @@ public class CardDatabase : MonoBehaviour
         return cardToReturn;
     }
 
+    public static Card GetRandomHatchCreature()
+    {
+        List<Card> list = new List<Card>(Resources.LoadAll<Card>(baseSOpath + "/Creatures/Regular/"));
+        Card card = list[Random.Range(0, list.Count)];
+        while(card.name.Equals("Scarab") || card.name.Equals("Fate Egg") 
+            || card.name.Equals("Immortal") || card.name.Equals("Malignant Cell") 
+            || card.name.Equals("Singularity") || card.name.Equals("Chimera") 
+            || card.name.Equals("Ash") || card.name.Equals("Shard of Focus") 
+            || card.name.Equals("Devonian Dragon") || card.name.Equals("Shard of Integrity") || card.name.Equals("Shard Golem"))
+        {
+            card = list[Random.Range(0, list.Count)];
+        }
+
+        Card cardToReturn = Instantiate(card);
+        cardToReturn.name = cardToReturn.name.Replace("(Clone)", "");
+        return cardToReturn;
+    }
+
+    public static Card GetRandomEliteHatchCreature()
+    {
+        List<Card> list = new List<Card>(Resources.LoadAll<Card>(baseSOpath + "/Creatures/Upgraded/"));
+        Card card = list[Random.Range(0, list.Count)];
+        while(card.name.Equals("Elite Scarab") || card.name.Equals("Elite Fate Egg") 
+            || card.name.Equals("Elite Immortal") || card.name.Equals("Elite Malignant Cell") 
+            || card.name.Equals("Elite Singularity") || card.name.Equals("Elite Chimera") 
+            || card.name.Equals("Elite Ash") || card.name.Equals("Elite Shard of Focus") 
+            || card.name.Equals("Silurian Dragon") || card.name.Equals("Elite Shard of Integrity"))
+        {
+            card = list[Random.Range(0, list.Count)];
+        }
+
+        Card cardToReturn = Instantiate(card);
+        cardToReturn.name = cardToReturn.name.Replace("(Clone)", "");
+        return cardToReturn;
+    }
+
     public static Card GetRandomPillar()
     {
         List<Card> list = new List<Card>(Resources.LoadAll<Card>(baseSOpath + "/Pillars/Regular/"));

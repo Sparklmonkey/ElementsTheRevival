@@ -38,17 +38,6 @@ namespace Elements.Duel.Manager
             }
         }
 
-        public List<int> ScrambleQuanta()
-        {
-            List<int> newQuanta = new List<int>(GetCurrentQuanta());
-            newQuanta.Shuffle();
-            for (int i = 0; i < newQuanta.Count; i++)
-            {
-                quantaObjects[i].count = newQuanta[i];
-            }
-            return newQuanta;
-        }
-
         public void SpendQuanta(Element element, int value)
         {
             if (element.Equals(Element.Other))

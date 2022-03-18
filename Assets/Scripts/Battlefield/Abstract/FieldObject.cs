@@ -227,7 +227,7 @@ public abstract class FieldManager
                 creature.cardPassives.hasAdrenaline = newValue;
                 break;
             case PassiveEnum.isReady:
-                creature.cardPassives.isReady = newValue;
+                creature.firstTurn = newValue;
                 break;
             default:
                 break;

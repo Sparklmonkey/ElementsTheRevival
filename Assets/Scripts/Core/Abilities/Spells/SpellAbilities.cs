@@ -165,7 +165,14 @@ public class SpellRainOfFire : ISpellAbility
 
     public void ActivateAbility(ID iD)
     {
-        DuelManager.DamageAllValidTargets(3, this, null);
+
+        DuelManager.SetupValidTargets(this, null);
+        List<ID> validTargets = DuelManager.GetAllValidTargets();
+        PlayerManager targetOwners = DuelManager.GetIDOwner(validTargets[0]);
+        foreach (ID target in validTargets)
+        {
+            targetOwners.ModifyCreatureLogic(target, null, 0, 0, 0, null, false, 3);
+        }
     }
 
     public bool IsValidTarget(ID iD)
@@ -1181,7 +1188,7 @@ public class SpellReadiness : ISpellAbility
     public void ActivateAbility(ID iD)
     {
         PlayerManager player = DuelManager.GetIDOwner(iD);
-        player.ModifyCreatureLogic(iD, null, 0, 0, 0, PassiveEnum.isReady, true);
+        player.ModifyCreatureLogic(iD, null, 0, 0, 0, PassiveEnum.isReady, false);
     }
 
     public bool IsValidTarget(ID iD)
@@ -1369,15 +1376,20 @@ public class SpellEliteShardSerendipity : ISpellAbility
     {
         PlayerManager player = DuelManager.GetIDOwner(iD);
 
-        CardType typeToAdd = (CardType)Random.Range(0, 6);
+        CardType typeToAdd = ExtensionMethods.GetSerendipityWeighted();
         Element elementToAdd = Element.Entropy;
 
         for (int i = 0; i < 3; i++)
         {
             player.AddCardToDeck(CardDatabase.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd, true));
             player.DrawCardFromDeckLogic(true);
-            typeToAdd = (CardType)Random.Range(0, 6);
+            typeToAdd = ExtensionMethods.GetSerendipityWeighted();
             elementToAdd = (Element)Random.Range(0, 13);
+            while (typeToAdd.Equals(CardType.Artifact) && elementToAdd.Equals(Element.Earth))
+            {
+                typeToAdd = ExtensionMethods.GetSerendipityWeighted();
+                elementToAdd = (Element)Random.Range(0, 13);
+            }
         }
     }
 
@@ -1395,15 +1407,20 @@ public class SpellShardSerendipity : ISpellAbility
     {
         PlayerManager player = DuelManager.GetIDOwner(iD);
 
-        CardType typeToAdd = (CardType)Random.Range(0, 6);
+        CardType typeToAdd = ExtensionMethods.GetSerendipityWeighted();
         Element elementToAdd = Element.Entropy;
 
         for (int i = 0; i < 3; i++)
         {
             player.AddCardToDeck(CardDatabase.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd, false));
             player.DrawCardFromDeckLogic(true);
-            typeToAdd = (CardType)Random.Range(0, 6);
+            typeToAdd = ExtensionMethods.GetSerendipityWeighted();
             elementToAdd = (Element)Random.Range(0, 13);
+            while(typeToAdd.Equals(CardType.Artifact) && elementToAdd.Equals(Element.Earth))
+            {
+                typeToAdd = ExtensionMethods.GetSerendipityWeighted();
+                elementToAdd = (Element)Random.Range(0, 13);
+            }
         }
     }
 
@@ -1434,7 +1451,7 @@ public class SpellShardIntegrity : ISpellAbility
         List<QuantaObject> shardElementCounter = new List<QuantaObject>();
         foreach (Card handCard in cardsInHand)
         {
-            if (handCard.name.Contains("Shard"))
+            if (handCard.name.Contains("Shard of"))
             {
                 int? index = shardElementCounter.ContainsElement(handCard.element);
                 if (index != null)
@@ -1490,7 +1507,7 @@ public bool isTargetFixed => true;
         List<QuantaObject> shardElementCounter = new List<QuantaObject>();
         foreach (Card handCard in cardsInHand)
         {
-            if (handCard.name.Contains("Shard"))
+            if (handCard.name.Contains("Shard of"))
             {
                 int? index = shardElementCounter.ContainsElement(handCard.element);
                 if (index != null)
