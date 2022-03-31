@@ -240,9 +240,9 @@ public class SpellDrainLife : ISpellAbility
         }
         else
         {
-            DuelManager.GetIDOwner(iD).ModifyHealthLogic(extraDamage, true, true);
+            DuelManager.GetIDOwner(BattleVars.shared.originId).ModifyHealthLogic(extraDamage, true, true);
         }
-        DuelManager.GetIDOwner(iD).ModifyHealthLogic(extraDamage, false, true);
+        DuelManager.GetIDOwner(BattleVars.shared.originId).ModifyHealthLogic(extraDamage, false, true);
     }
 
     public bool IsValidTarget(ID iD)

@@ -26,7 +26,7 @@ public class Bazaar_ShopInventoryManager : InventoryManager
         {
             if (card.name == "Animate Weapon" && !filter.Equals(Element.Air)) { continue; }
             if (card.name == "Luciferin" || card.name == "Luciferase" && !filter.Equals(Element.Light)) { continue; }
-            if (card.element != filter) { continue; }
+            if (card.element != filter || card.buyPrice == 0) { continue; }
             cardsToShow.Add(card);
         }
         SetupContentView(cardsToShow, false);

@@ -1351,8 +1351,11 @@ public class PlayerManager : MonoBehaviour
 
     public async void UpdateQuantaPoolVisual(int element, int newTotal)
     {
-        quantaDisplayers[element].SetNewQuantaAmount(newTotal.ToString());
-        await new WaitForSeconds(0.1f);
+        if (!GameOverVisual.isGameOver)
+        {
+            quantaDisplayers[element].SetNewQuantaAmount(newTotal.ToString());
+            await new WaitForSeconds(0.1f);
+        }
         Command.CommandExecutionComplete();
     }
 
