@@ -19,7 +19,7 @@ public class ApiManager : MonoBehaviour
 
     public GameObject touchBlocker;
     public static ApiManager shared;
-    private string BaseUrl = "https://elementswebapi.herokuapp.com/";//"https://elementstheresource.azure-api.net/"; //"http://localhost:5000/";
+    private string BaseUrl =  "https://elementswebapi.herokuapp.com/";//"https://elementstheresource.azure-api.net/"; //"http://localhost:5000/";
     private string apiKey = "ElementRevival-ApiKey";
     private string token = "";
     private string playerID = "";
@@ -176,7 +176,6 @@ public class ApiManager : MonoBehaviour
                                    "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
                                    CultureInfo.InvariantCulture.DateTimeFormat,
                                    DateTimeStyles.AssumeUniversal);
-        PlayerData.shared.dayLastOraclePlay = currentDate;
         if (currentDate.Day > PlayerData.shared.dayLastOraclePlay.Day)
         {
             PlayerData.shared.playedOracleToday = false;

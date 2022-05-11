@@ -26,8 +26,10 @@ public class LoginScreen_RegisterManager : MonoBehaviour
             Username = username.text,
             Password = password.text,
             EmailAddress = email.text,
-            OtpCode = ""
-        };
+            OtpCode = "",
+            Platform = $"{Application.platform}",
+            AppVersion = $"{Application.version}"
+    };
         StartCoroutine(ApiManager.shared.RegisterUser("Login/register", loginRequest, LoginSuccess, LoginRequestFailure));
     }
 

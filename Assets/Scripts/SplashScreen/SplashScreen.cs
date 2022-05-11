@@ -20,7 +20,7 @@ public class SplashScreen : MonoBehaviour
 
     private List<GameObject> imageObjects = new List<GameObject>();
 
-    private bool isLoadingNextScene = false, isNewGame = false;
+    private bool isLoadingNextScene = false;
 
     private IEnumerator MoveImageAroundToFinalPosition(GameObject imageToMove, int finalIndex, int imageIndex)
     {
@@ -48,7 +48,7 @@ public class SplashScreen : MonoBehaviour
 
     private void Start()
     {
-        if(PlayerPrefs.GetInt("HasKeysStored") != 1)
+        if (PlayerPrefs.GetInt("HasKeysStored") != 1)
         {
             PlayerPrefs.SetInt("HasKeysStored", 1);
 

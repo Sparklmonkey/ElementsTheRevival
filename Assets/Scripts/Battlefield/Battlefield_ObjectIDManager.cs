@@ -14,7 +14,7 @@ public class Battlefield_ObjectIDManager : MonoBehaviour
         {
             return;
         }
-        shared = new Battlefield_ObjectIDManager();
+        shared = this;
         shared.idTransformList = new Dictionary<ID, Transform>();
     }
 
@@ -25,6 +25,7 @@ public class Battlefield_ObjectIDManager : MonoBehaviour
 
     public Transform GetObjectFromID(ID objectID)
     {
+        Debug.Log(objectID.Owner);
         return idTransformList[objectID];
     }
 }

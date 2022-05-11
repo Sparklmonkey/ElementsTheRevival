@@ -498,6 +498,7 @@ public class SpellImmolation : ISpellAbility
     public void ActivateAbility(ID iD)
     {
         PlayerManager user = DuelManager.GetIDOwner(iD);
+        user.RemoveCardFromFieldLogic(iD);
         for (int i = 0; i < 12; i++)
         {
             user.GenerateQuantaLogic((Element)i, 1);

@@ -87,6 +87,8 @@ public class SpinManager : MonoBehaviour
 
     private async void StartSpin()
     {
+        finishSpinCount = 0;
+        canSpin = false;
         Card cardOne = BattleVars.shared.enemyAiData.deck[Random.Range(0, BattleVars.shared.enemyAiData.deck.Count)];
         Card cardTwo = BattleVars.shared.enemyAiData.deck[Random.Range(0, BattleVars.shared.enemyAiData.deck.Count)];
         Card cardThree = BattleVars.shared.enemyAiData.deck[Random.Range(0, BattleVars.shared.enemyAiData.deck.Count)];

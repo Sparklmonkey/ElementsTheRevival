@@ -50,7 +50,9 @@ public class LoginScreen_SetupManager : MonoBehaviour
             Username = username.text,
             Password = password.text,
             EmailAddress = "",
-            OtpCode = ""
+            OtpCode = "",
+            Platform = $"{Application.platform}",
+            AppVersion = $"{Application.version}"
         };
         StartCoroutine(ApiManager.shared.Login(loginRequest, LoginSuccess, LoginRequestFailure));
     }

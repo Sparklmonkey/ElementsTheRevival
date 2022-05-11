@@ -89,22 +89,22 @@ public class PlayerData
         //return false;
     }
 
-    public static void UpdateOracleDay()
-    {
-        var myHttpWebRequest = (HttpWebRequest)WebRequest.Create("http://www.microsoft.com");
-        var response = myHttpWebRequest.GetResponse();
-        string todaysDates = response.Headers["date"];
-        DateTime currentDate = DateTime.ParseExact(todaysDates,
-                                   "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
-                                   CultureInfo.InvariantCulture.DateTimeFormat,
-                                   DateTimeStyles.AssumeUniversal);
-        Debug.Log(currentDate.Day);
-        Debug.Log(shared.dayLastOraclePlay.Day);
-        if(currentDate.Day > shared.dayLastOraclePlay.Day)
-        {
-            shared.playedOracleToday = false;
-            shared.dayLastOraclePlay = currentDate;
-        }
+    //public static void UpdateOracleDay()
+    //{
+    //    var myHttpWebRequest = (HttpWebRequest)WebRequest.Create("http://www.microsoft.com");
+    //    var response = myHttpWebRequest.GetResponse();
+    //    string todaysDates = response.Headers["date"];
+    //    DateTime currentDate = DateTime.ParseExact(todaysDates,
+    //                               "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
+    //                               CultureInfo.InvariantCulture.DateTimeFormat,
+    //                               DateTimeStyles.AssumeUniversal);
+    //    Debug.Log(currentDate.Day);
+    //    Debug.Log(shared.dayLastOraclePlay.Day);
+    //    if(currentDate.Day > shared.dayLastOraclePlay.Day)
+    //    {
+    //        shared.playedOracleToday = false;
+    //        shared.dayLastOraclePlay = currentDate;
+    //    }
 
-    }
+    //}
 }
