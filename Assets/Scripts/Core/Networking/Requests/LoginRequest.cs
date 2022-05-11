@@ -10,5 +10,7 @@ public class LoginRequest
     public string Password;
     public string EmailAddress;
     public string OtpCode;
+    public string Platform;
+    public string AppVersion;
 }
 

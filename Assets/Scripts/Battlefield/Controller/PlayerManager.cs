@@ -614,7 +614,8 @@ public class PlayerManager : MonoBehaviour
         }
         else if (BattleVars.shared.abilityOnStandBy != null)
         {
-            if (!nameof(BattleVars.shared.abilityOnStandBy).Equals("ActiveAPhotosynthesis"))
+            var photosynth = new ActiveAPhotosynthesis();
+            if (!BattleVars.shared.abilityOnStandBy.GetType().Equals(photosynth.GetType()))
             {
                 GetCard(BattleVars.shared.originId).abilityUsed = true;
             }
@@ -1351,8 +1352,11 @@ public class PlayerManager : MonoBehaviour
 
     public async void UpdateQuantaPoolVisual(int element, int newTotal)
     {
-        quantaDisplayers[element].SetNewQuantaAmount(newTotal.ToString());
-        await new WaitForSeconds(0.1f);
+        if (!GameOverVisual.isGameOver)
+        {
+            quantaDisplayers[element].SetNewQuantaAmount(newTotal.ToString());
+            await new WaitForSeconds(0.1f);
+        }
         Command.CommandExecutionComplete();
     }
 

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b27e1d8a8394247d2abadc4bc55fb137, type: 3}
   m_Name: Black Dragon
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: 17b25bbb9a6ab4c53825f6ef15f1e119, type: 3}
   description: 
-  buyPrice: 0
+  buyPrice: 74
   sellPrice: 106
   imageID: 20
   cost: 10
@@ -24,6 +24,7 @@ MonoBehaviour:
   isRare: 0
   upgradedVersion: {fileID: 11400000, guid: 9810b23476d8d4c30bcb69b09a12f1d4, type: 2}
   power: 10
+  basePower: 10
   hp: 5
   maxHP: 5
   cardAbilities:
@@ -66,6 +67,8 @@ MonoBehaviour:
     isPhoenix: 0
     isDeadlyVenemous: 0
     hasAdrenaline: 0
+    hasNuerotoxin: 0
+    isFiery: 0
   firstTurn: 0
   pendulumTurn: 0
   abilityUsed: 1

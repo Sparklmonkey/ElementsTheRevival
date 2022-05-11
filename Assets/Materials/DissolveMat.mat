@@ -38,7 +38,7 @@ Material:
     m_Ints: []
     m_Floats:
     - NoiseScale: 100
-    - _Fade: 1
+    - _Fade: 0.3354996
     - _Scale: 150
     m_Colors:
     - Color_7A0CCA10: {r: 5.3403134, g: 3.4835272, b: 0, a: 0}

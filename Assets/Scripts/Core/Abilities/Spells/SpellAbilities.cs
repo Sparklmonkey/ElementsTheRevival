@@ -240,9 +240,9 @@ public class SpellDrainLife : ISpellAbility
         }
         else
         {
-            DuelManager.GetIDOwner(iD).ModifyHealthLogic(extraDamage, true, true);
+            DuelManager.GetIDOwner(BattleVars.shared.originId).ModifyHealthLogic(extraDamage, true, true);
         }
-        DuelManager.GetIDOwner(iD).ModifyHealthLogic(extraDamage, false, true);
+        DuelManager.GetIDOwner(BattleVars.shared.originId).ModifyHealthLogic(extraDamage, false, true);
     }
 
     public bool IsValidTarget(ID iD)
@@ -498,6 +498,7 @@ public class SpellImmolation : ISpellAbility
     public void ActivateAbility(ID iD)
     {
         PlayerManager user = DuelManager.GetIDOwner(iD);
+        user.RemoveCardFromFieldLogic(iD);
         for (int i = 0; i < 12; i++)
         {
             user.GenerateQuantaLogic((Element)i, 1);

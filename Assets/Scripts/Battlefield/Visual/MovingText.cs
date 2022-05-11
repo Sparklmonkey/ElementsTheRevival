@@ -38,7 +38,7 @@ namespace Elements.Duel.Visual
 
         private void Update()
         {
-            if (isSetup)
+            if (isSetup && !GameOverVisual.isGameOver)
             {
                 transform.position = Vector3.MoveTowards(transform.position, newPosition, Time.deltaTime * 50f);
                 if (transform.position == newPosition || timer >= 1f)
