@@ -1,0 +1,397 @@
+fileFormatVersion: 2
+guid: 5efc8f5037e8dae49a8768827eb09f1e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4677360273603419049
+    second: LightningAnim_0
+  - first:
+      213: 178550183963080635
+    second: LightningAnim_1
+  - first:
+      213: -1878928377259528586
+    second: LightningAnim_2
+  - first:
+      213: -7912134092313473360
+    second: LightningAnim_3
+  - first:
+      213: -4545695914503232952
+    second: LightningAnim_4
+  - first:
+      213: 6083373028305962747
+    second: LightningAnim_5
+  - first:
+      213: -1457715170975952847
+    second: LightningAnim_6
+  - first:
+      213: 5897444784943710132
+    second: LightningAnim_7
+  - first:
+      213: 3640194059779020734
+    second: LightningAnim_8
+  - first:
+      213: -1433600375343767536
+    second: LightningAnim_9
+  - first:
+      213: -5107176236534446575
+    second: LightningAnim_10
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LightningAnim_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1285
+        width: 562
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9abd7aa136259e040800000000000000
+      internalID: 4677360273603419049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningAnim_1
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 1285
+        width: 562
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb733b142765a7200800000000000000
+      internalID: 178550183963080635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningAnim_2
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 1285
+        width: 562
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67e6b0b8894bce5e0800000000000000
+      internalID: -1878928377259528586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningAnim_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 857
+        width: 562
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bec56c96f3723290800000000000000
+      internalID: -7912134092313473360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningAnim_4
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 857
+        width: 562
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 842271f56a17ae0c0800000000000000
+      internalID: -4545695914503232952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningAnim_5
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 857
+        width: 562
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf68e54c98b7c6450800000000000000
+      internalID: 6083373028305962747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningAnim_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 429
+        width: 562
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 130d74a76c725cbe0800000000000000
+      internalID: -1457715170975952847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningAnim_7
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 429
+        width: 562
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bfbc0139cee7d150800000000000000
+      internalID: 5897444784943710132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningAnim_8
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 429
+        width: 562
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb79d96f531948230800000000000000
+      internalID: 3640194059779020734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningAnim_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 562
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 010a4cddd04da1ce0800000000000000
+      internalID: -1433600375343767536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningAnim_10
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 1
+        width: 562
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1164c08954aaf19b0800000000000000
+      internalID: -5107176236534446575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: ce788bca0c24ea34e8b0d142d4d202d2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      LightningAnim_3: -7912134092313473360
+      LightningAnim_10: -5107176236534446575
+      LightningAnim_1: 178550183963080635
+      LightningAnim_5: 6083373028305962747
+      LightningAnim_4: -4545695914503232952
+      LightningAnim_2: -1878928377259528586
+      LightningAnim_0: 4677360273603419049
+      LightningAnim_6: -1457715170975952847
+      LightningAnim_9: -1433600375343767536
+      LightningAnim_7: 5897444784943710132
+      LightningAnim_8: 3640194059779020734
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

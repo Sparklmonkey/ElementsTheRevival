@@ -1,0 +1,141 @@
+{
+	"frames": [
+		{
+			"filename": "UI_Graphic_Resource_Coins.png",
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 512,
+				"h": 512
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 512,
+				"h": 512
+			},
+			"sourceSize": {
+				"w": 512,
+				"h": 512
+			}
+		},
+		{
+			"filename": "UI_Graphic_Resource_Food.png",
+			"frame": {
+				"x": 515,
+				"y": 1,
+				"w": 512,
+				"h": 512
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 512,
+				"h": 512
+			},
+			"sourceSize": {
+				"w": 512,
+				"h": 512
+			}
+		},
+		{
+			"filename": "UI_Graphic_Resource_Gems.png",
+			"frame": {
+				"x": 1,
+				"y": 515,
+				"w": 512,
+				"h": 512
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 512,
+				"h": 512
+			},
+			"sourceSize": {
+				"w": 512,
+				"h": 512
+			}
+		},
+		{
+			"filename": "UI_Graphic_Resource_Iron.png",
+			"frame": {
+				"x": 515,
+				"y": 515,
+				"w": 512,
+				"h": 513
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 512,
+				"h": 513
+			},
+			"sourceSize": {
+				"w": 512,
+				"h": 513
+			}
+		},
+		{
+			"filename": "UI_Graphic_Resource_Tools.png",
+			"frame": {
+				"x": 1029,
+				"y": 1,
+				"w": 513,
+				"h": 513
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 513,
+				"h": 513
+			},
+			"sourceSize": {
+				"w": 513,
+				"h": 513
+			}
+		},
+		{
+			"filename": "UI_Graphic_Resource_Wood.png",
+			"frame": {
+				"x": 1029,
+				"y": 516,
+				"w": 512,
+				"h": 513
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 512,
+				"h": 513
+			},
+			"sourceSize": {
+				"w": 512,
+				"h": 513
+			}
+		}
+	],
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 1543,
+			"h": 1030
+		},
+		"scale": "1"
+	}
+}

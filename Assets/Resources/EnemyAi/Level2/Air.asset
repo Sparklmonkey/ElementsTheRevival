@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Air
+  m_EditorClassIdentifier: 
+  opponentName: Airborne
+  maxHP: 100
+  mark: 1
+  deck: 4sa 4t3 55k 55k 55k 55l 55m 55n 55n 55q 55q 5oc 5oc 5oc 5oc 5oc 5oc 5od 5od
+    5od 5oe 5oe 5of 5og 5oh 5oh 5oh 5oh 61o 61o 61o 61p 61p 61q 61q 61r 61t
+  spins: 2
+  coinAvg: 5
+  costToPlay: 5
+  scoreWin: 5
+  hpDivide: 20
+  drawComponent: BaseAiDrawComponent
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: MediumAiTurnComponent

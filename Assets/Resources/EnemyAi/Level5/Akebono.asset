@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Akebono
+  m_EditorClassIdentifier: 
+  opponentName: Akebono
+  maxHP: 200
+  mark: 9
+  deck: 6rs 744 744 744 744 744 744 744 744 744 744 744 744 744 744 744 744 746 746
+    748 748 748 748 748 748 74a 74c 74g 74g 74i 74i 74i 74i 752 752
+  spins: 3
+  coinAvg: 35
+  costToPlay: 30
+  scoreWin: 64
+  hpDivide: 4
+  drawComponent: FalseGodDrawComponenet
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: MediumAiTurnComponent

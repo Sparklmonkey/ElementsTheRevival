@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Darkness
+  m_EditorClassIdentifier: 
+  opponentName: Vampire
+  maxHP: 100
+  mark: 2
+  deck: 4vo 4vo 4vo 4vp 4vp 4vp 4vp 4vp 50u 50u 50u 50u 50u 50u 50u 50u 50u 50u 50u
+    50u 50u 50u 5ul 5uo 5up 5uq 5uq 5ur 5us 5us 5uu 5uu 5v0 5v0 5v0 5v0 5v0 5v0
+  spins: 3
+  coinAvg: 10
+  costToPlay: 10
+  scoreWin: 10
+  hpDivide: 10
+  drawComponent: BaseAiDrawComponent
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: MediumAiTurnComponent

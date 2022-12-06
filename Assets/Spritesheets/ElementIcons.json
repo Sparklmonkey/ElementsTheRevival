@@ -1,0 +1,267 @@
+{
+	"frames": [
+		{
+			"filename": "Aether.png",
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		},
+		{
+			"filename": "Air.png",
+			"frame": {
+				"x": 123,
+				"y": 1,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		},
+		{
+			"filename": "Darkness.png",
+			"frame": {
+				"x": 245,
+				"y": 1,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		},
+		{
+			"filename": "Death.png",
+			"frame": {
+				"x": 1,
+				"y": 123,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		},
+		{
+			"filename": "Earth.png",
+			"frame": {
+				"x": 123,
+				"y": 123,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		},
+		{
+			"filename": "Entropy.png",
+			"frame": {
+				"x": 245,
+				"y": 123,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		},
+		{
+			"filename": "Fire.png",
+			"frame": {
+				"x": 1,
+				"y": 245,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		},
+		{
+			"filename": "Gravity.png",
+			"frame": {
+				"x": 123,
+				"y": 245,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		},
+		{
+			"filename": "Life.png",
+			"frame": {
+				"x": 245,
+				"y": 245,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		},
+		{
+			"filename": "Light.png",
+			"frame": {
+				"x": 367,
+				"y": 1,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		},
+		{
+			"filename": "Time.png",
+			"frame": {
+				"x": 367,
+				"y": 123,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		},
+		{
+			"filename": "Water.png",
+			"frame": {
+				"x": 367,
+				"y": 245,
+				"w": 120,
+				"h": 120
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 120,
+				"h": 120
+			},
+			"sourceSize": {
+				"w": 120,
+				"h": 120
+			}
+		}
+	],
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 488,
+			"h": 366
+		},
+		"scale": "1"
+	}
+}

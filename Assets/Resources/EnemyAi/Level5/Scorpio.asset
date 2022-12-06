@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Scorpio
+  m_EditorClassIdentifier: 
+  opponentName: Scorpio
+  maxHP: 200
+  mark: 4
+  deck: 718 718 718 718 718 71a 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk
+    7gk 7gk 7gk 7gk 7gk 7gl 7gl 7gl 7gm 7gm 7gm 7gn 7gn 7gn 7go 7gp 7gp 7gq 7gr 7gr
+    7gs 7gt 7gu 7gu 7gu 7gu 7gu 7gu 7gv 7gv 808 808 808 80b 80b
+  spins: 3
+  coinAvg: 35
+  costToPlay: 30
+  scoreWin: 64
+  hpDivide: 4
+  drawComponent: FalseGodDrawComponenet
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: MediumAiTurnComponent

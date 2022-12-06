@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "67576244176",
+    "project_id": "elementstheproject",
+    "storage_bucket": "elementstheproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67576244176:android:876c94367ccb9b4a86bbd5",
+        "android_client_info": {
+          "package_name": "com.SparklmonkeyGames.ElementsRevival"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "67576244176-r6utqskijjqo9kn3h4uaosaq351f1vdg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1WjtF9kcKe9N84WRvNMTf7L5SN0QdwF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "67576244176-r6utqskijjqo9kn3h4uaosaq351f1vdg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "67576244176-e7i6hocd5i8t47g8ctngc25cqsn4p6i1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.SparklmonkeyGames.ElementsRevival"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

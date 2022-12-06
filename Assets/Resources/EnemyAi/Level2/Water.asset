@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Water
+  m_EditorClassIdentifier: 
+  opponentName: Drowned
+  maxHP: 100
+  mark: 11
+  deck: 4sa 4t3 5bs 5bs 5bs 5bu 5bv 5c0 5c0 5c2 5i4 5i4 5i4 5i4 5i4 5i4 5i5 5i5 5i6
+    5i6 5i6 5i7 5i7 5i7 5i8 5i8 5i8 5i9 5ia 5ia 5rg 5rg 5rg 5rh 5ri 5ri 5rk
+  spins: 2
+  coinAvg: 5
+  costToPlay: 5
+  scoreWin: 5
+  hpDivide: 20
+  drawComponent: BaseAiDrawComponent
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: MediumAiTurnComponent

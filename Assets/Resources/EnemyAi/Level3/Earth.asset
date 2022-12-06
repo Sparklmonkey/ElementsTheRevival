@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Earth
+  m_EditorClassIdentifier: 
+  opponentName: Mountain
+  maxHP: 100
+  mark: 5
+  deck: 55k 55k 55k 55m 55m 55o 55r 55s 55t 55t 55v 561 561 576 576 576 576 576 576
+    58o 58o 58o 58o 58o 58o 58o 58o 58o 58o 58r 58u 58v 592 593 593 594 594 594 595
+    595 595 595 59c
+  spins: 3
+  coinAvg: 10
+  costToPlay: 10
+  scoreWin: 10
+  hpDivide: 10
+  drawComponent: BaseAiDrawComponent
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: MediumAiTurnComponent

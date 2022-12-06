@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Fire
+  m_EditorClassIdentifier: 
+  opponentName: Flamer
+  maxHP: 100
+  mark: 8
+  deck: 4sa 4t3 5f0 5f0 5f0 5f0 5f0 5f0 5f1 5f1 5f1 5f2 5f3 5f3 5f4 5f4 5f4 5f4 5f5
+    5f6 5f6 5f6 5i4 5i4 5i4 5i5 5i6 5i6 5i7 5uk 5uk 5uk 5um 5um 5un 5up 5uq
+  spins: 2
+  coinAvg: 5
+  costToPlay: 5
+  scoreWin: 5
+  hpDivide: 20
+  drawComponent: BaseAiDrawComponent
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: MediumAiTurnComponent

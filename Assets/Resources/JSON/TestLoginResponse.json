@@ -1,0 +1,160 @@
+{
+	"playerId": "617899e31e2c4da1349bd152",
+	"emailAddress": "juanantonio.soler@hotmail.com",
+	"playerData": {
+		"id": "617899e31e2c4da1349bd151",
+		"markElement": 2,
+		"currentDeck": [{
+			"cardName": "Quantum Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Quantum Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Quantum Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Dagger",
+			"cardType": "Weapon"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Aether Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Spark",
+			"cardType": "Creature"
+		}, {
+			"cardName": "Spark",
+			"cardType": "Creature"
+		}, {
+			"cardName": "Spark",
+			"cardType": "Creature"
+		}, {
+			"cardName": "Spark",
+			"cardType": "Creature"
+		}, {
+			"cardName": "Immortal",
+			"cardType": "Creature"
+		}, {
+			"cardName": "Immortal",
+			"cardType": "Creature"
+		}, {
+			"cardName": "Phase Dragon",
+			"cardType": "Creature"
+		}, {
+			"cardName": "Lightning",
+			"cardType": "Spell"
+		}, {
+			"cardName": "Lightning",
+			"cardType": "Spell"
+		}, {
+			"cardName": "Lightning",
+			"cardType": "Spell"
+		}, {
+			"cardName": "Lightning",
+			"cardType": "Spell"
+		}, {
+			"cardName": "Parallel Universe",
+			"cardType": "Spell"
+		}, {
+			"cardName": "Parallel Universe",
+			"cardType": "Spell"
+		}, {
+			"cardName": "Parallel Universe",
+			"cardType": "Spell"
+		}, {
+			"cardName": "Dimensional Shield",
+			"cardType": "Shield"
+		}, {
+			"cardName": "Abomination",
+			"cardType": "Creature"
+		}, {
+			"cardName": "Lycanthrope",
+			"cardType": "Creature"
+		}, {
+			"cardName": "Chaos Seed",
+			"cardType": "Spell"
+		}, {
+			"cardName": "Nova",
+			"cardType": "Spell"
+		}, {
+			"cardName": "Mutation",
+			"cardType": "Spell"
+		}, {
+			"cardName": "Amethyst Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Amethyst Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Amethyst Pillar",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Amethyst Pillar",
+			"cardType": "Pillar"
+		}],
+		"cardInventory": [{
+			"cardName": "Death Pendulum",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Ash Eater",
+			"cardType": "Creature"
+		}, {
+			"cardName": "Fire Pendulum",
+			"cardType": "Pillar"
+		}, {
+			"cardName": "Liquid Shadow",
+			"cardType": "Spell"
+		}],
+		"electrum": 91,
+		"gamesWon": 1,
+		"gamesLost": 0,
+		"playerScore": 1,
+		"currentQuestIndex": 0,
+		"nextFalseGod": "Destiny",
+		"petName": "Minor Vampire",
+		"playedOracleToday": false,
+		"dayLastOraclePlay": "0001-01-01T00:00:00Z",
+		"hasDefeatedLevel0": true,
+		"removedCardFromDeck": false,
+		"hasBoughtCardBazaar": false,
+		"hasSoldCardBazaar": false,
+		"hasDefeatedLevel1": false,
+		"hasDefeatedLevel2": false,
+		"redeemedCodes": []
+	},
+	"errorMessage": 3,
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFdEciLCJuYW1lIjoiU3BhcmtsbW9ua2V5IiwicGxheWVySUQiOiI2MTc4OTllMzFlMmM0ZGExMzQ5YmQxNTIiLCJleHAiOjE2MzYwNjYxNTgsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.T_MzJy53qjSMELq7MqTjyVpU3rKWRiAPN0Jtp2Y4Gq0"
+}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
+  m_Name: Light
+  m_EditorClassIdentifier: 
+  opponentName: LED
+  maxHP: 100
+  mark: 3
+  deck: 5l8 5l8 5l8 5l8 5l8 5l8 5l8 5lb 5lb 5lb 5le 5le 5lf 5lf 5lf 5li 5ll 5ll 5ll
+    5ll 5oc 5oc 5oc 5oc 5oe 5oe 5oe 5ol 5ol 5oo 5op 5op 5op 5pu 5pu 5pu 5pu 5pu 5pu
+  spins: 3
+  coinAvg: 10
+  costToPlay: 10
+  scoreWin: 10
+  hpDivide: 10
+  drawComponent: BaseAiDrawComponent
+  discardComponent: BaseAiDiscardComponent
+  turnComponent: MediumAiTurnComponent
