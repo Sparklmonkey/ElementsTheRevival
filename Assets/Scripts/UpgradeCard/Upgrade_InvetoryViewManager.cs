@@ -44,7 +44,7 @@ public class Upgrade_InvetoryViewManager : MonoBehaviour
 
     public void DisplayCardAndUp(Card card)
     {
-        Card upgradedCard = CardDatabase.GetCardFromId(card.iD.GetUppedRegular());
+        Card upgradedCard = CardDatabase.Instance.GetCardFromId(card.iD.GetUppedRegular());
 
         currentCardDisplay.gameObject.SetActive(true);
         currentCardDisplay.SetupCardView(card);

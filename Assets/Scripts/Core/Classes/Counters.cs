@@ -8,7 +8,6 @@ public class Counters
     public int poison;
     public int invisibility;
     public int nuerotoxin;
-    public int charge;
     public int bone;
     public int silence;
     public int stasis;

@@ -31,16 +31,7 @@ public class CardSO : ScriptableObject
 
     [Header("Script Field")]
     public CardAbilities cardAbilities;
-    public IActivateAbility skill;
-    public ISkill spellAbility;
-    public IEndTurnAbility endTurnAbility;
-    public IOnDeathAbility onDeathAbility;
-    public IOnPlayAbility onPlayAbility;
-    public IWeaponAbility weaponAbility;
-    public IShieldAbility shieldAbility;
 
-    [Header("Counters")]
-    public Counters cardCounters;
 
     [Header("Passives")]
     public CardPassives cardPassives;
@@ -51,27 +42,6 @@ public class CardSO : ScriptableObject
     public bool abilityUsed = true;
     public int turnsInPlay = 999999;
 
-    private void Awake()
-    {
-        SetupCard();
-    }
-
-    public void SetupCard()
-    {
-        basePower = power;
-        cardImage = ImageHelper.GetCardImage(imageID);
-        if(SceneManager.GetActiveScene().name == "Battlefield")
-        {
-            skill = cardAbilities.skillScript.GetScriptFromName<IActivateAbility>();
-            spellAbility = cardAbilities.spellAbilityScript.GetScriptFromName<ISkill>();
-            weaponAbility = cardAbilities.weaponAbilityScript.GetScriptFromName<IWeaponAbility>();
-            shieldAbility = cardAbilities.shieldAbilityScript.GetScriptFromName<IShieldAbility>();
-            onDeathAbility = cardAbilities.onDeathAbilityScript.GetScriptFromName<IOnDeathAbility>();
-            onPlayAbility = cardAbilities.onPlayAbilityScript.GetScriptFromName<IOnPlayAbility>();
-            endTurnAbility = cardAbilities.endTurnAbilityScript.GetScriptFromName<IEndTurnAbility>();
-        }
-    
-    }
 }
 
 

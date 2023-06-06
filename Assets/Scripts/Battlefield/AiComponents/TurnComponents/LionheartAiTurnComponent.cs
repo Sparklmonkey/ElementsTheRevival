@@ -45,7 +45,7 @@ public class LionheartAiTurnComponent : AiBaseFunctions, IAiTurnComponent
             {
                 BattleVars.shared.originId = crusaderIds[i];
                 BattleVars.shared.cardOnStandBy = crusaderCards[i];
-                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
                 List<ID> opCreatureIds = DuelManager.GetAllValidTargets();
                 if (opCreatureIds.Count == 0) { continue; }
                 System.Random rnd = new System.Random();

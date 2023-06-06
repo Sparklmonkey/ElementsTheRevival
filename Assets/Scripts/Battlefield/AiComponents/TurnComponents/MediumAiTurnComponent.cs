@@ -46,14 +46,14 @@ public class MediumAiTurnComponent : AiBaseFunctions, IAiTurnComponent
     {
         if (cardType.Equals(CardType.Shield))
         {
-            if(aiManager.playerPassiveManager.GetShield() != null)
+            if(aiManager.playerPassiveManager.GetShield().skill != "none")
             {
                 yield break;
             }
         }
         if (cardType.Equals(CardType.Weapon))
         {
-            if (aiManager.playerPassiveManager.GetWeapon() != null)
+            if (aiManager.playerPassiveManager.GetWeapon().skill != "none")
             {
                 yield break;
             }
@@ -106,16 +106,16 @@ public class MediumAiTurnComponent : AiBaseFunctions, IAiTurnComponent
             BattleVars.shared.cardOnStandBy = cardToCheck;
             ID target = idList[cardIndex];
 
-            if (BattleVars.shared.isSelectingTarget)
+            if (!BattleVars.shared.IsFixedTarget())
             {
                 //Get Target
-                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
                 //Get List of all Valid Targets
                 List<ID> allValidTargets = DuelManager.GetAllValidTargets();
                 //If there is no valid targets, reset and skip to next iteration
                 if (allValidTargets.Count == 0)
                 {
-                    DuelManager.ResetTargeting();
+                    DuelManager.Instance.ResetTargeting();
                     cardList = new List<Card>(aiManager.GetHandCards());
                     idList = new List<ID>(aiManager.GetHandIds());
                     cardIndex = cardList.FindIndex(x => x.cardType.Equals(CardType.Spell) && aiManager.IsCardPlayable(x) && x.cardName != cardToCheck.cardName);
@@ -125,7 +125,7 @@ public class MediumAiTurnComponent : AiBaseFunctions, IAiTurnComponent
                 target = GetPriorityTarget(allValidTargets, BattleVars.shared.cardOnStandBy.skill, aiManager);
                 if (target == null)
                 {
-                    DuelManager.ResetTargeting();
+                    DuelManager.Instance.ResetTargeting();
                     cardIndex = cardList.FindIndex(x => aiManager.IsAbilityUsable(x) && x.cardName != cardToCheck.cardName);
                     continue;
                 }
@@ -186,13 +186,13 @@ public class MediumAiTurnComponent : AiBaseFunctions, IAiTurnComponent
             if (!BattleVars.shared.IsFixedTarget())
             {
                 //Get Target
-                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
                 //Get List of all Valid Targets
                 List<ID> allValidTargets = DuelManager.GetAllValidTargets();
                 //If there is no valid targets, reset and skip to next iteration
                 if (allValidTargets.Count == 0)
                 {
-                    DuelManager.ResetTargeting();
+                    DuelManager.Instance.ResetTargeting();
                     cardIndex = cardList.FindIndex(x => aiManager.IsAbilityUsable(x) && x.cardName != cardToCheck.cardName);
                     continue;
                 }
@@ -200,7 +200,7 @@ public class MediumAiTurnComponent : AiBaseFunctions, IAiTurnComponent
                 target = GetPriorityTarget(allValidTargets, BattleVars.shared.cardOnStandBy.skill, aiManager);
                 if (target == null)
                 {
-                    DuelManager.ResetTargeting();
+                    DuelManager.Instance.ResetTargeting();
                     cardIndex = cardList.FindIndex(x => aiManager.IsAbilityUsable(x) && x.cardName != cardToCheck.cardName);
                     continue;
                 }

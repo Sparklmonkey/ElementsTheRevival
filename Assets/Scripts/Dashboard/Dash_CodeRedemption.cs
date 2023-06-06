@@ -38,7 +38,7 @@ public class Dash_CodeRedemption : MonoBehaviour
         {
             if(codeRedemptionResponse.cardRewards[0] != "")
             {
-                List<Card> cards = CardDatabase.GetCardListWithID(codeRedemptionResponse.cardRewards);
+                List<Card> cards = CardDatabase.Instance.GetCardListWithID(codeRedemptionResponse.cardRewards);
                 cardRewardLabel.text = "Cards Gained:";
 
                 if (codeRedemptionResponse.isCardSelection)

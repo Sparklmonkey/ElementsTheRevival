@@ -77,7 +77,14 @@ public class DashboardPlayerData : MonoBehaviour
         electrumCount.text = PlayerData.shared.electrum.ToString();
         oracleButton.interactable = false;
         falseGobButton.interactable = PlayerData.shared.currentQuestIndex >= 7;
-        oracleButton.interactable = !PlayerData.shared.playedOracleToday;
+        if (PlayerPrefs.GetInt("IsGuest") == 1)
+        {
+            oracleButton.interactable = PlayerData.shared.dayLastOraclePlay.Day < System.DateTime.Today.Day;
+        }
+        else
+        {
+            oracleButton.interactable = !PlayerData.shared.playedOracleToday;
+        }
         oracleText.text = oracleButton.interactable ? "See what the Oracle has for you today!" : "You cannot visit the Oracle yet";
     }
 }

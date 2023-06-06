@@ -100,6 +100,12 @@ namespace Elements.Duel.Visual
             isHidden.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
             SetCard(cardToDisplay);
         }
+
+        internal void HideCardForPrecog()
+        {
+            isHidden.sprite = ImageHelper.GetCardBackImage();
+            SetCard(null);
+        }
     }
 
 }

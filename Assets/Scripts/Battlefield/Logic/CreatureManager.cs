@@ -37,7 +37,7 @@ public class CreatureManager : FieldManager
     {
         Card creature = GetCardWithID(target);
         if(creature == null) { return null; }
-        creature.DefDamage -= amount;
+        creature.DefDamage += amount;
         if(creature.DefDamage < 0) { creature.DefDamage = 0; }
         if(creature.DefNow > 0)
         {
@@ -84,7 +84,6 @@ public class CreatureManager : FieldManager
                 break;
             case CounterEnum.Charge:
                 creature.Charge += amount;
-                creature.DefModify += amount;
                 creature.AtkModify += amount;
                 break;
             default:
@@ -95,17 +94,18 @@ public class CreatureManager : FieldManager
     public void ModifyPowerHP(int modifyPower, int modifyHP, ID target, bool isModifyPerm)
     {
         Card creature = GetCardWithID(target);
-        creature.AtkModify += modifyPower;
-        creature.DefModify += modifyHP;
         if (isModifyPerm)
         {
             creature.def += modifyHP;
             creature.atk += modifyPower;
+            return;
         }
+        creature.AtkModify += modifyPower;
+        creature.DefModify += modifyHP;
+    }
+
+    public List<CardInPlay> GetAllCardsInPlay()
+    {
+        throw new NotImplementedException();
     }
 }
-
-
-
-
-

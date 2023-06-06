@@ -45,7 +45,7 @@ public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         Card weapon = aiManager.playerPassiveManager.GetWeapon();
         if(weapon == null) { yield break; }
         if (weapon.cardName == "Weapon") { yield break; }
-        SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, weapon);
+        SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, weapon);
         List<ID> idList = DuelManager.GetAllValidTargets();
         if(idList.Count == 0) { yield break; }
         if (weapon != null)
@@ -91,7 +91,7 @@ public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
             if (!aiManager.IsAbilityUsable(eagleEyeCards[i])) { continue; }
             BattleVars.shared.originId = eagleEyeIds[i];
             BattleVars.shared.cardOnStandBy = eagleEyeCards[i];
-            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
             idList = DuelManager.GetAllValidTargets();
             if (idList.Count == 0) { yield break; }
 

@@ -25,14 +25,12 @@ public class GameOverVisual : MonoBehaviour
 
     public static void ShowGameOverScreen(bool didWin)
     {
-        DuelManager.enemy.StopAllCoroutines();
-        DuelManager.player.StopAllCoroutines();
+        DuelManager.Instance.enemy.StopAllCoroutines();
+        DuelManager.Instance.player.StopAllCoroutines();
 
-        BattleVars.shared.playerHP = DuelManager.player.healthManager.GetCurrentHealth();
+        BattleVars.shared.playerHP = DuelManager.Instance.player.healthManager.GetCurrentHealth();
         isGameOver = true;
         instance.StopAllCoroutines();
-        Command.CommandQueue.Clear();
-        Command.playingQueue = false;
         didWinStatic = didWin;
         gameOverTextStatic.gameObject.SetActive(true);
         continueButtonStatic.gameObject.SetActive(true);
@@ -41,7 +39,7 @@ public class GameOverVisual : MonoBehaviour
         if(BattleVars.shared.isTest){return;}
         if (didWin)
         {
-            if(DuelManager.player.healthManager.IsMaxHealth())
+            if(DuelManager.Instance.player.healthManager.IsMaxHealth())
             {
                 BattleVars.shared.elementalMastery = true;
             }

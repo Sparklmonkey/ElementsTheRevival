@@ -59,7 +59,7 @@ public class OracleHelper
     {
         if (Random.Range(0, 100) > 75)
         {
-            return CardDatabase.GetRandomPet().cardName;
+            return CardDatabase.Instance.GetRandomPet().cardName;
         }
         switch (element)
         {
@@ -99,37 +99,37 @@ public class OracleHelper
         int cardTypeToSpawn = Random.Range(0, 100);
         if (cardTypeToSpawn > 97)
         {
-            oracleResult.Item1 = CardDatabase.GetRandomRegularNymph((Element)Random.Range(0, 12));
+            oracleResult.Item1 = CardDatabase.Instance.GetRandomRegularNymph((Element)Random.Range(0, 12));
             oracleResult.Item2 = nymphCardElectrum[Random.Range(0, nymphCardElectrum.Count)];
         }
         else if (cardTypeToSpawn > 87)
         {
-            oracleResult.Item1 = CardDatabase.GetRandomCardOfTypeWithElement(CardType.Weapon, (Element)finalRotation, false);
+            oracleResult.Item1 = CardDatabase.Instance.GetRandomCardOfTypeWithElement(CardType.Weapon, (Element)finalRotation, false);
             oracleResult.Item2 = weaponCardElectrum[Random.Range(0, weaponCardElectrum.Count)];
         }
         else if (cardTypeToSpawn > 77)
         {
-            oracleResult.Item1 = CardDatabase.GetRandomCardOfTypeWithElement(CardType.Shield, (Element)finalRotation, false);
+            oracleResult.Item1 = CardDatabase.Instance.GetRandomCardOfTypeWithElement(CardType.Shield, (Element)finalRotation, false);
             oracleResult.Item2 = commonCardElectrum[Random.Range(0, commonCardElectrum.Count)];
         }
         else if (cardTypeToSpawn > 57)
         {
-            oracleResult.Item1 = CardDatabase.GetOracleCreature((Element)finalRotation);
+            oracleResult.Item1 = CardDatabase.Instance.GetOracleCreature((Element)finalRotation);
             oracleResult.Item2 = commonCardElectrum[Random.Range(0, commonCardElectrum.Count)];
         }
         else if (cardTypeToSpawn > 37)
         {
-            oracleResult.Item1 = CardDatabase.GetRandomCardOfTypeWithElement(CardType.Spell, (Element)finalRotation, false);
+            oracleResult.Item1 = CardDatabase.Instance.GetRandomCardOfTypeWithElement(CardType.Spell, (Element)finalRotation, false);
             oracleResult.Item2 = commonCardElectrum[Random.Range(0, commonCardElectrum.Count)];
         }
         else if (cardTypeToSpawn > 27)
         {
-            oracleResult.Item1 = CardDatabase.GetRandomCardOfTypeWithElement(CardType.Artifact, (Element)finalRotation, false);
+            oracleResult.Item1 = CardDatabase.Instance.GetRandomCardOfTypeWithElement(CardType.Artifact, (Element)finalRotation, false);
             oracleResult.Item2 = commonCardElectrum[Random.Range(0, commonCardElectrum.Count)];
         }
         else
         {
-            oracleResult.Item1 = CardDatabase.GetRandomCardOfTypeWithElement(CardType.Pillar, (Element)finalRotation, false);
+            oracleResult.Item1 = CardDatabase.Instance.GetRandomCardOfTypeWithElement(CardType.Pillar, (Element)finalRotation, false);
             oracleResult.Item2 = commonCardElectrum[Random.Range(0, commonCardElectrum.Count)];
         }
 

@@ -21,6 +21,11 @@ public abstract class FieldManager
         return toReturn;
     }
 
+    public List<IDCardPair> GetAllValidCardIds()
+    {
+        return new List<IDCardPair>(pairList.FindAll(x => x.card.IsValidCard()));
+    }
+
     public void PlayCardAtLocation(Card card, ID location)
     {
         ID canStack = CanStack(card);

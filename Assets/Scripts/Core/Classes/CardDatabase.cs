@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -6,38 +7,71 @@ using UnityEngine;
 
 public class CardDatabase : MonoBehaviour
 {
-    public static List<string> endTurnPassives = new List<string> { "fire", "sanctuary","gratitude", "infest", "light", "air", "earth", "overdrive", 
+
+    private static readonly CardDatabase instance = new();
+
+    // Explicit static constructor to tell C# compiler
+    // not to mark type as beforefieldinit
+    static CardDatabase()
+    {
+    }
+
+    private CardDatabase()
+    {
+        SetupNewCardBase();
+    }
+
+    public static CardDatabase Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+
+    public List<string> endTurnPassives = new List<string> { "fire", "sanctuary","gratitude", "infest", "light", "air", "earth", "overdrive", 
         "acceleration", "void", "empathy", "flood", "devourer", "swarm", "patience", "singularity"};
 
+    internal List<int> GetFullCardCount()
+    {
+        var elementCount = new List<int>();
+        for (int i = 0; i < 13; i++)
+        {
+            elementCount.Add(fullCardList.FindAll(x => !x.iD.IsUpgraded() && x.costElement.Equals((Element)i)).Count);
+        }
+        return elementCount;
+    }
 
-    public static List<string> skillsNoTarget = new List<string> {"duality", "hasten", "ignite", "scarab","ablaze", "black hole", "luciferin", "dead / alive", "lycanthropy", "deja vu", "hatch", "evolve", "unstable gas", "dive",
+    public List<string> skillsNoTarget = new List<string> {"duality", "hasten", "ignite", "scarab","ablaze", "black hole", "luciferin", "dead / alive", "lycanthropy", "deja vu", "hatch", "evolve", "unstable gas", "dive",
         "gravity pullc", "growth", "plague", "poison", "stone form", "precognition", "photosynthesis", "steam", "queen", "divineshield", "burrow", "rebirth", "silence", "sacrifice", "patience",
         "serendipity", "bravery", "nova", "pandemonium", "miracle", "thunderstorm", "flying", "stoneskin", "healp", "mitosis", "rain of fire", "blitz", "supernova", "deadly poison",
         "shard"};
 
-    public static List<string> skillsWithTarget = new List<string> { "sniper", "mutation", "mitosiss", "improve", "antimatter", "web", "endow", "liquid shadow", "accretion", "devour", "immortality","infect", "congeal",
+    public List<string> skillsWithTarget = new List<string> { "sniper", "mutation", "mitosiss", "improve", "antimatter", "web", "endow", "liquid shadow", "accretion", "devour", "immortality","infect", "congeal",
         "berserk", "lobotomize", "rage", "paradox", "freeze", "infection", "nymph", "heal", "petrify", "aflatoxin", "guard", "fractal", "chaos power", "overdrive", "readiness", "wisdom", "chaos",
         "butterfly", "momentum", "acceleration", "armor", "reverse time", "enchant", "earthquake", "adrenaline", "fire bolt", "destroy", "immolate", "icebolt", "purify", "holy light", "blessing",
         "shockwave", "steal", "drain life", "nightmare", "gravity pull", "lightning", "parallel universe","heavy armor", "cremation"};
 
-    public static List<string> rareWeaponRewards = new List<string> { "5ic", "5ol", "5ur", "5f7", "5lh", "4vl", "52q", "55s", "58v", "5c5", "5ro","61u"};
+    public List<string> rareWeaponRewards = new (){ "5ic", "5ol", "5ur", "5f7", "5lh", "4vl", "52q", "55s", "58v", "5c5", "5ro","61u"};
 
+    private List<Card> fullCardList;
 
-    private static List<Card> fullCardList;
-
-    private static List<string> illegalPets = new List<string> { "4vr", "4t8", "4vf", "52h", "55o", "58r", "5bt", "5f2", "5id", "5la", "5of", "5rm", "5ul", "61v" };
-    public static Card GetRandomPet()
+    private List<string> illegalPets = new() { "4vr", "4t8", "4vf", "52h", "55o", "58r", "5bt", "5f2", "5id", "5la", "5of", "5rm", "5ul", "61v" };
+    public Card GetRandomPet()
     {
-        if(fullCardList == null) { SetupNewCardBase(); }
         return fullCardList.Find(x => !x.iD.IsUpgraded() && !illegalPets.Contains(x.iD) && x.cardType.Equals(CardType.Creature));
     }
-    public static Card GetOracleCreature(Element element)
+    public Card GetOracleCreature(Element element)
     {
-        if (fullCardList == null) { SetupNewCardBase(); }
-        return fullCardList.Find(x => !x.iD.IsUpgraded() && x.costElement.Equals(element) && !illegalPets.Contains(x.iD) && x.cardType.Equals(CardType.Creature));
+        return fullCardList.Find(x => !x.iD.IsUpgraded() 
+                        && x.costElement.Equals(element) 
+                        && !illegalPets.Contains(x.iD) 
+                        && x.cardType.Equals(CardType.Creature)
+                        && !x.cardName.Contains("Shard of"));
     }
 
-    public static List<string> trainerCardList = new List<string> { "562", "5c7", "52s", "4vn", "595", "55v", "5lf", "4vo", "4vi", "5f6", "5us", "593", "592", "5f4", "5oi", "622", "5i7", "55t", 
+    public List<string> trainerCardList = new List<string> { "562", "5c7", "52s", "4vn", "595", "55v", "5lf", "4vo", "4vi", "5f6", "5us", "593", "592", "5f4", "5oi", "622", "5i7", "55t", 
         "5c2", "5lc", "5i8", "5f9", "61q", "5uu", "5lj", "5li", "5c9", "55q", "4vk", "5v1", "4vj", "5ig", "4vp", "61r", "52p", "58t", "52o", "5rr", "5ia", "621", "5fb", "5f8", "5rk", "5on", "624", 
         "5op", "5up", "594", "5oh", "7n2", "6u2", "7gn", "7dp", "718", "71c", "77l", "74f", "6u8", "80i", "7te", "7ap", "7th", "7h0", "6u9", "7qb", "7gq", "80h", "7n7", "80k", "7n9", "7an", "7dm", 
         "7dk", "7do", "77k", "74d", "77d", "7js", "7go", "6u7", "7jv", "7ai", "7k2", "6u4", "719", "7t9", "7n1", "7k3", "74i", "77i", "77j", "7dr", "7q4", "7tc", "6u3", "80a", "80b", "74a", "52n", 
@@ -53,60 +87,58 @@ public class CardDatabase : MonoBehaviour
         "75m","7bu","7la","7ri","7i6","7ac","744","7jo","7t4","6qq","778","7q0","7gk","7ms","63a","61o","5pu","4vc","52g","5f0","606","542","5aa","5bs","50u","5gi","576","55k","5de","5mq","5l8","5uk",
         "4sa","58o","5rg","5t2","5jm","5i4","5oc","808","6ts","710","7dg","81q","7oe","7um","72i","78q","6ve","7f2","75m","7bu","7la","7ri","7i6","7ac","744","7jo","7t4","6qq","778","7q0","7gk","7ms"};
 
-    public static List<string> weaponIdList = new List<string> { "52q", "4t3", "4vl", "5c5", "5ro", "5f7", "4t5", "61u", "5lh", "5ol", "58v", "4tb", "4t4", "55s", "5ic", "5ur", "0", "6rj", "7n5", "80e",
+    public List<string> weaponIdList = new List<string> { "52q", "4t3", "4vl", "5c5", "5ro", "5f7", "4t5", "61u", "5lh", "5ol", "58v", "4tb", "4t4", "55s", "5ic", "5ur", "0", "6rj", "7n5", "80e",
         "71a", "6u5", "7q8", "7dn", "77f", "74c", "6rl", "7al", "6rr", "6rk", "7k1", "7gs", "7tb" };
-    public static Card GetShardOfElement(Element element)
+    public Card GetShardOfElement(Element element)
     {
         return GetAllShards().Find(x => x.costElement.Equals(element) && !x.iD.IsUpgraded());
     }
 
-    private static readonly List<string> mutantActiveAList = new List<string>
+    private readonly List<string> mutantActiveAList = new List<string>
         {
-            "Burrow",
-            "Paradox",
-            "Lycanthropy",
-            "Infection",
-            "Devour",
-            "Ablaze",
-            "Growth",
-            "Heal",
-            "Steal",
-            "Freeze",
-            "PoisonPlayer",
-            "Mutation",
-            "Hatch",
-            "Destroy",
-            "Dive",
-            "DejaVu",
-            "GravityPull",
-            "Endow",
-            "Mitosis",
-            "Aflatoxin",
-            "Immaterial",
-            "Momentum",
-            "Scavenger"
+            "hatch",
+            "destroy",
+            "freeze",
+            "steal",
+            "dive",
+            "heal",
+            "ablaze",
+            "paradox",
+            "infection",
+            "lycanthropy",
+            "poison",
+            "devour",
+            "growth",
+            "mutation",
+            "deja vu",
+            "gravity pull",
+            "endow",
+            "mitosis",
+            "aflatoxin",
+            "immaterial",
+            "momentum",
+            "scavenger"
         };
 
-    public static void SetupNewCardBase()
+    public void SetupNewCardBase()
     {
         TextAsset jsonString = Resources.Load<TextAsset>("Cards/CardDatabase");
         CardDB cardDBNew = JsonUtility.FromJson<CardDB>(jsonString.text);
         fullCardList = cardDBNew.cardDb;
     }
-    public static Card GetCardFromId(string id)
+    public Card GetCardFromId(string id)
     {
-        if (fullCardList == null) { SetupNewCardBase(); }
         Card baseCard = fullCardList.Find(x => x.iD == id);
 
         return new Card(baseCard);
     }
 
-    internal static List<Card> GetAllBazaarCards()
+    internal List<Card> GetAllBazaarCards()
     {
-        return new List<Card>(fullCardList.FindAll(x => !x.IsRare() && !x.iD.IsUpgraded()));
+        return new List<Card>(fullCardList.FindAll(x => !x.IsRare() && !x.iD.IsUpgraded() && x.iD.IsBazaarLegal()));
     }
 
-    internal static List<Card> GetCardListWithID(List<string> cardRewards)
+    internal List<Card> GetCardListWithID(List<string> cardRewards)
     {
         List<Card> cardObjects = new List<Card>();
         foreach (var cardId in cardRewards)
@@ -116,45 +148,45 @@ public class CardDatabase : MonoBehaviour
         return cardObjects;
     }
 
-    public static List<Card> GetAllShards()
+    public List<Card> GetAllShards()
     {
         List<Card> list = new List<Card>(fullCardList.FindAll(x => x.cardName.Contains("Shard of")));
         return list;
     }
 
-    public static List<string> markIds = new List<string> { "4su", "4sr", "4st", "4sq", "4sk", "4sm", "4sj", "4ss", "4so", "4sl", "4sn", "4sp" };
+    public List<string> markIds = new List<string> { "4su", "4sr", "4st", "4sq", "4sk", "4sm", "4sj", "4ss", "4so", "4sl", "4sn", "4sp" };
     
-    public static string weaponsIds = "52q 4t3 4vl 5c5 5ro 5f7 4t5 61u 5lh 5ol 58v 4tb 4t4 55s 5ic 5ur 6rj 7n5 80e 71a 6u5 7q8 7dn 77f 74c 6rl 7al 6rr 6rk 7k1 7gs 7tb";
+    public string weaponsIds = "52q 4t3 4vl 5c5 5ro 5f7 4t5 61u 5lh 5ol 58v 4tb 4t4 55s 5ic 5ur 6rj 7n5 80e 71a 6u5 7q8 7dn 77f 74c 6rl 7al 6rr 6rk 7k1 7gs 7tb";
 
-    private static string baseSOpath = @"Cards";
-    internal static Card GetRandomSpell()
+    private string baseSOpath = @"Cards";
+    internal Card GetRandomSpell()
     {
         List<Card> list = new List<Card>(fullCardList.FindAll(x => x.cardType == CardType.Spell && !x.iD.IsUpgraded()));
         Card card = list[Random.Range(0, list.Count)];
         return new Card(card);
     }
-    public static Card GetRandomEliteSpell()
+    public Card GetRandomEliteSpell()
     {
         List<Card> list = new List<Card>(fullCardList.FindAll(x => x.cardType == CardType.Spell && x.iD.IsUpgraded()));
         Card card = list[Random.Range(0, list.Count)];
         return new Card(card);
     }
 
-    public static Card GetRandomEliteCreature()
+    public Card GetRandomEliteCreature()
     {
-        List<Card> list = new List<Card>(fullCardList.FindAll(x => x.cardType == CardType.Creature && x.iD.IsUpgraded()));
+        List<Card> list = new List<Card>(fullCardList.FindAll(x => !illegalHatchCards.Contains(x.iD) && x.cardType == CardType.Creature && x.iD.IsUpgraded()));
         Card card = list[Random.Range(0, list.Count)];
         return new Card(card);
     }
 
-    public static Card GetRandomCreature()
+    public Card GetRandomCreature()
     {
-        List<Card> list = new List<Card>(fullCardList.FindAll(x => x.cardType == CardType.Creature && !x.iD.IsUpgraded()));
+        List<Card> list = new List<Card>(fullCardList.FindAll(x => !illegalHatchCards.Contains(x.iD) && x.cardType == CardType.Creature && !x.iD.IsUpgraded()));
         Card card = list[Random.Range(0, list.Count)];
         return new Card(card);
     }
 
-    public static Card GetRandomHatchCreature()
+    public Card GetRandomHatchCreature()
     {
         List<Card> list = new List<Card>(fullCardList.FindAll(x => !illegalHatchCards.Contains(x.iD) && x.cardType.Equals(CardType.Creature) && !x.iD.IsUpgraded()));
         System.Random rnd = new System.Random();
@@ -165,8 +197,8 @@ public class CardDatabase : MonoBehaviour
         return cardToReturn;
     }
 
-    static List<string> illegalHatchCards = new List<string> { "7qa", "7q2", "5ri", "61s", "80c", "6ro", "4t8", "6ub", "4vr", "74g", "560", "7dt", "5fd", "5rm", "7q6" };
-    public static Card GetRandomEliteHatchCreature()
+    List<string> illegalHatchCards = new List<string> { "7qa", "7q2", "5ri", "61s", "80c", "6ro", "4t8", "6ub", "4vr", "74g", "560", "7dt", "5fd", "5rm", "7q6" };
+    public Card GetRandomEliteHatchCreature()
     {
         List<Card> list = new List<Card>(fullCardList.FindAll(x => !illegalHatchCards.Contains(x.iD) && x.cardType.Equals(CardType.Creature) && x.iD.IsUpgraded()));
         System.Random rnd = new System.Random();
@@ -177,21 +209,21 @@ public class CardDatabase : MonoBehaviour
         return cardToReturn;
     }
 
-    public static Card GetRandomPillar()
+    public Card GetRandomPillar()
     {
         List<Card> list = new List<Card>(fullCardList.FindAll(x => x.cardType == CardType.Pillar && !x.iD.IsUpgraded()));
         Card card = list[Random.Range(0, list.Count)];
         return new Card(card);
     }
 
-    public static Card GetRandomTower()
+    public Card GetRandomTower()
     {
         List<Card> list = new List<Card>(fullCardList.FindAll(x => x.cardType == CardType.Pillar && x.iD.IsUpgraded()));
         Card card = list[Random.Range(0, list.Count)];
         return new Card(card);
     }
 
-    public static List<string> GetRandomDeck()
+    public List<string> GetRandomDeck()
     {
         if(fullCardList == null) { SetupNewCardBase(); }
         List<string> deckToReturn = new List<string>();
@@ -213,22 +245,22 @@ public class CardDatabase : MonoBehaviour
         return deckToReturn;
     }
 
-    public static Card GetRandomCardOfTypeWithElement(CardType type, Element element, bool shouldBeUpgraded)
+    public Card GetRandomCardOfTypeWithElement(CardType type, Element element, bool shouldBeUpgraded)
     {
         string upgradedFolder = shouldBeUpgraded ? "Upgraded" : "Regular";
 
         
-        List<Card> reducedList = fullCardList.FindAll(x => x.costElement.Equals(element) && x.cardType.Equals(type));
+        List<Card> reducedList = fullCardList.FindAll(x => x.costElement.Equals(element) && x.cardType.Equals(type) && !x.cardName.Contains("Shard of") && !x.cardName.Contains(" Nymph"));
         if(reducedList.Count > 0)
         {
             Card card = reducedList[Random.Range(0, reducedList.Count)];
-            Card cardToReturn = new Card(card);
+            Card cardToReturn = new(card);
             return cardToReturn;
         }
         return GetRandomCardOfTypeWithElement((CardType)Random.Range(0, 6), element, shouldBeUpgraded);
     }
 
-    public static List<Card> GetHalfBloodDeck(Element primary, Element secondary)
+    public List<Card> GetHalfBloodDeck(Element primary, Element secondary)
     {
         List<Card> deckToReturn = new List<Card>();
 
@@ -348,55 +380,55 @@ public class CardDatabase : MonoBehaviour
         return deckToReturn;
     }
 
-    public static Card GetMutant(bool isUpgraded)
+    public Card GetMutant(bool isUpgraded, Card fromCard = null)
     {
 
-        Card card = isUpgraded ? GetRandomEliteHatchCreature() : GetRandomHatchCreature();
+        Card card = fromCard == null ? isUpgraded ? GetRandomEliteHatchCreature() : GetRandomHatchCreature() : fromCard;
         card.atk += Random.Range(0, 4);
         card.def += Random.Range(0, 4);
         card.passive.Add("mutant");
-
+        card.skillCost = Random.Range(1, 3);
+        card.skillElement = card.costElement;
         int index = Random.Range(0, mutantActiveAList.Count);
         string abilityName = mutantActiveAList[index];
 
         switch (abilityName)
         {
-            case "Immaterial":
+            case "immaterial":
+                card.skillCost = 0;
                 card.innate.Add("immaterial");
                 break;
-            case "Momentum":
-                card.passive.Add("momentum");
-                break;
-            case "Scavenger":
-                card.passive.Add("OnDeathScavenger");
+            case "momentum":
+            case "scavenger":
+                card.skillCost = 0;
+                card.passive.Add(abilityName);
                 break;
             default:
-                card.skill = $"ActiveA{abilityName}";
+                card.skill = abilityName;
                 break;
         }
-
-        card.desc = $"{AddSpacesToSentence(abilityName)} : \n {mutantActiveADescList[index]}";
+        string skillCost = card.skillCost == 0 ? "" : card.skillCost == 1 ? $"<sprite={(int)card.costElement}>" : $"<sprite={(int)card.costElement}><sprite={(int)card.costElement}>";
+        card.desc = $"{AddSpacesToSentence(abilityName)} {skillCost} : \n {mutantActiveADescList[index]}";
 
         return card;
     }
 
-    private static List<string> mutantActiveADescList = new List<string>
+    private List<string> mutantActiveADescList = new List<string>
         {
-            "The Mutant can not be targeted, but its damage is halved.",
-            "Kill the target creature if its attack is higher than its defense",
-            "The Mutant gains +5/+5 permanently.",
-            "Inflict 1 damage per turn to a target creature",
-            "Swallow a smaller (less HP's) creature and gain +1/+1",
-            "The Mutant gains +2/+0",
-            "The Mutant gains +2/+2",
-            "Heal the target creature up to 5 HP's",
-            "Steal a permanent",
-            "Freeze the target creature for 3 turns. Frozen creatures can not attack or use skills.",
-            "Inflicts 2 poison damage (to your opponent) at the end of every turn. Poison damage is cumulative.",
-            "Mutate the target creature into an abomination, unless it dies... or turn into something weird.",
             "The Mutant turns into a random creature",
             "Destroy the targeted permanent",
+            "Freeze the target creature for 3 turns. Frozen creatures can not attack or use skills.",
+            "Steal a permanent",
             "The damage dealt is doubled for 1 turn.",
+            "Heal the target creature up to 5 HP's",
+            "The Mutant gains +2/+0",
+            "Kill the target creature if its attack is higher than its defense",
+            "Inflict 1 damage per turn to a target creature",
+            "The Mutant gains +5/+5 permanently.",
+            "Inflicts 2 poison damage (to your opponent) at the end of every turn. Poison damage is cumulative.",
+            "Swallow a smaller (less HP's) creature and gain +1/+1",
+            "The Mutant gains +2/+2",
+            "Mutate the target creature into an abomination, unless it dies... or turn into something weird.",
             "Mutant creates a copy of itself",
             "The creature enchanted with gravity pull will absorb all the damage directed against its owner.",
             "Gain the target weapon's ability and +X|+2. X is the weapon's attack.",
@@ -407,26 +439,14 @@ public class CardDatabase : MonoBehaviour
             "Every time a creature dies, Mutant gains +1/+1"
         };
 
-    private static string AddSpacesToSentence(string text)
+    private string AddSpacesToSentence(string text)
     {
-        if (string.IsNullOrWhiteSpace(text))
-        {
-            return "";
-        }
-        StringBuilder stringBuilder = new StringBuilder(text.Length * 2);
-        stringBuilder.Append(text[0]);
-        for (int i = 1; i < text.Length; i++)
-        {
-            if (char.IsUpper(text[i]) && text[i - 1] != ' ')
-            {
-                stringBuilder.Append(' ');
-            }
-            stringBuilder.Append(text[i]);
-        }
-        return stringBuilder.ToString();
+        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
+        return textInfo.ToTitleCase(text);
     }
 
-    private static Dictionary<Element, string> regularNymphNames = new Dictionary<Element, string> {
+    private Dictionary<Element, string> regularNymphNames = new Dictionary<Element, string> {
         { Element.Gravity, "568" },
         {Element.Earth, "59c" },
         {Element.Darkness, "5v8" },
@@ -442,7 +462,7 @@ public class CardDatabase : MonoBehaviour
     };
 
 
-    private static Dictionary<Element, string> eliteNymphNames = new Dictionary<Element, string> {
+    private Dictionary<Element, string> eliteNymphNames = new Dictionary<Element, string> {
         { Element.Gravity, "74o" },
         {Element.Earth, "77s" },
         {Element.Darkness, "7to" },
@@ -457,7 +477,7 @@ public class CardDatabase : MonoBehaviour
         {Element.Light, "7kc"}
     };
 
-    public static Card GetRandomRegularNymph(Element element)
+    public Card GetRandomRegularNymph(Element element)
     {
         if (element.Equals(Element.Other))
         {
@@ -465,7 +485,7 @@ public class CardDatabase : MonoBehaviour
         }
         return GetCardFromId(regularNymphNames[element]);
     }
-    public static Card GetRandomEliteNymph(Element element)
+    public Card GetRandomEliteNymph(Element element)
     {
         if (element.Equals(Element.Other))
         {
@@ -474,7 +494,7 @@ public class CardDatabase : MonoBehaviour
         return GetCardFromId(eliteNymphNames[element]);
     }
 
-    public static Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
+    public Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
     {
         //switch (shardElementLast.element)
         //{
@@ -747,7 +767,7 @@ public class CardDatabase : MonoBehaviour
         return golem;
     }
 
-    internal static Card GetPlaceholderCard(int index)
+    internal Card GetPlaceholderCard(int index)
     {
         if(index == 1)
         {

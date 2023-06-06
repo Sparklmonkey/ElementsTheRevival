@@ -19,21 +19,29 @@ public static class ExtensionMethods
         return listToReturn;
     }
 
+    public static int DeckCount(this string deckCode)
+    {
+        return deckCode.DecompressDeckCode().Count;
+    }
+
+    public static string AddDeckCard(this string deckCode, string codeToAdd)
+    {
+        List<string> newDeck = deckCode.DecompressDeckCode();
+        newDeck.Add(codeToAdd);
+        return newDeck.CompressDeckCode();
+    }
+
     public static List<Card> DeserializeCard(this List<string> cardObjectList)
     {
         List<Card> listToReturn = new List<Card>();
 
-        if (cardObjectList.Count > 0)
+        foreach (string cardID in cardObjectList)
         {
-            foreach (string cardID in cardObjectList)
+            if (cardID != "" && cardID != " ")
             {
-                if (cardID != "" && cardID != " ")
-                {
-                    listToReturn.Add(CardDatabase.GetCardFromId(cardID));
-                }
+                listToReturn.Add(CardDatabase.Instance.GetCardFromId(cardID));
             }
         }
-
         return listToReturn;
     }
 
@@ -103,7 +111,7 @@ public static class ExtensionMethods
         {
             for (int x = 0; x < orderedList.Count; x++)
             {
-                if(orderedList[x].name == i.ToString("00"))
+                if (orderedList[x].name == i.ToString("00"))
                 {
                     listToOrder.Add(orderedList[x]);
                 }
@@ -166,7 +174,7 @@ public static class ExtensionMethods
     }
     public static int? ContainsElement(this List<QuantaObject> listToCheck, Element element)
     {
-        if(listToCheck.Count == 0)
+        if (listToCheck.Count == 0)
         {
             return null;
         }
@@ -204,7 +212,7 @@ public static class ExtensionMethods
         for (int i = 0; i < weights.Count; i++)
         {
             rndValue -= weights[i];
-            if(rndValue <= 0) { return cardTypes[i]; }
+            if (rndValue <= 0) { return cardTypes[i]; }
         }
         return CardType.Pillar;
     }
@@ -217,6 +225,20 @@ public static class ExtensionMethods
             return (cardValue - 2000).IntToBase32();
         }
         return (cardValue + 2000).IntToBase32();
+    }
+
+    public static bool IsValidCard(this Card card)
+    {
+        if(card != null)
+        {
+            return card.cardName != "Shield_" && card.cardName != "Weapon" && card.cardType != CardType.Mark && !card.innate.Contains("immaterial") && !card.innate.Contains("burrow");
+        }
+        return false;
+    }
+    public static bool IsBazaarLegal(this string cardID)
+    {
+        return (cardID != "4sj" && cardID != "4sk" && cardID != "4sl" && cardID != "4sm" && cardID != "4sn" && cardID != "4so" && cardID != "4sp" && cardID != "4sq" && 
+            cardID != "4sr" && cardID != "4st" && cardID != "4su" && cardID != "4t8" && cardID != "4vr" && cardID != "4t1" && cardID != "4t2");
     }
 
     public static bool IsUpgraded(this string cardID)
@@ -298,6 +320,95 @@ public static class ExtensionMethods
 
         return (int)n;
     }
-    
+
 }
 
+
+
+public static class DeckCodeExtension
+{
+    public static string CompressDeckCode(this string deckList)
+    {
+        Dictionary<string, int> cardDict = new();
+        string intList = "";
+        List<string> cardList = new(deckList.Split(" "));
+
+        foreach (var item in cardList)
+        {
+            if (cardDict.ContainsKey(item))
+            {
+                cardDict[item]++;
+            }
+            else
+            {
+                cardDict.Add(item, 1);
+            }
+        }
+
+        foreach (KeyValuePair<string, int> item in cardDict)
+        {
+            string cardCount = item.Value.IntToBase32();
+            if (cardCount.Length == 1)
+            {
+                cardCount = $"0{cardCount}";
+            }
+            intList += $"{cardCount}{item.Key}";
+        }
+        return intList;
+    }
+    public static string CompressDeckCode(this List<string> deckList)
+    {
+        Dictionary<string, int> cardDict = new();
+        string intList = "";
+
+        foreach (var item in deckList)
+        {
+            if (cardDict.ContainsKey(item))
+            {
+                cardDict[item]++;
+            }
+            else
+            {
+                cardDict.Add(item, 1);
+            }
+        }
+
+        foreach (KeyValuePair<string, int> item in cardDict)
+        {
+            string cardCount = item.Value.IntToBase32();
+            if(cardCount.Length == 1)
+            {
+                cardCount = $"0{cardCount}";
+            }
+            intList += $"{cardCount}{item.Key}";
+        }
+        return intList.Remove(0);
+    }
+
+    public static List<string> DecompressDeckCode(this string compressedDeck)
+    {
+        List<string> returnList = new();
+        var list = new List<string>();
+        int i = 0;
+        while (i < compressedDeck.Length)
+        {
+            int subLength = Math.Min(compressedDeck.Length - i, 5);
+            string item = compressedDeck.Substring(i, subLength);
+            list.Add(item);
+            i += 5;
+        }
+        foreach (var item in list)
+        {
+
+            if (item == "") { continue; }
+            string cardCode = item[^3..];
+            int cardCount = item.Replace(cardCode, "").Base32ToInt();
+            for (int c = 0; c < cardCount; c++)
+            {
+                returnList.Add(cardCode);
+            }
+        }
+
+        return returnList;
+    }
+}

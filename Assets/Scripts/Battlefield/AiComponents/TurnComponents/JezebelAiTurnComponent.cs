@@ -59,13 +59,13 @@ public class JezebelAiTurnComponent : AiBaseFunctions, IAiTurnComponent
             if (BattleVars.shared.isSelectingTarget)
             {
                 //Get Target
-                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
                 //Get List of all Valid Targets
                 List<ID> allValidTargets = DuelManager.GetAllValidTargets();
                 //If there is no valid targets, reset and skip to next iteration
                 if (allValidTargets.Count == 0)
                 {
-                    DuelManager.ResetTargeting();
+                    DuelManager.Instance.ResetTargeting();
                     cardIndex = cardList.FindIndex(x => aiManager.IsAbilityUsable(x) && x.cardName != cardToCheck.cardName);
                     continue;
                 }

@@ -45,7 +45,7 @@ public class LoginScreen_SetupManager : MonoBehaviour
     {
         ApiManager.isTrainer = true;
         PlayerData.shared = new PlayerData();
-        List<string> simpleList = CardDatabase.trainerCardList;
+        List<string> simpleList = CardDatabase.Instance.trainerCardList;
         List<string> fullList = new List<string>(simpleList);
         fullList.AddRange(simpleList);
         fullList.AddRange(simpleList);

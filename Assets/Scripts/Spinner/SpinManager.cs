@@ -52,7 +52,7 @@ public class SpinManager : MonoBehaviour
         oppDeck = new List<string>(BattleVars.shared.enemyAiData.deck.Split(" ")).DeserializeCard();
         if (BattleVars.shared.isArena)
         {
-            oppDeck.Add(CardDatabase.GetShardOfElement(BattleVars.shared.enemyAiData.mark));
+            oppDeck.Add(CardDatabase.Instance.GetShardOfElement(BattleVars.shared.enemyAiData.mark));
         }
 
 
@@ -141,7 +141,7 @@ public class SpinManager : MonoBehaviour
         if(cardOne.cardName == cardThree.cardName && cardOne.cardName == cardTwo.cardName)
         {
             shouldWinCard = true;
-            cardsWon.Add(CardDatabase.GetCardFromId(cardOne.iD));
+            cardsWon.Add(CardDatabase.Instance.GetCardFromId(cardOne.iD));
         }
         else if(cardOne.cardName == cardTwo.cardName || cardOne.cardName == cardThree.cardName || cardTwo.cardName == cardThree.cardName)
         {
@@ -149,15 +149,15 @@ public class SpinManager : MonoBehaviour
         }
 
         List<Sprite> tempList = new List<Sprite>(spriteList) { ImageHelper.GetCardImage(cardOne.imageID) };
-        spinOne.isUpgraded = !cardOne.iD.IsUpgraded();
+        spinOne.isUpgraded = cardOne.iD.IsUpgraded();
         StartCoroutine(spinOne.DissolveAnimation(tempList));
         yield return new WaitForSeconds(0.5f);
         tempList = new List<Sprite>(spriteList) { ImageHelper.GetCardImage(cardTwo.imageID) };
-        spinTwo.isUpgraded = !cardOne.iD.IsUpgraded();
+        spinTwo.isUpgraded = cardOne.iD.IsUpgraded();
         StartCoroutine(spinTwo.DissolveAnimation(tempList));
         yield return new WaitForSeconds(0.5f);
         tempList = new List<Sprite>(spriteList) { ImageHelper.GetCardImage(cardThree.imageID) };
-        spinThree.isUpgraded = !cardOne.iD.IsUpgraded();
+        spinThree.isUpgraded = cardOne.iD.IsUpgraded();
         yield return StartCoroutine(spinThree.DissolveAnimation(tempList));
 
     }

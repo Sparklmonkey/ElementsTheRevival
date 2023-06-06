@@ -34,9 +34,18 @@ public static class ImageHelper
     {
 		return Resources.Load<Sprite>("Sprites/CardTypes/" + type);
 	}
+	public static Sprite GetCardBackImage()
+	{
+		return Resources.Load<Sprite>("Sprites/CardBack");
+	}
 
 	public static Sprite GetCreatureEffectIndicator(string effect)
     {
 		return Resources.Load<Sprite>("Sprites/Effects/" + effect);
-    }
+	}
+
+	public static Sprite GetPoisonSprite(bool isPoison)
+	{
+		return Resources.Load<Sprite>("Sprites/Posion/" + (isPoison ? "Death" : "Water"));
+	}
 }

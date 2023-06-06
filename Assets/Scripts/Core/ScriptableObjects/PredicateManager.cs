@@ -33,7 +33,7 @@ public class PredicateManager
 
     public Predicate<ID> reverseTimePred = delegate (ID x) { return reverseTimePriority.Contains(DuelManager.GetCard(x).iD) && x.Owner.Equals(OwnerEnum.Opponent); };
     public Predicate<ID> mutationsPred = delegate (ID x) { return mutationPriority.Contains(DuelManager.GetCard(x).iD) && x.Owner.Equals(OwnerEnum.Opponent); };
-    public Predicate<ID> endowPred = delegate (ID x) { return CardDatabase.weaponIdList.Contains(DuelManager.GetCard(x).iD) && x.Owner.Equals(OwnerEnum.Opponent); };
+    public Predicate<ID> endowPred = delegate (ID x) { return CardDatabase.Instance.weaponIdList.Contains(DuelManager.GetCard(x).iD) && x.Owner.Equals(OwnerEnum.Opponent); };
     public Predicate<ID> petrifyPred = delegate (ID x) { return DuelManager.GetCard(x).passive.Contains("gravity pull") && x.Owner.Equals(OwnerEnum.Opponent); };
     public Predicate<ID> rndOpponentPred = delegate (ID x) { return x.Owner.Equals(OwnerEnum.Player); };
     public Predicate<ID> rndSelfPred = delegate (ID x) { return x.Owner.Equals(OwnerEnum.Opponent); };
@@ -58,11 +58,11 @@ public class PredicateManager
     };
 
     public Predicate<ID> nightmarePred = delegate (ID x) {
-        return (DuelManager.GetCard(x).costElement != DuelManager.player.playerPassiveManager.GetMark().costElement) 
+        return (DuelManager.GetCard(x).costElement != DuelManager.Instance.player.playerPassiveManager.GetMark().costElement) 
         || DuelManager.GetCard(x).iD == "5ru" || DuelManager.GetCard(x).iD == "7qe" || DuelManager.GetCard(x).cost > 3;
     };
 
     public Predicate<ID> fractalPred = delegate (ID x) {
-        return (DuelManager.GetCard(x).costElement == DuelManager.enemy.playerPassiveManager.GetMark().costElement) || DuelManager.GetCard(x).cost < 3;
+        return (DuelManager.GetCard(x).costElement == DuelManager.Instance.enemy.playerPassiveManager.GetMark().costElement) || DuelManager.GetCard(x).cost < 3;
     };
 }

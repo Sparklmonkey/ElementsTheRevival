@@ -51,7 +51,6 @@ public class Bazaar_PlayerDataManager : MonoBehaviour
     private bool isAdd = false;
     public void ConfirmModification()
     {
-
         confirmationMessage.gameObject.SetActive(false);
         if (isAdd)
         {

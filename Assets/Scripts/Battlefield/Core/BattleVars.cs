@@ -50,7 +50,7 @@ public class BattleVars
 
     public bool IsFixedTarget()
     {
-        return CardDatabase.skillsNoTarget.Contains(cardOnStandBy.skill);
+        return CardDatabase.Instance.skillsNoTarget.Contains(cardOnStandBy.skill);
     }
 
     public ID originId;

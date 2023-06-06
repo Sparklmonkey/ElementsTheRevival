@@ -36,7 +36,7 @@ public class IncarnateAiTurnComponent : AiBaseFunctions, IAiTurnComponent
             BattleVars.shared.originId = bloodsuckerIds[i];
             BattleVars.shared.cardOnStandBy = bloodsuckerCards[i];
 
-            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
             idList = DuelManager.GetAllValidTargets();
             if (idList.Count == 0) { yield break; }
 

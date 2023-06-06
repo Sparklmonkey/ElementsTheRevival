@@ -43,7 +43,7 @@ public class SpellAbilities
                 BattleVars.shared.originId = idList[cardIndex];
                 BattleVars.shared.cardOnStandBy = cardList[cardIndex];
 
-                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
                 ID target = DuelManager.GetAllValidTargets().Find(x => x.Owner.Equals(OwnerEnum.Opponent));
 
                 yield return aiManager.StartCoroutine(aiManager.ActivateAbility(target));
@@ -101,7 +101,7 @@ public class SpellAbilities
             BattleVars.shared.cardOnStandBy = cardList[cardIndex];
             yield return aiManager.StartCoroutine(aiManager.ActivateAbility(idList[cardIndex]));
 
-            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
 
             List<ID> opCreatureIds = DuelManager.GetAllValidTargets();
             opCreatureIds = opCreatureIds.FindAll(x => x.Owner.Equals(OwnerEnum.Player));
@@ -155,7 +155,7 @@ public class SpellAbilities
             BattleVars.shared.cardOnStandBy = rewindCards[i];
 
 
-            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
 
             List<ID> opCreatureIds = DuelManager.GetAllValidTargets();
             if (opCreatureIds.Count == 0) { yield break; }

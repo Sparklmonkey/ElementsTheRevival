@@ -75,7 +75,7 @@ public class SerketAiTurnComponent : AiBaseFunctions, IAiTurnComponent
             //    }
             //}
 
-            DuelManager.ResetTargeting();
+            DuelManager.Instance.ResetTargeting();
             //If ability is still usable, that means there are no more creatures to use ability on
             if (aiManager.IsAbilityUsable(cardList[nymphIndex[i]]))
             {
@@ -116,13 +116,13 @@ public class SerketAiTurnComponent : AiBaseFunctions, IAiTurnComponent
             BattleVars.shared.originId = fleshRecluseIds[i];
             BattleVars.shared.cardOnStandBy = fleshRecluseCards[i];
 
-            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
 
             List<ID> validTargets = DuelManager.GetAllValidTargets();
 
             if (validTargets.Count == 0)
             {
-                DuelManager.ResetTargeting();
+                DuelManager.Instance.ResetTargeting();
                 break;
             }
 

@@ -112,7 +112,6 @@ namespace Elements.Duel.Visual
             {
                 stackCount.text = "";
             }
-            Command.CommandExecutionComplete();
         }
 
         private void OnDisable()

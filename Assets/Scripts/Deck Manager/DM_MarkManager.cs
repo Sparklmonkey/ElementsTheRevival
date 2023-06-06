@@ -19,7 +19,7 @@ public class DM_MarkManager : MonoBehaviour
     public void SetupMarkCard(int element)
     {
         markElement = (Element)element;
-        Card mark = CardDatabase.GetCardFromId(CardDatabase.markIds[(int)markElement]);
+        //Card mark = CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.markIds[(int)markElement]);
         markImage.sprite = ImageHelper.GetElementImage(((Element)element).FastElementString());
         headBackground.sprite = ImageHelper.GetCardHeadBackground(((Element)element).FastElementString());
         markName.text = $"Mark of {markElement}"; 

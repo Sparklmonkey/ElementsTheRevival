@@ -10,6 +10,66 @@ using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
+    //Refactor Section
+    public void AddPlayerCounter(PlayerCounters counter, int amount)
+    {
+        switch (counter)
+        {
+            case PlayerCounters.Bone:
+                playerCounters.bone += amount;
+                boneShieldLabel.text = $"{playerCounters.bone}";
+                break;
+            case PlayerCounters.Invisibility:
+
+                playerCounters.invisibility += amount;
+                if (playerPermanentManager.GetAllCards().FindAll(x => x.skill == "cloak").Count == 1)
+                {
+                    //DeactivateCloakEffect(location);
+                    playerCounters.invisibility = 0;
+                }
+                break;
+            case PlayerCounters.Freeze:
+                break;
+            case PlayerCounters.Poison:
+                break;
+            case PlayerCounters.Nuerotoxin:
+                break;
+            case PlayerCounters.Sanctuary:
+                sanctuaryCount += amount;
+                sanctImage.gameObject.SetActive(sanctuaryCount > 0);
+                break;
+            case PlayerCounters.Freedom:
+                break;
+            case PlayerCounters.Patience:
+                break;
+            case PlayerCounters.Scarab:
+                break;
+            default:
+                break;
+        }
+    }
+
+    public (int, int) GetChimeraStats()
+    {
+        List<CardInPlay> creatureInPlayList = playerCreatureField.GetAllCardsInPlay();
+        (int, int) chimeraPwrHP = (0, 0);
+
+        foreach (var creatureInPlay in creatureInPlayList)
+        {
+            if (creatureInPlay.ActiveCard != null)
+            {
+                if (creatureInPlay.ActiveCard.passive.Contains("chimera")) { continue; }
+                chimeraPwrHP.Item1 += creatureInPlay.ActiveCard.AtkNow;
+                chimeraPwrHP.Item2 += creatureInPlay.ActiveCard.DefNow;
+                StartCoroutine(creatureInPlay.RemoveCardFromPlay());
+            }
+        }
+        return chimeraPwrHP;
+    }
+
+
+
+
 
     //Logic Properties
     [SerializeField]
@@ -22,12 +82,36 @@ public class PlayerManager : MonoBehaviour
     public List<PassiveInPlay> passiveDisplayers;
     [SerializeField]
     private List<QuantaDisplayer> quantaDisplayers;
+
+    internal void ShowTargetHighlight(ID id)
+    {
+        switch (id.Field)
+        {
+            case FieldEnum.Creature:
+                creatureDisplayers[id.Index].ShouldShowTarget(true);
+                break;
+            case FieldEnum.Passive:
+                passiveDisplayers[id.Index].ShouldShowTarget(true);
+                break;
+            case FieldEnum.Permanent:
+                permanentDisplayers[id.Index].ShouldShowTarget(true);
+                break;
+            case FieldEnum.Player:
+                playerDisplayer.ShouldShowTarget(true);
+                break;
+            default:
+                break;
+        }
+    }
+
     [SerializeField]
     private DeckDisplayer deckDisplayer;
 
     public HealthDisplayer healthDisplayer;
     [SerializeField]
     private GameObject cloakVisual;
+    [SerializeField]
+    private Transform permParent;
     private int scarabsPlayed = 0;
 
     public int GetPossibleDamage()
@@ -65,9 +149,6 @@ public class PlayerManager : MonoBehaviour
     public HealthManager healthManager;
     public CardDetailManager cardDetailManager;
     public Counters playerCounters;
-
-    public List<ID> deathTriggers = new List<ID>();
-
 
     public bool isPlayer;
 
@@ -168,9 +249,9 @@ public class PlayerManager : MonoBehaviour
         yield return StartCoroutine(GenerateQuantaLogic(Element.Other, 9));
     }
 
-    private IEnumerator TurnDownTick()
+    public IEnumerator TurnDownTick()
     {
-        if(playerPassiveManager.GetShield().iD == "7n8" || playerPassiveManager.GetShield().iD == "5oo" 
+        if (playerPassiveManager.GetShield().iD == "7n8" || playerPassiveManager.GetShield().iD == "5oo"
             || playerPassiveManager.GetShield().iD == "61t" || playerPassiveManager.GetShield().iD == "80d")
         {
             playerPassiveManager.GetShield().TurnsInPlay--;
@@ -180,15 +261,33 @@ public class PlayerManager : MonoBehaviour
 
         List<Card> permCards = playerPermanentManager.GetAllCards();
         List<ID> permIds = playerPermanentManager.GetAllIds();
-        if(permCards.Count == 0) { yield break; }
+        if (permCards.Count == 0) { yield break; }
         for (int i = 0; i < permCards.Count; i++)
         {
-            if(permCards[i].iD == "7q9" || permCards[i].iD == "5rp"
+            permCards[i].AbilityUsed = false;
+            if (permCards[i].iD == "7q9" || permCards[i].iD == "5rp"
                 || permCards[i].iD == "5v2" || permCards[i].iD == "7ti")
             {
                 permCards[i].TurnsInPlay--;
                 DisplayNewCard(permIds[i], permCards[i]);
             }
+            if (permCards[i].skill == "cloak")
+            {
+                permCards[i].TurnsInPlay--;
+                if (permCards[i].TurnsInPlay == 0)
+                {
+                    yield return StartCoroutine(RemoveCardFromFieldLogic(permIds[i]));
+                }
+            }
+        }
+
+        List<Card> creatureCards = playerCreatureField.GetAllCards();
+        List<ID> creatureIds = playerCreatureField.GetAllIds();
+        if (creatureCards.Count == 0) { yield break; }
+        for (int i = 0; i < creatureCards.Count; i++)
+        {
+            creatureCards[i].AbilityUsed = false;
+            DisplayNewCard(creatureIds[i], creatureCards[i]);
         }
     }
 
@@ -231,15 +330,16 @@ public class PlayerManager : MonoBehaviour
         }
         UpdatePlayerIndicators();
         //Creature Counters Last
-        List<Card> creatureCards = playerPermanentManager.GetAllCards();
-        List<ID> creatureIds = playerPermanentManager.GetAllIds();
+        List<Card> permCards = playerPermanentManager.GetAllCards();
+        List<ID> permIds = playerPermanentManager.GetAllIds();
 
-        for (int i = 0; i < creatureCards.Count; i++)
+        for (int i = 0; i < permCards.Count; i++)
         {
-            creatureCards[i].AbilityUsed = false;
-            if (creatureCards[i].TurnsInPlay <= 0 && creatureCards[i].iD == "5v2" && creatureCards[i].iD == "7ti")
+            permCards[i].AbilityUsed = false;
+            if (permCards[i].TurnsInPlay <= 0 && (permCards[i].iD == "7q9" || permCards[i].iD == "5rp"
+                || permCards[i].iD == "5v2" || permCards[i].iD == "7ti"))
             {
-                yield return StartCoroutine(RemoveCardFromFieldLogic(creatureIds[i]));
+                yield return StartCoroutine(RemoveCardFromFieldLogic(permIds[i]));
             }
         }
 
@@ -412,7 +512,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (iD.Field.Equals(FieldEnum.Hand)) { yield break; }
 
-            if (DuelManager.enemy.playerCounters.invisibility > 0 && !DuelManager.enemy.cloakIndex.Contains(iD)) { yield break; }
+            if (DuelManager.Instance.enemy.playerCounters.invisibility > 0 && !DuelManager.Instance.enemy.cloakIndex.Contains(iD)) { yield break; }
             cardDetailManager.SetCardOnDisplay(iD);
             cardDetailView.SetupCardDisplay(iD, DuelManager.GetCard(iD), false);
             yield break;
@@ -424,8 +524,8 @@ public class PlayerManager : MonoBehaviour
             {
                 DiscardCard(iD);
                 BattleVars.shared.hasToDiscard = false;
-                DuelManager.discardTextStatic.gameObject.SetActive(false);
-                yield return StartCoroutine(DuelManager.EndTurn());
+                DuelManager.Instance.discardText.gameObject.SetActive(false);
+                yield return StartCoroutine(DuelManager.Instance.EndTurn());
                 yield break;
             }
         }
@@ -441,7 +541,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     PlayCardFromHandLogic(iD);
                 }
-                else if(IsSpellPlayable(card))
+                else if (IsSpellPlayable(card))
                 {
                     BattleVars.shared.originId = iD;
                     BattleVars.shared.cardOnStandBy = card;
@@ -459,7 +559,7 @@ public class PlayerManager : MonoBehaviour
                     else
                     {
                         BattleVars.shared.isSelectingTarget = true;
-                        SkillManager.Instance.SetupTargetHighlights(this, DuelManager.enemy, BattleVars.shared.cardOnStandBy);
+                        SkillManager.Instance.SetupTargetHighlights(this, DuelManager.Instance.enemy, BattleVars.shared.cardOnStandBy);
                     }
                 }
             }
@@ -481,7 +581,7 @@ public class PlayerManager : MonoBehaviour
                 else
                 {
                     BattleVars.shared.isSelectingTarget = true;
-                    SkillManager.Instance.SetupTargetHighlights(this, DuelManager.enemy, BattleVars.shared.cardOnStandBy);
+                    SkillManager.Instance.SetupTargetHighlights(this, DuelManager.Instance.enemy, BattleVars.shared.cardOnStandBy);
                 }
             }
 
@@ -501,6 +601,18 @@ public class PlayerManager : MonoBehaviour
         {
             handDisplayers[i].ShowCardForPrecog(cards[i]);
         }
+        shouldHideCards = true;
+    }
+    internal void HideHand()
+    {
+        if (!shouldHideCards) { return; }
+        List<Card> cards = playerHand.GetAllCards();
+
+        for (int i = 0; i < cards.Count; i++)
+        {
+            handDisplayers[i].HideCardForPrecog();
+        }
+        shouldHideCards = false;
     }
 
     public Card GetCard(ID iD)
@@ -530,7 +642,7 @@ public class PlayerManager : MonoBehaviour
                 break;
             case "Select Target":
                 BattleVars.shared.isSelectingTarget = true;
-                SkillManager.Instance.SetupTargetHighlights(this, DuelManager.enemy, BattleVars.shared.cardOnStandBy);
+                SkillManager.Instance.SetupTargetHighlights(this, DuelManager.Instance.enemy, BattleVars.shared.cardOnStandBy);
                 break;
             default:
                 cardDetailManager.ClearID();
@@ -545,7 +657,14 @@ public class PlayerManager : MonoBehaviour
         {
             ActionManager.AddSpellPlayedAction(isPlayer, originCard, BattleVars.shared.IsFixedTarget() ? null : targetCard);
             PlayCardFromHandLogic(BattleVars.shared.originId);
-            yield return StartCoroutine(SkillManager.Instance.SkillRoutineWithTarget(DuelManager.GetIDOwner(iD), targetCard, iD));
+            if (BattleVars.shared.IsFixedTarget())
+            {
+                yield return StartCoroutine(SkillManager.Instance.SkillRoutineNoTarget(DuelManager.GetIDOwner(iD), originCard));
+            }
+            else
+            {
+                yield return StartCoroutine(SkillManager.Instance.SkillRoutineWithTarget(DuelManager.GetIDOwner(iD), targetCard, iD));
+            }
         }
         else
         {
@@ -555,10 +674,17 @@ public class PlayerManager : MonoBehaviour
                 originCard.AbilityUsed = true;
             }
             yield return StartCoroutine(SpendQuantaLogic(BattleVars.shared.cardOnStandBy.skillElement, BattleVars.shared.cardOnStandBy.skillCost));
+            if (BattleVars.shared.IsFixedTarget())
+            {
+                yield return StartCoroutine(SkillManager.Instance.SkillRoutineNoTarget(DuelManager.GetIDOwner(iD), originCard));
+            }
+            else
+            {
+                yield return StartCoroutine(SkillManager.Instance.SkillRoutineWithTarget(DuelManager.GetIDOwner(iD), targetCard, iD));
+            }
 
-            yield return StartCoroutine(SkillManager.Instance.SkillRoutineWithTarget(DuelManager.GetIDOwner(iD), targetCard, iD));
         }
-        DuelManager.ResetTargeting();
+        DuelManager.Instance.ResetTargeting();
         DisplayPlayableGlow();
     }
 
@@ -610,7 +736,7 @@ public class PlayerManager : MonoBehaviour
         bool canAfford = playerQuantaManager.HasEnoughQuanta(cardToCheck.costElement, cardToCheck.cost);
         if (cardToCheck.skill == "flying")
         {
-            if(playerPassiveManager.GetWeapon().iD == "4t2") { return false; }
+            if (playerPassiveManager.GetWeapon().iD == "4t2") { return false; }
         }
 
         return canAfford;
@@ -632,14 +758,15 @@ public class PlayerManager : MonoBehaviour
                 yield return StartCoroutine(CheckOnPlayAbility(GetCard(cardID), cardID, false));
                 if (shouldActivateDeath)
                 {
-                    yield return StartCoroutine(DuelManager.player.ActivateDeathTriggers(GetCard(cardID).cardName.Contains("Skeleton")));
-                    yield return StartCoroutine(DuelManager.enemy.ActivateDeathTriggers(GetCard(cardID).cardName.Contains("Skeleton")));
+                    //yield return DuelManager.s.Occured();
+                    yield return StartCoroutine(DuelManager.Instance.player.ActivateDeathTriggers(GetCard(cardID).cardName.Contains("Skeleton")));
+                    yield return StartCoroutine(DuelManager.Instance.enemy.ActivateDeathTriggers(GetCard(cardID).cardName.Contains("Skeleton")));
                 }
                 if (GetCard(cardID).passive?.Count > 0)
                 {
                     if (GetCard(cardID).IsAflatoxin)
                     {
-                        DisplayNewCard(cardID, CardDatabase.GetCardFromId("6ro"));
+                        DisplayNewCard(cardID, CardDatabase.Instance.GetCardFromId("6ro"));
                         yield break;
                     }
                     if (GetCard(cardID).passive.Contains("phoenix"))
@@ -654,7 +781,7 @@ public class PlayerManager : MonoBehaviour
                         }
                         if (shouldRebirth)
                         {
-                            DisplayNewCard(cardID, CardDatabase.GetCardFromId(GetCard(cardID).iD.IsUpgraded() ? "7dt" : "5fd"));
+                            DisplayNewCard(cardID, CardDatabase.Instance.GetCardFromId(GetCard(cardID).iD.IsUpgraded() ? "7dt" : "5fd"));
                             yield break;
                         }
                     }
@@ -669,7 +796,7 @@ public class PlayerManager : MonoBehaviour
                     if (playerCounters.bone <= 0)
                     {
                         playerPassiveManager.DestroyCard(cardID.Index);
-                        PlayCardOnFieldLogic(CardDatabase.GetPlaceholderCard(cardID.Index));
+                        PlayCardOnFieldLogic(CardDatabase.Instance.GetPlaceholderCard(cardID.Index));
                     }
                     else
                     {
@@ -679,7 +806,7 @@ public class PlayerManager : MonoBehaviour
                 else
                 {
                     playerPassiveManager.DestroyCard(cardID.Index);
-                    PlayCardOnFieldLogic(CardDatabase.GetPlaceholderCard(cardID.Index));
+                    PlayCardOnFieldLogic(CardDatabase.Instance.GetPlaceholderCard(cardID.Index));
                     //passiveDisplayers[cardID.Index].PlayDissolveAnimation();
                 }
                 break;
@@ -711,7 +838,7 @@ public class PlayerManager : MonoBehaviour
         int amountToAdd = 8 - playerHand.GetAllCards().Count;
         for (int i = 0; i < amountToAdd; i++)
         {
-            deckManager.AddCardToTop(CardDatabase.GetCardFromId(newCard.iD));
+            deckManager.AddCardToTop(CardDatabase.Instance.GetCardFromId(newCard.iD));
             DrawCardFromDeckLogic();
         }
     }
@@ -719,17 +846,14 @@ public class PlayerManager : MonoBehaviour
     public async void RemoveCardFromFieldVisual(ID cardID)
     {
         await new WaitForSeconds(animSpeed);
-        Command.CommandExecutionComplete();
     }
 
 
     //Modify Health Logic and Visual Command Pair
-    public IEnumerator ModifyHealthLogic(int amount, bool isDamage, bool fromSpell)
+    public void ModifyHealthLogic(int amount, bool isDamage, bool fromSpell)
     {
         if (sacrificeCount > 0) { isDamage = !isDamage; }
         int newHealth = healthManager.ModifyHealth(amount, isDamage);
-        yield return StartCoroutine(healthDisplayer.UpdateHPView(newHealth, isPlayer));
-
     }
 
     [SerializeField]
@@ -738,7 +862,7 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdatePlayerIndicators()
     {
-        if(playerCounters.poison != 0)
+        if (playerCounters.poison != 0)
         {
             poisonImg.gameObject.SetActive(true);
             if (playerCounters.poison < 0)
@@ -762,7 +886,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        if(playerCounters.invisibility != 0)
+        if (playerCounters.invisibility != 0)
         {
             if (!isPlayer && playerCounters.invisibility > 0)
             {
@@ -782,6 +906,8 @@ public class PlayerManager : MonoBehaviour
     }
     public List<ID> cloakIndex = new();
     public int sacrificeCount;
+    private bool shouldHideCards;
+
     public void DisplayNewCard(ID cardID, Card cardPlayed, bool shouldAnim = true, bool isPlayed = false)
     {
         switch (cardID.Field)
@@ -804,7 +930,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         boneShieldLabel.text = $"{playerCounters.bone}";
                     }
-                    else if(cardPlayed.iD == "5oo" || cardPlayed.iD == "7n8" || cardPlayed.iD == "80d" || cardPlayed.iD == "61t")
+                    else if (cardPlayed.iD == "5oo" || cardPlayed.iD == "7n8" || cardPlayed.iD == "80d" || cardPlayed.iD == "61t")
                     {
                         boneShieldLabel.text = cardPlayed.TurnsInPlay.ToString();
                     }
@@ -814,7 +940,7 @@ public class PlayerManager : MonoBehaviour
                         bioCreatures += cardPlayed.iD == "7k4" ? 1 : 0;
                         boneShieldLabel.text = $"{bioCreatures}";
                     }
-                     
+
                 }
                 break;
             case FieldEnum.Permanent:
@@ -863,7 +989,6 @@ public class PlayerManager : MonoBehaviour
     internal void ModifyMaxHealthLogic(int maxHPBuff, bool isIncrease)
     {
         int newMax = healthManager.ModifyMaxHealth(maxHPBuff, isIncrease);
-        healthDisplayer.UpdateMaxHPView(newMax);
     }
 
     //Draw Card From Deck Logic and Visual Command Pair
@@ -897,7 +1022,6 @@ public class PlayerManager : MonoBehaviour
         DisplayNewCard(cardId, newCard);
         await new WaitForSeconds(animSpeed);
         DisplayPlayableGlow();
-        Command.CommandExecutionComplete();
     }
 
     public void HideAllPlayableGlow()
@@ -978,7 +1102,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (isVoodoo)
             {
-                PlayerManager voodooOwner = isPlayer ? DuelManager.enemy : DuelManager.player;
+                PlayerManager voodooOwner = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
 
                 switch (counter)
                 {
@@ -1003,7 +1127,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (isVoodoo && modifyHP < 0)
             {
-                StartCoroutine(DuelManager.GetNotIDOwner(target).ModifyHealthLogic(-modifyHP, true, false));
+                DuelManager.GetNotIDOwner(target).ModifyHealthLogic(-modifyHP, true, false);
 
             }
             playerCreatureField.ModifyPowerHP(modifyPower, modifyHP, target, isModifyPerm);
@@ -1027,7 +1151,7 @@ public class PlayerManager : MonoBehaviour
             {
                 if (isVoodoo)
                 {
-                    StartCoroutine(DuelManager.GetNotIDOwner(target).ModifyHealthLogic(damage, true, false));
+                    DuelManager.GetNotIDOwner(target).ModifyHealthLogic(damage, true, false);
                 }
             }
         }
@@ -1073,7 +1197,7 @@ public class PlayerManager : MonoBehaviour
                 }
                 if (perm.skill == "boneyard" && !isSkeleDeath)
                 {
-                    PlayCardOnFieldLogic(CardDatabase.GetCardFromId(perm.iD.IsUpgraded() ? "716" : "52m"));
+                    PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId(perm.iD.IsUpgraded() ? "716" : "52m"));
                 }
             }
         }
@@ -1085,6 +1209,24 @@ public class PlayerManager : MonoBehaviour
         yield break;
     }
 
+    private void ActivateCloakEffect(ID location)
+    {
+        if (isPlayer) { return; }
+        cloakVisual.SetActive(true);
+        Transform cloakPerm = Battlefield_ObjectIDManager.shared.GetObjectFromID(location);
+        cloakPerm.parent.transform.parent = cloakVisual.transform;
+
+    }
+    private void DeactivateCloakEffect(ID location)
+    {
+        if (isPlayer) { return; }
+        cloakVisual.SetActive(false);
+        Transform cloakPerm = Battlefield_ObjectIDManager.shared.GetObjectFromID(location);
+        cloakPerm.parent.transform.parent = permParent.transform;
+        cloakPerm.SetSiblingIndex(location.Index);
+
+
+    }
     private IEnumerator CheckOnPlayAbility(Card card, ID location, bool isPlayed)
     {
         if (card.skill == "" || card.skill == "none") { yield break; }
@@ -1092,54 +1234,54 @@ public class PlayerManager : MonoBehaviour
         List<ID> creatureIds = playerCreatureField.GetAllIds();
         if (isPlayed)
         {
-            if(card.iD == "7q9" || card.iD == "5rp")
+            switch (card.iD)
             {
-                card.TurnsInPlay = 1;
-            }
-            if(card.iD == "7n8" || card.iD == "5oo")
-            {
-                card.TurnsInPlay = 5;
-            }
-            if(card.iD == "61t" || card.iD == "80d")
-            {
-                card.TurnsInPlay = 3;
-            }
-            if(card.iD == "5v2" || card.iD == "7ti")
-            {
-                card.TurnsInPlay = 3;
+                case "7q9":
+                case "5rp":
+                    card.TurnsInPlay = 1;
+                    break;
+                case "7n8":
+                case "5oo":
+                    card.TurnsInPlay = 5;
+                    break;
+                case "61t":
+                case "80d":
+                case "5v2":
+                case "7ti":
+                    card.TurnsInPlay = 3;
+                    break;
+                default:
+                    break;
             }
 
-            if (card.skill == "eclipse")
+            switch (card.skill)
             {
-                DuelManager.player.CheckEclipseNightfall(true, "eclipse");
-                DuelManager.enemy.CheckEclipseNightfall(true, "eclipse");
+                case "eclipse":
+                case "nightfall":
+                    DuelManager.Instance.UpdateNightFallEclipse(true, card.skill);
+                    break;
+                case "bones":
+                    playerCounters.bone = BattleVars.shared.cardOnStandBy == null ? 7 : 1;
+                    boneShieldLabel.text = BattleVars.shared.cardOnStandBy == null ? "7" : "1";
+                    break;
+                case "patience":
+                    patienceCount++;
+                    break;
+                case "freedom":
+                    freedomCount++;
+                    break;
+                case "cloak":
+                    playerCounters.invisibility = 3;
+                    card.TurnsInPlay = 3;
+                    ActivateCloakEffect(location);
+                    break;
+                case "flood":
+                    DuelManager.Instance.AddFloodCount(1);
+                    break;
+                default:
+                    break;
             }
-            if (card.skill == "nightfall")
-            {
-                DuelManager.player.CheckEclipseNightfall(true, "nightfall");
-                DuelManager.enemy.CheckEclipseNightfall(true, "nightfall");
-            }
-            if (card.skill == "bones")
-            {
-                if (BattleVars.shared.cardOnStandBy == null)
-                {
-                    playerCounters.bone = 7;
-                    boneShieldLabel.text = "7";
-                }
-                else
-                {
-                    if (BattleVars.shared.cardOnStandBy.skill == "steal")
-                    {
-                        playerCounters.bone = 1;
-                        boneShieldLabel.text = "1";
-                    }
-                    else
-                    {
-                        playerCounters.bone = 7;
-                        boneShieldLabel.text = "7";
-                    }
-                }
-            }
+
             if (card.innate.Contains("swarm"))
             {
                 scarabsPlayed++;
@@ -1169,40 +1311,26 @@ public class PlayerManager : MonoBehaviour
                 sanctuaryCount++;
                 sanctImage.gameObject.SetActive(true);
             }
-            if (card.skill == "patience")
-            {
-                patienceCount++;
-            }
-            if (card.skill == "freedom")
-            {
-                freedomCount++;
-            }
-            if (card.skill == "flood")
-            {
-                DuelManager.AddFloodCount();
-            }
-            if (card.skill == "cloak")
-            {
-                playerCounters.invisibility = 3;
-                cloakVisual.SetActive(!isPlayer);
-            }
             yield break;
         }
 
 
-        if (card.skill == "eclipse")
+        if (card.skill == "eclipse" || card.skill == "nightfall")
         {
-            DuelManager.player.CheckEclipseNightfall(false, "eclipse");
-            DuelManager.enemy.CheckEclipseNightfall(false, "eclipse");
-        }
-        if (card.skill == "nightfall")
-        {
-            DuelManager.player.CheckEclipseNightfall(false, "nightfall");
-            DuelManager.enemy.CheckEclipseNightfall(false, "nightfall");
+            DuelManager.Instance.UpdateNightFallEclipse(false, card.skill);
         }
         if (card.innate.Contains("swarm"))
         {
             scarabsPlayed--;
+        }
+
+        if (card.skill == "cloak")
+        {
+            if (playerPermanentManager.GetAllCards().FindAll(x => x.skill == "cloak").Count == 1)
+            {
+                DeactivateCloakEffect(location);
+                playerCounters.invisibility = 0;
+            }
         }
 
         if (card.passive.Contains("sanctuary"))
@@ -1220,76 +1348,40 @@ public class PlayerManager : MonoBehaviour
         }
         if (card.skill == "flood")
         {
-            DuelManager.RemoveFloodCount();
+            DuelManager.Instance.AddFloodCount(-1);
         }
     }
 
 
-    private void CheckEclipseNightfall(bool isAdded, string skill)
+    public void CheckEclipseNightfall(bool isAdded, string skill)
     {
-        List<Card> creatures = playerCreatureField.GetAllCards();
-        if (isAdded)
+        List<IDCardPair> creatures = playerCreatureField.GetAllValidCardIds();
+        int atkMod = 0;
+        int defMod = 0;
+        switch (skill)
         {
-            if (skill == "eclipse")
-            {
-                foreach (var creature in creatures)
-                {
-                    if (!DuelManager.isEclipseInPlay())
-                    {
-                        if (DuelManager.IsNightfallInPlay())
-                        {
-                            creature.AtkModify += 1;
-                        }
-                        else
-                        {
-                            creature.AtkModify += 2;
-                            creature.DefModify += 1;
-                        }
-                    }
-                }
-            }
-            if (skill == "nightfall")
-            {
-                foreach (var creature in creatures)
-                {
-                    if (!DuelManager.isEclipseInPlay() && !DuelManager.IsNightfallInPlay())
-                    {
-                        creature.AtkModify += 1;
-                        creature.DefModify += 1;
-                    }
-                }
-            }
+            case "eclipse":
+                atkMod = DuelManager.IsEclipseInPlay() ? 0 : DuelManager.IsNightfallInPlay() ? 1 : 2;
+                defMod = DuelManager.IsEclipseInPlay() ? 0 : DuelManager.IsNightfallInPlay() ? 0 : 1;
+                break;
+            case "nightfall":
+                atkMod = DuelManager.IsEclipseInPlay() || DuelManager.IsNightfallInPlay() ? 0 : 1;
+                defMod = DuelManager.IsEclipseInPlay() || DuelManager.IsNightfallInPlay() ? 0 : 1;
+                break;
+            default:
+                break;
         }
-        else
+
+        atkMod = isAdded ? atkMod : -atkMod;
+        defMod = isAdded ? defMod : -defMod;
+
+        foreach (var creature in creatures)
         {
-            if (skill == "eclipse")
+            if (creature.card.costElement.Equals(Element.Darkness) || creature.card.costElement.Equals(Element.Death))
             {
-                foreach (var creature in creatures)
-                {
-                    if (!DuelManager.isEclipseInPlay())
-                    {
-                        if (DuelManager.IsNightfallInPlay())
-                        {
-                            creature.AtkModify -= 1;
-                        }
-                        else
-                        {
-                            creature.AtkModify -= 2;
-                            creature.DefModify -= 1;
-                        }
-                    }
-                }
-            }
-            if (skill == "nightfall")
-            {
-                foreach (var creature in creatures)
-                {
-                    if (!DuelManager.isEclipseInPlay() && !DuelManager.IsNightfallInPlay())
-                    {
-                        creature.AtkModify -= 1;
-                        creature.DefModify -= 1;
-                    }
-                }
+                creature.card.DefModify += defMod;
+                creature.card.AtkModify += atkMod;
+                DisplayNewCard(creature.id, creature.card);
             }
         }
     }
@@ -1303,7 +1395,7 @@ public class PlayerManager : MonoBehaviour
         card.AbilityUsed = true;
         if ((card.costElement.Equals(Element.Darkness) || card.costElement.Equals(Element.Death)) && card.cardType.Equals(CardType.Creature))
         {
-            if (DuelManager.isEclipseInPlay())
+            if (DuelManager.IsEclipseInPlay())
             {
                 card.DefModify += 1;
                 card.AtkModify += 2;
@@ -1405,7 +1497,6 @@ public class PlayerManager : MonoBehaviour
                 break;
         }
         await new WaitForSeconds(animSpeed);
-        Command.CommandExecutionComplete();
     }
 
 
@@ -1470,10 +1561,10 @@ public class PlayerManager : MonoBehaviour
         Element markElement;
         markElement = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
 
-        Card mark = CardDatabase.GetCardFromId(CardDatabase.markIds[(int)markElement]);
+        Card mark = CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.markIds[(int)markElement]);
         playerPassiveManager.PlayPassive(mark);
-        playerPassiveManager.PlayPassive(CardDatabase.GetPlaceholderCard(2));
-        playerPassiveManager.PlayPassive(CardDatabase.GetPlaceholderCard(1));
+        playerPassiveManager.PlayPassive(CardDatabase.Instance.GetPlaceholderCard(2));
+        playerPassiveManager.PlayPassive(CardDatabase.Instance.GetPlaceholderCard(1));
         passiveDisplayers[0].DisplayCard(mark, true);
         yield return null;
     }
@@ -1503,19 +1594,20 @@ public class PlayerManager : MonoBehaviour
             DrawCardFromDeckLogic(true);
         }
 
-        healthManager = new HealthManager(isPlayer ? 100 : BattleVars.shared.enemyAiData.maxHP);
+        healthManager = new HealthManager(isPlayer ? 100 : BattleVars.shared.enemyAiData.maxHP, isPlayer);
         healthDisplayer.SetHPStart(healthManager.GetCurrentHealth());
+        healthManager.HealthChangedEvent += healthDisplayer.OnHealthChanged;
 
-        if (isPlayer && PlayerData.shared.petName != "" && PlayerData.shared.petName != null)
-        {
-            Card petCard = CardDatabase.GetCardFromId(PlayerData.shared.petName);
-            PlayerData.shared.petCount--;
-            if (PlayerData.shared.petCount <= 0)
-            {
-                PlayerData.shared.petName = "";
-            }
-            PlayCardOnFieldLogic(petCard);
-        }
+        //if (isPlayer && PlayerData.shared.petName != "" && PlayerData.shared.petName != null)
+        //{
+        //    Card petCard = CardDatabase.Instance.GetCardFromId(PlayerData.shared.petName);
+        //    PlayerData.shared.petCount--;
+        //    if (PlayerData.shared.petCount <= 0)
+        //    {
+        //        PlayerData.shared.petName = "";
+        //    }
+        //    PlayCardOnFieldLogic(petCard);
+        //}
 
         if (!isPlayer)
         {
@@ -1536,218 +1628,297 @@ public class PlayerManager : MonoBehaviour
         yield return StartCoroutine(SetupOtherDisplayers());
     }
 
-    public IEnumerator ReceivePhysicalDamage(int damage)
+    public void ReceivePhysicalDamage(int damage)
     {
-        if (damage == 0) { yield break; }
+        if (damage == 0) { return; }
         //Damage player with leftover damage or direct damage
-        yield return StartCoroutine(ModifyHealthLogic(damage, true, false));
-        yield return null;
+        ModifyHealthLogic(damage, true, false);
     }
 
     private IEnumerator CheckPermanentEndTurn()
     {
         List<int> floodList = new List<int> { 11, 13, 9, 10, 12 };
-        //Get all creatures in play
-        List<Card> permCards = playerPermanentManager.GetAllCards();
-        List<ID> permIds = playerPermanentManager.GetAllIds();
-        //If no perms, end here
-        if (permIds.Count == 0) { goto skipPermCheck; }
-        for (int i = 0; i < permCards.Count; i++)
+        var playerPermanents = playerPermanentManager.GetAllCards();
+        if (playerPermanents.Count == 0)
         {
-            Card perm = permCards[i];
-            if (perm.skill == "sactuary")
-            {
-                StartCoroutine(ModifyHealthLogic(4, false, false));
-            }
-            if (perm.skill == "void")
-            {
-                if (playerPassiveManager.GetMark().costElement == Element.Darkness)
-                {
-                    if (isPlayer)
-                    {
-                        DuelManager.enemy.ModifyMaxHealthLogic(3, false);
-                    }
-                    else
-                    {
-                        DuelManager.player.ModifyMaxHealthLogic(3, false);
-                    }
-                }
-                else
-                {
-                    if (isPlayer)
-                    {
-                        DuelManager.enemy.ModifyMaxHealthLogic(2, false);
-                    }
-                    else
-                    {
-                        DuelManager.player.ModifyMaxHealthLogic(2, false);
-                    }
-                }
-            }
-            if (perm.skill == "gratitude")
-            {
-                if (playerPassiveManager.GetMark().costElement == Element.Life)
-                {
-                    StartCoroutine(ModifyHealthLogic(5, false, false));
-                }
-                else
-                {
-                    StartCoroutine(ModifyHealthLogic(3, false, false));
-                }
-            }
-            if (perm.skill == "empathy")
-            {
-                StartCoroutine(ModifyHealthLogic(playerCreatureField.GetAllCards().Count, false, false));
-            }
-            if (perm.skill == "flood")
-            {
-                StartCoroutine(DuelManager.enemy.ClearFloodedArea(floodList));
-                StartCoroutine(DuelManager.player.ClearFloodedArea(floodList));
-            }
-            if (perm.skill == "patience")
-            {
-                List<Card> creatures = playerCreatureField.GetAllCards();
-                List<ID> iDs = playerCreatureField.GetAllIds();
-
-                for (int y = 0; y < creatures.Count; y++)
-                {
-                    if (DuelManager.IsFloodInPlay() && floodList.Contains(iDs[y].Index))
-                    {
-                        creatures[y].AtkModify += 5;
-                        creatures[y].DefModify += 5;
-                    }
-                    else
-                    {
-                        creatures[y].AtkModify += 2;
-                        creatures[y].DefModify += 2;
-                    }
-                }
-            }
+            yield return StartCoroutine(CreatureCheckStep());
+            yield break;
         }
 
-        skipPermCheck:
+        foreach (var permanent in playerPermanents)
+        {
+            switch (permanent.skill)
+            {
+                case "sactuary":
+                    ModifyHealthLogic(4, false, false);
+                    break;
+                case "void":
+                    int healthChange = playerPassiveManager.GetMark().costElement == Element.Darkness ? 3 : 2;
+                    var targetPlayer = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
+                    targetPlayer.ModifyMaxHealthLogic(healthChange, false);
+                    break;
+                case "gratitude":
+                    int healthAmount = playerPassiveManager.GetMark().costElement == Element.Life ? 5 : 3;
+                    ModifyHealthLogic(healthAmount, false, false);
+                    break;
+                case "empathy":
+                    int creatureCount = playerCreatureField.GetAllCards().Count;
+                    ModifyHealthLogic(creatureCount, false, false);
+                    break;
+                case "flood":
+                    yield return StartCoroutine(DuelManager.Instance.enemy.ClearFloodedArea(floodList));
+                    yield return StartCoroutine(DuelManager.Instance.player.ClearFloodedArea(floodList));
+                    break;
+                case "patience":
+                    List<Card> creatures = playerCreatureField.GetAllCards();
+                    List<ID> ids = playerCreatureField.GetAllIds();
+                    for (int i = 0; i < creatures.Count; i++)
+                    {
+                        int statModifier = DuelManager.IsFloodInPlay() && floodList.Contains(ids[i].Index) ? 5 : 2;
+                        creatures[i].AtkModify += statModifier;
+                        creatures[i].DefModify += statModifier;
+                    }
+                    break;
+            }
+        }
         yield return StartCoroutine(CreatureCheckStep());
     }
     public void ShieldCheck(ID attackerID, ref Card attacker, ref int atknow)
     {
-        PlayerManager opponent = isPlayer ? DuelManager.enemy : DuelManager.player;
-        int defnow = attacker.def;
+        PlayerManager opponent = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
         Card shield = playerPassiveManager.GetShield();
         string skill = shield.skill;
 
-        if(skill == "none") { return; }
-
-        if (skill == "reflect" && attacker.passive.Contains("psion"))
-        {
-            StartCoroutine(opponent.ModifyHealthLogic(atknow, true, false));
-            atknow = 0;
-        }
-        else if (skill != "reflect" && attacker.passive.Contains("psion"))
+        if (skill == "none" || atknow == 0)
         {
             return;
         }
-        if (skill == "phaseshift")
-        {
-            atknow = 0;
-        }
-        if (skill == "solar" && atknow > 0)
-        {
-            StartCoroutine(GenerateQuantaLogic(Element.Light, 1));
-        }
-        if (atknow > 0)
-        {
-            atknow -= shield.def;
-            if (atknow < 0)
-            {
-                atknow = 0;
-            }
-        }
-        if (skill == "weight" && defnow > 5 && attacker.cardType.Equals(CardType.Creature))
-        {
-            atknow = 0;
-        }
-        if (skill == "wings" && !attacker.innate.Contains("airborne") && !attacker.innate.Contains("ranged"))
-        {
-            atknow = 0;
-        }
-        if (skill == "delay" && atknow > 0)
-        {
-            attacker.innate.Add("delay");
-        }
-        if (skill == "ice" && UnityEngine.Random.Range(0f, 1f) <= 0.3f && atknow > 0)
-        {
-            attacker.Freeze = 3;
-        }
-        if (skill == "spines" && UnityEngine.Random.Range(0f, 1f) <= 0.75f && atknow > 0)
-        {
-            attacker.Poison += 1;
-        }
-        if (skill == "firewall" && atknow > 0)
-        {
-            defnow -= 1;
-        }
-        if (skill == "fog" && UnityEngine.Random.Range(0f, 1f) <= 0.4f && atknow > 0)
-        {
-            atknow = 0;
-        }
-        if (skill == "dusk" && UnityEngine.Random.Range(0f, 1f) <= 0.5f && atknow > 0)
-        {
-            atknow = 0;
-        }
-        if (skill == "unholy" && !attacker.IsAflatoxin && attacker.iD != "716" && attacker.iD != "52m"
-            && UnityEngine.Random.Range(0f, 1f) <= (0.5f / defnow) && atknow > 0
-            && attacker.cardType.Equals(CardType.Creature))
-        {
-            opponent.StartCoroutine(opponent.RemoveCardFromFieldLogic(attackerID));
-            opponent.PlayCardOnFieldLogic(CardDatabase.GetCardFromId(attacker.iD.IsUpgraded() ? "716" : "52m"));
-        }
-        if (skill == "bones" && atknow > 0)
-        {
-            atknow = 0;
-            playerCounters.bone -= 1;
-            if (playerCounters.bone <= 0)
-            {
-                    playerPassiveManager.DestroyCard(playerPassiveManager.GetShieldID().Index);
-                    PlayCardOnFieldLogic(CardDatabase.GetPlaceholderCard(playerPassiveManager.GetShieldID().Index));
-            }
-            else
-            {
-                boneShieldLabel.text = $"{playerCounters.bone}";
-            }
-        }
-        if (skill == "dissipation" && sanctuaryCount == 0 && atknow > 0)
-        {
-            int allQuanta = GetAllQuantaOfElement(Element.Other);
-            if (allQuanta >= atknow)
-            {
-                StartCoroutine(SpendQuantaLogic(Element.Other, atknow));
-                atknow = 0;
-            }
-            else
-            {
-                StartCoroutine(RemoveCardFromFieldLogic(playerPassiveManager.GetShieldID(), 1, false));
-            }
-        }
-        if (skill == "edissipation" && sanctuaryCount == 0 && atknow > 0)
-        {
-            int quantaToUse = Mathf.CeilToInt(atknow / 3);
-            int availableEQuanta = GetAllQuantaOfElement(Element.Entropy);
-            if (availableEQuanta >= quantaToUse)
-            {
-                StartCoroutine(SpendQuantaLogic(Element.Other, quantaToUse));
-                atknow = 0;
-            }
-            else
-            {
-                StartCoroutine(RemoveCardFromFieldLogic(playerPassiveManager.GetShieldID(), 1, false));
-            }
-        }
-        attacker.def = defnow;
-    }
 
+        if (attacker.passive.Contains("psion"))
+        {
+            if (skill == "reflect")
+            {
+                opponent.ModifyHealthLogic(atknow, true, false);
+                atknow = 0;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        switch (skill)
+        {
+            case "phaseshift":
+                atknow = 0;
+                break;
+            case "solar":
+                StartCoroutine(GenerateQuantaLogic(Element.Light, 1));
+                break;
+            case "weight":
+                if (attacker.cardType == CardType.Creature && attacker.DefNow > 5)
+                {
+                    atknow = 0;
+                }
+                break;
+            case "wings":
+                if (!attacker.innate.Contains("airborne") && !attacker.innate.Contains("ranged"))
+                {
+                    atknow = 0;
+                }
+                break;
+            case "delay":
+                attacker.innate.Add("delay");
+                break;
+            case "ice":
+                attacker.Freeze = UnityEngine.Random.Range(0f, 1f) <= 0.3f ? 3 : 0;
+                break;
+            case "spines":
+                if (UnityEngine.Random.Range(0f, 1f) <= 0.75f)
+                {
+                    attacker.Poison++;
+                }
+                break;
+            case "firewall":
+                attacker.DefDamage++;
+                break;
+            case "fog":
+                atknow = UnityEngine.Random.Range(0f, 1f) <= 0.4f ? 0 : atknow;
+                break;
+            case "dusk":
+                atknow = UnityEngine.Random.Range(0f, 1f) <= 0.5f ? 0 : atknow;
+                break;
+            case "unholy":
+                if (!attacker.IsAflatoxin && attacker.iD != "716" && attacker.iD != "52m" &&
+                    UnityEngine.Random.Range(0f, 1f) <= (0.5f / attacker.DefNow) && atknow > 0 &&
+                    attacker.cardType == CardType.Creature)
+                {
+                    opponent.StartCoroutine(opponent.RemoveCardFromFieldLogic(attackerID));
+                    opponent.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId(attacker.iD.IsUpgraded() ? "716" : "52m"));
+                }
+                break;
+            case "bones":
+                atknow = 0;
+                playerCounters.bone -= 1;
+                if (playerCounters.bone <= 0)
+                {
+                    playerPassiveManager.DestroyCard(playerPassiveManager.GetShieldID().Index);
+                    PlayCardOnFieldLogic(CardDatabase.Instance.GetPlaceholderCard(playerPassiveManager.GetShieldID().Index));
+                }
+                else
+                {
+                    boneShieldLabel.text = $"{playerCounters.bone}";
+                }
+                break;
+            case "dissipation":
+                if(sanctuaryCount > 0) { return; }
+                int allQuanta = GetAllQuantaOfElement(Element.Other);
+                if (allQuanta >= atknow)
+                {
+                    StartCoroutine(SpendQuantaLogic(Element.Other, atknow));
+                    atknow = 0;
+                }
+                else
+                {
+                    StartCoroutine(RemoveCardFromFieldLogic(playerPassiveManager.GetShieldID(), 1, false));
+                }
+                break;
+            case "edissipation":
+                if (sanctuaryCount > 0) { return; }
+                    int quantaToUse = Mathf.CeilToInt(atknow / 3);
+                    int availableEQuanta = GetAllQuantaOfElement(Element.Entropy);
+                    if (availableEQuanta >= quantaToUse)
+                    {
+                        StartCoroutine(SpendQuantaLogic(Element.Other, quantaToUse));
+                        atknow = 0;
+                    }
+                    else
+                    {
+                        StartCoroutine(RemoveCardFromFieldLogic(playerPassiveManager.GetShieldID(), 1, false));
+                    }
+                break;
+        }
+    }
+    public void NewShieldCheck(PlayerManager attackerOwner, ref Card attacker, ref int atknow)
+    {
+        //PlayerManager opponent = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
+        Card shield = playerPassiveManager.GetShield();
+
+        if (shield == null) { return; }
+
+        string skill = shield.skill;
+
+        if (skill == "none") { return; }
+
+        if (attacker.passive.Contains("psion"))
+        {
+            if (skill == "reflect")
+            {
+                attackerOwner.ModifyHealthLogic(atknow, true, false);
+                atknow = 0;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        switch (skill)
+        {
+            case "phaseshift":
+                atknow = 0;
+                break;
+            case "solar":
+                StartCoroutine(GenerateQuantaLogic(Element.Light, 1));
+                break;
+            case "weight":
+                if (attacker.cardType == CardType.Creature && attacker.DefNow > 5)
+                {
+                    atknow = 0;
+                }
+                break;
+            case "wings":
+                if (!attacker.innate.Contains("airborne") && !attacker.innate.Contains("ranged"))
+                {
+                    atknow = 0;
+                }
+                break;
+            case "delay":
+                attacker.innate.Add("delay");
+                break;
+            case "ice":
+                attacker.Freeze = UnityEngine.Random.Range(0f, 1f) <= 0.3f ? 3 : 0;
+                break;
+            case "spines":
+                if (UnityEngine.Random.Range(0f, 1f) <= 0.75f)
+                {
+                    attacker.Poison++;
+                }
+                break;
+            case "firewall":
+                attacker.DefDamage++;
+                break;
+            case "fog":
+                atknow = UnityEngine.Random.Range(0f, 1f) <= 0.4f ? 0 : atknow;
+                break;
+            case "dusk":
+                atknow = UnityEngine.Random.Range(0f, 1f) <= 0.5f ? 0 : atknow;
+                break;
+            case "unholy":
+                if (!attacker.IsAflatoxin && attacker.iD != "716" && attacker.iD != "52m" &&
+                    UnityEngine.Random.Range(0f, 1f) <= (0.5f / attacker.DefNow) && atknow > 0 &&
+                    attacker.cardType == CardType.Creature)
+                {
+                    attackerOwner.StartCoroutine(attackerOwner.RemoveCardFromFieldLogic(attackerID));
+                    attackerOwner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId(attacker.iD.IsUpgraded() ? "716" : "52m"));
+                }
+                break;
+            case "bones":
+                atknow = 0;
+                playerCounters.bone -= 1;
+                if (playerCounters.bone <= 0)
+                {
+                    playerPassiveManager.DestroyCard(playerPassiveManager.GetShieldID().Index);
+                    PlayCardOnFieldLogic(CardDatabase.Instance.GetPlaceholderCard(playerPassiveManager.GetShieldID().Index));
+                }
+                else
+                {
+                    boneShieldLabel.text = $"{playerCounters.bone}";
+                }
+                break;
+            case "dissipation":
+                if (sanctuaryCount > 0) { return; }
+                int allQuanta = GetAllQuantaOfElement(Element.Other);
+                if (allQuanta >= atknow)
+                {
+                    StartCoroutine(SpendQuantaLogic(Element.Other, atknow));
+                    atknow = 0;
+                }
+                else
+                {
+                    StartCoroutine(RemoveCardFromFieldLogic(playerPassiveManager.GetShieldID(), 1, false));
+                }
+                break;
+            case "edissipation":
+                if (sanctuaryCount > 0) { return; }
+                int quantaToUse = Mathf.CeilToInt(atknow / 3);
+                int availableEQuanta = GetAllQuantaOfElement(Element.Entropy);
+                if (availableEQuanta >= quantaToUse)
+                {
+                    StartCoroutine(SpendQuantaLogic(Element.Other, quantaToUse));
+                    atknow = 0;
+                }
+                else
+                {
+                    StartCoroutine(RemoveCardFromFieldLogic(playerPassiveManager.GetShieldID(), 1, false));
+                }
+                break;
+        }
+    }
     public IEnumerator WeaponAttackStep()
     {
-        PlayerManager opponent = isPlayer ? DuelManager.enemy : DuelManager.player;
+        HideHand();
+        PlayerManager opponent = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
         Card weapon = playerPassiveManager.GetWeapon();
 
         if (weapon.iD == "6ri") { yield break; }
@@ -1789,13 +1960,13 @@ public class PlayerManager : MonoBehaviour
         }
 
         //Send Damage
-        StartCoroutine(opponent.ModifyHealthLogic(atknow, true, false));
+        opponent.ModifyHealthLogic(atknow, true, false);
 
         if (atknow > 0)
         {
             if (skill == "vampire")
             {
-                StartCoroutine(ModifyHealthLogic(atknow, false, false));
+                ModifyHealthLogic(atknow, false, false);
             }
             if (skill == "venom")
             {
@@ -1810,16 +1981,35 @@ public class PlayerManager : MonoBehaviour
         yield break;
     }
 
+    //public IEnumerator CreatureCheckStepNew()
+    //{
+    //    //Deal Poison Damage to Opponent
+    //    PlayerManager opponent = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
+    //    if (opponent.playerCounters.poison != 0)
+    //    {
+    //        yield return StartCoroutine(opponent.ModifyHealthLogic(opponent.playerCounters.poison, true, false));
+    //    }
 
-    public IEnumerator CreatureCheckStep()
+    //    //Activate creatures end turn actions (Attack, end turn effects)
+    //    if (_creatureEventHandler != null)
+    //    {
+    //        //Invokes all planned actions and waits until they're done.
+    //        foreach (var @delegate in _creatureEventHandler.GetInvocationList())
+    //        {
+    //            yield return @delegate.DynamicInvoke();
+    //        }
+    //    }
+    //    yield return StartCoroutine(WeaponAttackStep());
+    //}
+        public IEnumerator CreatureCheckStep()
     {
         List<Card> creatureCards = playerCreatureField.GetAllCards();
         List<ID> creatureIds = playerCreatureField.GetAllIds();
-        PlayerManager opponent = isPlayer ? DuelManager.enemy : DuelManager.player;
+        PlayerManager opponent = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
 
-        if(opponent.playerCounters.poison != 0)
+        if (opponent.playerCounters.poison != 0)
         {
-            yield return StartCoroutine(opponent.ModifyHealthLogic(opponent.playerCounters.poison, true, false));
+            opponent.ModifyHealthLogic(opponent.playerCounters.poison, true, false);
         }
         int index = 0;
         for (int i = 0; i < creatureCards.Count; i++)
@@ -1884,13 +2074,27 @@ public class PlayerManager : MonoBehaviour
                 if (atkNow != 0)
                 {
                     Game_SoundManager.shared.PlayAudioClip("CreatureDamage");
+
+                    if (creature.passive.Contains("venom"))
+                    {
+                        opponent.playerCounters.poison++;
+                    }
+                    if (creature.passive.Contains("deadly venom"))
+                    {
+                        opponent.playerCounters.poison += 2;
+                    }
+                    if (creature.passive.Contains("nuerotoxin"))
+                    {
+                        opponent.playerCounters.nuerotoxin = 1;
+                    }
+                    opponent.UpdatePlayerIndicators();
                     if (creature.passive.Contains("vampire"))
                     {
-                        StartCoroutine(ModifyHealthLogic(atkNow, false, false));
+                        ModifyHealthLogic(atkNow, false, false);
                     }
                     StartCoroutine(creatureDisplayers[iD.Index].ShowDamage(atkNow));
 
-                    yield return StartCoroutine(opponent.ReceivePhysicalDamage(isFreedomEffect ? Mathf.FloorToInt(atkNow * 1.5f) : atkNow));
+                    opponent.ReceivePhysicalDamage(isFreedomEffect ? Mathf.FloorToInt(atkNow * 1.5f) : atkNow);
                 }
             }
 
@@ -1950,7 +2154,7 @@ public class PlayerManager : MonoBehaviour
                     }
                     if (creature.passive.Contains("infest"))
                     {
-                        PlayCardOnFieldLogic(CardDatabase.GetCardFromId("4t8"));
+                        PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("4t8"));
                     }
                     if (adrenalineIndex < 1 && creature.passive.Contains("singularity"))
                     {
@@ -2022,7 +2226,6 @@ public class PlayerManager : MonoBehaviour
                 {
                     creature.Charge--;
                     creature.AtkModify--;
-                    creature.DefModify--;
 
                 }
                 if (creature.IsDelayed)
@@ -2031,45 +2234,51 @@ public class PlayerManager : MonoBehaviour
                 }
 
                 int healthChange = creature.Poison;
-                Card result = playerCreatureField.DamageCreature(healthChange, iD);
+                creature.DefDamage += healthChange;
+                if (creature.DefDamage < 0) { creature.DefDamage = 0; }
 
-                if (result == null)
+                if (creature.DefNow <= 0)
                 {
                     yield return StartCoroutine(RemoveCardFromFieldLogic(iD));
-                    yield break;
+                    continue;
                 }
 
                 creatureDisplayers[iD.Index].DisplayCard(creature, false);
             }
 
-            if (creature.passive.Contains("adrenaline") && creature.AtkNow != 0)
+            if (creature.AtkNow != 0)
             {
-                if (creature.passive.Contains("venom"))
+                if (creature.passive.Contains("adrenaline"))
                 {
-                    opponent.playerCounters.poison++;
-                }
-                if (creature.passive.Contains("deadly venom"))
-                {
-                    opponent.playerCounters.poison += 2;
-                }
-                if (creature.passive.Contains("nuerotoxin"))
-                {
-                    opponent.playerCounters.nuerotoxin = 1;
-                }
-                opponent.UpdatePlayerIndicators();
-                adrenalineIndex++;
-                if (DuelManager.AdrenalineDamageList[Mathf.Abs(creature.AtkNow) - 1].Count < adrenalineIndex)
-                {
-                    atkNow = DuelManager.AdrenalineDamageList[Mathf.Abs(creature.AtkNow) - 1][adrenalineIndex];
-                    if (creature.passive.Contains("antimatter"))
+                    adrenalineIndex++;
+                    if (DuelManager.AdrenalineDamageList[Mathf.Abs(creature.AtkNow) - 1].Count < adrenalineIndex)
                     {
-                        atkNow = -atkNow;
+                        atkNow = DuelManager.AdrenalineDamageList[Mathf.Abs(creature.AtkNow) - 1][adrenalineIndex];
+                        if (creature.passive.Contains("antimatter"))
+                        {
+                            atkNow = -atkNow;
+                        }
+                        goto adrenalineCheck;
                     }
-                    goto adrenalineCheck;
                 }
             }
         }
 
         yield return StartCoroutine(WeaponAttackStep());
     }
+
+}
+
+
+public enum PlayerCounters
+{
+    Bone,
+    Invisibility,
+    Freeze,
+    Poison,
+    Nuerotoxin,
+    Sanctuary,
+    Freedom,
+    Patience,
+    Scarab
 }

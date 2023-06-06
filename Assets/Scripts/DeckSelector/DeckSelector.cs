@@ -37,8 +37,8 @@ public class DeckSelector : MonoBehaviour
         }
         cardDisplayDetail.gameObject.SetActive(false);
         (string, string) displayCards = StarterDecks.Instance.GetDisplayCards(playerDeck);
-        cardOne.SetupCardView(CardDatabase.GetCardFromId(displayCards.Item1));
-        cardTwo.SetupCardView(CardDatabase.GetCardFromId(displayCards.Item2));
+        cardOne.SetupCardView(CardDatabase.Instance.GetCardFromId(displayCards.Item1));
+        cardTwo.SetupCardView(CardDatabase.Instance.GetCardFromId(displayCards.Item2));
     }
 
     private void ClearGridView()

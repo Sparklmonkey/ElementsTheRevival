@@ -23,11 +23,12 @@ public class EnemyController
 
     public IEnumerator StartTurn()
     {
+        yield return self.StartCoroutine(self.TurnDownTick());
         Debug.Log("Draw Card for turn");
         aiDraw.StartTurnDrawCard(self);
         yield return new WaitForSeconds(BattleVars.shared.aiPlaySpeed);
 
-        if (self.playerCounters.silence > 0) { self.StartCoroutine(DuelManager.EndTurn()); yield break; }
+        if (self.playerCounters.silence > 0) { self.StartCoroutine(DuelManager.Instance.EndTurn()); yield break; }
         Debug.Log("Play Pillars");
         yield return self.StartCoroutine(aiTurn.PlayPillars(self));
         //yield return new WaitForSeconds(5);
@@ -37,7 +38,7 @@ public class EnemyController
         aiDiscard.DiscardCard(self);
 
         Debug.Log("End Turn");
-        self.StartCoroutine(DuelManager.EndTurn());
+        self.StartCoroutine(DuelManager.Instance.EndTurn());
     }
 
 }

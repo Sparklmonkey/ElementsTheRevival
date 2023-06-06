@@ -78,7 +78,7 @@ public class CreatureAbilities
             ID target = new ID(OwnerEnum.Player, FieldEnum.Player, 1);
             if (BattleVars.shared.isSelectingTarget)
             {
-                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
                 target = DuelManager.GetAllValidTargets().Find(x => x.Owner.Equals(OwnerEnum.Player));
                 if(target == null) { continue; }
             }

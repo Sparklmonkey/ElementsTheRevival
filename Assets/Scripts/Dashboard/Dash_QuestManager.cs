@@ -52,9 +52,9 @@ public class Dash_QuestManager : MonoBehaviour
             questObjective.text = "";
             questReward.text = "";
             claimRewardButton.gameObject.SetActive(false);
-            for (int i = 0; i < CardDatabase.rareWeaponRewards.Count; i++)
+            for (int i = 0; i < CardDatabase.Instance.rareWeaponRewards.Count; i++)
             {
-                weaponObjects[i].SetupSelection(CardDatabase.GetCardFromId(CardDatabase.rareWeaponRewards[i]), this, cardDisplay);
+                weaponObjects[i].SetupSelection(CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.rareWeaponRewards[i]), this, cardDisplay);
             }
             return;
         }

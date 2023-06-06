@@ -21,12 +21,12 @@ public class GameStartManager : MonoBehaviour
             case 0:
                 ai = Resources.Load<EnemyAi>("EnemyAi/Level0/Random");
                 ai.mark = (Element)Random.Range(0, 12);
-                ai.deck = string.Join(" ", CardDatabase.GetRandomDeck());
+                ai.deck = string.Join(" ", CardDatabase.Instance.GetRandomDeck());
                 break;
             case 1:
                 ai = Resources.Load<EnemyAi>("EnemyAi/Level1/Random");
                 ai.mark = (Element)Random.Range(0, 12);
-                ai.deck = string.Join(" ", CardDatabase.GetRandomDeck());
+                ai.deck = string.Join(" ", CardDatabase.Instance.GetRandomDeck());
                 break;
             case 2:
                 Element elementDeck = (Element)Random.Range(0, 12);
@@ -51,7 +51,7 @@ public class GameStartManager : MonoBehaviour
                 string aiName = $"{elderPrefix[(int)BattleVars.shared.primaryElement]}{elderSuffix[(int)BattleVars.shared.secondaryElement]}";
                 ai.mark = BattleVars.shared.secondaryElement;
                 ai.opponentName = aiName;
-                ai.deck = string.Join(" ", CardDatabase.GetHalfBloodDeck(BattleVars.shared.primaryElement, BattleVars.shared.secondaryElement).SerializeCard());
+                ai.deck = string.Join(" ", CardDatabase.Instance.GetHalfBloodDeck(BattleVars.shared.primaryElement, BattleVars.shared.secondaryElement).SerializeCard());
                 break;
             case 5:
                 string falseGod = PlayerData.shared.nextFalseGod;
@@ -59,6 +59,7 @@ public class GameStartManager : MonoBehaviour
                 {
                     falseGod = falseGodNameList[Random.Range(0, falseGodNameList.Count)];
                 }
+                //ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/Jezebel");
                 ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/{falseGod}");
                 PlayerData.shared.nextFalseGod = "";
                 break;

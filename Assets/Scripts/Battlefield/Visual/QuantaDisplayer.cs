@@ -43,7 +43,7 @@ namespace Elements.Duel.Visual
             Vector3 destination = sText.GetComponent<MovingText>().SetupObject(difference, TextDirection.Right);
             for (int i = 0; i < 15; i++)
             {
-                sText.transform.position = Vector3.MoveTowards(sText.transform.position, destination, Time.deltaTime * 100f);
+                sText.transform.position = Vector3.MoveTowards(sText.transform.position, destination, Time.deltaTime * 50f);
                 yield return null;
             }
             Destroy(sText);

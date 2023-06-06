@@ -33,10 +33,10 @@ public class InputManager : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && DuelManager.endTurnButtonStatic.interactable)
+        if (Input.GetKeyDown(KeyCode.Space) && DuelManager.Instance.endTurnButton.interactable)
         {
             BattleVars.shared.spaceTapped = true;
-            DuelManager.PlayerEndTurn();
+            DuelManager.Instance.PlayerEndTurn();
             return;
         }
 
@@ -49,8 +49,6 @@ public class InputManager : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             isFingerOnScreen = false;
-
-            if (Command.playingQueue) { return; }
             //Set up the new Pointer Event
             m_PointerEventData = new PointerEventData(m_EventSystem);
             //Set the Pointer Event Position to that of the mouse position
@@ -82,10 +80,10 @@ public class InputManager : MonoBehaviour
             if(tappedID == null) { return; }
             if (BattleVars.shared.isSelectingTarget && DuelManager.GetAllValidTargets().Contains(tappedID))
             {
-                DuelManager.player.StartCoroutine(DuelManager.player.ActivateAbility(tappedID));
+                DuelManager.Instance.player.StartCoroutine(DuelManager.Instance.player.ActivateAbility(tappedID));
                 return;
             }
-            DuelManager.player.StartCoroutine(DuelManager.player.ManageID(tappedID));
+            DuelManager.Instance.player.StartCoroutine(DuelManager.Instance.player.ManageID(tappedID));
         }
     }
 

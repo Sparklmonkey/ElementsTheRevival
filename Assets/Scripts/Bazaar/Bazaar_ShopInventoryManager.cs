@@ -10,7 +10,7 @@ public class Bazaar_ShopInventoryManager : InventoryManager
 
     public void SetupInitialCardView(List<Card> cardList)
     {
-        inventoryCardList = CardDatabase.GetAllBazaarCards();
+        inventoryCardList = CardDatabase.Instance.GetAllBazaarCards();
         UpdateCardFilter(0);
     }
 

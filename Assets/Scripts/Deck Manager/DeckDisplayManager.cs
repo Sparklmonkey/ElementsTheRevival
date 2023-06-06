@@ -19,16 +19,18 @@ public class DeckDisplayManager : MonoBehaviour
     private Button menuBtn, bazaarBtn;
 
     [SerializeField]
-    private GameObject cardHeadPrefab, deckCodePopUpObject;
+    private GameObject cardHeadPrefab, deckCodePopUpObject, deckPresetPrefab;
 
     [SerializeField]
     private TMP_InputField deckCodeField;
     [SerializeField]
-    private Transform deckContentView, inventoryContentView;
+    private Transform deckContentView, inventoryContentView, deckPresetContentView;
     [SerializeField]
     private CardDisplay cardDisplay;
     [SerializeField]
     private ErrorMessageManager errorMessage;
+    [SerializeField]
+    private DeckManagerViewPlacement dmViewPlacement;
     [SerializeField]
     private DM_MarkManager markManager;
     public static bool isArena;
@@ -84,6 +86,25 @@ public class DeckDisplayManager : MonoBehaviour
                 cardHeadObject.GetComponent<DMCardPrefab>().SetupCardHead(inventoryCard, this);
                 inventoryDMCard.Add(cardHeadObject.GetComponent<DMCardPrefab>());
             }
+        }
+    }
+
+    public void SetupDeckPresetView(string deckcode)
+    {
+        deckPresetContentView.transform.parent.parent.gameObject.SetActive(false);
+        List<DeckPresetHead> children = new (deckPresetContentView.GetComponentsInChildren<DeckPresetHead>());
+        foreach (var child in children)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (var deckPreset in PlayerData.shared.savedDecks)
+        {
+            var deck = deckPreset.Split(":");
+
+            GameObject deckPresetObject = Instantiate(deckPresetPrefab, deckPresetContentView);
+            string markId = deck[1][^3..];
+            deckPresetObject.GetComponent<DeckPresetHead>().SetupCardHead(deck[0], CardDatabase.Instance.GetCardFromId(markId).costElement.FastElementString(), deck[1], this);
         }
     }
 
@@ -265,8 +286,27 @@ public class DeckDisplayManager : MonoBehaviour
         {
             returnString += $"{card.iD} ";
         }
-        returnString += $"{CardDatabase.markIds[(int)markManager.GetMarkSelected()]}";
+        returnString += $"{CardDatabase.Instance.markIds[(int)markManager.GetMarkSelected()]}";
         deckCodeField.text = returnString;
+    }
+
+    public void OpenDeckPreset(string deckCode)
+    {
+        RemoveAllDeckCards();
+        List<string> idList = deckCode.DecompressDeckCode();
+        foreach (var id in idList)
+        {
+            int cardIndex = playerInverntory.FindIndex(x => x.iD == id);
+            if (cardIndex == -1) { continue; }
+            playerDeck.Add(playerInverntory[cardIndex]);
+            playerInverntory.RemoveAt(cardIndex);
+            if (CardDatabase.Instance.markIds.Contains(id))
+            {
+                markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).costElement);
+            }
+        }
+        UpdateCardView();
+        deckCodePopUpObject.SetActive(false);
     }
 
     public void ImportDeckCode()
@@ -279,9 +319,9 @@ public class DeckDisplayManager : MonoBehaviour
             if(cardIndex == -1) { continue; }
             playerDeck.Add(playerInverntory[cardIndex]);
             playerInverntory.RemoveAt(cardIndex);
-            if (CardDatabase.markIds.Contains(id))
+            if (CardDatabase.Instance.markIds.Contains(id))
             {
-                markManager.SetupMarkCard((int)CardDatabase.GetCardFromId(id).costElement);
+                markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).costElement);
             }
         }
         UpdateCardView();

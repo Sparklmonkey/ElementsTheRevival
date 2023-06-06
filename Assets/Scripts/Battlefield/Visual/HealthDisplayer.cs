@@ -8,6 +8,7 @@ namespace Elements.Duel.Visual
 {
     public class HealthDisplayer : Identifiable
     {
+
         [SerializeField]
         private TextMeshProUGUI maxHp, currentHp;
         [SerializeField]
@@ -16,6 +17,28 @@ namespace Elements.Duel.Visual
         private GameObject upMovingText;
         [SerializeField]
         private Image validTargetGlow;
+
+        public void OnHealthChanged(int currentHP, bool isPlayer)
+        {
+            if (currentHP.ToString() == currentHp.text) { return; }
+            int current = int.Parse(currentHp.text);
+            int difference = current - currentHP;
+
+            string toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
+            currentHp.text = currentHP.ToString();
+
+            StartCoroutine(AnimateTextChange(toShow));
+            int temp = currentHP - DuelManager.GetPossibleDamage(isPlayer);
+            hpSlider.value = temp < 0 ? 0 : temp;
+
+            damageSlider.value = currentHP;
+
+            if (currentHP <= 0)
+            {
+                Debug.Log("Game Over");
+                GameOverVisual.ShowGameOverScreen(!isPlayer);
+            }
+        }
 
         public void SetHPStart(int hpToSet)
         {
@@ -56,7 +79,7 @@ namespace Elements.Duel.Visual
             Vector3 destination = sText.GetComponent<MovingText>().SetupObject(difference, TextDirection.Up);
             for (int i = 0; i < 15; i++)
             {
-                sText.transform.position = Vector3.MoveTowards(sText.transform.position, destination, Time.deltaTime * 100f);
+                sText.transform.position = Vector3.MoveTowards(sText.transform.position, destination, Time.deltaTime * 50f);
                 yield return null;
             }
             Destroy(sText);

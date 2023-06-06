@@ -1,23 +1,6 @@
 {
 	"cardDb": [
 		{
-			"iD": "0",
-			"imageID": "170",
-			"cardName": "Malignant Cell",
-			"cardType": 1,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 0,
-			"cost": 0,
-			"costElement": 0,
-			"rarity": 0,
-			"passive": [],
-			"innate": [],
-			"desc": "Infest: \nGenerates a new malignant cell every turn."
-		},
-		{
 			"iD": "4sa",
 			"imageID": "0",
 			"cardName": "Quantum Pillar",
@@ -440,7 +423,7 @@
 			"rarity": 2,
 			"passive": [],
 			"innate": [],
-			"desc": ""
+			"desc": "Shield: Reduce damage by 1."
 		},
 		{
 			"iD": "4vc",
@@ -1537,7 +1520,7 @@
 			"cardType": 1,
 			"atk": 2,
 			"def": 3,
-			"skill": "evolve,burrow",
+			"skill": "evolve",
 			"skillCost": 1,
 			"skillElement": 7,
 			"cost": 3,
@@ -5645,13 +5628,13 @@
 			"desc": "Weapon: Deal 5 damages at the end of every turn.\n<sprite=9><sprite=9> : Destroy\nShatter the target permanent."
 		},
 		{
-			"iD": "77h",
+			"iD": "77g",
 			"imageID": "116",
 			"cardName": "Elite Graboid",
 			"cardType": 1,
 			"atk": 2,
 			"def": 3,
-			"skill": "evolve,burrow",
+			"skill": "evolve",
 			"skillCost": 1,
 			"skillElement": 7,
 			"cost": 3,

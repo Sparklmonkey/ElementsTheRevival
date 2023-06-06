@@ -66,9 +66,9 @@ public abstract class AiBaseFunctions
 
         List<Card> cardList = new List<Card>(aiManager.GetHandCards());
         List<ID> idList = new List<ID>(aiManager.GetHandIds());
-        if (aiManager.playerPassiveManager.GetWeapon() != null)
+        if (aiManager.playerPassiveManager.GetWeapon().skill != "none")
         {
-            if (aiManager.playerPassiveManager.GetWeapon().cardName != "Weapon") { yield break; }
+            yield break;
         }
         int cardIndex = cardList.FindIndex(card => card.cardName == weaponName);
 
@@ -87,9 +87,9 @@ public abstract class AiBaseFunctions
 
         List<Card> cardList = new List<Card>(aiManager.GetHandCards());
         List<ID> idList = new List<ID>(aiManager.GetHandIds());
-        if (aiManager.playerPassiveManager.GetShield() != null)
+        if (aiManager.playerPassiveManager.GetShield().skill != "none")
         {
-            if (aiManager.playerPassiveManager.GetShield().cardName != "Shield_") { yield break; }
+            yield break; 
         }
         int cardIndex = cardList.FindIndex(card => card.cardName == shieldName);
 
@@ -143,11 +143,11 @@ public abstract class AiBaseFunctions
             BattleVars.shared.originId = idList[cardIndex];
             BattleVars.shared.cardOnStandBy = cardList[cardIndex];
 
-            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
 
             List<ID> opCreatureIds = DuelManager.GetAllValidTargets();
             opCreatureIds = opCreatureIds.FindAll(targetPredicate);
-            if (opCreatureIds.Count == 0) { DuelManager.ResetTargeting(); yield break; }
+            if (opCreatureIds.Count == 0) { DuelManager.Instance.ResetTargeting(); yield break; }
             System.Random rnd = new System.Random();
             ID target = opCreatureIds.OrderBy(x => rnd.Next())
                               .First();
@@ -178,11 +178,11 @@ public abstract class AiBaseFunctions
             BattleVars.shared.originId = idList[cardIndex];
             BattleVars.shared.cardOnStandBy = cardList[cardIndex];
 
-            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.player, BattleVars.shared.cardOnStandBy);
+            SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
 
             List<ID> opCreatureIds = DuelManager.GetAllValidTargets();
             opCreatureIds = opCreatureIds.FindAll(targetPredicate);
-            if (opCreatureIds.Count == 0) { DuelManager.ResetTargeting(); yield break; }
+            if (opCreatureIds.Count == 0) { DuelManager.Instance.ResetTargeting(); yield break; }
             System.Random rnd = new System.Random();
             ID target = opCreatureIds.OrderBy(x => rnd.Next())
                               .First();
