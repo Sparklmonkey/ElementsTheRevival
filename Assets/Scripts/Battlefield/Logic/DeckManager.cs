@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using System;
 
 namespace Elements.Duel.Manager
 {
@@ -10,23 +10,20 @@ namespace Elements.Duel.Manager
 
         public DeckManager(List<Card> deck) => this.deck = deck;
 
+        public event Action<int> OnDeckCountChange;
+
         public Card DrawCard()
         {
             if (deck.Count == 0) { return null; }
-            Card newCard = new Card(deck[0]);
+            Card newCard = new(deck[0]);
             deck.RemoveAt(0);
+            OnDeckCountChange?.Invoke(deck.Count);
             return newCard;
         }
 
-        public int GetDeckCount()
-        {
-            return deck.Count;
-        }
+        public int GetDeckCount() => deck.Count;
 
-        public void AddCardToTop(Card card)
-        {
-            deck.Insert(0, card);
-        }
+        public void AddCardToTop(Card card) => deck.Insert(0, card);
 
         public Card GetTopCard()
         {

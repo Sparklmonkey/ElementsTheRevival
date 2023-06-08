@@ -142,7 +142,7 @@ public abstract class FieldManager
     {
         foreach (IDCardPair item in pairList)
         {
-            item.card = null;
+            item.RemoveCard();
         }
     }
 

@@ -234,7 +234,7 @@ public class PlayerManager : MonoBehaviour
 
     public IEnumerator ScrambleQuanta()
     {
-        int total = playerQuantaManager.GetCurrentQuanta().GetIntTotal();
+        int total = playerQuantaManager.GetQuantaForElement(Element.Other);
 
         if (total <= 9)
         {
@@ -438,7 +438,6 @@ public class PlayerManager : MonoBehaviour
     public void AddCardToDeck(Card card)
     {
         deckManager.AddCardToTop(card);
-        deckDisplayer.UpdateDeckCount(deckManager.GetDeckCount());
     }
 
     private List<QuantaObject> GetOtherElementGenerator(int count)
@@ -1005,7 +1004,6 @@ public class PlayerManager : MonoBehaviour
             GameOverVisual.ShowGameOverScreen(!isPlayer);
             return;
         }
-        deckDisplayer.UpdateDeckCount(deckManager.GetDeckCount());
         //Add Card To Hand
         playerHand.AddCardToHand(newCard);
         if (!isInitialDraw)
@@ -1462,7 +1460,7 @@ public class PlayerManager : MonoBehaviour
                 yield break;
             }
         }
-        yield return StartCoroutine(playerQuantaManager.ChangeQuanta(element, amount, false));
+        playerQuantaManager.ChangeQuanta(element, amount, false);
     }
 
     public IEnumerator GenerateQuantaLogic(Element element, int amount)
@@ -1475,7 +1473,7 @@ public class PlayerManager : MonoBehaviour
                 yield break;
             }
         }
-        yield return StartCoroutine(playerQuantaManager.ChangeQuanta(element, amount, true));
+        playerQuantaManager.ChangeQuanta(element, amount, true);
     }
 
     public async void PlayActionAnimationVisual(ID cardID)
@@ -1588,7 +1586,7 @@ public class PlayerManager : MonoBehaviour
         }
         deck.Shuffle();
         deckManager = new DeckManager(deck);
-        deckDisplayer.UpdateDeckCount(deckManager.GetDeckCount());
+        deckManager.OnDeckCountChange += deckDisplayer.UpdateDeckCount;
         for (int i = 0; i < 7; i++)
         {
             DrawCardFromDeckLogic(true);
@@ -1597,6 +1595,7 @@ public class PlayerManager : MonoBehaviour
         healthManager = new HealthManager(isPlayer ? 100 : BattleVars.shared.enemyAiData.maxHP, isPlayer);
         healthDisplayer.SetHPStart(healthManager.GetCurrentHealth());
         healthManager.HealthChangedEvent += healthDisplayer.OnHealthChanged;
+        healthManager.MaxHealthUpdatedEvent += healthDisplayer.OnMaxHealthChanged;
 
         //if (isPlayer && PlayerData.shared.petName != "" && PlayerData.shared.petName != null)
         //{

@@ -39,72 +39,46 @@ public static class ElementColours
     {
         Element element = (Element)Random.Range(0,12);
 
-        switch (element)
+        return element switch
         {
-            case Element.Aether:
-                return aetherColour;
-            case Element.Air:
-                return airColour;
-            case Element.Darkness:
-                return darknessColour;
-            case Element.Light:
-                return lightColour;
-            case Element.Death:
-                return deathColour;
-            case Element.Earth:
-                return earthColour;
-            case Element.Entropy:
-                return entropyColour;
-            case Element.Time:
-                return timeColour;
-            case Element.Fire:
-                return fireColour;
-            case Element.Gravity:
-                return gravityColour;
-            case Element.Life:
-                return lifeColour;
-            case Element.Water:
-                return waterColour;
-            case Element.Other:
-                return aetherColour;
-            default:
-                return aetherColour;
-        }
-
-        
+            Element.Aether => aetherColour,
+            Element.Air => airColour,
+            Element.Darkness => darknessColour,
+            Element.Light => lightColour,
+            Element.Death => deathColour,
+            Element.Earth => earthColour,
+            Element.Entropy => entropyColour,
+            Element.Time => timeColour,
+            Element.Fire => fireColour,
+            Element.Gravity => gravityColour,
+            Element.Life => lifeColour,
+            Element.Water => waterColour,
+            Element.Other => aetherColour,
+            _ => aetherColour,
+        };
     }
     public static Color GetElementColour(Element element)
     {
-        switch (element)
+        return element switch
         {
-            case Element.Aether:
-                return aetherColour;
-            case Element.Air:
-                return airColour;
-            case Element.Darkness:
-                return darknessColour;
-            case Element.Light:
-                return lightColour;
-            case Element.Death:
-                return deathColour;
-            case Element.Earth:
-                return earthColour;
-            case Element.Entropy:
-                return entropyColour;
-            case Element.Time:
-                return timeColour;
-            case Element.Fire:
-                return fireColour;
-            case Element.Gravity:
-                return gravityColour;
-            case Element.Life:
-                return lifeColour;
-            case Element.Water:
-                return waterColour;
-            case Element.Other:
-                return GetRandomColour();
-            default:
-                return aetherColour;
-        }
+            Element.Aether => aetherColour,
+            Element.Air => airColour,
+            Element.Darkness => darknessColour,
+            Element.Light => lightColour,
+            Element.Death => deathColour,
+            Element.Earth => earthColour,
+            Element.Entropy => entropyColour,
+            Element.Time => timeColour,
+            Element.Fire => fireColour,
+            Element.Gravity => gravityColour,
+            Element.Life => lifeColour,
+            Element.Water => waterColour,
+            Element.Other => GetRandomColour(),
+            _ => aetherColour,
+        };
     }
+
+    public static Color32 GetWhiteColor() => new(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
+    public static Color32 GetBlackColor() => new(byte.MinValue, byte.MinValue, byte.MinValue, byte.MaxValue);
+    public static Color32 GetInvisibleColor() => new(byte.MinValue, byte.MinValue, byte.MinValue, byte.MinValue);
 }

@@ -10,6 +10,7 @@ namespace Elements.Duel.Manager
     public class HandManager : FieldManager
     {
         private List<PlayerCardInHand> handDisplayers;
+
         public HandManager(List<ID> idList, List<PlayerCardInHand> handDisplayers)
         {
             this.handDisplayers = handDisplayers;
@@ -17,17 +18,15 @@ namespace Elements.Duel.Manager
             for (int i = 0; i < idList.Count; i++)
             {
                 pairList.Add(new IDCardPair(idList[i], null));
+                pairList[i].OnCardChanged += handDisplayers[i].DisplayCard;
             }
         }
 
-        public void AddObjectToHand(ID id, Card card) => pairList.Add(new IDCardPair(id, card));
         public bool ShouldDiscard() => pairList.FindAll(x => x.card != null).Count >= 8;
 
         public void PlayCardWithID(ID id)
         {
-            //Remove Card from hand
-            pairList[id.Index].card = null;
-            handDisplayers[id.Index].PlayDissolveAnimation();
+            pairList.Find(x => x.id == id).RemoveCard();
 
             //Update Hand To Remove Empty Space
             foreach (var item in handDisplayers)
@@ -35,15 +34,12 @@ namespace Elements.Duel.Manager
                 item.transform.parent.gameObject.SetActive(false);
             }
             List<Card> list = GetAllCards();
-            for (int i = 0; i < list.Count; i++)
-            {
-                handDisplayers[i].DisplayCard(list[i], true);
-            }
+
             ClearAllCards();
             int handIndex = 0;
             foreach (Card item in list)
             {
-                pairList[handIndex].card = item;
+                pairList[handIndex].PlayCard(item);
                 handIndex++;
             }
         }
@@ -51,8 +47,7 @@ namespace Elements.Duel.Manager
         public void AddCardToHand(Card card)
         {
             int availableIndex = pairList.FindIndex(x => x.card == null);
-            pairList[availableIndex].card = card;
-            handDisplayers[availableIndex].DisplayCard(card);
+            pairList[availableIndex].PlayCard(card);
         }
     }
 }

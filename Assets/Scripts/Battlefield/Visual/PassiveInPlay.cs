@@ -23,15 +23,12 @@ namespace Elements.Duel.Visual
             SetID(owner, field, index - 1, transform);
             isPassive = field.Equals(FieldEnum.Passive);
         }
-        public void DisplayCard(Card cardToDisplay, bool shouldAnim)
+        public void DisplayCard(Card cardToDisplay)
         {
             transform.parent.gameObject.SetActive(true);
             cardImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
             cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
-            if (shouldAnim)
-            {
-                PlayMaterializeAnimation(cardToDisplay.costElement);
-            }
+            PlayMaterializeAnimation(cardToDisplay.costElement);
             SetCard(cardToDisplay);
 
             activeAHolder.SetActive(false);

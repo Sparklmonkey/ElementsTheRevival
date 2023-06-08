@@ -1,18 +1,22 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using Elements.Duel.Visual;
 
 namespace Elements.Duel.Manager
 {
 
     public class PassiveManager : FieldManager
     {
-        public PassiveManager(List<ID> idList)
+        private List<PassiveInPlay> _passiveDisplayers;
+        public PassiveManager(List<ID> idList, List<PassiveInPlay> passiveDisplayers)
         {
+            _passiveDisplayers = passiveDisplayers;
             pairList = new List<IDCardPair>();
             for (int i = 0; i < idList.Count; i++)
             {
                 pairList.Add(new IDCardPair(idList[i], null));
+                pairList[i].OnCardChanged += _passiveDisplayers[i].DisplayCard;
             }
         }
 

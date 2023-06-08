@@ -5,6 +5,7 @@ public class IDCardPair
 {
     public ID id;
     public Card card;
+    public event Action<Card> OnCardChanged;
 
     public IDCardPair(ID id, Card card)
     {
@@ -12,4 +13,17 @@ public class IDCardPair
         this.card = card;
     }
 
+    public void PlayCard(Card card)
+    {
+        this.card = card;
+        OnCardChanged?.Invoke(card);
+    }
+
+    public void RemoveCard()
+    {
+        card = null;
+        OnCardChanged?.Invoke(null);
+    }
+
+    public Card GetCard() => card;
 }

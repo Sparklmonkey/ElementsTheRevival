@@ -20,22 +20,19 @@ namespace Elements.Duel.Visual
             quantaCount.text = "0";
         }
 
-        public IEnumerator SetNewQuantaAmount(string newValue)
+        public void QuantaChanged(int newValue)
         {
-            if (newValue != quantaCount.text)
+            if (newValue.ToString() != quantaCount.text)
             {
                 int current = int.Parse(quantaCount.text);
-                int newAmount = int.Parse(newValue);
+                int newAmount = newValue;
                 int difference = current - newAmount;
                 string toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
 
-                quantaCount.text = newValue;
+                quantaCount.text = newValue.ToString();
                 StartCoroutine(AnimateTextChange(toShow));
-                yield return null;
             }
         }
-
-        public string GetNameOfElement() => gameObject.name;
 
         private IEnumerator AnimateTextChange(string difference)
         {

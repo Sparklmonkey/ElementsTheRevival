@@ -29,8 +29,15 @@ public class CardDatabase : MonoBehaviour
         }
     }
 
+    public Dictionary<string, string> cardNameToBackGroundString = new()
+    {
+        {"Animate Weapon", "Air"},
+        {"Luciferin", "Light"},
+        {"Luciferase", "Light"}
+    };
 
-    public List<string> endTurnPassives = new List<string> { "fire", "sanctuary","gratitude", "infest", "light", "air", "earth", "overdrive", 
+    public List<string> endTurnPassives = new()
+    { "fire", "sanctuary","gratitude", "infest", "light", "air", "earth", "overdrive", 
         "acceleration", "void", "empathy", "flood", "devourer", "swarm", "patience", "singularity"};
 
     internal List<int> GetFullCardCount()

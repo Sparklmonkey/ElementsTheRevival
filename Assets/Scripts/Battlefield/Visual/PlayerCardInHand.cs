@@ -21,7 +21,8 @@ namespace Elements.Duel.Visual
                 Destroy(GetComponent<CardDetailToolTip>());
             }
         }
-        public void DisplayCard(Card cardToDisplay, bool quickPlay = false)
+
+        public void DisplayCard(Card cardToDisplay)
         {
             transform.parent.gameObject.SetActive(true);
             if (!GetObjectID().Owner.Equals(OwnerEnum.Player))
@@ -30,68 +31,42 @@ namespace Elements.Duel.Visual
                 PlayMaterializeAnimation(Element.Aether);
                 return;
             }
-            isHidden.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, 0);
+            isHidden.color = ElementColours.GetInvisibleColor();
+
             cardName.text = cardToDisplay.cardName;
-
-
-            if (cardToDisplay.iD.IsUpgraded())
-            {
-                cardName.font = underlayWhite;
-                cardName.color = new Color32(byte.MinValue, byte.MinValue, byte.MinValue, byte.MaxValue);
-            }
-            else
-            {
-                cardName.font = underlayBlack;
-                cardName.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
-            }
-
+            cardName.font = cardToDisplay.iD.IsUpgraded() ? underlayWhite : underlayBlack;
+            cardName.color = cardToDisplay.iD.IsUpgraded() ? ElementColours.GetBlackColor() : ElementColours.GetWhiteColor();
+            
             cardCost.text = cardToDisplay.cost.ToString();
             cardElement.sprite = ImageHelper.GetElementImage(cardToDisplay.costElement.ToString());
 
-            cardElement.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
+            cardElement.color = ElementColours.GetWhiteColor();
 
-            string backGroundString = cardToDisplay.cardName == "Animate Weapon" ? "Air" :
-                                    cardToDisplay.cardName == "Luciferin" || cardToDisplay.cardName == "Luciferase" ? "Light" :
-                                    cardToDisplay.costElement.ToString();
+
+            if (CardDatabase.Instance.cardNameToBackGroundString.TryGetValue(cardToDisplay.cardName, out string backGroundString))
+            {
+                cardBackground.sprite = ImageHelper.GetCardBackGroundImage(backGroundString);
+            }
+            else
+            {
+                cardBackground.sprite = ImageHelper.GetCardBackGroundImage(cardToDisplay.costElement.ToString());
+            }
 
             if (cardToDisplay.cost == 0)
             {
                 cardCost.text = "";
-                cardElement.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, 0);
+                cardElement.color = ElementColours.GetInvisibleColor();
             }
 
             if (cardToDisplay.costElement.Equals(Element.Other))
             {
-                cardElement.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, 0);
+                cardElement.color = ElementColours.GetInvisibleColor();
             }
 
-            cardBackground.sprite = ImageHelper.GetCardBackGroundImage(backGroundString);
-            bool isPlayer = GetObjectID().Owner.Equals(OwnerEnum.Player);
-            if (cardToDisplay.cardName.Contains("Pendulum"))
-            {
-                Element pendulumElement = cardToDisplay.costElement;
-                Element markElement = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
-                if (cardToDisplay.costElement == cardToDisplay.skillElement)
-                {
-                    cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
-                }
-                else
-                {
-                    cardImage.sprite = ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
-                }
-            }
-            else
-            {
-                cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
-            }
-            if (!quickPlay)
-            {
-                PlayMaterializeAnimation(cardToDisplay.costElement);
-            }
-            else
-            {
-                SetRayCastTarget(true);
-            }
+            SetCardImage(cardToDisplay.imageID, cardToDisplay.cardName.Contains("Pendulum"), cardToDisplay.costElement == cardToDisplay.skillElement, cardToDisplay.costElement);
+
+            PlayMaterializeAnimation(cardToDisplay.costElement);
+            
             SetCard(cardToDisplay);
         }
 
@@ -105,6 +80,27 @@ namespace Elements.Duel.Visual
         {
             isHidden.sprite = ImageHelper.GetCardBackImage();
             SetCard(null);
+        }
+
+        private void SetCardImage(string imageId, bool isPendulum, bool shouldShowMarkElement, Element costElement)
+        {
+            if (isPendulum)
+            {
+                bool isPlayer = GetObjectID().Owner.Equals(OwnerEnum.Player);
+                Element markElement = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
+                if (!shouldShowMarkElement)
+                {
+                    cardImage.sprite = ImageHelper.GetPendulumImage(costElement.FastElementString(), markElement.FastElementString());
+                }
+                else
+                {
+                    cardImage.sprite = ImageHelper.GetPendulumImage(markElement.FastElementString(), costElement.FastElementString());
+                }
+            }
+            else
+            {
+                cardImage.sprite = ImageHelper.GetCardImage(imageId);
+            }
         }
     }
 

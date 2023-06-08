@@ -5,50 +5,46 @@ namespace Elements.Duel.Manager
 {
     public class HealthManager
     {
-        private int maxHealth;
-        private int currentHealth;
+        private int _maxHealth;
+        private int _currentHealth;
         private bool _isPlayer;
         public event Action<int, bool> HealthChangedEvent;
+        public event Action<int, bool> MaxHealthUpdatedEvent;
 
         public HealthManager(int maxHealth, bool isPlayer)
         {
-            this.maxHealth = currentHealth = maxHealth;
+            _maxHealth = _currentHealth = maxHealth;
             _isPlayer = isPlayer;
         }
 
         public int ModifyHealth(int amount, bool isDamage = true)
         {
-            currentHealth += isDamage ? -amount : amount;
+            _currentHealth += isDamage ? -amount : amount;
 
-            currentHealth = currentHealth > maxHealth ? maxHealth : currentHealth;
-            HealthChangedEvent?.Invoke(currentHealth, _isPlayer);
-            return currentHealth;
+            _currentHealth = _currentHealth > _maxHealth ? _maxHealth : _currentHealth;
+            HealthChangedEvent?.Invoke(_currentHealth, _isPlayer);
+            return _currentHealth;
         }
 
-        public int GetCurrentHealth() => currentHealth;
 
         public int ModifyMaxHealth(int maxHPBuff, bool isIncrease)
         {
             if (isIncrease)
             {
-                maxHealth += maxHPBuff;
+                _maxHealth += maxHPBuff;
             }
             else
             {
-                maxHealth -= maxHPBuff;
+                _maxHealth -= maxHPBuff;
             }
-            HealthChangedEvent?.Invoke(currentHealth, _isPlayer);
-            return maxHealth;
+            MaxHealthUpdatedEvent?.Invoke(_currentHealth, _isPlayer);
+            return _maxHealth;
         }
 
-        public int GetMaxHealth()
-        {
-            return maxHealth;
-        }
+        public int GetMaxHealth() => _maxHealth;
 
-        internal bool IsMaxHealth()
-        {
-            return maxHealth <= currentHealth;
-        }
+        internal bool IsMaxHealth() => _maxHealth == _currentHealth;
+
+        public int GetCurrentHealth() => _currentHealth;
     }
 }

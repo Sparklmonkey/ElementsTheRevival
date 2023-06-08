@@ -40,6 +40,28 @@ namespace Elements.Duel.Visual
             }
         }
 
+        public void OnMaxHealthChanged(int currentHP, bool isPlayer)
+        {
+            if (currentHP.ToString() == currentHp.text) { return; }
+            int current = int.Parse(currentHp.text);
+            int difference = current - currentHP;
+
+            string toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
+            currentHp.text = currentHP.ToString();
+
+            StartCoroutine(AnimateTextChange(toShow));
+            int temp = currentHP - DuelManager.GetPossibleDamage(isPlayer);
+            hpSlider.value = temp < 0 ? 0 : temp;
+
+            damageSlider.value = currentHP;
+
+            if (currentHP <= 0)
+            {
+                Debug.Log("Game Over");
+                GameOverVisual.ShowGameOverScreen(!isPlayer);
+            }
+        }
+
         public void SetHPStart(int hpToSet)
         {
             maxHp.text = currentHp.text = hpToSet.ToString();
