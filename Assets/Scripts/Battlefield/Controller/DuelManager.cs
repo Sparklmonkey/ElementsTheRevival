@@ -243,8 +243,7 @@ public class DuelManager : MonoBehaviour
         Instance.enemy.playerDisplayer.ShouldShowTarget(false);
         Instance.player.playerDisplayer.ShouldShowTarget(false);
         validTargets.Clear();
-        BattleVars.shared.originId = null;
-        BattleVars.shared.cardOnStandBy = null;
+        BattleVars.shared.abilityOrigin = null;
         BattleVars.shared.isSelectingTarget = false;
     }
 

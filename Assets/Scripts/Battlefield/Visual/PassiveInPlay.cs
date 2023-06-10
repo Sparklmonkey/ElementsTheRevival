@@ -23,7 +23,7 @@ namespace Elements.Duel.Visual
             SetID(owner, field, index - 1, transform);
             isPassive = field.Equals(FieldEnum.Passive);
         }
-        public void DisplayCard(Card cardToDisplay)
+        public void DisplayCard(Card cardToDisplay, int stack = 0)
         {
             transform.parent.gameObject.SetActive(true);
             cardImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);

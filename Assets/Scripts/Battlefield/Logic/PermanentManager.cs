@@ -7,6 +7,9 @@ namespace Elements.Duel.Manager
     [Serializable]
     public class PermanentManager : FieldManager
     {
+        private readonly List<int> permanentCardOrder = new(){ 1, 3, 5, 7, 0, 2, 4, 6, 9, 11, 13, 8, 10, 12, 14 };
+        private readonly List<string> permanentsWithCountdown = new(){ "7q9", "5rp", "5v2", "7ti" };
+
         public PermanentManager(List<ID> idList)
         {
             pairList = new List<IDCardPair>();
@@ -15,6 +18,33 @@ namespace Elements.Duel.Manager
                 stackCountList.Add(0);
                 pairList.Add(new IDCardPair(idList[i], null));
             }
+        }
+
+        public ID PlayPermanent(Card card)
+        {
+            if (card.cardType.Equals(CardType.Pillar))
+            {
+                IDCardPair stackedCard = pairList.Find(x => x.card.iD == card.iD);
+                if (stackedCard != null)
+                {
+                    stackedCard.PlayCard(card);
+                    return stackedCard.id;
+                }
+            }
+
+            foreach (int orderIndex in permanentCardOrder)
+            {
+                if (!pairList[orderIndex].HasCard())
+                {
+                    if (stackCountList.Count > 0)
+                    {
+                        stackCountList[orderIndex]++;
+                    }
+                    pairList[orderIndex].PlayCard(card);
+                    return pairList[orderIndex].id;
+                }
+            }
+            return null;
         }
 
         public List<(QuantaObject, ID)> GetQuantaToGenerate()
@@ -76,6 +106,27 @@ namespace Elements.Duel.Manager
         public int GetStackAt(int index)
         {
             return stackCountList[index];
+        }
+
+        public void PermanentTurnDown()
+        {
+            foreach (var idCard in pairList)
+            {
+                if(!idCard.HasCard()) { continue; }
+                idCard.card.AbilityUsed = false;
+                if (permanentsWithCountdown.Contains(idCard.card.iD))
+                {
+                    idCard.card.TurnsInPlay--;
+
+                    if (idCard.card.TurnsInPlay == 0)
+                    {
+                        idCard.RemoveCard();
+                        return;
+                    }
+                }
+                idCard.UpdateCard();
+
+            }
         }
     }
 

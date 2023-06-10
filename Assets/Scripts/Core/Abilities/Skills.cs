@@ -59,6 +59,7 @@ public class Nightmare : SkillBase
             enemy.ModifyHealthLogic(damage * 2, false, true);
             player.ModifyHealthLogic(damage * 2, true, true);
         }
+        yield break;
     }
     public override List<ID> SetupValidTargets()
     {

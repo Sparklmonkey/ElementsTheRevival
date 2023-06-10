@@ -23,405 +23,372 @@ public class SkillManager
             return instance;
         }
     }
-    public IEnumerator SkillRoutineNoTarget(PlayerManager owner, Card card)
+
+    public void SkillRoutineNoTarget(PlayerManager owner, IDCardPair idCard)
     {
-        if (card.skill == "duality")
-        {
-            if (owner.isPlayer)
-            {
-                Card cardToAdd = DuelManager.Instance.enemy.deckManager.GetTopCard();
-                if (cardToAdd == null) { yield break; }
-                owner.playerHand.AddCardToHand(new(cardToAdd));
-            }
-            else
-            {
-                Card cardToAdd = DuelManager.Instance.player.deckManager.GetTopCard();
-                if (cardToAdd == null) { yield break; }
-                owner.playerHand.AddCardToHand(new(cardToAdd));
-            }
-        }
-        if (card.skill == "scarab")
-        {
-            owner.PlayCardOnFieldLogic(card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7qa") : CardDatabase.Instance.GetCardFromId("5rq"));
-        }
-        if (card.skill == "mitosis")
-        {
-            Card daughterCard = CardDatabase.Instance.GetCardFromId(card.iD);
-            owner.PlayCardOnFieldLogic(daughterCard);
-        }
-        if (card.skill == "healp")
-        {
-            owner.ModifyHealthLogic(20, false, false);
-        }
-        if (card.skill == "hasten")
-        {
-            owner.DrawCardFromDeckLogic();
-        }
-        if (card.skill == "ignite")
-        {
-            owner.StartCoroutine(owner.RemoveCardFromFieldLogic(BattleVars.shared.originId));
-            if (owner.isPlayer)
-            {
-                DuelManager.Instance.enemy.ModifyHealthLogic(20, true, false);
-            }
-            else
-            {
-                DuelManager.Instance.player.ModifyHealthLogic(20, true, false);
-            }
 
-            List<ID> creatureIds = DuelManager.Instance.enemy.playerCreatureField.GetAllIds();
-            creatureIds.AddRange(DuelManager.Instance.player.playerCreatureField.GetAllIds());
-
-            List<Card> creatureCards = DuelManager.Instance.enemy.playerCreatureField.GetAllCards();
-            creatureCards.AddRange(DuelManager.Instance.player.playerCreatureField.GetAllCards());
-
-            for (int i = 0; i < creatureCards.Count; i++)
-            {
-                creatureCards[i].DefDamage += 1;
-                DuelManager.GetIDOwner(creatureIds[i]).DisplayNewCard(creatureIds[i], creatureCards[i]);
-            }
-        }
-        if (card.skill == "pandemonium")
+        switch (idCard.card.skill)
         {
-
-            List<ID> creatureIds = DuelManager.Instance.enemy.playerCreatureField.GetAllIds();
-            creatureIds.AddRange(DuelManager.Instance.player.playerCreatureField.GetAllIds());
-
-            List<Card> creatureCards = DuelManager.Instance.enemy.playerCreatureField.GetAllCards();
-            creatureCards.AddRange(DuelManager.Instance.player.playerCreatureField.GetAllCards());
-            for (int i = 0; i < creatureCards.Count; i++)
-            {
-                yield return owner.StartCoroutine(ChoasSeed(DuelManager.GetIDOwner(creatureIds[i]), creatureCards[i], creatureIds[i]));
-            }
-        }
-        if (card.skill == "serendipity")
-        {
-            CardType typeToAdd = ExtensionMethods.GetSerendipityWeighted();
-            Element elementToAdd = Element.Entropy;
-
-            for (int i = 0; i < 3; i++)
-            {
-                owner.AddCardToDeck(CardDatabase.Instance.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd, card.iD.IsUpgraded()));
-                owner.DrawCardFromDeckLogic(true);
-                typeToAdd = ExtensionMethods.GetSerendipityWeighted();
-                elementToAdd = (Element)Random.Range(0, 12);
-                while (typeToAdd.Equals(CardType.Artifact) && elementToAdd.Equals(Element.Earth))
+            case "duality":
+                if (owner.isPlayer)
                 {
+                    Card cardToAdd = DuelManager.Instance.enemy.deckManager.GetTopCard();
+                    if (cardToAdd == null) { return; }
+                    owner.playerHand.AddCardToHand(new(cardToAdd));
+                }
+                else
+                {
+                    Card cardToAdd = DuelManager.Instance.player.deckManager.GetTopCard();
+                    if (cardToAdd == null) { return; }
+                    owner.playerHand.AddCardToHand(new(cardToAdd));
+                }
+                break;
+            case "scarab":
+                owner.PlayCardOnFieldLogic(idCard.card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7qa") : CardDatabase.Instance.GetCardFromId("5rq"));
+                break;
+            case "mitosis":
+                Card daughterCard = CardDatabase.Instance.GetCardFromId(idCard.card.iD);
+                owner.PlayCardOnFieldLogic(daughterCard);
+                break;
+            case "hasten":
+                owner.DrawCardFromDeckLogic();
+                break;
+            case "healp":
+                owner.ModifyHealthLogic(20, false, false);
+                break;
+            case "ignite":
+                idCard.RemoveCard();
+
+                if (owner.isPlayer)
+                {
+                    DuelManager.Instance.enemy.ModifyHealthLogic(20, true, false);
+                }
+                else
+                {
+                    DuelManager.Instance.player.ModifyHealthLogic(20, true, false);
+                }
+
+                var idList = DuelManager.Instance.enemy.playerCreatureField.GetAllValidCardIds();
+
+                foreach (var idCardi in idList)
+                {
+                    idCardi.card.DefDamage += 1;
+                    idCardi.UpdateCard();
+                }
+
+                idList = DuelManager.Instance.player.playerCreatureField.GetAllValidCardIds();
+
+                foreach (var idCardi in idList)
+                {
+                    idCardi.card.DefDamage += 1;
+                    idCardi.UpdateCard();
+                }
+                break;
+            case "pandemonium":
+                idList = DuelManager.Instance.player.playerCreatureField.GetAllValidCardIds();
+
+                foreach (var idCardi in idList)
+                {
+                    ChoasSeed(DuelManager.Instance.player, idCardi);
+                }
+
+                idList = DuelManager.Instance.enemy.playerCreatureField.GetAllValidCardIds();
+
+                foreach (var idCardi in idList)
+                {
+                    ChoasSeed(DuelManager.Instance.enemy, idCardi);
+                }
+                break;
+            case "serendipity":
+                CardType typeToAdd = ExtensionMethods.GetSerendipityWeighted();
+                Element elementToAdd = Element.Entropy;
+
+                for (int i = 0; i < 3; i++)
+                {
+                    owner.playerHand.AddCardToHand(CardDatabase.Instance.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd, idCard.card.iD.IsUpgraded()));
+
                     typeToAdd = ExtensionMethods.GetSerendipityWeighted();
                     elementToAdd = (Element)Random.Range(0, 12);
+                    while (typeToAdd.Equals(CardType.Artifact) && elementToAdd.Equals(Element.Earth))
+                    {
+                        typeToAdd = ExtensionMethods.GetSerendipityWeighted();
+                        elementToAdd = (Element)Random.Range(0, 12);
+                    }
                 }
-                yield return null;
-            }
-        }
-        if (card.skill == "flying")
-        {
-            Card weapon = new(owner.playerPassiveManager.GetWeapon());
-            if (weapon.iD == "4t2") { yield break; }
-            weapon.cardType = CardType.Creature;
-            owner.PlayCardOnFieldLogic(weapon);
-            yield return owner.StartCoroutine(owner.RemoveCardFromFieldLogic(owner.playerPassiveManager.GetWeaponID()));
-        }
-        if (card.skill == "deadly poison")
-        {
-            if (owner.isPlayer)
-            {
-                DuelManager.Instance.enemy.playerCounters.poison += 3;
-                DuelManager.Instance.enemy.UpdatePlayerIndicators();
-            }
-            else
-            {
-                DuelManager.Instance.player.playerCounters.poison += 3;
-                DuelManager.Instance.player.UpdatePlayerIndicators();
-            }
-        }
-        if (card.skill == "blitz")
-        {
-            yield return owner.StartCoroutine(owner.SpendQuantaLogic(Element.Air, 75));
-            List<Card> creatures = owner.playerCreatureField.GetAllCards();
-            foreach (Card creature in creatures)
-            {
-                if (creature.innate.Contains("airborne"))
+                break;
+            case "flying":
+                Card weapon = new(owner.playerPassiveManager.GetWeapon());
+                if (weapon.iD == "4t2") { return; }
+                weapon.cardType = CardType.Creature;
+                owner.PlayCardOnFieldLogic(weapon);
+                owner.playerPassiveManager.RemoveWeapon();
+                break;
+            case "deadly poison":
+                if (owner.isPlayer)
                 {
-                    //Game_AnimationManager.shared.StartAnimation("Dive", Battlefield_ObjectIDManager.shared.GetObjectFromID(id));
-                    creature.passive.Add("diving");
+                    DuelManager.Instance.enemy.playerCounters.poison += 3;
+                    DuelManager.Instance.enemy.UpdatePlayerIndicators();
                 }
-            }
-        }
-        if (card.skill == "shard")
-        {
-            int maxHPBuff = owner.playerPassiveManager.GetMark().costElement.Equals(Element.Light) ? 24 : 16;
-            owner.ModifyMaxHealthLogic(maxHPBuff, true);
-        }
-        if (card.skill == "bravery")
-        {
-            int cardToDraw = owner.playerPassiveManager.GetMark().costElement.Equals(Element.Fire) ? 3 : 2;
-            for (int i = 0; i < cardToDraw; i++)
-            {
-                DuelManager.Instance.player.DrawCardFromDeckLogic();
-                DuelManager.Instance.enemy.DrawCardFromDeckLogic();
-                yield return null;
-            }
-        }
-        if (card.skill == "rain of fire")
-        {
-            PlayerManager target = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-            List<Card> creatureCards = target.playerCreatureField.GetAllCards();
-            List<ID> creatureIds = target.playerCreatureField.GetAllIds();
-            for (int i = 0; i < creatureCards.Count; i++)
-            {
+                else
+                {
+                    DuelManager.Instance.player.playerCounters.poison += 3;
+                    DuelManager.Instance.player.UpdatePlayerIndicators();
+                }
+                break;
+            case "blitz":
+                owner.SpendQuantaLogic(Element.Air, 75);
+                var idCardList = owner.playerCreatureField.GetAllValidCardIds();
+                foreach (var idCardi in idCardList)
+                {
+                    if (idCardi.card.innate.Contains("airborne"))
+                    {
+                        //Game_AnimationManager.shared.StartAnimation("Dive", Battlefield_ObjectIDManager.shared.GetObjectFromID(id));
+                        idCardi.card.passive.Add("diving");
+                        idCardi.UpdateCard();
+                    }
+                }
+                break;
+            case "shard":
+                int maxHPBuff = owner.playerPassiveManager.GetMark().costElement.Equals(Element.Light) ? 24 : 16;
+                owner.ModifyMaxHealthLogic(maxHPBuff, true);
+                break;
+            case "bravery":
+                int cardToDraw = owner.playerPassiveManager.GetMark().costElement.Equals(Element.Fire) ? 3 : 2;
+                for (int i = 0; i < cardToDraw; i++)
+                {
+                    DuelManager.Instance.player.DrawCardFromDeckLogic();
+                    DuelManager.Instance.enemy.DrawCardFromDeckLogic();
+                }
+                break;
+            case "rain of fire":
+                PlayerManager target = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
+                idList = target.playerCreatureField.GetAllValidCardIds();
+
                 Game_SoundManager.shared.PlayAudioClip("Lightning");
-                creatureCards[i].DefDamage += 3;
-                target.DisplayNewCard(creatureIds[i], creatureCards[i], true);
-            }
-        }
-        if (card.skill == "thunderstorm")
-        {
-            PlayerManager target = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-            List<Card> creatureCards = target.playerCreatureField.GetAllCards();
-            List<ID> creatureIds = target.playerCreatureField.GetAllIds();
-            for (int i = 0; i < creatureCards.Count; i++)
-            {
+                foreach (var idCardi in idList)
+                {
+                    idCardi.card.DefDamage += 3;
+                    idCardi.UpdateCard();
+                }
+                break;
+            case "thunderstorm":
+                target = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
+                idList = target.playerCreatureField.GetAllValidCardIds();
+
                 Game_SoundManager.shared.PlayAudioClip("Lightning");
-                creatureCards[i].DefDamage += 2;
-                target.DisplayNewCard(creatureIds[i], creatureCards[i], true);
-            }
-        }
-        if (card.skill == "stoneskin")
-        {
-            int maxHPBuff = owner.GetAllQuantaOfElement(Element.Earth);
-            owner.ModifyMaxHealthLogic(maxHPBuff, true);
-        }
-        if (card.skill == "miracle")
-        {
-            int maxHp = owner.healthManager.GetMaxHealth();
-            int currentHP = owner.healthManager.GetCurrentHealth();
-
-            int hpToHeal = maxHp - currentHP - 1;
-
-            owner.ModifyHealthLogic(hpToHeal, false, true);
-            owner.SpendQuantaLogic(Element.Light, 75);
-        }
-        if (card.skill == "supernova")
-        {
-            for (int i = 0; i < 12; i++)
-            {
-                yield return owner.StartCoroutine(owner.GenerateQuantaLogic((Element)i, 2));
-            }
-            if (BattleVars.shared.isSingularity > 0)
-            {
-                owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("6ub"));
-            }
-            BattleVars.shared.isSingularity++;
-        }
-        if (card.skill == "nova")
-        {
-            for (int i = 0; i < 12; i++)
-            {
-                yield return owner.StartCoroutine(owner.GenerateQuantaLogic((Element)i, 1));
-            }
-            if (BattleVars.shared.isSingularity > 1)
-            {
-                owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("4vr"));
-            }
-            BattleVars.shared.isSingularity++;
-        }
-        if (card.skill == "patience")
-        {
-            owner.RemoveCardFromFieldLogic(BattleVars.shared.originId);
-        }
-        if (card.skill == "sacrifice")
-        {
-            owner.ModifyHealthLogic(40, true, false);
-            for (int i = 0; i < 12; i++)
-            {
-                if ((Element)i == Element.Death) { continue; }
-                yield return owner.StartCoroutine(owner.SpendQuantaLogic((Element)i, 75));
-            }
-            owner.sacrificeCount = 2;
-            yield return null;
-        }
-        if (card.skill == "silence")
-        {
-            owner.playerCounters.silence += 1;
-            owner.silenceImage.gameObject.SetActive(owner.playerCounters.silence > 0);
-        }
-        if (card.skill == "rebirth")
-        {
-            owner.DisplayNewCard(BattleVars.shared.originId, card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7ds") : CardDatabase.Instance.GetCardFromId("5fc"));
-        }
-        if (card.skill == "burrow")
-        {
-            if (card.passive.Contains("burrow"))
-            {
-                card.passive.Remove("burrow");
-                card.atk *= 2;
-                card.AtkModify *= 2;
-            }
-            else
-            {
-                card.passive.Add("burrow");
-                card.atk /= 2;
-                card.AtkModify /= 2;
-            }
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "divineshield")
-        {
-            card.passive.Add("divineshield");
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "queen")
-        {
-            owner.PlayCardOnFieldLogic(card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n4") : CardDatabase.Instance.GetCardFromId("5ok"));
-        }
-        if (card.skill == "steam")
-        {
-            card.Charge += 5;
-            card.AtkModify += 5;
-            card.DefModify += 5;
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "photosynthesis")
-        {
-            Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(BattleVars.shared.originId), Element.Life);
-            owner.StartCoroutine(owner.GenerateQuantaLogic(Element.Life, 2));
-        }
-        if (card.skill == "precognition")
-        {
-            owner.DrawCardFromDeckLogic();
-            DuelManager.RevealOpponentsHand();
-        }
-        if (card.skill == "stone form")
-        {
-            card.DefModify += 20;
-            card.skill = "";
-            card.desc = "";
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "poison")
-        {
-            if (owner.isPlayer)
-            {
-                DuelManager.Instance.enemy.playerCounters.poison += card.cardType.Equals(CardType.Spell) ? 2 : 1;
-                DuelManager.Instance.enemy.UpdatePlayerIndicators();
-            }
-            else
-            {
-                DuelManager.Instance.player.playerCounters.poison += card.cardType.Equals(CardType.Spell) ? 2 : 1;
-                DuelManager.Instance.player.UpdatePlayerIndicators();
-            }
-        }
-        if (card.skill == "plague")
-        {
-            PlayerManager target = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-            List<Card> creatureCards = target.playerCreatureField.GetAllCards();
-            List<ID> creatureIds = target.playerCreatureField.GetAllIds();
-            for (int i = 0; i < creatureCards.Count; i++)
-            {
-                creatureCards[i].Poison++;
-
-                target.DisplayNewCard(creatureIds[i], creatureCards[i], true);
-            }
-        }
-        if (card.skill == "growth")
-        {
-            card.DefModify += 2;
-            card.AtkModify += 2;
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "gravity pullc")
-        {
-            card.passive.Add("gravity pull");
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "dive")
-        {
-            card.passive.Add("dive");
-            card.AtkModify *= 2;
-            card.atk *= 2;
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "unstable gas")
-        {
-            owner.PlayCardOnFieldLogic(card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n6") : CardDatabase.Instance.GetCardFromId("5om"));
-        }
-        if (card.skill == "evolve")
-        {
-            Card newCreature = card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("77h") : CardDatabase.Instance.GetCardFromId("591");
-            owner.DisplayNewCard(BattleVars.shared.originId, newCreature, true);
-        }
-        if (card.skill == "hatch")
-        {
-            Card newCreature = card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteHatchCreature() : CardDatabase.Instance.GetRandomHatchCreature();
-            owner.DisplayNewCard(BattleVars.shared.originId, newCreature, true, true);
-        }
-        if (card.skill == "deja vu")
-        {
-            card.skill = "";
-            card.desc = "";
-            Card dupe = new(card);
-            owner.PlayCardOnFieldLogic(dupe);
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "lycanthropy")
-        {
-            card.DefModify += 5;
-            card.AtkModify += 5;
-            card.skill = "";
-            card.desc = "";
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "dead / alive")
-        {
-            Game_AnimationManager.shared.StartAnimation("DeadAndAlive", Battlefield_ObjectIDManager.shared.GetObjectFromID(BattleVars.shared.originId));
-            yield return owner.StartCoroutine(DuelManager.Instance.player.ActivateDeathTriggers(card.cardName.Contains("Skeleton")));
-            yield return owner.StartCoroutine(DuelManager.Instance.enemy.ActivateDeathTriggers(card.cardName.Contains("Skeleton")));
-        }
-        if (card.skill == "ablaze")
-        {
-            card.AtkModify += 2;
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "black hole")
-        {
-
-            PlayerManager victim = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-            int hpToRestore = 0;
-
-            for (int i = 0; i < 12; i++)
-            {
-                if (victim.HasSufficientQuanta((Element)i, 3))
+                foreach (var idCardi in idList)
                 {
-                    yield return victim.StartCoroutine(victim.SpendQuantaLogic((Element)i, 3));
-                    hpToRestore += 3;
+                    idCardi.card.DefDamage += 2;
+                    idCardi.UpdateCard();
                 }
-                else if (victim.HasSufficientQuanta((Element)i, 2))
+                break;
+            case "stoneskin":
+                maxHPBuff = owner.GetAllQuantaOfElement(Element.Earth);
+                owner.ModifyMaxHealthLogic(maxHPBuff, true);
+                break;
+            case "miracle":
+                int maxHp = owner.healthManager.GetMaxHealth();
+                int currentHP = owner.healthManager.GetCurrentHealth();
+
+                int hpToHeal = maxHp - currentHP - 1;
+
+                owner.ModifyHealthLogic(hpToHeal, false, true);
+                owner.SpendQuantaLogic(Element.Light, 75);
+                break;
+            case "supernova":
+                for (int i = 0; i < 12; i++)
                 {
-                    yield return victim.StartCoroutine(victim.SpendQuantaLogic((Element)i, 2));
-                    hpToRestore += 2;
+                    owner.GenerateQuantaLogic((Element)i, 2);
                 }
-                else if (victim.HasSufficientQuanta((Element)i, 1))
+                if (BattleVars.shared.isSingularity > 0)
                 {
-                    yield return victim.StartCoroutine(victim.SpendQuantaLogic((Element)i, 1));
-                    hpToRestore++;
+                    owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("6ub"));
                 }
-            }
-            owner.ModifyHealthLogic(hpToRestore, false, false);
+                BattleVars.shared.isSingularity++;
+                break;
+            case "nova":
+                for (int i = 0; i < 12; i++)
+                {
+                    owner.GenerateQuantaLogic((Element)i, 1);
+                }
+                if (BattleVars.shared.isSingularity > 1)
+                {
+                    owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("4vr"));
+                }
+                BattleVars.shared.isSingularity++;
+                break;
+            case "patience":
+                idCard.RemoveCard();
+                break;
+            case "sacrifice":
+                owner.ModifyHealthLogic(40, true, false);
+                for (int i = 0; i < 12; i++)
+                {
+                    if ((Element)i == Element.Death) { continue; }
+                    owner.SpendQuantaLogic((Element)i, 75);
+                }
+                owner.sacrificeCount = 2;
+                break;
+            case "silence":
+                owner.playerCounters.silence += 1;
+                owner.silenceImage.gameObject.SetActive(owner.playerCounters.silence > 0);
+                break;
+            case "rebirth":
+                idCard.PlayCard(idCard.card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7ds") : CardDatabase.Instance.GetCardFromId("5fc"));
+                break;
+            case "burrow":
+                if (idCard.card.passive.Contains("burrow"))
+                {
+                    idCard.card.passive.Remove("burrow");
+                    idCard.card.atk *= 2;
+                    idCard.card.AtkModify *= 2;
+                }
+                else
+                {
+                    idCard.card.passive.Add("burrow");
+                    idCard.card.atk /= 2;
+                    idCard.card.AtkModify /= 2;
+                }
+                idCard.UpdateCard();
+                break;
+            case "divineshield":
+                idCard.card.passive.Add("divineshield");
+                idCard.UpdateCard();
+                break;
+            case "queen":
+                owner.PlayCardOnFieldLogic(idCard.card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n4") : CardDatabase.Instance.GetCardFromId("5ok"));
+                break;
+            case "steam":
+                idCard.card.Charge += 5;
+                idCard.card.AtkModify += 5;
+                idCard.card.DefModify += 5;
+                idCard.UpdateCard();
+                break;
+            case "photosynthesis":
+                Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(BattleVars.shared.abilityOrigin.id), Element.Life);
+                owner.GenerateQuantaLogic(Element.Life, 2);
+                break;
+            case "precognition":
+                owner.DrawCardFromDeckLogic();
+                DuelManager.RevealOpponentsHand();
+                break;
+            case "stone form":
+                idCard.card.DefModify += 20;
+                idCard.card.skill = "";
+                idCard.card.desc = "";
+                idCard.UpdateCard();
+                break;
+            case "poison":
+                if (owner.isPlayer)
+                {
+                    DuelManager.Instance.enemy.playerCounters.poison += idCard.card.cardType.Equals(CardType.Spell) ? 2 : 1;
+                    DuelManager.Instance.enemy.UpdatePlayerIndicators();
+                }
+                else
+                {
+                    DuelManager.Instance.player.playerCounters.poison += idCard.card.cardType.Equals(CardType.Spell) ? 2 : 1;
+                    DuelManager.Instance.player.UpdatePlayerIndicators();
+                }
+                break;
+            case "plague":
+                target = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
+                idList = target.playerCreatureField.GetAllValidCardIds();
+
+                foreach (var idCardi in idList)
+                {
+                    idCard.card.Poison += 1;
+                    idCard.UpdateCard();
+                }
+                break;
+            case "growth":
+                idCard.card.DefModify += 2;
+                idCard.card.AtkModify += 2;
+                idCard.UpdateCard();
+                break;
+            case "gravity pullc":
+                idCard.card.passive.Add("gravity pull");
+                idCard.UpdateCard();
+                break;
+            case "dive":
+                idCard.card.passive.Add("dive");
+                idCard.card.AtkModify *= 2;
+                idCard.card.atk *= 2;
+                idCard.UpdateCard();
+                break;
+            case "unstable gas":
+                owner.PlayCardOnFieldLogic(idCard.card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n6") : CardDatabase.Instance.GetCardFromId("5om"));
+                break;
+            case "evolve":
+                idCard.PlayCard(idCard.card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("77h") : CardDatabase.Instance.GetCardFromId("591"));
+                break;
+            case "hatch":
+                idCard.PlayCard(idCard.card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteHatchCreature() : CardDatabase.Instance.GetRandomHatchCreature());
+                break;
+            case "deja vu":
+                idCard.card.skill = "";
+                idCard.card.desc = "";
+                Card dupe = new(idCard.card);
+                owner.PlayCardOnFieldLogic(dupe);
+                idCard.UpdateCard();
+                break;
+            case "lycanthropy":
+                idCard.card.DefModify += 5;
+                idCard.card.AtkModify += 5;
+                idCard.card.skill = "";
+                idCard.card.desc = "";
+                idCard.UpdateCard();
+                break;
+            case "dead / alive":
+                Game_AnimationManager.shared.StartAnimation("DeadAndAlive", Battlefield_ObjectIDManager.shared.GetObjectFromID(BattleVars.shared.abilityOrigin.id));
+                DuelManager.Instance.player.ActivateDeathTriggers(idCard.card.cardName.Contains("Skeleton"));
+                DuelManager.Instance.enemy.ActivateDeathTriggers(idCard.card.cardName.Contains("Skeleton"));
+                break;
+            case "ablaze":
+                idCard.card.AtkModify += 2;
+                idCard.UpdateCard();
+                break;
+            case "black hole":
+                PlayerManager victim = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
+                int hpToRestore = 0;
+
+                for (int i = 0; i < 12; i++)
+                {
+                    if (victim.HasSufficientQuanta((Element)i, 3))
+                    {
+                        victim.SpendQuantaLogic((Element)i, 3);
+                        hpToRestore += 3;
+                    }
+                    else if (victim.HasSufficientQuanta((Element)i, 2))
+                    {
+                        victim.SpendQuantaLogic((Element)i, 2);
+                        hpToRestore += 2;
+                    }
+                    else if (victim.HasSufficientQuanta((Element)i, 1))
+                    {
+                        victim.SpendQuantaLogic((Element)i, 1);
+                        hpToRestore++;
+                    }
+                }
+                owner.ModifyHealthLogic(hpToRestore, false, false);
+                break;
+            case "luciferin":
+
+                idList = DuelManager.Instance.enemy.playerCreatureField.GetAllValidCardIds();
+
+                foreach (var idCardi in idList)
+                {
+                    if(idCardi.card.skill == "" && idCardi.card.passive.Contains("light"))
+                    {
+                        idCardi.card.passive.Add("light");
+                        idCardi.card.desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
+                        idCardi.UpdateCard();
+                    }
+                }
+                owner.ModifyHealthLogic(10, false, false);
+                break;
+            default:
+                break;
         }
-        if (card.skill == "luciferin")
-        {
-            List<Card> creatures = owner.playerCreatureField.GetAllCards();
-            foreach (var creature in creatures)
-            {
-                if (creature.skill == "" && creature.passive.Contains("light"))
-                {
-                    creature.passive.Add("light");
-                    creature.desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
-                }
-            }
-            owner.ModifyHealthLogic(10, false, false);
-        }
-        yield break;
     }
 
     public void SetupTargetHighlights(PlayerManager owner, PlayerManager enemy, Card card)
@@ -626,92 +593,92 @@ public class SkillManager
         DuelManager.SetupHighlights(iDCardPairs);
     }
 
-    private IEnumerator ChoasSeed(PlayerManager targetOwner, Card targetCard, ID targetId)
+    private void ChoasSeed(PlayerManager targetOwner, IDCardPair iDCard)
     {
-        Card card = BattleVars.shared.cardOnStandBy;
-        PlayerManager originOwner = DuelManager.GetIDOwner(BattleVars.shared.originId);
+        PlayerManager originOwner = DuelManager.GetIDOwner(BattleVars.shared.abilityOrigin.id);
         int effect = Random.Range(0, 12);
 
         switch (effect)
         {
             case 0:
-                targetCard.Poison++;
+                iDCard.card.Poison++;
                 break;
             case 1:
-                targetCard.DefDamage += 5;
+                iDCard.card.DefDamage += 5;
                 break;
             case 2:
                 int waterQ = originOwner.GetAllQuantaOfElement(Element.Water);
                 int damageToDeal = 2 + (Mathf.FloorToInt(waterQ / 10) * 2);
                 bool willFreeze = Random.Range(0, 100) > 30 + (damageToDeal * 5);
 
-                targetCard.DefDamage += damageToDeal;
+                iDCard.card.DefDamage += damageToDeal;
                 if (willFreeze)
                 {
-                    targetCard.Freeze = 3;
+                    iDCard.card.Freeze = 3;
                 }
                 break;
             case 3:
                 waterQ = originOwner.GetAllQuantaOfElement(Element.Fire);
                 damageToDeal = 2 + (Mathf.FloorToInt(waterQ / 10) * 2);
 
-                targetCard.DefDamage += damageToDeal;
+                iDCard.card.DefDamage += damageToDeal;
                 break;
             case 4:
             case 5:
-                originOwner.PlayCardOnFieldLogic(new Card(targetCard));
+                originOwner.PlayCardOnFieldLogic(new Card(iDCard.card));
                 break;
             case 6:
-                targetCard.skill = "";
-                targetCard.desc = "";
-                targetCard.passive.Clear();
+                iDCard.card.skill = "";
+                iDCard.card.desc = "";
+                iDCard.card.passive.Clear();
                 break;
             case 7:
-                Card cardToPlay = new Card(targetCard);
+                Card cardToPlay = new Card(iDCard.card);
                 originOwner.PlayCardOnFieldLogic(cardToPlay);
-                Game_AnimationManager.shared.StartAnimation("Steal", Battlefield_ObjectIDManager.shared.GetObjectFromID(targetId));
-                yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId));
-                break;
+                Game_AnimationManager.shared.StartAnimation("Steal", Battlefield_ObjectIDManager.shared.GetObjectFromID(iDCard.id));
+                iDCard.RemoveCard();
+                return;
             case 8:
-                targetCard.DefDamage += 3;
+                iDCard.card.DefDamage += 3;
                 break;
             case 9:
-                if (targetCard.Freeze > 0)
+                if (iDCard.card.Freeze > 0)
                 {
-                    yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId));
+                    iDCard.RemoveCard();
+                    return;
                 }
                 else
                 {
-                    targetCard.DefDamage += 4;
+                    iDCard.card.DefDamage += 4;
                 }
                 break;
             case 10:
-                if (targetCard.innate.Contains("mummy"))
+                if (iDCard.card.innate.Contains("mummy"))
                 {
-                    Card pharoah = CardDatabase.Instance.GetCardFromId(targetCard.iD.IsUpgraded() ? "7qc" : "5rs");
-                    targetOwner.DisplayNewCard(targetId, pharoah);
+                    Card pharoah = CardDatabase.Instance.GetCardFromId(iDCard.card.iD.IsUpgraded() ? "7qc" : "5rs");
+                    iDCard.PlayCard(pharoah);
                 }
-                else if (targetCard.innate.Contains("undead"))
+                else if (iDCard.card.innate.Contains("undead"))
                 {
-                    Card rndCreature = targetCard.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteCreature() : CardDatabase.Instance.GetRandomCreature();
-                    targetOwner.DisplayNewCard(targetId, rndCreature);
+                    Card rndCreature = iDCard.card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteCreature() : CardDatabase.Instance.GetRandomCreature();
+                    iDCard.PlayCard(rndCreature);
                 }
                 else
                 {
-                    Card baseCreature = CardDatabase.Instance.GetCardFromId(targetCard.iD);
+                    Card baseCreature = CardDatabase.Instance.GetCardFromId(iDCard.card.iD);
                     targetOwner.AddCardToDeck(baseCreature);
-                    yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId, 1, false));
+                    iDCard.RemoveCard();
                 }
                 break;
             case 11:
-                card.passive.Add("gravity pull");
+                iDCard.card.passive.Add("gravity pull");
                 break;
             default:
                 break;
         }
-
-        targetOwner.DisplayNewCard(targetId, targetCard);
+        iDCard.UpdateCard();
     }
+
     private MutationEnum GetMutationResult()
     {
         int num = Random.Range(0, 100);
@@ -729,199 +696,201 @@ public class SkillManager
         }
 
     }
-    public IEnumerator SkillRoutineWithTarget(PlayerManager targetOwner, Card targetCard, ID targetId)
+
+    public void SkillRoutineWithTarget(PlayerManager targetOwner, IDCardPair iDCard)
     {
-        Card card = BattleVars.shared.cardOnStandBy;
-        PlayerManager originOwner = DuelManager.GetIDOwner(BattleVars.shared.originId);
+        Card card = BattleVars.shared.abilityOrigin.card;
+        PlayerManager originOwner = DuelManager.GetIDOwner(BattleVars.shared.abilityOrigin.id);
 
         switch (card.skill)
         {
             case "butterfly":
-                targetCard.skill = "destroy";
-                targetCard.skillCost = 3;
-                targetCard.skillElement = Element.Entropy;
-                targetCard.desc = "<sprite=6><sprite=6><sprite=6>: Destroy: \n Destroy the targeted permanent";
+                iDCard.card.skill = "destroy";
+                iDCard.card.skillCost = 3;
+                iDCard.card.skillElement = Element.Entropy;
+                iDCard.card.desc = "<sprite=6><sprite=6><sprite=6>: Destroy: \n Destroy the targeted permanent";
                 break;
             case "wisdom":
-                targetCard.passive.Add("psion");
-                targetCard.desc = $"{targetCard.cardName}'s attacks deal spell damage.";
+                iDCard.card.passive.Add("psion");
+                iDCard.card.desc = $"{iDCard.card.cardName}'s attacks deal spell damage.";
                 break;
             case "paradox":
-                yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId));
-                yield break;
+                iDCard.RemoveCard();
+                return;
             case "endow":
-                card.skill = targetCard.skill;
-                card.skillCost = targetCard.skillCost;
-                card.skillElement = targetCard.skillElement;
-                card.AtkModify += targetCard.AtkNow;
-                card.DefModify += targetCard.DefNow;
-                targetOwner.DisplayNewCard(BattleVars.shared.originId, card);
-                yield break;
+                card.skill = iDCard.card.skill;
+                card.skillCost = iDCard.card.skillCost;
+                card.skillElement = iDCard.card.skillElement;
+                card.AtkModify += iDCard.card.AtkNow;
+                card.DefModify += iDCard.card.DefNow;
+                BattleVars.shared.abilityOrigin.UpdateCard();
+                return;
             case "web":
-                targetCard.innate.Remove("airborne");
+                iDCard.card.innate.Remove("airborne");
                 break;
             case "nymph":
-                originOwner.PlayCardOnFieldLogic(card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteNymph(targetCard.costElement) : CardDatabase.Instance.GetRandomRegularNymph(targetCard.costElement));
-                yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId));
-                yield break;
+                originOwner.PlayCardOnFieldLogic(card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteNymph(iDCard.card.costElement) : CardDatabase.Instance.GetRandomRegularNymph(iDCard.card.costElement));
+                iDCard.RemoveCard();
+                return;
             case "immolate":
             case "creamtion":
-                targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId, 1, true));
+                iDCard.RemoveCard();
                 for (int i = 0; i < 12; i++)
                 {
-                    targetOwner.StartCoroutine(targetOwner.GenerateQuantaLogic((Element)i, 1));
+                    targetOwner.GenerateQuantaLogic((Element)i, 1);
                 }
 
-                yield return targetOwner.StartCoroutine(targetOwner.GenerateQuantaLogic(Element.Fire, card.skill == "cremation" ? 7 : 5));
-                yield break;
+                targetOwner.GenerateQuantaLogic(Element.Fire, card.skill == "cremation" ? 7 : 5);
+                return;
             case "beserk":
-                targetCard.AtkModify += 6;
-                targetCard.DefModify -= 6;
+                iDCard.card.AtkModify += 6;
+                iDCard.card.DefModify -= 6;
                 break;
             case "rage":
-                targetCard.AtkModify += 5;
-                targetCard.DefModify -= 5;
+                iDCard.card.AtkModify += 5;
+                iDCard.card.DefModify -= 5;
                 break;
             case "icebolt":
                 int quantaElement = originOwner.GetAllQuantaOfElement(Element.Water);
                 int damageToDeal = 2 + (Mathf.FloorToInt(quantaElement / 10) * 2);
                 bool willFreeze = Random.Range(0, 100) > 30 + (damageToDeal * 5);
 
-                if (targetCard == null)
+                if (iDCard.card == null)
                 {
                     targetOwner.ModifyHealthLogic(damageToDeal, true, true);
                     targetOwner.playerCounters.freeze += willFreeze ? 3 : 0;
-                    yield break;
+                    return;
                 }
-                targetCard.DefDamage += damageToDeal;
-                targetCard.Freeze += willFreeze ? 3 : 0;
+                iDCard.card.DefDamage += damageToDeal;
+                iDCard.card.Freeze += willFreeze ? 3 : 0;
 
                 break;
             case "drain life":
                 quantaElement = originOwner.GetAllQuantaOfElement(Element.Darkness);
                 damageToDeal = 2 + (Mathf.FloorToInt(quantaElement / 10) * 2);
 
-                if (targetCard == null)
+                if (iDCard.card == null)
                 {
                     targetOwner.ModifyHealthLogic(damageToDeal, true, true);
                     originOwner.ModifyHealthLogic(damageToDeal, false, false);
-                    yield break;
+                    return;
                 }
-                originOwner.ModifyHealthLogic(targetCard.DefNow < damageToDeal ? targetCard.DefNow : damageToDeal, false, false);
-                targetCard.DefDamage += damageToDeal;
+                originOwner.ModifyHealthLogic(iDCard.card.DefNow < damageToDeal ? iDCard.card.DefNow : damageToDeal, false, false);
+                iDCard.card.DefDamage += damageToDeal;
 
                 break;
             case "fire bolt":
                 quantaElement = originOwner.GetAllQuantaOfElement(Element.Fire);
                 damageToDeal = 2 + (Mathf.FloorToInt(quantaElement / 10) * 2);
 
-                if (targetCard == null)
+                if (iDCard.card == null)
                 {
                     targetOwner.ModifyHealthLogic(damageToDeal, true, true);
-                    yield break;
+                    return;
                 }
-                targetCard.DefDamage += damageToDeal;
+                iDCard.card.DefDamage += damageToDeal;
 
                 break;
             case "sniper":
-                targetCard.DefDamage += 3;
+                iDCard.card.DefDamage += 3;
                 break;
             case "lightning":
-                if (targetCard == null)
+                if (iDCard.card == null)
                 {
                     targetOwner.ModifyHealthLogic(5, true, true);
-                    yield break;
+                    return;
                 }
-                targetCard.DefDamage += 5;
+                iDCard.card.DefDamage += 5;
 
                 break;
             case "immortality":
             case "enchant":
-                targetCard.innate.Add("immaterial");
+                iDCard.card.innate.Add("immaterial");
                 break;
             case "acceleration":
             case "overdrive":
-                targetCard.desc = card.skill == "acceleration" ? "Acceleration: \n Gain +2 /-1 per turn" : "Overdrive: \n Gain +3 /-1 per turn";
-                targetCard.skill = "";
-                targetCard.passive.Add(card.skill);
+                iDCard.card.desc = card.skill == "acceleration" ? "Acceleration: \n Gain +2 /-1 per turn" : "Overdrive: \n Gain +3 /-1 per turn";
+                iDCard.card.skill = "";
+                iDCard.card.passive.Add(card.skill);
                 break;
             case "momentum":
-                targetCard.AtkModify++;
-                targetCard.DefModify++;
-                goto case "gravity pull";
+                iDCard.card.AtkModify++;
+                iDCard.card.DefModify++;
+                iDCard.card.passive.Add(card.skill);
+                break;
             case "adrenaline":
             case "antimatter":
             case "gravity pull":
-                targetCard.passive.Add(card.skill);
+                iDCard.card.passive.Add(card.skill);
                 break;
             case "lobotomize":
-                targetCard.skill = "";
-                targetCard.desc = "";
-                targetCard.passive.Clear();
+                iDCard.card.skill = "";
+                iDCard.card.desc = "";
+                iDCard.card.passive.Clear();
                 break;
             case "blessing":
             case "chaos power":
                 int mod = card.skill == "blessing" ? 3 : Random.Range(1, 6);
 
-                targetCard.DefModify += mod;
-                targetCard.AtkModify += mod;
+                iDCard.card.DefModify += mod;
+                iDCard.card.AtkModify += mod;
                 break;
             case "heavy armor":
-                targetCard.DefModify += 6;
+                iDCard.card.DefModify += 6;
                 break;
             case "armor":
-                targetCard.DefModify += 3;
+                iDCard.card.DefModify += 3;
                 break;
             case "liquid shadow":
-                targetCard.skill = "";
-                targetCard.desc = "";
-                targetCard.passive.Clear();
-                targetCard.passive.Add("vampire");
-                targetCard.Poison++;
+                iDCard.card.skill = "";
+                iDCard.card.desc = "";
+                iDCard.card.passive.Clear();
+                iDCard.card.passive.Add("vampire");
+                iDCard.card.Poison++;
                 break;
             case "parallel universe":
-                originOwner.PlayCardOnFieldLogic(new(targetCard));
-                yield break;
+                originOwner.PlayCardOnFieldLogic(new(iDCard.card));
+                return;
             case "congeal":
-                targetCard.Freeze += 4;
+                iDCard.card.Freeze += 4;
                 break;
             case "freeze":
-                targetCard.Freeze += 3;
+                iDCard.card.Freeze += 3;
                 break;
             case "shockwave":
-                if (targetCard.Freeze > 0)
+                if (iDCard.card.Freeze > 0)
                 {
-                    yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId));
-                    yield break;
+                    iDCard.RemoveCard();
+                    return;
                 }
-                targetCard.DefDamage += 4;
+                iDCard.card.DefDamage += 4;
 
                 break;
             case "infection":
-                targetCard.Poison++;
+                iDCard.card.Poison++;
                 break;
             case "infect":
-                targetCard.Poison++;
-                yield return originOwner.StartCoroutine(originOwner.RemoveCardFromFieldLogic(BattleVars.shared.originId));
+                iDCard.card.Poison++;
+                BattleVars.shared.abilityOrigin.RemoveCard();
                 break;
             case "holy light":
-                if (targetCard == null)
+                if (iDCard.card == null)
                 {
                     targetOwner.ModifyHealthLogic(10, false, false);
-                    yield break;
+                    return;
                 }
-                int damage = (targetCard.costElement.Equals(Element.Death) || targetCard.costElement.Equals(Element.Darkness)) ? -10 : 10;
-                targetCard.DefDamage -= damage;
-                if (targetCard.DefDamage < 0) { targetCard.DefDamage = 0; }
+                int damage = (iDCard.card.costElement.Equals(Element.Death) || iDCard.card.costElement.Equals(Element.Darkness)) ? -10 : 10;
+                iDCard.card.DefDamage -= damage;
+                if (iDCard.card.DefDamage < 0) { iDCard.card.DefDamage = 0; }
                 break;
             case "heal":
-                targetCard.DefDamage -= 5;
-                if (targetCard.DefDamage < 0) { targetCard.DefDamage = 0; }
+                iDCard.card.DefDamage -= 5;
+                if (iDCard.card.DefDamage < 0) { iDCard.card.DefDamage = 0; }
                 break;
             case "nightmare":
                 PlayerManager owner = originOwner;
                 PlayerManager opponent = originOwner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-                Card creature = CardDatabase.Instance.GetCardFromId(targetCard.iD);
+                Card creature = CardDatabase.Instance.GetCardFromId(iDCard.card.iD);
 
                 damage = 7 - opponent.GetHandCards().Count;
                 opponent.FillHandWith(creature);
@@ -930,522 +899,141 @@ public class SkillManager
 
                 break;
             case "mitosiss":
-                targetCard.skill = "mitosis";
-                targetCard.desc = "Mitosis: \n Generate a daughter creature";
-                targetCard.skillCost = targetCard.cost;
-                targetCard.skillElement = targetCard.costElement;
+                iDCard.card.skill = "mitosis";
+                iDCard.card.desc = "Mitosis: \n Generate a daughter creature";
+                iDCard.card.skillCost = iDCard.card.cost;
+                iDCard.card.skillElement = iDCard.card.costElement;
                 break;
             case "fractal":
-                originOwner.FillHandWith(CardDatabase.Instance.GetCardFromId(targetCard.iD));
-                yield return originOwner.StartCoroutine(originOwner.SpendQuantaLogic(Element.Aether, 75));
-                yield break;
+                originOwner.FillHandWith(CardDatabase.Instance.GetCardFromId(iDCard.card.iD));
+                originOwner.SpendQuantaLogic(Element.Aether, 75);
+                return;
             case "aflatoxin":
-                targetCard.IsAflatoxin = true;
-                targetCard.Poison += 2;
+                iDCard.card.IsAflatoxin = true;
+                iDCard.card.Poison += 2;
                 break;
             case "reverse time":
-                if (targetCard.innate.Contains("mummy"))
+                if (iDCard.card.innate.Contains("mummy"))
                 {
-                    targetCard = CardDatabase.Instance.GetCardFromId(targetCard.iD.IsUpgraded() ? "7qc" : "5rs");
+                    iDCard.PlayCard(CardDatabase.Instance.GetCardFromId(iDCard.card.iD.IsUpgraded() ? "7qc" : "5rs"));
+                    return;
                 }
-                else if (targetCard.innate.Contains("undead"))
+                else if (iDCard.card.innate.Contains("undead"))
                 {
-                    targetCard = targetCard.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteCreature() : CardDatabase.Instance.GetRandomCreature();
+                    iDCard.PlayCard(iDCard.card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteCreature() : CardDatabase.Instance.GetRandomCreature());
+                    return;
                 }
                 else
                 {
-                    Card baseCreature = CardDatabase.Instance.GetCardFromId(targetCard.iD);
+                    Card baseCreature = new(iDCard.card);
                     targetOwner.AddCardToDeck(baseCreature);
-                    yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId, 1, false));
-                    yield break;
+                    iDCard.RemoveCard();
+                    return;
                 }
-                break;
             case "devour":
-                card.AtkModify++;
-                card.DefModify++;
-                if (targetCard.innate.Contains("poisonous"))
+                iDCard.card.AtkModify++;
+                iDCard.card.DefModify++;
+                if (iDCard.card.innate.Contains("poisonous"))
                 {
                     card.Poison++;
                 }
-                originOwner.DisplayNewCard(BattleVars.shared.originId, card);
-                yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId));
-                yield break;
+                BattleVars.shared.abilityOrigin.UpdateCard();
+                iDCard.RemoveCard();
+                return;
             case "steal":
-                Card cardToPlay = new(targetCard);
+                Card cardToPlay = new(iDCard.card);
                 originOwner.PlayCardOnFieldLogic(cardToPlay);
-                Game_AnimationManager.shared.StartAnimation("Steal", Battlefield_ObjectIDManager.shared.GetObjectFromID(targetId));
-
-                yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId, 1, false));
-                yield break;
+                Game_AnimationManager.shared.StartAnimation("Steal", Battlefield_ObjectIDManager.shared.GetObjectFromID(iDCard.id));
+                iDCard.RemoveCard();
+                return;
             case "purify":
-                if (targetCard == null)
+                if (iDCard.card == null)
                 {
                     targetOwner.sacrificeCount = 0;
                     targetOwner.playerCounters.nuerotoxin = 0;
 
                     targetOwner.playerCounters.poison -= targetOwner.playerCounters.poison > 0 ? (targetOwner.playerCounters.poison + 2) : 2;
-
-                    yield break;
+                    return;
                 }
 
-                targetCard.IsAflatoxin = false;
-                targetCard.Poison = targetCard.Poison > 0 ? 0 : targetCard.Poison;
+                iDCard.card.IsAflatoxin = false;
+                iDCard.card.Poison = iDCard.card.Poison > 0 ? 0 : iDCard.card.Poison;
 
-                targetCard.Poison -= 2;
+                iDCard.card.Poison -= 2;
                 break;
             case "earthquake":
-                yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId, 3));
-                yield break;
+                iDCard.RemoveCard();
+                iDCard.RemoveCard();
+                iDCard.RemoveCard();
+                return;
             case "accretion":
                 card.DefModify += 15;
-
+                iDCard.RemoveCard();
                 if (card.DefNow >= 45)
                 {
                     originOwner.playerHand.AddCardToHand(card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("74f") : CardDatabase.Instance.GetCardFromId("55v"));
-                    yield return originOwner.StartCoroutine(originOwner.RemoveCardFromFieldLogic(BattleVars.shared.originId));
-                    goto case "destroy";
+                    BattleVars.shared.abilityOrigin.RemoveCard();
+                    return;
                 }
 
-                originOwner.DisplayNewCard(BattleVars.shared.originId, card);
-                goto case "destroy";
-
+                BattleVars.shared.abilityOrigin.UpdateCard();
+                return;
             case "destroy":
-                yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId));
-                yield break;
+                iDCard.RemoveCard();
+                return;
             case "improve":
-                Game_AnimationManager.shared.StartAnimation("Mutation", Battlefield_ObjectIDManager.shared.GetObjectFromID(targetId));
-                targetCard = CardDatabase.Instance.GetMutant(targetCard.iD.IsUpgraded());
-                break;
+                Game_AnimationManager.shared.StartAnimation("Mutation", Battlefield_ObjectIDManager.shared.GetObjectFromID(iDCard.id));
+                iDCard.PlayCard(CardDatabase.Instance.GetMutant(iDCard.card.iD.IsUpgraded()));
+                return;
             case "ready":
-                targetCard.skillCost = 0;
-                targetCard.passive.Add("readiness");
+                iDCard.card.skillCost = 0;
+                iDCard.card.passive.Add("readiness");
                 break;
             case "catapult":
-                damage = 100 * targetCard.DefNow / (100 + targetCard.DefNow);
-                damage += targetCard.Freeze > 0 ? Mathf.FloorToInt(damage * 0.5f) : 0;
+                damage = 100 * iDCard.card.DefNow / (100 + iDCard.card.DefNow);
+                damage += iDCard.card.Freeze > 0 ? Mathf.FloorToInt(damage * 0.5f) : 0;
+                iDCard.RemoveCard();
 
-                yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId));
-                DuelManager.GetNotIDOwner(targetId).ModifyHealthLogic(damage, true, false);
-                break;
+                DuelManager.GetNotIDOwner(iDCard.id).ModifyHealthLogic(damage, true, false);
+                return;
             case "mutation":
+                Game_AnimationManager.shared.StartAnimation("Mutation", Battlefield_ObjectIDManager.shared.GetObjectFromID(iDCard.id));
                 switch (GetMutationResult())
                 {
                     case MutationEnum.Kill:
-                        Game_AnimationManager.shared.StartAnimation("Mutation", Battlefield_ObjectIDManager.shared.GetObjectFromID(targetId));
-                        yield return targetOwner.StartCoroutine(targetOwner.RemoveCardFromFieldLogic(targetId));
-                        yield break;
+                        iDCard.RemoveCard();
+                        return;
                     case MutationEnum.Mutate:
-                        Game_AnimationManager.shared.StartAnimation("Mutation", Battlefield_ObjectIDManager.shared.GetObjectFromID(targetId));
-                        targetCard = CardDatabase.Instance.GetMutant(targetCard.iD.IsUpgraded());
+                        iDCard.PlayCard(CardDatabase.Instance.GetMutant(iDCard.card.iD.IsUpgraded()));
                         break;
                     default:
-                        Game_AnimationManager.shared.StartAnimation("Mutation", Battlefield_ObjectIDManager.shared.GetObjectFromID(targetId));
-                        targetCard = CardDatabase.Instance.GetCardFromId(targetCard.iD.IsUpgraded() ? "6tu" : "4ve");
+                        iDCard.PlayCard(CardDatabase.Instance.GetCardFromId(iDCard.card.iD.IsUpgraded() ? "6tu" : "4ve"));
                         break;
                 }
                 break;
             case "guard":
-                targetCard.innate.Add("delay");
+                iDCard.card.innate.Add("delay");
                 card.innate.Add("delay");
-                if (!targetCard.innate.Contains("airborne"))
+                if (!iDCard.card.innate.Contains("airborne"))
                 {
-                    targetCard.DefDamage += card.AtkNow;
+                    iDCard.card.DefDamage += card.AtkNow;
                 }
-                originOwner.DisplayNewCard(BattleVars.shared.originId, card);
+                BattleVars.shared.abilityOrigin.UpdateCard();
                 break;
             case "petrify":
                 for (int i = 0; i < 6; i++)
                 {
-                    targetCard.innate.Add("delay");
+                    iDCard.card.innate.Add("delay");
                 }
-                targetCard.DefModify += 20;
+                iDCard.card.DefModify += 20;
                 break;
             case "chaos":
-                yield return originOwner.StartCoroutine(ChoasSeed(targetOwner, targetCard, targetId));
-                yield break;
+                ChoasSeed(targetOwner, iDCard);
+                return;
             default:
                 break;
         }
-        targetOwner.DisplayNewCard(targetId, targetCard);
-    }
-
-    public IEnumerator SkillRoutineNoTargetRefactor(PlayerManager owner, Card card)
-    {
-        PlayerManager opponent = owner.isPlayer ? DuelManager.Instance.player : DuelManager.Instance.enemy;
-        switch (card.skill)
-        {
-            case "duelity":
-                owner.playerHand.AddCardToHand(new(opponent.deckManager.GetTopCard()));
-                break;
-            case "scarab":
-                owner.PlayCardOnFieldLogic(card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7qa") : CardDatabase.Instance.GetCardFromId("5rq"));
-                break;
-            case "mitosis":
-                Card daughterCard = CardDatabase.Instance.GetCardFromId(card.iD);
-                owner.PlayCardOnFieldLogic(daughterCard);
-                break;
-            case "healp":
-                owner.ModifyHealthLogic(20, false, false);
-                break;
-            case "hasten":
-                owner.DrawCardFromDeckLogic();
-                break;
-            case "ignite":
-                owner.StartCoroutine(owner.RemoveCardFromFieldLogic(BattleVars.shared.originId));
-                opponent.ModifyHealthLogic(20, true, false);
-                List<ID> creatureIds = DuelManager.Instance.enemy.playerCreatureField.GetAllIds();
-                creatureIds.AddRange(DuelManager.Instance.player.playerCreatureField.GetAllIds());
-
-                List<Card> creatureCards = DuelManager.Instance.enemy.playerCreatureField.GetAllCards();
-                creatureCards.AddRange(DuelManager.Instance.player.playerCreatureField.GetAllCards());
-
-                for (int i = 0; i < creatureCards.Count; i++)
-                {
-                    creatureCards[i].DefDamage += 1;
-                    DuelManager.GetIDOwner(creatureIds[i]).DisplayNewCard(creatureIds[i], creatureCards[i]);
-                }
-                break;
-            case "pandemonium":
-                creatureIds = DuelManager.Instance.enemy.playerCreatureField.GetAllIds();
-                creatureIds.AddRange(DuelManager.Instance.player.playerCreatureField.GetAllIds());
-
-                creatureCards = DuelManager.Instance.enemy.playerCreatureField.GetAllCards();
-                creatureCards.AddRange(DuelManager.Instance.player.playerCreatureField.GetAllCards());
-                for (int i = 0; i < creatureCards.Count; i++)
-                {
-                    yield return owner.StartCoroutine(ChoasSeed(DuelManager.GetIDOwner(creatureIds[i]), creatureCards[i], creatureIds[i]));
-                }
-                break;
-            case "serendipity":
-                CardType typeToAdd = ExtensionMethods.GetSerendipityWeighted();
-                Element elementToAdd = Element.Entropy;
-
-                for (int i = 0; i < 3; i++)
-                {
-                    owner.AddCardToDeck(CardDatabase.Instance.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd, card.iD.IsUpgraded()));
-                    owner.DrawCardFromDeckLogic(true);
-                    typeToAdd = ExtensionMethods.GetSerendipityWeighted();
-                    elementToAdd = (Element)Random.Range(0, 12);
-                    while (typeToAdd.Equals(CardType.Artifact) && elementToAdd.Equals(Element.Earth))
-                    {
-                        typeToAdd = ExtensionMethods.GetSerendipityWeighted();
-                        elementToAdd = (Element)Random.Range(0, 12);
-                    }
-                    yield return null;
-                }
-                break;
-            default:
-                break;
-        }
-
-        if (card.skill == "flying")
-        {
-            Card weapon = new(owner.playerPassiveManager.GetWeapon());
-            if (weapon.iD == "4t2") { yield break; }
-            weapon.cardType = CardType.Creature;
-            owner.PlayCardOnFieldLogic(weapon);
-            yield return owner.StartCoroutine(owner.RemoveCardFromFieldLogic(owner.playerPassiveManager.GetWeaponID()));
-        }
-        if (card.skill == "deadly poison")
-        {
-            if (owner.isPlayer)
-            {
-                DuelManager.Instance.enemy.playerCounters.poison += 3;
-                DuelManager.Instance.enemy.UpdatePlayerIndicators();
-            }
-            else
-            {
-                DuelManager.Instance.player.playerCounters.poison += 3;
-                DuelManager.Instance.player.UpdatePlayerIndicators();
-            }
-        }
-        if (card.skill == "blitz")
-        {
-            yield return owner.StartCoroutine(owner.SpendQuantaLogic(Element.Air, 75));
-            List<Card> creatures = owner.playerCreatureField.GetAllCards();
-            foreach (Card creature in creatures)
-            {
-                if (creature.innate.Contains("airborne"))
-                {
-                    //Game_AnimationManager.shared.StartAnimation("Dive", Battlefield_ObjectIDManager.shared.GetObjectFromID(id));
-                    creature.passive.Add("diving");
-                }
-            }
-        }
-        if (card.skill == "shard")
-        {
-            int maxHPBuff = owner.playerPassiveManager.GetMark().costElement.Equals(Element.Light) ? 24 : 16;
-            owner.ModifyMaxHealthLogic(maxHPBuff, true);
-        }
-        if (card.skill == "bravery")
-        {
-            int cardToDraw = owner.playerPassiveManager.GetMark().costElement.Equals(Element.Fire) ? 3 : 2;
-            for (int i = 0; i < cardToDraw; i++)
-            {
-                DuelManager.Instance.player.DrawCardFromDeckLogic();
-                DuelManager.Instance.enemy.DrawCardFromDeckLogic();
-                yield return null;
-            }
-        }
-        if (card.skill == "rain of fire")
-        {
-            PlayerManager target = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-            List<Card> creatureCards = target.playerCreatureField.GetAllCards();
-            List<ID> creatureIds = target.playerCreatureField.GetAllIds();
-            for (int i = 0; i < creatureCards.Count; i++)
-            {
-                Game_SoundManager.shared.PlayAudioClip("Lightning");
-                creatureCards[i].DefDamage += 3;
-                target.DisplayNewCard(creatureIds[i], creatureCards[i], true);
-            }
-        }
-        if (card.skill == "thunderstorm")
-        {
-            PlayerManager target = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-            List<Card> creatureCards = target.playerCreatureField.GetAllCards();
-            List<ID> creatureIds = target.playerCreatureField.GetAllIds();
-            for (int i = 0; i < creatureCards.Count; i++)
-            {
-                Game_SoundManager.shared.PlayAudioClip("Lightning");
-                creatureCards[i].DefDamage += 2;
-                target.DisplayNewCard(creatureIds[i], creatureCards[i], true);
-            }
-        }
-        if (card.skill == "stoneskin")
-        {
-            int maxHPBuff = owner.GetAllQuantaOfElement(Element.Earth);
-            owner.ModifyMaxHealthLogic(maxHPBuff, true);
-        }
-        if (card.skill == "miracle")
-        {
-            int maxHp = owner.healthManager.GetMaxHealth();
-            int currentHP = owner.healthManager.GetCurrentHealth();
-
-            int hpToHeal = maxHp - currentHP - 1;
-
-            owner.ModifyHealthLogic(hpToHeal, false, true);
-            owner.SpendQuantaLogic(Element.Light, 75);
-        }
-        if (card.skill == "supernova")
-        {
-            for (int i = 0; i < 12; i++)
-            {
-                yield return owner.StartCoroutine(owner.GenerateQuantaLogic((Element)i, 2));
-            }
-            if (BattleVars.shared.isSingularity > 0)
-            {
-                owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("6ub"));
-            }
-            BattleVars.shared.isSingularity++;
-        }
-        if (card.skill == "nova")
-        {
-            for (int i = 0; i < 12; i++)
-            {
-                yield return owner.StartCoroutine(owner.GenerateQuantaLogic((Element)i, 1));
-            }
-            if (BattleVars.shared.isSingularity > 1)
-            {
-                owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("4vr"));
-            }
-            BattleVars.shared.isSingularity++;
-        }
-        if (card.skill == "patience")
-        {
-            owner.RemoveCardFromFieldLogic(BattleVars.shared.originId);
-        }
-        if (card.skill == "sacrifice")
-        {
-            owner.ModifyHealthLogic(40, true, false);
-            for (int i = 0; i < 12; i++)
-            {
-                if ((Element)i == Element.Death) { continue; }
-                yield return owner.StartCoroutine(owner.SpendQuantaLogic((Element)i, 75));
-            }
-            owner.sacrificeCount = 2;
-            yield return null;
-        }
-        if (card.skill == "silence")
-        {
-            owner.playerCounters.silence += 1;
-            owner.silenceImage.gameObject.SetActive(owner.playerCounters.silence > 0);
-        }
-        if (card.skill == "rebirth")
-        {
-            owner.DisplayNewCard(BattleVars.shared.originId, card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7ds") : CardDatabase.Instance.GetCardFromId("5fc"));
-        }
-        if (card.skill == "burrow")
-        {
-            if (card.passive.Contains("burrow"))
-            {
-                card.passive.Remove("burrow");
-                card.atk *= 2;
-                card.AtkModify *= 2;
-            }
-            else
-            {
-                card.passive.Add("burrow");
-                card.atk /= 2;
-                card.AtkModify /= 2;
-            }
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "divineshield")
-        {
-            card.passive.Add("divineshield");
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "queen")
-        {
-            owner.PlayCardOnFieldLogic(card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n4") : CardDatabase.Instance.GetCardFromId("5ok"));
-        }
-        if (card.skill == "steam")
-        {
-            card.Charge += 5;
-            card.AtkModify += 5;
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "photosynthesis")
-        {
-            Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(BattleVars.shared.originId), Element.Life);
-            owner.StartCoroutine(owner.GenerateQuantaLogic(Element.Life, 2));
-        }
-        if (card.skill == "precognition")
-        {
-            owner.DrawCardFromDeckLogic();
-            DuelManager.RevealOpponentsHand();
-        }
-        if (card.skill == "stone form")
-        {
-            card.DefModify += 20;
-            card.skill = "";
-            card.desc = "";
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "poison")
-        {
-            if (owner.isPlayer)
-            {
-                DuelManager.Instance.enemy.playerCounters.poison += card.cardType.Equals(CardType.Spell) ? 2 : 1;
-                DuelManager.Instance.enemy.UpdatePlayerIndicators();
-            }
-            else
-            {
-                DuelManager.Instance.player.playerCounters.poison += card.cardType.Equals(CardType.Spell) ? 2 : 1;
-                DuelManager.Instance.player.UpdatePlayerIndicators();
-            }
-        }
-        if (card.skill == "plague")
-        {
-            PlayerManager target = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-            List<Card> creatureCards = target.playerCreatureField.GetAllCards();
-            List<ID> creatureIds = target.playerCreatureField.GetAllIds();
-            for (int i = 0; i < creatureCards.Count; i++)
-            {
-                creatureCards[i].Poison++;
-
-                target.DisplayNewCard(creatureIds[i], creatureCards[i], true);
-            }
-        }
-        if (card.skill == "growth")
-        {
-            card.DefModify += 2;
-            card.AtkModify += 2;
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "gravity pullc")
-        {
-            card.passive.Add("gravity pull");
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "dive")
-        {
-            card.passive.Add("dive");
-            card.AtkModify *= 2;
-            card.atk *= 2;
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "unstable gas")
-        {
-            owner.PlayCardOnFieldLogic(card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n6") : CardDatabase.Instance.GetCardFromId("5om"));
-        }
-        if (card.skill == "evolve")
-        {
-            Card newCreature = card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("77h") : CardDatabase.Instance.GetCardFromId("591");
-            owner.DisplayNewCard(BattleVars.shared.originId, newCreature, true);
-        }
-        if (card.skill == "hatch")
-        {
-            Card newCreature = card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteHatchCreature() : CardDatabase.Instance.GetRandomHatchCreature();
-            owner.DisplayNewCard(BattleVars.shared.originId, newCreature, true);
-        }
-        if (card.skill == "deja vu")
-        {
-            card.skill = "";
-            card.desc = "";
-            Card dupe = card.passive.Contains("mutant") ? CardDatabase.Instance.GetMutant(false, card) : new(card);
-            owner.PlayCardOnFieldLogic(dupe);
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "lycanthropy")
-        {
-            card.DefModify += 5;
-            card.AtkModify += 5;
-            card.skill = "";
-            card.desc = "";
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "dead / alive")
-        {
-            Game_AnimationManager.shared.StartAnimation("DeadAndAlive", Battlefield_ObjectIDManager.shared.GetObjectFromID(BattleVars.shared.originId));
-            yield return owner.StartCoroutine(DuelManager.Instance.player.ActivateDeathTriggers(card.cardName.Contains("Skeleton")));
-            yield return owner.StartCoroutine(DuelManager.Instance.enemy.ActivateDeathTriggers(card.cardName.Contains("Skeleton")));
-        }
-        if (card.skill == "ablaze")
-        {
-            card.AtkModify += 2;
-            owner.DisplayNewCard(BattleVars.shared.originId, card, true);
-        }
-        if (card.skill == "black hole")
-        {
-
-            PlayerManager victim = owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-            int hpToRestore = 0;
-
-            for (int i = 0; i < 12; i++)
-            {
-                if (victim.HasSufficientQuanta((Element)i, 3))
-                {
-                    yield return victim.StartCoroutine(victim.SpendQuantaLogic((Element)i, 3));
-                    hpToRestore += 3;
-                }
-                else if (victim.HasSufficientQuanta((Element)i, 2))
-                {
-                    yield return victim.StartCoroutine(victim.SpendQuantaLogic((Element)i, 2));
-                    hpToRestore += 2;
-                }
-                else if (victim.HasSufficientQuanta((Element)i, 1))
-                {
-                    yield return victim.StartCoroutine(victim.SpendQuantaLogic((Element)i, 1));
-                    hpToRestore++;
-                }
-            }
-            owner.ModifyHealthLogic(hpToRestore, false, false);
-        }
-        if (card.skill == "luciferin")
-        {
-            List<Card> creatures = owner.playerCreatureField.GetAllCards();
-            foreach (var creature in creatures)
-            {
-                if (creature.skill == "" && creature.passive.Contains("light"))
-                {
-                    creature.passive.Add("light");
-                    creature.desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
-                }
-            }
-            owner.ModifyHealthLogic(10, false, false);
-        }
-        yield break;
+        iDCard.UpdateCard();
     }
 
 }

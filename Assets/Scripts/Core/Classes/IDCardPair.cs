@@ -1,11 +1,13 @@
 ﻿using System;
-
+using UnityEngine;
 [Serializable]
-public class IDCardPair
+public class IDCardPair : MonoBehaviour
 {
     public ID id;
     public Card card;
-    public event Action<Card> OnCardChanged;
+    public int stackCount;
+    public event Action<Card, int> OnCardChanged;
+    public event Action<Card, int> OnCardRemoved;
 
     public IDCardPair(ID id, Card card)
     {
@@ -16,14 +18,36 @@ public class IDCardPair
     public void PlayCard(Card card)
     {
         this.card = card;
-        OnCardChanged?.Invoke(card);
+        if(card.cardType == CardType.Pillar)
+        {
+            stackCount++;
+        }
+        else
+        {
+            stackCount = 1;
+        }
+        OnCardChanged?.Invoke(card, stackCount);
+    }
+
+    public void UpdateCard()
+    {
+        OnCardChanged?.Invoke(card, stackCount);
     }
 
     public void RemoveCard()
     {
-        card = null;
-        OnCardChanged?.Invoke(null);
+        stackCount--;
+        OnCardRemoved?.Invoke(card, stackCount);
+        if (stackCount == 0)
+        {
+            card = null;
+        }
     }
 
     public Card GetCard() => card;
+
+    internal bool HasCard()
+    {
+        return card != null;
+    }
 }

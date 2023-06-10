@@ -5,6 +5,9 @@ using System.Linq;
 [Serializable]
 public class CreatureManager : FieldManager
 {
+    private readonly List<int> creatureCardOrder = new List<int> { 11, 13, 9, 10, 12, 14, 8, 16, 18, 20, 22, 0, 2, 4, 6, 15, 17, 19, 21, 1, 3, 5, 7 };
+    private readonly List<int> safeZones = new List<int> { 11, 13, 10, 12, 14 };
+
     public CreatureManager(List<ID> idList)
     {
         pairList = new List<IDCardPair>();
@@ -18,7 +21,7 @@ public class CreatureManager : FieldManager
     {
         List<ID> cards = GetAllIds();
         List<ID> listToReturn = new List<ID>();
-        if(cards.Count > 0)
+        if (cards.Count > 0)
         {
             foreach (ID iD in cards)
             {
@@ -33,13 +36,54 @@ public class CreatureManager : FieldManager
         return listToReturn;
     }
 
+    public void CreatureTurnDown()
+    {
+        foreach (var idCard in pairList)
+        {
+            if (idCard.HasCard())
+            {
+                idCard.card.AbilityUsed = false;
+                idCard.UpdateCard();
+            }
+        }
+
+    }
+
+    public ID PlayCreature(Card card)
+    {
+        if (DuelManager.floodCount > 0 && !card.costElement.Equals(Element.Other) && !card.costElement.Equals(Element.Water))
+        {
+
+            foreach (int orderIndex in safeZones)
+            {
+                if (!pairList[orderIndex].HasCard())
+                {
+                    pairList[orderIndex].PlayCard(card);
+                    return pairList[orderIndex].id;
+                }
+            }
+        }
+
+        foreach (int orderIndex in creatureCardOrder)
+        {
+            if (!pairList[safeZones[orderIndex]].HasCard())
+            {
+                pairList[safeZones[orderIndex]].PlayCard(card);
+                return pairList[orderIndex].id;
+            }
+
+        }
+        return null;
+    }
+
+
     public Card DamageCreature(int amount, ID target)
     {
         Card creature = GetCardWithID(target);
-        if(creature == null) { return null; }
+        if (creature == null) { return null; }
         creature.DefDamage += amount;
-        if(creature.DefDamage < 0) { creature.DefDamage = 0; }
-        if(creature.DefNow > 0)
+        if (creature.DefDamage < 0) { creature.DefDamage = 0; }
+        if (creature.DefNow > 0)
         {
             return creature;
         }
@@ -69,7 +113,7 @@ public class CreatureManager : FieldManager
             case CounterEnum.Delay:
                 for (int i = 0; i < amount; i++)
                 {
-                    if(amount > 0)
+                    if (amount > 0)
                     {
                         creature.innate.Add("delay");
                     }

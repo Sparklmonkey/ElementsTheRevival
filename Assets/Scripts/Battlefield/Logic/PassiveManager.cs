@@ -72,5 +72,31 @@ namespace Elements.Duel.Manager
         {
             return pairList[1].id;
         }
+
+        private readonly List<string> passiveWithCountdown = new() { "7n8", "5oo", "61t", "80d" };
+
+        public void PassiveTurnDown()
+        {
+            foreach (var idCard in pairList)
+            {
+                if(!idCard.HasCard()) { continue; }
+                if (passiveWithCountdown.Contains(idCard.card.iD))
+                {
+                    idCard.card.AbilityUsed = false;
+                    idCard.card.TurnsInPlay--;
+                    if(idCard.card.TurnsInPlay == 0)
+                    {
+                        idCard.RemoveCard();
+                        return;
+                    }
+                }
+                idCard.UpdateCard();
+            }
+        }
+
+        internal void RemoveWeapon()
+        {
+            pairList[1].PlayCard(CardDatabase.Instance.GetPlaceholderCard(1));
+        }
     }
 }

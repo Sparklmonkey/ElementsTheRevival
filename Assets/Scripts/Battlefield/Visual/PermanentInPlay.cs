@@ -16,7 +16,6 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private GameObject activeAHolder, immaterialIndicator;
 
-        public int stackCountValue = 0;
         public void SetupDisplayer(OwnerEnum owner, FieldEnum field)
         {
             int index = int.Parse(transform.parent.gameObject.name.Replace("Permanent_", ""));
@@ -46,8 +45,14 @@ namespace Elements.Duel.Visual
             }
         }
 
-        public void DisplayCard(Card cardToDisplay)
+        public void DisplayCard(Card cardToDisplay, int stackCountValue)
         {
+            if(stackCountValue == 0)
+            {
+                ClearDisplay();
+                return;
+            }
+            UpdateStackCount(stackCountValue);
             transform.parent.gameObject.SetActive(true);
             immaterialIndicator.SetActive(cardToDisplay.innate.Contains("immaterial"));
             if (stackCountValue == 0)
@@ -70,9 +75,8 @@ namespace Elements.Duel.Visual
                 {
                     cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
                 }
-                stackCount.text = "";
+                stackCount.text = stackCountValue.ToString();
                 PlayMaterializeAnimation(cardToDisplay.costElement);
-                stackCountValue++;
                 SetCard(cardToDisplay);
                 activeAHolder.SetActive(false);
                 if (cardToDisplay.skill != "")
@@ -96,32 +100,16 @@ namespace Elements.Duel.Visual
                 }
                 return;
             }
-            stackCountValue++;
-            stackCount.text = $"{stackCountValue} X";
             //SetCard(cardToDisplay);
         }
 
-        public void ChangeStackCount(int newCount)
+        private void UpdateStackCount(int stackCount)
         {
-            stackCountValue = newCount;
-            if(stackCountValue > 1)
-            {
-                stackCount.text = $"{stackCountValue} X";
-            }
-            else
-            {
-                stackCount.text = "";
-            }
-        }
-
-        private void OnDisable()
-        {
-            stackCountValue = 0;
+            this.stackCount.text = stackCount > 1 ? $"{stackCount} X" : "";
         }
 
         public void ClearPassive()
         {
-            stackCountValue = 0;
             ClearDisplay();
             //gameObject.SetActive(false);
         }

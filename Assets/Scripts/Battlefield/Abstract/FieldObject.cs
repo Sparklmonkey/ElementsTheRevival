@@ -5,6 +5,7 @@ public abstract class FieldManager
 {
     public List<IDCardPair> pairList;
     public List<int> stackCountList = new List<int>();
+
     public List<ID> GetAllIds()
     {
         List<ID> toReturn = new List<ID>();
@@ -23,23 +24,17 @@ public abstract class FieldManager
 
     public List<IDCardPair> GetAllValidCardIds()
     {
-        return new List<IDCardPair>(pairList.FindAll(x => x.card.IsValidCard()));
+        return new List<IDCardPair>(pairList.FindAll(x => x.HasCard()));
     }
 
     public void PlayCardAtLocation(Card card, ID location)
     {
-        ID canStack = CanStack(card);
-        if (canStack != null)
-        {
-            stackCountList[canStack.Index]++;
-        }
-        pairList[location.Index].card = card;
-
+        pairList[location.Index].PlayCard(card);
     }
 
-    private readonly List<int> creatureCardOrder = new List<int> { 11, 13, 9, 10, 12, 14, 8, 16, 18, 20, 22, 0, 2, 4, 6, 15, 17, 19, 21, 1, 3, 5, 7 };
-    private readonly List<int> permanentCardOrder = new List<int> { 1, 3, 5, 7, 0, 2, 4, 6, 9, 11, 13, 8, 10, 12, 14 };
-    private readonly List<int> safeZones = new List<int> { 11, 13, 10, 12, 14 };
+    private readonly List<int> creatureCardOrder = new() { 11, 13, 9, 10, 12, 14, 8, 16, 18, 20, 22, 0, 2, 4, 6, 15, 17, 19, 21, 1, 3, 5, 7 };
+    private readonly List<int> safeZones = new() { 11, 13, 10, 12, 14 };
+    private readonly List<int> permanentCardOrder = new() { 1, 3, 5, 7, 0, 2, 4, 6, 9, 11, 13, 8, 10, 12, 14 };
 
     public ID PlayCardAtRandomLocation(Card card)
     {
@@ -56,9 +51,9 @@ public abstract class FieldManager
 
             for (int i = 0; i < safeZones.Count; i++)
             {
-                if (pairList[safeZones[i]].card == null)
+                if (!pairList[safeZones[i]].HasCard())
                 {
-                    pairList[safeZones[i]].card = card;
+                    pairList[safeZones[i]].PlayCard(card);
                     return pairList[safeZones[i]].id;
                 }
             }
@@ -68,9 +63,9 @@ public abstract class FieldManager
         {
             foreach (int orderIndex in creatureCardOrder)
             {
-                if (pairList[orderIndex].card == null)
+                if (!pairList[safeZones[orderIndex]].HasCard())
                 {
-                    pairList[orderIndex].card = card;
+                    pairList[safeZones[orderIndex]].PlayCard(card);
                     return pairList[orderIndex].id;
                 }
             }
@@ -80,13 +75,13 @@ public abstract class FieldManager
         {
             foreach (int orderIndex in permanentCardOrder)
             {
-                if (pairList[orderIndex].card == null)
+                if (!pairList[safeZones[orderIndex]].HasCard())
                 {
                     if (stackCountList.Count > 0)
                     {
                         stackCountList[orderIndex]++;
                     }
-                    pairList[orderIndex].card = card;
+                    pairList[safeZones[orderIndex]].PlayCard(card);
                     return pairList[orderIndex].id;
                 }
             }

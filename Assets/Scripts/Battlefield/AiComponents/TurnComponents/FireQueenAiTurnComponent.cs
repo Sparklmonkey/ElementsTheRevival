@@ -8,18 +8,15 @@ public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
     private IEnumerator ActivateEliteQueen(PlayerManager aiManager)
     {
-        List<Card> cardList = new List<Card>(aiManager.playerCreatureField.GetAllCards());
-        List<ID> idList = new List<ID>(aiManager.playerCreatureField.GetAllIds());
-        List<Card> queenCards = new List<Card>();
-        List<ID> queenIds = new List<ID>();
+        List<IDCardPair> creaturelist = new (aiManager.playerCreatureField.GetAllValidCardIds());
+        List<IDCardPair> queenCards = new();
 
-        for (int i = 0; i < cardList.Count; i++)
+        foreach (var creature in creaturelist)
         {
-            switch (cardList[i].cardName)
+            switch (creature.card.cardName)
             {
                 case "Elite Queen":
-                    queenCards.Add(cardList[i]);
-                    queenIds.Add(idList[i]);
+                    queenCards.Add(creature);
                     break;
                 default:
                     break;
@@ -28,15 +25,12 @@ public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
         if (queenCards.Count == 0) { yield break; }
 
-        for (int i = 0; i < queenCards.Count; i++)
+        foreach (var queen in queenCards)
         {
-            if (!aiManager.IsAbilityUsable(queenCards[i])) { continue; }
-            BattleVars.shared.originId = queenIds[i];
-            BattleVars.shared.cardOnStandBy = queenCards[i];
-
-            yield return aiManager.StartCoroutine(aiManager.ActivateAbility(BattleVars.shared.originId));
+            if (!aiManager.IsAbilityUsable(queen.card)) { continue; }
+            BattleVars.shared.abilityOrigin = queen;
+            aiManager.ActivateAbility(queen);
         }
-
     }
 
 
@@ -55,7 +49,7 @@ public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
                 if (aiManager.IsAbilityUsable(weapon))
                 {
-                    BattleVars.shared.originId = aiManager.playerPassiveManager.GetWeaponID();
+                    BattleVars.shared.abilityOrigin = aiManager.playerPassiveManager.GetWeaponID();
                     BattleVars.shared.cardOnStandBy = weapon;
 
                     System.Random rnd = new System.Random();

@@ -201,31 +201,31 @@ public class CardInPlay : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator Event_CreatureAttack(MonoBehaviour sender, EventUtility.ActiveCardArgs args)
-    {
-        if (ActiveCard.AtkNow != 0)
-        {
-            int adrCount = ActiveCard.passive.Contains("adrenaline") ? DuelManager.AdrenalineDamageList[Mathf.Abs(ActiveCard.AtkNow) - 1].Count : 1;
-            int atkMod = ActiveCard.passive.Contains("dive") ? ActiveCard.AtkNow * 2 : ActiveCard.AtkNow;
+    //public IEnumerator Event_CreatureAttack(MonoBehaviour sender, EventUtility.ActiveCardArgs args)
+    //{
+    //    if (ActiveCard.AtkNow != 0)
+    //    {
+    //        int adrCount = ActiveCard.passive.Contains("adrenaline") ? DuelManager.AdrenalineDamageList[Mathf.Abs(ActiveCard.AtkNow) - 1].Count : 1;
+    //        int atkMod = ActiveCard.passive.Contains("dive") ? ActiveCard.AtkNow * 2 : ActiveCard.AtkNow;
 
-            for (int i = 0; i < adrCount; i++)
-            {
-                if (ActiveCard.Freeze == 0 && !ActiveCard.IsDelayed)
-                {
-                    bool isFreedomEffect = Random.Range(0, 100) < (25 * _owner.freedomCount) && ActiveCard.innate.Contains("airborne");
+    //        for (int i = 0; i < adrCount; i++)
+    //        {
+    //            if (ActiveCard.Freeze == 0 && !ActiveCard.IsDelayed)
+    //            {
+    //                bool isFreedomEffect = Random.Range(0, 100) < (25 * _owner.freedomCount) && ActiveCard.innate.Contains("airborne");
 
-                    if (atkMod != 0)
-                    {
-                        //Gravity Check
-                        //args.enemy.ShieldCheck();
-                        // Shield Check
+    //                if (atkMod != 0)
+    //                {
+    //                    //Gravity Check
+    //                    //args.enemy.ShieldCheck();
+    //                    // Shield Check
 
 
-                    }
-                }
-            }
-        }
-    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
     //public IEnumerator Event_EndTurnEffect(MonoBehaviour sender, EventUtility.ActiveCardArgs args)
     //{
 

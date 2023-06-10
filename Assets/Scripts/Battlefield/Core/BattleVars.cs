@@ -16,8 +16,7 @@ public class BattleVars
         isAnimationPlaying = false;
         isPlayerTurn = true;
         elementalMastery = false;
-        cardOnStandBy = null;
-        originId = null;
+        abilityOrigin = null;
         isPvp = false;
         coinFlip = 0;
         willStart = false;
@@ -46,14 +45,12 @@ public class BattleVars
     public bool hasToDiscard = false;
 
     //Spell, Abilities Targeting
-    public Card cardOnStandBy;
+    public IDCardPair abilityOrigin;
 
     public bool IsFixedTarget()
     {
-        return CardDatabase.Instance.skillsNoTarget.Contains(cardOnStandBy.skill);
+        return CardDatabase.Instance.skillsNoTarget.Contains(abilityOrigin.card.skill);
     }
-
-    public ID originId;
 
     public bool isPvp;
     public int coinFlip;

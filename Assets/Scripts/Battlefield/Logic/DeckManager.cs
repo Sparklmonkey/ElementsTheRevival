@@ -23,7 +23,11 @@ namespace Elements.Duel.Manager
 
         public int GetDeckCount() => deck.Count;
 
-        public void AddCardToTop(Card card) => deck.Insert(0, card);
+        public void AddCardToTop(Card card)
+        {
+            deck.Insert(0, card);
+            OnDeckCountChange?.Invoke(deck.Count);
+        }
 
         public Card GetTopCard()
         {
