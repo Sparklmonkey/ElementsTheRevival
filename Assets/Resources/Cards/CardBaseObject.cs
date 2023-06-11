@@ -68,6 +68,11 @@ public class Card
         Freeze = newBase.Freeze;
     }
 
+
+    public bool IsTargetable()
+    {
+        return !innate.Contains("immaterial") && !passive.Contains("burrow");
+    }
 }
 
 [Serializable]

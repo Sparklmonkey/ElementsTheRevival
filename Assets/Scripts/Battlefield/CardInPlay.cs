@@ -49,7 +49,7 @@ public class CardInPlay : MonoBehaviour
                 DuelManager.Instance.UpdateNightFallEclipse(true, _activeCard.skill);
                 break;
             case "bones":
-                _owner.AddPlayerCounter(PlayerCounters.Bone, BattleVars.shared.cardOnStandBy == null ? 7 : 1);
+                //_owner.AddPlayerCounter(PlayerCounters.Bone, BattleVars.shared.cardOnStandBy == null ? 7 : 1);
                 break;
             case "patience":
                 _owner.AddPlayerCounter(PlayerCounters.Patience, 1);
@@ -126,12 +126,12 @@ public class CardInPlay : MonoBehaviour
         }
         if (_activeCard.passive.Contains("phoenix"))
         {
-            bool shouldRebirth = BattleVars.shared.cardOnStandBy?.skill == "reverse time";
-            if (shouldRebirth)
-            {
-                _activeCard = CardDatabase.Instance.GetCardFromId(_activeCard.iD.IsUpgraded() ? "7dt" : "5fd");
-                removeCard = false;
-            }
+            //bool shouldRebirth = BattleVars.shared.cardOnStandBy?.skill == "reverse time";
+            //if (shouldRebirth)
+            //{
+            //    _activeCard = CardDatabase.Instance.GetCardFromId(_activeCard.iD.IsUpgraded() ? "7dt" : "5fd");
+            //    removeCard = false;
+            //}
         }
 
         if (_activeCard.innate.Contains("swarm"))
@@ -144,11 +144,11 @@ public class CardInPlay : MonoBehaviour
             _owner.AddPlayerCounter(PlayerCounters.Sanctuary, -1);
         }
 
-        bool shouldActivateDeath = BattleVars.shared.cardOnStandBy?.skill != "reverse time" && _activeCard.cardType.Equals(CardType.Creature);
+        bool shouldActivateDeath = BattleVars.shared.abilityOrigin?.card.skill != "reverse time" && _activeCard.cardType.Equals(CardType.Creature);
         if (shouldActivateDeath)
         {
-            yield return StartCoroutine(DuelManager.Instance.player.ActivateDeathTriggers(_activeCard.cardName.Contains("Skeleton")));
-            yield return StartCoroutine(DuelManager.Instance.enemy.ActivateDeathTriggers(_activeCard.cardName.Contains("Skeleton")));
+            //DuelManager.Instance.player.ActivateDeathTriggers(_activeCard.cardName.Contains("Skeleton"));
+            //DuelManager.Instance.enemy.ActivateDeathTriggers(_activeCard.cardName.Contains("Skeleton"));
         }
 
         if (removeCard)
@@ -187,7 +187,7 @@ public class CardInPlay : MonoBehaviour
 
         if (_activeCard.skill == "soul catch")
         {
-            yield return StartCoroutine(_owner.GenerateQuantaLogic(Element.Death, _activeCard.iD.IsUpgraded() ? 3 : 2));
+            _owner.GenerateQuantaLogic(Element.Death, _activeCard.iD.IsUpgraded() ? 3 : 2);
         }
         if (_activeCard.skill == "boneyard" && !args.isSkeletonDeath)
         {

@@ -11,4 +11,5 @@ public class Counters
     public int bone;
     public int silence;
     public int stasis;
+    public int sanctuary;
 }

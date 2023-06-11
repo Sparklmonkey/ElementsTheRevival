@@ -40,18 +40,18 @@ namespace Elements.Duel.Manager
             return null;
         }
 
-        public Card GetShield()
+        public IDCardPair GetShield()
         {
-            return pairList[2].card;
+            return pairList[2];
         }
-        public Card GetWeapon()
+        public IDCardPair GetWeapon()
         {
-            return pairList[1].card;
+            return pairList[1];
         }
 
-        public Card GetMark()
+        public IDCardPair GetMark()
         {
-            return pairList[0].card;
+            return pairList[0];
         }
 
         internal void FreezeWeapon(int amount)
@@ -97,6 +97,11 @@ namespace Elements.Duel.Manager
         internal void RemoveWeapon()
         {
             pairList[1].PlayCard(CardDatabase.Instance.GetPlaceholderCard(1));
+        }
+
+        internal void RemoveShield()
+        {
+            pairList[2].PlayCard(CardDatabase.Instance.GetPlaceholderCard(0));
         }
     }
 }

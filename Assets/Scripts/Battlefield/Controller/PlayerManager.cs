@@ -10,6 +10,7 @@ using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
+    public event Action<Counters> OnPlayerCounterUpdate;
     //Refactor Section
     public void AddPlayerCounter(PlayerCounters counter, int amount)
     {
@@ -47,6 +48,7 @@ public class PlayerManager : MonoBehaviour
             default:
                 break;
         }
+        OnPlayerCounterUpdate?.Invoke(playerCounters);
     }
 
     public (int, int) GetChimeraStats()
@@ -68,7 +70,7 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-
+    public IDCardPair playerID;
 
 
     //Logic Properties
@@ -123,7 +125,7 @@ public class PlayerManager : MonoBehaviour
         {
             value += item.AtkNow;
         }
-        Card weapon = playerPassiveManager.GetWeapon();
+        Card weapon = playerPassiveManager.GetWeapon().card;
         if (weapon != null)
         {
             if (weapon.cardName != "Weapon") { value += weapon.AtkNow; }
@@ -302,7 +304,7 @@ public class PlayerManager : MonoBehaviour
             idCard.UpdateCard();
         }
 
-        Card shield = playerPassiveManager.GetShield();
+        Card shield = playerPassiveManager.GetShield().card;
         if (shield != null)
         {
             if (!shield.iD.Equals("4t1"))
@@ -681,7 +683,7 @@ public class PlayerManager : MonoBehaviour
         bool canAfford = playerQuantaManager.HasEnoughQuanta(cardToCheck.costElement, cardToCheck.cost);
         if (cardToCheck.skill == "flying")
         {
-            if (playerPassiveManager.GetWeapon().iD == "4t2") { return false; }
+            if (playerPassiveManager.GetWeapon().card.iD == "4t2") { return false; }
         }
 
         return canAfford;
@@ -704,29 +706,29 @@ public class PlayerManager : MonoBehaviour
                 if (shouldActivateDeath)
                 {
                     //yield return DuelManager.s.Occured();
-                    DuelManager.Instance.player.ActivateDeathTriggers(GetCard(cardID).cardName.Contains("Skeleton"));
-                    DuelManager.Instance.enemy.ActivateDeathTriggers(GetCard(cardID).cardName.Contains("Skeleton"));
+                    GetCard(cardID).cardName.Contains("Skeleton");
+                    GetCard(cardID).cardName.Contains("Skeleton");
                 }
                 if (GetCard(cardID).passive?.Count > 0)
                 {
                     if (GetCard(cardID).IsAflatoxin)
                     {
-                        DisplayNewCard(cardID, CardDatabase.Instance.GetCardFromId("6ro"));
+                        //DisplayNewCard(cardID, CardDatabase.Instance.GetCardFromId("6ro"));
                         yield break;
                     }
                     if (GetCard(cardID).passive.Contains("phoenix"))
                     {
                         bool shouldRebirth = true;
-                        if (BattleVars.shared.cardOnStandBy != null)
+                        if (BattleVars.shared.abilityOrigin != null)
                         {
-                            if (BattleVars.shared.cardOnStandBy.skill == "reverse time")
+                            if (BattleVars.shared.abilityOrigin.card.skill == "reverse time")
                             {
                                 shouldRebirth = false;
                             }
                         }
                         if (shouldRebirth)
                         {
-                            DisplayNewCard(cardID, CardDatabase.Instance.GetCardFromId(GetCard(cardID).iD.IsUpgraded() ? "7dt" : "5fd"));
+                            //DisplayNewCard(cardID, CardDatabase.Instance.GetCardFromId(GetCard(cardID).iD.IsUpgraded() ? "7dt" : "5fd"));
                             yield break;
                         }
                     }
@@ -1003,7 +1005,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        Card weaponCard = playerPassiveManager.GetWeapon();
+        Card weaponCard = playerPassiveManager.GetWeapon().card;
         if (weaponCard != null)
         {
             passiveDisplayers[1].ShouldShowUsableGlow(IsAbilityUsable(weaponCard));
@@ -1121,7 +1123,7 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
-        if (playerPassiveManager.GetShield().skill == "bones" && deadCard.iD != "716" && deadCard.iD != "52m")
+        if (playerPassiveManager.GetShield().card.skill == "bones" && deadCard.iD != "716" && deadCard.iD != "52m")
         {
             playerCounters.bone += 2;
             boneShieldLabel.text = $"{playerCounters.bone}";
@@ -1356,16 +1358,16 @@ public class PlayerManager : MonoBehaviour
         }
 
         PlayActionAnimationVisual(playerPassiveManager.GetMarkID());
-        yield return StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(playerPassiveManager.GetMarkID()), playerPassiveManager.GetMark().costElement));
+        yield return StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(playerPassiveManager.GetMarkID()), playerPassiveManager.GetMark().card.costElement));
 
 
         if (BattleVars.shared.enemyAiData.maxHP >= 150 && !isPlayer)
         {
-            GenerateQuantaLogic(playerPassiveManager.GetMark().costElement, 3);
+            GenerateQuantaLogic(playerPassiveManager.GetMark().card.costElement, 3);
         }
         else
         {
-            GenerateQuantaLogic(playerPassiveManager.GetMark().costElement, 1);
+            GenerateQuantaLogic(playerPassiveManager.GetMark().card.costElement, 1);
         }
         yield return StartCoroutine(CheckPermanentEndTurn());
     }
@@ -1515,7 +1517,8 @@ public class PlayerManager : MonoBehaviour
         healthDisplayer.SetHPStart(healthManager.GetCurrentHealth());
         healthManager.HealthChangedEvent += healthDisplayer.OnHealthChanged;
         healthManager.MaxHealthUpdatedEvent += healthDisplayer.OnMaxHealthChanged;
-
+        playerID.id = playerDisplayer.GetObjectID();
+        playerID.card = null;
         //if (isPlayer && PlayerData.shared.petName != "" && PlayerData.shared.petName != null)
         //{
         //    Card petCard = CardDatabase.Instance.GetCardFromId(PlayerData.shared.petName);
@@ -1571,12 +1574,12 @@ public class PlayerManager : MonoBehaviour
                     ModifyHealthLogic(4, false, false);
                     break;
                 case "void":
-                    int healthChange = playerPassiveManager.GetMark().costElement == Element.Darkness ? 3 : 2;
+                    int healthChange = playerPassiveManager.GetMark().card.costElement == Element.Darkness ? 3 : 2;
                     var targetPlayer = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
                     targetPlayer.ModifyMaxHealthLogic(healthChange, false);
                     break;
                 case "gratitude":
-                    int healthAmount = playerPassiveManager.GetMark().costElement == Element.Life ? 5 : 3;
+                    int healthAmount = playerPassiveManager.GetMark().card.costElement == Element.Life ? 5 : 3;
                     ModifyHealthLogic(healthAmount, false, false);
                     break;
                 case "empathy":
@@ -1604,8 +1607,8 @@ public class PlayerManager : MonoBehaviour
     public void ShieldCheck(ID attackerID, ref Card attacker, ref int atknow)
     {
         PlayerManager opponent = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-        Card shield = playerPassiveManager.GetShield();
-        string skill = shield.skill;
+        IDCardPair shield = playerPassiveManager.GetShield();
+        string skill = shield.card.skill;
 
         if (skill == "none" || atknow == 0)
         {
@@ -1720,11 +1723,11 @@ public class PlayerManager : MonoBehaviour
     public void NewShieldCheck(PlayerManager attackerOwner, ref Card attacker, ref int atknow)
     {
         //PlayerManager opponent = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-        Card shield = playerPassiveManager.GetShield();
+        IDCardPair shield = playerPassiveManager.GetShield();
 
-        if (shield == null) { return; }
+        if (shield.card == null) { return; }
 
-        string skill = shield.skill;
+        string skill = shield.card.skill;
 
         if (skill == "none") { return; }
 
@@ -1837,44 +1840,44 @@ public class PlayerManager : MonoBehaviour
     {
         HideHand();
         PlayerManager opponent = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-        Card weapon = playerPassiveManager.GetWeapon();
+        IDCardPair weapon = playerPassiveManager.GetWeapon();
 
-        if (weapon.iD == "6ri") { yield break; }
-        string skill = weapon.skill;
-        int atknow = weapon.atk;
+        if (weapon.card.iD == "6ri") { yield break; }
+        string skill = weapon.card.skill;
+        int atknow = weapon.card.AtkNow;
         if (skill == "fiery")
         {
             atknow += Mathf.FloorToInt(GetAllQuantaOfElement(Element.Fire) / 5);
 
         }
-        if (skill == "hammer" && (playerPassiveManager.GetMark().costElement == Element.Earth || playerPassiveManager.GetMark().costElement == Element.Gravity))
+        if (skill == "hammer" && (playerPassiveManager.GetMark().card.costElement == Element.Earth || playerPassiveManager.GetMark().card.costElement == Element.Gravity))
         {
             atknow++;
         }
-        if (skill == "dagger" && (playerPassiveManager.GetMark().costElement == Element.Death || playerPassiveManager.GetMark().costElement == Element.Darkness))
+        if (skill == "dagger" && (playerPassiveManager.GetMark().card.costElement == Element.Death || playerPassiveManager.GetMark().card.costElement == Element.Darkness))
         {
             atknow++;
         }
-        if (skill == "bow" && playerPassiveManager.GetMark().costElement == Element.Air)
+        if (skill == "bow" && playerPassiveManager.GetMark().card.costElement == Element.Air)
         {
             atknow++;
         }
 
-        if (weapon.Freeze > 0)
+        if (weapon.card.Freeze > 0)
         {
             atknow = 0;
-            weapon.Freeze--;
+            weapon.card.Freeze--;
         }
 
-        if (weapon.IsDelayed)
+        if (weapon.card.IsDelayed)
         {
             atknow = 0;
-            weapon.innate.Remove("delay");
+            weapon.card.innate.Remove("delay");
         }
 
-        if (!weapon.passive.Contains("momentum"))
+        if (!weapon.card.passive.Contains("momentum"))
         {
-            opponent.ShieldCheck(playerPassiveManager.GetWeaponID(), ref weapon, ref atknow);
+            opponent.ShieldCheck(playerPassiveManager.GetWeaponID(), ref weapon.card, ref atknow);
         }
 
         //Send Damage
@@ -1962,7 +1965,7 @@ public class PlayerManager : MonoBehaviour
                         {
                             //result.Poison += poisonDamage;
                             //Update surviving creature display;
-                            opponent.DisplayNewCard(creaturesWithGravity[0], result, false);
+                            //opponent.DisplayNewCard(creaturesWithGravity[0], result, false);
 
                             StartCoroutine(creatureDisplayers[iD.Index].ShowDamage(creature.AtkNow));
                             continue; // Go to creature passive check

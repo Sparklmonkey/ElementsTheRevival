@@ -73,6 +73,22 @@ public static class ExtensionMethods
         return sortedList;
     }
 
+    public static List<IDCardPair> GetIDCardPairsWithCardId(this List<IDCardPair> originalList, List<string> cardIds)
+    {
+        List<IDCardPair> returnList = new();
+
+        foreach (var iDCardPair in originalList)
+        {
+            if (cardIds.Contains(iDCardPair.card.iD))
+            {
+                returnList.Add(iDCardPair);
+            }
+        }
+
+        return returnList;
+    }
+
+
     public static int GetFullQuantaCount(this List<QuantaObject> quantaObjects)
     {
         int count = 0;

@@ -48,6 +48,6 @@ public class IDCardPair : MonoBehaviour
 
     internal bool HasCard()
     {
-        return card != null;
+        return card != null && card.iD != "4t2" && card.iD != "4t1";
     }
 }

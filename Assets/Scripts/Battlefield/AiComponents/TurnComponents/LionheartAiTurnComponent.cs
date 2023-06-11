@@ -5,59 +5,7 @@ using UnityEngine;
 
 public class LionheartAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 {
-    private IEnumerator ActivateCrusaders(PlayerManager aiManager)
-    {
-        List<Card> cardList = new List<Card>(aiManager.playerCreatureField.GetAllCards());
-        List<ID> idList = new List<ID>(aiManager.playerCreatureField.GetAllIds());
-        List<Card> crusaderCards = new List<Card>();
-        List<ID> crusaderIds = new List<ID>();
-
-        for (int i = 0; i < cardList.Count; i++)
-        {
-            switch (cardList[i].cardName)
-            {
-                case "Elite Crusader":
-                    crusaderCards.Add(cardList[i]);
-                    crusaderIds.Add(idList[i]);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        if (crusaderCards.Count == 0) { yield break; }
-
-        for (int i = 0; i < crusaderCards.Count; i++)
-        {
-            if (!aiManager.IsAbilityUsable(crusaderCards[i])) { continue; }
-            if (crusaderCards[i].skill == "endow")
-            {
-                if (aiManager.playerPassiveManager.GetWeapon() == null) { continue; }
-                if (aiManager.playerPassiveManager.GetWeapon().cardName == "Weapon") { continue; }
-
-                BattleVars.shared.originId = crusaderIds[i];
-                BattleVars.shared.cardOnStandBy = crusaderCards[i];
-                ID target = aiManager.playerPassiveManager.GetWeaponID();
-                yield return aiManager.StartCoroutine(aiManager.ActivateAbility(target));
-                continue;
-            }
-            else if (crusaderCards[i].skill == "reverse")
-            {
-                BattleVars.shared.originId = crusaderIds[i];
-                BattleVars.shared.cardOnStandBy = crusaderCards[i];
-                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
-                List<ID> opCreatureIds = DuelManager.GetAllValidTargets();
-                if (opCreatureIds.Count == 0) { continue; }
-                System.Random rnd = new System.Random();
-                ID target = opCreatureIds.OrderBy(x => rnd.Next())
-                                  .First();
-
-                yield return aiManager.StartCoroutine(aiManager.ActivateAbility(target));
-            }
-
-        }
-
-    }
+    
 
     public IEnumerator RestOfTurn(PlayerManager aiManager)
     {

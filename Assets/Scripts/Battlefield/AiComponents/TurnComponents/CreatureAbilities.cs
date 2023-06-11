@@ -1,130 +1,120 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CreatureAbilities
 {
     public IEnumerator ActivatePegasus(PlayerManager aiManager)
     {
-        List<Card> cardList = new List<Card>(aiManager.playerCreatureField.GetAllCards());
-        List<ID> idList = new List<ID>(aiManager.playerCreatureField.GetAllIds());
-        List<Card> queenCards = new List<Card>();
-        List<ID> queenIds = new List<ID>();
+        List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
+        List<IDCardPair> pegasusList = cardList.GetIDCardPairsWithCardId(new() { "5lb", "7jr" });
 
-        for (int i = 0; i < cardList.Count; i++)
+        if (pegasusList.Count == 0) { yield break; }
+
+        foreach (var pegasus in pegasusList)
         {
-            switch (cardList[i].cardName)
-            {
-                case "Elite Pegasus":
-                    queenCards.Add(cardList[i]);
-                    queenIds.Add(idList[i]);
-                    break;
-                case "Pegasus":
-                    queenCards.Add(cardList[i]);
-                    queenIds.Add(idList[i]);
-                    break;
-                default:
-                    break;
-            }
+            if(!aiManager.IsAbilityUsable(pegasus.card)) { continue; }
+            BattleVars.shared.abilityOrigin = pegasus;
+            aiManager.ActivateAbility(pegasus);
         }
-
-        if (queenCards.Count == 0) { yield break; }
-
-        for (int i = 0; i < queenCards.Count; i++)
-        {
-            if (!aiManager.IsAbilityUsable(queenCards[i])) { continue; }
-            BattleVars.shared.originId = queenIds[i];
-            BattleVars.shared.cardOnStandBy = queenCards[i];
-
-            yield return aiManager.StartCoroutine(aiManager.ActivateAbility(BattleVars.shared.originId));
-        }
-
     }
 
     public IEnumerator ActivateRetroVirus(PlayerManager aiManager)
     {
+        var possibleTargets = DuelManager.GetOtherPlayer().playerCreatureField.GetAllValidCardIds();
+        if (possibleTargets.Count < 2) { yield break; }
 
-        if (DuelManager.GetOtherPlayer().playerCreatureField.GetAllCards().Count < 2) { yield break; }
+        List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
+        List<IDCardPair> virusList = cardList.GetIDCardPairsWithCardId(new() { "52i", "712" });
 
-        List<Card> cardList = new List<Card>(aiManager.playerCreatureField.GetAllCards());
-        List<ID> idList = new List<ID>(aiManager.playerCreatureField.GetAllIds());
-        List<Card> retroVirusCards = new List<Card>();
-        List<ID> retroVirusIds = new List<ID>();
+        if (virusList.Count == 0) { yield break; }
 
-        for (int i = 0; i < cardList.Count; i++)
+        foreach (var virus in virusList)
         {
-            switch (cardList[i].cardName)
-            {
-                case "Retrovirus":
-                    retroVirusCards.Add(cardList[i]);
-                    retroVirusIds.Add(idList[i]);
-                    break;
-                case "Virus":
-                    retroVirusCards.Add(cardList[i]);
-                    retroVirusIds.Add(idList[i]);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        if (retroVirusCards.Count == 0) { yield break; }
-
-        for (int i = 0; i < retroVirusCards.Count; i++)
-        {
-            if (!aiManager.IsAbilityUsable(retroVirusCards[i])) { continue; }
-            BattleVars.shared.originId = retroVirusIds[i];
-            BattleVars.shared.cardOnStandBy = retroVirusCards[i];
-            ID target = new ID(OwnerEnum.Player, FieldEnum.Player, 1);
-            if (BattleVars.shared.isSelectingTarget)
-            {
-                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
-                target = DuelManager.GetAllValidTargets().Find(x => x.Owner.Equals(OwnerEnum.Player));
-                if(target == null) { continue; }
-            }
-
-            yield return aiManager.StartCoroutine(aiManager.ActivateAbility(target));
+            if (!aiManager.IsAbilityUsable(virus.card)) { continue; }
+            BattleVars.shared.abilityOrigin = virus;
+            var target = possibleTargets.Aggregate((i1, i2) => i1.card.DefNow > i2.card.DefNow ? i1 : i2);
+            aiManager.ActivateAbility(target);
         }
 
     }
 
     public IEnumerator ActivateGraboid(PlayerManager aiManager)
     {
-        List<Card> cardList = new List<Card>(aiManager.playerCreatureField.GetAllCards());
-        List<ID> idList = new List<ID>(aiManager.playerCreatureField.GetAllIds());
+        List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
+        List<IDCardPair> graboidList = cardList.GetIDCardPairsWithCardId(new() { "590", "77g" });
 
-        if (cardList.Count == 0) { yield break; }
+        if (graboidList.Count == 0) { yield break; }
 
-        List<Card> graboidCards = new List<Card>();
-        List<ID> graboidIds = new List<ID>();
-
-        for (int i = 0; i < cardList.Count; i++)
+        foreach (var graboid in graboidList)
         {
-            switch (cardList[i].cardName)
-            {
-                case "Elite Graboid":
-                    graboidCards.Add(cardList[i]);
-                    graboidIds.Add(idList[i]);
-                    break;
-                case "Graboid":
-                    graboidCards.Add(cardList[i]);
-                    graboidIds.Add(idList[i]);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        if (graboidCards.Count == 0) { yield break; }
-
-        for (int i = 0; i < graboidCards.Count; i++)
-        {
-            if (!aiManager.IsAbilityUsable(graboidCards[i])) { continue; }
-            BattleVars.shared.originId = graboidIds[i];
-            BattleVars.shared.cardOnStandBy = graboidCards[i];
-
-            yield return aiManager.StartCoroutine(aiManager.ActivateAbility(graboidIds[i]));
+            if (!aiManager.IsAbilityUsable(graboid.card)) { continue; }
+            BattleVars.shared.abilityOrigin = graboid;
+            aiManager.ActivateAbility(graboid);
         }
     }
 
+    public IEnumerator ActivateBloodsucker(PlayerManager aiManager)
+    {
+        var possibleTargets = DuelManager.GetOtherPlayer().playerCreatureField.GetAllValidCardIds();
+        if (possibleTargets.Count < 1) { yield break; }
+
+        List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
+        List<IDCardPair> bloodsuckerList = cardList.GetIDCardPairsWithCardId(new() { "5un", "7t7" });
+
+        if (bloodsuckerList.Count == 0) { yield break; }
+
+        foreach (var bloodSucker in bloodsuckerList)
+        {
+            if (!aiManager.IsAbilityUsable(bloodSucker.card)) { continue; }
+            BattleVars.shared.abilityOrigin = bloodSucker;
+            var target = possibleTargets.Aggregate((i1, i2) => i1.card.DefNow > i2.card.DefNow ? i1 : i2);
+            aiManager.ActivateAbility(target);
+        }
+    }
+
+    public IEnumerator ActivateCrusaders(PlayerManager aiManager)
+    {
+        List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
+        List<IDCardPair> creatureList = cardList.GetIDCardPairsWithCardId(new() { "5un", "5ll" });
+
+        if (creatureList.Count == 0) { yield break; }
+
+        foreach (var creature in creatureList)
+        {
+            if (!aiManager.IsAbilityUsable(creature.card)) { continue; }
+
+        }
+
+        for (int i = 0; i < crusaderCards.Count; i++)
+        {
+            if (crusaderCards[i].skill == "endow")
+            {
+                if (aiManager.playerPassiveManager.GetWeapon() == null) { continue; }
+                if (aiManager.playerPassiveManager.GetWeapon().cardName == "Weapon") { continue; }
+
+                BattleVars.shared.originId = crusaderIds[i];
+                BattleVars.shared.cardOnStandBy = crusaderCards[i];
+                ID target = aiManager.playerPassiveManager.GetWeaponID();
+                yield return aiManager.StartCoroutine(aiManager.ActivateAbility(target));
+                continue;
+            }
+            else if (crusaderCards[i].skill == "reverse")
+            {
+                BattleVars.shared.originId = crusaderIds[i];
+                BattleVars.shared.cardOnStandBy = crusaderCards[i];
+                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
+                List<ID> opCreatureIds = DuelManager.GetAllValidTargets();
+                if (opCreatureIds.Count == 0) { continue; }
+                System.Random rnd = new System.Random();
+                ID target = opCreatureIds.OrderBy(x => rnd.Next())
+                                  .First();
+
+                yield return aiManager.StartCoroutine(aiManager.ActivateAbility(target));
+            }
+
+        }
+
+    }
 }
