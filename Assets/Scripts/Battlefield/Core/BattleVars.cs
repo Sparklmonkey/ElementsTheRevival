@@ -47,11 +47,6 @@ public class BattleVars
     //Spell, Abilities Targeting
     public IDCardPair abilityOrigin;
 
-    public bool IsFixedTarget()
-    {
-        return CardDatabase.Instance.skillsNoTarget.Contains(abilityOrigin.card.skill);
-    }
-
     public bool isPvp;
     public int coinFlip;
     public bool willStart;

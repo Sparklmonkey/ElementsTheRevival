@@ -18,16 +18,9 @@ public class PlayerManager : MonoBehaviour
         {
             case PlayerCounters.Bone:
                 playerCounters.bone += amount;
-                boneShieldLabel.text = $"{playerCounters.bone}";
                 break;
             case PlayerCounters.Invisibility:
-
                 playerCounters.invisibility += amount;
-                if (playerPermanentManager.GetAllCards().FindAll(x => x.skill == "cloak").Count == 1)
-                {
-                    //DeactivateCloakEffect(location);
-                    playerCounters.invisibility = 0;
-                }
                 break;
             case PlayerCounters.Freeze:
                 break;
@@ -37,13 +30,15 @@ public class PlayerManager : MonoBehaviour
                 break;
             case PlayerCounters.Sanctuary:
                 sanctuaryCount += amount;
-                sanctImage.gameObject.SetActive(sanctuaryCount > 0);
                 break;
             case PlayerCounters.Freedom:
                 break;
             case PlayerCounters.Patience:
                 break;
             case PlayerCounters.Scarab:
+                break;
+            case PlayerCounters.Silence:
+                playerCounters.silence += amount;
                 break;
             default:
                 break;
@@ -217,13 +212,9 @@ public class PlayerManager : MonoBehaviour
         return playerQuantaManager.HasEnoughQuanta(element, cost);
     }
 
-    public List<ID> GetHandIds()
+    public List<IDCardPair> GetHandCards()
     {
-        return playerHand.GetAllIds();
-    }
-    public List<Card> GetHandCards()
-    {
-        return playerHand.GetAllCards();
+        return playerHand.GetAllValidCardIds();
     }
 
     public int GetAllQuantaOfElement(Element element)
@@ -508,7 +499,7 @@ public class PlayerManager : MonoBehaviour
                     else
                     {
                         BattleVars.shared.isSelectingTarget = true;
-                        SkillManager.Instance.SetupTargetHighlights(this, DuelManager.Instance.enemy, idCard.card);
+                        SkillManager.Instance.SetupTargetHighlights(this, idCard);
                     }
                 }
             }
@@ -529,7 +520,7 @@ public class PlayerManager : MonoBehaviour
                 else
                 {
                     BattleVars.shared.isSelectingTarget = true;
-                    SkillManager.Instance.SetupTargetHighlights(this, DuelManager.Instance.enemy, idCard.card);
+                    SkillManager.Instance.SetupTargetHighlights(this, idCard);
                 }
             }
 
@@ -538,7 +529,6 @@ public class PlayerManager : MonoBehaviour
 
 
         cardDetailManager.SetCardOnDisplay(idCard);
-        //cardDetailView.SetupCardDisplay(iD, GetCard(iD), playerQuantaManager.HasEnoughQuanta(card.costElement, card.cost));
     }
 
     internal void DisplayHand()
@@ -1493,6 +1483,8 @@ public class PlayerManager : MonoBehaviour
     {
         playerQuantaManager = new QuantaManager(quantaDisplayers, this);
         cardDetailManager = new CardDetailManager();
+        cardDetailManager.OnDisplayNewCard += cardDetailView.SetupCardDisplay;
+        cardDetailManager.OnRemoveCard += cardDetailView.CancelButtonAction;
         playerCounters = new Counters();
         playerDisplayer.SetID(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Player, 0, playerDisplayer.transform);
 
@@ -2201,5 +2193,8 @@ public enum PlayerCounters
     Sanctuary,
     Freedom,
     Patience,
-    Scarab
+    Scarab,
+    Silence,
+    Sacrifice,
+    Purify
 }

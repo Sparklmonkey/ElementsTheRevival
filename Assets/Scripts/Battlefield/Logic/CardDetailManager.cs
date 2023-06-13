@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 namespace Elements.Duel.Manager
 {
 
@@ -6,9 +7,21 @@ namespace Elements.Duel.Manager
     {
         private IDCardPair cardOnDisplay;
 
-        public void SetCardOnDisplay(IDCardPair iD) => cardOnDisplay = iD;
+
+        public event Action<IDCardPair> OnDisplayNewCard;
+        public event Action OnRemoveCard;
+
+        public void SetCardOnDisplay(IDCardPair idCard)
+        {
+            cardOnDisplay = idCard;
+            OnDisplayNewCard?.Invoke(idCard);
+        }
 
         public IDCardPair GetCardID() => cardOnDisplay;
-        public void ClearID() => cardOnDisplay = null;
+        public void ClearID()
+        {
+            cardOnDisplay = null;
+            OnRemoveCard?.Invoke();
+        }
     }
 }

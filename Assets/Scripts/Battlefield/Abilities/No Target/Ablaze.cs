@@ -7,8 +7,8 @@ public class Ablaze : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        BattleVars.shared.abilityOrigin.card.AtkModify += 2;
-        BattleVars.shared.abilityOrigin.UpdateCard();
+        target.card.AtkModify += 2;
+        target.UpdateCard();
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

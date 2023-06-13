@@ -136,7 +136,9 @@ public static class ExtensionMethods
     }
     public static T GetScriptFromName<T>(this string AbilityName)
     {
-        Type type = Type.GetType(AbilityName);
+        var nameToCheck = AbilityName.Replace(" ", "");
+        nameToCheck = nameToCheck[0].ToString().ToUpper() + nameToCheck[1..];
+        Type type = Type.GetType(nameToCheck);
         if (type == null)
         {
             //Debug.Log("Active Ability Doesnt exist");

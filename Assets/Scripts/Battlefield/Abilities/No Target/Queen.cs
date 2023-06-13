@@ -7,7 +7,7 @@ public class Queen : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Owner.PlayCardOnFieldLogic(BattleVars.shared.abilityOrigin.card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n4") : CardDatabase.Instance.GetCardFromId("5ok"));
+        Owner.PlayCardOnFieldLogic(target.card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n4") : CardDatabase.Instance.GetCardFromId("5ok"));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

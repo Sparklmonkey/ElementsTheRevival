@@ -7,11 +7,11 @@ public class Lycanthropy : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        BattleVars.shared.abilityOrigin.card.AtkModify += 5;
-        BattleVars.shared.abilityOrigin.card.DefModify += 5;
-        BattleVars.shared.abilityOrigin.card.skill = "";
-        BattleVars.shared.abilityOrigin.card.desc = "";
-        BattleVars.shared.abilityOrigin.UpdateCard();
+        target.card.AtkModify += 5;
+        target.card.DefModify += 5;
+        target.card.skill = "";
+        target.card.desc = "";
+        target.UpdateCard();
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

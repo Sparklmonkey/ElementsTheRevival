@@ -7,7 +7,7 @@ public class Patience : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        BattleVars.shared.abilityOrigin.RemoveCard();
+        target.RemoveCard();
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

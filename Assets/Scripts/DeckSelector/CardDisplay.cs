@@ -19,23 +19,23 @@ public class CardDisplay : MonoBehaviour
     public void SetupCardView(Card cardToDisplay)
     {
         card = cardToDisplay;
-        //if (cardToDisplay.cardName.Contains("Pendulum") && SceneManager.GetActiveScene().name == "Battlefield")
-        //{
-        //    Element pendulumElement = cardToDisplay.costElement;
-        //    Element markElement = BattleVars.shared.isPlayerTurn ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
-        //    if (cardToDisplay.costElement == cardToDisplay.skillElement)
-        //    {
-        //        cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
-        //    }
-        //    else
-        //    {
-        //        cardImage.sprite = ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
-        //    }
-        //}
-        //else
-        //{
-        //    cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
-        //}
+        if (cardToDisplay.cardName.Contains("Pendulum") && SceneManager.GetActiveScene().name == "Battlefield")
+        {
+            Element pendulumElement = cardToDisplay.costElement;
+            Element markElement = BattleVars.shared.isPlayerTurn ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
+            if (cardToDisplay.costElement == cardToDisplay.skillElement)
+            {
+                cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
+            }
+            else
+            {
+                cardImage.sprite = ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
+            }
+        }
+        else
+        {
+            cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
+        }
 
         cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
         

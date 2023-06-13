@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 namespace Elements.Duel.Visual
 {
@@ -11,110 +12,114 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private TextMeshProUGUI buttonText;
 
+
         [SerializeField]
         private Button actionButton;
-        private ID cardID;
-        public void SetupCardDisplay(ID cardID, Card cardToDisplay, bool canPlay)
+        private IDCardPair idCard;
+        public void SetupCardDisplay(IDCardPair idCard)
         {
-            if(cardID.Field.Equals(FieldEnum.Player)) { return; }
-            gameObject.SetActive(true);
-            this.cardID = cardID;
-            cardDisplay.SetupCardView(cardToDisplay);
-            if (cardID.Owner.Equals(OwnerEnum.Player))
-            {
-                SetupButton(cardToDisplay, cardID.Field.Equals(FieldEnum.Hand), canPlay, cardToDisplay.AbilityUsed);
-            }
-            else
-            {
-                actionButton.gameObject.SetActive(false);
-            }
+            if(!idCard.HasCard()) { return; }
+            this.idCard = idCard;
+            SetupButton();
+            cardDisplay.SetupCardView(idCard.card);
         }
 
-        private void SetupButton(Card card, bool isFromHand, bool canPlay, bool abilityUsed)
+        private void SetupButton()
         {
-            if(card.skill != "" && card.cardType.Equals(CardType.Spell))
+            var element = idCard.id.Field == FieldEnum.Hand ? idCard.card.costElement : idCard.card.skillElement;
+            var cost = idCard.id.Field == FieldEnum.Hand ? idCard.card.cost : idCard.card.skillCost;
+
+
+            bool hasQuanta = DuelManager.Instance.player.HasSufficientQuanta(element, cost);
+            var isPlayerTurn = BattleVars.shared.isPlayerTurn;
+            gameObject.SetActive(true);
+            actionButton.gameObject.SetActive(true);
+
+            if (idCard.id.Owner == OwnerEnum.Opponent || !isPlayerTurn)
             {
-                if (CardDatabase.Instance.skillsNoTarget.Contains(card.skill) && canPlay)
+                buttonText.text = "";
+                actionButton.name = "";
+                actionButton.gameObject.SetActive(false);
+                return;
+            }
+                
+            if (idCard.card.cardType == CardType.Spell)
+            {
+                if (!SkillManager.Instance.ShouldAskForTarget(idCard) && hasQuanta && isPlayerTurn)
                 {
-                    actionButton.gameObject.SetActive(true);
                     buttonText.text = "Activate";
                     actionButton.name = "Activate";
-                    BattleVars.shared.originId = cardID;
-                    BattleVars.shared.cardOnStandBy = card;
+                    BattleVars.shared.abilityOrigin = idCard;
                     return;
                 }
-                else if (CardDatabase.Instance.skillsWithTarget.Contains(card.skill) && canPlay)
+                else if (SkillManager.Instance.ShouldAskForTarget(idCard) && hasQuanta && isPlayerTurn)
                 {
-                    actionButton.gameObject.SetActive(true);
                     buttonText.text = "Select Target";
                     actionButton.name = "Select Target";
-                    BattleVars.shared.originId = cardID;
-                    BattleVars.shared.cardOnStandBy = card;
+                    BattleVars.shared.abilityOrigin = idCard;
                     return;
                 }
-                else 
+                else if (!hasQuanta)
                 {
-                    actionButton.gameObject.SetActive(true);
                     buttonText.text = "Insufficient Quanta";
                     actionButton.name = "Insufficient Quanta";
                     return;
                 }
             }
 
-            if(card.skill != null && !isFromHand)
+            if (idCard.id.Field == FieldEnum.Hand)
             {
-                canPlay = DuelManager.GetIDOwner(cardID).HasSufficientQuanta(card.skillElement, card.skillCost) && !abilityUsed;
-                if (CardDatabase.Instance.skillsNoTarget.Contains(card.skill) && canPlay)
+                if (hasQuanta)
                 {
-                    actionButton.gameObject.SetActive(true);
-                    buttonText.text = "Activate";
-                    actionButton.name = "Activate";
-                    BattleVars.shared.originId = cardID;
-                    BattleVars.shared.cardOnStandBy = card;
+                    buttonText.text = "Play";
+                    actionButton.name = "Play";
                     return;
                 }
-                else if(CardDatabase.Instance.skillsWithTarget.Contains(card.skill) && canPlay)
+
+                buttonText.text = "";
+                actionButton.name = "";
+                actionButton.gameObject.SetActive(false);
+                return;
+            }
+
+            if (idCard.card.skill != "")
+            {
+                if (idCard.card.AbilityUsed)
                 {
-                    actionButton.gameObject.SetActive(true);
-                    buttonText.text = "Select Target";
-                    actionButton.name = "Select Target";
-                    BattleVars.shared.originId = cardID;
-                    BattleVars.shared.cardOnStandBy = card;
-                    return;
-                }
-                else if(abilityUsed)
-                {
-                    actionButton.gameObject.SetActive(true);
                     buttonText.text = "Already Used";
                     actionButton.name = "Insufficient Quanta";
                     return;
                 }
-                else
+                if (!SkillManager.Instance.ShouldAskForTarget(idCard) && hasQuanta && isPlayerTurn)
                 {
-                    actionButton.gameObject.SetActive(true);
+                    buttonText.text = "Activate";
+                    actionButton.name = "Activate";
+                    BattleVars.shared.abilityOrigin = idCard;
+                    return;
+                }
+                else if (SkillManager.Instance.ShouldAskForTarget(idCard) && hasQuanta && isPlayerTurn)
+                {
+                    buttonText.text = "Select Target";
+                    actionButton.name = "Select Target";
+                    BattleVars.shared.abilityOrigin = idCard;
+                    return;
+                }
+                else if (!hasQuanta)
+                {
                     buttonText.text = "Insufficient Quanta";
                     actionButton.name = "Insufficient Quanta";
                     return;
                 }
-            }
 
-            if (isFromHand && canPlay)
-            {
-                actionButton.gameObject.SetActive(true);
-                buttonText.text = "Play";
-                actionButton.name = "Play";
-                return;
             }
-            buttonText.text = "";
-            actionButton.name = "";
-            actionButton.gameObject.SetActive(false);
         }
 
         public void CancelButtonAction()
         {
-            BattleVars.shared.cardOnStandBy = null;
-            BattleVars.shared.originId = null;
+            BattleVars.shared.abilityOrigin = null;
             gameObject.SetActive(false);
         }
+
+
     }
 }

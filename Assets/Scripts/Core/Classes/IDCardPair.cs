@@ -31,6 +31,15 @@ public class IDCardPair : MonoBehaviour
 
     public void UpdateCard()
     {
+        if (card.cardType.Equals(CardType.Creature))
+        {
+            if (card.DefDamage < 0) { card.DefDamage = 0; }
+            if (card.DefNow <= 0)
+            {
+                RemoveCard();
+                return;
+            }
+        }
         OnCardChanged?.Invoke(card, stackCount);
     }
 

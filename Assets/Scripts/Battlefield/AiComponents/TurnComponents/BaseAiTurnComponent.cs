@@ -66,12 +66,11 @@ public class BaseAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
     private IEnumerator ActivateSpells(PlayerManager aiManager)
     {
-        List<Card> cardList = new List<Card>(aiManager.GetHandCards());
-        List<ID> idList = new List<ID>(aiManager.GetHandIds());
+        List<IDCardPair> cardList = new(aiManager.GetHandCards());
 
-        if (!cardList.Exists(x => x.cardType.Equals(CardType.Spell))) { yield break; }
+        if (!cardList.Exists(x => x.card.cardType.Equals(CardType.Spell))) { yield break; }
 
-        int cardIndex = cardList.FindIndex(x => x.cardType.Equals(CardType.Spell) && aiManager.IsCardPlayable(x));
+        int cardIndex = cardList.FindIndex(x => x.card.cardType.Equals(CardType.Spell) && aiManager.IsCardPlayable(x.card));
 
         if(cardIndex == -1) { yield break; }
         int loopBreak = 0;

@@ -7,7 +7,7 @@ public class Hatch : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        BattleVars.shared.abilityOrigin.PlayCard(BattleVars.shared.abilityOrigin.card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteHatchCreature() : CardDatabase.Instance.GetRandomHatchCreature());
+        target.PlayCard(target.card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteHatchCreature() : CardDatabase.Instance.GetRandomHatchCreature());
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
