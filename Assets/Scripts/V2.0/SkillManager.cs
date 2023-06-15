@@ -6,8 +6,6 @@ public class SkillManager
 {
     private static readonly SkillManager instance = new SkillManager();
 
-    // Explicit static constructor to tell C# compiler
-    // not to mark type as beforefieldinit
     static SkillManager()
     {
     }
@@ -45,13 +43,20 @@ public class SkillManager
         DuelManager.SetupHighlights(ability.GetPossibleTargets(enemy));
     }
 
-    public void SkillRoutineWithTarget(IDCardPair iDCard)
+    public void SkillRoutineWithTarget(PlayerManager owner, IDCardPair iDCard)
     {
         var ability = BattleVars.shared.abilityOrigin.card.skill.GetScriptFromName<AbilityEffect>();
-        PlayerManager originOwner = DuelManager.GetIDOwner(BattleVars.shared.abilityOrigin.id);
-        ability.Owner = originOwner;
+        ability.Owner = owner;
 
         ability.Activate(iDCard);
+    }
+
+    public IDCardPair GetRandomTarget(PlayerManager owner, IDCardPair iDCard)
+    {
+        var ability = iDCard.card.skill.GetScriptFromName<AbilityEffect>();
+        ability.Owner = owner;
+
+        return ability.SelectRandomTarget(ability.GetPossibleTargets(DuelManager.GetIDOwner(owner.playerID.id)));
     }
 
 }

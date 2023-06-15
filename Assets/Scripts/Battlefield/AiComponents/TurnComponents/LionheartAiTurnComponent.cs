@@ -25,10 +25,10 @@ public class LionheartAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
         //Activate Abilities
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityNoTarget(aiManager, CardType.Artifact, "Golden Hourglass", "Electrum Hourglass"));
-        yield return aiManager.StartCoroutine(ActivateCrusaders(aiManager));
-        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Artifact, "Anubis", "Elite Anubis", x => x.Owner.Equals(OwnerEnum.Opponent)));
+        yield return aiManager.StartCoroutine(creatureManager.ActivateCrusaders(aiManager));
+        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Artifact, "Anubis", "Elite Anubis"));
         yield return aiManager.StartCoroutine(spellManager.ActivateQuintessence(aiManager));
-        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Artifact, "Eternity", "Elite Eternity", x => x.Owner.Equals(OwnerEnum.Player)));
+        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Artifact, "Eternity", "Elite Eternity"));
 
     }
 }

@@ -17,7 +17,7 @@ namespace Elements.Duel.Manager
             pairList = new List<IDCardPair>();
             for (int i = 0; i < idList.Count; i++)
             {
-                pairList.Add(new IDCardPair(idList[i], null));
+                pairList.Add(new (idList[i], null));
                 pairList[i].OnCardChanged += handDisplayers[i].DisplayCard;
             }
         }
@@ -27,8 +27,11 @@ namespace Elements.Duel.Manager
         public void PlayCardWithID(ID id)
         {
             pairList.Find(x => x.id == id).RemoveCard();
+            UpdateHandVisual();
+        }
 
-            //Update Hand To Remove Empty Space
+        public void UpdateHandVisual()
+        {
             foreach (var item in handDisplayers)
             {
                 item.transform.parent.gameObject.SetActive(false);

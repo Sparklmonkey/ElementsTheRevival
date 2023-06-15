@@ -45,16 +45,16 @@ public class DuelManager : MonoBehaviour
 
     public static void SetupHighlights(List<IDCardPair> targets)
     {
-        validTargets = new List<ID>();
+        validTargets = new();
         foreach (var target in targets)
         {
-            validTargets.Add(target.id);
+            validTargets.Add(target);
             if (target.id.Owner == OwnerEnum.Player)
             {
-                Instance.player.ShowTargetHighlight(target.id);
+                Instance.player.ShowTargetHighlight(target);
                 continue;
             }
-            Instance.enemy.ShowTargetHighlight(target.id);
+            Instance.enemy.ShowTargetHighlight(target);
         }
 
     }
@@ -91,7 +91,7 @@ public class DuelManager : MonoBehaviour
     public Button endTurnButton;
     public TMPro.TextMeshProUGUI enemyName;
     public TMPro.TextMeshProUGUI discardText;
-    public static List<ID> validTargets = new List<ID>();
+    public static List<IDCardPair> validTargets = new();
 
     private static EnemyController botContoller;
 
@@ -204,7 +204,6 @@ public class DuelManager : MonoBehaviour
             }
         }
 
-
         if (BattleVars.shared.isPlayerTurn)
         {
             yield return player.StartCoroutine(player.GeneratePillarQuantaLogic());
@@ -231,14 +230,14 @@ public class DuelManager : MonoBehaviour
     public void ResetTargeting()
     {
         targetingObject.SetActive(false);
-        foreach (ID item in validTargets)
+        foreach (IDCardPair item in validTargets)
         {
-            if (item.Owner.Equals(OwnerEnum.Player))
+            if (item.id.Owner.Equals(OwnerEnum.Player))
             {
-                Instance.player.ShouldDisplayTarget(item, false);
+                Instance.player.ShouldDisplayTarget(item.id, false);
                 continue;
             }
-            Instance.enemy.ShouldDisplayTarget(item, false);
+            Instance.enemy.ShouldDisplayTarget(item.id, false);
         }
         Instance.enemy.playerDisplayer.ShouldShowTarget(false);
         Instance.player.playerDisplayer.ShouldShowTarget(false);
@@ -279,7 +278,7 @@ public class DuelManager : MonoBehaviour
 
     public static PlayerManager GetOtherPlayer() => BattleVars.shared.isPlayerTurn ? Instance.enemy : Instance.player;
 
-    public static List<ID> GetAllValidTargets() => validTargets;
+    public static List<IDCardPair> GetAllValidTargets() => validTargets;
 
     public static void RevealOpponentsHand()
     {
@@ -303,7 +302,7 @@ public class DuelManager : MonoBehaviour
                                                                             , new List<int> { 14,5 }
                                                                             , new List<int> { 15,5 } };
 
-    internal static bool IsFloodInPlay()
+    public static bool IsFloodInPlay()
     {
         foreach (Card card in Instance.player.playerPermanentManager.GetAllCards())
         {
@@ -316,7 +315,7 @@ public class DuelManager : MonoBehaviour
         return false;
     }
 
-    internal static bool IsNightfallInPlay()
+    public static bool IsNightfallInPlay()
     {
         int count = 0;
         foreach (Card card in Instance.player.playerPermanentManager.GetAllCards())
@@ -330,7 +329,7 @@ public class DuelManager : MonoBehaviour
         return count > 1;
     }
 
-    internal static bool IsEclipseInPlay()
+    public static bool IsEclipseInPlay()
     {
         int count = 0;
         foreach (Card card in Instance.player.playerPermanentManager.GetAllCards())
@@ -342,5 +341,39 @@ public class DuelManager : MonoBehaviour
             if (card.iD == "5uq" || card.iD == "7ta") { count++; }
         }
         return count > 1;
+    }
+
+    public void IdCardTapped(IDCardPair idCard)
+    {
+        if (!BattleVars.shared.isPlayerTurn) { return; }
+        if (idCard.card == null) { return; }
+
+        if (idCard.id.Owner.Equals(OwnerEnum.Opponent))
+        {
+            if (idCard.id.Field.Equals(FieldEnum.Hand)) { return; }
+
+            if (enemy.playerCounters.invisibility > 0 && !enemy.cloakIndex.Contains(idCard.id)) { return; }
+            player.SetupCardDisplay(idCard);
+            return;
+        }
+
+        if (BattleVars.shared.hasToDiscard)
+        {
+            if (idCard.id.Field.Equals(FieldEnum.Hand))
+            {
+                player.DiscardCard(idCard);
+                BattleVars.shared.hasToDiscard = false;
+                discardText.gameObject.SetActive(false);
+                StartCoroutine(EndTurn());
+                return;
+            }
+        }
+
+        if (PlayerPrefs.GetInt("QuickPlay") == 0)
+        {
+            player.QuickPlay(idCard);
+            return;
+        }
+        player.SetupCardDisplay(idCard);
     }
 }

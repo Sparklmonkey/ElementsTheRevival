@@ -12,4 +12,6 @@ public class Counters
     public int silence;
     public int stasis;
     public int sanctuary;
+    public int patience;
+    public int freedom;
 }

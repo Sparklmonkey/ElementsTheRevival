@@ -15,6 +15,8 @@ public class Blitz : AbilityEffect
             {
                 Game_AnimationManager.shared.StartAnimation("Dive", target.transform);
                 idCardi.card.passive.Add("dive");
+                target.card.AtkModify *= 2;
+                target.card.atk *= 2;
                 idCardi.UpdateCard();
             }
         }

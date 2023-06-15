@@ -34,6 +34,7 @@ public class PlayerManager : MonoBehaviour
             case PlayerCounters.Freedom:
                 break;
             case PlayerCounters.Patience:
+                playerCounters.patience += amount;
                 break;
             case PlayerCounters.Scarab:
                 break;
@@ -80,18 +81,18 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private List<QuantaDisplayer> quantaDisplayers;
 
-    internal void ShowTargetHighlight(ID id)
+    internal void ShowTargetHighlight(IDCardPair id)
     {
-        switch (id.Field)
+        switch (id.id.Field)
         {
             case FieldEnum.Creature:
-                creatureDisplayers[id.Index].ShouldShowTarget(true);
+                creatureDisplayers[id.id.Index].ShouldShowTarget(true);
                 break;
             case FieldEnum.Passive:
-                passiveDisplayers[id.Index].ShouldShowTarget(true);
+                passiveDisplayers[id.id.Index].ShouldShowTarget(true);
                 break;
             case FieldEnum.Permanent:
-                permanentDisplayers[id.Index].ShouldShowTarget(true);
+                permanentDisplayers[id.id.Index].ShouldShowTarget(true);
                 break;
             case FieldEnum.Player:
                 playerDisplayer.ShouldShowTarget(true);
@@ -128,11 +129,20 @@ public class PlayerManager : MonoBehaviour
         return value;
     }
 
+    internal void ManageGravityCreatures(out int atkNow, out Card card)
+    {
+        throw new NotImplementedException();
+    }
+
     [SerializeField]
     private CardDetailView cardDetailView;
 
+    internal void ManageShield(out int atkNow, out Card card)
+    {
+        throw new NotImplementedException();
+    }
+
     public PlayerDisplayer playerDisplayer;
-    public int freedomCount;
 
     public TextMeshProUGUI poisonLabel, boneShieldLabel, purityLabel;
 
@@ -485,7 +495,7 @@ public class PlayerManager : MonoBehaviour
                 else if (IsSpellPlayable(idCard.card))
                 {
                     BattleVars.shared.abilityOrigin = idCard;
-                    if (BattleVars.shared.IsFixedTarget())
+                    if (!SkillManager.Instance.ShouldAskForTarget(idCard))
                     {
                         SkillManager.Instance.SkillRoutineNoTarget(this, idCard);
                         if (idCard.card.cardType.Equals(CardType.Spell)) { PlayCardFromHandLogic(idCard.id); }
@@ -506,7 +516,7 @@ public class PlayerManager : MonoBehaviour
             else if (IsAbilityUsable(idCard.card) && !idCard.id.Field.Equals(FieldEnum.Hand))
             {
                 BattleVars.shared.abilityOrigin = idCard;
-                if (BattleVars.shared.IsFixedTarget())
+                if (!SkillManager.Instance.ShouldAskForTarget(idCard))
                 {
                     SkillManager.Instance.SkillRoutineNoTarget(this, idCard);
                     if (idCard.card.cardType.Equals(CardType.Spell)) { PlayCardFromHandLogic(idCard.id); }
@@ -580,7 +590,7 @@ public class PlayerManager : MonoBehaviour
                 break;
             case "Select Target":
                 BattleVars.shared.isSelectingTarget = true;
-                SkillManager.Instance.SetupTargetHighlights(this, DuelManager.Instance.enemy, BattleVars.shared.abilityOrigin.card);
+                SkillManager.Instance.SetupTargetHighlights(this, BattleVars.shared.abilityOrigin);
                 break;
             default:
                 cardDetailManager.ClearID();
@@ -594,13 +604,14 @@ public class PlayerManager : MonoBehaviour
         {
             //ActionManager.AddSpellPlayedAction(isPlayer, originCard, BattleVars.shared.IsFixedTarget() ? null : targetCard);
             PlayCardFromHandLogic(BattleVars.shared.abilityOrigin.id);
-            if (BattleVars.shared.IsFixedTarget())
+
+            if (SkillManager.Instance.ShouldAskForTarget(BattleVars.shared.abilityOrigin))
             {
-                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.shared.abilityOrigin);
+                SkillManager.Instance.SkillRoutineWithTarget(this, target);
             }
             else
             {
-                SkillManager.Instance.SkillRoutineWithTarget(DuelManager.GetIDOwner(target.id), target);
+                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.shared.abilityOrigin);
             }
         }
         else
@@ -611,13 +622,14 @@ public class PlayerManager : MonoBehaviour
                 BattleVars.shared.abilityOrigin.card.AbilityUsed = true;
             }
             SpendQuantaLogic(BattleVars.shared.abilityOrigin.card.skillElement, BattleVars.shared.abilityOrigin.card.skillCost);
-            if (BattleVars.shared.IsFixedTarget())
+
+            if (SkillManager.Instance.ShouldAskForTarget(BattleVars.shared.abilityOrigin))
             {
-                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.shared.abilityOrigin);
+                SkillManager.Instance.SkillRoutineWithTarget(this, target);
             }
             else
             {
-                SkillManager.Instance.SkillRoutineWithTarget(DuelManager.GetIDOwner(target.id), target);
+                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.shared.abilityOrigin);
             }
 
         }
@@ -1179,7 +1191,7 @@ public class PlayerManager : MonoBehaviour
                     patienceCount++;
                     break;
                 case "freedom":
-                    freedomCount++;
+                    playerCounters.freedom++;
                     break;
                 case "cloak":
                     playerCounters.invisibility = 3;
@@ -1255,7 +1267,7 @@ public class PlayerManager : MonoBehaviour
         }
         if (card.skill == "freedom")
         {
-            freedomCount--;
+            playerCounters.freedom--;
         }
         if (card.skill == "flood")
         {
@@ -1320,9 +1332,11 @@ public class PlayerManager : MonoBehaviour
         return newLocationId;
     }
 
-    public void DiscardCard(ID cardToDiscard)
+    public void DiscardCard(IDCardPair cardToDiscard)
     {
-        playerHand.PlayCardWithID(cardToDiscard);
+        cardToDiscard.RemoveCard();
+        playerHand.UpdateHandVisual();
+        BattleVars.shared.hasToDiscard = false;
     }
 
     public IEnumerator GeneratePillarQuantaLogic()
@@ -1941,7 +1955,7 @@ public class PlayerManager : MonoBehaviour
                 || atkNow == 0)
             { goto skipCreatureAttack; }
 
-            bool isFreedomEffect = UnityEngine.Random.Range(0, 100) < (25 * freedomCount) && creature.costElement.Equals(Element.Air);
+            bool isFreedomEffect = UnityEngine.Random.Range(0, 100) < (25 * playerCounters.freedom) && creature.costElement.Equals(Element.Air);
 
             if (atkNow > 0 && !isFreedomEffect)
             {
@@ -2180,6 +2194,78 @@ public class PlayerManager : MonoBehaviour
         yield return StartCoroutine(WeaponAttackStep());
     }
 
+
+    public void SetupCardDisplay(IDCardPair iDCardPair)
+    {
+        cardDetailManager.SetCardOnDisplay(iDCardPair);
+    }
+
+    public void QuickPlay(IDCardPair iDCardPair)
+    {
+        if (iDCardPair.IsFromHand())
+        {
+            if (playerCounters.silence > 0 && sanctuaryCount == 0) { return; }
+            if (!IsCardPlayable(iDCardPair.card))
+            {
+                SetupCardDisplay(iDCardPair);
+                return;
+            }
+
+            if (!iDCardPair.card.cardType.Equals(CardType.Spell))
+            {
+                PlayCardFromHandLogic(iDCardPair.id);
+            }
+            else
+            {
+                ProcessSpellCard(iDCardPair);
+            }
+        }
+        else
+        {
+            if (!IsAbilityUsable(iDCardPair.card))
+            {
+                SetupCardDisplay(iDCardPair);
+                return;
+            }
+
+            ProcessAbilityCard(iDCardPair);
+        }
+    }
+
+    private void ProcessAbilityCard(IDCardPair iDCardPair)
+    {
+        BattleVars.shared.abilityOrigin = iDCardPair;
+
+        if (!SkillManager.Instance.ShouldAskForTarget(iDCardPair))
+        {
+            SpendQuantaLogic(iDCardPair.card.skillElement, iDCardPair.card.skillCost);
+            SkillManager.Instance.SkillRoutineNoTarget(this, iDCardPair);
+            if (iDCardPair.card.skill != "photosynthesis")
+            {
+                iDCardPair.card.AbilityUsed = true;
+            }
+        }
+        else
+        {
+            BattleVars.shared.isSelectingTarget = true;
+            SkillManager.Instance.SetupTargetHighlights(this, iDCardPair);
+        }
+    }
+
+    private void ProcessSpellCard(IDCardPair iDCardPair)
+    {
+        BattleVars.shared.abilityOrigin = iDCardPair;
+        if (!SkillManager.Instance.ShouldAskForTarget(iDCardPair))
+        {
+            SkillManager.Instance.SkillRoutineNoTarget(this, iDCardPair);
+            PlayCardFromHandLogic(iDCardPair.id);
+        }
+        else
+        {
+            BattleVars.shared.isSelectingTarget = true;
+            SkillManager.Instance.SetupTargetHighlights(this, iDCardPair);
+        }
+    }
 }
 
 

@@ -5,6 +5,30 @@ using UnityEngine;
 
 public class CreatureAbilities
 {
+    public IEnumerator ActivateAllCreatureAbility(PlayerManager aiManager)
+    {
+        List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
+
+        foreach (var creature in cardList)
+        {
+            if (!aiManager.IsAbilityUsable(creature.card)) { continue; }
+            if (SkillManager.Instance.ShouldAskForTarget(creature))
+            {
+                var target = SkillManager.Instance.GetRandomTarget(aiManager, creature);
+                if(target == null) { continue; }
+
+                BattleVars.shared.abilityOrigin = creature;
+                SkillManager.Instance.SkillRoutineWithTarget(aiManager, target);
+            }
+            else
+            {
+                BattleVars.shared.abilityOrigin = creature;
+                SkillManager.Instance.SkillRoutineNoTarget(aiManager, creature);
+            }
+            yield return null;
+        }
+    }
+
     public IEnumerator ActivatePegasus(PlayerManager aiManager)
     {
         List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
@@ -55,6 +79,23 @@ public class CreatureAbilities
         }
     }
 
+    public IEnumerator ActivateFleshRecluse(PlayerManager aiManager)
+    {
+        List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
+        List<IDCardPair> fleshSpider = cardList.GetIDCardPairsWithCardId(new() { "52j", "713" });
+
+        if (fleshSpider.Count == 0) { yield break; }
+
+        foreach (var spider in fleshSpider)
+        {
+            if (!aiManager.IsAbilityUsable(spider.card)) { continue; }
+            var target = SkillManager.Instance.GetRandomTarget(aiManager, spider);
+            if(target == null) { continue; }
+            BattleVars.shared.abilityOrigin = spider;
+            aiManager.ActivateAbility(target);
+        }
+    }
+
     public IEnumerator ActivateBloodsucker(PlayerManager aiManager)
     {
         var possibleTargets = DuelManager.GetOtherPlayer().playerCreatureField.GetAllValidCardIds();
@@ -87,31 +128,28 @@ public class CreatureAbilities
 
         }
 
-        for (int i = 0; i < crusaderCards.Count; i++)
+        for (int i = 0; i < creatureList.Count; i++)
         {
-            if (crusaderCards[i].skill == "endow")
+            if(!aiManager.IsAbilityUsable(creatureList[i].card)) { continue; }
+            if (creatureList[i].card.skill == "endow")
             {
                 if (aiManager.playerPassiveManager.GetWeapon() == null) { continue; }
-                if (aiManager.playerPassiveManager.GetWeapon().cardName == "Weapon") { continue; }
+                if (aiManager.playerPassiveManager.GetWeapon().card.cardName == "Weapon") { continue; }
 
-                BattleVars.shared.originId = crusaderIds[i];
-                BattleVars.shared.cardOnStandBy = crusaderCards[i];
-                ID target = aiManager.playerPassiveManager.GetWeaponID();
-                yield return aiManager.StartCoroutine(aiManager.ActivateAbility(target));
-                continue;
+                BattleVars.shared.abilityOrigin = creatureList[i];
+                var target = aiManager.playerPassiveManager.GetWeapon();
+                aiManager.ActivateAbility(target);
             }
-            else if (crusaderCards[i].skill == "reverse")
+            else
             {
-                BattleVars.shared.originId = crusaderIds[i];
-                BattleVars.shared.cardOnStandBy = crusaderCards[i];
-                SkillManager.Instance.SetupTargetHighlights(aiManager, DuelManager.Instance.player, BattleVars.shared.cardOnStandBy);
-                List<ID> opCreatureIds = DuelManager.GetAllValidTargets();
-                if (opCreatureIds.Count == 0) { continue; }
-                System.Random rnd = new System.Random();
-                ID target = opCreatureIds.OrderBy(x => rnd.Next())
-                                  .First();
-
-                yield return aiManager.StartCoroutine(aiManager.ActivateAbility(target));
+                BattleVars.shared.abilityOrigin = creatureList[i];
+                var target = SkillManager.Instance.GetRandomTarget(aiManager, creatureList[i]);
+                if (target == null)
+                {
+                    BattleVars.shared.abilityOrigin = null;
+                    continue;
+                }
+                aiManager.ActivateAbility(target);
             }
 
         }

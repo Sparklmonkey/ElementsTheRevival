@@ -20,13 +20,13 @@ public class GravitonAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         yield return aiManager.StartCoroutine(PlayPermanent(aiManager, "Graviton Firemaster"));
 
         //Activate Graboids
-        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Creature, "Otyugh", "Elite Otyugh", x => x.Owner.Equals(OwnerEnum.Player)));
+        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Creature, "Otyugh", "Elite Otyugh"));
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityNoTarget(aiManager, CardType.Creature, "Armagio", "Elite Armagio"));
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityNoTarget(aiManager, CardType.Creature, "Graviton Fire Eater", "Graviton Firemaster"));
 
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Deflagration", "Explosion", x => x.Owner.Equals(OwnerEnum.Player)));
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Momentum", "Unstoppable", x => x.Owner.Equals(OwnerEnum.Player)));
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Gravity Pull", "Gravity Force", x => x.Owner.Equals(OwnerEnum.Opponent)));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Deflagration", "Explosion"));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Momentum", "Unstoppable"));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Gravity Pull", "Gravity Force"));
         yield return aiManager.StartCoroutine(ActivateRepeatSpellNoTarget(aiManager, "Rain of Fire", "Fire Storm"));
 
         //

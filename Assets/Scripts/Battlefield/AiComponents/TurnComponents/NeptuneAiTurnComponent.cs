@@ -15,11 +15,11 @@ public class NeptuneAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
         yield return aiManager.StartCoroutine(PlayPermanent(aiManager, "Innundation"));
 
-        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Creature, "Arctic Squid", "Arctic Octopus", x => x.Owner.Equals(OwnerEnum.Player)));
+        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Creature, "Arctic Squid", "Arctic Octopus"));
 
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityNoTarget(aiManager, CardType.Creature, "Armagio", "Elite Armagio"));
 
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Freeze", "Congeal", x => x.Owner.Equals(OwnerEnum.Player)));
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Shockwave", "Elite Shockwave", x => x.Owner.Equals(OwnerEnum.Player)));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Freeze", "Congeal"));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Shockwave", "Elite Shockwave"));
     }
 }

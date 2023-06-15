@@ -22,11 +22,9 @@ public class ScorpioAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
         yield return aiManager.StartCoroutine(ActivateRepeatSpellNoTarget(aiManager, "Poison", "Deadly Poison"));
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityNoTarget(aiManager, CardType.Creature, "Chrysaora", "Physalia"));
-        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Creature, "Arctic Squid", "Arctic Octopus", x => x.Owner.Equals(OwnerEnum.Player)));
-        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Creature, "Mind Flayer", "Ulitharid", x => x.Owner.Equals(OwnerEnum.Player)));
-        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Pillar, "Poseidon", "Elite Poseidon", x => x.Owner.Equals(OwnerEnum.Player)));
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Congeal", "Congeal", x => x.Owner.Equals(OwnerEnum.Player)));
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Twin Universe", "Twin Universe", x => x.Owner.Equals(OwnerEnum.Opponent)));
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Ice Lance", "Ice Lance", x => x.Field.Equals(FieldEnum.Player)));
+        yield return aiManager.StartCoroutine(creatureManager.ActivateAllCreatureAbility(aiManager));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Congeal", "Congeal"));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Twin Universe", "Twin Universe"));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Ice Lance", "Ice Lance"));
     }
 }

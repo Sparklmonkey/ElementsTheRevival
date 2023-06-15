@@ -5,80 +5,6 @@ using UnityEngine;
 
 public class MiracleAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 {
-    private IEnumerator PlayBlessingsMiracle(PlayerManager aiManager)
-    {
-        //Get Hand Cards
-        List<Card> cardList = new List<Card>(aiManager.GetHandCards());
-        List<ID> idList = new List<ID>(aiManager.GetHandIds());
-
-        //Find a Dragon
-        List<Card> creatureList = new List<Card>(aiManager.playerCreatureField.GetAllCards());
-        List<ID> creatureIds = new List<ID>(aiManager.playerCreatureField.GetAllIds());
-        int dragonIndex = creatureList.FindIndex(x => x.cardName == "Light Dragon");
-        if (dragonIndex == -1)
-        {
-            dragonIndex = creatureList.FindIndex(x => x.cardName == "Jade Dragon");
-        }
-        if (dragonIndex == -1)
-        {
-            dragonIndex = creatureList.FindIndex(x => x.cardName == "Leaf Dragon");
-        }
-        if (dragonIndex == -1)
-        {
-            dragonIndex = creatureList.FindIndex(x => x.cardName == "Elite Pegasus");
-        }
-        if (dragonIndex == -1)
-        {
-            dragonIndex = creatureList.FindIndex(x => x.cardName == "Elite Queen");
-        }
-        if (dragonIndex == -1)
-        {
-            dragonIndex = creatureList.FindIndex(x => x.cardName == "Elite Firefly");
-        }
-        if (dragonIndex == -1) { yield break; }
-
-        int cardIndex = -1;
-        for (int i = 0; i < cardList.Count; i++)
-        {
-            if (cardList[i].cardName == "Improved Blessing")
-            {
-                cardIndex = i;
-                break;
-            }
-        }
-
-        if (cardIndex == -1) { yield break; }
-        int loopbreak = 0;
-        while (cardIndex != -1 && loopbreak < 7)
-        {
-            loopbreak++;
-            if (aiManager.playerQuantaManager.HasEnoughQuanta(cardList[cardIndex].costElement, cardList[cardIndex].cost))
-            {
-                BattleVars.shared.originId = idList[cardIndex];
-                BattleVars.shared.cardOnStandBy = cardList[cardIndex];
-                ID target = creatureIds[dragonIndex];
-
-                yield return aiManager.StartCoroutine(aiManager.ActivateAbility(target));
-
-                cardList = new List<Card>(aiManager.GetHandCards());
-                idList = new List<ID>(aiManager.GetHandIds());
-                cardIndex = -1;
-                for (int i = 0; i < cardList.Count; i++)
-                {
-                    if (cardList[i].cardName == "Improved Blessing")
-                    {
-                        cardIndex = i;
-                        yield break;
-                    }
-                }
-            }
-            else
-            {
-                yield break;
-            }
-        }
-    }
-
     public IEnumerator RestOfTurn(PlayerManager aiManager)
     {
 
@@ -96,7 +22,7 @@ public class MiracleAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         yield return aiManager.StartCoroutine(PlayPermanent(aiManager, "Elite Queen"));
 
         //Activate Blessings
-        yield return aiManager.StartCoroutine(PlayBlessingsMiracle(aiManager));
+        yield return aiManager.StartCoroutine(spellManager.PlayBlessings(aiManager));
 
         //Activate Abilities
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityNoTarget(aiManager, CardType.Creature, "Pegasus", "Elite Pegasus"));

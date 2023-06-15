@@ -15,11 +15,11 @@ public class ObliteratorAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         yield return aiManager.StartCoroutine(PlayPermanent(aiManager, "Basalt Dragon"));
         yield return aiManager.StartCoroutine(PlayPermanent(aiManager, "Elite Shrieker"));
 
-        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Creature, "Pulverizer", "Elite Pulverizer", x => x.Owner.Equals(OwnerEnum.Player)));
+        yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Creature, "Pulverizer", "Elite Pulverizer"));
 
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Gravity Force", "Gravity Force", x => x.Owner.Equals(OwnerEnum.Player)));
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Unstoppable", "Unstoppable", x => x.Owner.Equals(OwnerEnum.Opponent)));
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Protect Artifact", "Protect Artifact", x => x.Owner.Equals(OwnerEnum.Opponent)));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Gravity Force", "Gravity Force"));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Unstoppable", "Unstoppable"));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Protect Artifact", "Protect Artifact"));
 
     }
 }

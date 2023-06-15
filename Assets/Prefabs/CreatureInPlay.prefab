@@ -1013,7 +1013,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.85
+  m_fontSize: 19.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2206,7 +2206,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.2
+  m_fontSize: 35.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2549,6 +2549,7 @@ GameObject:
   - component: {fileID: 302910218322526599}
   - component: {fileID: 45663924}
   - component: {fileID: 3956216911054945801}
+  - component: {fileID: 7601633764612984119}
   m_Layer: 5
   m_Name: CreatureInPlay
   m_TagString: Untagged
@@ -2669,6 +2670,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7601633764612984119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942002425704931839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeac340606bef4afc8d1eb24e351b537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id:
+    Owner: 0
+    Field: 0
+    Index: 0
+  card:
+    iD: 
+    imageID: 
+    cardName: 
+    cardType: 0
+    atk: 0
+    def: 0
+    skill: 
+    skillCost: 0
+    skillElement: 0
+    cost: 0
+    costElement: 0
+    rarity: 0
+    passive: []
+    innate: []
+    desc: 
+  stackCount: 0
 --- !u!1 &9018145228301333319
 GameObject:
   m_ObjectHideFlags: 0

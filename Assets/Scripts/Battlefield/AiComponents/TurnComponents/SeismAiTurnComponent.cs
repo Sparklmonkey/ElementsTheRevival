@@ -26,7 +26,7 @@ public class SeismAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         //Activate Stone Skin
         yield return aiManager.StartCoroutine(ActivateRepeatSpellNoTarget(aiManager, "Stone Skin", "Granite Skin"));
 
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Reverse Time", "Rewind", x => x.Owner.Equals(OwnerEnum.Player)));
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Earthquake", "Quicksand", x => x.Owner.Equals(OwnerEnum.Player)));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Reverse Time", "Rewind"));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Earthquake", "Quicksand"));
     }
 }

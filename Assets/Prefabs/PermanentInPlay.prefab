@@ -1157,7 +1157,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.8
+  m_fontSize: 35.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1212,6 +1212,7 @@ GameObject:
   - component: {fileID: 8940418288786595349}
   - component: {fileID: 8940418288786595351}
   - component: {fileID: 8940418289196240590}
+  - component: {fileID: 9125514606738384533}
   m_Layer: 5
   m_Name: PermanentInPlay
   m_TagString: Untagged
@@ -1309,7 +1310,6 @@ MonoBehaviour:
   activeACost: {fileID: 274602839}
   activeAHolder: {fileID: 866956824}
   immaterialIndicator: {fileID: 708523163}
-  stackCountValue: 0
 --- !u!114 &8940418289196240590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1322,3 +1322,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f9168571204344ab9c6e8e52340662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9125514606738384533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8940418288786595355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeac340606bef4afc8d1eb24e351b537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id:
+    Owner: 0
+    Field: 0
+    Index: 0
+  card:
+    iD: 
+    imageID: 
+    cardName: 
+    cardType: 0
+    atk: 0
+    def: 0
+    skill: 
+    skillCost: 0
+    skillElement: 0
+    cost: 0
+    costElement: 0
+    rarity: 0
+    passive: []
+    innate: []
+    desc: 
+  stackCount: 0

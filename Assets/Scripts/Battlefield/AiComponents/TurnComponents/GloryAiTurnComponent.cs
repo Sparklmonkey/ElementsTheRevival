@@ -20,6 +20,6 @@ public class GloryAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
         yield return aiManager.StartCoroutine(spellManager.PlayMiracle(aiManager));
 
-        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Deflagration", "Explosion", x => x.Owner.Equals(OwnerEnum.Player)));
+        yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Deflagration", "Explosion"));
     }
 }

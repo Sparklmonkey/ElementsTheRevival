@@ -70,28 +70,25 @@ public class InputManager : MonoBehaviour
                 return;
             }
             //Check if fieldObject was hit
-            Identifiable fieldObject = GetIdentifiableIn(results);
-            if (fieldObject == null)
+            var cardPairObject = GetIDCardPair(results);
+            if (cardPairObject == null)
             {
                 return;
             }
-            //Get ID of hit object
-            ID tappedID = fieldObject.GetObjectID();
-            if(tappedID == null) { return; }
-            if (BattleVars.shared.isSelectingTarget && DuelManager.GetAllValidTargets().Contains(tappedID))
+            if (BattleVars.shared.isSelectingTarget && DuelManager.GetAllValidTargets().Contains(cardPairObject))
             {
-                DuelManager.Instance.player.StartCoroutine(DuelManager.Instance.player.ActivateAbility(tappedID));
+                DuelManager.Instance.player.ActivateAbility(cardPairObject);
                 return;
             }
-            DuelManager.Instance.player.StartCoroutine(DuelManager.Instance.player.ManageID(tappedID));
+            DuelManager.Instance.player.StartCoroutine(DuelManager.Instance.player.ManageID(cardPairObject));
         }
     }
 
-    private Identifiable GetIdentifiableIn(List<RaycastResult> raycastResults)
+    private IDCardPair GetIDCardPair(List<RaycastResult> raycastResults)
     {
         foreach (RaycastResult item in raycastResults)
         {
-            Identifiable returnResult = item.gameObject.GetComponentInChildren<Identifiable>();
+            var returnResult = item.gameObject.GetComponentInChildren<IDCardPair>();
             if (returnResult != null)
             {
                 return returnResult;

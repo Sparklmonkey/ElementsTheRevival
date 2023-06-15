@@ -23,7 +23,7 @@ public class EnemyController
 
     public IEnumerator StartTurn()
     {
-        yield return self.StartCoroutine(self.TurnDownTick());
+        self.TurnDownTick();
         Debug.Log("Draw Card for turn");
         aiDraw.StartTurnDrawCard(self);
         yield return new WaitForSeconds(BattleVars.shared.aiPlaySpeed);
