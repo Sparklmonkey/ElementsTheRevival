@@ -223,7 +223,7 @@ public abstract class AiBaseFunctions
                 if (idCardList.Count == 0) { yield break; }
                 break;
             case CardType.Artifact:
-                idCardList = aiManager.playerPermanentManager.GetAllValidCardIds();
+                idCardList = aiManager.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.cardType == CardType.Artifact);
                 if (idCardList.Count == 0) { yield break; }
                 break;
             case CardType.Weapon:

@@ -49,18 +49,15 @@ public class PlayerManager : MonoBehaviour
 
     public (int, int) GetChimeraStats()
     {
-        List<CardInPlay> creatureInPlayList = playerCreatureField.GetAllCardsInPlay();
+        var creatureInPlayList = playerCreatureField.GetAllValidCardIds();
         (int, int) chimeraPwrHP = (0, 0);
 
         foreach (var creatureInPlay in creatureInPlayList)
         {
-            if (creatureInPlay.ActiveCard != null)
-            {
-                if (creatureInPlay.ActiveCard.passive.Contains("chimera")) { continue; }
-                chimeraPwrHP.Item1 += creatureInPlay.ActiveCard.AtkNow;
-                chimeraPwrHP.Item2 += creatureInPlay.ActiveCard.DefNow;
-                StartCoroutine(creatureInPlay.RemoveCardFromPlay());
-            }
+            if (creatureInPlay.card.passive.Contains("chimera")) { continue; }
+            chimeraPwrHP.Item1 += creatureInPlay.card.AtkNow;
+            chimeraPwrHP.Item2 += creatureInPlay.card.DefNow;
+            creatureInPlay.RemoveCard();
         }
         return chimeraPwrHP;
     }
@@ -70,36 +67,35 @@ public class PlayerManager : MonoBehaviour
 
 
     //Logic Properties
-    [SerializeField]
-    private List<PlayerCardInHand> handDisplayers;
+    //[SerializeField]
+    //private List<PlayerCardInHand> handDisplayers;
 
-    public List<CreatureInPlay> creatureDisplayers;
+    //public List<CreatureInPlay> creatureDisplayers;
 
-    public List<PermanentInPlay> permanentDisplayers;
+    //public List<PermanentInPlay> permanentDisplayers;
 
-    public List<PassiveInPlay> passiveDisplayers;
+    //public List<PassiveInPlay> passiveDisplayers;
     [SerializeField]
     private List<QuantaDisplayer> quantaDisplayers;
 
-    internal void ShowTargetHighlight(IDCardPair id)
+    internal void ShowTargetHighlight(IDCardPair idCardPair)
     {
-        switch (id.id.Field)
-        {
-            case FieldEnum.Creature:
-                creatureDisplayers[id.id.Index].ShouldShowTarget(true);
-                break;
-            case FieldEnum.Passive:
-                passiveDisplayers[id.id.Index].ShouldShowTarget(true);
-                break;
-            case FieldEnum.Permanent:
-                permanentDisplayers[id.id.Index].ShouldShowTarget(true);
-                break;
-            case FieldEnum.Player:
-                playerDisplayer.ShouldShowTarget(true);
-                break;
-            default:
-                break;
-        }
+        
+        //    case FieldEnum.Creature:
+        //        creatureDisplayers[id.id.Index].ShouldShowTarget(true);
+        //        break;
+        //    case FieldEnum.Passive:
+        //        passiveDisplayers[id.id.Index].ShouldShowTarget(true);
+        //        break;
+        //    case FieldEnum.Permanent:
+        //        permanentDisplayers[id.id.Index].ShouldShowTarget(true);
+        //        break;
+        //    case FieldEnum.Player:
+        //        playerDisplayer.ShouldShowTarget(true);
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
 
     [SerializeField]
@@ -355,26 +351,26 @@ public class PlayerManager : MonoBehaviour
 
     public void ShouldDisplayTarget(ID item, bool shouldShow)
     {
-        switch (item.Field)
-        {
-            case FieldEnum.Hand:
-                handDisplayers[item.Index].ShouldShowTarget(shouldShow);
-                break;
-            case FieldEnum.Creature:
-                creatureDisplayers[item.Index].ShouldShowTarget(shouldShow);
-                break;
-            case FieldEnum.Passive:
-                passiveDisplayers[item.Index].ShouldShowTarget(shouldShow);
-                break;
-            case FieldEnum.Permanent:
-                permanentDisplayers[item.Index].ShouldShowTarget(shouldShow);
-                break;
-            case FieldEnum.Player:
-                playerDisplayer.ShouldShowTarget(shouldShow);
-                break;
-            default:
-                break;
-        }
+        //switch (item.Field)
+        //{
+        //    case FieldEnum.Hand:
+        //        handDisplayers[item.Index].ShouldShowTarget(shouldShow);
+        //        break;
+        //    case FieldEnum.Creature:
+        //        creatureDisplayers[item.Index].ShouldShowTarget(shouldShow);
+        //        break;
+        //    case FieldEnum.Passive:
+        //        passiveDisplayers[item.Index].ShouldShowTarget(shouldShow);
+        //        break;
+        //    case FieldEnum.Permanent:
+        //        permanentDisplayers[item.Index].ShouldShowTarget(shouldShow);
+        //        break;
+        //    case FieldEnum.Player:
+        //        playerDisplayer.ShouldShowTarget(shouldShow);
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
 
     public List<ID> GetAllIds()
@@ -458,7 +454,7 @@ public class PlayerManager : MonoBehaviour
     public IEnumerator ManageID(IDCardPair idCard)
     {
         if (!BattleVars.shared.isPlayerTurn) { yield break; }
-        if (idCard.card == null) { yield break; }
+        if (!idCard.HasCard()) { yield break; }
 
         if (idCard.id.Owner.Equals(OwnerEnum.Opponent))
         {
@@ -474,7 +470,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (idCard.id.Field.Equals(FieldEnum.Hand))
             {
-                DiscardCard(idCard.id);
+                DiscardCard(idCard);
                 BattleVars.shared.hasToDiscard = false;
                 DuelManager.Instance.discardText.gameObject.SetActive(false);
                 yield return StartCoroutine(DuelManager.Instance.EndTurn());
@@ -547,7 +543,7 @@ public class PlayerManager : MonoBehaviour
 
         for (int i = 0; i < cards.Count; i++)
         {
-            handDisplayers[i].ShowCardForPrecog(cards[i]);
+            //handDisplayers[i].ShowCardForPrecog(cards[i]);
         }
         shouldHideCards = true;
     }
@@ -558,7 +554,7 @@ public class PlayerManager : MonoBehaviour
 
         for (int i = 0; i < cards.Count; i++)
         {
-            handDisplayers[i].HideCardForPrecog();
+            //handDisplayers[i].HideCardForPrecog();
         }
         shouldHideCards = false;
     }
@@ -645,13 +641,13 @@ public class PlayerManager : MonoBehaviour
         switch (cardToCheck.cardType)
         {
             case CardType.Pillar:
-                hasSpace = playerPermanentManager.GetAllCards().Count < permanentDisplayers.Count;
+                hasSpace = playerPermanentManager.GetAllCards().Count < 14;
                 break;
             case CardType.Creature:
-                hasSpace = playerCreatureField.GetAllCards().Count < creatureDisplayers.Count;
+                hasSpace = playerCreatureField.GetAllCards().Count < 23;
                 break;
             case CardType.Artifact:
-                hasSpace = playerPermanentManager.GetAllCards().Count < permanentDisplayers.Count;
+                hasSpace = playerPermanentManager.GetAllCards().Count < 14;
                 break;
             default:
                 break;
@@ -663,7 +659,7 @@ public class PlayerManager : MonoBehaviour
     public bool IsAbilityUsable(Card cardToCheck)
     {
         if (cardToCheck == null) { return false; }
-        if (cardToCheck.skill == "" || cardToCheck.skill == "none") { return false; }
+        if (cardToCheck.skill == "" || cardToCheck.skill == "none" || cardToCheck.skill == null || cardToCheck.skill == " ") { return false; }
         if (cardToCheck.AbilityUsed) { return false; }
         if (cardToCheck.IsDelayed) { return false; }
         if (cardToCheck.Freeze > 0) { return false; }
@@ -736,7 +732,7 @@ public class PlayerManager : MonoBehaviour
                     }
                 }
                 playerCreatureField.DestroyCard(cardID.Index);
-                creatureDisplayers[cardID.Index].PlayDissolveAnimation();
+                //creatureDisplayers[cardID.Index].PlayDissolveAnimation();
                 break;
             case FieldEnum.Passive:
                 if (playerCounters.bone > 0)
@@ -769,7 +765,7 @@ public class PlayerManager : MonoBehaviour
             default:
                 break;
         }
-        yield return StartCoroutine(Game_AnimationManager.shared.PlayAnimation("CardDeath", Battlefield_ObjectIDManager.shared.GetObjectFromID(cardID)));
+        //yield return StartCoroutine(Game_AnimationManager.shared.PlayAnimation("CardDeath", Battlefield_ObjectIDManager.shared.GetObjectFromID(cardID)));
         Game_SoundManager.shared.PlayAudioClip("RemoveCardFromField");
     }
 
@@ -947,71 +943,71 @@ public class PlayerManager : MonoBehaviour
 
     public void HideAllPlayableGlow()
     {
-        foreach (CardDisplayer displayer in handDisplayers)
-        {
-            displayer.ShouldShowTarget(false);
-        }
+        //foreach (CardDisplayer displayer in handDisplayers)
+        //{
+        //    displayer.ShouldShowTarget(false);
+        //}
 
-        foreach (CardDisplayer displayer in creatureDisplayers)
-        {
-            displayer.ShouldShowUsableGlow(false);
-        }
+        //foreach (CardDisplayer displayer in creatureDisplayers)
+        //{
+        //    displayer.ShouldShowUsableGlow(false);
+        //}
 
-        foreach (CardDisplayer displayer in permanentDisplayers)
-        {
-            displayer.ShouldShowUsableGlow(false);
-        }
+        //foreach (CardDisplayer displayer in permanentDisplayers)
+        //{
+        //    displayer.ShouldShowUsableGlow(false);
+        //}
 
-        passiveDisplayers[1].ShouldShowUsableGlow(false);
+        //passiveDisplayers[1].ShouldShowUsableGlow(false);
     }
 
     void DisplayPlayableGlow()
     {
-        HideAllPlayableGlow();
-        if (!isPlayer) { return; }
-        List<Card> cards = new(playerHand.GetAllCards());
-        List<ID> cardIds = new(playerHand.GetAllIds());
+        //HideAllPlayableGlow();
+        //if (!isPlayer) { return; }
+        //List<Card> cards = new(playerHand.GetAllCards());
+        //List<ID> cardIds = new(playerHand.GetAllIds());
 
-        if (cards?.Any() ?? false)
-        {
-            for (int i = 0; i < cardIds.Count; i++)
-            {
-                if (IsCardPlayable(cards[i]))
-                {
-                    handDisplayers[cardIds[i].Index].ShouldShowTarget(IsCardPlayable(cards[i]));
-                }
-            }
+        //if (cards?.Any() ?? false)
+        //{
+        //    for (int i = 0; i < cardIds.Count; i++)
+        //    {
+        //        if (IsCardPlayable(cards[i]))
+        //        {
+        //            handDisplayers[cardIds[i].Index].ShouldShowTarget(IsCardPlayable(cards[i]));
+        //        }
+        //    }
 
-        }
+        //}
 
-        cards = new(playerCreatureField.GetAllCards());
-        cardIds = new(playerCreatureField.GetAllIds());
+        //cards = new(playerCreatureField.GetAllCards());
+        //cardIds = new(playerCreatureField.GetAllIds());
 
-        if (cards?.Any() ?? false)
-        {
-            for (int i = 0; i < cardIds.Count; i++)
-            {
-                creatureDisplayers[cardIds[i].Index].ShouldShowUsableGlow(IsAbilityUsable(cards[i]));
-            }
+        //if (cards?.Any() ?? false)
+        //{
+        //    for (int i = 0; i < cardIds.Count; i++)
+        //    {
+        //        creatureDisplayers[cardIds[i].Index].ShouldShowUsableGlow(IsAbilityUsable(cards[i]));
+        //    }
 
-        }
+        //}
 
-        cards = new(playerPermanentManager.GetAllCards());
-        cardIds = new(playerPermanentManager.GetAllIds());
+        //cards = new(playerPermanentManager.GetAllCards());
+        //cardIds = new(playerPermanentManager.GetAllIds());
 
-        if (cards?.Any() ?? false)
-        {
-            for (int i = 0; i < cardIds.Count; i++)
-            {
-                permanentDisplayers[cardIds[i].Index].ShouldShowUsableGlow(IsAbilityUsable(cards[i]));
-            }
-        }
+        //if (cards?.Any() ?? false)
+        //{
+        //    for (int i = 0; i < cardIds.Count; i++)
+        //    {
+        //        permanentDisplayers[cardIds[i].Index].ShouldShowUsableGlow(IsAbilityUsable(cards[i]));
+        //    }
+        //}
 
-        Card weaponCard = playerPassiveManager.GetWeapon().card;
-        if (weaponCard != null)
-        {
-            passiveDisplayers[1].ShouldShowUsableGlow(IsAbilityUsable(weaponCard));
-        }
+        //Card weaponCard = playerPassiveManager.GetWeapon().card;
+        //if (weaponCard != null)
+        //{
+        //    passiveDisplayers[1].ShouldShowUsableGlow(IsAbilityUsable(weaponCard));
+        //}
     }
 
     //Modify Cards on the field
@@ -1136,17 +1132,17 @@ public class PlayerManager : MonoBehaviour
     {
         if (isPlayer) { return; }
         cloakVisual.SetActive(true);
-        Transform cloakPerm = Battlefield_ObjectIDManager.shared.GetObjectFromID(location);
-        cloakPerm.parent.transform.parent = cloakVisual.transform;
+        //Transform cloakPerm = Battlefield_ObjectIDManager.shared.GetObjectFromID(location);
+        //cloakPerm.parent.transform.parent = cloakVisual.transform;
 
     }
     private void DeactivateCloakEffect(ID location)
     {
         if (isPlayer) { return; }
         cloakVisual.SetActive(false);
-        Transform cloakPerm = Battlefield_ObjectIDManager.shared.GetObjectFromID(location);
-        cloakPerm.parent.transform.parent = permParent.transform;
-        cloakPerm.SetSiblingIndex(location.Index);
+        //Transform cloakPerm = Battlefield_ObjectIDManager.shared.GetObjectFromID(location);
+        //cloakPerm.parent.transform.parent = permParent.transform;
+        //cloakPerm.SetSiblingIndex(location.Index);
 
 
     }
@@ -1346,7 +1342,7 @@ public class PlayerManager : MonoBehaviour
         foreach ((QuantaObject, ID) item in quantaResults)
         {
             PlayActionAnimationVisual(item.Item2);
-            yield return StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(item.Item2), item.Item1.element));
+            //yield return StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(item.Item2), item.Item1.element));
             if (item.Item1.element.Equals(Element.Other))
             {
                 List<QuantaObject> rndQuantas = GetOtherElementGenerator(item.Item1.count * 3);
@@ -1362,7 +1358,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         PlayActionAnimationVisual(playerPassiveManager.GetMarkID());
-        yield return StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(playerPassiveManager.GetMarkID()), playerPassiveManager.GetMark().card.costElement));
+        //yield return StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(playerPassiveManager.GetMarkID()), playerPassiveManager.GetMark().card.costElement));
 
 
         if (BattleVars.shared.enemyAiData.maxHP >= 150 && !isPlayer)
@@ -1413,7 +1409,7 @@ public class PlayerManager : MonoBehaviour
             case FieldEnum.Passive:
                 break;
             case FieldEnum.Permanent:
-                permanentDisplayers[cardID.Index].UpdatePendulumDisplay();
+                //permanentDisplayers[cardID.Index].UpdatePendulumDisplay();
                 break;
             case FieldEnum.Player:
                 break;
@@ -1427,61 +1423,25 @@ public class PlayerManager : MonoBehaviour
     //Setup Methods
     private IEnumerator SetupCreatureDisplayers()
     {
-        foreach (CreatureInPlay item in creatureDisplayers)
-        {
-            item.SetupDisplayer(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Creature);
-        }
-
-        List<ID> idCreatureList = new List<ID>();
-        for (int i = 0; i < creatureDisplayers.Count; i++)
-        {
-            idCreatureList.Add(creatureDisplayers[i].GetObjectID());
-        }
-
-        playerCreatureField = new CreatureManager(idCreatureList);
         yield return null;
     }
 
     private IEnumerator SetupHandDisplayers()
     {
-
-        List<ID> idHandList = new List<ID>();
-        for (int i = 0; i < handDisplayers.Count; i++)
-        {
-            handDisplayers[i].SetupDisplayer(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Hand);
-            idHandList.Add(handDisplayers[i].GetObjectID());
-        }
-
-        playerHand = new HandManager(idHandList, handDisplayers);
+        //for (int i = 0; i < handDisplayers.Count; i++)
+        //{
+        //    handDisplayers[i].SetupDisplayer(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Hand);
+        //}
         yield return null;
     }
 
     private IEnumerator SetupPermanentDisplayers()
     {
-        foreach (PermanentInPlay item in permanentDisplayers)
-        {
-            item.SetupDisplayer(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Permanent);
-        }
-
-        List<ID> idPermanentList = new List<ID>();
-        for (int i = 0; i < permanentDisplayers.Count; i++)
-        {
-            idPermanentList.Add(permanentDisplayers[i].GetObjectID());
-        }
-
-        playerPermanentManager = new PermanentManager(idPermanentList);
         yield return null;
     }
 
     private IEnumerator SetupPassiveDisplayers()
     {
-        List<ID> idPassiveList = new List<ID>();
-        for (int i = 0; i < passiveDisplayers.Count; i++)
-        {
-            passiveDisplayers[i].SetupDisplayer(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Passive);
-            idPassiveList.Add(passiveDisplayers[i].GetObjectID());
-        }
-        playerPassiveManager = new PassiveManager(idPassiveList, passiveDisplayers);
         Element markElement;
         markElement = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
 
@@ -1731,7 +1691,7 @@ public class PlayerManager : MonoBehaviour
         //PlayerManager opponent = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
         IDCardPair shield = playerPassiveManager.GetShield();
 
-        if (shield.card == null) { return; }
+        if (!shield.HasCard()) { return; }
 
         string skill = shield.card.skill;
 
@@ -1973,7 +1933,7 @@ public class PlayerManager : MonoBehaviour
                             //Update surviving creature display;
                             //opponent.DisplayNewCard(creaturesWithGravity[0], result, false);
 
-                            StartCoroutine(creatureDisplayers[iD.Index].ShowDamage(creature.AtkNow));
+                            //StartCoroutine(creatureDisplayers[iD.Index].ShowDamage(creature.AtkNow));
                             continue; // Go to creature passive check
 
                         }
@@ -2019,7 +1979,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         ModifyHealthLogic(atkNow, false, false);
                     }
-                    StartCoroutine(creatureDisplayers[iD.Index].ShowDamage(atkNow));
+                    //StartCoroutine(creatureDisplayers[iD.Index].ShowDamage(atkNow));
 
                     opponent.ReceivePhysicalDamage(isFreedomEffect ? Mathf.FloorToInt(atkNow * 1.5f) : atkNow);
                 }
@@ -2042,22 +2002,22 @@ public class PlayerManager : MonoBehaviour
                 {
                     if (creature.passive.Contains("air"))
                     {
-                        Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(creatureIds[i]), Element.Air);
+                        //Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(creatureIds[i]), Element.Air);
                         GenerateQuantaLogic(Element.Air, 1);
                     }
                     if (creature.passive.Contains("earth"))
                     {
-                        Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(creatureIds[i]), Element.Earth);
+                        //Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(creatureIds[i]), Element.Earth);
                         GenerateQuantaLogic(Element.Earth, 1);
                     }
                     if (creature.passive.Contains("fire"))
                     {
-                        Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(creatureIds[i]), Element.Fire);
+                        //Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(creatureIds[i]), Element.Fire);
                         GenerateQuantaLogic(Element.Fire, 1);
                     }
                     if (creature.passive.Contains("light"))
                     {
-                        Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(creatureIds[i]), Element.Light);
+                        //Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(creatureIds[i]), Element.Light);
                         GenerateQuantaLogic(Element.Light, 1);
                     }
                     if (creature.passive.Contains("devourer"))
@@ -2065,7 +2025,7 @@ public class PlayerManager : MonoBehaviour
                         if (opponent.GetAllQuantaOfElement(Element.Other) > 0 && opponent.sanctuaryCount == 0)
                         {
                             opponent.SpendQuantaLogic(Element.Other, 1);
-                            Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(creatureIds[i]), Element.Darkness);
+                            //Game_AnimationManager.shared.StartAnimation("QuantaGenerate", Battlefield_ObjectIDManager.shared.GetObjectFromID(creatureIds[i]), Element.Darkness);
                             GenerateQuantaLogic(Element.Darkness, 1);
                         }
                     }
@@ -2132,7 +2092,7 @@ public class PlayerManager : MonoBehaviour
                                 break;
                             default:
                                 Card duplicate = new Card(creature);
-                                Game_AnimationManager.shared.StartAnimation("ParallelUniverse", Battlefield_ObjectIDManager.shared.GetObjectFromID(iD));
+                                //Game_AnimationManager.shared.StartAnimation("ParallelUniverse", Battlefield_ObjectIDManager.shared.GetObjectFromID(iD));
                                 PlayCardOnFieldLogic(duplicate);
                                 break;
                         }
@@ -2170,7 +2130,7 @@ public class PlayerManager : MonoBehaviour
                     continue;
                 }
 
-                creatureDisplayers[iD.Index].DisplayCard(creature, false);
+                //creatureDisplayers[iD.Index].DisplayCard(creature, 1);
             }
 
             if (creature.AtkNow != 0)

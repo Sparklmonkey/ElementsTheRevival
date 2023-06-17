@@ -9,7 +9,8 @@ public class Lightning : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        if (target.card == null) {
+        if (!target.HasCard())
+        {
             DuelManager.GetIDOwner(target.id).ModifyHealthLogic(5, true, true);
             return;
         }
@@ -29,6 +30,7 @@ public class Lightning : AbilityEffect
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
     {
+        if (posibleTargets.Count == 0) { return null; }
         if (posibleTargets.Find(x => x.card != null) == null)
         {
             return posibleTargets.Find(x => x.id.Owner != Owner.playerID.id.Owner);

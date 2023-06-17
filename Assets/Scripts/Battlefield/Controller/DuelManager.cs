@@ -346,7 +346,7 @@ public class DuelManager : MonoBehaviour
     public void IdCardTapped(IDCardPair idCard)
     {
         if (!BattleVars.shared.isPlayerTurn) { return; }
-        if (idCard.card == null) { return; }
+        if (!idCard.HasCard()) { return; }
 
         if (idCard.id.Owner.Equals(OwnerEnum.Opponent))
         {

@@ -10,7 +10,7 @@ public class Drainlife : AbilityEffect
         int quantaElement = Owner.GetAllQuantaOfElement(Element.Darkness);
         int damageToDeal = 2 + (Mathf.FloorToInt(quantaElement / 10) * 2);
 
-        if (target.card == null)
+        if (!target.HasCard())
         {
             DuelManager.GetIDOwner(target.id).ModifyHealthLogic(damageToDeal, true, true);
             Owner.ModifyHealthLogic(damageToDeal, false, false);
@@ -32,6 +32,7 @@ public class Drainlife : AbilityEffect
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
     {
+        if (posibleTargets.Count == 0) { return null; }
         return posibleTargets[Random.Range(0, posibleTargets.Count)];
     }
 }

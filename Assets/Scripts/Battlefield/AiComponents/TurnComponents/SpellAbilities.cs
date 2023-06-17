@@ -54,7 +54,7 @@ public class SpellAbilities
 
     public IEnumerator PlayAnimateWeapon(PlayerManager aiManager)
     {
-        if (aiManager.playerPassiveManager.GetWeapon().card == null) { yield break; }
+        if (!aiManager.playerPassiveManager.GetWeapon().HasCard()) { yield break; }
         if (aiManager.playerPassiveManager.GetWeapon().card.cardName == "Weapon") { yield break; }
         //Get Hand Cards
         var idCardList = aiManager.playerHand.GetAllValidCardIds();

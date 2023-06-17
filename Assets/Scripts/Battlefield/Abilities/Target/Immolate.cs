@@ -25,6 +25,7 @@ public class Immolate : AbilityEffect
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
     {
+        if (posibleTargets.Count == 0) { return null; }
         return posibleTargets[Random.Range(0, posibleTargets.Count)];
     }
 }

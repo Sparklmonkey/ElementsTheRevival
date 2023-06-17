@@ -8,28 +8,27 @@ using UnityEngine.UI;
 public class EffectDisplayManager : MonoBehaviour
 {
     [SerializeField]
-    private Image _poisonImage, _momentumImage, _psionImage, _immaterialImage, _gravityImage, _delayedImage, _frozenImage, _burrowedImage, _adrenalineImage;
+    private GameObject _poisonImage, _momentumImage, _psionImage, _immaterialImage, _gravityImage, _delayedImage, _frozenImage, _burrowedImage, _adrenalineImage;
     [SerializeField]
     private TextMeshProUGUI _poisonCount;
 
-
-    public void UpdateEffectDisplay(EffectBody effectBody)
+    public void UpdateEffectDisplay(Card card, int stack)
     {
-        _momentumImage.gameObject.SetActive(effectBody.IsMomentum);
-        _psionImage.gameObject.SetActive(effectBody.IsPsion);
-        _immaterialImage.gameObject.SetActive(effectBody.IsImmaterial);
-        _gravityImage.gameObject.SetActive(effectBody.IsGravity);
-        _delayedImage.gameObject.SetActive(effectBody.IsDelayed);
-        _frozenImage.gameObject.SetActive(effectBody.IsFrozen);
-        _burrowedImage.gameObject.SetActive(effectBody.IsBurrowed);
-        _adrenalineImage.gameObject.SetActive(effectBody.IsAdrenaline);
-        _poisonImage.gameObject.SetActive(effectBody.PoisonValue != 0);
+        _momentumImage.SetActive(card.passive.Contains("momentum"));
+        _psionImage.SetActive(card.IsPsion);
+        _immaterialImage.SetActive(card.IsImmaterial);
+        _gravityImage.SetActive(card.IsGravity);
+        _delayedImage.SetActive(card.IsDelayed);
+        _frozenImage.SetActive(card.Freeze > 0);
+        _burrowedImage.SetActive(card.IsBurrowed);
+        _adrenalineImage.SetActive(card.IsAdrenaline);
+        _poisonImage.SetActive(card.Poison != 0);
 
-        if (effectBody.PoisonValue != 0)
+        if (card.Poison != 0)
         {
-            _poisonImage.sprite = ImageHelper.GetPoisonSprite(effectBody.PoisonValue > 0);
-            _poisonImage.color = effectBody.IsAflatoxin ? new(108f, 108f, 108f) : new(byte.MaxValue, byte.MaxValue, byte.MaxValue);
-            _poisonCount.text = $"{Mathf.Abs(effectBody.PoisonValue)}";
+            _poisonImage.GetComponent<Image>().sprite = ImageHelper.GetPoisonSprite(card.Poison > 0);
+            _poisonImage.GetComponent<Image>().color = card.IsAflatoxin ? new(108f, 108f, 108f) : new(byte.MaxValue, byte.MaxValue, byte.MaxValue);
+            _poisonCount.text = $"{Mathf.Abs(card.Poison)}";
         }
     }
 }

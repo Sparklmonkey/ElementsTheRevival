@@ -91,7 +91,7 @@ public abstract class FieldManager
         while (loopBreak < pairList.Count)
         {
             int rndIndex = Random.Range(0, pairList.Count);
-            if (pairList[rndIndex].card == null)
+            if (pairList[rndIndex].HasCard())
             {
                 pairList[rndIndex].card = card;
                 return pairList[rndIndex].id;
@@ -109,7 +109,7 @@ public abstract class FieldManager
     {
         foreach (IDCardPair item in pairList)
         {
-            if (item.card != null)
+            if (item.HasCard())
             {
                 if (item.card.cardName.Equals(card.cardName) && item.card.cardType.Equals(CardType.Pillar))
                 {
@@ -125,7 +125,7 @@ public abstract class FieldManager
         List<Card> toReturn = new List<Card>();
         foreach (IDCardPair item in pairList)
         {
-            if (item.card != null)
+            if (item.HasCard())
             {
                 toReturn.Add(item.card);
             }
@@ -137,7 +137,7 @@ public abstract class FieldManager
     {
         foreach (IDCardPair item in pairList)
         {
-            item.RemoveCard();
+            item.card = null;
         }
     }
 

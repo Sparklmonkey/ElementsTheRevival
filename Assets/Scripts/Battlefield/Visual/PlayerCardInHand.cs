@@ -7,6 +7,7 @@ namespace Elements.Duel.Visual
 
     public class PlayerCardInHand : CardDisplayer
     {
+        public bool belongsToPlayer = true;
         [SerializeField]
         private Image cardBackground, cardImage, cardElement, isHidden;
         [SerializeField]
@@ -14,19 +15,18 @@ namespace Elements.Duel.Visual
 
         public void SetupDisplayer(OwnerEnum owner, FieldEnum field)
         {
-            int index = int.Parse(transform.parent.gameObject.name.Replace("CardInHand_", ""));
-            SetID(owner, field, index - 1, transform);
             if (owner.Equals(OwnerEnum.Opponent))
             {
                 Destroy(GetComponent<CardDetailToolTip>());
             }
         }
 
-        public void DisplayCard(Card cardToDisplay, int stack = 1)
+        public override void DisplayCard(Card cardToDisplay, int stack = 1)
         {
             transform.parent.gameObject.SetActive(true);
-            if (!GetObjectID().Owner.Equals(OwnerEnum.Player))
+            if (!belongsToPlayer)
             {
+                isHidden.color = ElementColours.GetWhiteColor();
                 cardName.text = " ";
                 PlayMaterializeAnimation(Element.Aether);
                 return;
@@ -66,28 +66,23 @@ namespace Elements.Duel.Visual
             SetCardImage(cardToDisplay.imageID, cardToDisplay.cardName.Contains("Pendulum"), cardToDisplay.costElement == cardToDisplay.skillElement, cardToDisplay.costElement);
 
             PlayMaterializeAnimation(cardToDisplay.costElement);
-            
-            SetCard(cardToDisplay);
         }
 
         internal void ShowCardForPrecog(Card cardToDisplay)
         {
             isHidden.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
-            SetCard(cardToDisplay);
         }
 
         internal void HideCardForPrecog()
         {
             isHidden.sprite = ImageHelper.GetCardBackImage();
-            SetCard(null);
         }
 
         private void SetCardImage(string imageId, bool isPendulum, bool shouldShowMarkElement, Element costElement)
         {
             if (isPendulum)
             {
-                bool isPlayer = GetObjectID().Owner.Equals(OwnerEnum.Player);
-                Element markElement = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
+                Element markElement = belongsToPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
                 if (!shouldShowMarkElement)
                 {
                     cardImage.sprite = ImageHelper.GetPendulumImage(costElement.FastElementString(), markElement.FastElementString());
@@ -101,6 +96,11 @@ namespace Elements.Duel.Visual
             {
                 cardImage.sprite = ImageHelper.GetCardImage(imageId);
             }
+        }
+
+        public override void HideCard(Card card, int stack)
+        {
+            PlayDissolveAnimation();
         }
     }
 

@@ -1,26 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Elements.Duel.Visual;
+using UnityEngine;
 
 [Serializable]
 public class CreatureManager : FieldManager
 {
-    private readonly List<int> creatureCardOrder = new List<int> { 11, 13, 9, 10, 12, 14, 8, 16, 18, 20, 22, 0, 2, 4, 6, 15, 17, 19, 21, 1, 3, 5, 7 };
-    private readonly List<int> safeZones = new List<int> { 11, 13, 10, 12, 14 };
-
-    public CreatureManager(List<ID> idList)
-    {
-        pairList = new List<IDCardPair>();
-        for (int i = 0; i < idList.Count; i++)
-        {
-            pairList.Add(new IDCardPair(idList[i], null));
-        }
-    }
+    private readonly List<int> creatureCardOrder = new (){ 11, 13, 9, 10, 12, 14, 8, 16, 18, 20, 22, 0, 2, 4, 6, 15, 17, 19, 21, 1, 3, 5, 7 };
+    private readonly List<int> safeZones = new (){ 11, 13, 10, 12, 14 };
 
     public List<ID> GetCreaturesWithGravity()
     {
         List<ID> cards = GetAllIds();
-        List<ID> listToReturn = new List<ID>();
+        List<ID> listToReturn = new ();
         if (cards.Count > 0)
         {
             foreach (ID iD in cards)
@@ -66,9 +59,9 @@ public class CreatureManager : FieldManager
 
         foreach (int orderIndex in creatureCardOrder)
         {
-            if (!pairList[safeZones[orderIndex]].HasCard())
+            if (!pairList[orderIndex].HasCard())
             {
-                pairList[safeZones[orderIndex]].PlayCard(card);
+                pairList[orderIndex].PlayCard(card);
                 return pairList[orderIndex].id;
             }
 
@@ -146,10 +139,5 @@ public class CreatureManager : FieldManager
         }
         creature.AtkModify += modifyPower;
         creature.DefModify += modifyHP;
-    }
-
-    public List<CardInPlay> GetAllCardsInPlay()
-    {
-        throw new NotImplementedException();
     }
 }

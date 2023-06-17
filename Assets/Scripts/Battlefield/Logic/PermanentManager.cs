@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Elements.Duel.Manager
 {
     [Serializable]
     public class PermanentManager : FieldManager
     {
-        private readonly List<int> permanentCardOrder = new(){ 1, 3, 5, 7, 0, 2, 4, 6, 9, 11, 13, 8, 10, 12, 14 };
-        private readonly List<string> permanentsWithCountdown = new(){ "7q9", "5rp", "5v2", "7ti" };
-
         public PermanentManager(List<ID> idList)
         {
-            pairList = new List<IDCardPair>();
-            for (int i = 0; i < idList.Count; i++)
-            {
-                stackCountList.Add(0);
-                pairList.Add(new IDCardPair(idList[i], null));
-            }
+            //pairList = new List<IDCardPair>();
+            //for (int i = 0; i < idList.Count; i++)
+            //{
+            //    stackCountList.Add(0);
+            //    pairList.Add(new (idList[i], null));
+            //}
         }
 
         public ID PlayPermanent(Card card)
@@ -31,6 +29,7 @@ namespace Elements.Duel.Manager
                     return stackedCard.id;
                 }
             }
+            List<int> permanentCardOrder = new() { 1, 3, 5, 7, 0, 2, 4, 6, 9, 11, 13, 8, 10, 12, 14 };
 
             foreach (int orderIndex in permanentCardOrder)
             {
@@ -64,19 +63,19 @@ namespace Elements.Duel.Manager
                     mark = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
                     if (card.skill == " " && elementnow == card.skillElement)
                     {
-                        QuantaObject quantaObject = new QuantaObject(elementnow, stackCountList[i]);
+                        QuantaObject quantaObject = new (elementnow, stackCountList[i]);
                         listToReturn.Add((quantaObject, pairList[i].id));
                         card.skillElement = mark;
                     }
                     else if (card.skill == " " && elementnow != card.skillElement)
                     {
-                        QuantaObject quantaObject = new QuantaObject(card.skillElement, stackCountList[i]);
+                        QuantaObject quantaObject = new (card.skillElement, stackCountList[i]);
                         listToReturn.Add((quantaObject, pairList[i].id));
                         card.skillElement = card.costElement;
                     }
                     else
                     {
-                        QuantaObject quantaObject = new QuantaObject(card.costElement, stackCountList[i]);
+                        QuantaObject quantaObject = new (card.costElement, stackCountList[i]);
                         listToReturn.Add((quantaObject, pairList[i].id));
                     }
                 }
@@ -87,11 +86,11 @@ namespace Elements.Duel.Manager
 
         public List<int> GetIndexToAnimate()
         {
-            List<int> listToReturn = new List<int>();
+            List<int> listToReturn = new();
 
             foreach (IDCardPair item in pairList)
             {
-                if (item.card != null)
+                if (item.HasCard())
                 {
                     if (item.card.cardType.Equals(CardType.Pillar))
                     {
@@ -110,6 +109,7 @@ namespace Elements.Duel.Manager
 
         public void PermanentTurnDown()
         {
+            List<string> permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
             foreach (var idCard in pairList)
             {
                 if(!idCard.HasCard()) { continue; }

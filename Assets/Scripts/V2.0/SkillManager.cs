@@ -24,20 +24,23 @@ public class SkillManager
 
     public bool ShouldAskForTarget(IDCardPair idCard)
     {
-        var ability = idCard.card.skill.GetScriptFromName<AbilityEffect>();
+        Debug.Log(idCard.card.cardName);
+        var ability = idCard.card.skill.GetSkillScript<AbilityEffect>();
         return ability.NeedsTarget();
     }
 
     public void SkillRoutineNoTarget(PlayerManager owner, IDCardPair idCard)
     {
-        var ability = idCard.card.skill.GetScriptFromName<AbilityEffect>();
+        Debug.Log(idCard.card.cardName);
+        var ability = idCard.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
         ability.Activate(idCard);
     }
 
     public void SetupTargetHighlights(PlayerManager owner, IDCardPair card)
     {
-        var ability = card.card.skill.GetScriptFromName<AbilityEffect>();
+        Debug.Log(card.card.cardName);
+        var ability = card.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
         var enemy = DuelManager.GetNotIDOwner(owner.playerID.id);
         DuelManager.SetupHighlights(ability.GetPossibleTargets(enemy));
@@ -45,7 +48,8 @@ public class SkillManager
 
     public void SkillRoutineWithTarget(PlayerManager owner, IDCardPair iDCard)
     {
-        var ability = BattleVars.shared.abilityOrigin.card.skill.GetScriptFromName<AbilityEffect>();
+        Debug.Log(iDCard.card.cardName);
+        var ability = BattleVars.shared.abilityOrigin.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
 
         ability.Activate(iDCard);
@@ -53,7 +57,8 @@ public class SkillManager
 
     public IDCardPair GetRandomTarget(PlayerManager owner, IDCardPair iDCard)
     {
-        var ability = iDCard.card.skill.GetScriptFromName<AbilityEffect>();
+        Debug.Log(iDCard.card.cardName);
+        var ability = iDCard.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
 
         return ability.SelectRandomTarget(ability.GetPossibleTargets(DuelManager.GetIDOwner(owner.playerID.id)));

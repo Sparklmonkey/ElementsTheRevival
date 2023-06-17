@@ -26,10 +26,10 @@ public class Battlefield_ObjectIDManager : MonoBehaviour
         transformList.Add(transform);
     }
 
-    public Transform GetObjectFromID(ID objectID)
-    {
-        return transformList[GetIndexOfID(objectID)];
-    }
+    //public Transform GetObjectFromID(ID objectID)
+    //{
+    //    return transformList[GetIndexOfID(objectID)];
+    //}
 
     private int GetIndexOfID(ID idToFind)
     {

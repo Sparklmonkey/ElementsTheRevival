@@ -829,6 +829,7 @@ GameObject:
   - component: {fileID: 8835207496050511660}
   - component: {fileID: 8835207496050511662}
   - component: {fileID: 5151530499949281839}
+  - component: {fileID: 6904892707159423077}
   m_Layer: 5
   m_Name: OpCardInHand
   m_TagString: Untagged
@@ -907,12 +908,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e29b7c1c3c24b519502e88a7866111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 2100000, guid: 5dc37807cf2c14e5983476cc99ad808d, type: 2}
   underlayBlack: {fileID: 11400000, guid: 86be48c1a30ff45e6bf0c3ae08e88f66, type: 2}
   underlayWhite: {fileID: 11400000, guid: 1ce48439ddc6c4d7d8b7889a4d76de20, type: 2}
-  dissolveMaterial: {fileID: 2100000, guid: 5dc37807cf2c14e5983476cc99ad808d, type: 2}
   validTargetGlow: {fileID: 5151530501625640736}
   isUsableGlow: {fileID: 0}
   isPassive: 0
+  belongsToPlayer: 1
   cardBackground: {fileID: 5151530500196828890}
   cardImage: {fileID: 5151530500119169897}
   cardElement: {fileID: 5151530500855073272}
@@ -931,3 +933,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f9168571204344ab9c6e8e52340662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6904892707159423077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8835207496050511658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeac340606bef4afc8d1eb24e351b537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id:
+    Owner: 0
+    Field: 0
+    Index: 0
+  card:
+    iD: 
+    imageID: 
+    cardName: 
+    cardType: 0
+    atk: 0
+    def: 0
+    skill: 
+    skillCost: 0
+    skillElement: 0
+    cost: 0
+    costElement: 0
+    rarity: 0
+    passive: []
+    innate: []
+    desc: 
+  stackCount: 0

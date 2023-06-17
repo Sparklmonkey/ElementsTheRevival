@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.4964127, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5220,6 +5220,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841992026}
   m_CullTransparentMesh: 1
+--- !u!1 &863137486 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 729747558192423322, guid: 3d10724650cdad64cbcfbffef0f270aa, type: 3}
+  m_PrefabInstance: {fileID: 729747557616804457}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &863137489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863137486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43b80aaa8f95c45f2bddc7aa0780284e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchBlocker: {fileID: 0}
 --- !u!1 &870081511
 GameObject:
   m_ObjectHideFlags: 0
@@ -15458,5 +15476,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 729747558192423324, guid: 3d10724650cdad64cbcfbffef0f270aa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3d10724650cdad64cbcfbffef0f270aa, type: 3}

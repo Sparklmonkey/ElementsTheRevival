@@ -1,5 +1,6 @@
 ﻿using System;
 using Elements.Duel.Manager;
+using Elements.Duel.Visual;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,12 +10,51 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public ID id;
     public Card card;
     public int stackCount;
+    public bool isPlayer;
     public event Action<Card, int> OnCardChanged;
     public event Action<Card, int> OnCardRemoved;
 
     public event Action<IDCardPair, bool> OnHoverObject;
     public event Action<IDCardPair> OnClickObject;
     public event Action<int> OnCreatureAttack;
+
+    void Start()
+    {
+        var parentName = transform.parent.gameObject.name;
+
+        if (parentName != "EnemySide" && parentName != "PlayerSide")
+        {
+            int index = int.Parse(parentName.Split("_")[1]) - 1;
+            if (parentName.Contains("Creature"))
+            {
+                id = new(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Creature, index);
+            }
+            else if (parentName.Contains("Permanent"))
+            {
+                id = new(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Permanent, index);
+            }
+            else if (parentName.Contains("Hand"))
+            {
+                id = new(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Hand, index);
+            }
+            var effectDisplay = GetComponent<EffectDisplayManager>();
+            if (effectDisplay != null)
+            {
+                OnCardChanged += effectDisplay.UpdateEffectDisplay;
+            }
+
+            var cardDisplayer = GetComponent<CardDisplayer>();
+            OnCardChanged += cardDisplayer.DisplayCard;
+            OnCardRemoved += cardDisplayer.HideCard;
+        }
+
+        OnClickObject += DuelManager.Instance.IdCardTapped;
+
+        if (parentName != "EnemySide" && parentName != "PlayerSide" && !parentName.Contains("Passive"))
+        {
+            transform.parent.gameObject.SetActive(false);
+        }
+    }
 
     public IDCardPair(ID id, Card card)
     {
@@ -64,7 +104,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     internal bool HasCard()
     {
-        return card != null && card.iD != "4t2" && card.iD != "4t1";
+        return card != null && card.iD != "4t2" && card.iD != "4t1" && card.cardName != "";
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -76,13 +116,14 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!HasCard()) { return; }
-        OnHoverObject?.Invoke(this, true);
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        Vector2 objectSize = new (rectTransform.rect.height, rectTransform.rect.width);
+        ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, card, id.Index + 1, id.Field == FieldEnum.Creature);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!HasCard()) { return; }
-        OnHoverObject?.Invoke(this, false);
+        ToolTipCanvas.Instance.HideToolTip();
     }
 
     public bool IsFromHand()
@@ -178,22 +219,6 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     //    {
     //    adrenalineCheck:
 
-    //        if (atkNow > 0 && !isFreedomEffect)
-    //        {
-    //            if (creature.passive.Contains("nuerotoxin"))
-    //            {
-    //                opponent.playerCounters.nuerotoxin = 1;
-    //                opponent.UpdatePlayerIndicators();
-    //            }
-    //            if (atkNow != 0)
-    //            {
-    //                
-
-    //                
-
-    //                
-    //            }
-    //        }
 
     //    skipCreatureAttack:
     //        if (adrenalineIndex < 2)

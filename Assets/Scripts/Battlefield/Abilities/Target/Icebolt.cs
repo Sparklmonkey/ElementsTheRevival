@@ -11,7 +11,7 @@ public class Icebolt : AbilityEffect
         int damageToDeal = 2 + (Mathf.FloorToInt(quantaElement / 10) * 2);
         bool willFreeze = Random.Range(0, 100) > 30 + (damageToDeal * 5);
 
-        if (target.card == null)
+        if (!target.HasCard())
         {
             DuelManager.GetIDOwner(target.id).ModifyHealthLogic(damageToDeal, true, true);
             DuelManager.GetIDOwner(target.id).AddPlayerCounter(PlayerCounters.Freeze, willFreeze ? 3 : 0);
@@ -33,6 +33,7 @@ public class Icebolt : AbilityEffect
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
     {
+        if (posibleTargets.Count == 0) { return null; }
         return posibleTargets[Random.Range(0, posibleTargets.Count)];
     }
 }

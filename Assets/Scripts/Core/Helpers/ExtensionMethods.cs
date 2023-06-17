@@ -134,11 +134,26 @@ public static class ExtensionMethods
             }
         }
     }
-    public static T GetScriptFromName<T>(this string AbilityName)
+    public static T GetScriptFromName<T>(this string scriptName)
     {
+        Type type = Type.GetType(scriptName);
+        if (type == null)
+        {
+            //Debug.Log("Active Ability Doesnt exist");
+            return default(T);
+        }
+        T obj = (T)Activator.CreateInstance(type);
+        //Debug.Log(obj);
+        return obj;
+    }
+
+    public static T GetSkillScript<T>(this string AbilityName)
+    {
+        Debug.Log(AbilityName);
         var nameToCheck = AbilityName.Replace(" ", "");
         nameToCheck = nameToCheck[0].ToString().ToUpper() + nameToCheck[1..];
         Type type = Type.GetType(nameToCheck);
+        Debug.Log(nameToCheck);
         if (type == null)
         {
             //Debug.Log("Active Ability Doesnt exist");

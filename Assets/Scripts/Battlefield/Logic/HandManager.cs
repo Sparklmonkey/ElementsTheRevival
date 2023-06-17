@@ -13,13 +13,7 @@ namespace Elements.Duel.Manager
 
         public HandManager(List<ID> idList, List<PlayerCardInHand> handDisplayers)
         {
-            this.handDisplayers = handDisplayers;
-            pairList = new List<IDCardPair>();
-            for (int i = 0; i < idList.Count; i++)
-            {
-                pairList.Add(new (idList[i], null));
-                pairList[i].OnCardChanged += handDisplayers[i].DisplayCard;
-            }
+
         }
 
         public bool ShouldDiscard() => pairList.FindAll(x => x.card != null).Count >= 8;
@@ -27,29 +21,28 @@ namespace Elements.Duel.Manager
         public void PlayCardWithID(ID id)
         {
             pairList.Find(x => x.id == id).RemoveCard();
-            UpdateHandVisual();
         }
 
         public void UpdateHandVisual()
         {
-            foreach (var item in handDisplayers)
-            {
-                item.transform.parent.gameObject.SetActive(false);
-            }
-            List<Card> list = GetAllCards();
+            //foreach (var item in handDisplayers)
+            //{
+            //    item.transform.parent.gameObject.SetActive(false);
+            //}
+            //List<Card> list = GetAllCards();
 
-            ClearAllCards();
-            int handIndex = 0;
-            foreach (Card item in list)
-            {
-                pairList[handIndex].PlayCard(item);
-                handIndex++;
-            }
+            //ClearAllCards();
+            //int handIndex = 0;
+            //foreach (Card item in list)
+            //{
+            //    pairList[handIndex].PlayCard(item);
+            //    handIndex++;
+            //}
         }
 
         public void AddCardToHand(Card card)
         {
-            int availableIndex = pairList.FindIndex(x => x.card == null);
+            int availableIndex = pairList.FindIndex(x => !x.HasCard());
             pairList[availableIndex].PlayCard(card);
         }
     }

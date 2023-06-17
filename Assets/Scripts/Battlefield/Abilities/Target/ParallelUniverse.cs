@@ -22,6 +22,7 @@ public class Paralleluniverse : AbilityEffect
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
     {
+        if (posibleTargets.Count == 0) { return null; }
         return posibleTargets.Aggregate((i1, i2) => i1.card.AtkNow > i2.card.AtkNow ? i1 : i2);
     }
 }

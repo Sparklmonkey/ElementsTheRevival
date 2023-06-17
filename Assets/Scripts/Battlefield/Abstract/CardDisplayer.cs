@@ -4,14 +4,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class CardDisplayer : Identifiable
+public abstract class CardDisplayer : MonoBehaviour
 {
-    private List<Image> imageList = new List<Image>();
+    private List<Image> imageList = new ();
     private List<TextMeshProUGUI> textList;
-    private List<string> backupText = new List<string>();
+    private List<string> backupText = new ();
     private Image parentImageRayCast;
     [SerializeField]
     private Material dissolveMaterial;
+    public TMP_FontAsset underlayBlack, underlayWhite;
     [SerializeField]
     private Image validTargetGlow;
     [SerializeField]
@@ -35,15 +36,6 @@ public abstract class CardDisplayer : Identifiable
         ShouldShowTarget(false);
     }
 
-    public void SetCard(Card card)
-    {
-        this.card = card;
-    }
-
-    public Card GetCardOnDisplay()
-    {
-        return card;
-    }
     public void ShouldShowTarget(bool shouldShow)
     {
         if (gameObject.name.Contains("Hand"))
@@ -82,10 +74,7 @@ public abstract class CardDisplayer : Identifiable
 
     public void PlayDissolveAnimation()
     {
-        if (!isPassive)
-        {
-            ClearDisplay();
-        }
+        ClearDisplay();
         //StartCoroutine(DissolveAnimation());
     }
 
@@ -225,6 +214,10 @@ public abstract class CardDisplayer : Identifiable
             ClearDisplay();
         }
     }
+
+
+    public abstract void DisplayCard(Card cardToDisplay, int stack = 0);
+    public abstract void HideCard(Card cardToDisplay, int stack = 0);
 
     private enum DissolveState
     {

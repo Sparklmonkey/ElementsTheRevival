@@ -20,16 +20,15 @@ namespace Elements.Duel.Visual
         public void SetupDisplayer(OwnerEnum owner, FieldEnum field)
         {
             int index = int.Parse(transform.parent.gameObject.name.Replace("Passive_", ""));
-            SetID(owner, field, index - 1, transform);
+            //SetID(owner, field, index - 1, transform);
             isPassive = field.Equals(FieldEnum.Passive);
         }
-        public void DisplayCard(Card cardToDisplay, int stack = 0)
+        public override void DisplayCard(Card cardToDisplay, int stack = 0)
         {
             transform.parent.gameObject.SetActive(true);
             cardImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
             cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
             PlayMaterializeAnimation(cardToDisplay.costElement);
-            SetCard(cardToDisplay);
 
             activeAHolder.SetActive(false);
             if (cardToDisplay.skill != "")
@@ -68,5 +67,9 @@ namespace Elements.Duel.Visual
             Destroy(sText);
         }
 
+        public override void HideCard(Card card, int stack)
+        {
+            PlayDissolveAnimation();
+        }
     }
 }

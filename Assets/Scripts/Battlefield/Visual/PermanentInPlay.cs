@@ -19,45 +19,25 @@ namespace Elements.Duel.Visual
         public void SetupDisplayer(OwnerEnum owner, FieldEnum field)
         {
             int index = int.Parse(transform.parent.gameObject.name.Replace("Permanent_", ""));
-            SetID(owner, field, index - 1, transform);
+            //SetID(owner, field, index - 1, transform);
         }
 
-        public void UpdatePendulumDisplay()
-        {
-            Card cardToDisplay = GetCardOnDisplay();
-            bool isPlayer = GetObjectID().Owner.Equals(OwnerEnum.Player);
-            if (cardToDisplay.cardName.Contains("Pendulum"))
-            {
-                Element pendulumElement = cardToDisplay.costElement;
-                Element markElement = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
-                if (cardToDisplay.costElement == cardToDisplay.skillElement)
-                {
-                    cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
-                }
-                else
-                {
-                    cardImage.sprite = ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
-                }
-            }
-            else
-            {
-                cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
-            }
-        }
+        public override void HideCard(Card cardToDisplay, int stackCountValue) => ManagePermanent(cardToDisplay, stackCountValue);
 
-        public void DisplayCard(Card cardToDisplay, int stackCountValue)
+        public override void DisplayCard(Card cardToDisplay, int stackCountValue) => ManagePermanent(cardToDisplay, stackCountValue);
+
+        private void ManagePermanent(Card cardToDisplay, int stackCountValue)
         {
-            if(stackCountValue == 0)
+            if (stackCountValue == 0)
             {
                 ClearDisplay();
                 return;
             }
-            UpdateStackCount(stackCountValue);
+
+            stackCount.text = stackCountValue > 1 ? $"{stackCountValue} X" : "";
             transform.parent.gameObject.SetActive(true);
             immaterialIndicator.SetActive(cardToDisplay.innate.Contains("immaterial"));
-            if (stackCountValue == 0)
-            {
-                bool isPlayer = GetObjectID().Owner.Equals(OwnerEnum.Player);
+                bool isPlayer = true;// GetObjectID().Owner.Equals(OwnerEnum.Player);
                 if (cardToDisplay.cardName.Contains("Pendulum"))
                 {
                     Element pendulumElement = cardToDisplay.costElement;
@@ -77,7 +57,6 @@ namespace Elements.Duel.Visual
                 }
                 stackCount.text = stackCountValue.ToString();
                 PlayMaterializeAnimation(cardToDisplay.costElement);
-                SetCard(cardToDisplay);
                 activeAHolder.SetActive(false);
                 if (cardToDisplay.skill != "")
                 {
@@ -99,13 +78,8 @@ namespace Elements.Duel.Visual
                     activeAHolder.SetActive(false);
                 }
                 return;
-            }
+            
             //SetCard(cardToDisplay);
-        }
-
-        private void UpdateStackCount(int stackCount)
-        {
-            this.stackCount.text = stackCount > 1 ? $"{stackCount} X" : "";
         }
 
         public void ClearPassive()

@@ -14,7 +14,7 @@ public class BaseAiDiscardComponent : IAiDiscardComponent
         if (aiManager.playerHand.ShouldDiscard())
         {
             int rndCard = Random.Range(0, 8);
-            ID cardToDiscard = new ID(OwnerEnum.Opponent, FieldEnum.Hand, rndCard);
+            var cardToDiscard = aiManager.playerHand.GetAllValidCardIds()[rndCard];
             aiManager.DiscardCard(cardToDiscard);
         }
     }

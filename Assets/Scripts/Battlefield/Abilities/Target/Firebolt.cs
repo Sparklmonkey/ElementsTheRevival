@@ -10,7 +10,7 @@ public class Firebolt : AbilityEffect
         int quantaElement = Owner.GetAllQuantaOfElement(Element.Fire);
         int damageToDeal = 2 + (Mathf.FloorToInt(quantaElement / 10) * 2);
 
-        if (target.card == null)
+        if (!target.HasCard())
         {
             DuelManager.GetIDOwner(target.id).ModifyHealthLogic(damageToDeal, true, true);
             return;
@@ -30,6 +30,7 @@ public class Firebolt : AbilityEffect
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
     {
+        if (posibleTargets.Count == 0) { return null; }
         return posibleTargets[Random.Range(0, posibleTargets.Count)];
     }
 }

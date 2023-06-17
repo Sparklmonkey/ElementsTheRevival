@@ -9,7 +9,6 @@ public abstract class Identifiable : MonoBehaviour
 
     public ID GetObjectID() => objectId;
 
-    public TMP_FontAsset underlayBlack, underlayWhite;
 
     public void SetID(OwnerEnum owner, FieldEnum field, int index, Transform transform)
     {
