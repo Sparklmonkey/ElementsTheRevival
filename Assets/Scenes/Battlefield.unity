@@ -6791,9 +6791,6 @@ MonoBehaviour:
   permParent: {fileID: 224746655}
   cardDetailView: {fileID: 1780469455}
   playerDisplayer: {fileID: 1212562475}
-  poisonLabel: {fileID: 2122241473}
-  boneShieldLabel: {fileID: 1872108000}
-  purityLabel: {fileID: 1176795786}
   playerHand:
     pairList:
     - {fileID: 5151530501525870204}
@@ -6869,12 +6866,6 @@ MonoBehaviour:
   isPlayer: 0
   sanctuaryCount: 0
   patienceCount: 0
-  poisonSprite: {fileID: 21300000, guid: 8ab5b7e76d8944a4eb6f40f93bff8b79, type: 3}
-  puritySprite: {fileID: 21300000, guid: 5435329ed2059494bbc4754c9d78252a, type: 3}
-  nuerotoxinSprite: {fileID: 21300000, guid: 766de1b52d06e6347982dd67ab5fb07c, type: 3}
-  poisonImg: {fileID: 572617492}
-  sanctImage: {fileID: 475783822}
-  silenceImage: {fileID: 1109701394}
   cloakIndex: []
   sacrificeCount: 0
 --- !u!1 &235918386
@@ -18083,9 +18074,6 @@ MonoBehaviour:
   permParent: {fileID: 0}
   cardDetailView: {fileID: 1780469455}
   playerDisplayer: {fileID: 753189428}
-  poisonLabel: {fileID: 1094919197}
-  boneShieldLabel: {fileID: 31347704}
-  purityLabel: {fileID: 1594726170}
   playerHand:
     pairList:
     - {fileID: 2106350587}
@@ -18161,12 +18149,6 @@ MonoBehaviour:
   isPlayer: 0
   sanctuaryCount: 0
   patienceCount: 0
-  poisonSprite: {fileID: 21300000, guid: 8ab5b7e76d8944a4eb6f40f93bff8b79, type: 3}
-  puritySprite: {fileID: 21300000, guid: 5435329ed2059494bbc4754c9d78252a, type: 3}
-  nuerotoxinSprite: {fileID: 21300000, guid: 766de1b52d06e6347982dd67ab5fb07c, type: 3}
-  poisonImg: {fileID: 263388209}
-  sanctImage: {fileID: 1562249632}
-  silenceImage: {fileID: 51377208}
   cloakIndex: []
   sacrificeCount: 0
 --- !u!4 &734589351
@@ -28509,16 +28491,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   validTargetGlow: {fileID: 1212562476}
-  poisonSprite: {fileID: 0}
-  puritySprite: {fileID: 0}
-  nuerotoxinSprite: {fileID: 0}
-  poisonImg: {fileID: 0}
-  sanctImage: {fileID: 0}
-  silenceImage: {fileID: 0}
-  poisonLabel: {fileID: 0}
-  boneShieldLabel: {fileID: 0}
-  purityLabel: {fileID: 0}
-  cloakVisual: {fileID: 0}
+  poisonSprite: {fileID: 21300000, guid: 8ab5b7e76d8944a4eb6f40f93bff8b79, type: 3}
+  puritySprite: {fileID: 21300000, guid: 5435329ed2059494bbc4754c9d78252a, type: 3}
+  nuerotoxinSprite: {fileID: 21300000, guid: 766de1b52d06e6347982dd67ab5fb07c, type: 3}
+  poisonImg: {fileID: 572617492}
+  sanctImage: {fileID: 475783822}
+  silenceImage: {fileID: 1109701394}
+  poisonLabel: {fileID: 2122241473}
+  boneShieldLabel: {fileID: 1872108000}
+  purityLabel: {fileID: 1176795786}
+  cloakVisual: {fileID: 1893749477}
 --- !u!114 &1212562476
 MonoBehaviour:
   m_ObjectHideFlags: 0
