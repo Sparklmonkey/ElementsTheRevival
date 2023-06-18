@@ -48,39 +48,39 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            isFingerOnScreen = false;
-            //Set up the new Pointer Event
-            m_PointerEventData = new PointerEventData(m_EventSystem);
-            //Set the Pointer Event Position to that of the mouse position
-            m_PointerEventData.position = Input.mousePosition;
+            //isFingerOnScreen = false;
+            ////Set up the new Pointer Event
+            //m_PointerEventData = new PointerEventData(m_EventSystem);
+            ////Set the Pointer Event Position to that of the mouse position
+            //m_PointerEventData.position = Input.mousePosition;
 
-            //Create a list of Raycast Results
-            List<RaycastResult> results = new List<RaycastResult>();
+            ////Create a list of Raycast Results
+            //List<RaycastResult> results = new List<RaycastResult>();
 
-            //Raycast using the Graphics Raycaster and mouse click position
-            m_Raycaster.Raycast(m_PointerEventData, results);
-            //Check if anything was hit by raycast
-            if (results.Count < 1)
-            {
-                GameObject gObject = GameObject.Find("CardDetailView");
-                if (gObject != null)
-                {
-                    gObject.GetComponent<CardDetailView>().CancelButtonAction();
-                }
-                return;
-            }
-            //Check if fieldObject was hit
-            var cardPairObject = GetIDCardPair(results);
-            if (cardPairObject == null)
-            {
-                return;
-            }
-            if (BattleVars.shared.isSelectingTarget && DuelManager.GetAllValidTargets().Contains(cardPairObject))
-            {
-                DuelManager.Instance.player.ActivateAbility(cardPairObject);
-                return;
-            }
-            DuelManager.Instance.player.StartCoroutine(DuelManager.Instance.player.ManageID(cardPairObject));
+            ////Raycast using the Graphics Raycaster and mouse click position
+            //m_Raycaster.Raycast(m_PointerEventData, results);
+            ////Check if anything was hit by raycast
+            //if (results.Count < 1)
+            //{
+            //    GameObject gObject = GameObject.Find("CardDetailView");
+            //    if (gObject != null)
+            //    {
+            //        gObject.GetComponent<CardDetailView>().CancelButtonAction();
+            //    }
+            //    return;
+            //}
+            ////Check if fieldObject was hit
+            //var cardPairObject = GetIDCardPair(results);
+            //if (cardPairObject == null)
+            //{
+            //    return;
+            //}
+            //if (BattleVars.shared.isSelectingTarget && DuelManager.GetAllValidTargets().Contains(cardPairObject))
+            //{
+            //    DuelManager.Instance.player.ActivateAbility(cardPairObject);
+            //    return;
+            //}
+            //DuelManager.Instance.player.StartCoroutine(DuelManager.Instance.player.ManageID(cardPairObject));
         }
     }
 

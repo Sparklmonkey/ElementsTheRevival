@@ -730,7 +730,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8d19109f9925b94438d70433b1709416, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b5ee5a84a1822b45bded4e05e36cc5a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -880,7 +880,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -912,7 +912,7 @@ MonoBehaviour:
   underlayBlack: {fileID: 11400000, guid: 86be48c1a30ff45e6bf0c3ae08e88f66, type: 2}
   underlayWhite: {fileID: 11400000, guid: 1ce48439ddc6c4d7d8b7889a4d76de20, type: 2}
   validTargetGlow: {fileID: 5151530501625640736}
-  isUsableGlow: {fileID: 0}
+  isUsableGlow: {fileID: 5151530501625640736}
   isPassive: 0
   belongsToPlayer: 1
   cardBackground: {fileID: 5151530500196828890}
@@ -966,3 +966,4 @@ MonoBehaviour:
     innate: []
     desc: 
   stackCount: 0
+  isPlayer: 0

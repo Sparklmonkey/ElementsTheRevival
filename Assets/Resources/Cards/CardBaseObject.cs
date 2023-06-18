@@ -67,12 +67,6 @@ public class Card
         Charge = newBase.Charge;
         Freeze = newBase.Freeze;
     }
-
-
-    public bool IsTargetable()
-    {
-        return !innate.Contains("immaterial") && !passive.Contains("burrow");
-    }
 }
 
 [Serializable]

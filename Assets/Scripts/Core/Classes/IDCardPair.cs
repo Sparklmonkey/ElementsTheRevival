@@ -18,6 +18,9 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public event Action<IDCardPair> OnClickObject;
     public event Action<int> OnCreatureAttack;
 
+    public event Action<bool> OnBeingTargeted;
+    public event Action<bool> OnBeingPlayable;
+
     void Start()
     {
         var parentName = transform.parent.gameObject.name;
@@ -46,6 +49,8 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             var cardDisplayer = GetComponent<CardDisplayer>();
             OnCardChanged += cardDisplayer.DisplayCard;
             OnCardRemoved += cardDisplayer.HideCard;
+            OnBeingTargeted += cardDisplayer.ShouldShowTarget;
+            OnBeingPlayable += cardDisplayer.ShouldShowUsableGlow;
         }
 
         OnClickObject += DuelManager.Instance.IdCardTapped;
@@ -54,6 +59,16 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         {
             transform.parent.gameObject.SetActive(false);
         }
+    }
+
+    public bool IsTargetable()
+    {
+        var isCardTargetable = HasCard() ? !card.innate.Contains("immaterial") && !card.passive.Contains("burrow") : false;
+        if (id.Field == FieldEnum.Player)
+        {
+            isCardTargetable = true;
+        }
+        return isCardTargetable;
     }
 
     public IDCardPair(ID id, Card card)
@@ -155,6 +170,15 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         }
     }
 
+    public void IsTargeted(bool shouldShowTarget)
+    {
+        OnBeingTargeted?.Invoke(shouldShowTarget);
+    }
+
+    public void IsPlayable(bool shouldShowGlow)
+    {
+        OnBeingPlayable?.Invoke(shouldShowGlow);
+    }
     //Creature Attack Event
     public void CreatureAttackEvent(PlayerManager owner, PlayerManager opponent)
     {

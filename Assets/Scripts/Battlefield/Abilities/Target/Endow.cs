@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 public class Endow : AbilityEffect
@@ -28,7 +28,7 @@ public class Endow : AbilityEffect
             possibleTargets.Add(Owner.playerPassiveManager.GetWeapon());
         }
 
-        return possibleTargets.FindAll(x => x.card.IsTargetable() && CardDatabase.Instance.weaponIdList.Contains(x.card.iD));
+        return possibleTargets.FindAll(x => x.IsTargetable() && CardDatabase.Instance.weaponIdList.Contains(x.card.iD));
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

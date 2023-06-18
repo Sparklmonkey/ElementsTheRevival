@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Butterfly : AbilityEffect
@@ -20,7 +20,7 @@ public class Butterfly : AbilityEffect
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
 
-        return possibleTargets.FindAll(x => x.card.IsTargetable() && x.card.AtkNow < 4);
+        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.AtkNow < 4);
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

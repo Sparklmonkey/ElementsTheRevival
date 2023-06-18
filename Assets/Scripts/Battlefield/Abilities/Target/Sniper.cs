@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 public class Sniper : AbilityEffect
@@ -16,7 +16,7 @@ public class Sniper : AbilityEffect
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
 
-        return possibleTargets.FindAll(x => x.card.IsTargetable() && x.card.AtkNow > x.card.DefNow);
+        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.AtkNow > x.card.DefNow);
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

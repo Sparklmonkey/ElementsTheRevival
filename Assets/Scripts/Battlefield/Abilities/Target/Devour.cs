@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 public class Devour : AbilityEffect
@@ -22,7 +22,7 @@ public class Devour : AbilityEffect
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
         
-        return possibleTargets.FindAll(x => x.card.IsTargetable() && x.card.DefNow < BattleVars.shared.abilityOrigin.card.DefNow);
+        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.DefNow < BattleVars.shared.abilityOrigin.card.DefNow);
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

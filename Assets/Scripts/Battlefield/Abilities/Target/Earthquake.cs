@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Earthquake : AbilityEffect
@@ -16,7 +16,7 @@ public class Earthquake : AbilityEffect
     {
         var possibleTargets = Owner.playerPermanentManager.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerPermanentManager.GetAllValidCardIds());
-        return possibleTargets.FindAll(x => x.card.IsTargetable());
+        return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

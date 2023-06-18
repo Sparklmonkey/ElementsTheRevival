@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Purify : AbilityEffect
@@ -27,7 +27,7 @@ public class Purify : AbilityEffect
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
         possibleTargets.Add(enemy.playerID);
         possibleTargets.Add(Owner.playerID);
-        return possibleTargets.FindAll(x => x.card.IsTargetable());
+        return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

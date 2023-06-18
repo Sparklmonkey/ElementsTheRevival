@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8d19109f9925b94438d70433b1709416, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b5ee5a84a1822b45bded4e05e36cc5a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -861,7 +861,7 @@ MonoBehaviour:
   underlayBlack: {fileID: 11400000, guid: 86be48c1a30ff45e6bf0c3ae08e88f66, type: 2}
   underlayWhite: {fileID: 11400000, guid: 1ce48439ddc6c4d7d8b7889a4d76de20, type: 2}
   validTargetGlow: {fileID: 409038580}
-  isUsableGlow: {fileID: 0}
+  isUsableGlow: {fileID: 409038580}
   isPassive: 0
   belongsToPlayer: 1
   cardBackground: {fileID: 1330618126}
@@ -915,6 +915,7 @@ MonoBehaviour:
     innate: []
     desc: 
   stackCount: 0
+  isPlayer: 0
 --- !u!1 &8593953223851913300
 GameObject:
   m_ObjectHideFlags: 0

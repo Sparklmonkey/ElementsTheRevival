@@ -208,7 +208,7 @@ public class DuelManager : MonoBehaviour
         {
             yield return player.StartCoroutine(player.GeneratePillarQuantaLogic());
 
-            yield return player.StartCoroutine(player.UpdateCounterAndEffects());
+            player.UpdateCounterAndEffects();
             if (GameOverVisual.isGameOver) { yield break; }
             opponentCardsTurn = 0;
             Instance.enemy.StartCoroutine(botContoller.StartTurn());
@@ -217,7 +217,7 @@ public class DuelManager : MonoBehaviour
         else
         {
             yield return enemy.StartCoroutine(enemy.GeneratePillarQuantaLogic());
-            yield return enemy.StartCoroutine(enemy.UpdateCounterAndEffects());
+            enemy.UpdateCounterAndEffects();
             if (GameOverVisual.isGameOver) { yield break; }
             playerCardsTurn = 0;
             player.StartTurn();
@@ -232,12 +232,7 @@ public class DuelManager : MonoBehaviour
         targetingObject.SetActive(false);
         foreach (IDCardPair item in validTargets)
         {
-            if (item.id.Owner.Equals(OwnerEnum.Player))
-            {
-                Instance.player.ShouldDisplayTarget(item.id, false);
-                continue;
-            }
-            Instance.enemy.ShouldDisplayTarget(item.id, false);
+            item.IsTargeted(false);
         }
         Instance.enemy.playerDisplayer.ShouldShowTarget(false);
         Instance.player.playerDisplayer.ShouldShowTarget(false);
@@ -346,7 +341,20 @@ public class DuelManager : MonoBehaviour
     public void IdCardTapped(IDCardPair idCard)
     {
         if (!BattleVars.shared.isPlayerTurn) { return; }
+
+        if(validTargets.Count > 0)
+        {
+            if (BattleVars.shared.isSelectingTarget && validTargets.Contains(idCard))
+            {
+                player.ActivateAbility(idCard);
+            }
+        }
+
         if (!idCard.HasCard()) { return; }
+
+
+
+
 
         if (idCard.id.Owner.Equals(OwnerEnum.Opponent))
         {

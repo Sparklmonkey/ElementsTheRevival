@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Immolate : AbilityEffect
@@ -20,7 +20,7 @@ public class Immolate : AbilityEffect
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
 
-        return possibleTargets.FindAll(x => x.card.IsTargetable());
+        return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

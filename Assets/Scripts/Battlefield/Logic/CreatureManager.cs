@@ -12,16 +12,15 @@ public class CreatureManager : FieldManager
 
     public List<ID> GetCreaturesWithGravity()
     {
-        List<ID> cards = GetAllIds();
+        var idCardList = GetAllValidCardIds();
         List<ID> listToReturn = new ();
-        if (cards.Count > 0)
+        if (idCardList.Count > 0)
         {
-            foreach (ID iD in cards)
+            foreach (var idCard in idCardList)
             {
-                Card creature = pairList[iD.Index].card;
-                if (creature.passive.Contains("gravity pull"))
+                if (idCard.card.passive.Contains("gravity pull"))
                 {
-                    listToReturn.Add(iD);
+                    listToReturn.Add(idCard.id);
                 }
             }
         }

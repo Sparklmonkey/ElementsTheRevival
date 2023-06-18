@@ -24,14 +24,12 @@ public class SkillManager
 
     public bool ShouldAskForTarget(IDCardPair idCard)
     {
-        Debug.Log(idCard.card.cardName);
         var ability = idCard.card.skill.GetSkillScript<AbilityEffect>();
         return ability.NeedsTarget();
     }
 
     public void SkillRoutineNoTarget(PlayerManager owner, IDCardPair idCard)
     {
-        Debug.Log(idCard.card.cardName);
         var ability = idCard.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
         ability.Activate(idCard);
@@ -39,7 +37,6 @@ public class SkillManager
 
     public void SetupTargetHighlights(PlayerManager owner, IDCardPair card)
     {
-        Debug.Log(card.card.cardName);
         var ability = card.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
         var enemy = DuelManager.GetNotIDOwner(owner.playerID.id);
@@ -48,7 +45,6 @@ public class SkillManager
 
     public void SkillRoutineWithTarget(PlayerManager owner, IDCardPair iDCard)
     {
-        Debug.Log(iDCard.card.cardName);
         var ability = BattleVars.shared.abilityOrigin.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
 
@@ -57,7 +53,6 @@ public class SkillManager
 
     public IDCardPair GetRandomTarget(PlayerManager owner, IDCardPair iDCard)
     {
-        Debug.Log(iDCard.card.cardName);
         var ability = iDCard.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
 

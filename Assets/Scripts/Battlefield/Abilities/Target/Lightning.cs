@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -25,7 +25,7 @@ public class Lightning : AbilityEffect
         possibleTargets.Add(enemy.playerID);
         possibleTargets.Add(Owner.playerID);
 
-        return possibleTargets.FindAll(x => x.card.IsTargetable() && x.card.AtkNow > x.card.DefNow);
+        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.AtkNow > x.card.DefNow);
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

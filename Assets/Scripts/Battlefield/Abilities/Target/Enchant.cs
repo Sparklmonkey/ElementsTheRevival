@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -33,7 +33,7 @@ public class Enchant : AbilityEffect
             possibleTargets.Add(Owner.playerPassiveManager.GetShield());
         }
 
-        return possibleTargets.FindAll(x => x.card.IsTargetable());
+        return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

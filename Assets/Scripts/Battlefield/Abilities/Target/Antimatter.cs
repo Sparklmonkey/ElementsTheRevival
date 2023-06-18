@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Antimatter : AbilityEffect
@@ -15,7 +15,7 @@ public class Antimatter : AbilityEffect
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        return possibleTargets.FindAll(x => x.card.IsTargetable());
+        return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

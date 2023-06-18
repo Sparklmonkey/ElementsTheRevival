@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Steal : AbilityEffect
@@ -18,7 +18,7 @@ public class Steal : AbilityEffect
         var possibleTargets = enemy.playerPermanentManager.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerPassiveManager.GetAllValidCardIds());
 
-        return possibleTargets.FindAll(x => x.card.IsTargetable());
+        return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

@@ -9,7 +9,6 @@ public abstract class CardDisplayer : MonoBehaviour
     private List<Image> imageList = new ();
     private List<TextMeshProUGUI> textList;
     private List<string> backupText = new ();
-    private Image parentImageRayCast;
     [SerializeField]
     private Material dissolveMaterial;
     public TMP_FontAsset underlayBlack, underlayWhite;
@@ -22,8 +21,6 @@ public abstract class CardDisplayer : MonoBehaviour
     private Card card;
     private void Awake()
     {
-        parentImageRayCast = transform.parent.GetComponent<Image>();
-        parentImageRayCast.raycastTarget = true;
         textList = new List<TextMeshProUGUI>(GetComponentsInChildren<TextMeshProUGUI>());
         List<Image> dirtyImageList = new List<Image>(GetComponentsInChildren<Image>());
         foreach (Image item in dirtyImageList)
@@ -62,14 +59,12 @@ public abstract class CardDisplayer : MonoBehaviour
 
     public void ClearDisplay()
     {
-        SetRayCastTarget(false);
-        parentImageRayCast.gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);
         backupText = new List<string>();
     }
 
     public void SetRayCastTarget(bool target)
     {
-        parentImageRayCast.raycastTarget = target;
     }
 
     public void PlayDissolveAnimation()

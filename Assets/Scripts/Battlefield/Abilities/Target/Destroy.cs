@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Destroy : AbilityEffect
@@ -31,7 +31,7 @@ public class Destroy : AbilityEffect
             possibleTargets.Add(Owner.playerPassiveManager.GetShield());
         }
 
-        return possibleTargets.FindAll(x => x.card.IsTargetable());
+        return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

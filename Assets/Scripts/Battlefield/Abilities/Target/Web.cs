@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Web : AbilityEffect
@@ -18,7 +18,7 @@ public class Web : AbilityEffect
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
 
-        return possibleTargets.FindAll(x => x.card.IsTargetable() && x.card.innate.Contains("airborne"));
+        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.innate.Contains("airborne"));
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
