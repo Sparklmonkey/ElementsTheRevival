@@ -86,7 +86,7 @@ public class PlayerManager : MonoBehaviour
     private GameObject cloakVisual;
     [SerializeField]
     private Transform permParent;
-    private int scarabsPlayed = 0;
+    public int scarabsPlayed = 0;
 
     public int GetPossibleDamage()
     {

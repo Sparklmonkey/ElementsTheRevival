@@ -281,12 +281,12 @@ public class DuelManager : MonoBehaviour
         Instance.enemy.DisplayHand();
     }
 
-    public static List<List<int>> AdrenalineDamageList = new List<List<int>> { new List<int> { 1, 1, 1, 1 }
+    public static List<List<int>> AdrenalineDamageList = new()              { new List<int> { 1, 1, 1, 1 }
                                                                             , new List<int> { 2, 2, 2, 2 }
                                                                             , new List<int> { 3, 3, 3, 3 }
                                                                             , new List<int> { 4, 3, 2 }
                                                                             , new List<int> { 5, 4, 2}
-                                                                            , new List<int> {6, 4, 2 }
+                                                                            , new List<int> { 6, 4, 2 }
                                                                             , new List<int> { 7, 5, 3 }
                                                                             , new List<int> { 8, 6, 3 }
                                                                             , new List<int> { 9, 3}
