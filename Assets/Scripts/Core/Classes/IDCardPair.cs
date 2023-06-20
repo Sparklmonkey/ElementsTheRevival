@@ -150,30 +150,6 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         return id.Field.Equals(FieldEnum.Hand);
     }
 
-    //Generate Quanta Event
-    public void GeneratePillarQuanta(QuantaManager quantaManager)
-    {
-        if (card.cardName.Contains("Pendulum"))
-        {
-            quantaManager.ChangeQuanta(card.skillElement, card.costElement == Element.Other ? 3 : 1, true);
-            StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", transform, card.costElement));
-
-            card.skillElement = card.skillElement == card.costElement ? DuelManager.GetIDOwner(id).playerPassiveManager.GetMark().card.costElement : card.costElement;
-        }
-        else
-        {
-            if (card.cardType == CardType.Mark && id.Owner == OwnerEnum.Opponent)
-            {
-                quantaManager.ChangeQuanta(card.costElement, BattleVars.shared.enemyAiData.maxHP >= 150 ? 3 : 1, true);
-            }
-            else
-            {
-                quantaManager.ChangeQuanta(card.costElement, card.costElement == Element.Other ? 3 : 1, true);
-                StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", transform, card.costElement));
-            }
-        }
-    }
-
     public void IsTargeted(bool shouldShowTarget)
     {
         OnBeingTargeted?.Invoke(shouldShowTarget);

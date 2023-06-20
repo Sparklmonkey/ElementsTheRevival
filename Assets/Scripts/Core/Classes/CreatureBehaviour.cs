@@ -216,7 +216,7 @@ public class CreatureBehaviour : CardTypeBehaviour
 
             if (CardPair.card.passive.Contains("swarm"))
             {
-                CardPair.card.DefModify += Owner.scarabsPlayed;
+                CardPair.card.def = Owner.scarabsPlayed;
             }
         }
     }

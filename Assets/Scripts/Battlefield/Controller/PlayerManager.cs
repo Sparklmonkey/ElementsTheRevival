@@ -1032,21 +1032,19 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void ActivateCloakEffect(ID location)
+    public void ActivateCloakEffect(IDCardPair cardPair)
     {
         if (isPlayer) { return; }
-        cloakVisual.SetActive(true);
-        //Transform cloakPerm = Battlefield_ObjectIDManager.shared.GetObjectFromID(location);
-        //cloakPerm.parent.transform.parent = cloakVisual.transform;
+        cloakVisual.SetActive(true);;
+        cardPair.transform.parent.transform.parent = cloakVisual.transform;
 
     }
-    private void DeactivateCloakEffect(ID location)
+    public void DeactivateCloakEffect(IDCardPair cardPair)
     {
         if (isPlayer) { return; }
         cloakVisual.SetActive(false);
-        //Transform cloakPerm = Battlefield_ObjectIDManager.shared.GetObjectFromID(location);
-        //cloakPerm.parent.transform.parent = permParent.transform;
-        //cloakPerm.SetSiblingIndex(location.Index);
+        cardPair.transform.parent.transform.parent = permParent.transform;
+        cardPair.transform.SetSiblingIndex(cardPair.id.Index);
 
 
     }
@@ -1095,7 +1093,7 @@ public class PlayerManager : MonoBehaviour
                 case "cloak":
                     playerCounters.invisibility = 3;
                     card.TurnsInPlay = 3;
-                    ActivateCloakEffect(location);
+                    //ActivateCloakEffect(location);
                     break;
                 case "flood":
                     DuelManager.Instance.AddFloodCount(1);
@@ -1149,7 +1147,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (playerPermanentManager.GetAllCards().FindAll(x => x.skill == "cloak").Count == 1)
             {
-                DeactivateCloakEffect(location);
+                //DeactivateCloakEffect(location);
                 playerCounters.invisibility = 0;
             }
         }
@@ -2086,5 +2084,6 @@ public enum PlayerCounters
     Scarab,
     Silence,
     Sacrifice,
-    Purify
+    Purify,
+    Delay
 }
