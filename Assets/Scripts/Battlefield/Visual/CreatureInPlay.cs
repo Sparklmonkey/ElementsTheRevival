@@ -17,12 +17,6 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private GameObject upMovingText, activeAHolder;
 
-        public void SetupDisplayer(OwnerEnum owner, FieldEnum field)
-        {
-            int index = int.Parse(transform.parent.gameObject.name.Replace("Creature_", ""));
-            //PlayDissolveAnimation();
-        }
-
         public override void DisplayCard(Card cardToDisplay, int stackAmount)
         {
             transform.parent.gameObject.SetActive(true);

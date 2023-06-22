@@ -31,11 +31,11 @@ public class BaseAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         if (!idCardList.Exists(x => x.card.cardType.Equals(cardType))) { yield break; }
         int cardIndex = idCardList.FindIndex(x => x.card.cardType.Equals(cardType) && aiManager.IsCardPlayable(x.card));
         if (cardIndex == -1) { yield break; }
-        int loopBreak = 0;
-        while (cardIndex != -1 && loopBreak < 7)
+
+        for (int i = 0; i < 7; i++)
         {
-            loopBreak++;
-            aiManager.PlayCardFromHandLogic(idCardList[cardIndex].id);
+            if (cardIndex == -1) { yield break; }
+            aiManager.PlayCardFromHandLogic(idCardList[cardIndex]);
 
             idCardList = aiManager.playerHand.GetAllValidCardIds();
             cardIndex = idCardList.FindIndex(x => x.card.cardType.Equals(cardType) && aiManager.IsCardPlayable(x.card));

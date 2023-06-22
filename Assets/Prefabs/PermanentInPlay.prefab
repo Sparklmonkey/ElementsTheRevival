@@ -1213,6 +1213,7 @@ GameObject:
   - component: {fileID: 8940418288786595351}
   - component: {fileID: 8940418289196240590}
   - component: {fileID: 9125514606738384533}
+  - component: {fileID: 5462458327069715281}
   m_Layer: 5
   m_Name: PermanentInPlay
   m_TagString: Untagged
@@ -1297,9 +1298,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb2f70fc13654591a56499f6c557ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 2100000, guid: 5dc37807cf2c14e5983476cc99ad808d, type: 2}
   underlayBlack: {fileID: 11400000, guid: 86be48c1a30ff45e6bf0c3ae08e88f66, type: 2}
   underlayWhite: {fileID: 11400000, guid: 1ce48439ddc6c4d7d8b7889a4d76de20, type: 2}
-  dissolveMaterial: {fileID: 2100000, guid: 5dc37807cf2c14e5983476cc99ad808d, type: 2}
   validTargetGlow: {fileID: 544683944868468723}
   isUsableGlow: {fileID: 20860943634424787}
   isPassive: 0
@@ -1355,3 +1356,18 @@ MonoBehaviour:
     innate: []
     desc: 
   stackCount: 0
+  isPlayer: 0
+  cardBehaviour: {fileID: 0}
+--- !u!114 &5462458327069715281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8940418288786595355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e403e7ad1945c43ffb840c498d9d6816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class CardTypeBehaviour : MonoBehaviour
 {
-    public IDCardPair CardPair { get; set; }
+    public IDCardPair CardPair;
     public PlayerManager Owner { get; set; }
     public PlayerManager Enemy { get; set; }
     public abstract void OnTurnEnd();

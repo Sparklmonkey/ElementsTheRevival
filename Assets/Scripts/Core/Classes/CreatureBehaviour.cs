@@ -41,7 +41,7 @@ public class CreatureBehaviour : CardTypeBehaviour
         {
             Owner.AddPlayerCounter(PlayerCounters.Scarab, -1);
         }
-        if (!CardPair.card.cardName.Contains("Skeletib"))
+        if (!CardPair.card.cardName.Contains("Skeleton"))
         {
             DuelManager.Instance.ActivateDeathTriggers();
         }
@@ -94,11 +94,13 @@ public class CreatureBehaviour : CardTypeBehaviour
 
         while (isFirstAttack || hasAdrenaline)
         {
+            isFirstAttack = false;
             if (!shouldSkip)
             {
-                bool isFreedomEffect = UnityEngine.Random.Range(0, 100) < (25 * Owner.playerCounters.freedom) && CardPair.card.costElement.Equals(Element.Air);
+                bool isFreedomEffect = Random.Range(0, 100) < (25 * Owner.playerCounters.freedom) && CardPair.card.costElement.Equals(Element.Air);
+                atkNow = Mathf.FloorToInt(isFreedomEffect ? atkNow * 1.5f : atkNow);
                 Game_SoundManager.shared.PlayAudioClip("CreatureDamage");
-                Enemy.ManageGravityCreatures(out atkNow, out CardPair.card);
+                Enemy.ManageGravityCreatures(ref atkNow, ref CardPair);
                 if (CardPair.card.DefNow <= 0)
                 {
                     CardPair.RemoveCard();
@@ -107,7 +109,7 @@ public class CreatureBehaviour : CardTypeBehaviour
 
                 if (!CardPair.card.passive.Contains("momentum"))
                 {
-                    Enemy.ManageShield(out atkNow, out CardPair.card);
+                    Enemy.ManageShield(ref atkNow, ref CardPair);
                     if (CardPair.card.DefNow <= 0)
                     {
                         CardPair.RemoveCard();
@@ -136,15 +138,13 @@ public class CreatureBehaviour : CardTypeBehaviour
                     {
                         Owner.ModifyHealthLogic(atkNow, false, false);
                     }
-                    //OnCreatureAttack?.Invoke(isFreedomEffect ? Mathf.FloorToInt(atkNow * 1.5f) : atkNow);
-                    //opponent.ReceivePhysicalDamage(isFreedomEffect ? Mathf.FloorToInt(atkNow * 1.5f) : atkNow);
+                    Enemy.ModifyHealthLogic(atkNow, true, CardPair.card.IsPsion);
                 }
 
                 EndTurnPassiveEffect();
                 SingularityEffect();
                 CreatureTurnDownTick();
                 CardPair.UpdateCard();
-                isFirstAttack = false;
                 if (CardPair.card.AtkNow != 0 && hasAdrenaline)
                 {
                     adrenalineIndex++;

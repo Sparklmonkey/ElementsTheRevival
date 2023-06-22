@@ -2126,6 +2126,7 @@ GameObject:
   - component: {fileID: 3956216911054945801}
   - component: {fileID: 7601633764612984119}
   - component: {fileID: 8087429309753568943}
+  - component: {fileID: 2569411950971224121}
   m_Layer: 5
   m_Name: CreatureInPlay
   m_TagString: Untagged
@@ -2259,6 +2260,8 @@ MonoBehaviour:
     innate: []
     desc: 
   stackCount: 0
+  isPlayer: 0
+  cardBehaviour: {fileID: 0}
 --- !u!114 &8087429309753568943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2281,6 +2284,19 @@ MonoBehaviour:
   _burrowedImage: {fileID: 850594015567421709}
   _adrenalineImage: {fileID: 1845372820732235828}
   _poisonCount: {fileID: 9111490351696776211}
+--- !u!114 &2569411950971224121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942002425704931839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae4267b5c4194072a59fce18bdd0b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 7601633764612984119}
 --- !u!1 &9018145228301333319
 GameObject:
   m_ObjectHideFlags: 0

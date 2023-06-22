@@ -16,13 +16,7 @@ namespace Elements.Duel.Visual
         private TextMeshProUGUI activeAName, activeACost;
         [SerializeField]
         private GameObject upMovingText, activeAHolder, immaterialIndicator;
-        // Start is called before the first frame update
-        public void SetupDisplayer(OwnerEnum owner, FieldEnum field)
-        {
-            int index = int.Parse(transform.parent.gameObject.name.Replace("Passive_", ""));
-            //SetID(owner, field, index - 1, transform);
-            isPassive = field.Equals(FieldEnum.Passive);
-        }
+        
         public override void DisplayCard(Card cardToDisplay, int stack = 0)
         {
             transform.parent.gameObject.SetActive(true);

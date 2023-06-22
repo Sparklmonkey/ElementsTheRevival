@@ -16,12 +16,6 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private GameObject activeAHolder, immaterialIndicator;
 
-        public void SetupDisplayer(OwnerEnum owner, FieldEnum field)
-        {
-            int index = int.Parse(transform.parent.gameObject.name.Replace("Permanent_", ""));
-            //SetID(owner, field, index - 1, transform);
-        }
-
         public override void HideCard(Card cardToDisplay, int stackCountValue) => ManagePermanent(cardToDisplay, stackCountValue);
 
         public override void DisplayCard(Card cardToDisplay, int stackCountValue) => ManagePermanent(cardToDisplay, stackCountValue);
@@ -30,62 +24,54 @@ namespace Elements.Duel.Visual
         {
             if (stackCountValue == 0)
             {
-                ClearDisplay();
+                PlayDissolveAnimation();
                 return;
             }
 
             stackCount.text = stackCountValue > 1 ? $"{stackCountValue} X" : "";
             transform.parent.gameObject.SetActive(true);
             immaterialIndicator.SetActive(cardToDisplay.innate.Contains("immaterial"));
-                bool isPlayer = true;// GetObjectID().Owner.Equals(OwnerEnum.Player);
-                if (cardToDisplay.cardName.Contains("Pendulum"))
+            bool isPlayer = true;// GetObjectID().Owner.Equals(OwnerEnum.Player);
+            if (cardToDisplay.cardName.Contains("Pendulum"))
+            {
+                Element pendulumElement = cardToDisplay.costElement;
+                Element markElement = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
+                if (cardToDisplay.costElement == cardToDisplay.skillElement)
                 {
-                    Element pendulumElement = cardToDisplay.costElement;
-                    Element markElement = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
-                    if (cardToDisplay.costElement == cardToDisplay.skillElement)
-                    {
-                        cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
-                    }
-                    else
-                    {
-                        cardImage.sprite = ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
-                    }
+                    cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
                 }
                 else
                 {
-                    cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
+                    cardImage.sprite = ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
                 }
-                stackCount.text = stackCountValue.ToString();
-                PlayMaterializeAnimation(cardToDisplay.costElement);
+            }
+            else
+            {
+                cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
+            }
+            stackCount.text = stackCountValue.ToString();
+            PlayMaterializeAnimation(cardToDisplay.costElement);
+            activeAHolder.SetActive(false);
+            if (cardToDisplay.skill != "")
+            {
+                activeAHolder.SetActive(true);
+                activeAName.text = cardToDisplay.skill;
+                if (cardToDisplay.skillCost > 0)
+                {
+                    activeACost.text = cardToDisplay.skillCost.ToString();
+                    activeAElement.sprite = ImageHelper.GetElementImage(cardToDisplay.skillElement.FastElementString());
+                }
+                else
+                {
+                    activeACost.text = "";
+                    activeAElement.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue);
+                }
+            }
+            else
+            {
                 activeAHolder.SetActive(false);
-                if (cardToDisplay.skill != "")
-                {
-                    activeAHolder.SetActive(true);
-                    activeAName.text = cardToDisplay.skill;
-                    if (cardToDisplay.skillCost > 0)
-                    {
-                        activeACost.text = cardToDisplay.skillCost.ToString();
-                        activeAElement.sprite = ImageHelper.GetElementImage(cardToDisplay.skillElement.FastElementString());
-                    }
-                    else
-                    {
-                        activeACost.text = "";
-                        activeAElement.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue);
-                    }
-                }
-                else
-                {
-                    activeAHolder.SetActive(false);
-                }
-                return;
-            
-            //SetCard(cardToDisplay);
-        }
-
-        public void ClearPassive()
-        {
-            ClearDisplay();
-            //gameObject.SetActive(false);
+            }
+            return;
         }
     }
 }

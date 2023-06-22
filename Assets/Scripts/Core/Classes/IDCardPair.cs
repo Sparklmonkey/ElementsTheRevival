@@ -12,6 +12,10 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public Card card;
     public int stackCount;
     public bool isPlayer;
+    public CardTypeBehaviour cardBehaviour;
+
+
+
     public event Action<Card, int> OnCardChanged;
     public event Action<Card, int> OnCardRemoved;
 
@@ -27,6 +31,10 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     void Start()
     {
+        cardBehaviour = GetComponent<CardTypeBehaviour>();
+        cardBehaviour.CardPair = this;
+        cardBehaviour.Owner = isPlayer ? DuelManager.Instance.player : DuelManager.Instance.enemy;
+        cardBehaviour.Enemy = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
         var parentName = transform.parent.gameObject.name;
 
         if (parentName != "EnemySide" && parentName != "PlayerSide")
@@ -92,6 +100,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         {
             stackCount = 1;
         }
+        cardBehaviour.OnCardPlay();
         OnCardChanged?.Invoke(card, stackCount);
     }
 
@@ -111,7 +120,13 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void RemoveCard()
     {
+        if(id.Field != FieldEnum.Hand)
+        {
+            StartCoroutine(Game_AnimationManager.shared.PlayAnimation("CardDeath", transform));
+            Game_SoundManager.shared.PlayAudioClip("RemoveCardFromField");
+        }
         stackCount--;
+        cardBehaviour.OnCardRemove();
         OnCardRemoved?.Invoke(card, stackCount);
         if (stackCount == 0)
         {

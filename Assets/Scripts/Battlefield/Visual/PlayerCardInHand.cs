@@ -13,14 +13,6 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private TextMeshProUGUI cardName, cardCost;
 
-        public void SetupDisplayer(OwnerEnum owner, FieldEnum field)
-        {
-            if (owner.Equals(OwnerEnum.Opponent))
-            {
-                Destroy(GetComponent<CardDetailToolTip>());
-            }
-        }
-
         public override void DisplayCard(Card cardToDisplay, int stack = 1)
         {
             transform.parent.gameObject.SetActive(true);

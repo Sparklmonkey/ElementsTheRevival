@@ -29,26 +29,20 @@ public class SpellAbilities
 
         if (cardIndex == -1) { yield break; }
 
-        int loopbreak = 0;
-        while (cardIndex != -1 && loopbreak < 7)
+        for (int i = 0; i < 7; i++)
         {
-            loopbreak++;
-            if (aiManager.playerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost))
-            {
-                BattleVars.shared.abilityOrigin = idCardList[cardIndex];
+            if (cardIndex == -1) { yield break; }
+            if (!aiManager.playerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost)) { yield break; }
 
-                var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
-                if (target == null) { continue; }
+            BattleVars.shared.abilityOrigin = idCardList[cardIndex];
 
-                aiManager.ActivateAbility(target);
+            var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
+            if (target == null) { yield break; }
 
-                idCardList = aiManager.playerHand.GetAllValidCardIds();
-                cardIndex = idCardList.FindIndex(x => x.card.iD == "5lf" || x.card.iD == "7jv");
-            }
-            else
-            {
-                yield break;
-            }
+            aiManager.ActivateAbility(target);
+
+            idCardList = aiManager.playerHand.GetAllValidCardIds();
+            cardIndex = idCardList.FindIndex(x => x.card.iD == "5lf" || x.card.iD == "7jv");
         }
     }
 
@@ -75,18 +69,17 @@ public class SpellAbilities
         if (idCardList.Count == 0) { yield break; }
 
         int cardIndex = idCardList.FindIndex(x => x.card.iD == "5rk" || x.card.iD == "7q4");
+
         if (cardIndex == -1) { yield break; }
 
-        int loopbreak = 0;
-        while (cardIndex != -1 && loopbreak < 7)
+        for (int i = 0; i < 7; i++)
         {
-            loopbreak++;
-            //Play Spell
-            if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { continue; }
+            if (cardIndex == -1) { yield break; }
+            if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { yield break; }
             BattleVars.shared.abilityOrigin = idCardList[cardIndex];
 
             var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
-            if(target == null) { continue; }
+            if (target == null) { continue; }
 
             aiManager.ActivateAbility(target);
             idCardList = aiManager.playerHand.GetAllValidCardIds();
@@ -105,11 +98,10 @@ public class SpellAbilities
 
         if (cardIndex == -1) { yield break; }
 
-        int loopbreak = 0;
-        while (cardIndex != -1 && loopbreak < 7)
+        for (int i = 0; i < 7; i++)
         {
-            loopbreak++;
-            if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { continue; }
+            if (cardIndex == -1) { yield break; }
+            if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { yield break; }
             BattleVars.shared.abilityOrigin = idCardList[cardIndex];
 
             var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
@@ -131,11 +123,10 @@ public class SpellAbilities
 
         if (cardIndex == -1) { yield break; }
 
-        int loopbreak = 0;
-        while (cardIndex != -1 && loopbreak < 7)
+        for (int i = 0; i < 7; i++)
         {
-            loopbreak++;
-            if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { continue; }
+            if (cardIndex == -1) { yield break; }
+            if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { yield break; }
             BattleVars.shared.abilityOrigin = idCardList[cardIndex];
 
             var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);

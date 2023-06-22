@@ -6,9 +6,8 @@ using UnityEngine.UI;
 
 public abstract class CardDisplayer : MonoBehaviour
 {
-    private List<Image> imageList = new ();
+    private List<Image> imageList;
     private List<TextMeshProUGUI> textList;
-    private List<string> backupText = new ();
     [SerializeField]
     private Material dissolveMaterial;
     public TMP_FontAsset underlayBlack, underlayWhite;
@@ -17,12 +16,11 @@ public abstract class CardDisplayer : MonoBehaviour
     [SerializeField]
     private Image isUsableGlow;
     private Element element;
-    public bool isPassive;
-    private Card card;
     private void Awake()
     {
-        textList = new List<TextMeshProUGUI>(GetComponentsInChildren<TextMeshProUGUI>());
-        List<Image> dirtyImageList = new List<Image>(GetComponentsInChildren<Image>());
+        imageList = new();
+        textList = new(GetComponentsInChildren<TextMeshProUGUI>());
+        List<Image> dirtyImageList = new(GetComponentsInChildren<Image>());
         foreach (Image item in dirtyImageList)
         {
             if (item.sprite != null)
@@ -49,58 +47,28 @@ public abstract class CardDisplayer : MonoBehaviour
         isUsableGlow.gameObject.SetActive(shouldShow);
     }
 
-    private void HideText()
+    private void ShouldShowText(bool shouldShow)
     {
         foreach (TextMeshProUGUI text in textList)
         {
-            text.text = "";
+            text.gameObject.SetActive(shouldShow);
         }
     }
 
     public void ClearDisplay()
     {
         transform.parent.gameObject.SetActive(false);
-        backupText = new List<string>();
-    }
-
-    public void SetRayCastTarget(bool target)
-    {
     }
 
     public void PlayDissolveAnimation()
     {
-        ClearDisplay();
-        //StartCoroutine(DissolveAnimation());
+        StartCoroutine(DissolveAnimation());
     }
 
     public void PlayMaterializeAnimation(Element element)
     {
-        //this.element = element;
-        //StartCoroutine(MaterializeAnimation());
-        SetRayCastTarget(true);
-    }
-
-    private void BackUpText()
-    {
-        foreach (TextMeshProUGUI tmText in textList)
-        {
-            backupText.Add(tmText.text);
-        }
-    }
-
-    private void ResetText()
-    {
-        if(textList.Count > 0 && backupText.Count > 0)
-        {
-            if(textList.Count == backupText.Count)
-            {
-                for (int i = 0; i < backupText.Count; i++)
-                {
-                    textList[i].text = backupText[i];
-                }
-            }
-        }
-        backupText.Clear();
+        this.element = element;
+        StartCoroutine(MaterializeAnimation());
     }
 
     private void SetDissolveMatState(DissolveState state, float valueToSet)
@@ -109,15 +77,6 @@ public abstract class CardDisplayer : MonoBehaviour
         {
             case DissolveState.Start:
                 BattleVars.shared.isAnimationPlaying = true;
-                foreach (TextMeshProUGUI text in textList)
-                {
-                    Material dissolveMat = new Material(dissolveMaterial);
-                    dissolveMat.SetTexture("_MainTex", text.mainTexture);
-                    text.material = dissolveMat;
-                    text.material.SetFloat("_Fade", valueToSet);
-                    text.material.SetFloat("_Scale", 100f);
-                }
-
                 foreach (Image image in imageList)
                 {
                     Material dissolveMat = new Material(dissolveMaterial);
@@ -129,11 +88,6 @@ public abstract class CardDisplayer : MonoBehaviour
                 }
                 return;
             case DissolveState.Middle:
-                foreach (TextMeshProUGUI text in textList)
-                {
-                    text.material.SetFloat("_Fade", valueToSet);
-                }
-
                 foreach (Image image in imageList)
                 {
                     image.material.SetFloat("_Fade", valueToSet);
@@ -145,11 +99,6 @@ public abstract class CardDisplayer : MonoBehaviour
                     image.material.SetFloat("_Fade", valueToSet);
                     image.material = null;
                 }
-                foreach (TextMeshProUGUI text in textList)
-                {
-                    text.material.SetFloat("_Fade", valueToSet);
-                    text.material = null;
-                }
                 BattleVars.shared.isAnimationPlaying = false;
                 return;
             default:
@@ -159,8 +108,7 @@ public abstract class CardDisplayer : MonoBehaviour
 
     private IEnumerator MaterializeAnimation()
     {
-        BackUpText();
-        HideText();
+        ShouldShowText(false);
 
         SetDissolveMatState(DissolveState.Start, 0f);
 
@@ -177,15 +125,13 @@ public abstract class CardDisplayer : MonoBehaviour
             }
         }
         SetDissolveMatState(DissolveState.End, 1f);
-        ResetText();
-        SetRayCastTarget(true);
+        ShouldShowText(true);
     }
 
 
     private IEnumerator DissolveAnimation()
     {
-        SetRayCastTarget(false);
-        HideText();
+        ShouldShowText(false);
 
         SetDissolveMatState(DissolveState.Start, 1f);
 
@@ -204,10 +150,7 @@ public abstract class CardDisplayer : MonoBehaviour
             }
         }
         SetDissolveMatState(DissolveState.End, 0f);
-        if (!isPassive)
-        {
-            ClearDisplay();
-        }
+        ClearDisplay();
     }
 
 

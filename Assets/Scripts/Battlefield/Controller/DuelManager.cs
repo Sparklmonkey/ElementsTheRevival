@@ -21,27 +21,12 @@ public class DuelManager : MonoBehaviour
     public static List<CardObject> opponentShuffledDeck;
     public static int opponentCardsTurn, playerCardsTurn;
 
-    private DeathTriggerHandler _deathTriggerHandler;
 
-    public void RegisterDeathTrigger(DeathTriggerHandler deathTrigger, bool isRegister)
+    public void ActivateDeathTriggers()
     {
-        if (isRegister)
-        {
-            _deathTriggerHandler += deathTrigger;
-        }
-        else
-        {
-            _deathTriggerHandler -= deathTrigger;
-        }
+        player.ActivateDeathTriggers();
+        enemy.ActivateDeathTriggers();
     }
-
-    public IEnumerator ActivateDeathTriggers()
-    {
-        yield return _deathTriggerHandler.Occured(this, new());
-    }
-
-
-
 
     public static void SetupHighlights(List<IDCardPair> targets)
     {
@@ -60,14 +45,8 @@ public class DuelManager : MonoBehaviour
     }
     public static bool IsSundialInPlay()
     {
-        foreach (Card card in Instance.player.playerPermanentManager.GetAllCards())
-        {
-            if (card.iD == "5rp" || card.iD == "7q9") { return true; }
-        }
-        foreach (Card card in Instance.enemy.playerPermanentManager.GetAllCards())
-        {
-            if (card.iD == "5rp" || card.iD == "7q9") { return true; }
-        }
+        if (Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5rp" || x.card.iD == "7q9").Count > 0) { return true; }
+        if (Instance.enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5rp" || x.card.iD == "7q9").Count > 0) { return true; }
         return false;
     }
     public static void SetOpponentDeck(List<CardObject> opponentShuffledDeck)
@@ -206,7 +185,7 @@ public class DuelManager : MonoBehaviour
 
         if (BattleVars.shared.isPlayerTurn)
         {
-            yield return player.StartCoroutine(player.GeneratePillarQuantaLogic());
+            player.EndTurnRoutine();
 
             player.UpdateCounterAndEffects();
             if (GameOverVisual.isGameOver) { yield break; }
@@ -216,7 +195,7 @@ public class DuelManager : MonoBehaviour
         }
         else
         {
-            yield return enemy.StartCoroutine(enemy.GeneratePillarQuantaLogic());
+            enemy.EndTurnRoutine();
             enemy.UpdateCounterAndEffects();
             if (GameOverVisual.isGameOver) { yield break; }
             playerCardsTurn = 0;
@@ -241,15 +220,6 @@ public class DuelManager : MonoBehaviour
         BattleVars.shared.isSelectingTarget = false;
     }
 
-    public static Card GetCard(ID iD)
-    {
-        if (iD.Owner.Equals(OwnerEnum.Player))
-        {
-            return Instance.player.GetCard(iD);
-        }
-        return Instance.enemy.GetCard(iD);
-    }
-
     public static int GetAllQuantaOfElement(Element element)
     {
         if (BattleVars.shared.isPlayerTurn)
@@ -257,18 +227,6 @@ public class DuelManager : MonoBehaviour
             return Instance.player.GetAllQuantaOfElement(element);
         }
         return Instance.enemy.GetAllQuantaOfElement(element);
-    }
-
-    public static void ApplyCounter(CounterEnum freeze, int amount, ID target)
-    {
-        if (target.Owner.Equals(OwnerEnum.Opponent))
-        {
-            Instance.enemy.ModifyCreatureLogic(target, freeze, amount);
-        }
-        else
-        {
-            Instance.player.ModifyCreatureLogic(target, freeze, amount);
-        }
     }
 
     public static PlayerManager GetOtherPlayer() => BattleVars.shared.isPlayerTurn ? Instance.enemy : Instance.player;
@@ -299,43 +257,23 @@ public class DuelManager : MonoBehaviour
 
     public static bool IsFloodInPlay()
     {
-        foreach (Card card in Instance.player.playerPermanentManager.GetAllCards())
-        {
-            if (card.iD == "5ih" || card.iD == "7h1") { return true; }
-        }
-        foreach (Card card in Instance.enemy.playerPermanentManager.GetAllCards())
-        {
-            if (card.iD == "5ih" || card.iD == "7h1") { return true; }
-        }
+        if (Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5ih" || x.card.iD == "7h1").Count > 0) { return true; }
+        if (Instance.enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5ih" || x.card.iD == "7h1").Count > 0) { return true; }
         return false;
     }
 
     public static bool IsNightfallInPlay()
     {
-        int count = 0;
-        foreach (Card card in Instance.player.playerPermanentManager.GetAllCards())
-        {
-            if (card.iD == "5ih" || card.iD == "7h1") { count++; }
-        }
-        foreach (Card card in Instance.enemy.playerPermanentManager.GetAllCards())
-        {
-            if (card.iD == "5ih" || card.iD == "7h1") { count++; }
-        }
-        return count > 1;
+        if (Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5uq").Count > 0) { return true; }
+        if (Instance.enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5uq").Count > 0) { return true; }
+        return false;
     }
 
     public static bool IsEclipseInPlay()
     {
-        int count = 0;
-        foreach (Card card in Instance.player.playerPermanentManager.GetAllCards())
-        {
-            if (card.iD == "5uq" || card.iD == "7ta") { count++; }
-        }
-        foreach (Card card in Instance.enemy.playerPermanentManager.GetAllCards())
-        {
-            if (card.iD == "5uq" || card.iD == "7ta") { count++; }
-        }
-        return count > 1;
+        if (Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "7ta").Count > 0) { return true; }
+        if (Instance.enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "7ta").Count > 0) { return true; }
+        return false;
     }
 
     public void IdCardTapped(IDCardPair idCard)
@@ -351,10 +289,6 @@ public class DuelManager : MonoBehaviour
         }
 
         if (!idCard.HasCard()) { return; }
-
-
-
-
 
         if (idCard.id.Owner.Equals(OwnerEnum.Opponent))
         {

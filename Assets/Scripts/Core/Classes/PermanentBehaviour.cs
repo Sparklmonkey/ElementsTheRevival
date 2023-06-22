@@ -66,7 +66,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                 Owner.AddPlayerCounter(PlayerCounters.Freedom, -1);
                 break;
             case "cloak":
-                if (Owner.playerPermanentManager.GetAllCards().FindAll(x => x.skill == "cloak").Count == 1)
+                if (Owner.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.skill == "cloak").Count == 1)
                 {
                     Owner.DeactivateCloakEffect(CardPair);
                     Owner.AddPlayerCounter(PlayerCounters.Invisibility, -3);

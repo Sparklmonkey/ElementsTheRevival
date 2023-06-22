@@ -6,26 +6,27 @@ using UnityEngine;
 
 public abstract class AiBaseFunctions
 {
-    public CreatureAbilities creatureManager = new CreatureAbilities();
-    public SpellAbilities spellManager = new SpellAbilities();
-    public PermanentAbilities permanentManager = new PermanentAbilities();
+    public CreatureAbilities creatureManager = new();
+    public SpellAbilities spellManager = new();
+    public PermanentAbilities permanentManager = new();
 
     public IEnumerator PlayPillars(PlayerManager aiManager)
     {
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
 
         int cardIndex = idCardList.FindIndex(x => x.card.cardType == CardType.Pillar);
-        int loopBreak = 0;
-        while (cardIndex != -1 && loopBreak < 7)
-        {
-            loopBreak++;
 
-            aiManager.PlayCardFromHandLogic(idCardList[cardIndex].id);
+        for (int i = 0; i < 7; i++)
+        {
+            if(cardIndex == -1) { yield break; }
+
+            aiManager.PlayCardFromHandLogic(idCardList[cardIndex]);
 
             idCardList = aiManager.playerHand.GetAllValidCardIds();
 
             cardIndex = idCardList.FindIndex(x => x.card.cardType == CardType.Pillar);
             yield return new WaitForSeconds(BattleVars.shared.aiPlaySpeed);
+
         }
     }
 
@@ -34,15 +35,13 @@ public abstract class AiBaseFunctions
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
 
         int cardIndex = idCardList.FindIndex(x => x.card.cardName == name);
-        int loopBreak = 0;
-        while (cardIndex != -1 && loopBreak < 7)
-        {
-            loopBreak++;
 
+        for (int i = 0; i < 7; i++)
+        {
             if (cardIndex == -1) { yield break; }
             if (aiManager.playerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost))
             {
-                aiManager.PlayCardFromHandLogic(idCardList[cardIndex].id);
+                aiManager.PlayCardFromHandLogic(idCardList[cardIndex]);
             }
             else
             {
@@ -52,6 +51,7 @@ public abstract class AiBaseFunctions
             idCardList = aiManager.playerHand.GetAllValidCardIds();
             cardIndex = idCardList.FindIndex(x => x.card.cardName == name);
             yield return new WaitForSeconds(BattleVars.shared.aiPlaySpeed);
+
         }
     }
 
@@ -70,7 +70,7 @@ public abstract class AiBaseFunctions
         if (cardIndex == -1) { yield break; }
         if (aiManager.playerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost))
         {
-            aiManager.PlayCardFromHandLogic(idCardList[cardIndex].id);
+            aiManager.PlayCardFromHandLogic(idCardList[cardIndex]);
         }
         yield return new WaitForSeconds(BattleVars.shared.aiPlaySpeed);
     }
@@ -88,7 +88,7 @@ public abstract class AiBaseFunctions
         if (cardIndex == -1) { yield break; }
         if (aiManager.playerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost))
         {
-            aiManager.PlayCardFromHandLogic(idCardList[cardIndex].id);
+            aiManager.PlayCardFromHandLogic(idCardList[cardIndex]);
         }
         yield return new WaitForSeconds(BattleVars.shared.aiPlaySpeed);
     }
@@ -99,16 +99,17 @@ public abstract class AiBaseFunctions
         if (idCardList.Count == 0) { yield break; }
         int cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsCardPlayable(x.card));
         if (cardIndex == -1) { yield break; }
-        int loopBreak = 0;
-        while (cardIndex != -1 && loopBreak < 7)
+
+        for (int i = 0; i < 7; i++)
         {
-            loopBreak++;
-            //Play Spell
+            if (cardIndex == -1) { yield break; }
+
             BattleVars.shared.abilityOrigin = idCardList[cardIndex];
             aiManager.ActivateAbility(idCardList[cardIndex]);
             idCardList = aiManager.playerHand.GetAllValidCardIds();
             //Check if still has explosion in hand, repeat loop
             cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsCardPlayable(x.card));
+
         }
     }
 
@@ -118,14 +119,15 @@ public abstract class AiBaseFunctions
         if (idCardList.Count == 0) { yield break; }
         int cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsCardPlayable(x.card));
         if (cardIndex == -1) { yield break; }
-        int loopBreak = 0;
-        while (cardIndex != -1 && loopBreak < 7)
+
+        for (int i = 0; i < 7; i++)
         {
-            loopBreak++;
+            if (cardIndex == -1) { yield break; }
+
             BattleVars.shared.abilityOrigin = idCardList[cardIndex];
 
             var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
-            if(target == null) { continue; }
+            if (target == null) { continue; }
             aiManager.ActivateAbility(target);
 
             idCardList = aiManager.playerHand.GetAllValidCardIds();
@@ -140,10 +142,10 @@ public abstract class AiBaseFunctions
         if (idCardList.Count == 0) { yield break; }
         int cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x.card));
         if (cardIndex == -1) { yield break; }
-        int loopBreak = 0;
-        while (cardIndex != -1 && loopBreak < 7)
+
+        for (int i = 0; i < 7; i++)
         {
-            loopBreak++;
+            if (cardIndex == -1) { yield break; }
             BattleVars.shared.abilityOrigin = idCardList[cardIndex];
 
             var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
@@ -162,10 +164,10 @@ public abstract class AiBaseFunctions
         if (idCardList.Count == 0) { yield break; }
         int cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x.card));
         if (cardIndex == -1) { yield break; }
-        int loopBreak = 0;
-        while (cardIndex != -1 && loopBreak < 7)
+
+        for (int i = 0; i < 7; i++)
         {
-            loopBreak++;
+            if (cardIndex == -1) { yield break; }
             BattleVars.shared.abilityOrigin = idCardList[cardIndex];
             aiManager.ActivateAbility(idCardList[cardIndex]);
             idCardList = cardType.Equals(CardType.Creature) ? aiManager.playerCreatureField.GetAllValidCardIds() : aiManager.playerPermanentManager.GetAllValidCardIds();
@@ -182,10 +184,10 @@ public abstract class AiBaseFunctions
         int cardIndex = idCardList.FindIndex(x => x.card.cardType.Equals(CardType.Spell) && aiManager.IsCardPlayable(x.card));
 
         if (cardIndex == -1) { yield break; }
-        int loopBreak = 0;
-        while (cardIndex != -1 && loopBreak < 8)
+
+        for (int i = 0; i < 7; i++)
         {
-            loopBreak++;
+            if (cardIndex == -1) { yield break; }
             Card cardToCheck = idCardList[cardIndex].card;
             //Setup Spell
             BattleVars.shared.abilityOrigin = idCardList[cardIndex];
@@ -239,9 +241,9 @@ public abstract class AiBaseFunctions
 
         if (cardIndex == -1) { yield break; }
 
-        int loopBreak = 0;
-        while (cardIndex != -1 && loopBreak < 10)
+        for (int i = 0; i < 7; i++)
         {
+            if (cardIndex == -1) { yield break; }
             Card cardToCheck = idCardList[cardIndex].card;
             //Setup Spell
             BattleVars.shared.abilityOrigin = idCardList[cardIndex];

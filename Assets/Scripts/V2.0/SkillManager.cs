@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class SkillManager
 {
     private static readonly SkillManager instance = new SkillManager();

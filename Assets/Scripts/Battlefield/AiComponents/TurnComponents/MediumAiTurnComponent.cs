@@ -57,7 +57,7 @@ public class MediumAiTurnComponent : AiBaseFunctions, IAiTurnComponent
                 continue;
             }
 
-            aiManager.PlayCardFromHandLogic(idCardList[cardIndex].id);
+            aiManager.PlayCardFromHandLogic(idCardList[cardIndex]);
 
             idCardList = aiManager.playerHand.GetAllValidCardIds();
             cardIndex = idCardList.FindIndex(x => x.card.cardType.Equals(cardType) && aiManager.IsCardPlayable(x.card));

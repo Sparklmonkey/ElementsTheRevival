@@ -527,6 +527,7 @@ GameObject:
   - component: {fileID: 4619175}
   - component: {fileID: 4619177}
   - component: {fileID: 4619178}
+  - component: {fileID: 4619179}
   m_Layer: 5
   m_Name: Health&Deck
   m_TagString: Untagged
@@ -650,6 +651,20 @@ MonoBehaviour:
     desc: 
   stackCount: 0
   isPlayer: 0
+  cardBehaviour: {fileID: 0}
+--- !u!114 &4619179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4619173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe4111b7eebc4f208c0599d39513733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}
 --- !u!1001 &4871300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6789,6 +6804,7 @@ MonoBehaviour:
   healthDisplayer: {fileID: 4619177}
   cloakVisual: {fileID: 1893749477}
   permParent: {fileID: 224746655}
+  scarabsPlayed: 0
   cardDetailView: {fileID: 1780469455}
   playerDisplayer: {fileID: 1212562475}
   playerHand:
@@ -6863,9 +6879,8 @@ MonoBehaviour:
     sanctuary: 0
     patience: 0
     freedom: 0
+    scarab: 0
   isPlayer: 0
-  sanctuaryCount: 0
-  patienceCount: 0
   cloakIndex: []
   sacrificeCount: 0
 --- !u!1 &235918386
@@ -18072,6 +18087,7 @@ MonoBehaviour:
   healthDisplayer: {fileID: 2020686621}
   cloakVisual: {fileID: 1893749477}
   permParent: {fileID: 0}
+  scarabsPlayed: 0
   cardDetailView: {fileID: 1780469455}
   playerDisplayer: {fileID: 753189428}
   playerHand:
@@ -18146,9 +18162,8 @@ MonoBehaviour:
     sanctuary: 0
     patience: 0
     freedom: 0
+    scarab: 0
   isPlayer: 0
-  sanctuaryCount: 0
-  patienceCount: 0
   cloakIndex: []
   sacrificeCount: 0
 --- !u!4 &734589351
@@ -24946,6 +24961,7 @@ GameObject:
   - component: {fileID: 1060680079}
   - component: {fileID: 1060680082}
   - component: {fileID: 1060680083}
+  - component: {fileID: 1060680084}
   m_Layer: 5
   m_Name: Weapon
   m_TagString: Untagged
@@ -25082,6 +25098,20 @@ MonoBehaviour:
     desc: 
   stackCount: 0
   isPlayer: 0
+  cardBehaviour: {fileID: 0}
+--- !u!114 &1060680084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060680077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}
 --- !u!1 &1065080235
 GameObject:
   m_ObjectHideFlags: 0
@@ -30291,6 +30321,7 @@ GameObject:
   - component: {fileID: 1274376512}
   - component: {fileID: 1274376515}
   - component: {fileID: 1274376516}
+  - component: {fileID: 1274376517}
   m_Layer: 5
   m_Name: Shield
   m_TagString: Untagged
@@ -30427,6 +30458,20 @@ MonoBehaviour:
     desc: 
   stackCount: 0
   isPlayer: 0
+  cardBehaviour: {fileID: 0}
+--- !u!114 &1274376517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274376510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}
 --- !u!1 &1275716990
 GameObject:
   m_ObjectHideFlags: 0
@@ -32571,6 +32616,7 @@ GameObject:
   - component: {fileID: 1325418804}
   - component: {fileID: 1325418805}
   - component: {fileID: 1325418806}
+  - component: {fileID: 1325418807}
   m_Layer: 5
   m_Name: Mark
   m_TagString: Untagged
@@ -32707,6 +32753,20 @@ MonoBehaviour:
     desc: 
   stackCount: 0
   isPlayer: 1
+  cardBehaviour: {fileID: 0}
+--- !u!114 &1325418807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325418800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}
 --- !u!1 &1325448804
 GameObject:
   m_ObjectHideFlags: 0
@@ -37122,6 +37182,7 @@ GameObject:
   - component: {fileID: 1544488866}
   - component: {fileID: 1544488867}
   - component: {fileID: 1544488868}
+  - component: {fileID: 1544488869}
   m_Layer: 5
   m_Name: Weapon
   m_TagString: Untagged
@@ -37258,6 +37319,20 @@ MonoBehaviour:
     desc: 
   stackCount: 0
   isPlayer: 1
+  cardBehaviour: {fileID: 0}
+--- !u!114 &1544488869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544488862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}
 --- !u!1 &1557051220
 GameObject:
   m_ObjectHideFlags: 0
@@ -42853,6 +42928,7 @@ GameObject:
   - component: {fileID: 1794288712}
   - component: {fileID: 1794288715}
   - component: {fileID: 1794288716}
+  - component: {fileID: 1794288717}
   m_Layer: 5
   m_Name: Mark
   m_TagString: Untagged
@@ -42989,6 +43065,20 @@ MonoBehaviour:
     desc: 
   stackCount: 0
   isPlayer: 0
+  cardBehaviour: {fileID: 0}
+--- !u!114 &1794288717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794288710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}
 --- !u!1 &1794985823
 GameObject:
   m_ObjectHideFlags: 0
@@ -47132,6 +47222,7 @@ GameObject:
   - component: {fileID: 1936652796}
   - component: {fileID: 1936652797}
   - component: {fileID: 1936652798}
+  - component: {fileID: 1936652799}
   m_Layer: 5
   m_Name: Shield
   m_TagString: Untagged
@@ -47268,6 +47359,20 @@ MonoBehaviour:
     desc: 
   stackCount: 0
   isPlayer: 1
+  cardBehaviour: {fileID: 0}
+--- !u!114 &1936652799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936652792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}
 --- !u!1 &1943860767
 GameObject:
   m_ObjectHideFlags: 0
@@ -48186,6 +48291,7 @@ GameObject:
   - component: {fileID: 2020686619}
   - component: {fileID: 2020686621}
   - component: {fileID: 2020686622}
+  - component: {fileID: 2020686623}
   m_Layer: 5
   m_Name: Health&Deck
   m_TagString: Untagged
@@ -48309,6 +48415,20 @@ MonoBehaviour:
     desc: 
   stackCount: 0
   isPlayer: 1
+  cardBehaviour: {fileID: 0}
+--- !u!114 &2020686623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020686617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe4111b7eebc4f208c0599d39513733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}
 --- !u!224 &2020954328 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8940418288786595348, guid: 90df18d8acebd4e27974098b8670153a, type: 3}

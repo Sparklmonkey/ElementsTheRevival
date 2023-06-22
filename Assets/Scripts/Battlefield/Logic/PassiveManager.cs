@@ -10,20 +10,20 @@ namespace Elements.Duel.Manager
     public class PassiveManager : FieldManager
     {
 
-        public ID PlayPassive(Card card)
+        public IDCardPair PlayPassive(Card card)
         {
 
             switch (card.cardType)
             {
                 case CardType.Weapon:
                     pairList[1].card = card;
-                    return pairList[1].id;
+                    return pairList[1];
                 case CardType.Shield:
                     pairList[2].card = card;
-                    return pairList[2].id;
+                    return pairList[2];
                 case CardType.Mark:
                     pairList[0].card = card;
-                    return pairList[0].id;
+                    return pairList[0];
                 default:
                     break;
             }
@@ -70,16 +70,7 @@ namespace Elements.Duel.Manager
             foreach (var idCard in pairList)
             {
                 if(!idCard.HasCard()) { continue; }
-                if (passiveWithCountdown.Contains(idCard.card.iD))
-                {
-                    idCard.card.AbilityUsed = false;
-                    idCard.card.TurnsInPlay--;
-                    if(idCard.card.TurnsInPlay == 0)
-                    {
-                        idCard.RemoveCard();
-                        return;
-                    }
-                }
+                idCard.cardBehaviour.OnTurnStart();
                 idCard.UpdateCard();
             }
         }

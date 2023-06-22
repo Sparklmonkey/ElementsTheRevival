@@ -830,6 +830,7 @@ GameObject:
   - component: {fileID: 8835207496050511662}
   - component: {fileID: 5151530499949281839}
   - component: {fileID: 6904892707159423077}
+  - component: {fileID: 358562869621134176}
   m_Layer: 5
   m_Name: OpCardInHand
   m_TagString: Untagged
@@ -967,3 +968,17 @@ MonoBehaviour:
     desc: 
   stackCount: 0
   isPlayer: 0
+  cardBehaviour: {fileID: 0}
+--- !u!114 &358562869621134176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8835207496050511658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe4111b7eebc4f208c0599d39513733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}

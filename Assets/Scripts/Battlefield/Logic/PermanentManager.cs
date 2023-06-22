@@ -10,15 +10,9 @@ namespace Elements.Duel.Manager
     {
         public PermanentManager(List<ID> idList)
         {
-            //pairList = new List<IDCardPair>();
-            //for (int i = 0; i < idList.Count; i++)
-            //{
-            //    stackCountList.Add(0);
-            //    pairList.Add(new (idList[i], null));
-            //}
         }
 
-        public ID PlayPermanent(Card card)
+        public IDCardPair PlayPermanent(Card card)
         {
             if (card.cardType.Equals(CardType.Pillar))
             {
@@ -26,7 +20,7 @@ namespace Elements.Duel.Manager
                 if (stackedCard != null)
                 {
                     stackedCard.PlayCard(card);
-                    return stackedCard.id;
+                    return stackedCard;
                 }
             }
             List<int> permanentCardOrder = new() { 1, 3, 5, 7, 0, 2, 4, 6, 9, 11, 13, 8, 10, 12, 14 };
@@ -40,7 +34,7 @@ namespace Elements.Duel.Manager
                         stackCountList[orderIndex]++;
                     }
                     pairList[orderIndex].PlayCard(card);
-                    return pairList[orderIndex].id;
+                    return pairList[orderIndex];
                 }
             }
             return null;
@@ -113,17 +107,7 @@ namespace Elements.Duel.Manager
             foreach (var idCard in pairList)
             {
                 if(!idCard.HasCard()) { continue; }
-                idCard.card.AbilityUsed = false;
-                if (permanentsWithCountdown.Contains(idCard.card.iD))
-                {
-                    idCard.card.TurnsInPlay--;
-
-                    if (idCard.card.TurnsInPlay == 0)
-                    {
-                        idCard.RemoveCard();
-                        return;
-                    }
-                }
+                idCard.cardBehaviour.OnTurnStart();
                 idCard.UpdateCard();
 
             }

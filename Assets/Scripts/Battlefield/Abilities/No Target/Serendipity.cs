@@ -17,10 +17,11 @@ public class Serendipity : AbilityEffect
 
             typeToAdd = ExtensionMethods.GetSerendipityWeighted();
             elementToAdd = (Element)Random.Range(0, 12);
-            while (typeToAdd.Equals(CardType.Artifact) && elementToAdd.Equals(Element.Earth))
+
+            if (typeToAdd.Equals(CardType.Artifact) && elementToAdd.Equals(Element.Earth))
             {
-                typeToAdd = ExtensionMethods.GetSerendipityWeighted();
-                elementToAdd = (Element)Random.Range(0, 12);
+                typeToAdd = CardType.Creature;
+                elementToAdd = Element.Death;
             }
         }
     }

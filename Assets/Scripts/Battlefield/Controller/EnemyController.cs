@@ -26,7 +26,6 @@ public class EnemyController
         self.TurnDownTick();
         Debug.Log("Draw Card for turn");
         aiDraw.StartTurnDrawCard(self);
-        yield return new WaitForSeconds(BattleVars.shared.aiPlaySpeed);
 
         if (self.playerCounters.silence > 0) { self.StartCoroutine(DuelManager.Instance.EndTurn()); yield break; }
         Debug.Log("Play Pillars");

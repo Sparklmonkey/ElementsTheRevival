@@ -17,17 +17,16 @@ namespace Elements.Duel.Manager
             _isPlayer = isPlayer;
         }
 
-        public int ModifyHealth(int amount, bool isDamage = true)
+        public void ModifyHealth(int amount, bool isDamage = true)
         {
             _currentHealth += isDamage ? -amount : amount;
 
             _currentHealth = _currentHealth > _maxHealth ? _maxHealth : _currentHealth;
             HealthChangedEvent?.Invoke(_currentHealth, _isPlayer);
-            return _currentHealth;
         }
 
 
-        public int ModifyMaxHealth(int maxHPBuff, bool isIncrease)
+        public void ModifyMaxHealth(int maxHPBuff, bool isIncrease)
         {
             if (isIncrease)
             {
@@ -38,7 +37,6 @@ namespace Elements.Duel.Manager
                 _maxHealth -= maxHPBuff;
             }
             MaxHealthUpdatedEvent?.Invoke(_currentHealth, _isPlayer);
-            return _maxHealth;
         }
 
         public int GetMaxHealth() => _maxHealth;
