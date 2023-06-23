@@ -40,6 +40,7 @@ namespace Elements.Duel.Manager
         public void AddCardToHand(Card card)
         {
             int availableIndex = pairList.FindIndex(x => !x.HasCard());
+            if (availableIndex < 0) { return; }
             pairList[availableIndex].PlayCard(card);
         }
     }

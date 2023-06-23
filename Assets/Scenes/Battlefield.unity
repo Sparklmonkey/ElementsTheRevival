@@ -1448,6 +1448,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8835207496050511662, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
+      propertyPath: belongsToPlayer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
 --- !u!224 &33687702 stripped
@@ -3922,6 +3926,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8835207496050511661, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835207496050511662, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
+      propertyPath: belongsToPlayer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -18916,6 +18924,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8835207496050511662, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
+      propertyPath: belongsToPlayer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
 --- !u!224 &771944389 stripped
@@ -20809,6 +20821,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8835207496050511661, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835207496050511662, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
+      propertyPath: belongsToPlayer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -25006,7 +25022,6 @@ MonoBehaviour:
   underlayWhite: {fileID: 0}
   validTargetGlow: {fileID: 350221992}
   isUsableGlow: {fileID: 583967587}
-  isPassive: 0
   cardImage: {fileID: 1060680080}
   activeAElement: {fileID: 1154128520}
   activeAName: {fileID: 896965098}
@@ -30366,7 +30381,6 @@ MonoBehaviour:
   underlayWhite: {fileID: 0}
   validTargetGlow: {fileID: 1597515980}
   isUsableGlow: {fileID: 1651793706}
-  isPassive: 0
   cardImage: {fileID: 1274376513}
   activeAElement: {fileID: 278107554}
   activeAName: {fileID: 113044264}
@@ -32699,7 +32713,6 @@ MonoBehaviour:
   underlayWhite: {fileID: 0}
   validTargetGlow: {fileID: 139709950}
   isUsableGlow: {fileID: 1536397913}
-  isPassive: 0
   cardImage: {fileID: 1325418802}
   activeAElement: {fileID: 1642815201}
   activeAName: {fileID: 402276330}
@@ -37265,7 +37278,6 @@ MonoBehaviour:
   underlayWhite: {fileID: 11400000, guid: 32fe4bd628bdf45709d85fee371f44e9, type: 2}
   validTargetGlow: {fileID: 1858912172}
   isUsableGlow: {fileID: 2072893364}
-  isPassive: 0
   cardImage: {fileID: 1544488864}
   activeAElement: {fileID: 1021223268}
   activeAName: {fileID: 1197646823}
@@ -39347,6 +39359,10 @@ PrefabInstance:
       propertyPath: isUsableGlow
       value: 
       objectReference: {fileID: 1611110099}
+    - target: {fileID: 8835207496050511662, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
+      propertyPath: belongsToPlayer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
 --- !u!224 &1611110098 stripped
@@ -39823,6 +39839,10 @@ PrefabInstance:
       propertyPath: isUsableGlow
       value: 
       objectReference: {fileID: 1629746320}
+    - target: {fileID: 8835207496050511662, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
+      propertyPath: belongsToPlayer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
 --- !u!224 &1629746319 stripped
@@ -40958,6 +40978,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8835207496050511661, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835207496050511662, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
+      propertyPath: belongsToPlayer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -42973,7 +42997,6 @@ MonoBehaviour:
   underlayWhite: {fileID: 0}
   validTargetGlow: {fileID: 1735880419}
   isUsableGlow: {fileID: 924002961}
-  isPassive: 0
   cardImage: {fileID: 1794288713}
   activeAElement: {fileID: 1275716992}
   activeAName: {fileID: 1794985825}
@@ -47305,7 +47328,6 @@ MonoBehaviour:
   underlayWhite: {fileID: 0}
   validTargetGlow: {fileID: 1883144897}
   isUsableGlow: {fileID: 1195270489}
-  isPassive: 0
   cardImage: {fileID: 1936652794}
   activeAElement: {fileID: 91245292}
   activeAName: {fileID: 1557051222}
@@ -50920,6 +50942,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8835207496050511661, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835207496050511662, guid: 21fe09e75aca2424daf1ba19f27f1718, type: 3}
+      propertyPath: belongsToPlayer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

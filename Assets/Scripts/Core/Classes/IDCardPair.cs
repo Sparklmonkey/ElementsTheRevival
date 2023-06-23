@@ -150,6 +150,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!HasCard()) { return; }
+        if (id.Field == FieldEnum.Hand && id.Owner == OwnerEnum.Opponent) { return; }
         RectTransform rectTransform = GetComponent<RectTransform>();
         Vector2 objectSize = new(rectTransform.rect.height, rectTransform.rect.width);
         ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, card, id.Index + 1, id.Field == FieldEnum.Creature);
