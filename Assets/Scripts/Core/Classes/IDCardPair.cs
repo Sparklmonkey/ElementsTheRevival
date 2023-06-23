@@ -165,6 +165,17 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         return id.Field.Equals(FieldEnum.Hand);
     }
 
+    public void HandCardUpdate(Card card)
+    {
+        if(card == null)
+        {
+            OnCardRemoved?.Invoke(card, 0);
+            return;
+        }
+        this.card = card;
+        OnCardChanged?.Invoke(card, stackCount);
+    }
+
     public void IsTargeted(bool shouldShowTarget)
     {
         OnBeingTargeted?.Invoke(shouldShowTarget);

@@ -139,28 +139,34 @@ public static class ExtensionMethods
         Type type = Type.GetType(scriptName);
         if (type == null)
         {
-            //Debug.Log("Active Ability Doesnt exist");
-            return default(T);
+            return default;
         }
         T obj = (T)Activator.CreateInstance(type);
-        //Debug.Log(obj);
         return obj;
     }
 
     public static T GetSkillScript<T>(this string AbilityName)
     {
-        Debug.Log(AbilityName);
         var nameToCheck = AbilityName.Replace(" ", "");
         nameToCheck = nameToCheck[0].ToString().ToUpper() + nameToCheck[1..];
         Type type = Type.GetType(nameToCheck);
-        Debug.Log(nameToCheck);
         if (type == null)
         {
-            //Debug.Log("Active Ability Doesnt exist");
-            return default(T);
+            return default;
         }
         T obj = (T)Activator.CreateInstance(type);
-        //Debug.Log(obj);
+        return obj;
+    }
+
+    public static T GetShieldScript<T>(this string AbilityName)
+    {
+        var nameToCheck = $"Shield{AbilityName}";
+        Type type = Type.GetType(nameToCheck);
+        if (type == null)
+        {
+            return default;
+        }
+        T obj = (T)Activator.CreateInstance(type);
         return obj;
     }
 

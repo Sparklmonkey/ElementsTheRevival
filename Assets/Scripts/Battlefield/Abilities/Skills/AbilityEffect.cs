@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 public abstract class AbilityEffect
 {
@@ -11,5 +8,4 @@ public abstract class AbilityEffect
     public abstract IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets);
     public abstract List<IDCardPair> GetPossibleTargets(PlayerManager enemy);
     public abstract void Activate(IDCardPair target);
-
 }

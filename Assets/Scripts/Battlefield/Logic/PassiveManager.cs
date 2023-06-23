@@ -1,8 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using Elements.Duel.Visual;
-using UnityEngine;
+﻿using System;
 
 namespace Elements.Duel.Manager
 {
@@ -16,13 +12,13 @@ namespace Elements.Duel.Manager
             switch (card.cardType)
             {
                 case CardType.Weapon:
-                    pairList[1].card = card;
+                    pairList[1].PlayCard(card);
                     return pairList[1];
                 case CardType.Shield:
-                    pairList[2].card = card;
+                    pairList[2].PlayCard(card);
                     return pairList[2];
                 case CardType.Mark:
-                    pairList[0].card = card;
+                    pairList[0].PlayCard(card);
                     return pairList[0];
                 default:
                     break;
@@ -43,12 +39,6 @@ namespace Elements.Duel.Manager
         {
             return pairList[0];
         }
-
-        internal void FreezeWeapon(int amount)
-        {
-            throw new NotImplementedException();
-        }
-
         public ID GetMarkID()
         {
             return pairList[0].id;
@@ -62,8 +52,6 @@ namespace Elements.Duel.Manager
         {
             return pairList[1].id;
         }
-
-        private readonly List<string> passiveWithCountdown = new() { "7n8", "5oo", "61t", "80d" };
 
         public void PassiveTurnDown()
         {

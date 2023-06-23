@@ -28,8 +28,8 @@ namespace Elements.Duel.Manager
         {
             if (element.Equals(Element.Other))
             {
-                System.Random rnd = new System.Random();
-                List<QuantaObject> quantaList = _quantaObjects.FindAll(x => x.count > 0);
+                System.Random rnd = new();
+                List<QuantaObject> quantaList = isAdd ? _quantaObjects : _quantaObjects.FindAll(x => x.count > 0);
                 QuantaObject rndQuanta = quantaList.OrderBy(x => rnd.Next()).First();
 
                 while (amount > 0)

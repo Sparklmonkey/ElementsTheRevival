@@ -11,20 +11,29 @@ namespace Elements.Duel.Manager
     {
         public bool ShouldDiscard() => pairList.FindAll(x => x.card != null).Count >= 8;
 
-        public void UpdateHandVisual()
+        public void UpdateHandVisual(IDCardPair cardPair)
         {
-            List<IDCardPair> handList = new(pairList);
-            foreach (var card in pairList)
+            cardPair.card = null;
+            if (pairList.FindAll(x => x.HasCard()).Count == 0) { return; }
+
+            var cardList = new List<Card>();
+            foreach (var item in pairList)
             {
-                if (card.HasCard())
-                {
-                    card.RemoveCard();
-                }
+                if (!item.HasCard()) { continue; }
+                cardList.Add(CardDatabase.Instance.GetCardFromId(item.card.iD));
             }
 
-            foreach (var card in handList)
+            for (int i = 0; i < pairList.Count; i++)
             {
-                AddCardToHand(card.card);
+                if (i >= cardList.Count)
+                {
+                    if (pairList[i].transform.parent.gameObject.activeSelf)
+                    {
+                        pairList[i].RemoveCard();
+                    }
+                    continue;
+                }
+                pairList[i].PlayCard(cardList[i]);
             }
         }
 

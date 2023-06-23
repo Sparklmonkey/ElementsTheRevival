@@ -62,7 +62,10 @@ public abstract class CardDisplayer : MonoBehaviour
 
     public void PlayDissolveAnimation()
     {
-        StartCoroutine(DissolveAnimation());
+        if (gameObject.activeSelf)
+        {
+            StartCoroutine(DissolveAnimation());
+        }
     }
 
     public void PlayMaterializeAnimation(Element element)

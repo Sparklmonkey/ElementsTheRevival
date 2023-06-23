@@ -15,6 +15,11 @@ namespace Elements.Duel.Visual
 
         public override void DisplayCard(Card cardToDisplay, int stack = 1)
         {
+            if(cardToDisplay == null)
+            {
+                ClearDisplay();
+            }
+
             transform.parent.gameObject.SetActive(true);
             if (!belongsToPlayer)
             {

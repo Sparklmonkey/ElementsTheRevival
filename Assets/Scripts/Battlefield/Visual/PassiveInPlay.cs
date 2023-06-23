@@ -19,7 +19,6 @@ namespace Elements.Duel.Visual
         
         public override void DisplayCard(Card cardToDisplay, int stack = 0)
         {
-            transform.parent.gameObject.SetActive(true);
             cardImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
             cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
             PlayMaterializeAnimation(cardToDisplay.costElement);

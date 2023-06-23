@@ -1,6 +1,6 @@
 public class SkillManager
 {
-    private static readonly SkillManager instance = new SkillManager();
+    private static readonly SkillManager instance = new();
 
     static SkillManager()
     {
