@@ -391,6 +391,11 @@ public class PlayerManager : MonoBehaviour
         DisplayPlayableGlow();
     }
 
+    public void DealPoisonDamage()
+    {
+        ModifyHealthLogic(playerCounters.poison, true, false);
+    }
+
     public bool IsCardPlayable(Card cardToCheck)
     {
         bool canAfford = playerQuantaManager.HasEnoughQuanta(cardToCheck.costElement, cardToCheck.cost);
@@ -714,6 +719,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
+        DuelManager.GetNotIDOwner(playerID.id).DealPoisonDamage();
         var creaturelist = playerCreatureField.GetAllValidCardIds();
         if (creaturelist.Count > 0)
         {

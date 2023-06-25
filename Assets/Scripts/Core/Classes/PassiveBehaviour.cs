@@ -126,6 +126,8 @@ public class PassiveBehaviour : CardTypeBehaviour
                     {
                         atknow++;
                     }
+                case "regenerate":
+                    Owner.ModifyHealthLogic(5, false, false);
                     break;
                 default:
                     break;
