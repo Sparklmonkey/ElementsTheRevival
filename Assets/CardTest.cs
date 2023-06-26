@@ -19,17 +19,4 @@ public class CardTest : MonoBehaviour
     void Start()
     { }
 
-    private IEnumerator DisplayCards()
-    {
-        string toPrint = "";
-        var list = CardDatabase.Instance.GetFullCardCount();
-        for (int i = 0; i < list.Count; i++)
-        {
-            toPrint += $"{(Element)i} : {list[i]}";
-        }
-        //Debug.Log(toPrint);
-        yield break;
-    }
-
-
 }

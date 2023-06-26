@@ -16,8 +16,6 @@ public class DuelManager : MonoBehaviour
         enemy.CheckEclipseNightfall(isAdded, skill);
     }
 
-
-
     public static List<CardObject> opponentShuffledDeck;
     public static int opponentCardsTurn, playerCardsTurn;
 

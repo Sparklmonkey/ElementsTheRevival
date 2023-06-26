@@ -48,7 +48,7 @@ public class CardPassives
     //If creature has Adrenaline
     public bool hasAdrenaline;
     //Add Extra poison for each card played by opponent
-    public bool hasNuerotoxin;
+    public bool hasNeurotoxin;
     //add 5 damage for each Fire quanta in pool on attack only
     public bool isFiery;
 
@@ -76,7 +76,7 @@ public class CardPassives
         isPhoenix = false;
         isDeadlyVenemous = false;
         hasAdrenaline = false;
-    hasNuerotoxin = false;
+    hasNeurotoxin = false;
     isFiery = false;
 }
 }

@@ -9,9 +9,6 @@ public class CardDatabase : MonoBehaviour
 {
 
     private static readonly CardDatabase instance = new();
-
-    // Explicit static constructor to tell C# compiler
-    // not to mark type as beforefieldinit
     static CardDatabase()
     {
     }
@@ -36,35 +33,11 @@ public class CardDatabase : MonoBehaviour
         {"Luciferase", "Light"}
     };
 
-    public List<string> endTurnPassives = new()
-    { "fire", "sanctuary","gratitude", "infest", "light", "air", "earth", "overdrive", 
-        "acceleration", "void", "empathy", "flood", "devourer", "swarm", "patience", "singularity"};
-
-    internal List<int> GetFullCardCount()
-    {
-        var elementCount = new List<int>();
-        for (int i = 0; i < 13; i++)
-        {
-            elementCount.Add(fullCardList.FindAll(x => !x.iD.IsUpgraded() && x.costElement.Equals((Element)i)).Count);
-        }
-        return elementCount;
-    }
-
-    public List<string> skillsNoTarget = new List<string> {"duality", "hasten", "ignite", "scarab","ablaze", "black hole", "luciferin", "dead / alive", "lycanthropy", "deja vu", "hatch", "evolve", "unstable gas", "dive",
-        "gravity pullc", "growth", "plague", "poison", "stone form", "precognition", "photosynthesis", "steam", "queen", "divineshield", "burrow", "rebirth", "silence", "sacrifice", "patience",
-        "serendipity", "bravery", "nova", "pandemonium", "miracle", "thunderstorm", "flying", "stoneskin", "healp", "mitosis", "rain of fire", "blitz", "supernova", "deadly poison",
-        "shard"};
-
-    public List<string> skillsWithTarget = new List<string> { "sniper", "mutation", "mitosiss", "improve", "antimatter", "web", "endow", "liquid shadow", "accretion", "devour", "immortality","infect", "congeal",
-        "berserk", "lobotomize", "rage", "paradox", "freeze", "infection", "nymph", "heal", "petrify", "aflatoxin", "guard", "fractal", "chaos power", "overdrive", "readiness", "wisdom", "chaos",
-        "butterfly", "momentum", "acceleration", "armor", "reverse time", "enchant", "earthquake", "adrenaline", "fire bolt", "destroy", "immolate", "icebolt", "purify", "holy light", "blessing",
-        "shockwave", "steal", "drain life", "nightmare", "gravity pull", "lightning", "parallel universe","heavy armor", "cremation"};
-
     public List<string> rareWeaponRewards = new (){ "5ic", "5ol", "5ur", "5f7", "5lh", "4vl", "52q", "55s", "58v", "5c5", "5ro","61u"};
 
     private List<Card> fullCardList;
 
-    private List<string> illegalPets = new() { "4vr", "4t8", "4vf", "52h", "55o", "58r", "5bt", "5f2", "5id", "5la", "5of", "5rm", "5ul", "61v" };
+    private List<string> illegalPets = new() { "4vr", "4t8", "4vf", "52h", "55o", "58r", "5bt", "5f2", "5id", "5la", "5of", "5rm", "5ul", "61v", "5lt", "7kd" };
     public Card GetRandomPet()
     {
         return fullCardList.Find(x => !x.iD.IsUpgraded() && !illegalPets.Contains(x.iD) && x.cardType.Equals(CardType.Creature));
@@ -162,10 +135,6 @@ public class CardDatabase : MonoBehaviour
     }
 
     public List<string> markIds = new List<string> { "4su", "4sr", "4st", "4sq", "4sk", "4sm", "4sj", "4ss", "4so", "4sl", "4sn", "4sp" };
-    
-    public string weaponsIds = "52q 4t3 4vl 5c5 5ro 5f7 4t5 61u 5lh 5ol 58v 4tb 4t4 55s 5ic 5ur 6rj 7n5 80e 71a 6u5 7q8 7dn 77f 74c 6rl 7al 6rr 6rk 7k1 7gs 7tb";
-
-    private string baseSOpath = @"Cards";
     internal Card GetRandomSpell()
     {
         List<Card> list = new List<Card>(fullCardList.FindAll(x => x.cardType == CardType.Spell && !x.iD.IsUpgraded()));
@@ -204,7 +173,7 @@ public class CardDatabase : MonoBehaviour
         return cardToReturn;
     }
 
-    List<string> illegalHatchCards = new List<string> { "7qa", "7q2", "5ri", "61s", "80c", "6ro", "4t8", "6ub", "4vr", "74g", "560", "7dt", "5fd", "5rm", "7q6" };
+    List<string> illegalHatchCards = new List<string> { "7qa", "7q2", "5ri", "61s", "80c", "6ro", "4t8", "6ub", "4vr", "74g", "560", "7dt", "5fd", "5rm", "7q6", "5lt", "7kd", "4t9", "6rp" };
     public Card GetRandomEliteHatchCreature()
     {
         List<Card> list = new List<Card>(fullCardList.FindAll(x => !illegalHatchCards.Contains(x.iD) && x.cardType.Equals(CardType.Creature) && x.iD.IsUpgraded()));
@@ -420,7 +389,7 @@ public class CardDatabase : MonoBehaviour
         return card;
     }
 
-    private List<string> mutantActiveADescList = new List<string>
+    private List<string> mutantActiveADescList = new()
         {
             "The Mutant turns into a random creature",
             "Destroy the targeted permanent",
@@ -449,11 +418,10 @@ public class CardDatabase : MonoBehaviour
     private string AddSpacesToSentence(string text)
     {
         TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-
         return textInfo.ToTitleCase(text);
     }
 
-    private Dictionary<Element, string> regularNymphNames = new Dictionary<Element, string> {
+    private Dictionary<Element, string> regularNymphNames = new(){
         { Element.Gravity, "568" },
         {Element.Earth, "59c" },
         {Element.Darkness, "5v8" },
@@ -469,7 +437,7 @@ public class CardDatabase : MonoBehaviour
     };
 
 
-    private Dictionary<Element, string> eliteNymphNames = new Dictionary<Element, string> {
+    private Dictionary<Element, string> eliteNymphNames = new(){
         { Element.Gravity, "74o" },
         {Element.Earth, "77s" },
         {Element.Darkness, "7to" },
@@ -501,8 +469,63 @@ public class CardDatabase : MonoBehaviour
         return GetCardFromId(eliteNymphNames[element]);
     }
 
-    public Card GetGolemAbility(QuantaObject shardElementLast, Card golem)
+    public Card GetGolemAbility(List<Card> shardList)
     {
+        Card golem = GetCardFromId("597");
+        Dictionary<Element, int> elementCount = new()
+        {
+            { Element.Aether, 0 },
+            { Element.Air, 0 },
+            { Element.Darkness, 0 },
+            { Element.Death, 0 },
+            { Element.Earth, 0 },
+            { Element.Entropy, 0 },
+            { Element.Fire, 0 },
+            { Element.Gravity, 0 },
+            { Element.Life, 0 },
+            { Element.Light, 0 },
+            { Element.Time, 0 },
+            { Element.Water, 0 }
+        };
+        foreach (var item in shardList)
+        {
+            elementCount[item.costElement]++;
+            switch (item.costElement)
+            {
+                case Element.Aether:
+                    golem.atk += item.iD.IsUpgraded() ? 3 : 2;
+                    break;
+                case Element.Air:
+                    break;
+                case Element.Darkness:
+                    break;
+                case Element.Light:
+                    break;
+                case Element.Death:
+                    break;
+                case Element.Earth:
+                    break;
+                case Element.Entropy:
+                    break;
+                case Element.Time:
+                    break;
+                case Element.Fire:
+                    break;
+                case Element.Gravity:
+                    break;
+                case Element.Life:
+                    break;
+                case Element.Water:
+                    break;
+                case Element.Other:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+
         //switch (shardElementLast.element)
         //{
         //    case Element.Aether:
@@ -663,10 +686,10 @@ public class CardDatabase : MonoBehaviour
         //                golem.skill = new ActiveADejaVu();
         //                break;
         //            case 4:
-        //                golem.cardPassives.hasNuerotoxin = true;
+        //                golem.cardPassives.hasNeurotoxin = true;
         //                break;
         //            case 5:
-        //                golem.cardPassives.hasNuerotoxin = true;
+        //                golem.cardPassives.hasNeurotoxin = true;
         //                break;
         //            default:
         //                golem.skill = new ActiveAPrecognition();

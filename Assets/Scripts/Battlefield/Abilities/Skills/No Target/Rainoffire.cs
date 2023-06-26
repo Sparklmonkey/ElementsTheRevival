@@ -13,8 +13,15 @@ public class Rainoffire : AbilityEffect
         Game_SoundManager.shared.PlayAudioClip("Lightning");
         foreach (var idCardi in idList)
         {
+            if (idCardi.card.IsImmaterial) { continue; }
+            if (idCardi.card.IsBurrowed) { continue; }
             idCardi.card.DefDamage += 3;
             idCardi.UpdateCard();
+        }
+
+        if(victim.playerCounters.invisibility > 0)
+        {
+            victim.RemoveAllCloaks();
         }
     }
 

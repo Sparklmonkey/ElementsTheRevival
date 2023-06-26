@@ -7,7 +7,7 @@ public enum CounterEnum
     Freeze,
     Poison,
     Delay,
-    Nuerotoxin,
+    Neurotoxin,
     Invisible,
     Charge,
     Bone,

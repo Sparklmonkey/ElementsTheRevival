@@ -10,7 +10,7 @@ namespace Elements.Duel.Visual
         private Image validTargetGlow;
 
         [SerializeField]
-        private Sprite poisonSprite, puritySprite, nuerotoxinSprite;
+        private Sprite poisonSprite, puritySprite, neurotoxinSprite;
         public Image poisonImg, sanctImage, silenceImage;
         public TextMeshProUGUI poisonLabel, boneShieldLabel, purityLabel;
         [SerializeField]
@@ -32,9 +32,9 @@ namespace Elements.Duel.Visual
                     poisonImg.sprite = puritySprite;
                     poisonLabel.text = "+" + Mathf.Abs(playerCounters.poison).ToString();
                 }
-                else if (playerCounters.nuerotoxin > 0)
+                else if (playerCounters.neurotoxin > 0)
                 {
-                    poisonImg.sprite = nuerotoxinSprite;
+                    poisonImg.sprite = neurotoxinSprite;
                     poisonLabel.text = playerCounters.poison.ToString();
                 }
                 else if (playerCounters.poison == 0)

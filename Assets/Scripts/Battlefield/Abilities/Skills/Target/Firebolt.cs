@@ -8,7 +8,7 @@ public class Firebolt : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         int quantaElement = Owner.GetAllQuantaOfElement(Element.Fire);
-        int damageToDeal = 2 + (Mathf.FloorToInt(quantaElement / 10) * 2);
+        int damageToDeal = 3 + (Mathf.FloorToInt(quantaElement / 10) * 3);
 
         if (!target.HasCard())
         {

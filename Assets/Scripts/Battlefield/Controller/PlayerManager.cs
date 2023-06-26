@@ -31,8 +31,8 @@ public class PlayerManager : MonoBehaviour
             case PlayerCounters.Poison:
                 playerCounters.poison += amount;
                 break;
-            case PlayerCounters.Nuerotoxin:
-                playerCounters.nuerotoxin += amount;
+            case PlayerCounters.Neurotoxin:
+                playerCounters.neurotoxin += amount;
                 break;
             case PlayerCounters.Sanctuary:
                 playerCounters.sanctuary += amount;
@@ -57,6 +57,18 @@ public class PlayerManager : MonoBehaviour
                 break;
         }
         OnPlayerCounterUpdate?.Invoke(playerCounters);
+    }
+
+    public void RemoveAllCloaks()
+    {
+        foreach(var perm in playerPermanentManager.GetAllValidCardIds())
+        {
+            if (perm.card.skill == "cloak")
+            {
+                perm.RemoveCard();
+                DeactivateCloakEffect(perm);
+            }
+        }
     }
 
     public IDCardPair playerID;
@@ -478,9 +490,9 @@ public class PlayerManager : MonoBehaviour
         //Logic Side
         //Get Card SO In Hand
         Game_SoundManager.shared.PlayAudioClip("CardPlay");
-        if (playerCounters.nuerotoxin > 0)
+        if (playerCounters.neurotoxin > 0)
         {
-            AddPlayerCounter(PlayerCounters.Nuerotoxin, 1);
+            AddPlayerCounter(PlayerCounters.Neurotoxin, 1);
         }
         //Play Card on field if it is not a spell
         if (!cardID.card.cardType.Equals(CardType.Spell))
@@ -673,20 +685,24 @@ public class PlayerManager : MonoBehaviour
         var newLocationId = PlayCardOnField(card);
         if (newLocationId == null) { return null; }
         newLocationId.card.AbilityUsed = true;
-        if ((newLocationId.card.costElement.Equals(Element.Darkness) || newLocationId.card.costElement.Equals(Element.Death)) && newLocationId.card.cardType.Equals(CardType.Creature))
+        if (newLocationId.card.cardType.Equals(CardType.Creature))
         {
-            if (DuelManager.IsEclipseInPlay())
+            if (newLocationId.card.costElement.Equals(Element.Darkness) || newLocationId.card.costElement.Equals(Element.Death))
             {
-                newLocationId.card.DefModify += 1;
-                newLocationId.card.AtkModify += 2;
+                if (DuelManager.IsEclipseInPlay())
+                {
+                    newLocationId.card.DefModify += 1;
+                    newLocationId.card.AtkModify += 2;
+                }
+                else if (DuelManager.IsNightfallInPlay())
+                {
+                    newLocationId.card.DefModify += 1;
+                    newLocationId.card.AtkModify += 1;
+                }
+                newLocationId.UpdateCard();
             }
-            else if (DuelManager.IsNightfallInPlay())
-            {
-                newLocationId.card.DefModify += 1;
-                newLocationId.card.AtkModify += 1;
-            }
-            newLocationId.UpdateCard();
         }
+        
         return newLocationId;
     }
 
@@ -926,7 +942,7 @@ public enum PlayerCounters
     Invisibility,
     Freeze,
     Poison,
-    Nuerotoxin,
+    Neurotoxin,
     Sanctuary,
     Freedom,
     Patience,

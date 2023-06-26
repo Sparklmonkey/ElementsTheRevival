@@ -7,6 +7,7 @@ public class Wisdom : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
+        target.card.AtkModify += 4;
         target.card.passive.Add("psion");
         target.card.desc = $"{target.card.cardName}'s attacks deal spell damage.";
     }

@@ -11,14 +11,14 @@ public class ArenaLeagueOpponent : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI opponentName, rewardValue;
     // Start is called before the first frame update
-    void Start()
-    {
+    //void Start()
+    //{
         
-    }
+    //}
 
-    // Update is called once per frame
-    void Update()
-    {
+    //// Update is called once per frame
+    //void Update()
+    //{
         
-    }
+    //}
 }

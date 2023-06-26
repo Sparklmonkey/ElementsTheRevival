@@ -11,6 +11,12 @@ public class CreatureBehaviour : CardTypeBehaviour
         {
             Owner.AddPlayerCounter(PlayerCounters.Scarab, 1);
         }
+
+        if (CardPair.card.innate.Contains("integrity"))
+        {
+
+        }
+
         if (CardPair.card.innate.Contains("chimera"))
         {
             var creatureList = Owner.playerCreatureField.GetAllValidCardIds();
@@ -62,6 +68,10 @@ public class CreatureBehaviour : CardTypeBehaviour
                 {
                     CardPair.PlayCard(CardDatabase.Instance.GetCardFromId(CardPair.card.iD.IsUpgraded() ? "7dt" : "5fd"));
                 }
+            }
+            else
+            {
+                CardPair.PlayCard(CardDatabase.Instance.GetCardFromId(CardPair.card.iD.IsUpgraded() ? "7dt" : "5fd"));
             }
         }
     }
@@ -127,9 +137,9 @@ public class CreatureBehaviour : CardTypeBehaviour
                     {
                         Enemy.AddPlayerCounter(PlayerCounters.Poison, 2);
                     }
-                    if (CardPair.card.passive.Contains("nuerotoxin"))
+                    if (CardPair.card.passive.Contains("neurotoxin"))
                     {
-                        Enemy.AddPlayerCounter(PlayerCounters.Nuerotoxin, 1);
+                        Enemy.AddPlayerCounter(PlayerCounters.Neurotoxin, 1);
                     }
                 }
                 if (atkNow != 0)

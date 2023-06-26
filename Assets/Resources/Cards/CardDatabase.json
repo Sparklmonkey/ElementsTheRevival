@@ -1850,7 +1850,7 @@
 			"costElement": 10,
 			"rarity": 4,
 			"passive": [],
-			"innate": [],
+			"innate": ["immaterial"],
 			"desc": "Shield: Reduce damage by 1. Spells are reflected against your opponent. Can not be destroyed or stolen."
 		},
 		{
@@ -2217,13 +2217,13 @@
 			"cardType": 1,
 			"atk": 0,
 			"def": 5,
-			"skill": "",
+			"skill": "rebirth",
 			"skillCost": 1,
 			"skillElement": 8,
 			"cost": 7,
 			"costElement": 8,
 			"rarity": 4,
-			"passive": [ "rebirth" ],
+			"passive": [],
 			"innate": [],
 			"desc": "<sprite=8>: Rebirth\nTurn this card into a Phoenix"
 		},
@@ -2751,7 +2751,7 @@
 			"costElement": 3,
 			"rarity": 4,
 			"passive": [],
-			"innate": [],
+			"innate": ["immaterial"],
 			"desc": "Shield: Reduce damage by 1. Any damage from spells is reflected. Can not be destroyed or stolen."
 		},
 		{
@@ -2761,14 +2761,14 @@
 			"cardType": 4,
 			"atk": 7,
 			"def": 7,
-			"skill": "immaterial",
+			"skill": "",
 			"skillCost": 0,
 			"skillElement": 0,
 			"cost": 5,
 			"costElement": 3,
 			"rarity": 6,
 			"passive": [],
-			"innate": [],
+			"innate": ["immaterial"],
 			"desc": "Weapon: Deal 7 damages at the end of every turn. Can not be destroyed or stolen."
 		},
 		{
@@ -2819,7 +2819,7 @@
 			"costElement": 3,
 			"rarity": 3,
 			"passive": [],
-			"innate": [],
+			"innate": ["immaterial"],
 			"desc": "Shield: Physical damage reduced by N. N is the number of your light emitting creatures. Immaterial."
 		},
 		{
@@ -5964,7 +5964,7 @@
 			"costElement": 10,
 			"rarity": 17,
 			"passive": [],
-			"innate": [],
+			"innate": ["immaterial"],
 			"desc": "Shield: Reduce damage by 2. Spells are reflected against your opponent. Can not be destroyed or stolen."
 		},
 		{
@@ -6331,13 +6331,13 @@
 			"cardType": 1,
 			"atk": 0,
 			"def": 5,
-			"skill": "",
+			"skill": "rebirth",
 			"skillCost": 1,
 			"skillElement": 8,
 			"cost": 2,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [ "rebirth" ],
+			"passive": [],
 			"innate": [],
 			"desc": "<sprite=8>: Rebirth\nTurn this card into a Minor Phoenix"
 		},
@@ -6865,7 +6865,7 @@
 			"costElement": 3,
 			"rarity": 17,
 			"passive": [],
-			"innate": [],
+			"innate": ["immaterial"],
 			"desc": "Shield: Any damage from spells is reflected against your opponent. Can not be destroyed or stolen."
 		},
 		{
@@ -6875,14 +6875,14 @@
 			"cardType": 4,
 			"atk": 8,
 			"def": 4,
-			"skill": "immaterial",
+			"skill": "",
 			"skillCost": 0,
 			"skillElement": 0,
 			"cost": 5,
 			"costElement": 3,
 			"rarity": 18,
 			"passive": [],
-			"innate": [],
+			"innate": ["immaterial"],
 			"desc": "Weapon: Deal 8 damages at the end of every turn. Can not be destroyed or stolen."
 		},
 		{
@@ -6933,7 +6933,7 @@
 			"costElement": 3,
 			"rarity": 17,
 			"passive": [],
-			"innate": [],
+			"innate": ["immaterial"],
 			"desc": "Shield: Physical damage reduced by 1 + N. N is the number of your light emitting creatures. Immaterial."
 		},
 		{
