@@ -27,7 +27,7 @@ public class Card
     public bool IsPsion { get { return innate.Contains("psion"); } }
     public bool IsAdrenaline { get { return passive.Contains("adrenaline"); } }
     public bool IsMomentum { get { return passive.Contains("momentum"); } }
-    public bool IsImmaterial { get { return innate.Contains("adrenaline"); } }
+    public bool IsImmaterial { get { return innate.Contains("immaterial"); } }
     public bool IsBurrowed { get { return innate.Contains("burrowed"); } }
     public bool IsAflatoxin { get; set; }
     public bool AbilityUsed { get; set; }

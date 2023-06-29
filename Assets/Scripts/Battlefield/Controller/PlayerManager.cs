@@ -63,7 +63,7 @@ public class PlayerManager : MonoBehaviour
     {
         foreach(var perm in playerPermanentManager.GetAllValidCardIds())
         {
-            if (perm.card.skill == "cloak")
+            if (perm.card.iD == "5v2" || perm.card.iD == "7ti")
             {
                 perm.RemoveCard();
                 DeactivateCloakEffect(perm);
