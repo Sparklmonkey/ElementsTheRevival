@@ -155,6 +155,7 @@ public class CreatureBehaviour : CardTypeBehaviour
                 SingularityEffect();
                 CreatureTurnDownTick();
                 CardPair.UpdateCard();
+                if (!CardPair.HasCard()) { return; }
                 if (CardPair.card.AtkNow != 0 && hasAdrenaline)
                 {
                     adrenalineIndex++;
@@ -226,7 +227,7 @@ public class CreatureBehaviour : CardTypeBehaviour
 
             if (CardPair.card.passive.Contains("swarm"))
             {
-                CardPair.card.def = Owner.scarabsPlayed;
+                CardPair.card.def = Owner.playerCounters.scarab;
             }
         }
     }

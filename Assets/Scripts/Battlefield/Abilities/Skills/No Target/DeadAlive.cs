@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class DeadAlive : AbilityEffect
+public class Deadalive : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 

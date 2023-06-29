@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ActionManager
 {
-    public static List<ElementAction> actionList = new List<ElementAction>();
+    public static List<ElementAction> actionList = new();
 
     public static void AddCardDrawAction(bool isPlayer, Card ownerCard)
     {
@@ -13,37 +13,37 @@ public class ActionManager
 
         if (isPlayer)
         {
-            action = new ElementAction($"{ApiManager.shared.GetEmailAndUsername().Item2}", "Draw", ownerCard.imageID, "", false);
+            action = new($"{ApiManager.shared.GetEmailAndUsername().Item2}", "Draw", ownerCard.imageID, "", false);
         }
         else
         {
-            action = new ElementAction($"{BattleVars.shared.enemyAiData.opponentName}", "Draw", "", "", false);
+            action = new($"{BattleVars.shared.enemyAiData.opponentName}", "Draw", "", "", false);
         }
         actionList.Add(action);
     }
 
     public static void AddCardPlayedOnFieldAction(bool isPlayer, Card ownerCard)
     {
-        ElementAction action = new ElementAction($"{(isPlayer ? ApiManager.shared.GetEmailAndUsername().Item2 : BattleVars.shared.enemyAiData.opponentName)}", "Played", ownerCard.imageID, "", false);
+        ElementAction action = new($"{(isPlayer ? ApiManager.shared.GetEmailAndUsername().Item2 : BattleVars.shared.enemyAiData.opponentName)}", "Played", ownerCard.imageID, "", false);
         
         actionList.Add(action);
     }
-    public static void AddSpellPlayedAction(bool isPlayer, Card origin, Card target)
+    public static void AddSpellPlayedAction(bool isPlayer, IDCardPair origin , IDCardPair target)
     {
         string owner = isPlayer ? ApiManager.shared.GetEmailAndUsername().Item2 : BattleVars.shared.enemyAiData.opponentName;
-        bool shouldShowArrow = target != null;
-        string targetId = target == null ? "" : target.imageID;
-        ElementAction action = new ElementAction(owner, "Played Spell", origin.imageID, targetId, shouldShowArrow);
-        
+        bool shouldShowArrow = target.HasCard();
+        string targetId = target.HasCard() ? target.card.imageID : "";
+        ElementAction action = new(owner, "Played Spell", origin.card.imageID, targetId, shouldShowArrow);
+
         actionList.Add(action);
     }
 
-    public static void AddAbilityActivatedAction(bool isPlayer, Card origin, Card target)
+    public static void AddAbilityActivatedAction(bool isPlayer, IDCardPair origin, IDCardPair target)
     {
         string owner = isPlayer ? ApiManager.shared.GetEmailAndUsername().Item2 : BattleVars.shared.enemyAiData.opponentName;
-        bool shouldShowArrow = target != null;
-        string targetId = target == null ? "" : target.imageID;
-        ElementAction action = new ElementAction(owner, "Activated Ability", origin.imageID, targetId, shouldShowArrow);
+        bool shouldShowArrow = target.HasCard();
+        string targetId = target.HasCard() ? target.card.imageID : "";
+        ElementAction action = new(owner, "Activated Ability", origin.card.imageID, targetId, shouldShowArrow);
 
         actionList.Add(action);
     }

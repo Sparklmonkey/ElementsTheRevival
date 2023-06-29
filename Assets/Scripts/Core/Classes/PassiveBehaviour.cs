@@ -30,7 +30,7 @@ public class PassiveBehaviour : CardTypeBehaviour
 
     public override void OnCardRemove()
     {
-        if (CardPair.card.skill == "bones")
+        if (CardPair.card.innate.Contains("bones"))
         {
             Owner.AddPlayerCounter(PlayerCounters.Bone, -9999);
         }
@@ -77,7 +77,7 @@ public class PassiveBehaviour : CardTypeBehaviour
 
     public override void DeathTrigger()
     {
-        if (CardPair.card.skill == "bones")
+        if (CardPair.card.innate.Contains("bones"))
         {
             Owner.AddPlayerCounter(PlayerCounters.Bone, 2);
         }
@@ -101,37 +101,36 @@ public class PassiveBehaviour : CardTypeBehaviour
 
         if (CardPair.card.cardType == CardType.Weapon)
         {
-            string skill = CardPair.card.skill;
             int atknow = CardPair.card.AtkNow;
 
-            switch (skill)
+            if (CardPair.card.innate.Contains("regenerate"))
             {
-                case "fiery":
-                    atknow += Mathf.FloorToInt(Owner.GetAllQuantaOfElement(Element.Fire) / 5);
-                    break;
-                case "hammer":
-                    if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Earth || Owner.playerPassiveManager.GetMark().card.costElement == Element.Gravity)
-                    {
-                        atknow++;
-                    }
-                    break;
-                case "dagger":
-                    if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Death || Owner.playerPassiveManager.GetMark().card.costElement == Element.Darkness)
-                    {
-                        atknow++;
-                    }
-                    break;
-                case "bow":
-                    if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Air)
-                    {
-                        atknow++;
-                    }
-                    break;
-                case "regenerate":
-                    Owner.ModifyHealthLogic(5, false, false);
-                    break;
-                default:
-                    break;
+                Owner.ModifyHealthLogic(5, false, false);
+            }
+            if (CardPair.card.innate.Contains("fiery"))
+            {
+                atknow += Mathf.FloorToInt(Owner.GetAllQuantaOfElement(Element.Fire) / 5);
+            }
+            if (CardPair.card.innate.Contains("hammer"))
+            {
+                if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Earth || Owner.playerPassiveManager.GetMark().card.costElement == Element.Gravity)
+                {
+                    atknow++;
+                }
+            }
+            if (CardPair.card.innate.Contains("dagger"))
+            {
+                if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Death || Owner.playerPassiveManager.GetMark().card.costElement == Element.Darkness)
+                {
+                    atknow++;
+                }
+            }
+            if (CardPair.card.innate.Contains("bow"))
+            {
+                if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Air)
+                {
+                    atknow++;
+                }
             }
 
             if (CardPair.card.Freeze > 0)
@@ -156,15 +155,15 @@ public class PassiveBehaviour : CardTypeBehaviour
 
             if (atknow > 0)
             {
-                if (skill == "vampire")
+                if (CardPair.card.innate.Contains("vampire"))
                 {
                     Owner.ModifyHealthLogic(atknow, false, false);
                 }
-                if (skill == "venom")
+                if (CardPair.card.innate.Contains("venom"))
                 {
                     Enemy.AddPlayerCounter(PlayerCounters.Poison, 1);
                 }
-                if (skill == "scramble")
+                if (CardPair.card.innate.Contains("scramble"))
                 {
                     Enemy.ScrambleQuanta();
                 }

@@ -229,7 +229,7 @@ public abstract class AiBaseFunctions
                 if (idCardList.Count == 0) { yield break; }
                 break;
             case CardType.Weapon:
-                if (aiManager.playerPassiveManager.GetWeapon().card.cardName == "Weapon") { yield break; }
+                if (!aiManager.playerPassiveManager.GetWeapon().HasCard()) { yield break; }
                 idCardList.Add(aiManager.playerPassiveManager.GetWeapon());
                 break;
             default:

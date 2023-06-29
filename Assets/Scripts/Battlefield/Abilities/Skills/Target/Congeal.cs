@@ -15,6 +15,7 @@ public class Congeal : AbilityEffect
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
+        if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 

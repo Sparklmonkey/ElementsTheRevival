@@ -27,6 +27,7 @@ public class Drainlife : AbilityEffect
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
         possibleTargets.Add(enemy.playerID);
         possibleTargets.Add(Owner.playerID);
+        if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 

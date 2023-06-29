@@ -89,7 +89,6 @@ public class PlayerManager : MonoBehaviour
     private GameObject cloakVisual;
     [SerializeField]
     private Transform permParent;
-    public int scarabsPlayed = 0;
 
     public int GetPossibleDamage()
     {
@@ -230,7 +229,6 @@ public class PlayerManager : MonoBehaviour
             GameOverVisual.ShowGameOverScreen(!isPlayer);
             return;
         }
-        playerCounters.scarab = 0;
         TurnDownTick();
         DrawCardFromDeckLogic();
     }
@@ -368,8 +366,6 @@ public class PlayerManager : MonoBehaviour
     {
         if (BattleVars.shared.abilityOrigin.card.cardType.Equals(CardType.Spell))
         {
-            //ActionManager.AddSpellPlayedAction(isPlayer, originCard, BattleVars.shared.IsFixedTarget() ? null : targetCard);
-
             if (SkillManager.Instance.ShouldAskForTarget(BattleVars.shared.abilityOrigin))
             {
                 SkillManager.Instance.SkillRoutineWithTarget(this, target);
@@ -382,7 +378,6 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            //ActionManager.AddAbilityActivatedAction(isPlayer, originCard, BattleVars.shared.IsFixedTarget() ? null : targetCard);
             if (BattleVars.shared.abilityOrigin.card.skill != "photosynthesis")
             {
                 BattleVars.shared.abilityOrigin.card.AbilityUsed = true;
@@ -438,6 +433,7 @@ public class PlayerManager : MonoBehaviour
         if (cardToCheck.AbilityUsed) { return false; }
         if (cardToCheck.IsDelayed) { return false; }
         if (cardToCheck.Freeze > 0) { return false; }
+        if (!SkillManager.Instance.HasEnoughTargets(this, cardToCheck)) { return false; }
 
         bool canAfford = playerQuantaManager.HasEnoughQuanta(cardToCheck.skillElement, cardToCheck.skillCost);
         if (cardToCheck.skill.ToString().Contains("Haste"))
@@ -646,18 +642,18 @@ public class PlayerManager : MonoBehaviour
         cardPair.transform.SetSiblingIndex(cardPair.id.Index);
     }
 
-    public void CheckEclipseNightfall(bool isAdded, string skill)
+    public void CheckEclipseNightfall(bool isAdded, string id)
     {
         List<IDCardPair> creatures = playerCreatureField.GetAllValidCardIds();
         int atkMod = 0;
         int defMod = 0;
-        switch (skill)
+        switch (id)
         {
-            case "eclipse":
+            case "7ta":
                 atkMod = DuelManager.IsEclipseInPlay() ? 0 : DuelManager.IsNightfallInPlay() ? 1 : 2;
                 defMod = DuelManager.IsEclipseInPlay() ? 0 : DuelManager.IsNightfallInPlay() ? 0 : 1;
                 break;
-            case "nightfall":
+            case "5uq":
                 atkMod = DuelManager.IsEclipseInPlay() || DuelManager.IsNightfallInPlay() ? 0 : 1;
                 defMod = DuelManager.IsEclipseInPlay() || DuelManager.IsNightfallInPlay() ? 0 : 1;
                 break;

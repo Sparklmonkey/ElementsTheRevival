@@ -15,7 +15,7 @@ public class Paradox : AbilityEffect
     {
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
-
+        if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable() && x.card.AtkNow > x.card.DefNow);
     }
 

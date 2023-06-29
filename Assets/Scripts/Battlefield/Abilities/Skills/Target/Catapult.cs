@@ -18,6 +18,7 @@ public class Catapult : AbilityEffect
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
+        if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 

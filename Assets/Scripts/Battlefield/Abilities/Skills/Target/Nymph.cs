@@ -15,7 +15,7 @@ public class Nymph : AbilityEffect
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerPermanentManager.GetAllValidCardIds();
-
+        if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.card.cardType.Equals(CardType.Pillar));
     }
 

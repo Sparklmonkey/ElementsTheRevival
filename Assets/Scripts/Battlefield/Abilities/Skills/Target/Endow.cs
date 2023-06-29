@@ -27,7 +27,7 @@ public class Endow : AbilityEffect
         {
             possibleTargets.Add(Owner.playerPassiveManager.GetWeapon());
         }
-
+        if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable() && CardDatabase.Instance.weaponIdList.Contains(x.card.iD));
     }
 

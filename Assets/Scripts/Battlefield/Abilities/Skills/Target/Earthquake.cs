@@ -16,12 +16,13 @@ public class Earthquake : AbilityEffect
     {
         var possibleTargets = Owner.playerPermanentManager.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerPermanentManager.GetAllValidCardIds());
+        if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets[Random.Range(0, posibleTargets.Count)];
+        if (possibleTargets.Count == 0) { return null; }
+        return possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

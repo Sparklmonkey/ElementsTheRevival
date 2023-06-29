@@ -14,7 +14,10 @@ namespace Elements.Duel.Manager
         public void UpdateHandVisual(IDCardPair cardPair)
         {
             cardPair.card = null;
-            if (pairList.FindAll(x => x.HasCard()).Count == 0) { return; }
+            if (pairList.FindAll(x => x.HasCard()).Count == 0)
+            {
+                cardPair.RemoveCard();
+            }
 
             var cardList = new List<Card>();
             foreach (var item in pairList)

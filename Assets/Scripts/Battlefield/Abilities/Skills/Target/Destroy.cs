@@ -31,6 +31,7 @@ public class Destroy : AbilityEffect
             possibleTargets.Add(Owner.playerPassiveManager.GetShield());
         }
 
+        if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 

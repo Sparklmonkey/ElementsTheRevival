@@ -100,6 +100,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         {
             stackCount = 1;
         }
+        cardBehaviour.StackCount = stackCount;
         cardBehaviour.OnCardPlay();
         OnCardChanged?.Invoke(card, stackCount);
     }

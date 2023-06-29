@@ -17,7 +17,7 @@ public class Steal : AbilityEffect
     {
         var possibleTargets = enemy.playerPermanentManager.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerPassiveManager.GetAllValidCardIds());
-
+        if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 

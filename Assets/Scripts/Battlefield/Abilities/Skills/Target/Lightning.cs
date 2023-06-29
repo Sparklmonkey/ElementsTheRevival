@@ -25,7 +25,8 @@ public class Lightning : AbilityEffect
         possibleTargets.Add(enemy.playerID);
         possibleTargets.Add(Owner.playerID);
 
-        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.AtkNow > x.card.DefNow);
+        if (possibleTargets.Count == 0) { return new(); }
+        return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
