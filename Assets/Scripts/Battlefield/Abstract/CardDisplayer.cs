@@ -33,18 +33,19 @@ public abstract class CardDisplayer : MonoBehaviour
 
     public void ShouldShowTarget(bool shouldShow)
     {
+            validTargetGlow.color = shouldShow ? new Color(15, 255, 0, 255) : new Color(0, 0, 0, 0);
+    }
+
+    public void ShouldShowUsableGlow(bool shouldShow)
+    {
         if (gameObject.name.Contains("Hand"))
         {
             validTargetGlow.color = shouldShow ? new Color(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue) : new Color(0, 0, 0, 0);
         }
         else
         {
-            validTargetGlow.color = shouldShow ? new Color(15, 255, 0, 255) : new Color(0, 0, 0, 0);
+            isUsableGlow.gameObject.SetActive(shouldShow);
         }
-    }
-    public void ShouldShowUsableGlow(bool shouldShow)
-    {
-        isUsableGlow.gameObject.SetActive(shouldShow);
     }
 
     private void ShouldShowText(bool shouldShow)

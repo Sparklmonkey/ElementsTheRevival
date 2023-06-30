@@ -571,8 +571,8 @@ public class PlayerManager : MonoBehaviour
 
     void DisplayPlayableGlow()
     {
-        if (!isPlayer) { return; }
         HideAllPlayableGlow();
+        if (!isPlayer) { return; }
 
         if (playerHand.GetAllValidCardIds().Count > 0)
         {
