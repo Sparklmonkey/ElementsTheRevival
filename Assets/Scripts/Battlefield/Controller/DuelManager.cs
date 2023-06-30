@@ -260,18 +260,20 @@ public class DuelManager : MonoBehaviour
         return false;
     }
 
-    public static bool IsNightfallInPlay()
+    public static int GetNightfallCount()
     {
-        if (Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5uq").Count > 0) { return true; }
-        if (Instance.enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5uq").Count > 0) { return true; }
-        return false;
+        int nightfallCount = 0;
+        nightfallCount += Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5uq").Count;
+        nightfallCount += Instance.enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5uq").Count;
+        return nightfallCount;
     }
 
-    public static bool IsEclipseInPlay()
+    public static int GetEclipseCount()
     {
-        if (Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "7ta").Count > 0) { return true; }
-        if (Instance.enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "7ta").Count > 0) { return true; }
-        return false;
+        int eclipseCount = 0;
+        eclipseCount += Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "7ta").Count;
+        eclipseCount += Instance.enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "7ta").Count;
+        return eclipseCount;
     }
 
     public void IdCardTapped(IDCardPair idCard)

@@ -5,8 +5,6 @@ public class PermanentBehaviour : CardTypeBehaviour
 {
     public override void OnCardPlay()
     {
-        if (CardPair.card.skill == "" || CardPair.card.skill == "none") { return; }
-
         switch (CardPair.card.iD)
         {
             case "7q9":

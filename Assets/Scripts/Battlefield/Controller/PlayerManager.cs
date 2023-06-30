@@ -645,24 +645,72 @@ public class PlayerManager : MonoBehaviour
     public void CheckEclipseNightfall(bool isAdded, string id)
     {
         List<IDCardPair> creatures = playerCreatureField.GetAllValidCardIds();
+
+        int eclipseCount = DuelManager.GetEclipseCount();
+        int nightfallCount = DuelManager.GetNightfallCount();
+
         int atkMod = 0;
         int defMod = 0;
-        switch (id)
+        if (isAdded)
         {
-            case "7ta":
-                atkMod = DuelManager.IsEclipseInPlay() ? 0 : DuelManager.IsNightfallInPlay() ? 1 : 2;
-                defMod = DuelManager.IsEclipseInPlay() ? 0 : DuelManager.IsNightfallInPlay() ? 0 : 1;
-                break;
-            case "5uq":
-                atkMod = DuelManager.IsEclipseInPlay() || DuelManager.IsNightfallInPlay() ? 0 : 1;
-                defMod = DuelManager.IsEclipseInPlay() || DuelManager.IsNightfallInPlay() ? 0 : 1;
-                break;
-            default:
-                break;
+            switch (id)
+            {
+                case "7ta":
+                    if (eclipseCount == 1 && nightfallCount > 0)
+                    {
+                        atkMod = 1;
+                        defMod = 0;
+                        break;
+                    }
+                    if (eclipseCount == 1 && nightfallCount == 0)
+                    {
+                        atkMod = 2;
+                        defMod = 1;
+                        break;
+                    }
+                    break;
+                case "5uq":
+                    if (eclipseCount == 0 && nightfallCount == 1)
+                    {
+                        atkMod = 1;
+                        defMod = 1;
+                        break;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
-
-        atkMod = isAdded ? atkMod : -atkMod;
-        defMod = isAdded ? defMod : -defMod;
+        else
+        {
+            switch (id)
+            {
+                case "7ta":
+                    if (eclipseCount == 0 && nightfallCount > 0)
+                    {
+                        atkMod = -1;
+                        defMod = 0;
+                        break;
+                    }
+                    if (eclipseCount == 0 && nightfallCount == 0)
+                    {
+                        atkMod = -2;
+                        defMod = -1;
+                        break;
+                    }
+                    break;
+                case "5uq":
+                    if (eclipseCount == 0 && nightfallCount == 0)
+                    {
+                        atkMod = -1;
+                        defMod = -1;
+                        break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
 
         foreach (var creature in creatures)
         {
@@ -685,12 +733,12 @@ public class PlayerManager : MonoBehaviour
         {
             if (newLocationId.card.costElement.Equals(Element.Darkness) || newLocationId.card.costElement.Equals(Element.Death))
             {
-                if (DuelManager.IsEclipseInPlay())
+                if (DuelManager.GetEclipseCount() > 0)
                 {
                     newLocationId.card.DefModify += 1;
                     newLocationId.card.AtkModify += 2;
                 }
-                else if (DuelManager.IsNightfallInPlay())
+                else if (DuelManager.GetNightfallCount() > 0)
                 {
                     newLocationId.card.DefModify += 1;
                     newLocationId.card.AtkModify += 1;
