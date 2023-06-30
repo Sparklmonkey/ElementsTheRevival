@@ -28,16 +28,15 @@ namespace Elements.Duel.Manager
         {
             if (element.Equals(Element.Other))
             {
-                System.Random rnd = new();
                 List<QuantaObject> quantaList = isAdd ? _quantaObjects : _quantaObjects.FindAll(x => x.count > 0);
-                QuantaObject rndQuanta = quantaList.OrderBy(x => rnd.Next()).First();
+                QuantaObject rndQuanta = quantaList[Random.Range(0, quantaList.Count)];
 
                 while (amount > 0)
                 {
                     rndQuanta.UpdateQuanta(1, isAdd);
                     amount--;
-                    quantaList = _quantaObjects.FindAll(x => x.count > 0);
-                    rndQuanta = quantaList.OrderBy(x => rnd.Next()).First();
+                    quantaList = isAdd ? _quantaObjects : _quantaObjects.FindAll(x => x.count > 0);
+                    rndQuanta = quantaList[Random.Range(0, quantaList.Count)];
                 }
             }
             else

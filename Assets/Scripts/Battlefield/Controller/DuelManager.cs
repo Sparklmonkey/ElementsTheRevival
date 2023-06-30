@@ -39,8 +39,8 @@ public class DuelManager : MonoBehaviour
             }
             Instance.enemy.ShowTargetHighlight(target);
         }
-
     }
+
     public static bool IsSundialInPlay()
     {
         if (Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5rp" || x.card.iD == "7q9").Count > 0) { return true; }

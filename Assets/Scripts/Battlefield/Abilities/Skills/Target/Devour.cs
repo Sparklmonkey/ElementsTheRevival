@@ -22,7 +22,8 @@ public class Devour : AbilityEffect
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
         if (possibleTargets.Count == 0) { return new(); }
-        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.DefNow < BattleVars.shared.abilityOrigin.card.DefNow);
+        if (!possibleTargets.Exists(x => x.IsTargetable() && x.card.DefNow <= Origin.card.DefNow)) { return new(); }
+        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.DefNow < Origin.card.DefNow);
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

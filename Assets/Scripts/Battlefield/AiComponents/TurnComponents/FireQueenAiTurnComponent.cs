@@ -27,7 +27,7 @@ public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
         foreach (var queen in queenCards)
         {
-            if (!aiManager.IsAbilityUsable(queen.card)) { continue; }
+            if (!aiManager.IsAbilityUsable(queen)) { continue; }
             BattleVars.shared.abilityOrigin = queen;
             aiManager.ActivateAbility(queen);
         }
@@ -38,7 +38,7 @@ public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
     {
         var weapon = aiManager.playerPassiveManager.GetWeapon();
         if (weapon.card.cardName == "Weapon") { yield break; }
-        if (aiManager.IsAbilityUsable(weapon.card)) { yield break; }
+        if (aiManager.IsAbilityUsable(weapon)) { yield break; }
         var target = SkillManager.Instance.GetRandomTarget(aiManager, weapon);
         if(target == null) { yield break; }
 

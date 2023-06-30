@@ -427,17 +427,17 @@ public class PlayerManager : MonoBehaviour
         return canAfford && hasSpace && !cardToCheck.AbilityUsed;
     }
 
-    public bool IsAbilityUsable(Card cardToCheck)
+    public bool IsAbilityUsable(IDCardPair cardToCheck)
     {
-        if (cardToCheck == null) { return false; }
-        if (cardToCheck.skill == "" || cardToCheck.skill == "none" || cardToCheck.skill == null || cardToCheck.skill == " ") { return false; }
-        if (cardToCheck.AbilityUsed) { return false; }
-        if (cardToCheck.IsDelayed) { return false; }
-        if (cardToCheck.Freeze > 0) { return false; }
+        if (!cardToCheck.HasCard()) { return false; }
+        if (cardToCheck.card.skill == "" || cardToCheck.card.skill == "none" || cardToCheck.card.skill == null || cardToCheck.card.skill == " ") { return false; }
+        if (cardToCheck.card.AbilityUsed) { return false; }
+        if (cardToCheck.card.IsDelayed) { return false; }
+        if (cardToCheck.card.Freeze > 0) { return false; }
         if (!SkillManager.Instance.HasEnoughTargets(this, cardToCheck)) { return false; }
 
-        bool canAfford = playerQuantaManager.HasEnoughQuanta(cardToCheck.skillElement, cardToCheck.skillCost);
-        if (cardToCheck.skill.ToString().Contains("Haste"))
+        bool canAfford = playerQuantaManager.HasEnoughQuanta(cardToCheck.card.skillElement, cardToCheck.card.skillCost);
+        if (cardToCheck.card.skill.ToString().Contains("Haste"))
         {
             if (playerHand.GetAllValidCardIds().Count == 8) { return false; }
         }
@@ -586,7 +586,7 @@ public class PlayerManager : MonoBehaviour
         {
             foreach (IDCardPair displayer in playerCreatureField.GetAllValidCardIds())
             {
-                displayer.IsPlayable(IsAbilityUsable(displayer.card));
+                displayer.IsPlayable(IsAbilityUsable(displayer));
             }
         }
 
@@ -595,7 +595,7 @@ public class PlayerManager : MonoBehaviour
 
             foreach (IDCardPair displayer in playerPermanentManager.GetAllValidCardIds())
             {
-                displayer.IsPlayable(IsAbilityUsable(displayer.card));
+                displayer.IsPlayable(IsAbilityUsable(displayer));
             }
         }
         playerPassiveManager.GetWeapon().IsPlayable(false);
@@ -934,7 +934,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            if (!IsAbilityUsable(iDCardPair.card))
+            if (!IsAbilityUsable(iDCardPair))
             {
                 SetupCardDisplay(iDCardPair);
                 return;

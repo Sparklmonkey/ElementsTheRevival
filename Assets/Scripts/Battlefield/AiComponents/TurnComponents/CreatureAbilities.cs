@@ -11,7 +11,7 @@ public class CreatureAbilities
 
         foreach (var creature in cardList)
         {
-            if (!aiManager.IsAbilityUsable(creature.card)) { continue; }
+            if (!aiManager.IsAbilityUsable(creature)) { continue; }
             if (SkillManager.Instance.ShouldAskForTarget(creature))
             {
                 var target = SkillManager.Instance.GetRandomTarget(aiManager, creature);
@@ -38,7 +38,7 @@ public class CreatureAbilities
 
         foreach (var pegasus in pegasusList)
         {
-            if(!aiManager.IsAbilityUsable(pegasus.card)) { continue; }
+            if(!aiManager.IsAbilityUsable(pegasus)) { continue; }
             BattleVars.shared.abilityOrigin = pegasus;
             aiManager.ActivateAbility(pegasus);
         }
@@ -56,7 +56,7 @@ public class CreatureAbilities
 
         foreach (var virus in virusList)
         {
-            if (!aiManager.IsAbilityUsable(virus.card)) { continue; }
+            if (!aiManager.IsAbilityUsable(virus)) { continue; }
             BattleVars.shared.abilityOrigin = virus;
             var target = possibleTargets.Aggregate((i1, i2) => i1.card.DefNow > i2.card.DefNow ? i1 : i2);
             aiManager.ActivateAbility(target);
@@ -73,7 +73,7 @@ public class CreatureAbilities
 
         foreach (var graboid in graboidList)
         {
-            if (!aiManager.IsAbilityUsable(graboid.card)) { continue; }
+            if (!aiManager.IsAbilityUsable(graboid)) { continue; }
             BattleVars.shared.abilityOrigin = graboid;
             aiManager.ActivateAbility(graboid);
         }
@@ -88,7 +88,7 @@ public class CreatureAbilities
 
         foreach (var spider in fleshSpider)
         {
-            if (!aiManager.IsAbilityUsable(spider.card)) { continue; }
+            if (!aiManager.IsAbilityUsable(spider)) { continue; }
             var target = SkillManager.Instance.GetRandomTarget(aiManager, spider);
             if(target == null) { continue; }
             BattleVars.shared.abilityOrigin = spider;
@@ -108,7 +108,7 @@ public class CreatureAbilities
 
         foreach (var bloodSucker in bloodsuckerList)
         {
-            if (!aiManager.IsAbilityUsable(bloodSucker.card)) { continue; }
+            if (!aiManager.IsAbilityUsable(bloodSucker)) { continue; }
             BattleVars.shared.abilityOrigin = bloodSucker;
             var target = possibleTargets.Aggregate((i1, i2) => i1.card.DefNow > i2.card.DefNow ? i1 : i2);
             aiManager.ActivateAbility(target);
@@ -124,13 +124,13 @@ public class CreatureAbilities
 
         foreach (var creature in creatureList)
         {
-            if (!aiManager.IsAbilityUsable(creature.card)) { continue; }
+            if (!aiManager.IsAbilityUsable(creature)) { continue; }
 
         }
 
         for (int i = 0; i < creatureList.Count; i++)
         {
-            if(!aiManager.IsAbilityUsable(creatureList[i].card)) { continue; }
+            if(!aiManager.IsAbilityUsable(creatureList[i])) { continue; }
             if (creatureList[i].card.skill == "endow")
             {
                 if (aiManager.playerPassiveManager.GetWeapon() == null) { continue; }

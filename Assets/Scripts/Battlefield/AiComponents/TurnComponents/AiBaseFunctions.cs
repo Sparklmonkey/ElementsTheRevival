@@ -140,7 +140,7 @@ public abstract class AiBaseFunctions
         var idCardList = cardType.Equals(CardType.Creature) ? aiManager.playerCreatureField.GetAllValidCardIds() : aiManager.playerPermanentManager.GetAllValidCardIds();
 
         if (idCardList.Count == 0) { yield break; }
-        int cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x.card));
+        int cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x));
         if (cardIndex == -1) { yield break; }
 
         for (int i = 0; i < 7; i++)
@@ -153,7 +153,7 @@ public abstract class AiBaseFunctions
             aiManager.ActivateAbility(target);
 
             idCardList = cardType.Equals(CardType.Creature) ? aiManager.playerCreatureField.GetAllValidCardIds() : aiManager.playerPermanentManager.GetAllValidCardIds();
-            cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x.card));
+            cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x));
         }
     }
 
@@ -162,7 +162,7 @@ public abstract class AiBaseFunctions
         var idCardList = cardType.Equals(CardType.Creature) ? aiManager.playerCreatureField.GetAllValidCardIds() : aiManager.playerPermanentManager.GetAllValidCardIds();
 
         if (idCardList.Count == 0) { yield break; }
-        int cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x.card));
+        int cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x));
         if (cardIndex == -1) { yield break; }
 
         for (int i = 0; i < 7; i++)
@@ -171,7 +171,7 @@ public abstract class AiBaseFunctions
             BattleVars.shared.abilityOrigin = idCardList[cardIndex];
             aiManager.ActivateAbility(idCardList[cardIndex]);
             idCardList = cardType.Equals(CardType.Creature) ? aiManager.playerCreatureField.GetAllValidCardIds() : aiManager.playerPermanentManager.GetAllValidCardIds();
-            cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x.card));
+            cardIndex = idCardList.FindIndex(x => (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x));
         }
     }
 
@@ -237,7 +237,7 @@ public abstract class AiBaseFunctions
         }
 
 
-        int cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x.card));
+        int cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x));
 
         if (cardIndex == -1) { yield break; }
 
@@ -254,7 +254,7 @@ public abstract class AiBaseFunctions
                 if (target == null)
                 {
                     idCardList = aiManager.playerHand.GetAllValidCardIds();
-                    cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x.card) && x.card.cardName != cardToCheck.cardName);
+                    cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x) && x.card.cardName != cardToCheck.cardName);
                     continue;
                 }
 
@@ -266,7 +266,7 @@ public abstract class AiBaseFunctions
             }
             yield return new WaitForSeconds(BattleVars.shared.aiPlaySpeed);
             idCardList = aiManager.playerHand.GetAllValidCardIds();
-            cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x.card));
+            cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x));
         }
     }
 }

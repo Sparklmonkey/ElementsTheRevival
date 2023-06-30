@@ -29,7 +29,7 @@ public class JezebelAiTurnComponent : AiBaseFunctions, IAiTurnComponent
     {
         var idCardList = aiManager.playerCreatureField.GetAllValidCardIds();
 
-        int cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x.card));
+        int cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x));
 
         if (cardIndex == -1) { yield break; }
 
@@ -43,18 +43,18 @@ public class JezebelAiTurnComponent : AiBaseFunctions, IAiTurnComponent
                 var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
                 if(target == null)
                 {
-                    cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x.card) && x.card.cardName != idCardList[cardIndex].card.cardName);
+                    cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x) && x.card.cardName != idCardList[cardIndex].card.cardName);
                     continue;
                 }
                 BattleVars.shared.abilityOrigin = idCardList[cardIndex];
                 aiManager.ActivateAbility(target);
-                cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x.card));
+                cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x));
             }
             else
             {
                 BattleVars.shared.abilityOrigin = idCardList[cardIndex];
                 aiManager.ActivateAbility(idCardList[cardIndex]);
-                cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x.card));
+                cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x));
             }
         }
     }

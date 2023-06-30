@@ -224,11 +224,11 @@ public class CreatureBehaviour : CardTypeBehaviour
             {
                 Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("4t8"));
             }
+        }
 
-            if (CardPair.card.passive.Contains("swarm"))
-            {
-                CardPair.card.def = Owner.playerCounters.scarab;
-            }
+        if (CardPair.card.innate.Contains("swarm"))
+        {
+            CardPair.card.def = Owner.playerCounters.scarab;
         }
     }
 

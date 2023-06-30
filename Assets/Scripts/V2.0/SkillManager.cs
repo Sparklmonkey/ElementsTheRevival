@@ -32,10 +32,11 @@ public class SkillManager
         ability.Activate(idCard);
     }
 
-    public bool HasEnoughTargets(PlayerManager owner, Card card)
+    public bool HasEnoughTargets(PlayerManager owner, IDCardPair card)
     {
-        var ability = card.skill.GetSkillScript<AbilityEffect>();
+        var ability = card.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
+        ability.Origin = card;
         var enemy = DuelManager.GetNotIDOwner(owner.playerID.id);
         var targets = ability.GetPossibleTargets(enemy);
         if (ability.NeedsTarget())
@@ -49,6 +50,7 @@ public class SkillManager
     {
         var ability = card.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
+        ability.Origin = card;
         var enemy = DuelManager.GetNotIDOwner(owner.playerID.id);
         DuelManager.SetupHighlights(ability.GetPossibleTargets(enemy));
     }
@@ -58,6 +60,7 @@ public class SkillManager
         var ability = BattleVars.shared.abilityOrigin.card.skill.GetSkillScript<AbilityEffect>();
         ActionManager.AddAbilityActivatedAction(owner.isPlayer, BattleVars.shared.abilityOrigin, target);
         ability.Owner = owner;
+        ability.Origin = BattleVars.shared.abilityOrigin;
 
         ability.Activate(target);
     }
@@ -66,6 +69,7 @@ public class SkillManager
     {
         var ability = iDCard.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
+        ability.Origin = iDCard;
 
         return ability.SelectRandomTarget(ability.GetPossibleTargets(DuelManager.GetIDOwner(owner.playerID.id)));
     }
