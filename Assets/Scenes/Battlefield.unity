@@ -6812,7 +6812,6 @@ MonoBehaviour:
   healthDisplayer: {fileID: 4619177}
   cloakVisual: {fileID: 1893749477}
   permParent: {fileID: 224746655}
-  scarabsPlayed: 0
   cardDetailView: {fileID: 1780469455}
   playerDisplayer: {fileID: 1212562475}
   playerHand:
@@ -6880,7 +6879,7 @@ MonoBehaviour:
     delay: 0
     poison: 0
     invisibility: 0
-    nuerotoxin: 0
+    neurotoxin: 0
     bone: 0
     silence: 0
     stasis: 0
@@ -18095,7 +18094,6 @@ MonoBehaviour:
   healthDisplayer: {fileID: 2020686621}
   cloakVisual: {fileID: 1893749477}
   permParent: {fileID: 0}
-  scarabsPlayed: 0
   cardDetailView: {fileID: 1780469455}
   playerDisplayer: {fileID: 753189428}
   playerHand:
@@ -18163,7 +18161,7 @@ MonoBehaviour:
     delay: 0
     poison: 0
     invisibility: 0
-    nuerotoxin: 0
+    neurotoxin: 0
     bone: 0
     silence: 0
     stasis: 0
@@ -18645,7 +18643,7 @@ MonoBehaviour:
   validTargetGlow: {fileID: 753189426}
   poisonSprite: {fileID: 21300000, guid: 8ab5b7e76d8944a4eb6f40f93bff8b79, type: 3}
   puritySprite: {fileID: 21300000, guid: 5435329ed2059494bbc4754c9d78252a, type: 3}
-  nuerotoxinSprite: {fileID: 21300000, guid: 766de1b52d06e6347982dd67ab5fb07c, type: 3}
+  neurotoxinSprite: {fileID: 21300000, guid: 766de1b52d06e6347982dd67ab5fb07c, type: 3}
   poisonImg: {fileID: 263388209}
   sanctImage: {fileID: 1562249632}
   silenceImage: {fileID: 51377208}
@@ -28538,7 +28536,7 @@ MonoBehaviour:
   validTargetGlow: {fileID: 1212562476}
   poisonSprite: {fileID: 21300000, guid: 8ab5b7e76d8944a4eb6f40f93bff8b79, type: 3}
   puritySprite: {fileID: 21300000, guid: 5435329ed2059494bbc4754c9d78252a, type: 3}
-  nuerotoxinSprite: {fileID: 21300000, guid: 766de1b52d06e6347982dd67ab5fb07c, type: 3}
+  neurotoxinSprite: {fileID: 21300000, guid: 766de1b52d06e6347982dd67ab5fb07c, type: 3}
   poisonImg: {fileID: 572617492}
   sanctImage: {fileID: 475783822}
   silenceImage: {fileID: 1109701394}

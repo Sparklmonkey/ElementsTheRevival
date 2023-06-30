@@ -33,6 +33,7 @@ public class PlayerManager : MonoBehaviour
                 break;
             case PlayerCounters.Neurotoxin:
                 playerCounters.neurotoxin += amount;
+                playerCounters.poison += amount;
                 break;
             case PlayerCounters.Sanctuary:
                 playerCounters.sanctuary += amount;
