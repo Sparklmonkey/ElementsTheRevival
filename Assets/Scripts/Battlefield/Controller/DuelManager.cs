@@ -285,6 +285,7 @@ public class DuelManager : MonoBehaviour
             if (BattleVars.shared.isSelectingTarget && validTargets.Contains(idCard))
             {
                 player.ActivateAbility(idCard);
+                return;
             }
         }
 

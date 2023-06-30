@@ -526,8 +526,6 @@ GameObject:
   - component: {fileID: 4619176}
   - component: {fileID: 4619175}
   - component: {fileID: 4619177}
-  - component: {fileID: 4619178}
-  - component: {fileID: 4619179}
   m_Layer: 5
   m_Name: Health&Deck
   m_TagString: Untagged
@@ -616,55 +614,6 @@ MonoBehaviour:
   hpSlider: {fileID: 1289691537}
   damageSlider: {fileID: 1315945096}
   upMovingText: {fileID: 7298299078622344811, guid: b6102377ae2285e42b88f84a121499e1, type: 3}
-  validTargetGlow: {fileID: 1212562476}
---- !u!114 &4619178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4619173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeac340606bef4afc8d1eb24e351b537, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id:
-    Owner: 1
-    Field: 4
-    Index: 0
-  card:
-    iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    passive: []
-    innate: []
-    desc: 
-  stackCount: 0
-  isPlayer: 0
-  cardBehaviour: {fileID: 0}
---- !u!114 &4619179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4619173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfe4111b7eebc4f208c0599d39513733, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CardPair: {fileID: 0}
 --- !u!1001 &4871300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6794,7 +6743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 669435e4dfdbc455e8406a41a6c47adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: {fileID: 4619178}
+  playerID: {fileID: 1212562480}
   quantaDisplayers:
   - {fileID: 2046537004}
   - {fileID: 2023328980}
@@ -18076,7 +18025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 669435e4dfdbc455e8406a41a6c47adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: {fileID: 2020686622}
+  playerID: {fileID: 753189430}
   quantaDisplayers:
   - {fileID: 409799834}
   - {fileID: 1714002607}
@@ -18093,7 +18042,7 @@ MonoBehaviour:
   deckDisplayer: {fileID: 54247499}
   healthDisplayer: {fileID: 2020686621}
   cloakVisual: {fileID: 1893749477}
-  permParent: {fileID: 0}
+  permParent: {fileID: 1214186463}
   cardDetailView: {fileID: 1780469455}
   playerDisplayer: {fileID: 753189428}
   playerHand:
@@ -18169,7 +18118,7 @@ MonoBehaviour:
     patience: 0
     freedom: 0
     scarab: 0
-  isPlayer: 0
+  isPlayer: 1
   cloakIndex: []
   sacrificeCount: 0
 --- !u!4 &734589351
@@ -18563,6 +18512,8 @@ GameObject:
   - component: {fileID: 753189427}
   - component: {fileID: 753189426}
   - component: {fileID: 753189428}
+  - component: {fileID: 753189430}
+  - component: {fileID: 753189429}
   m_Layer: 5
   m_Name: ValidTargetGlow
   m_TagString: Untagged
@@ -18651,6 +18602,54 @@ MonoBehaviour:
   boneShieldLabel: {fileID: 31347704}
   purityLabel: {fileID: 1594726170}
   cloakVisual: {fileID: 0}
+--- !u!114 &753189429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753189424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe4111b7eebc4f208c0599d39513733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}
+--- !u!114 &753189430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753189424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeac340606bef4afc8d1eb24e351b537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id:
+    Owner: 0
+    Field: 4
+    Index: 0
+  card:
+    iD: 
+    imageID: 
+    cardName: 
+    cardType: 0
+    atk: 0
+    def: 0
+    skill: 
+    skillCost: 0
+    skillElement: 0
+    cost: 0
+    costElement: 0
+    rarity: 0
+    passive: []
+    innate: []
+    desc: 
+  stackCount: 0
+  isPlayer: 1
+  cardBehaviour: {fileID: 0}
 --- !u!1 &753838615
 GameObject:
   m_ObjectHideFlags: 0
@@ -28518,6 +28517,8 @@ GameObject:
   - component: {fileID: 1212562477}
   - component: {fileID: 1212562476}
   - component: {fileID: 1212562475}
+  - component: {fileID: 1212562480}
+  - component: {fileID: 1212562479}
   m_Layer: 5
   m_Name: ValidTargetGlow
   m_TagString: Untagged
@@ -28606,6 +28607,54 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1212562479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212562474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe4111b7eebc4f208c0599d39513733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardPair: {fileID: 0}
+--- !u!114 &1212562480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212562474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeac340606bef4afc8d1eb24e351b537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id:
+    Owner: 1
+    Field: 4
+    Index: 0
+  card:
+    iD: 
+    imageID: 
+    cardName: 
+    cardType: 0
+    atk: 0
+    def: 0
+    skill: 
+    skillCost: 0
+    skillElement: 0
+    cost: 0
+    costElement: 0
+    rarity: 0
+    passive: []
+    innate: []
+    desc: 
+  stackCount: 0
+  isPlayer: 0
+  cardBehaviour: {fileID: 0}
 --- !u!1 &1213579076
 GameObject:
   m_ObjectHideFlags: 0
@@ -48314,8 +48363,6 @@ GameObject:
   - component: {fileID: 2020686620}
   - component: {fileID: 2020686619}
   - component: {fileID: 2020686621}
-  - component: {fileID: 2020686622}
-  - component: {fileID: 2020686623}
   m_Layer: 5
   m_Name: Health&Deck
   m_TagString: Untagged
@@ -48404,55 +48451,6 @@ MonoBehaviour:
   hpSlider: {fileID: 465741573}
   damageSlider: {fileID: 1991242337}
   upMovingText: {fileID: 7298299078622344811, guid: b6102377ae2285e42b88f84a121499e1, type: 3}
-  validTargetGlow: {fileID: 753189426}
---- !u!114 &2020686622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020686617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeac340606bef4afc8d1eb24e351b537, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id:
-    Owner: 0
-    Field: 4
-    Index: 0
-  card:
-    iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    passive: []
-    innate: []
-    desc: 
-  stackCount: 0
-  isPlayer: 1
-  cardBehaviour: {fileID: 0}
---- !u!114 &2020686623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020686617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfe4111b7eebc4f208c0599d39513733, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CardPair: {fileID: 0}
 --- !u!224 &2020954328 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8940418288786595348, guid: 90df18d8acebd4e27974098b8670153a, type: 3}

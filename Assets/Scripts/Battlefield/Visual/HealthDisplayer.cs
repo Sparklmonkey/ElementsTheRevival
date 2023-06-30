@@ -15,8 +15,6 @@ namespace Elements.Duel.Visual
         private Slider hpSlider, damageSlider;
         [SerializeField]
         private GameObject upMovingText;
-        [SerializeField]
-        private Image validTargetGlow;
 
         public void OnHealthChanged(int currentHP, bool isPlayer)
         {

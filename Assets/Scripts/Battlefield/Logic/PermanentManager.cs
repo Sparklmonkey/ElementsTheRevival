@@ -16,9 +16,9 @@ namespace Elements.Duel.Manager
         {
             if (card.cardType.Equals(CardType.Pillar))
             {
-                IDCardPair stackedCard = pairList.Find(x => x.card.iD == card.iD);
-                if (stackedCard != null)
+                if (pairList.Exists(x => x.card.iD == card.iD))
                 {
+                    IDCardPair stackedCard = pairList.Find(x => x.card.iD == card.iD);
                     stackedCard.PlayCard(card);
                     return stackedCard;
                 }

@@ -16,10 +16,9 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private GameObject cloakVisual;
 
-
         public void ShouldShowTarget(bool shouldShow)
         {
-            validTargetGlow.color = shouldShow ? new Color(255, 0, 0, 255) : new Color(0, 0, 0, 0);
+            validTargetGlow.color = shouldShow ? new Color(255, 255, 255, 255) : new Color(0, 0, 0, 0);
         }
 
         public void UpdatePlayerIndicators(Counters playerCounters)

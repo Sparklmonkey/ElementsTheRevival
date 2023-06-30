@@ -5,8 +5,6 @@ public class PassiveBehaviour : CardTypeBehaviour
 {
     public override void OnCardPlay()
     {
-        if (CardPair.card.skill == "" || CardPair.card.skill == "none") { return; }
-
         switch (CardPair.card.iD)
         {
             case "7q9":
@@ -25,6 +23,11 @@ public class PassiveBehaviour : CardTypeBehaviour
                 break;
             default:
                 break;
+        }
+
+        if (CardPair.card.innate.Contains("bones"))
+        {
+            Owner.AddPlayerCounter(PlayerCounters.Bone, 7);
         }
     }
 

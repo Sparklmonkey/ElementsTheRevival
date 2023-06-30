@@ -54,6 +54,14 @@ public class PlayerManager : MonoBehaviour
                 playerCounters.silence += amount;
                 if (playerCounters.silence < 0) { playerCounters.silence = 0; }
                 break;
+            case PlayerCounters.Purify:
+                if(playerCounters.poison > 0)
+                {
+                    playerCounters.poison = 0;
+                    playerCounters.neurotoxin = 0;
+                }
+                playerCounters.poison -= amount;
+                break;
             default:
                 break;
         }
@@ -848,7 +856,7 @@ public class PlayerManager : MonoBehaviour
         cardDetailManager.OnDisplayNewCard += cardDetailView.SetupCardDisplay;
         cardDetailManager.OnRemoveCard += cardDetailView.CancelButtonAction;
         playerCounters = new Counters();
-        playerDisplayer.SetID(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Player, 0, playerDisplayer.transform);
+        playerID.id = new(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Player, 0);
 
         List<Card> deck = new (isPlayer ?
                     PlayerData.shared.currentDeck.DeserializeCard()
@@ -871,7 +879,6 @@ public class PlayerManager : MonoBehaviour
         healthDisplayer.SetHPStart(healthManager.GetCurrentHealth());
         healthManager.HealthChangedEvent += healthDisplayer.OnHealthChanged;
         healthManager.MaxHealthUpdatedEvent += healthDisplayer.OnMaxHealthChanged;
-        playerID.id = playerDisplayer.GetObjectID();
         playerID.card = null;
         //if (isPlayer && PlayerData.shared.petName != "" && PlayerData.shared.petName != null)
         //{

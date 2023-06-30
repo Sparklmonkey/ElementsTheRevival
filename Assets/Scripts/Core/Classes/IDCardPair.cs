@@ -64,6 +64,11 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             OnBeingTargeted += cardDisplayer.ShouldShowTarget;
             OnBeingPlayable += cardDisplayer.ShouldShowUsableGlow;
         }
+        else if (parentName == "EnemySide" || parentName == "PlayerSide")
+        {
+            var cardDisplayer = GetComponent<PlayerDisplayer>();
+            OnBeingTargeted += cardDisplayer.ShouldShowTarget;
+        }
 
         OnClickObject += DuelManager.Instance.IdCardTapped;
 
@@ -144,7 +149,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!HasCard()) { return; }
+        if (!HasCard() && id.Field != FieldEnum.Player) { return; }
         OnClickObject?.Invoke(this);
     }
 
