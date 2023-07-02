@@ -14,7 +14,8 @@ public class CreatureBehaviour : CardTypeBehaviour
 
         if (CardPair.card.innate.Contains("integrity"))
         {
-
+            var shardList = Owner.playerHand.GetAllValidCardIds().FindAll(x => x.card.cardName.Contains("Shard of"));
+            CardPair.card = CardDatabase.Instance.GetGolemAbility(shardList);
         }
 
         if (CardPair.card.innate.Contains("chimera"))
