@@ -67,6 +67,16 @@ public class Card
         Charge = newBase.Charge;
         Freeze = newBase.Freeze;
     }
+
+    public Card Clone()
+    {
+        object clone = MemberwiseClone();
+        if (clone is Card card)
+        {
+            return card;
+        }
+        return this;
+    }
 }
 
 [Serializable]

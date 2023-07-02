@@ -13,10 +13,10 @@ namespace Elements.Duel.Manager
 
         public void UpdateHandVisual(IDCardPair cardPair)
         {
-            cardPair.card = null;
+            cardPair.RemoveCard();
             if (pairList.FindAll(x => x.HasCard()).Count == 0)
             {
-                cardPair.RemoveCard();
+                return;
             }
 
             var cardList = new List<Card>();
@@ -26,7 +26,7 @@ namespace Elements.Duel.Manager
                 cardList.Add(CardDatabase.Instance.GetCardFromId(item.card.iD));
             }
 
-            for (int i = 0; i < pairList.Count; i++)
+            for (int i = 0; i < 8; i++)
             {
                 if (i >= cardList.Count)
                 {

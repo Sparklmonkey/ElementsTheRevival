@@ -83,7 +83,7 @@ public abstract class CardDisplayer : MonoBehaviour
                 BattleVars.shared.isAnimationPlaying = true;
                 foreach (Image image in imageList)
                 {
-                    Material dissolveMat = new Material(dissolveMaterial);
+                    Material dissolveMat = new (dissolveMaterial);
                     dissolveMat.SetTexture("_MainTex", image.sprite.texture);
                     image.material = dissolveMat;
                     image.material.SetFloat("_Fade", valueToSet);

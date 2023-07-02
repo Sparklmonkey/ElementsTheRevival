@@ -8,7 +8,7 @@ public class Deadalive : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         Game_AnimationManager.shared.StartAnimation("DeadAndAlive", target.transform);
-            DuelManager.Instance.ActivateDeathTriggers();
+        DuelManager.Instance.ActivateDeathTriggers();
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
