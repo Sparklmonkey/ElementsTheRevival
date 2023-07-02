@@ -10,6 +10,10 @@ public class Aflatoxin : AbilityEffect
         target.card.IsAflatoxin = true;
         target.card.Poison += 2;
         target.UpdateCard();
+        if (target.card.DefNow > 0 && target.card.innate.Contains("voodoo"))
+        {
+            Owner.AddPlayerCounter(PlayerCounters.Poison, 2);
+        }
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

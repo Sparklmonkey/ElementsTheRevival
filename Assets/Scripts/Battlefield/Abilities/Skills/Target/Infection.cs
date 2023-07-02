@@ -8,6 +8,10 @@ public class Infection : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         target.card.Poison += 1;
+        if (target.card.DefNow > 0 && target.card.innate.Contains("voodoo"))
+        {
+            Owner.AddPlayerCounter(PlayerCounters.Poison, 1);
+        }
         target.UpdateCard();
     }
 

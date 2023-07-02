@@ -9,6 +9,10 @@ public class Infect : AbilityEffect
     {
         target.card.Poison += 1;
         target.UpdateCard();
+        if (target.card.DefNow > 0 && target.card.innate.Contains("voodoo"))
+        {
+            Owner.AddPlayerCounter(PlayerCounters.Poison, 1);
+        }
         BattleVars.shared.abilityOrigin.RemoveCard();
     }
 

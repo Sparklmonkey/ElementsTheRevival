@@ -18,6 +18,10 @@ public class Drainlife : AbilityEffect
         }
         target.card.DefDamage += damageToDeal;
         Owner.ModifyHealthLogic(target.card.DefNow < damageToDeal ? target.card.DefNow : damageToDeal, false, false);
+        if (target.card.DefNow > 0 && target.card.innate.Contains("voodoo"))
+        {
+            Owner.ModifyHealthLogic(target.card.DefNow < damageToDeal ? target.card.DefNow : damageToDeal, true, false);
+        }
         target.UpdateCard();
     }
 

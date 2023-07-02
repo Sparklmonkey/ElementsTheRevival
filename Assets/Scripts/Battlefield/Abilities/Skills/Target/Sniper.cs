@@ -8,6 +8,10 @@ public class Sniper : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         target.card.DefDamage += 3;
+        if(target.card.DefNow > 0 && target.card.innate.Contains("voodoo"))
+        {
+            Owner.ModifyHealthLogic(3, true, false);
+        }
         target.UpdateCard();
     }
 

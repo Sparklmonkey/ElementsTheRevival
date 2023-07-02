@@ -9,6 +9,10 @@ public class Congeal : AbilityEffect
     {
         target.card.Freeze += 4;
         target.UpdateCard();
+        if (target.card.DefNow > 0 && target.card.innate.Contains("voodoo"))
+        {
+            Owner.AddPlayerCounter(PlayerCounters.Freeze,4);
+        }
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

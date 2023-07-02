@@ -8,6 +8,10 @@ public class Freeze : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         target.card.Freeze += 3;
+        if (target.card.DefNow > 0 && target.card.innate.Contains("voodoo"))
+        {
+            Owner.AddPlayerCounter(PlayerCounters.Freeze, 3);
+        }
         target.UpdateCard();
     }
 
