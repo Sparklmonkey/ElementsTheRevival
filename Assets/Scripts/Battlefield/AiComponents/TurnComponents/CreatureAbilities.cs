@@ -58,7 +58,7 @@ public class CreatureAbilities
         {
             if (!aiManager.IsAbilityUsable(virus)) { continue; }
             BattleVars.shared.abilityOrigin = virus;
-            var target = possibleTargets.Aggregate((i1, i2) => i1.card.DefNow > i2.card.DefNow ? i1 : i2);
+            var target = possibleTargets.Aggregate((i1, i2) => i1.card.DefNow >= i2.card.DefNow ? i1 : i2);
             aiManager.ActivateAbility(target);
         }
 
@@ -110,7 +110,7 @@ public class CreatureAbilities
         {
             if (!aiManager.IsAbilityUsable(bloodSucker)) { continue; }
             BattleVars.shared.abilityOrigin = bloodSucker;
-            var target = possibleTargets.Aggregate((i1, i2) => i1.card.DefNow > i2.card.DefNow ? i1 : i2);
+            var target = possibleTargets.Aggregate((i1, i2) => i1.card.DefNow >= i2.card.DefNow ? i1 : i2);
             aiManager.ActivateAbility(target);
         }
     }

@@ -543,7 +543,7 @@ public class CardDatabase : MonoBehaviour
             golem.innate.Add("immaterial");
         }
 
-        var maxValueKey = elementCount.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+        var maxValueKey = elementCount.Aggregate((x, y) => x.Value >= y.Value ? x : y).Key;
 
         golem.skillElement = maxValueKey;
         switch (maxValueKey)

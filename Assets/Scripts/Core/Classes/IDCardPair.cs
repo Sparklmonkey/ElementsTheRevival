@@ -97,7 +97,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void PlayCard(Card card)
     {
         this.card = card;
-        if (card.cardType == CardType.Pillar)
+        if (card.cardType == CardType.Pillar && id.Field == FieldEnum.Permanent)
         {
             stackCount++;
         }
