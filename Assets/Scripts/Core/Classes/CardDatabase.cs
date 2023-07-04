@@ -35,7 +35,7 @@ public class CardDatabase : MonoBehaviour
 
     public List<string> rareWeaponRewards = new (){ "5ic", "5ol", "5ur", "5f7", "5lh", "4vl", "52q", "55s", "58v", "5c5", "5ro","61u"};
 
-    private List<Card> fullCardList;
+    public List<Card> fullCardList;
 
     private readonly List<string> illegalPets = new() { "4vr", "4t8", "4vf", "52h", "55o", "58r", "5bt", "5f2", "5id", "5la", "5of", "5rm", "5ul", "61v", "5lt", "7kd" };
 
@@ -43,6 +43,7 @@ public class CardDatabase : MonoBehaviour
     {
         return fullCardList.Find(x => !x.iD.IsUpgraded() && !illegalPets.Contains(x.iD) && x.cardType.Equals(CardType.Creature));
     }
+
     public Card GetOracleCreature(Element element)
     {
         return fullCardList.Find(x => !x.iD.IsUpgraded() 
@@ -227,7 +228,11 @@ public class CardDatabase : MonoBehaviour
         string upgradedFolder = shouldBeUpgraded ? "Upgraded" : "Regular";
 
         
-        List<Card> reducedList = fullCardList.FindAll(x => x.costElement.Equals(element) && x.cardType.Equals(type) && !x.cardName.Contains("Shard of") && !x.cardName.Contains(" Nymph"));
+        List<Card> reducedList = fullCardList.FindAll(x => x.costElement.Equals(element)
+        && x.cardType.Equals(type)
+        && !x.cardName.Contains("Shard of")
+        && !x.cardName.Contains(" Nymph")
+        && x.iD.IsUpgraded() == shouldBeUpgraded);
         if(reducedList.Count > 0)
         {
             Card card = reducedList[Random.Range(0, reducedList.Count)];
@@ -588,7 +593,7 @@ public class CardDatabase : MonoBehaviour
                         break;
                     case 6:
                     case 7:
-                        golem.skill = "unstable gas";
+                        golem.skill = "unstablegas";
                         golem.desc = "<sprite=1><sprite=1> : Unstable gas\n Generate unstable gas";
                         golem.skillCost = 2;
                         break;
@@ -780,7 +785,7 @@ public class CardDatabase : MonoBehaviour
                         break;
                     case 3:
                     case 4:
-                        golem.innate.Add("feiry");
+                        golem.innate.Add("fiery");
                         golem.desc = "Deal X damages at the end of every turn. X is the number of <sprite=8> you own, divided by 5.";
                         break;
                     case 5:

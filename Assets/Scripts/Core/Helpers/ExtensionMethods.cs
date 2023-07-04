@@ -147,7 +147,6 @@ public static class ExtensionMethods
 
     public static T GetSkillScript<T>(this string AbilityName)
     {
-        Debug.Log(AbilityName);
         var nameToCheck = AbilityName[0].ToString().ToUpper() + AbilityName[1..];
         Type type = Type.GetType(nameToCheck);
         if (type == null)

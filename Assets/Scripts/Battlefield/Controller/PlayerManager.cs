@@ -445,9 +445,11 @@ public class PlayerManager : MonoBehaviour
         if (cardToCheck.card.cardType == CardType.Shield) { return false; }
         if (cardToCheck.card.cardType == CardType.Pillar) { return false; }
         if (cardToCheck.card.cardType == CardType.Mark) { return false; }
-        if (!SkillManager.Instance.HasEnoughTargets(this, cardToCheck)) { return false; }
 
         bool canAfford = playerQuantaManager.HasEnoughQuanta(cardToCheck.card.skillElement, cardToCheck.card.skillCost);
+        if(canAfford && SkillManager.Instance.ShouldAskForTarget(cardToCheck)) { return true; }
+
+        if (!SkillManager.Instance.HasEnoughTargets(this, cardToCheck)) { return false; }
         if (cardToCheck.card.skill.ToString().Contains("hasten"))
         {
             if (playerHand.GetAllValidCardIds().Count == 8) { return false; }

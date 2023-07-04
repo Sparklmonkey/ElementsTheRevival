@@ -63,7 +63,7 @@ public abstract class CardDisplayer : MonoBehaviour
 
     public void PlayDissolveAnimation()
     {
-        if (gameObject.activeSelf)
+        if (transform.parent.gameObject.activeSelf)
         {
             StartCoroutine(DissolveAnimation());
         }

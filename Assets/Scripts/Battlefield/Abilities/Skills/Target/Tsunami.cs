@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Earthquake : AbilityEffect
+public class Tsunami : AbilityEffect
 {
     public override bool NeedsTarget() => true;
 

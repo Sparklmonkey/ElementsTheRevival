@@ -1,12 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using UnityEditor;
 using UnityEngine;
-using System.Text;
-using System.Linq;
 
 public class CardTest : MonoBehaviour
 {
@@ -17,6 +12,26 @@ public class CardTest : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    { }
+    {
+        CardDatabase.Instance.SetupNewCardBase();
+        foreach (var card in CardDatabase.Instance.fullCardList)
+        {
+            if(card.skill != "")
+            {
+                Debug.Log(card.cardName);
+                if(card.cardType == CardType.Shield)
+                {
+                    var skill = card.skill.GetShieldScript<ShieldAbility>();
+                    Debug.Log(skill);
+                }
+                else
+                {
+                    Debug.Log(card.skill);
+                    var skill = card.skill.GetSkillScript<AbilityEffect>();
+                    Debug.Log(skill);
+                }
+            }
+        }
+    }
 
 }
