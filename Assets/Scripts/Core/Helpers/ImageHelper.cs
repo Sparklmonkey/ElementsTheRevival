@@ -4,6 +4,15 @@ using UnityEngine;
 
 public static class ImageHelper
 {
+	private static string IsAltOROriginal()
+	{
+		if (PlayerPrefs.GetInt("IsAltArt") == 1)
+		{
+			return "Alt";
+		}
+		return "Original";
+	}
+
 	public static Sprite GetCardHeadBackground(string element)
 	{
 		return Resources.Load<Sprite>("Sprites/CardHeadBackground/" + element);
@@ -22,7 +31,7 @@ public static class ImageHelper
 
 	public static Sprite GetElementImage(string element)
 	{
-		return Resources.Load<Sprite>("Sprites/Elements/" + element);
+		return Resources.Load<Sprite>($"Sprites/Elements/{IsAltOROriginal()}/" + element);
 	}
 
 	public static Sprite GetCardBackGroundImage(string element)

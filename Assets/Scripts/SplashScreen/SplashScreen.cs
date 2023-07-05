@@ -74,6 +74,12 @@ public class SplashScreen : MonoBehaviour
             PlayerPrefs.SetFloat("SFXVolume", 100f);
         }
 
+        PlayerPrefs.SetInt("IsAltArt", 0);
+        if (!PlayerPrefs.HasKey("IsAltArt"))
+        {
+            PlayerPrefs.SetInt("IsAltArt", 0); 
+        }
+
         StartCoroutine(MoveImageAround(imageObjects[11], 12));
         StartCoroutine(StartTitleAnimation());
     }
