@@ -1262,7 +1262,7 @@
 			"iD": "560",
 			"imageID": "137",
 			"cardName": "Chimera",
-			"cardType": 2,
+			"cardType": 1,
 			"atk": 0,
 			"def": 0,
 			"skill": "",
@@ -1272,7 +1272,7 @@
 			"costElement": 9,
 			"rarity": 4,
 			"passive": [],
-			"innate": [],
+			"innate": [ "chimera" ],
 			"desc": "Combine all your creatures in a single one. Gravity pull. Momentum"
 		},
 		{
@@ -5274,7 +5274,7 @@
 			"iD": "74g",
 			"imageID": "137",
 			"cardName": "Chimera",
-			"cardType": 2,
+			"cardType": 1,
 			"atk": 0,
 			"def": 0,
 			"skill": "",
@@ -5284,7 +5284,7 @@
 			"costElement": 9,
 			"rarity": 17,
 			"passive": [],
-			"innate": [],
+			"innate": [ "chimera" ],
 			"desc": "Combine all your creatures in a single one. Gravity pull. Momentum"
 		},
 		{

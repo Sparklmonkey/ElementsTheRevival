@@ -234,7 +234,6 @@ public class PlayerManager : MonoBehaviour
 
     public void StartTurn()
     {
-        BattleVars.shared.isPlayerTurn = true;
         if (deckManager.GetDeckCount() <= 0)
         {
             GameOverVisual.ShowGameOverScreen(!isPlayer);
@@ -774,10 +773,6 @@ public class PlayerManager : MonoBehaviour
 
     public void EndTurnRoutine()
     {
-        if (isPlayer)
-        {
-            BattleVars.shared.isPlayerTurn = false;
-        }
         var permList = playerPermanentManager.GetAllValidCardIds();
 
         var pillarList = permList.FindAll(x => x.card.cardType == CardType.Pillar);
