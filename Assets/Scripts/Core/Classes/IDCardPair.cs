@@ -14,7 +14,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public bool isPlayer;
     public CardTypeBehaviour cardBehaviour;
 
-
+    public bool IsActive() => transform.parent.gameObject.activeSelf;
 
     public event Action<Card, int> OnCardChanged;
     public event Action<Card, int> OnCardRemoved;

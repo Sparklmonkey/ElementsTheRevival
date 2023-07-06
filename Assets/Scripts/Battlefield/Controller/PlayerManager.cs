@@ -146,6 +146,7 @@ public class PlayerManager : MonoBehaviour
     public void ManageShield(ref int atkNow, ref IDCardPair cardPair)
     {
         IDCardPair shield = playerPassiveManager.GetShield();
+        if(shield.card.skill == "") { return; }
         var shieldSkill = shield.card.skill.GetShieldScript<ShieldAbility>();
         shieldSkill.Owner = this;
         shieldSkill.Enemy = DuelManager.GetNotIDOwner(playerID.id);
@@ -233,6 +234,7 @@ public class PlayerManager : MonoBehaviour
 
     public void StartTurn()
     {
+        BattleVars.shared.isPlayerTurn = true;
         if (deckManager.GetDeckCount() <= 0)
         {
             GameOverVisual.ShowGameOverScreen(!isPlayer);
@@ -772,6 +774,10 @@ public class PlayerManager : MonoBehaviour
 
     public void EndTurnRoutine()
     {
+        if (isPlayer)
+        {
+            BattleVars.shared.isPlayerTurn = false;
+        }
         var permList = playerPermanentManager.GetAllValidCardIds();
 
         var pillarList = permList.FindAll(x => x.card.cardType == CardType.Pillar);

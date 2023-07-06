@@ -13,7 +13,6 @@ namespace Elements.Duel.Manager
 
         public void UpdateHandVisual(IDCardPair cardPair)
         {
-            cardPair.RemoveCard();
             if (pairList.FindAll(x => x.HasCard()).Count == 0)
             {
                 return;
@@ -23,20 +22,22 @@ namespace Elements.Duel.Manager
             foreach (var item in pairList)
             {
                 if (!item.HasCard()) { continue; }
+                if (item.id.Index == cardPair.id.Index) { continue; }
                 cardList.Add(CardDatabase.Instance.GetCardFromId(item.card.iD));
             }
 
             for (int i = 0; i < 8; i++)
             {
-                if (i >= cardList.Count)
+                if(i < cardList.Count)
                 {
-                    if (pairList[i].transform.parent.gameObject.activeSelf)
-                    {
-                        pairList[i].RemoveCard();
-                    }
+                    pairList[i].card = cardList[i];
+                    pairList[i].UpdateCard();
                     continue;
                 }
-                pairList[i].PlayCard(cardList[i]);
+                if (pairList[i].IsActive())
+                {
+                    pairList[i].RemoveCard();
+                }
             }
         }
 
