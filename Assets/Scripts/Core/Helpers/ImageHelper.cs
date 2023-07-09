@@ -55,6 +55,6 @@ public static class ImageHelper
 
 	public static Sprite GetPoisonSprite(bool isPoison)
 	{
-		return Resources.Load<Sprite>("Sprites/PoisonTypes/" + (isPoison ? "Death" : "Water"));
+		return Resources.Load<Sprite>($"Sprites/PoisonTypes/{IsAltOROriginal()}/" + (isPoison ? "Death" : "Water"));
 	}
 }

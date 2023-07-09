@@ -896,6 +896,7 @@ public class PlayerManager : MonoBehaviour
         //    }
         //    PlayCardOnFieldLogic(petCard);
         //}
+        playerDisplayer.isPlayer = isPlayer;
         OnPlayerCounterUpdate += playerDisplayer.UpdatePlayerIndicators;
         if (!isPlayer)
         {

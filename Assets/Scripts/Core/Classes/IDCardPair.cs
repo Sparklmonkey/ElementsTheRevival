@@ -112,6 +112,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void UpdateCard()
     {
+        if (HasCard()) { return; }
         if (card.cardType.Equals(CardType.Creature))
         {
             if (card.DefDamage < 0) { card.DefDamage = 0; }

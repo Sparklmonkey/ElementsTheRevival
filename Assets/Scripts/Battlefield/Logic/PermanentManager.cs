@@ -103,13 +103,10 @@ namespace Elements.Duel.Manager
 
         public void PermanentTurnDown()
         {
-            List<string> permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
             foreach (var idCard in pairList)
             {
                 if(!idCard.HasCard()) { continue; }
                 idCard.cardBehaviour.OnTurnStart();
-                idCard.UpdateCard();
-
             }
         }
     }

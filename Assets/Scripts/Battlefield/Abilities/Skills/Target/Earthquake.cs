@@ -31,6 +31,16 @@ public class Earthquake : AbilityEffect
     public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
         if (possibleTargets.Count == 0) { return null; }
-        return possibleTargets[Random.Range(0, possibleTargets.Count)];
+
+        var opCreatures = possibleTargets.FindAll(x => x.id.Owner == OwnerEnum.Player && x.HasCard());
+
+        if (opCreatures.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return opCreatures[Random.Range(0, possibleTargets.Count)];
+        }
     }
 }

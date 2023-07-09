@@ -341,23 +341,6 @@
 			"desc": ""
 		},
 		{
-			"iD": "4t9",
-			"imageID": "171",
-			"cardName": "Relic",
-			"cardType": 2,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 6,
-			"cost": 1,
-			"costElement": 12,
-			"rarity": 4,
-			"passive": [],
-			"innate": [],
-			"desc": ""
-		},
-		{
 			"iD": "5se",
 			"imageID": "520",
 			"cardName": "Shard of Readiness",

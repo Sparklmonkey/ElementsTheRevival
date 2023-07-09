@@ -12,8 +12,15 @@ public class Plague : AbilityEffect
 
         foreach (var idCardi in idList)
         {
+            if (idCardi.card.IsImmaterial) { continue; }
+            if (idCardi.card.IsBurrowed) { continue; }
             idCardi.card.Poison += 1;
             idCardi.UpdateCard();
+        }
+
+        if (BattleVars.shared.abilityOrigin.card.cardType == CardType.Creature)
+        {
+            BattleVars.shared.abilityOrigin.RemoveCard();
         }
     }
 

@@ -38,14 +38,15 @@ namespace Elements.Duel.Visual
             }
         }
 
-        public void OnMaxHealthChanged(int currentHP, bool isPlayer)
+        public void OnMaxHealthChanged(int newMaxHp, bool isPlayer)
         {
-            if (currentHP.ToString() == currentHp.text) { return; }
-            int current = int.Parse(currentHp.text);
-            int difference = current - currentHP;
+            if (newMaxHp.ToString() == maxHp.text) { return; }
+            int currentHP = int.Parse(currentHp.text);
+            int current = int.Parse(maxHp.text);
+            int difference = current - newMaxHp;
 
             string toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
-            currentHp.text = currentHP.ToString();
+            maxHp.text = maxHp.ToString();
 
             StartCoroutine(AnimateTextChange(toShow));
             int temp = currentHP - DuelManager.GetPossibleDamage(isPlayer);

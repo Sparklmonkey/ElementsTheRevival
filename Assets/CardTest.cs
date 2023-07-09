@@ -16,19 +16,11 @@ public class CardTest : MonoBehaviour
         CardDatabase.Instance.SetupNewCardBase();
         foreach (var card in CardDatabase.Instance.fullCardList)
         {
-            if(card.skill != "")
+            if(card.cardType == CardType.Spell)
             {
-                Debug.Log(card.cardName);
-                if(card.cardType == CardType.Shield)
+                if(card.skill == "" || card.skill == " ")
                 {
-                    var skill = card.skill.GetShieldScript<ShieldAbility>();
-                    Debug.Log(skill);
-                }
-                else
-                {
-                    Debug.Log(card.skill);
-                    var skill = card.skill.GetSkillScript<AbilityEffect>();
-                    Debug.Log(skill);
+                    Debug.Log(card.cardName);
                 }
             }
         }

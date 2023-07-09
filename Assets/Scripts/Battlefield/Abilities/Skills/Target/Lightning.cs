@@ -36,10 +36,16 @@ public class Lightning : AbilityEffect
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
     {
         if (posibleTargets.Count == 0) { return null; }
-        if (posibleTargets.Find(x => x.card != null) == null)
+
+        var opCreatures = posibleTargets.FindAll(x => x.id.Owner == OwnerEnum.Player && x.HasCard());
+
+        if (opCreatures.Count == 0)
         {
-            return posibleTargets.Find(x => x.id.Owner != Owner.playerID.id.Owner);
+            return posibleTargets.Find(x => x.id.Owner == OwnerEnum.Player);
         }
-        return posibleTargets.Aggregate((i1, i2) => i1.card.AtkNow >= i2.card.AtkNow ? i1 : i2);
+        else
+        {
+            return opCreatures.Aggregate((i1, i2) => i1.card.AtkNow >= i2.card.AtkNow ? i1 : i2);
+        }
     }
 }

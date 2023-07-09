@@ -13,6 +13,8 @@ public class Thunderstorm : AbilityEffect
         Game_SoundManager.shared.PlayAudioClip("Lightning");
         foreach (var idCardi in idList)
         {
+            if (idCardi.card.IsImmaterial) { continue; }
+            if (idCardi.card.IsBurrowed) { continue; }
             idCardi.card.DefDamage += 2;
             idCardi.UpdateCard();
         }

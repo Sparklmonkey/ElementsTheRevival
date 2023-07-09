@@ -70,8 +70,9 @@ public class SkillManager
         var ability = iDCard.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
         ability.Origin = iDCard;
-
-        return ability.SelectRandomTarget(ability.GetPossibleTargets(DuelManager.GetIDOwner(owner.playerID.id)));
+        var targets = ability.GetPossibleTargets(DuelManager.GetIDOwner(owner.playerID.id));
+        if(targets.Count == 0) { return null; }
+        return ability.SelectRandomTarget(targets);
     }
 
 }

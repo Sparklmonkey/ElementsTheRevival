@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Acceleration : AbilityEffect
@@ -23,6 +24,16 @@ public class Acceleration : AbilityEffect
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
     {
         if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets[Random.Range(0, posibleTargets.Count)];
+
+        var opCreatures = posibleTargets.FindAll(x => x.id.Owner == OwnerEnum.Opponent && x.HasCard());
+
+        if (opCreatures.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return opCreatures.Aggregate((i1, i2) => i1.card.DefNow >= i2.card.DefNow ? i1 : i2);
+        }
     }
 }

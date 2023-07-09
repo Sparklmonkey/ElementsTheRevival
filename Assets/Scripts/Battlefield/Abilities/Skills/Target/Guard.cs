@@ -9,7 +9,11 @@ public class Guard : AbilityEffect
     {
         target.card.innate.Add("delay");
         BattleVars.shared.abilityOrigin.card.innate.Add("delay");
-        if (!target.card.innate.Contains("airborne"))
+        if(target.card.innate == null)
+        {
+            target.card.DefDamage += BattleVars.shared.abilityOrigin.card.AtkNow;
+        }
+        else if (!target.card.innate.Contains("airborne"))
         {
             target.card.DefDamage += BattleVars.shared.abilityOrigin.card.AtkNow;
         }
@@ -28,6 +32,16 @@ public class Guard : AbilityEffect
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
     {
         if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets[Random.Range(0, posibleTargets.Count)];
+
+        var opCreatures = posibleTargets.FindAll(x => x.id.Owner == OwnerEnum.Player && x.HasCard());
+
+        if (opCreatures.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return opCreatures[Random.Range(0, posibleTargets.Count)];
+        }
     }
 }

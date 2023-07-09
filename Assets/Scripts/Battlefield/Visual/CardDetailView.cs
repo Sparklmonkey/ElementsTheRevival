@@ -110,8 +110,11 @@ namespace Elements.Duel.Visual
                     actionButton.name = "Insufficient Quanta";
                     return;
                 }
-
             }
+
+            buttonText.text = "";
+            actionButton.name = "";
+            actionButton.gameObject.SetActive(false);
         }
 
         public void CancelButtonAction()

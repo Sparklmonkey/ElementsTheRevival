@@ -8,7 +8,7 @@ namespace Elements.Duel.Visual
     {
         [SerializeField]
         private Image validTargetGlow;
-
+        public bool isPlayer;
         [SerializeField]
         private Sprite poisonSprite, puritySprite, neurotoxinSprite;
         public Image poisonImg, sanctImage, silenceImage;
@@ -49,14 +49,14 @@ namespace Elements.Duel.Visual
 
             if (playerCounters.invisibility != 0)
             {
-                if (GetObjectID().Owner.Equals(OwnerEnum.Opponent) && playerCounters.invisibility > 0)
+                if (!isPlayer && playerCounters.invisibility > 0)
                 {
                     cloakVisual.SetActive(true);
                 }
                 if (playerCounters.invisibility <= 0)
                 {
                     playerCounters.invisibility = 0;
-                    if (GetObjectID().Owner.Equals(OwnerEnum.Opponent))
+                    if (!isPlayer)
                     {
                         cloakVisual.SetActive(false);
                     }
@@ -64,6 +64,15 @@ namespace Elements.Duel.Visual
             }
             silenceImage.gameObject.SetActive(playerCounters.silence > 0);
             sanctImage.gameObject.SetActive(playerCounters.sanctuary > 0);
+
+            if(playerCounters.bone > 0)
+            {
+                boneShieldLabel.text = $"{playerCounters.bone}";
+            }
+            else
+            {
+                boneShieldLabel.text = "";
+            }
         }
     }
 }

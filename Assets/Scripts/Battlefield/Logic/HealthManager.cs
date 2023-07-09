@@ -36,7 +36,7 @@ namespace Elements.Duel.Manager
             {
                 _maxHealth -= maxHPBuff;
             }
-            MaxHealthUpdatedEvent?.Invoke(_currentHealth, _isPlayer);
+            MaxHealthUpdatedEvent?.Invoke(_maxHealth, _isPlayer);
         }
 
         public int GetMaxHealth() => _maxHealth;

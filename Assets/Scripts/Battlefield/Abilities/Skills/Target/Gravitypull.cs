@@ -22,6 +22,16 @@ public class Gravitypull : AbilityEffect
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
     {
         if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets[Random.Range(0, posibleTargets.Count)];
+
+        var opCreatures = posibleTargets.FindAll(x => x.id.Owner == OwnerEnum.Opponent && x.HasCard());
+
+        if (opCreatures.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return opCreatures[Random.Range(0, posibleTargets.Count)];
+        }
     }
 }

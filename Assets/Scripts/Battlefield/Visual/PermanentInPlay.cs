@@ -28,7 +28,15 @@ namespace Elements.Duel.Visual
                 return;
             }
 
-            stackCount.text = stackCountValue > 1 ? $"{stackCountValue} X" : "";
+            List<string> permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
+            if (permanentsWithCountdown.Contains(cardToDisplay.iD))
+            {
+                stackCount.text = $"{cardToDisplay.TurnsInPlay}";
+            }
+            else
+            {
+                stackCount.text = stackCountValue > 1 ? $"{stackCountValue}X" : "";
+            }
             transform.parent.gameObject.SetActive(true);
             immaterialIndicator.SetActive(cardToDisplay.innate.Contains("immaterial"));
             bool isPlayer = true;// GetObjectID().Owner.Equals(OwnerEnum.Player);
@@ -49,7 +57,6 @@ namespace Elements.Duel.Visual
             {
                 cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
             }
-            stackCount.text = stackCountValue.ToString();
             PlayMaterializeAnimation(cardToDisplay.costElement);
             activeAHolder.SetActive(false);
             if (cardToDisplay.skill != "")

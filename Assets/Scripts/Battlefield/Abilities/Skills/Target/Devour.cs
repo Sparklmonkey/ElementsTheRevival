@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class Devour : AbilityEffect
 {
@@ -29,6 +30,16 @@ public class Devour : AbilityEffect
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
     {
         if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets.Aggregate((i1, i2) => i1.card.AtkNow >= i2.card.AtkNow ? i1 : i2);
+
+        var opCreatures = posibleTargets.FindAll(x => x.id.Owner == OwnerEnum.Player && x.HasCard());
+
+        if (opCreatures.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return opCreatures[Random.Range(0, posibleTargets.Count)];
+        }
     }
 }
