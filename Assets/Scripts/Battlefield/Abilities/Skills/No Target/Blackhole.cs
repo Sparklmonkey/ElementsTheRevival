@@ -9,25 +9,28 @@ public class Blackhole : AbilityEffect
     {
         var victim = Owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
         int hpToRestore = 0;
-
-        for (int i = 0; i < 12; i++)
+        if(victim.playerCounters.sanctuary == 0)
         {
-            if (victim.HasSufficientQuanta((Element)i, 3))
+            for (int i = 0; i < 12; i++)
             {
-                victim.SpendQuantaLogic((Element)i, 3);
-                hpToRestore += 3;
-            }
-            else if (victim.HasSufficientQuanta((Element)i, 2))
-            {
-                victim.SpendQuantaLogic((Element)i, 2);
-                hpToRestore += 2;
-            }
-            else if (victim.HasSufficientQuanta((Element)i, 1))
-            {
-                victim.SpendQuantaLogic((Element)i, 1);
-                hpToRestore++;
+                if (victim.HasSufficientQuanta((Element)i, 3))
+                {
+                    victim.SpendQuantaLogic((Element)i, 3);
+                    hpToRestore += 3;
+                }
+                else if (victim.HasSufficientQuanta((Element)i, 2))
+                {
+                    victim.SpendQuantaLogic((Element)i, 2);
+                    hpToRestore += 2;
+                }
+                else if (victim.HasSufficientQuanta((Element)i, 1))
+                {
+                    victim.SpendQuantaLogic((Element)i, 1);
+                    hpToRestore++;
+                }
             }
         }
+        
         Owner.ModifyHealthLogic(hpToRestore, false, false);
     }
 
