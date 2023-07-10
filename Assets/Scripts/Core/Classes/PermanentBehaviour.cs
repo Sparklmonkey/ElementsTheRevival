@@ -39,7 +39,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                 break;
         }
 
-        if (CardPair.card.passive.Contains("sanctuary"))
+        if (CardPair.card.innate.Contains("sanctuary"))
         {
             Owner.AddPlayerCounter(PlayerCounters.Sanctuary, 1);
         }
@@ -77,7 +77,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                 break;
         }
 
-        if (CardPair.card.passive.Contains("sanctuary"))
+        if (CardPair.card.innate.Contains("sanctuary"))
         {
             Owner.AddPlayerCounter(PlayerCounters.Sanctuary, -1);
         }
