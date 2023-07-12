@@ -68,6 +68,9 @@ if (loc.indexOf('http://')==0){
         </div>
       </div>
       <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-fullscreen-button"></div>
+      </div>
     </div>
     <script>
       var container = document.querySelector("#unity-container");
@@ -162,6 +165,9 @@ if (loc.indexOf('http://')==0){
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
+          fullscreenButton.onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
         }).catch((message) => {
           alert(message);
         });
