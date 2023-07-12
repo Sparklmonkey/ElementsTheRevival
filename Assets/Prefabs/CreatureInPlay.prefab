@@ -263,10 +263,10 @@ RectTransform:
   m_Father: {fileID: 8942002425704931836}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: -0.096, y: -0.096}
+  m_AnchorMax: {x: 1.09, y: 1.09}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 175, y: 175}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5649674587937681343
 CanvasRenderer:
@@ -878,7 +878,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.35
+  m_fontSize: 19.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1782,7 +1782,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.15
+  m_fontSize: 35.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2185,7 +2185,6 @@ MonoBehaviour:
   underlayWhite: {fileID: 11400000, guid: 1ce48439ddc6c4d7d8b7889a4d76de20, type: 2}
   validTargetGlow: {fileID: 227807849610547199}
   isUsableGlow: {fileID: 4822350365567829634}
-  isPassive: 0
   cardImage: {fileID: 8942002424463688009}
   upgradeShine: {fileID: 8282028701692443593}
   rareIndicator: {fileID: 875467801983031257}
@@ -2260,7 +2259,7 @@ MonoBehaviour:
     innate: []
     desc: 
   stackCount: 0
-  isPlayer: 0
+  isPlayer: 1
   cardBehaviour: {fileID: 0}
 --- !u!114 &8087429309753568943
 MonoBehaviour:
