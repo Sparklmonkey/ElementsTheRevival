@@ -21,7 +21,8 @@ namespace Elements.Duel.Visual
         {
             transform.parent.gameObject.SetActive(true);
             cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
-            creatureValue.text = $"{cardToDisplay.AtkNow}|{cardToDisplay.DefNow}";
+            var creatureAtk = cardToDisplay.passive.Contains("antimatter") ? -cardToDisplay.AtkNow : cardToDisplay.AtkNow;
+            creatureValue.text = $"{creatureAtk}|{cardToDisplay.DefNow}";
             cardName.text = cardToDisplay.cardName;
             cardHeadBack.sprite = ImageHelper.GetCardHeadBackground(cardToDisplay.costElement.FastElementString());
             if (cardToDisplay.IsRare())
