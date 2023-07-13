@@ -10,7 +10,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 {
     public ID id;
     public Card card;
-    public int stackCount;
+    public int stackCount = 0;
     public bool isPlayer;
     public CardTypeBehaviour cardBehaviour;
 

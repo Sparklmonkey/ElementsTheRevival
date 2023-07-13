@@ -30,7 +30,7 @@ namespace Elements.Duel.Manager
             {
                 if(i < cardList.Count)
                 {
-                    pairList[i].card = cardList[i];
+                    pairList[i].PlayCard(cardList[i]);
                     pairList[i].UpdateCard();
                     continue;
                 }

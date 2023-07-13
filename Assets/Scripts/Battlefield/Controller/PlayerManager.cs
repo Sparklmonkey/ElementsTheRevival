@@ -612,7 +612,7 @@ public class PlayerManager : MonoBehaviour
                 displayer.IsPlayable(IsAbilityUsable(displayer));
             }
         }
-        playerPassiveManager.GetWeapon().IsPlayable(false);
+        playerPassiveManager.GetWeapon().IsPlayable(IsAbilityUsable(playerPassiveManager.GetWeapon()));
     }
 
     public void ActivateDeathTriggers()

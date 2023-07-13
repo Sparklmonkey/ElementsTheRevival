@@ -171,6 +171,7 @@ public class PassiveBehaviour : CardTypeBehaviour
                     Enemy.ScrambleQuanta();
                 }
             }
+            CardPair.card.AbilityUsed = false;
         }
 
         
