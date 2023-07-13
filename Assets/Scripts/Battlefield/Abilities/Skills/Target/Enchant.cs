@@ -8,7 +8,7 @@ public class Enchant : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.card.passive.Add("immaterial");
+        target.card.innate.Add("immaterial");
         target.UpdateCard();
     }
 

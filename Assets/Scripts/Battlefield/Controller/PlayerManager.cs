@@ -185,8 +185,8 @@ public class PlayerManager : MonoBehaviour
                 if (safeZones.Contains(idCard.id.Index)) { continue; }
                 if (idCard.card.costElement.Equals(Element.Other)) { continue; }
                 if (idCard.card.costElement.Equals(Element.Water)) { continue; }
-                if (idCard.card.innate.Contains("immaterial")) { continue; }
-                if (idCard.card.innate.Contains("burrow")) { continue; }
+                if (idCard.card.IsImmaterial) { continue; }
+                if (idCard.card.IsBurrowed) { continue; }
                 idCard.RemoveCard();
             }
         }
