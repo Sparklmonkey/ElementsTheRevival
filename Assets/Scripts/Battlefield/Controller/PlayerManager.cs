@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
             case PlayerCounters.Bone:
                 playerCounters.bone += amount;
                 if (playerCounters.bone < 0) { playerCounters.bone = 0; }
+                
                 break;
             case PlayerCounters.Invisibility:
                 playerCounters.invisibility += amount;
@@ -857,6 +858,8 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator SetupOtherDisplayers()
     {
+        playerCreatureField.ClearField();
+        playerPermanentManager.ClearField();
         playerQuantaManager = new QuantaManager(quantaDisplayers, this);
         cardDetailManager = new CardDetailManager();
         cardDetailManager.OnDisplayNewCard += cardDetailView.SetupCardDisplay;

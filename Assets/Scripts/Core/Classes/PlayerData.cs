@@ -19,6 +19,7 @@ public class PlayerData
     public int arenaWins;
     public int arenaLosses;
     public int playerScore;
+    public string completedQuests = "";
     public int currentQuestIndex = 0;
     //Saved Decks
     public List<string> savedDecks;
@@ -98,6 +99,7 @@ public class PlayerData
         currentQuestIndex = 0;
         nextFalseGod = "";
         petName = "";
+        completedQuests = "";
         petCount = 0;
         playedOracleToday = false;
         dayLastOraclePlay = DateTime.Now;

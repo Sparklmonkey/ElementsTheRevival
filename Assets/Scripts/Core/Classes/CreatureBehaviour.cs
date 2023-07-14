@@ -230,6 +230,7 @@ public class CreatureBehaviour : CardTypeBehaviour
         if (CardPair.card.innate.Contains("swarm"))
         {
             CardPair.card.def = Owner.playerCounters.scarab;
+            CardPair.UpdateCard();
         }
     }
 

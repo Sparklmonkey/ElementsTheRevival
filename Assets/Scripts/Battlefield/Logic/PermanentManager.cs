@@ -16,13 +16,14 @@ namespace Elements.Duel.Manager
         {
             if (card.cardType.Equals(CardType.Pillar))
             {
-                if (pairList.Exists(x => x.card.iD == card.iD))
+                IDCardPair stackedCard = pairList.FirstOrDefault(idCard => idCard.HasCard() && idCard.card.iD == card.iD);
+                if (stackedCard != null)
                 {
-                    IDCardPair stackedCard = pairList.Find(x => x.card.iD == card.iD);
                     stackedCard.PlayCard(card);
                     return stackedCard;
                 }
             }
+
             List<int> permanentCardOrder = new() { 1, 3, 5, 7, 0, 2, 4, 6, 9, 11, 13, 8, 10, 12, 14 };
 
             foreach (int orderIndex in permanentCardOrder)
@@ -107,6 +108,14 @@ namespace Elements.Duel.Manager
             {
                 if(!idCard.HasCard()) { continue; }
                 idCard.cardBehaviour.OnTurnStart();
+            }
+        }
+
+        internal void ClearField()
+        {
+            foreach (var pair in pairList)
+            {
+                pair.card = null;
             }
         }
     }

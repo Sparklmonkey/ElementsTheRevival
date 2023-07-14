@@ -56,4 +56,12 @@ public class CreatureManager : FieldManager
         }
         return null;
     }
+
+    internal void ClearField()
+    {
+        foreach (var pair in pairList)
+        {
+            pair.card = null;
+        }
+    }
 }

@@ -112,7 +112,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void UpdateCard()
     {
-        if (HasCard()) { return; }
+        if (!HasCard()) { return; }
         if (card.cardType.Equals(CardType.Creature))
         {
             if (card.DefDamage < 0) { card.DefDamage = 0; }
@@ -145,6 +145,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     internal bool HasCard()
     {
+        if( card == null && id.Field != FieldEnum.Player) { return false; }
         return card != null && card.iD != "4t2" && card.iD != "4t1" && card.cardName != "";
     }
 

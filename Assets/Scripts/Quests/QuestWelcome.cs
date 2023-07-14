@@ -1,5 +1,7 @@
 ﻿public class QuestWelcome : QuestBiolerplate
 {
+    public override int QuestIndex => 0;
+
     public override string QuestName => "Quest 1 : Welcome!";
 
     public override string QuestDescription => "This is Element's main menu. You just received 40 cards for your starter deck; are you ready for your first duel?";
@@ -11,6 +13,7 @@
     public override void RedeemQuest()
     {
         PlayerData.shared.electrum += 10;
+        PlayerData.shared.completedQuests += "_0";
     }
 
     public override bool RequirementCheck() => PlayerData.shared.hasDefeatedLevel0;

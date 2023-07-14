@@ -1,5 +1,6 @@
 ﻿public abstract class QuestBiolerplate
 {
+    public abstract int QuestIndex { get; }
     public abstract string QuestName { get; }
     public abstract string QuestDescription { get; }
     public abstract string QuestObjective { get; }
