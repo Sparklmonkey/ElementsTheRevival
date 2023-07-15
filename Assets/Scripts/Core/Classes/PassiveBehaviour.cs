@@ -17,8 +17,6 @@ public class PassiveBehaviour : CardTypeBehaviour
                 break;
             case "61t":
             case "80d":
-            case "5v2":
-            case "7ti":
                 CardPair.card.TurnsInPlay = 3;
                 break;
             default:
@@ -63,8 +61,6 @@ public class PassiveBehaviour : CardTypeBehaviour
                 break;
             case "61t":
             case "80d":
-            case "5v2":
-            case "7ti":
                 CardPair.card.TurnsInPlay--;
                 if (CardPair.card.TurnsInPlay <= 0)
                 {

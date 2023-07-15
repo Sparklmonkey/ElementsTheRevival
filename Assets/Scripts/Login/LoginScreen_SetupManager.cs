@@ -29,6 +29,10 @@ public class LoginScreen_SetupManager : MonoBehaviour
             fields[_fieldIndexer].Select();
             _fieldIndexer++;
         }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            AttemptToLogin();
+        }
     }
 
 

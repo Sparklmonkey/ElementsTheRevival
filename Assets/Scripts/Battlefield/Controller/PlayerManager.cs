@@ -75,8 +75,9 @@ public class PlayerManager : MonoBehaviour
         {
             if (perm.card.iD == "5v2" || perm.card.iD == "7ti")
             {
+                ResetCloakPermParent(perm);
                 perm.RemoveCard();
-                DeactivateCloakEffect(perm);
+                DeactivateCloakEffect();
             }
         }
     }
@@ -650,10 +651,15 @@ public class PlayerManager : MonoBehaviour
         cardPair.transform.parent.transform.parent = cloakVisual.transform;
 
     }
-    public void DeactivateCloakEffect(IDCardPair cardPair)
+    public void DeactivateCloakEffect()
     {
         if (isPlayer) { return; }
         cloakVisual.SetActive(false);
+    }
+
+    public void ResetCloakPermParent(IDCardPair cardPair)
+    {
+        if (isPlayer) { return; }
         cardPair.transform.parent.transform.parent = permParent.transform;
         cardPair.transform.SetSiblingIndex(cardPair.id.Index);
     }

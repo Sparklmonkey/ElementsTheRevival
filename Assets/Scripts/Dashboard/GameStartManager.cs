@@ -59,8 +59,8 @@ public class GameStartManager : MonoBehaviour
                 {
                     falseGod = falseGodNameList[Random.Range(0, falseGodNameList.Count)];
                 }
-                //ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/Jezebel");
-                ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/{falseGod}");
+                ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/Serket");
+                //ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/{falseGod}");
                 PlayerData.shared.nextFalseGod = "";
                 break;
             default:

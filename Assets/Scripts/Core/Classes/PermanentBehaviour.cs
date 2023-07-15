@@ -51,9 +51,10 @@ public class PermanentBehaviour : CardTypeBehaviour
         {
             case "5v2":
             case "7ti":
-                if (Owner.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.skill == "cloak").Count == 1)
+                Owner.ResetCloakPermParent(CardPair);
+                if (Owner.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5v2" || x.card.iD == "7ti").Count == 1)
                 {
-                    Owner.DeactivateCloakEffect(CardPair);
+                    Owner.DeactivateCloakEffect();
                     Owner.AddPlayerCounter(PlayerCounters.Invisibility, -3);
                 }
                 break;
@@ -167,14 +168,20 @@ public class PermanentBehaviour : CardTypeBehaviour
             if (CardPair.card.cardName.Contains("Pendulum"))
             {
                 Owner.GenerateQuantaLogic(CardPair.card.skillElement, CardPair.card.costElement == Element.Other ? 3 * StackCount : 1 * StackCount);
-                StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
+                if (Owner.isPlayer || Owner.playerCounters.invisibility <= 0)
+                {
+                    StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
+                }
 
                 CardPair.card.skillElement = CardPair.card.skillElement == CardPair.card.costElement ? DuelManager.GetIDOwner(CardPair.id).playerPassiveManager.GetMark().card.costElement : CardPair.card.costElement;
             }
             else
             {
                 Owner.GenerateQuantaLogic(CardPair.card.costElement, CardPair.card.costElement == Element.Other ? 3 * StackCount : 1 * StackCount);
-                StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
+                if (Owner.isPlayer || Owner.playerCounters.invisibility <= 0)
+                {
+                    StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
+                }
             }
         }
 
