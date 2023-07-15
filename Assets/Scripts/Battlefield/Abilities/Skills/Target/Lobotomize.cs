@@ -9,7 +9,7 @@ public class Lobotomize : AbilityEffect
     {
         target.card.skill = "";
         target.card.desc = "";
-        target.card.passive.Clear();
+        target.card.passive = new();
         target.UpdateCard();
     }
 

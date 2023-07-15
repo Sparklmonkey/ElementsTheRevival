@@ -158,7 +158,7 @@ public class PassiveBehaviour : CardTypeBehaviour
                 {
                     Owner.ModifyHealthLogic(atknow, false, false);
                 }
-                if (CardPair.card.innate.Contains("venom"))
+                if (CardPair.card.passive.Contains("venom"))
                 {
                     Enemy.AddPlayerCounter(PlayerCounters.Poison, 1);
                 }

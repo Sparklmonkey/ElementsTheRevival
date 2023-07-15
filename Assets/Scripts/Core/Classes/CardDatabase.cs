@@ -663,7 +663,7 @@ public class CardDatabase : MonoBehaviour
                         golem.desc = "Scavenger:\nEvery time a creature dies, Shard Golem gains +1/+1";
                         break;
                     case 4:
-                        golem.innate.Add("venom");
+                        golem.passive.Add("venom");
                         golem.desc = "Deal 1 poison damage at the end of every turn.\nPoison damage is cumulative.";
                         break;
                     case 5:
