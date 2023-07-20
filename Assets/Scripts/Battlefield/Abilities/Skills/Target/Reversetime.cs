@@ -7,11 +7,11 @@ public class Reversetime : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        if (target.card.innate.Contains("mummy"))
+        if (target.card.innateSkills.Mummy)
         {
             target.PlayCard(CardDatabase.Instance.GetCardFromId(target.card.iD.IsUpgraded() ? "7qc" : "5rs"));
         }
-        else if (target.card.innate.Contains("undead"))
+        else if (target.card.innateSkills.Undead)
         {
             target.PlayCard(target.card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteCreature() : CardDatabase.Instance.GetRandomCreature());
         }

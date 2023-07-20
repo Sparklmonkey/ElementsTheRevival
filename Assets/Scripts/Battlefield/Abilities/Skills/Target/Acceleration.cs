@@ -10,7 +10,7 @@ public class Acceleration : AbilityEffect
     {
         target.card.desc = "Acceleration: \n Gain +2 /-1 per turn";
         target.card.skill = "";
-        target.card.passive.Add("acceleration");
+        target.card.passiveSkills.Acceleration = true;
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

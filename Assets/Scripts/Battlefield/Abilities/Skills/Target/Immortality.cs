@@ -7,7 +7,7 @@ public class Immortality : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.card.innate.Add("immaterial");
+        target.card.innateSkills.Immaterial = true;
         target.UpdateCard();
     }
 

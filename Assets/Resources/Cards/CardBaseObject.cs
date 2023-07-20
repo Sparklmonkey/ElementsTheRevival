@@ -18,17 +18,10 @@ public class Card
     public int cost;
     public Element costElement;
     public int rarity;
-    public List<string> passive;
-    public List<string> innate;
     public string desc;
 
-    public bool IsDelayed { get { return innate.Contains("delay"); } }
-    public bool IsGravity { get { return passive.Contains("delay"); } }
-    public bool IsPsion { get { return innate.Contains("psion"); } }
-    public bool IsAdrenaline { get { return passive.Contains("adrenaline"); } }
-    public bool IsMomentum { get { return passive.Contains("momentum"); } }
-    public bool IsImmaterial { get { return innate.Contains("immaterial"); } }
-    public bool IsBurrowed { get { return innate.Contains("burrowed"); } }
+    public PassiveSkills passiveSkills;
+    public InnateSkills innateSkills;
     public bool IsAflatoxin { get; set; }
     public bool AbilityUsed { get; set; }
     public bool ReadyUsed { get; set; }
@@ -57,15 +50,38 @@ public class Card
         skillElement = newBase.skillElement;
         cost = newBase.cost;
         costElement = newBase.costElement;
-        rarity = newBase.rarity;
-        passive = newBase.passive;
-        innate = newBase.innate;
         desc = newBase.desc;
         IsAflatoxin = newBase.IsAflatoxin;
         AbilityUsed = newBase.AbilityUsed;
+        passiveSkills = newBase.passiveSkills;
+        innateSkills = newBase.innateSkills;
         Poison = newBase.Poison;
         Charge = newBase.Charge;
         Freeze = newBase.Freeze;
+    }
+
+    public Card()
+    {
+        iD = "";
+        imageID = "";
+        cardName = "";
+        cardType = CardType.Pillar;
+        atk = 0;
+        def = 0;
+        skill = "";
+        skillCost = 0;
+        skillElement = Element.Aether;
+        cost = 0;
+        costElement = Element.Aether;
+        rarity = 0;
+        passiveSkills = default;
+        innateSkills = default;
+        desc = "";
+        IsAflatoxin = false;
+        AbilityUsed = true;
+        Poison = 0;
+        Charge = 0;
+        Freeze = 0;
     }
 
     public Card Clone()

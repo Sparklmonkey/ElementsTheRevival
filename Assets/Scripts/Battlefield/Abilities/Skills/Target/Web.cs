@@ -8,7 +8,7 @@ public class Web : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         Game_AnimationManager.shared.StartAnimation("Web", target.transform);
-        target.card.innate.Remove("airborne");
+        target.card.innateSkills.Airborne = false;
         target.UpdateCard();
         return;
     }
@@ -18,7 +18,7 @@ public class Web : AbilityEffect
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
         if (possibleTargets.Count == 0) { return new(); }
-        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.innate.Contains("airborne"));
+        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.innateSkills.Airborne);
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

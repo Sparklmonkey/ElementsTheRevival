@@ -7,7 +7,7 @@ public class Antimatter : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.card.passive.Add("antimatter");
+        target.card.passiveSkills.Antimatter = true;
         target.UpdateCard();
     }
 

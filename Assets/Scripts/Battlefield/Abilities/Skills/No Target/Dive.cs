@@ -7,7 +7,7 @@ public class Dive : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.card.passive.Add("dive");
+        target.card.passiveSkills.Dive = true;
         target.card.AtkModify *= 2;
         target.card.atk *= 2;
         target.UpdateCard();

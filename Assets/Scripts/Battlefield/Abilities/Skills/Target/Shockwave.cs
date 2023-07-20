@@ -13,7 +13,7 @@ public class Shockwave : AbilityEffect
             return;
         }
         target.card.DefDamage += 4;
-        if (target.card.DefNow > 0 && target.card.innate.Contains("voodoo"))
+        if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
             Owner.ModifyHealthLogic(4, true, false);
         }

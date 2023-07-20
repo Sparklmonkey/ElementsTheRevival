@@ -44,7 +44,7 @@ namespace Elements.Duel.Visual
             {
                 activeAHolder.SetActive(false);
             }
-            immaterialIndicator.SetActive(cardToDisplay.innate.Contains("immaterial"));
+            immaterialIndicator.SetActive(cardToDisplay.innateSkills.Immaterial);
         }
 
         public IEnumerator ShowDamage(int damage)

@@ -13,8 +13,8 @@
 			"cost": 0,
 			"costElement": 12,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn 3 random quantums are generated"
 		},
 		{
@@ -30,8 +30,8 @@
 			"cost": 0,
 			"costElement": 6,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -47,8 +47,8 @@
 			"cost": 0,
 			"costElement": 4,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -64,8 +64,8 @@
 			"cost": 0,
 			"costElement": 9,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -81,8 +81,8 @@
 			"cost": 0,
 			"costElement": 5,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -98,8 +98,8 @@
 			"cost": 0,
 			"costElement": 10,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -115,8 +115,8 @@
 			"cost": 0,
 			"costElement": 8,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -132,8 +132,8 @@
 			"cost": 0,
 			"costElement": 11,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -149,8 +149,8 @@
 			"cost": 0,
 			"costElement": 3,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -166,8 +166,8 @@
 			"cost": 0,
 			"costElement": 1,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -183,8 +183,8 @@
 			"cost": 0,
 			"costElement": 7,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -200,8 +200,8 @@
 			"cost": 0,
 			"costElement": 2,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -217,8 +217,8 @@
 			"cost": 0,
 			"costElement": 0,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -234,8 +234,8 @@
 			"cost": 0,
 			"costElement": 12,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -251,8 +251,8 @@
 			"cost": 0,
 			"costElement": 12,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -268,8 +268,8 @@
 			"cost": 0,
 			"costElement": 12,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "dagger" ],
+			"passiveSkills": {},
+			"innateSkills": { "dagger" : true },
 			"desc": "Weapon: Deal 2 damages at the end of every turn. Deal 1 extra damage if you have a Death or Darkness mark."
 		},
 		{
@@ -285,8 +285,8 @@
 			"cost": 1,
 			"costElement": 12,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "sword" ],
+			"passiveSkills": {},
+			"innateSkills": { "sword" : true },
 			"desc": "Weapon: Deal 3 damages at the end of every turn"
 		},
 		{
@@ -302,8 +302,8 @@
 			"cost": 2,
 			"costElement": 12,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "hammer" ],
+			"passiveSkills": {},
+			"innateSkills": { "hammer" : true },
 			"desc": "Weapon: Deal 3 damages at the end of every turn. Deal 1 extra damage if you have a Gravity or Earth mark."
 		},
 		{
@@ -319,8 +319,8 @@
 			"cost": 5,
 			"costElement": 3,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Add 16 HP's to your maximum health. 24 if your mark is <sprite=3>."
 		},
 		{
@@ -336,8 +336,8 @@
 			"cost": 0,
 			"costElement": 12,
 			"rarity": 1,
-			"passive": [ "infest" ],
-			"innate": [],
+			"passiveSkills": { "infest" : true },
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -353,8 +353,8 @@
 			"cost": 5,
 			"costElement": 7,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature s skill cost is now zero. <sprite=7> creatures can use their skill twice this turn."
 		},
 		{
@@ -370,8 +370,8 @@
 			"cost": 2,
 			"costElement": 12,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "ranged", "bow" ],
+			"passiveSkills": {},
+			"innateSkills": { "ranged" : true, "bow" : true},
 			"desc": "Weapon: Deal 3 damage at the end of every turn. Deal 1 extra damage if you have an Air mark."
 		},
 		{
@@ -387,8 +387,8 @@
 			"cost": 1,
 			"costElement": 12,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Reduce damage by 1."
 		},
 		{
@@ -404,8 +404,8 @@
 			"cost": 0,
 			"costElement": 6,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=6> is generated."
 		},
 		{
@@ -421,8 +421,8 @@
 			"cost": 5,
 			"costElement": 6,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=6><sprite=6> : Paradox\nKill the target creature if its attack is higher than its defence"
 		},
 		{
@@ -438,8 +438,8 @@
 			"cost": 5,
 			"costElement": 6,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -455,8 +455,8 @@
 			"cost": 10,
 			"costElement": 6,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -472,8 +472,8 @@
 			"cost": 3,
 			"costElement": 6,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Use 1 <sprite=6> to absorb 3 damages from physical damage sources."
 		},
 		{
@@ -489,8 +489,8 @@
 			"cost": 2,
 			"costElement": 6,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=2><sprite=2> : Lycanthropy\nThe Lycanthrope gains +5/+5 permanently."
 		},
 		{
@@ -506,8 +506,8 @@
 			"cost": 1,
 			"costElement": 6,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "A random effect is inflicted on the target"
 		},
 		{
@@ -523,8 +523,8 @@
 			"cost": 0,
 			"costElement": 6,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Generate 12 quanta. 1 for each element. Do not cast more than twice per turn."
 		},
 		{
@@ -540,8 +540,8 @@
 			"cost": 2,
 			"costElement": 6,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Mutate the target creature into an abomination, unless it dies... or turn into something weird."
 		},
 		{
@@ -557,8 +557,8 @@
 			"cost": 3,
 			"costElement": 6,
 			"rarity": 6,
-			"passive": [],
-			"innate": [ "scramble" ],
+			"passiveSkills": {},
+			"innateSkills": { "scramble" : true },
 			"desc": "Weapon: Deal 4 damage at the end of every turn. Randomly convert some of the opponent's quantums into other elements."
 		},
 		{
@@ -574,8 +574,8 @@
 			"cost": 4,
 			"costElement": 6,
 			"rarity": 4,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=10>: Mutation\nThe target creature might turn into an abomination, a mutant, or die."
 		},
 		{
@@ -591,8 +591,8 @@
 			"cost": 8,
 			"costElement": 6,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Invert the attack power of the target creature (the creature inflict heals instead of damage)"
 		},
 		{
@@ -608,8 +608,8 @@
 			"cost": 5,
 			"costElement": 6,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Target a low attack power creature (less than 3). The creature's skill is now\n<sprite=6><sprite=6><sprite=6>: Destroy (destroy target permanent)"
 		},
 		{
@@ -625,8 +625,8 @@
 			"cost": 3,
 			"costElement": 6,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "A random effect is inflicted to every creature on the field. Removes invisibility."
 		},
 		{
@@ -642,8 +642,8 @@
 			"cost": 1,
 			"costElement": 6,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=6> : Dead and Alive\nKill this creature; death effects are triggered. This creature is still alive."
 		},
 		{
@@ -659,8 +659,8 @@
 			"cost": 10,
 			"costElement": 6,
 			"rarity": 1,
-			"passive": [],
-			"innate": [ "singularity" ],
+			"passiveSkills": {},
+			"innateSkills": { "singularity" : true },
 			"desc": "This object is not defined and not well-behaved."
 		},
 		{
@@ -676,8 +676,8 @@
 			"cost": 9,
 			"costElement": 6,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=6><sprite=6><sprite=6><sprite=6> : Antimatter\nInvert the attack power of the target creature (the creature inflict heals instead of damage)"
 		},
 		{
@@ -693,8 +693,8 @@
 			"cost": 3,
 			"costElement": 6,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Add up to 3 random cards to your hand. The first one will be an <sprite=6> card."
 		},
 		{
@@ -710,8 +710,8 @@
 			"cost": 0,
 			"costElement": 6,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=6> and 1 quantum matching your mark."
 		},
 		{
@@ -727,8 +727,8 @@
 			"cost": 0,
 			"costElement": 4,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=4> is generated."
 		},
 		{
@@ -744,8 +744,8 @@
 			"cost": 10,
 			"costElement": 4,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -761,8 +761,8 @@
 			"cost": 1,
 			"costElement": 4,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "Infect: \nSacrifice Virus to inflict 1 damage per round to a target creature"
 		},
 		{
@@ -778,8 +778,8 @@
 			"cost": 3,
 			"costElement": 4,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=1> : Web\nThe target creature loses its \"airborne\" skill"
 		},
 		{
@@ -795,8 +795,8 @@
 			"cost": 3,
 			"costElement": 4,
 			"rarity": 3,
-			"passive": [ "scavenger" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "scavenger" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Scavenger:\nEvery time a creature dies, Vulture gains +1/+1"
 		},
 		{
@@ -812,8 +812,8 @@
 			"cost": 3,
 			"costElement": 4,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The damage dealt to you from physical damage sources is reduced by 1. Attacking creatures have a small chance to die and turn into skeletons."
 		},
 		{
@@ -829,8 +829,8 @@
 			"cost": 1,
 			"costElement": 4,
 			"rarity": 1,
-			"passive": [],
-			"innate": [ "undead" ],
+			"passiveSkills": {},
+			"innateSkills": { "undead" : true },
 			"desc": "Undead: \nSkeleton turns into a random creature if targeted with reverse time"
 		},
 		{
@@ -846,8 +846,8 @@
 			"cost": 3,
 			"costElement": 4,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "boneyard" ],
+			"passiveSkills": {},
+			"innateSkills": { "boneyard" : true },
 			"desc": "Every time a creature is killed, boneyard generates 1 skeleton."
 		},
 		{
@@ -863,8 +863,8 @@
 			"cost": 1,
 			"costElement": 4,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Inflicts 2 poison damage (to your opponent) at the end of every turn. Poison damage is cumulative."
 		},
 		{
@@ -880,8 +880,8 @@
 			"cost": 4,
 			"costElement": 4,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Infect every enemy creature (Inflicts +1 poison on every enemy creature). Removes invisibility."
 		},
 		{
@@ -897,8 +897,8 @@
 			"cost": 2,
 			"costElement": 4,
 			"rarity": 6,
-			"passive": [],
-			"innate": [ "venom" ],
+			"passiveSkills": {},
+			"innateSkills": { "venom" : true },
 			"desc": "Weapon: Deal 2 damage at the end of every turn. Deal 1 poison damage at the end of every turn.\nPoison damage is cumulative."
 		},
 		{
@@ -914,8 +914,8 @@
 			"cost": 7,
 			"costElement": 4,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "bones" ],
+			"passiveSkills": {},
+			"innateSkills": { "bones" : true },
 			"desc": "Summon 7 bone shields that absorb damage from a single source. Gains 2 shields when a creature is killed."
 		},
 		{
@@ -931,8 +931,8 @@
 			"cost": 6,
 			"costElement": 4,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Poison the target creature. If the target creature dies, it turns into a malignant cell."
 		},
 		{
@@ -948,8 +948,8 @@
 			"cost": 4,
 			"costElement": 4,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "mummy" ],
+			"passiveSkills": {},
+			"innateSkills": { "mummy" : true },
 			"desc": "Mummy turns into a Pharaoh if targeted with reverse time."
 		},
 		{
@@ -965,8 +965,8 @@
 			"cost": 2,
 			"costElement": 4,
 			"rarity": 2,
-			"passive": [ "deadly venom" ],
-			"innate": [ "poisonous" ],
+			"passiveSkills": { "deadlyVenom" : true },
+			"innateSkills": { "poisonous" : true },
 			"desc": "Deadly Venom: \nAdd 2 poison damage to each successful attack. Cause poisoning if ingested."
 		},
 		{
@@ -982,8 +982,8 @@
 			"cost": 0,
 			"costElement": 4,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "soul catch" ],
+			"passiveSkills": {},
+			"innateSkills": { "soulCatch" : true },
 			"desc": "Every time a creature is killed, Soul Catcher generates <sprite=4><sprite=4>"
 		},
 		{
@@ -999,8 +999,8 @@
 			"cost": 8,
 			"costElement": 4,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=4> : Aflatoxin\nPoison the target creature (+2 poison). If the target creature dies, it turns into a malignant cell."
 		},
 		{
@@ -1016,8 +1016,8 @@
 			"cost": 2,
 			"costElement": 4,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Inflict 48 damage to yourself and remove all but your <sprite=4> quanta. Swap damage with healing. Lasts 2 turns."
 		},
 		{
@@ -1033,8 +1033,8 @@
 			"cost": 0,
 			"costElement": 4,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=4> and 1 quantum matching your mark."
 		},
 		{
@@ -1050,8 +1050,8 @@
 			"cost": 0,
 			"costElement": 9,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=9> is generated."
 		},
 		{
@@ -1067,8 +1067,8 @@
 			"cost": 5,
 			"costElement": 9,
 			"rarity": 3,
-			"passive": [ "momentum" ],
-			"innate": [],
+			"passiveSkills": { "momentum" : true },
+			"innateSkills": {},
 			"desc": "Momentum: The damage caused by the Sapphire Charger can not be reduced, shields are ignored."
 		},
 		{
@@ -1084,8 +1084,8 @@
 			"cost": 5,
 			"costElement": 9,
 			"rarity": 3,
-			"passive": [ ],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=9> : Gravity Pull\nThe damage inflicted to you is redirected on Armagio"
 		},
 		{
@@ -1101,8 +1101,8 @@
 			"cost": 4,
 			"costElement": 9,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -1118,8 +1118,8 @@
 			"cost": 10,
 			"costElement": 9,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -1135,8 +1135,8 @@
 			"cost": 5,
 			"costElement": 9,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Any creature that has more than 5 HP's is unable to reach you"
 		},
 		{
@@ -1152,8 +1152,8 @@
 			"cost": 2,
 			"costElement": 9,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature ignores shield effects and gains +1/+1"
 		},
 		{
@@ -1169,8 +1169,8 @@
 			"cost": 4,
 			"costElement": 9,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=9> : Devour\nSwallow a smaller (less HP's) creature and gain +1/+1"
 		},
 		{
@@ -1186,8 +1186,8 @@
 			"cost": 5,
 			"costElement": 9,
 			"rarity": 6,
-			"passive": [ "momentum" ],
-			"innate": [],
+			"passiveSkills": { "momentum" : true },
+			"innateSkills": {},
 			"desc": "Weapon: Deal 7 damages at the end of every turn.\nMomentum: Shield effects are ignored."
 		},
 		{
@@ -1203,8 +1203,8 @@
 			"cost": 2,
 			"costElement": 9,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The creature enchanted with gravity pull will absorb all the damage directed against its owner."
 		},
 		{
@@ -1220,8 +1220,8 @@
 			"cost": 2,
 			"costElement": 9,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=8> : Ablaze\nGraviton Fire Eater gains +2/+0"
 		},
 		{
@@ -1237,8 +1237,8 @@
 			"cost": 4,
 			"costElement": 9,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Absorb 3 quanta per element from the opponent. Gain 1 HP per absorbed quantum."
 		},
 		{
@@ -1254,8 +1254,8 @@
 			"cost": 7,
 			"costElement": 9,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "chimera" ],
+			"passiveSkills": {},
+			"innateSkills": { "chimera" : true },
 			"desc": "Combine all your creatures in a single one. Gravity pull. Momentum"
 		},
 		{
@@ -1271,8 +1271,8 @@
 			"cost": 3,
 			"costElement": 9,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=9><sprite=9> : Sacrifice the target creature and damage your opponent. Larger creatures inflict more damage."
 		},
 		{
@@ -1288,8 +1288,8 @@
 			"cost": 3,
 			"costElement": 9,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Replace the target creature skill with acceleration: gain +2 / -1 per turn."
 		},
 		{
@@ -1305,8 +1305,8 @@
 			"cost": 9,
 			"costElement": 9,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=9><sprite=9><sprite=9> : Black Hole\nAbsorb 3 quanta per element from the opponent. Gain 1 HP per absorbed quantum."
 		},
 		{
@@ -1322,8 +1322,8 @@
 			"cost": 6,
 			"costElement": 9,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Accretion: Destroy a permanent and gain +0/+15. Turn into a black hole if HP>45."
 		},
 		{
@@ -1339,8 +1339,8 @@
 			"cost": 0,
 			"costElement": 9,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=9> and 1 quantum matching your mark."
 		},
 		{
@@ -1356,8 +1356,8 @@
 			"cost": 0,
 			"costElement": 5,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=5> is generated."
 		},
 		{
@@ -1373,8 +1373,8 @@
 			"cost": 2,
 			"costElement": 5,
 			"rarity": 2,
-			"passive": [ "burrow" ],
-			"innate": [],
+			"passiveSkills": { "burrow" : true },
+			"innateSkills": {},
 			"desc": "<sprite=5> : Burrow\nThe antlion can not be targeted, but its damage is halved."
 		},
 		{
@@ -1390,8 +1390,8 @@
 			"cost": 4,
 			"costElement": 5,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -1407,8 +1407,8 @@
 			"cost": 10,
 			"costElement": 5,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -1424,8 +1424,8 @@
 			"cost": 4,
 			"costElement": 5,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: The damage dealt to you from physical damage sources is reduced by 2"
 		},
 		{
@@ -1441,8 +1441,8 @@
 			"cost": 1,
 			"costElement": 5,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature gains +0/+3"
 		},
 		{
@@ -1458,8 +1458,8 @@
 			"cost": 1,
 			"costElement": 5,
 			"rarity": 2,
-			"passive": [ "earth" ],
-			"innate": [],
+			"passiveSkills": { "earth" : true },
+			"innateSkills": {},
 			"desc": "Each turn <sprite=5> is generated."
 		},
 		{
@@ -1475,8 +1475,8 @@
 			"cost": 4,
 			"costElement": 5,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Weapon: Deal 5 damages at the end of every turn.\n<sprite=9><sprite=9><sprite=9>: Destroy\nShatter the target permanent."
 		},
 		{
@@ -1492,8 +1492,8 @@
 			"cost": 3,
 			"costElement": 5,
 			"rarity": 3,
-			"passive": [ "burrow" ],
-			"innate": [],
+			"passiveSkills": { "burrow" : true },
+			"innateSkills": {},
 			"desc": "<sprite=7> : Evolve\nTurn the graboid into a shrieker. Graboid enters the game burrowed."
 		},
 		{
@@ -1509,8 +1509,8 @@
 			"cost": 8,
 			"costElement": 5,
 			"rarity": 3,
-			"passive": [ "burrow" ],
-			"innate": [],
+			"passiveSkills": { "burrow" : true },
+			"innateSkills": {},
 			"desc": "<sprite=5> : Burrow\nThe shrieker can not be targeted, but its damage is halved."
 		},
 		{
@@ -1526,8 +1526,8 @@
 			"cost": 2,
 			"costElement": 5,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target permanent can not be target of any skill. It does not work on creatures."
 		},
 		{
@@ -1543,8 +1543,8 @@
 			"cost": 3,
 			"costElement": 5,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Destroy up to 3 pillars in the target cluster."
 		},
 		{
@@ -1560,8 +1560,8 @@
 			"cost": 2,
 			"costElement": 5,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Add X HP's to your maximum life points. X is the number of <sprite=5> that you own."
 		},
 		{
@@ -1577,8 +1577,8 @@
 			"cost": 2,
 			"costElement": 5,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature gains +0/+20 but can not attack or use skills for 6 turns."
 		},
 		{
@@ -1594,8 +1594,8 @@
 			"cost": 1,
 			"costElement": 5,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=5> : Guard\n(Do not attack) Delay the target creature for 1 turn (cumulative) and attack it unless it is airborne."
 		},
 		{
@@ -1611,8 +1611,8 @@
 			"cost": 8,
 			"costElement": 5,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Reassemble your last shard golem."
 		},
 		{
@@ -1628,8 +1628,8 @@
 			"cost": 8,
 			"costElement": 5,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=5><sprite=5><sprite=5> : Petrify\nThe target creature gains +0/+20 but can not attack or use skills for 6 turns."
 		},
 		{
@@ -1645,8 +1645,8 @@
 			"cost": 2,
 			"costElement": 5,
 			"rarity": 6,
-			"passive": [],
-			"innate": [ "integrity" ],
+			"passiveSkills": {},
+			"innateSkills": { "integrity" : true },
 			"desc": "Combine all the shards in your hand to form a shard golem."
 		},
 		{
@@ -1662,8 +1662,8 @@
 			"cost": 0,
 			"costElement": 5,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=5> and 1 quantum matching your mark."
 		},
 		{
@@ -1679,8 +1679,8 @@
 			"cost": 0,
 			"costElement": 10,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=10> is generated."
 		},
 		{
@@ -1696,8 +1696,8 @@
 			"cost": 10,
 			"costElement": 10,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -1713,8 +1713,8 @@
 			"cost": 2,
 			"costElement": 10,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -1730,8 +1730,8 @@
 			"cost": 1,
 			"costElement": 10,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=3> : Photosynthesis\nGain <sprite=10><sprite=10>. This skill can be used multiple times per turn."
 		},
 		{
@@ -1747,8 +1747,8 @@
 			"cost": 3,
 			"costElement": 10,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -1764,8 +1764,8 @@
 			"cost": 2,
 			"costElement": 10,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=11> : Growth\nThe Forest Spirit gains +2/+2"
 		},
 		{
@@ -1781,8 +1781,8 @@
 			"cost": 3,
 			"costElement": 10,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Heal yourself for up to 20 HP's"
 		},
 		{
@@ -1798,8 +1798,8 @@
 			"cost": 7,
 			"costElement": 10,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: attacking creatures have a 75% chance to be infected."
 		},
 		{
@@ -1815,8 +1815,8 @@
 			"cost": 5,
 			"costElement": 10,
 			"rarity": 4,
-			"passive": [],
-			"innate": ["immaterial"],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true },
 			"desc": "Shield: Reduce damage by 1. Spells are reflected against your opponent. Can not be destroyed or stolen."
 		},
 		{
@@ -1832,8 +1832,8 @@
 			"cost": 2,
 			"costElement": 10,
 			"rarity": 6,
-			"passive": [],
-			"innate": [ "regenerate" ],
+			"passiveSkills": {},
+			"innateSkills": { "regenerate" : true },
 			"desc": "Weapon: Deal 2 damages at the end of every turn.\nHeal yourself for up to 5 HP's"
 		},
 		{
@@ -1849,8 +1849,8 @@
 			"cost": 5,
 			"costElement": 10,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "empathy" ],
+			"passiveSkills": {},
+			"innateSkills": { "empathy" : true },
 			"desc": "Every creature in your possession heals you for 1 HP at the end of every turn"
 		},
 		{
@@ -1866,8 +1866,8 @@
 			"cost": 4,
 			"costElement": 10,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature attacks multiple times per turn. Smaller creatures gain more extra attacks."
 		},
 		{
@@ -1883,8 +1883,8 @@
 			"cost": 3,
 			"costElement": 10,
 			"rarity": 2,
-			"passive": [ "venom" ],
-			"innate": [ "poisonous" ],
+			"passiveSkills": { "venom" : true },
+			"innateSkills": { "poisonous" : true },
 			"desc": "Venom :\nAdd 1 poison damage to each successful attack. Cause poisoning if ingested."
 		},
 		{
@@ -1900,8 +1900,8 @@
 			"cost": 5,
 			"costElement": 10,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The non-weapon creature skill is now mitosis: generate a daughter creature. The skill cost matches the"
 		},
 		{
@@ -1917,8 +1917,8 @@
 			"cost": 8,
 			"costElement": 10,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=10><sprite=10> : Adrenaline\nThe target creature attacks multiple times per turn."
 		},
 		{
@@ -1934,8 +1934,8 @@
 			"cost": 3,
 			"costElement": 10,
 			"rarity": 6,
-			"passive": [],
-			"innate": [ "gratitude" ],
+			"passiveSkills": {},
+			"innateSkills": { "gratitude" : true },
 			"desc": "Heal yourself for up to 3 HP at the end of every turn. 5 if your mark is <sprite=10>."
 		},
 		{
@@ -1951,8 +1951,8 @@
 			"cost": 0,
 			"costElement": 10,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=10> and 1 quantum matching your mark."
 		},
 		{
@@ -1968,8 +1968,8 @@
 			"cost": 0,
 			"costElement": 8,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=8> is generated."
 		},
 		{
@@ -1985,8 +1985,8 @@
 			"cost": 1,
 			"costElement": 8,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -2002,8 +2002,8 @@
 			"cost": 10,
 			"costElement": 8,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -2019,8 +2019,8 @@
 			"cost": 2,
 			"costElement": 8,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=8> : Ablaze\nThe Fire Spirit gains +2/+0"
 		},
 		{
@@ -2036,8 +2036,8 @@
 			"cost": 3,
 			"costElement": 8,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deals 3 damage to the target for each 10 fire quantums in your possession."
 		},
 		{
@@ -2053,8 +2053,8 @@
 			"cost": 6,
 			"costElement": 8,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: 1 damage is dealt to any attacking creature"
 		},
 		{
@@ -2070,8 +2070,8 @@
 			"cost": 3,
 			"costElement": 8,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Destroy the targeted permanent"
 		},
 		{
@@ -2087,8 +2087,8 @@
 			"cost": 3,
 			"costElement": 8,
 			"rarity": 6,
-			"passive": [],
-			"innate": [ "fiery" ],
+			"passiveSkills": {},
+			"innateSkills": { "fiery" : true },
 			"desc": "Weapon: Deal 4 + X damage at the end of every turn.\nDeal X damages at the end of every turn. X is the number of <sprite=8> you own, divided by 5."
 		},
 		{
@@ -2104,8 +2104,8 @@
 			"cost": 7,
 			"costElement": 8,
 			"rarity": 4,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deals 3 damages to every enemy creature. Removes invisibility."
 		},
 		{
@@ -2121,8 +2121,8 @@
 			"cost": 0,
 			"costElement": 8,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Sacrifice a creature to generate 6 <sprite=8> plus 1 quantum for each non-fire element."
 		},
 		{
@@ -2138,8 +2138,8 @@
 			"cost": 5,
 			"costElement": 8,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=5> : Growth\nLava Golem gains +2/+2"
 		},
 		{
@@ -2155,8 +2155,8 @@
 			"cost": 3,
 			"costElement": 8,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature gains +5/-5"
 		},
 		{
@@ -2172,8 +2172,8 @@
 			"cost": 7,
 			"costElement": 8,
 			"rarity": 4,
-			"passive": [ "phoenix" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "phoenix" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Phoenix turns into Ash when killed"
 		},
 		{
@@ -2189,8 +2189,8 @@
 			"cost": 7,
 			"costElement": 8,
 			"rarity": 4,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=8>: Rebirth\nTurn this card into a Phoenix"
 		},
 		{
@@ -2206,8 +2206,8 @@
 			"cost": 9,
 			"costElement": 8,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=3> : Divine shield\nSeraph can not be targeted for 1 turn."
 		},
 		{
@@ -2223,8 +2223,8 @@
 			"cost": 8,
 			"costElement": 8,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=8><sprite=8><sprite=8> : Rage\nThe target creature gains +5/-5"
 		},
 		{
@@ -2240,8 +2240,8 @@
 			"cost": 2,
 			"costElement": 8,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Your opponent draws 2 cards, 3 if your mark is Fire.jpg. Draw an equal amount of cards."
 		},
 		{
@@ -2257,8 +2257,8 @@
 			"cost": 0,
 			"costElement": 8,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=8> and 1 quantum matching your mark."
 		},
 		{
@@ -2274,8 +2274,8 @@
 			"cost": 0,
 			"costElement": 11,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=11> is generated."
 		},
 		{
@@ -2291,8 +2291,8 @@
 			"cost": 1,
 			"costElement": 11,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "poisonous" ],
+			"passiveSkills": {},
+			"innateSkills": { "poisonous" : true },
 			"desc": "<sprite=4>: Poison\nInflict 1 poison damage at the end of every turn."
 		},
 		{
@@ -2308,8 +2308,8 @@
 			"cost": 3,
 			"costElement": 11,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -2325,8 +2325,8 @@
 			"cost": 1,
 			"costElement": 11,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Freeze the target creature for 3 turns. Frozen creatures can not attack or use skills."
 		},
 		{
@@ -2342,8 +2342,8 @@
 			"cost": 2,
 			"costElement": 11,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deals 2 damage to the target for each 10 water quantums in your possession. Ice Bolt might freeze the target."
 		},
 		{
@@ -2359,8 +2359,8 @@
 			"cost": 6,
 			"costElement": 11,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: damage dealt to you from physical damage sources is reduced by 1. Attacking creatures might freeze"
 		},
 		{
@@ -2376,8 +2376,8 @@
 			"cost": 2,
 			"costElement": 11,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Remove poison and sacrifice status from the target. Heals 2 damage per turn. Cumulative."
 		},
 		{
@@ -2393,8 +2393,8 @@
 			"cost": 3,
 			"costElement": 11,
 			"rarity": 8,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=11><sprite=11> : Freeze\nFreeze the target creature"
 		},
 		{
@@ -2410,8 +2410,8 @@
 			"cost": 3,
 			"costElement": 11,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Weapon: Deal 4 damages at the end of every turn.\n<sprite=5><sprite=5><sprite=5> : Tsunami\nDestroy up to 3 pillars / pendulums in the target cluster"
 		},
 		{
@@ -2427,8 +2427,8 @@
 			"cost": 10,
 			"costElement": 11,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -2444,8 +2444,8 @@
 			"cost": 5,
 			"costElement": 11,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "poisonous" ],
+			"passiveSkills": {},
+			"innateSkills": { "poisonous" : true },
 			"desc": "<sprite=1> : Inflate\nInflict 1 damage per turn to a target creature. Cause poisoning if ingested."
 		},
 		{
@@ -2461,8 +2461,8 @@
 			"cost": 2,
 			"costElement": 11,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=0>: Psionic wave\nRemove any skill from the target creature."
 		},
 		{
@@ -2478,8 +2478,8 @@
 			"cost": 7,
 			"costElement": 11,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Turn one of your pillars or pendulums into a Nymph. The Nymph will inherit the target's element."
 		},
 		{
@@ -2495,8 +2495,8 @@
 			"cost": 3,
 			"costElement": 11,
 			"rarity": 3,
-			"passive": [ "flood" ],
-			"innate": [],
+			"passiveSkills": { "flood" : true },
+			"innateSkills": {},
 			"desc": "Kill any creature along the edges of the field. Water and neutral creatures are immune. Absorb <sprite=11> per turn."
 		},
 		{
@@ -2512,8 +2512,8 @@
 			"cost": 4,
 			"costElement": 11,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=8><sprite=8> : Steam\nGain 5 charges (+5|+0). Remove 1 charge per turn."
 		},
 		{
@@ -2529,8 +2529,8 @@
 			"cost": 8,
 			"costElement": 11,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=11><sprite=11><sprite=11><sprite=11> : Nymph's tears\nTurn one of your pillars into a Nymph"
 		},
 		{
@@ -2546,8 +2546,8 @@
 			"cost": 3,
 			"costElement": 11,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Your creatures do not attack and gain +1/+0; <sprite=11> creatures +2/+2, +4/+4 if in a flooded area. Click to remove."
 		},
 		{
@@ -2563,8 +2563,8 @@
 			"cost": 0,
 			"costElement": 11,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=11> and 1 quantum matching your mark."
 		},
 		{
@@ -2580,8 +2580,8 @@
 			"cost": 0,
 			"costElement": 3,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=3> is generated."
 		},
 		{
@@ -2597,8 +2597,8 @@
 			"cost": 0,
 			"costElement": 3,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -2614,8 +2614,8 @@
 			"cost": 12,
 			"costElement": 3,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -2631,8 +2631,8 @@
 			"cost": 4,
 			"costElement": 3,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=1> : Dive\nThe damage dealt is doubled for 1 turn."
 		},
 		{
@@ -2648,8 +2648,8 @@
 			"cost": 1,
 			"costElement": 3,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Heal the target for up to 10 HP's. If the target's element is death or darkness, damage is dealt instead."
 		},
 		{
@@ -2665,8 +2665,8 @@
 			"cost": 3,
 			"costElement": 3,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Physical damage reduced by 1, the damage absorbed is converted to <sprite=3>"
 		},
 		{
@@ -2682,8 +2682,8 @@
 			"cost": 3,
 			"costElement": 3,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=3> : Heal\nHeal the target creature up to 5 HP's"
 		},
 		{
@@ -2699,8 +2699,8 @@
 			"cost": 3,
 			"costElement": 3,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Adds +3/+3 permenantly on own creatures."
 		},
 		{
@@ -2716,8 +2716,8 @@
 			"cost": 1,
 			"costElement": 3,
 			"rarity": 4,
-			"passive": [],
-			"innate": ["immaterial"],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true },
 			"desc": "Shield: Reduce damage by 1. Any damage from spells is reflected. Can not be destroyed or stolen."
 		},
 		{
@@ -2733,8 +2733,8 @@
 			"cost": 5,
 			"costElement": 3,
 			"rarity": 6,
-			"passive": [],
-			"innate": ["immaterial"],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true },
 			"desc": "Weapon: Deal 7 damages at the end of every turn. Can not be destroyed or stolen."
 		},
 		{
@@ -2750,8 +2750,8 @@
 			"cost": 15,
 			"costElement": 3,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Heal yourself to maximum health minus 1. This spell consumes all your light quanta left."
 		},
 		{
@@ -2767,8 +2767,8 @@
 			"cost": 2,
 			"costElement": 12,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "All of your creatures without a skill gain \"bioluminescence\". Heal yourself for up to 10 HP's."
 		},
 		{
@@ -2784,8 +2784,8 @@
 			"cost": 7,
 			"costElement": 3,
 			"rarity": 3,
-			"passive": [],
-			"innate": ["immaterial"],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true },
 			"desc": "Shield: Physical damage reduced by N. N is the number of your light emitting creatures. Immaterial."
 		},
 		{
@@ -2801,8 +2801,8 @@
 			"cost": 5,
 			"costElement": 3,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=3><sprite=3><sprite=3> : Endow\nGain the target weapon's ability and +X|+2. X is the weapon's attack."
 		},
 		{
@@ -2818,8 +2818,8 @@
 			"cost": 4,
 			"costElement": 3,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "sanctuary" ],
+			"passiveSkills": {},
+			"innateSkills": { "sanctuary" : true },
 			"desc": "Your quanta pool and your hand can not be altered during your opponent's turn. Heal 4 HP per turn."
 		},
 		{
@@ -2835,8 +2835,8 @@
 			"cost": 9,
 			"costElement": 3,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=3><sprite=3><sprite=3> : Luciferin\nAll your creatures without a skill gain \"bioluminescence\". Heal yourself for up to 10 HP"
 		},
 		{
@@ -2852,8 +2852,8 @@
 			"cost": 9,
 			"costElement": 3,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -2869,8 +2869,8 @@
 			"cost": 0,
 			"costElement": 3,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=3> and 1 quantum matching your mark."
 		},
 		{
@@ -2886,8 +2886,8 @@
 			"cost": 0,
 			"costElement": 1,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=1> is generated."
 		},
 		{
@@ -2903,8 +2903,8 @@
 			"cost": 1,
 			"costElement": 1,
 			"rarity": 2,
-			"passive": [ "air" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "air" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Each turn <sprite=1> is generated"
 		},
 		{
@@ -2920,8 +2920,8 @@
 			"cost": 4,
 			"costElement": 1,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=1><sprite=1> : Dive\nThe damage dealt is doubled for 1 turn."
 		},
 		{
@@ -2937,8 +2937,8 @@
 			"cost": 10,
 			"costElement": 1,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -2954,8 +2954,8 @@
 			"cost": 2,
 			"costElement": 1,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: The attacking creatures have a 40% chance to miss you"
 		},
 		{
@@ -2971,8 +2971,8 @@
 			"cost": 2,
 			"costElement": 1,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deals 2 damage to every enemy creature"
 		},
 		{
@@ -2988,8 +2988,8 @@
 			"cost": 1,
 			"costElement": 1,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Turn your weapon into a creature"
 		},
 		{
@@ -3005,8 +3005,8 @@
 			"cost": 6,
 			"costElement": 1,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=10><sprite=10> : Firefly\nGenerate a firefly."
 		},
 		{
@@ -3022,8 +3022,8 @@
 			"cost": 3,
 			"costElement": 1,
 			"rarity": 2,
-			"passive": [ "light" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "light" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Bioluminescence : \nEach turn <sprite=3> is generated"
 		},
 		{
@@ -3039,8 +3039,8 @@
 			"cost": 5,
 			"costElement": 1,
 			"rarity": 6,
-			"passive": [],
-			"innate": [ "ranged" ],
+			"passiveSkills": {},
+			"innateSkills": { "ranged" : true },
 			"desc": "Weapon: Deal 5 damages at the end of every turn.\n<sprite=1><sprite=1> : Sniper\nDeal 3 damage to the target creature."
 		},
 		{
@@ -3056,8 +3056,8 @@
 			"cost": 6,
 			"costElement": 1,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=8> : Ignite (Sacrifice card)\nInflict 20 damages to your opponent and 1 damage to all the creatures on the field."
 		},
 		{
@@ -3073,8 +3073,8 @@
 			"cost": 2,
 			"costElement": 1,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deal 4 damage to a target creature. Instantly kill the creature or destroy the weapon if frozen."
 		},
 		{
@@ -3090,8 +3090,8 @@
 			"cost": 4,
 			"costElement": 1,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Only flying or ranged creatures can harm you. Lasts 5 turns."
 		},
 		{
@@ -3107,8 +3107,8 @@
 			"cost": 9,
 			"costElement": 1,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Double the attack power of all your airborne creatures for 1 turn. All the remaining air quanta is consumed."
 		},
 		{
@@ -3124,8 +3124,8 @@
 			"cost": 8,
 			"costElement": 1,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=1><sprite=1><sprite=1> : Unstable gas\nGenerate unstable gas."
 		},
 		{
@@ -3141,8 +3141,8 @@
 			"cost": 2,
 			"costElement": 1,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Airborne creatures gain a 25% chance to deal +50% damage, ignore shields and evade targeting if <sprite=1>."
 		},
 		{
@@ -3158,8 +3158,8 @@
 			"cost": 0,
 			"costElement": 1,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=1> and 1 quantum matching your mark."
 		},
 		{
@@ -3175,8 +3175,8 @@
 			"cost": 0,
 			"costElement": 7,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=7> is generated."
 		},
 		{
@@ -3192,8 +3192,8 @@
 			"cost": 1,
 			"costElement": 7,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=7> : Deja Vu\nDeja Vu creates a copy of itself"
 		},
 		{
@@ -3209,8 +3209,8 @@
 			"cost": 3,
 			"costElement": 7,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=7> : Hatch\nThe Fate Egg turns into a random creature"
 		},
 		{
@@ -3226,8 +3226,8 @@
 			"cost": 6,
 			"costElement": 7,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Any creature that damaged you is stuck in a time bubble for 1 turn"
 		},
 		{
@@ -3243,8 +3243,8 @@
 			"cost": 2,
 			"costElement": 7,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature becomes the first card of the creature owner's deck"
 		},
 		{
@@ -3260,8 +3260,8 @@
 			"cost": 4,
 			"costElement": 7,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=7><sprite=7> : Hasten\nDraw a card from your deck"
 		},
 		{
@@ -3277,8 +3277,8 @@
 			"cost": 10,
 			"costElement": 7,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -3294,8 +3294,8 @@
 			"cost": 8,
 			"costElement": 7,
 			"rarity": 4,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=0><sprite=0> : Immortality\nThe target creature is now immortal (untargetable)."
 		},
 		{
@@ -3311,8 +3311,8 @@
 			"cost": 6,
 			"costElement": 7,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Weapon: Deal 4 damages at the end of every turn.\n<sprite=7><sprite=7><sprite=7> : Put a creature back in its owner's deck."
 		},
 		{
@@ -3328,8 +3328,8 @@
 			"cost": 1,
 			"costElement": 7,
 			"rarity": 4,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Stasis: Creatures do not attack for 1 turn.\n<sprite=3> : Hasten\nDraw a card from your deck"
 		},
 		{
@@ -3345,8 +3345,8 @@
 			"cost": 2,
 			"costElement": 7,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "swarm", "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "swarm" : true, "airborne" : true },
 			"desc": "Swarm : n = number of scarabs you control at the end of the turn.\n<sprite=9> : Devour"
 		},
 		{
@@ -3362,8 +3362,8 @@
 			"cost": 2,
 			"costElement": 7,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "You can see your opponent's hand. Draw a card."
 		},
 		{
@@ -3379,8 +3379,8 @@
 			"cost": 9,
 			"costElement": 7,
 			"rarity": 8,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=7><sprite=7> : Scarab\nGenerate a Scarab."
 		},
 		{
@@ -3396,8 +3396,8 @@
 			"cost": 3,
 			"costElement": 7,
 			"rarity": 2,
-			"passive": [ "neurotoxin" ],
-			"innate": [ "poisonous" ],
+			"passiveSkills": { "neurotoxin" : true },
+			"innateSkills": { "poisonous" : true },
 			"desc": "Neurotoxin: Add 1 poison damage to each successful attack, 1 extra poison for each card played by afflicted player."
 		},
 		{
@@ -3413,8 +3413,8 @@
 			"cost": 6,
 			"costElement": 7,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "obsession" ],
+			"passiveSkills": {},
+			"innateSkills": { "obsession" : true },
 			"desc": "Obsession: Inflict 10 damage to the owner of this card if discarded."
 		},
 		{
@@ -3430,8 +3430,8 @@
 			"cost": 8,
 			"costElement": 7,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=7><sprite=7> : Precognition\nYou can see your opponent's hand. Draw a card."
 		},
 		{
@@ -3447,8 +3447,8 @@
 			"cost": 0,
 			"costElement": 7,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=7> and 1 quantum matching your mark."
 		},
 		{
@@ -3464,8 +3464,8 @@
 			"cost": 0,
 			"costElement": 2,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=2> is generated."
 		},
 		{
@@ -3481,8 +3481,8 @@
 			"cost": 10,
 			"costElement": 2,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -3498,8 +3498,8 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 3,
-			"passive": [ "burrow" ],
-			"innate": [ "devourer" ],
+			"passiveSkills": { "burrow" : true },
+			"innateSkills": { "devourer" : true },
 			"desc": "Absorb 1 quantum from your opponent per turn and return a <sprite=2> to you.\n<sprite=5> : Burrow"
 		},
 		{
@@ -3515,8 +3515,8 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=4> : Infection\nInflict 1 damage per turn to a target creature."
 		},
 		{
@@ -3532,8 +3532,8 @@
 			"cost": 6,
 			"costElement": 2,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: The attacking creatures have a 50% chance to miss you"
 		},
 		{
@@ -3549,8 +3549,8 @@
 			"cost": 4,
 			"costElement": 2,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Steal a permanent"
 		},
 		{
@@ -3566,8 +3566,8 @@
 			"cost": 3,
 			"costElement": 2,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "All the death or darkness creatures gain +1/+1"
 		},
 		{
@@ -3583,8 +3583,8 @@
 			"cost": 1,
 			"costElement": 2,
 			"rarity": 6,
-			"passive": [],
-			"innate": [ "vampire" ],
+			"passiveSkills": {},
+			"innateSkills": { "vampire" : true },
 			"desc": "Weapon: Deal 4 damages at the end of every turn. The damage dealt is returned to you as healing."
 		},
 		{
@@ -3600,8 +3600,8 @@
 			"cost": 3,
 			"costElement": 2,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Drains 2 HP's from the target for each 10 darkness quantums in your possession."
 		},
 		{
@@ -3617,8 +3617,8 @@
 			"cost": 3,
 			"costElement": 2,
 			"rarity": 3,
-			"passive": [ "vampire" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "vampire" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Vampire: \nThe damage dealt is returned to you as healing."
 		},
 		{
@@ -3634,8 +3634,8 @@
 			"cost": 4,
 			"costElement": 2,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature is poisoned and gains the vampire ability. Previous skills are removed."
 		},
 		{
@@ -3651,8 +3651,8 @@
 			"cost": 5,
 			"costElement": 2,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=5> : Stone form\nGargoyle gains +0 / +20"
 		},
 		{
@@ -3668,8 +3668,8 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "voodoo" ],
+			"passiveSkills": {},
+			"innateSkills": { "voodoo" : true },
 			"desc": "Voodoo:\nIf this creature survives an attack, damage and status is inflicted to your opponent as well."
 		},
 		{
@@ -3685,8 +3685,8 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Fill your opponent s hand with copies of the target creature s card. Drain 2 HP for each card added."
 		},
 		{
@@ -3702,8 +3702,8 @@
 			"cost": 4,
 			"costElement": 2,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Your creatures and your permanents are invisible for 3 turns."
 		},
 		{
@@ -3719,8 +3719,8 @@
 			"cost": 8,
 			"costElement": 2,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=2><sprite=2> : Liquid Shadow\nThe target creature is poisoned and its skill switched to \"vampire\"."
 		},
 		{
@@ -3736,8 +3736,8 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 6,
-			"passive": [],
-			"innate": [ "void" ],
+			"passiveSkills": {},
+			"innateSkills": { "void" : true },
 			"desc": "Reduce your opponent's max health by 2 HP per turn. 3 if your mark is <sprite=2>."
 		},
 		{
@@ -3753,8 +3753,8 @@
 			"cost": 0,
 			"costElement": 2,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=2> and 1 quantum matching your mark."
 		},
 		{
@@ -3770,8 +3770,8 @@
 			"cost": 0,
 			"costElement": 0,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=0> is generated."
 		},
 		{
@@ -3787,8 +3787,8 @@
 			"cost": 0,
 			"costElement": 0,
 			"rarity": 2,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -3804,8 +3804,8 @@
 			"cost": 2,
 			"costElement": 0,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deals 5 damage to the target."
 		},
 		{
@@ -3821,8 +3821,8 @@
 			"cost": 7,
 			"costElement": 0,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Summon an exact copy of the target creature"
 		},
 		{
@@ -3838,8 +3838,8 @@
 			"cost": 6,
 			"costElement": 0,
 			"rarity": 3,
-			"passive": [],
-			"innate": [ "immaterial" ],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true },
 			"desc": "Immaterial: \nThe Immortal can not be targeted."
 		},
 		{
@@ -3855,8 +3855,8 @@
 			"cost": 6,
 			"costElement": 0,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Shift out of phase for 3 turns. Physical attacks are unable to hit you while this shield is in play."
 		},
 		{
@@ -3872,8 +3872,8 @@
 			"cost": 3,
 			"costElement": 0,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Weapon: Deal 5 damages at the end of every turn. \n<sprite=0><sprite=0> : Remove any skill from the target creature."
 		},
 		{
@@ -3889,8 +3889,8 @@
 			"cost": 13,
 			"costElement": 0,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "immaterial", "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true, "airborne" : true },
 			"desc": "Immaterial: \nPhase Dragon can not be targeted."
 		},
 		{
@@ -3906,8 +3906,8 @@
 			"cost": 3,
 			"costElement": 0,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=0>: Web\nThe target creature loses its \"airborne\" skill"
 		},
 		{
@@ -3923,8 +3923,8 @@
 			"cost": 4,
 			"costElement": 0,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Grant immortality to the target creature. The target creature can no longer be targeted."
 		},
 		{
@@ -3940,8 +3940,8 @@
 			"cost": 10,
 			"costElement": 0,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Fill your hand with copies of the target creature's card. All the remaining aether quanta is consumed."
 		},
 		{
@@ -3957,8 +3957,8 @@
 			"cost": 5,
 			"costElement": 0,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=0><sprite=0> : Duality\nAdd a copy of the first card in your opponent s deck to your hand."
 		},
 		{
@@ -3974,8 +3974,8 @@
 			"cost": 3,
 			"costElement": 0,
 			"rarity": 3,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The opponent can not play any card during the next turn."
 		},
 		{
@@ -3991,8 +3991,8 @@
 			"cost": 4,
 			"costElement": 0,
 			"rarity": 4,
-			"passive": [ "psion" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "psion" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Psion's attacks deal spell damage."
 		},
 		{
@@ -4008,8 +4008,8 @@
 			"cost": 8,
 			"costElement": 0,
 			"rarity": 15,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=0><sprite=0><sprite=0>: Immortality\nThe target creature is now immortal (untargetable)."
 		},
 		{
@@ -4025,8 +4025,8 @@
 			"cost": 3,
 			"costElement": 0,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Target an immortal creature. The target creature now deals spell damage and gains +4/+0."
 		},
 		{
@@ -4042,8 +4042,8 @@
 			"cost": 0,
 			"costElement": 0,
 			"rarity": 2,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=0> and 1 quantum matching your mark."
 		},
 		{
@@ -4059,8 +4059,8 @@
 			"cost": 0,
 			"costElement": 12,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn 3 random quantums are generated. Gain 3 extra quantum when you play this card."
 		},
 		{
@@ -4076,8 +4076,8 @@
 			"cost": 0,
 			"costElement": 6,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4093,8 +4093,8 @@
 			"cost": 0,
 			"costElement": 4,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4110,8 +4110,8 @@
 			"cost": 0,
 			"costElement": 9,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4127,8 +4127,8 @@
 			"cost": 0,
 			"costElement": 5,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4144,8 +4144,8 @@
 			"cost": 0,
 			"costElement": 10,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4161,8 +4161,8 @@
 			"cost": 0,
 			"costElement": 8,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4178,8 +4178,8 @@
 			"cost": 0,
 			"costElement": 11,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4195,8 +4195,8 @@
 			"cost": 0,
 			"costElement": 3,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4212,8 +4212,8 @@
 			"cost": 0,
 			"costElement": 1,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4229,8 +4229,8 @@
 			"cost": 0,
 			"costElement": 7,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4246,8 +4246,8 @@
 			"cost": 0,
 			"costElement": 2,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4263,8 +4263,8 @@
 			"cost": 0,
 			"costElement": 0,
 			"rarity": 1,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4280,8 +4280,8 @@
 			"cost": 0,
 			"costElement": 12,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "dagger" ],
+			"passiveSkills": {},
+			"innateSkills": { "dagger" : true },
 			"desc": "Weapon: Deal 4 damages at the end of every turn. Deal 1 extra damage if you have a Death or Darkness mark."
 		},
 		{
@@ -4297,8 +4297,8 @@
 			"cost": 1,
 			"costElement": 12,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "sword" ],
+			"passiveSkills": {},
+			"innateSkills": { "sword" : true },
 			"desc": "Weapon: Deal 6 damages at the end of every turn"
 		},
 		{
@@ -4314,8 +4314,8 @@
 			"cost": 2,
 			"costElement": 12,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "hammer" ],
+			"passiveSkills": {},
+			"innateSkills": { "hammer" : true },
 			"desc": "Weapon: Deal 6 damages at the end of every turn. Deal 1 extra damage if you have a Gravity or Earth mark."
 		},
 		{
@@ -4331,8 +4331,8 @@
 			"cost": 3,
 			"costElement": 3,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Add 16 HP's to your maximum health. 24 if your mark is <sprite=3>."
 		},
 		{
@@ -4348,8 +4348,8 @@
 			"cost": 3,
 			"costElement": 10,
 			"rarity": 18,
-			"passive": [],
-			"innate": [ "gratitude" ],
+			"passiveSkills": {},
+			"innateSkills": { "gratitude" : true },
 			"desc": "Heal yourself for up to 3 HP at the end of every turn. 5 if your mark is <sprite=10>."
 		},
 		{
@@ -4365,8 +4365,8 @@
 			"cost": 0,
 			"costElement": 12,
 			"rarity": 1,
-			"passive": [ "infest" ],
-			"innate": [],
+			"passiveSkills": { "infest" : true },
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4382,8 +4382,8 @@
 			"cost": 2,
 			"costElement": 12,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "ranged", "bow" ],
+			"passiveSkills": {},
+			"innateSkills": { "ranged" : true, "bow" : true },
 			"desc": "Weapon: Deal 6 damage at the end of every turn. Deal 1 extra damage if you have an Air mark."
 		},
 		{
@@ -4399,8 +4399,8 @@
 			"cost": 5,
 			"costElement": 12,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Reduce damage by 2."
 		},
 		{
@@ -4416,8 +4416,8 @@
 			"cost": 0,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=6> is generated. Gain 1 extra <sprite=6> when you play this card"
 		},
 		{
@@ -4433,8 +4433,8 @@
 			"cost": 5,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=6><sprite=6> : Paradox\nKill the target creature if its attack is higher than its defence"
 		},
 		{
@@ -4450,8 +4450,8 @@
 			"cost": 1,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -4467,8 +4467,8 @@
 			"cost": 11,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -4484,8 +4484,8 @@
 			"cost": 3,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Use your quanta to absorb damage from physical damage sources."
 		},
 		{
@@ -4501,8 +4501,8 @@
 			"cost": 2,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=2> : Lycanthropy\nThe Lycanthrope gains +5/+5 permanently."
 		},
 		{
@@ -4518,8 +4518,8 @@
 			"cost": 1,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "A random bonus in attack power and health is granted to the target"
 		},
 		{
@@ -4535,8 +4535,8 @@
 			"cost": 2,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Generate 24 quanta. 2 for each element. Do not cast more than once per turn."
 		},
 		{
@@ -4552,8 +4552,8 @@
 			"cost": 3,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Mutate the target creature into a superior mutant."
 		},
 		{
@@ -4569,8 +4569,8 @@
 			"cost": 3,
 			"costElement": 6,
 			"rarity": 18,
-			"passive": [],
-			"innate": [ "scramble" ],
+			"passiveSkills": {},
+			"innateSkills": { "scramble" : true },
 			"desc": "Weapon: Deal 6 damage at the end of every turn. Randomly convert some of the opponent's quantums into other elements."
 		},
 		{
@@ -4586,8 +4586,8 @@
 			"cost": 5,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=10>: Improved Mutation\nThe target creature might turn into an abomination, a mutant, or die."
 		},
 		{
@@ -4603,8 +4603,8 @@
 			"cost": 6,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Invert the attack power of the target creature (the creature inflict heals instead of damage)"
 		},
 		{
@@ -4620,8 +4620,8 @@
 			"cost": 4,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Target a low attack power creature (less than 3). The creature's skill is now\n<sprite=6><sprite=6><sprite=6>: Destroy (destroy target permanent)"
 		},
 		{
@@ -4637,8 +4637,8 @@
 			"cost": 5,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "A random effect is inflicted to every enemy creature. Removes invisibility."
 		},
 		{
@@ -4654,8 +4654,8 @@
 			"cost": 1,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=6> : Dead and Alive\nKill this creature; death effects are triggered. This creature is still alive."
 		},
 		{
@@ -4671,8 +4671,8 @@
 			"cost": 10,
 			"costElement": 6,
 			"rarity": 1,
-			"passive": [],
-			"innate": [ "singularity" ],
+			"passiveSkills": {},
+			"innateSkills": { "singularity" : true },
 			"desc": "This object is not defined and not well-behaved."
 		},
 		{
@@ -4688,8 +4688,8 @@
 			"cost": 9,
 			"costElement": 6,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=6><sprite=6><sprite=6><sprite=6> : Antimatter\nInvert the attack power of the target creature (the creature inflict heals instead of damage)"
 		},
 		{
@@ -4705,8 +4705,8 @@
 			"cost": 3,
 			"costElement": 6,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Add up to 3 random upgraded cards to your hand. The first one will be an <sprite=6> card."
 		},
 		{
@@ -4722,8 +4722,8 @@
 			"cost": 0,
 			"costElement": 6,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=6> and 1 quantum matching your mark. Gain 1 extra <sprite=6> when you play this card"
 		},
 		{
@@ -4739,8 +4739,8 @@
 			"cost": 0,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=4> is generated. Gain 1 extra <sprite=4> when you play this card"
 		},
 		{
@@ -4756,8 +4756,8 @@
 			"cost": 10,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -4773,8 +4773,8 @@
 			"cost": 2,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "Plague: \nSacrifice Retrovirus to inflict 1 damage per round to every enemy creature"
 		},
 		{
@@ -4790,8 +4790,8 @@
 			"cost": 3,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=1> : Web\nThe target creature loses its \"airborne\" skill"
 		},
 		{
@@ -4807,8 +4807,8 @@
 			"cost": 3,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [ "scavenger" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "scavenger" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Scavenger:\nEvery time a creature dies, Condor gains +1/+1"
 		},
 		{
@@ -4824,8 +4824,8 @@
 			"cost": 2,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The damage dealt to you from physical damage sources is reduced by 1. Attacking creatures have a small chance to die and turn into skeletons."
 		},
 		{
@@ -4841,8 +4841,8 @@
 			"cost": 1,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "undead" ],
+			"passiveSkills": {},
+			"innateSkills": { "undead" : true },
 			"desc": "Undead: \nSkeleton turns into a random elite creature if targeted with reverse time"
 		},
 		{
@@ -4858,8 +4858,8 @@
 			"cost": 5,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "boneyard" ],
+			"passiveSkills": {},
+			"innateSkills": { "boneyard" : true },
 			"desc": "Every time a creature is killed, boneyard generates 1 elite skeleton."
 		},
 		{
@@ -4875,8 +4875,8 @@
 			"cost": 2,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Inflicts 3 poison damage (to your opponent) at the end of every turn. Poison damage is cumulative."
 		},
 		{
@@ -4892,8 +4892,8 @@
 			"cost": 2,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Infect every enemy creature (Inflicts +1 poison on every enemy creature). Removes invisibility."
 		},
 		{
@@ -4909,8 +4909,8 @@
 			"cost": 2,
 			"costElement": 4,
 			"rarity": 18,
-			"passive": [],
-			"innate": [ "venom" ],
+			"passiveSkills": {},
+			"innateSkills": { "venom" : true },
 			"desc": "Weapon: Deal 4 damage at the end of every turn. Deal 1 poison damage at the end of every turn.\nPoison damage is cumulative. "
 		},
 		{
@@ -4926,8 +4926,8 @@
 			"cost": 5,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "bones" ],
+			"passiveSkills": {},
+			"innateSkills": { "bones" : true },
 			"desc": "Summon 7 bone shields that absorb damage from a single source. Gains 2 shields when a creature is killed."
 		},
 		{
@@ -4943,8 +4943,8 @@
 			"cost": 5,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Poison the target creature. If the target creature dies, it turns into a malignant cell."
 		},
 		{
@@ -4960,8 +4960,8 @@
 			"cost": 3,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "mummy" ],
+			"passiveSkills": {},
+			"innateSkills": { "mummy" : true },
 			"desc": "Mummy turns into an Elite Pharaoh if targeted with reverse time."
 		},
 		{
@@ -4977,8 +4977,8 @@
 			"cost": 2,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [ "deadly venom" ],
-			"innate": [ "poisonous" ],
+			"passiveSkills": { "deadlyVenom" : true },
+			"innateSkills": { "poisonous" : true },
 			"desc": "Deadly Venom: \nAdd 2 poison damage to each successful attack. Cause poisoning if ingested."
 		},
 		{
@@ -4994,8 +4994,8 @@
 			"cost": 0,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "soul catch" ],
+			"passiveSkills": {},
+			"innateSkills": { "soulCatch" : true },
 			"desc": "Every time a creature is killed, Soul Catcher generates <sprite=4><sprite=4><sprite=4>"
 		},
 		{
@@ -5011,8 +5011,8 @@
 			"cost": 8,
 			"costElement": 4,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=4> : Aflatoxin\nPoison the target creature (+2 poison). If the target creature dies, it turns into a malignant cell."
 		},
 		{
@@ -5028,8 +5028,8 @@
 			"cost": 2,
 			"costElement": 4,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Inflict 40 damage to yourself and remove all but your Death.jpg quanta. Swap damage with healing. Lasts 2 turns."
 		},
 		{
@@ -5045,8 +5045,8 @@
 			"cost": 0,
 			"costElement": 4,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=4> and 1 quantum matching your mark. Gain 1 extra <sprite=4> when you play this card"
 		},
 		{
@@ -5062,8 +5062,8 @@
 			"cost": 0,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=9> is generated. Gain 1 extra <sprite=9> when you play this card"
 		},
 		{
@@ -5079,8 +5079,8 @@
 			"cost": 5,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [ "momentum" ],
-			"innate": [],
+			"passiveSkills": { "momentum" : true },
+			"innateSkills": {},
 			"desc": "Momentum: The damage caused by the Elite Charger can not be reduced, shields are ignored."
 		},
 		{
@@ -5096,8 +5096,8 @@
 			"cost": 5,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=9> : Gravity Pull\nThe damage inflicted to you is redirected on Armagio"
 		},
 		{
@@ -5113,8 +5113,8 @@
 			"cost": 2,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -5130,8 +5130,8 @@
 			"cost": 11,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -5147,8 +5147,8 @@
 			"cost": 3,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Any creature that has more than 5 HP's is unable to reach you"
 		},
 		{
@@ -5164,8 +5164,8 @@
 			"cost": 1,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature ignores shield effects and gains +1/+1"
 		},
 		{
@@ -5181,8 +5181,8 @@
 			"cost": 5,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=9> : Devour\nSwallow a smaller (less HP's) creature and gain +1/+1"
 		},
 		{
@@ -5198,8 +5198,8 @@
 			"cost": 5,
 			"costElement": 9,
 			"rarity": 18,
-			"passive": [ "momentum" ],
-			"innate": [],
+			"passiveSkills": { "momentum" : true },
+			"innateSkills": {},
 			"desc": "Weapon: Deal 8 damages at the end of every turn.\nMomentum: Shield effects are ignored."
 		},
 		{
@@ -5215,8 +5215,8 @@
 			"cost": 1,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The creature enchanted with gravity pull will absorb all the damage directed against its owner."
 		},
 		{
@@ -5232,8 +5232,8 @@
 			"cost": 1,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=8> : Ablaze\nGraviton Firemaster gains +2/+0"
 		},
 		{
@@ -5249,8 +5249,8 @@
 			"cost": 3,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Absorb 3 quanta per element from the opponent. Gain 1 HP per absorbed quantum."
 		},
 		{
@@ -5266,8 +5266,8 @@
 			"cost": 6,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "chimera" ],
+			"passiveSkills": {},
+			"innateSkills": { "chimera" : true },
 			"desc": "Combine all your creatures in a single one. Gravity pull. Momentum"
 		},
 		{
@@ -5283,8 +5283,8 @@
 			"cost": 3,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=9> : Sacrifice the target creature and damage your opponent. Larger creatures inflict more damage."
 		},
 		{
@@ -5300,8 +5300,8 @@
 			"cost": 4,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Replace the target creature skill with acceleration: gain +3 / -1 per turn."
 		},
 		{
@@ -5317,8 +5317,8 @@
 			"cost": 9,
 			"costElement": 9,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=9><sprite=9><sprite=9> : Black Hole\nAbsorb 3 quanta per element from the opponent. Gain 1 HP per absorbed quantum."
 		},
 		{
@@ -5334,8 +5334,8 @@
 			"cost": 4,
 			"costElement": 9,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Accretion: Destroy a permanent and gain +0/+15. Turn into a black hole if HP>45."
 		},
 		{
@@ -5351,8 +5351,8 @@
 			"cost": 0,
 			"costElement": 9,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=9> and 1 quantum matching your mark. Gain 1 extra <sprite=9> when you play this card"
 		},
 		{
@@ -5368,8 +5368,8 @@
 			"cost": 0,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=5> is generated. Gain 1 extra <sprite=5> when you play this card"
 		},
 		{
@@ -5385,8 +5385,8 @@
 			"cost": 2,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [ "burrow" ],
-			"innate": [],
+			"passiveSkills": { "burrow" : true },
+			"innateSkills": {},
 			"desc": "<sprite=5> : Burrow\nThe antlion can not be targeted, but its damage is halved."
 		},
 		{
@@ -5402,8 +5402,8 @@
 			"cost": 4,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -5419,8 +5419,8 @@
 			"cost": 12,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -5436,8 +5436,8 @@
 			"cost": 6,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: The damage dealt to you from physical damage sources is reduced by 3"
 		},
 		{
@@ -5453,8 +5453,8 @@
 			"cost": 1,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature gains +0/+6"
 		},
 		{
@@ -5470,8 +5470,8 @@
 			"cost": 0,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [ "earth" ],
-			"innate": [],
+			"passiveSkills": { "earth" : true },
+			"innateSkills": {},
 			"desc": "Each turn <sprite=5> is generated."
 		},
 		{
@@ -5487,8 +5487,8 @@
 			"cost": 4,
 			"costElement": 5,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Weapon: Deal 5 damages at the end of every turn.\n<sprite=9><sprite=9> : Destroy\nShatter the target permanent."
 		},
 		{
@@ -5504,8 +5504,8 @@
 			"cost": 3,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [ "burrow" ],
-			"innate": [],
+			"passiveSkills": { "burrow" : true },
+			"innateSkills": {},
 			"desc": "<sprite=5> : Burrow\nThe shrieker can not be targeted, but its damage is halved."
 		},
 		{
@@ -5521,8 +5521,8 @@
 			"cost": 8,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [ "burrow" ],
-			"innate": [],
+			"passiveSkills": { "burrow" : true },
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -5538,8 +5538,8 @@
 			"cost": 1,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target permanent can not be target of any skill. It does not work on creatures."
 		},
 		{
@@ -5555,8 +5555,8 @@
 			"cost": 2,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Destroy up to 3 pillars in the target cluster."
 		},
 		{
@@ -5572,8 +5572,8 @@
 			"cost": 1,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Add X HP's to your maximum life points. X is the number of <sprite=5> that you own."
 		},
 		{
@@ -5589,8 +5589,8 @@
 			"cost": 1,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature gains +0/+20 but can not attack or use skills for 6 turns."
 		},
 		{
@@ -5606,8 +5606,8 @@
 			"cost": 1,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=5> : Guard\n(Do not attack) Delay the target creature for 1 turn (cumulative) and attack it unless it is airborne."
 		},
 		{
@@ -5623,8 +5623,8 @@
 			"cost": 8,
 			"costElement": 5,
 			"rarity": 6,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Reassemble your last shard golem."
 		},
 		{
@@ -5640,8 +5640,8 @@
 			"cost": 8,
 			"costElement": 5,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=5><sprite=5><sprite=5> : Petrify\nThe target creature gains +0/+20 but can not attack or use skills for 6 turns."
 		},
 		{
@@ -5657,8 +5657,8 @@
 			"cost": 1,
 			"costElement": 5,
 			"rarity": 18,
-			"passive": [],
-			"innate": [ "integrity" ],
+			"passiveSkills": {},
+			"innateSkills": { "integrity" : true },
 			"desc": "Combine all the shards in your hand to form a shard golem."
 		},
 		{
@@ -5674,8 +5674,8 @@
 			"cost": 0,
 			"costElement": 5,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=5> and 1 quantum matching your mark. Gain 1 extra <sprite=5> when you play this card"
 		},
 		{
@@ -5691,8 +5691,8 @@
 			"cost": 0,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=10> is generated. Gain 1 extra <sprite=10> when you play this card"
 		},
 		{
@@ -5708,8 +5708,8 @@
 			"cost": 12,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -5725,8 +5725,8 @@
 			"cost": 2,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -5742,8 +5742,8 @@
 			"cost": 1,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=3> : Photosynthesis\nGain <sprite=10><sprite=10>. This skill can be used multiple times per turn."
 		},
 		{
@@ -5759,8 +5759,8 @@
 			"cost": 3,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -5776,8 +5776,8 @@
 			"cost": 3,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=11> : Growth\nThe Forest Spirit gains +2/+2"
 		},
 		{
@@ -5793,8 +5793,8 @@
 			"cost": 2,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Heal yourself for up to 20 HP's"
 		},
 		{
@@ -5810,8 +5810,8 @@
 			"cost": 7,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Physical damage reduced by 1. Attacking creatures have a 75% chance to be infected."
 		},
 		{
@@ -5827,8 +5827,8 @@
 			"cost": 7,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": ["immaterial"],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true },
 			"desc": "Shield: Reduce damage by 2. Spells are reflected against your opponent. Can not be destroyed or stolen."
 		},
 		{
@@ -5844,8 +5844,8 @@
 			"cost": 2,
 			"costElement": 10,
 			"rarity": 18,
-			"passive": [],
-			"innate": [ "regenerate" ],
+			"passiveSkills": {},
+			"innateSkills": { "regenerate" : true },
 			"desc": "Weapon: Deal 4 damages at the end of every turn.\nHeal yourself for up to 5 HP's"
 		},
 		{
@@ -5861,8 +5861,8 @@
 			"cost": 4,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "empathy" ],
+			"passiveSkills": {},
+			"innateSkills": { "empathy" : true },
 			"desc": "Every creature in your possession heals you for 1 HP at the end of every turn"
 		},
 		{
@@ -5878,8 +5878,8 @@
 			"cost": 3,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature attacks multiple times per turn. Smaller creatures gain more extra attacks."
 		},
 		{
@@ -5895,8 +5895,8 @@
 			"cost": 3,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [ "venom" ],
-			"innate": [ "poisonous" ],
+			"passiveSkills": { "venom" : true },
+			"innateSkills": { "poisonous" : true },
 			"desc": "Venom :\nAdd 1 poison damage to each successful attack. Cause poisoning if ingested."
 		},
 		{
@@ -5912,8 +5912,8 @@
 			"cost": 4,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The non-weapon creature skill is now mitosis: generate a daughter creature."
 		},
 		{
@@ -5929,8 +5929,8 @@
 			"cost": 8,
 			"costElement": 10,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=10><sprite=10> : Adrenaline\nThe target creature attacks multiple times per turn."
 		},
 		{
@@ -5946,8 +5946,8 @@
 			"cost": 0,
 			"costElement": 10,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=10> and 1 quantum matching your mark. Gain 1 extra <sprite=10> when you play this card"
 		},
 		{
@@ -5963,8 +5963,8 @@
 			"cost": 0,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=8> is generated. Gain 1 extra <sprite=8> when you play this card"
 		},
 		{
@@ -5980,8 +5980,8 @@
 			"cost": 1,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [ "fire" ],
-			"innate": [],
+			"passiveSkills": { "fire" : true },
+			"innateSkills": {},
 			"desc": "Each turn <sprite=8> is generated."
 		},
 		{
@@ -5997,8 +5997,8 @@
 			"cost": 12,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -6014,8 +6014,8 @@
 			"cost": 3,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=8> : Ablaze\nThe Fire Spirit gains +2/+0"
 		},
 		{
@@ -6031,8 +6031,8 @@
 			"cost": 1,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deals 3 damage to the target for each 10 fire quantums in your possession."
 		},
 		{
@@ -6048,8 +6048,8 @@
 			"cost": 4,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: 1 damage is dealt to any attacking creature"
 		},
 		{
@@ -6065,8 +6065,8 @@
 			"cost": 2,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Destroy the targeted permanent"
 		},
 		{
@@ -6082,8 +6082,8 @@
 			"cost": 3,
 			"costElement": 8,
 			"rarity": 18,
-			"passive": [],
-			"innate": [ "fiery" ],
+			"passiveSkills": {},
+			"innateSkills": { "fiery" : true },
 			"desc": "Weapon: Deal 5 + X damage at the end of every turn.\nDeal X damages at the end of every turn. X is the number of <sprite=8> you own, divided by 5."
 		},
 		{
@@ -6099,8 +6099,8 @@
 			"cost": 5,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deals 3 damages to every enemy creature. Removes invisibility."
 		},
 		{
@@ -6116,8 +6116,8 @@
 			"cost": 0,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Sacrifice a creature to generate 8 <sprite=8> plus 1 quantum for each non-fire element."
 		},
 		{
@@ -6133,8 +6133,8 @@
 			"cost": 5,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=5> : Growth\nLava Golem gains +2/+2"
 		},
 		{
@@ -6150,8 +6150,8 @@
 			"cost": 3,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature gains +6/-6"
 		},
 		{
@@ -6167,8 +6167,8 @@
 			"cost": 2,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [ "phoenix" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "phoenix" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Phoenix turns into Ash when killed"
 		},
 		{
@@ -6184,8 +6184,8 @@
 			"cost": 2,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=8>: Rebirth\nTurn this card into a Minor Phoenix"
 		},
 		{
@@ -6201,8 +6201,8 @@
 			"cost": 9,
 			"costElement": 8,
 			"rarity": 4,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=3> : Divine shield\nSeraph can not be targeted for 1 turn."
 		},
 		{
@@ -6218,8 +6218,8 @@
 			"cost": 8,
 			"costElement": 8,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=8><sprite=8><sprite=8><sprite=8> : Rage\nThe target creature gains +6/-6"
 		},
 		{
@@ -6235,8 +6235,8 @@
 			"cost": 1,
 			"costElement": 8,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Your opponent draws 2 cards, 3 if your mark is <sprite=8>. Draw an equal amount of cards."
 		},
 		{
@@ -6252,8 +6252,8 @@
 			"cost": 0,
 			"costElement": 8,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=8> and 1 quantum matching your mark. Gain 1 extra <sprite=8> when you play this card"
 		},
 		{
@@ -6269,8 +6269,8 @@
 			"cost": 0,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=11> is generated. Gain 1 extra <sprite=11> when you play this card"
 		},
 		{
@@ -6286,8 +6286,8 @@
 			"cost": 1,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "poisonous" ],
+			"passiveSkills": {},
+			"innateSkills": { "poisonous" : true },
 			"desc": "<sprite=4>: Poison\nInflict 1 poison damage at the end of every turn."
 		},
 		{
@@ -6303,8 +6303,8 @@
 			"cost": 4,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -6320,8 +6320,8 @@
 			"cost": 1,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Freeze the target creature for 4 turns. Frozen creatures can not attack or use skills."
 		},
 		{
@@ -6337,8 +6337,8 @@
 			"cost": 1,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deals 2 damage to the target for each 10 water quantums in your possession. Ice Bolt might freeze the target."
 		},
 		{
@@ -6354,8 +6354,8 @@
 			"cost": 7,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: damage dealt to you from physical damage sources is reduced by 2. Attacking creatures might freeze"
 		},
 		{
@@ -6371,8 +6371,8 @@
 			"cost": 1,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Remove poison and sacrifice status from the target. Heals 2 damage per turn. Cumulative."
 		},
 		{
@@ -6388,8 +6388,8 @@
 			"cost": 3,
 			"costElement": 11,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=11><sprite=11> : Congeal\nCongeal the target creature"
 		},
 		{
@@ -6405,8 +6405,8 @@
 			"cost": 3,
 			"costElement": 11,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Weapon: Deal 4 damages at the end of every turn.\n<sprite=5><sprite=5> : Tsunami\nDestroy up to 3 pillars / pendulums in the target cluster"
 		},
 		{
@@ -6422,8 +6422,8 @@
 			"cost": 11,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -6439,8 +6439,8 @@
 			"cost": 5,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [ "venom" ],
-			"innate": [ "poisonous" ],
+			"passiveSkills": { "venom" : true },
+			"innateSkills": { "poisonous" : true },
 			"desc": "Venom\nAdd 1 poison damage to each successful attack. Cause poisoning if ingested."
 		},
 		{
@@ -6456,8 +6456,8 @@
 			"cost": 3,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=0>: Psionic wave\nRemove any skill from the target creature."
 		},
 		{
@@ -6473,8 +6473,8 @@
 			"cost": 6,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Turn one of your pillars or pendulums into a Nymph. The Nymph will inherit the target's element."
 		},
 		{
@@ -6490,8 +6490,8 @@
 			"cost": 2,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [ "flood" ],
-			"innate": [],
+			"passiveSkills": { "flood" : true },
+			"innateSkills": {},
 			"desc": "Kill any creature along the edges of the field. Water and neutral creatures are immune. Absorb <sprite=11> per turn."
 		},
 		{
@@ -6507,8 +6507,8 @@
 			"cost": 5,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=8><sprite=8> : Steam\nGain 5 charges (+5|+0). Remove 1 charge per turn."
 		},
 		{
@@ -6524,8 +6524,8 @@
 			"cost": 8,
 			"costElement": 11,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=11><sprite=11><sprite=11><sprite=11> : Nymph's tears\nTurn one of your pillars into a Nymph"
 		},
 		{
@@ -6541,8 +6541,8 @@
 			"cost": 2,
 			"costElement": 11,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Your creatures do not attack and gain +1/+0; <sprite=11> creatures +2/+2, +4/+4 if in a flooded area. Click to remove."
 		},
 		{
@@ -6558,8 +6558,8 @@
 			"cost": 0,
 			"costElement": 11,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=11> and 1 quantum matching your mark. Gain 1 extra <sprite=11> when you play this card"
 		},
 		{
@@ -6575,8 +6575,8 @@
 			"cost": 0,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=3> is generated. Gain 1 extra <sprite=3> when you play this card"
 		},
 		{
@@ -6592,8 +6592,8 @@
 			"cost": 0,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [ "light" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "light" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Each turn <sprite=3> is generated"
 		},
 		{
@@ -6609,8 +6609,8 @@
 			"cost": 13,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -6626,8 +6626,8 @@
 			"cost": 4,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=1> : Dive\nThe damage dealt is doubled for 1 turn."
 		},
 		{
@@ -6643,8 +6643,8 @@
 			"cost": 0,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Heal the target for up to 10 HP's. If the target's element is death or darkness, damage is dealt instead."
 		},
 		{
@@ -6660,8 +6660,8 @@
 			"cost": 2,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Physical damage reduced by 1, the damage absorbed is converted to <sprite=3>"
 		},
 		{
@@ -6677,8 +6677,8 @@
 			"cost": 6,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=3> : Heal\nHeal the target creature up to 5 HP's"
 		},
 		{
@@ -6694,8 +6694,8 @@
 			"cost": 2,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Adds +3/+3 permenantly on own creatures."
 		},
 		{
@@ -6711,8 +6711,8 @@
 			"cost": 2,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": ["immaterial"],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true },
 			"desc": "Shield: Any damage from spells is reflected against your opponent. Can not be destroyed or stolen."
 		},
 		{
@@ -6728,8 +6728,8 @@
 			"cost": 5,
 			"costElement": 3,
 			"rarity": 18,
-			"passive": [],
-			"innate": ["immaterial"],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true },
 			"desc": "Weapon: Deal 8 damages at the end of every turn. Can not be destroyed or stolen."
 		},
 		{
@@ -6745,8 +6745,8 @@
 			"cost": 12,
 			"costElement": 3,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Heal yourself to maximum health minus 1. This spell consumes all your light quanta left."
 		},
 		{
@@ -6762,8 +6762,8 @@
 			"cost": 1,
 			"costElement": 12,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "All of your creatures without a skill gain \"bioluminescence\". Heal yourself for up to 10 HP's."
 		},
 		{
@@ -6779,8 +6779,8 @@
 			"cost": 8,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": ["immaterial"],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true },
 			"desc": "Shield: Physical damage reduced by 1 + N. N is the number of your light emitting creatures. Immaterial."
 		},
 		{
@@ -6796,8 +6796,8 @@
 			"cost": 5,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=3><sprite=3> : Endow\nGain the target weapon's ability and +X|+2. X is the weapon's attack."
 		},
 		{
@@ -6813,8 +6813,8 @@
 			"cost": 3,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "sanctuary" ],
+			"passiveSkills": {},
+			"innateSkills": { "sanctuary" : true },
 			"desc": "Your quanta pool and your hand can not be altered during your opponent's turn. Heal 4 HP per turn."
 		},
 		{
@@ -6830,8 +6830,8 @@
 			"cost": 9,
 			"costElement": 3,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=3><sprite=3><sprite=3><sprite=3> : Luciferin\nAll your creatures without a skill gain \"bioluminescence\". Heal yourself for up to 10 HP"
 		},
 		{
@@ -6847,8 +6847,8 @@
 			"cost": 0,
 			"costElement": 12,
 			"rarity": 0,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": ""
 		},
 		{
@@ -6864,8 +6864,8 @@
 			"cost": 0,
 			"costElement": 3,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=3> and 1 quantum matching your mark. Gain 1 extra <sprite=3> when you play this card"
 		},
 		{
@@ -6881,8 +6881,8 @@
 			"cost": 0,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=1> is generated. Gain 1 extra <sprite=1> when you play this card"
 		},
 		{
@@ -6898,8 +6898,8 @@
 			"cost": 0,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [ "air" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "air" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Each turn <sprite=1> is generated"
 		},
 		{
@@ -6915,8 +6915,8 @@
 			"cost": 4,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=1><sprite=1> : Dive\nThe damage dealt is doubled for 1 turn."
 		},
 		{
@@ -6932,8 +6932,8 @@
 			"cost": 12,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -6949,8 +6949,8 @@
 			"cost": 1,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: The attacking creatures have a 40% chance to miss you"
 		},
 		{
@@ -6966,8 +6966,8 @@
 			"cost": 1,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deals 2 damage to every enemy creature. Removes invisibility."
 		},
 		{
@@ -6983,8 +6983,8 @@
 			"cost": 1,
 			"costElement": 12,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Turn your weapon into a creature"
 		},
 		{
@@ -7000,8 +7000,8 @@
 			"cost": 6,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=10><sprite=10> : Firefly\nGenerate an elite firefly."
 		},
 		{
@@ -7017,8 +7017,8 @@
 			"cost": 3,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [ "fire" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "fire" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Incandescence : \nEach turn <sprite=8> is generated"
 		},
 		{
@@ -7034,8 +7034,8 @@
 			"cost": 5,
 			"costElement": 1,
 			"rarity": 18,
-			"passive": [],
-			"innate": [ "ranged" ],
+			"passiveSkills": {},
+			"innateSkills": { "ranged" : true },
 			"desc": "Weapon: Deal 7 damages at the end of every turn.\n<sprite=1><sprite=1> : Sniper\nDeal 3 damage to the target creature."
 		},
 		{
@@ -7051,8 +7051,8 @@
 			"cost": 5,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=8> : Ignite (Sacrifice card)\nInflict 20 damages to your opponent and 1 damage to all the creatures on the field."
 		},
 		{
@@ -7068,8 +7068,8 @@
 			"cost": 1,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deal 4 damage to a target creature. Instantly kill the creature or destroy the weapon if frozen."
 		},
 		{
@@ -7085,8 +7085,8 @@
 			"cost": 3,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Only flying or ranged creatures can harm you. Lasts 5 turns."
 		},
 		{
@@ -7102,8 +7102,8 @@
 			"cost": 8,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Double the attack power of all your airborne creatures for 1 turn. All the remaining air quanta is consumed."
 		},
 		{
@@ -7119,8 +7119,8 @@
 			"cost": 8,
 			"costElement": 1,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=1><sprite=1><sprite=1> : Unstable gas\nGenerate unstable gas."
 		},
 		{
@@ -7136,8 +7136,8 @@
 			"cost": 1,
 			"costElement": 1,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Airborne creatures gain a 25% chance to deal +50% damage, ignore shields and evade targeting if <sprite=1>."
 		},
 		{
@@ -7153,8 +7153,8 @@
 			"cost": 0,
 			"costElement": 1,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=1> and 1 quantum matching your mark. Gain 1 extra <sprite=1> when you play this card"
 		},
 		{
@@ -7170,8 +7170,8 @@
 			"cost": 0,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=7> is generated. Gain 1 extra <sprite=7> when you play this card"
 		},
 		{
@@ -7187,8 +7187,8 @@
 			"cost": 1,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=7> : Deja Vu\nElite Deja Vu creates a copy of itself"
 		},
 		{
@@ -7204,8 +7204,8 @@
 			"cost": 3,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=7> : Hatch\nThe Fate Egg turns into a random elite creature"
 		},
 		{
@@ -7221,8 +7221,8 @@
 			"cost": 4,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Any creature that damaged you is stuck in a time bubble for 1 turn"
 		},
 		{
@@ -7238,8 +7238,8 @@
 			"cost": 1,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature becomes the first card of the creature owner's deck"
 		},
 		{
@@ -7255,8 +7255,8 @@
 			"cost": 4,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=7>  : Hasten\nDraw a card from your deck"
 		},
 		{
@@ -7272,8 +7272,8 @@
 			"cost": 12,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -7289,8 +7289,8 @@
 			"cost": 8,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=0> : Immortality\nThe target creature is now immortal (untargetable)."
 		},
 		{
@@ -7306,8 +7306,8 @@
 			"cost": 5,
 			"costElement": 7,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Weapon: Deal 4 damages at the end of every turn.\n<sprite=7><sprite=7><sprite=7> : Put a creature back in its owner's deck."
 		},
 		{
@@ -7323,8 +7323,8 @@
 			"cost": 0,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Stasis: Creatures do not attack for 1 turn.\n<sprite=3> : Hasten\nDraw a card from your deck"
 		},
 		{
@@ -7340,8 +7340,8 @@
 			"cost": 2,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "swarm", "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "swarm" : true, "airborne" : true },
 			"desc": "Swarm : n = number of scarabs you control at the end of the turn.\n<sprite=9> : Devour"
 		},
 		{
@@ -7357,8 +7357,8 @@
 			"cost": 1,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "You can see your opponent's hand. Draw a card."
 		},
 		{
@@ -7374,8 +7374,8 @@
 			"cost": 9,
 			"costElement": 7,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=7><sprite=7> : Scarab\nGenerate a Elite Scarab."
 		},
 		{
@@ -7391,8 +7391,8 @@
 			"cost": 3,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [ "neurotoxin" ],
-			"innate": [ "poisonous" ],
+			"passiveSkills": { "neurotoxin" : true },
+			"innateSkills": { "poisonous" : true },
 			"desc": "Neurotoxin: Add 1 poison damage to each successful attack, 1 extra poison for each card played by afflicted player."
 		},
 		{
@@ -7408,8 +7408,8 @@
 			"cost": 7,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "obsession" ],
+			"passiveSkills": {},
+			"innateSkills": { "obsession" : true },
 			"desc": "Obsession: Inflict 13 damage to the owner of this card if discarded."
 		},
 		{
@@ -7425,8 +7425,8 @@
 			"cost": 8,
 			"costElement": 7,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=7><sprite=7> : Precognition\nYou can see your opponent's hand. Draw a card."
 		},
 		{
@@ -7442,8 +7442,8 @@
 			"cost": 2,
 			"costElement": 7,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature s skill cost is now zero. <sprite=7> creatures can use their skill twice this turn."
 		},
 		{
@@ -7459,8 +7459,8 @@
 			"cost": 0,
 			"costElement": 7,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=7> and 1 quantum matching your mark. Gain 1 extra <sprite=7> when you play this card"
 		},
 		{
@@ -7476,8 +7476,8 @@
 			"cost": 0,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=2> is generated. Gain 1 extra <sprite=2> when you play this card"
 		},
 		{
@@ -7493,8 +7493,8 @@
 			"cost": 12,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -7510,8 +7510,8 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [ "burrow" ],
-			"innate": [ "devourer" ],
+			"passiveSkills": { "burrow" : true },
+			"innateSkills": { "devourer" : true },
 			"desc": "Absorb 1 quantum from your opponent per turn and return a <sprite=2> to you.\n<sprite=5> : Burrow"
 		},
 		{
@@ -7527,8 +7527,8 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=4> : Infection\nInflict 1 damage per turn to a target creature."
 		},
 		{
@@ -7544,8 +7544,8 @@
 			"cost": 4,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: The attacking creatures have a 50% chance to miss you"
 		},
 		{
@@ -7561,8 +7561,8 @@
 			"cost": 3,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Steal a permanent"
 		},
 		{
@@ -7578,8 +7578,8 @@
 			"cost": 4,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "All the death or darkness creatures gain +2/+1"
 		},
 		{
@@ -7595,8 +7595,8 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 18,
-			"passive": [],
-			"innate": [ "vampire" ],
+			"passiveSkills": {},
+			"innateSkills": { "vampire" : true },
 			"desc": "Weapon: Deal 6 damages at the end of every turn. The damage dealt is returned to you as healing."
 		},
 		{
@@ -7612,8 +7612,8 @@
 			"cost": 1,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Drains 2 HP's from the target for each 10 darkness quantums in your possession."
 		},
 		{
@@ -7629,8 +7629,8 @@
 			"cost": 5,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [ "vampire" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "vampire" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Vampire: \nThe damage dealt is returned to you as healing."
 		},
 		{
@@ -7646,8 +7646,8 @@
 			"cost": 3,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The target creature is poisoned and gains the vampire ability. Previous skills are removed."
 		},
 		{
@@ -7663,8 +7663,8 @@
 			"cost": 5,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": "<sprite=5> : Stone form\nGargoyle gains +0 / +20"
 		},
 		{
@@ -7680,8 +7680,8 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "voodoo" ],
+			"passiveSkills": {},
+			"innateSkills": { "voodoo" : true },
 			"desc": "Voodoo:\nIf this creature survives an attack, damage and status is inflicted to your opponent as well."
 		},
 		{
@@ -7697,8 +7697,8 @@
 			"cost": 1,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Fill your opponent s hand with copies of the target creature s card. Drain 2 HP for each card added."
 		},
 		{
@@ -7714,8 +7714,8 @@
 			"cost": 3,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Your creatures and your permanents are invisible for 3 turns."
 		},
 		{
@@ -7731,8 +7731,8 @@
 			"cost": 8,
 			"costElement": 2,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=2><sprite=2> : Liquid Shadow\nThe target creature is poisoned and its skill switched to \"vampire\"."
 		},
 		{
@@ -7748,8 +7748,8 @@
 			"cost": 1,
 			"costElement": 2,
 			"rarity": 18,
-			"passive": [],
-			"innate": [ "void" ],
+			"passiveSkills": {},
+			"innateSkills": { "void" : true },
 			"desc": "Reduce your opponent's max health by 2 HP per turn. 3 if your mark is <sprite=2>."
 		},
 		{
@@ -7765,8 +7765,8 @@
 			"cost": 0,
 			"costElement": 2,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=2> and 1 quantum matching your mark. Gain 1 extra <sprite=2> when you play this card"
 		},
 		{
@@ -7782,8 +7782,8 @@
 			"cost": 0,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Each turn <sprite=0> is generated. Gain 1 extra <sprite=0> when you play this card"
 		},
 		{
@@ -7799,8 +7799,8 @@
 			"cost": 0,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -7816,8 +7816,8 @@
 			"cost": 1,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Deals 5 damage to the target."
 		},
 		{
@@ -7833,8 +7833,8 @@
 			"cost": 6,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Summon an exact copy of the target creature"
 		},
 		{
@@ -7850,8 +7850,8 @@
 			"cost": 7,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "immaterial" ],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true },
 			"desc": "Immaterial: \nThe Immortal can not be targeted."
 		},
 		{
@@ -7867,8 +7867,8 @@
 			"cost": 5,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Shield: Shift out of phase for 3 turns. Physical attacks are unable to hit you while this shield is in play."
 		},
 		{
@@ -7884,8 +7884,8 @@
 			"cost": 3,
 			"costElement": 0,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Weapon: Deal 5 damages at the end of every turn. \n<sprite=0> : Remove any skill from the target creature."
 		},
 		{
@@ -7901,8 +7901,8 @@
 			"cost": 14,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [ "immaterial", "airborne" ],
+			"passiveSkills": {},
+			"innateSkills": { "immaterial" : true, "airborne" : true },
 			"desc": ""
 		},
 		{
@@ -7918,8 +7918,8 @@
 			"cost": 4,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=0>: Web\nThe target creature loses its \"airborne\" skill"
 		},
 		{
@@ -7935,8 +7935,8 @@
 			"cost": 3,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Grant immortality to the target creature. The target creature can no longer be targeted."
 		},
 		{
@@ -7952,8 +7952,8 @@
 			"cost": 9,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Fill your hand with copies of the target creature's card. All the remaining aether quanta is consumed."
 		},
 		{
@@ -7969,8 +7969,8 @@
 			"cost": 4,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=0><sprite=0> : Duality\nAdd a copy of the first card in your opponent s deck to your hand."
 		},
 		{
@@ -7986,8 +7986,8 @@
 			"cost": 2,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "The opponent can not play any card during the next turn."
 		},
 		{
@@ -8003,8 +8003,8 @@
 			"cost": 4,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [ "psion" ],
-			"innate": [ "airborne" ],
+			"passiveSkills": { "psion" : true },
+			"innateSkills": { "airborne" : true },
 			"desc": "Elite Psion's attacks deal spell damage."
 		},
 		{
@@ -8020,8 +8020,8 @@
 			"cost": 8,
 			"costElement": 0,
 			"rarity": 20,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "<sprite=0><sprite=0><sprite=0>: Immortality\nThe target creature is now immortal (untargetable)."
 		},
 		{
@@ -8037,8 +8037,8 @@
 			"cost": 2,
 			"costElement": 0,
 			"rarity": 18,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Target an immortal creature. The target creature now deals spell damage and gains +4/+0."
 		},
 		{
@@ -8054,8 +8054,8 @@
 			"cost": 0,
 			"costElement": 0,
 			"rarity": 17,
-			"passive": [],
-			"innate": [],
+			"passiveSkills": {},
+			"innateSkills": {},
 			"desc": "Alternately generates <sprite=0> and 1 quantum matching your mark. Gain 1 extra <sprite=0> when you play this card"
 		}
 	]

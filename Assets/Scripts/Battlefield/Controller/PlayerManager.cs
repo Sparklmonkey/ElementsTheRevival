@@ -187,8 +187,8 @@ public class PlayerManager : MonoBehaviour
                 if (safeZones.Contains(idCard.id.Index)) { continue; }
                 if (idCard.card.costElement.Equals(Element.Other)) { continue; }
                 if (idCard.card.costElement.Equals(Element.Water)) { continue; }
-                if (idCard.card.IsImmaterial) { continue; }
-                if (idCard.card.IsBurrowed) { continue; }
+                if (idCard.card.innateSkills.Immaterial) { continue; }
+                if (idCard.card.passiveSkills.Burrow) { continue; }
                 idCard.RemoveCard();
             }
         }
@@ -280,7 +280,7 @@ public class PlayerManager : MonoBehaviour
         int count = 0;
         foreach (var id in allIds)
         {
-            if (id.card.passive.Contains("light"))
+            if (id.card.passiveSkills.Light)
             {
                 count++;
             }
@@ -443,7 +443,7 @@ public class PlayerManager : MonoBehaviour
         if (!cardToCheck.HasCard()) { return false; }
         if (cardToCheck.card.skill == "" || cardToCheck.card.skill == "none" || cardToCheck.card.skill == null || cardToCheck.card.skill == " ") { return false; }
         if (cardToCheck.card.AbilityUsed) { return false; }
-        if (cardToCheck.card.IsDelayed) { return false; }
+        if (cardToCheck.card.innateSkills.Delay > 0) { return false; }
         if (cardToCheck.card.Freeze > 0) { return false; }
         if (cardToCheck.card.cardType == CardType.Shield) { return false; }
         if (cardToCheck.card.cardType == CardType.Pillar) { return false; }
@@ -774,6 +774,10 @@ public class PlayerManager : MonoBehaviour
 
     public void DiscardCard(IDCardPair cardToDiscard)
     {
+        if (cardToDiscard.card.innateSkills.Obsession)
+        {
+            ModifyHealthLogic(cardToDiscard.card.iD.IsUpgraded() ? 13 : 10, true, false);
+        }
         playerHand.UpdateHandVisual(cardToDiscard);
         BattleVars.shared.hasToDiscard = false;
     }

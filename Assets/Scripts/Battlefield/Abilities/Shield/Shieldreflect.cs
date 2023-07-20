@@ -6,7 +6,7 @@ public class Shieldreflect : ShieldAbility
 {
     public override void ActivateShield(ref int atkNow, ref IDCardPair cardPair)
     {
-        if (cardPair.card.passive.Contains("psion"))
+        if (cardPair.card.passiveSkills.Psion)
         {
             Enemy.ModifyHealthLogic(atkNow, true, false);
             atkNow = 0;

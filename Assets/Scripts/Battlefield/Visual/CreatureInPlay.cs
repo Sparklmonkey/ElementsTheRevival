@@ -21,7 +21,7 @@ namespace Elements.Duel.Visual
         {
             transform.parent.gameObject.SetActive(true);
             cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
-            var creatureAtk = cardToDisplay.passive.Contains("antimatter") ? -cardToDisplay.AtkNow : cardToDisplay.AtkNow;
+            var creatureAtk = cardToDisplay.passiveSkills.Antimatter ? -cardToDisplay.AtkNow : cardToDisplay.AtkNow;
             creatureValue.text = $"{creatureAtk}|{cardToDisplay.DefNow}";
             cardName.text = cardToDisplay.cardName;
             cardHeadBack.sprite = ImageHelper.GetCardHeadBackground(cardToDisplay.costElement.FastElementString());
@@ -59,7 +59,7 @@ namespace Elements.Duel.Visual
             }
             else
             {
-                if (cardToDisplay.passive.Contains("vampire"))
+                if (cardToDisplay.passiveSkills.Vampire)
                 {
                     activeAName.text = "Vamprire";
                     activeAElement.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue);

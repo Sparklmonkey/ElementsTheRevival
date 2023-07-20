@@ -16,8 +16,8 @@ public class Ignite : AbilityEffect
 
         foreach (var idCardi in idList)
         {
-            if (idCardi.card.IsImmaterial) { continue; }
-            if (idCardi.card.IsBurrowed) { continue; }
+            if (idCardi.card.innateSkills.Immaterial) { continue; }
+            if (idCardi.card.passiveSkills.Burrow) { continue; }
             idCardi.card.DefDamage += 1;
             idCardi.UpdateCard();
         }
@@ -26,8 +26,8 @@ public class Ignite : AbilityEffect
 
         foreach (var idCardi in idList)
         {
-            if (idCardi.card.IsImmaterial) { continue; }
-            if (idCardi.card.IsBurrowed) { continue; }
+            if (idCardi.card.innateSkills.Immaterial) { continue; }
+            if (idCardi.card.passiveSkills.Burrow) { continue; }
             idCardi.card.DefDamage += 1;
             idCardi.UpdateCard();
         }

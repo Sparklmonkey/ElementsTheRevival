@@ -269,7 +269,7 @@ public static class ExtensionMethods
     {
         if(card != null)
         {
-            return card.cardName != "Shield_" && card.cardName != "Weapon" && card.cardType != CardType.Mark && !card.innate.Contains("immaterial") && !card.innate.Contains("burrow");
+            return card.cardName != "Shield_" && card.cardName != "Weapon" && card.cardType != CardType.Mark && !card.innateSkills.Immaterial && !card.passiveSkills.Burrow;
         }
         return false;
     }

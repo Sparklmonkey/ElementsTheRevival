@@ -39,7 +39,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                 break;
         }
 
-        if (CardPair.card.innate.Contains("sanctuary"))
+        if (CardPair.card.innateSkills.Sanctuary)
         {
             Owner.AddPlayerCounter(PlayerCounters.Sanctuary, 1);
         }
@@ -78,7 +78,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                 break;
         }
 
-        if (CardPair.card.innate.Contains("sanctuary"))
+        if (CardPair.card.innateSkills.Sanctuary)
         {
             Owner.AddPlayerCounter(PlayerCounters.Sanctuary, -1);
         }
@@ -103,11 +103,11 @@ public class PermanentBehaviour : CardTypeBehaviour
 
     public override void DeathTrigger()
     {
-        if (CardPair.card.innate.Contains("soul catch"))
+        if (CardPair.card.innateSkills.SoulCatch)
         {
             Owner.GenerateQuantaLogic(Element.Death, CardPair.card.iD.IsUpgraded() ? 3 : 2);
         }
-        if (CardPair.card.innate.Contains("boneyard"))
+        if (CardPair.card.innateSkills.Boneyard)
         {
             Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId(CardPair.card.iD.IsUpgraded() ? "716" : "52m"));
         }
@@ -117,12 +117,12 @@ public class PermanentBehaviour : CardTypeBehaviour
     {
         if (CardPair.card.cardType == CardType.Artifact)
         {
-            if (CardPair.card.innate.Contains("empathy"))
+            if (CardPair.card.innateSkills.Empathy)
             {
                 int creatureCount = Owner.playerCreatureField.GetAllValidCardIds().Count;
                 Owner.ModifyHealthLogic(creatureCount, false, false);
             }
-            if (CardPair.card.innate.Contains("gratitude"))
+            if (CardPair.card.innateSkills.Gratitude)
             {
                 int healthAmount = Owner.playerPassiveManager.GetMark().card.costElement == Element.Life ? 5 : 3;
                 Owner.ModifyHealthLogic(healthAmount, false, false);
@@ -151,12 +151,12 @@ public class PermanentBehaviour : CardTypeBehaviour
                     break;
             }
 
-            if (CardPair.card.innate.Contains("sanctuary"))
+            if (CardPair.card.innateSkills.Sanctuary)
             {
                 Owner.ModifyHealthLogic(4, false, false);
             }
 
-            if (CardPair.card.innate.Contains("void"))
+            if (CardPair.card.innateSkills.Void)
             {
                 int healthChange = Owner.playerPassiveManager.GetMark().card.costElement == Element.Darkness ? 3 : 2;
                 DuelManager.GetNotIDOwner(CardPair.id).ModifyMaxHealthLogic(healthChange, false);

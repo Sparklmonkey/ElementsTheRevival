@@ -9,8 +9,8 @@ public class Liquidshadow : AbilityEffect
     {
         target.card.skill = "";
         target.card.desc = "";
-        target.card.passive.Clear();
-        target.card.passive.Add("vampire");
+        target.card.passiveSkills = new();
+        target.card.passiveSkills.Vampire = true;
         target.card.Poison++;
         target.UpdateCard();
     }

@@ -8,16 +8,17 @@ using System;
 public class AchievementCell : MonoBehaviour
 {
     [SerializeField]
-    private Image achieveImg, rewardImg;
+    private Image achieveFrameImg;
     [SerializeField]
-    private TextMeshProUGUI achieveName, achieveRequire, rewardAmount;
+    private TextMeshProUGUI achieveName, achieveCount, achieveDesc;
 
-public void SetupCell(AchievementData achievementData)
-{
-    achieveName.text = achievementData.achieveName;
-    achieveRequire.text = achievementData.achieveDesc;
-    rewardAmount.text = achievementData.rewardAmount.ToString();
-}
+    public void SetupCell(AchievementData achievementData)
+    {
+        achieveName.text = achievementData.achieveName;
+        achieveDesc.text = achievementData.achieveDesc;
+        achieveCount.text = achievementData.achieveCount.ToString();
+        var test = " _31ok_l1su_61rj_18pn";
+    }
 }
 
 [Serializable]
@@ -25,6 +26,10 @@ public class AchievementData
 {
     public string achieveName;
     public string achieveDesc;
-    public int rewardAmount;
-    public bool isCard;
+    public int achieveCount;
+
+    public AchievementData(string achievement)
+    {
+
+    }
 }

@@ -1,6 +1,3 @@
-
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -86,6 +83,7 @@ public class LoginScreen_RegisterManager : MonoBehaviour
         ApiManager.shared.SetToken(loginResponse.token);
         ApiManager.shared.SetUsernameAndEmail(username.text, loginResponse.emailAddress);
         PlayerPrefs.SetString("SavedUser", username.text);
+
 
         touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(touchBlocker);

@@ -1,7 +1,9 @@
-using System;
-using System.Collections;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class CardTest : MonoBehaviour
 {
@@ -14,16 +16,26 @@ public class CardTest : MonoBehaviour
     void Start()
     {
         CardDatabase.Instance.SetupNewCardBase();
-        foreach (var card in CardDatabase.Instance.fullCardList)
+        List<string> innateString = new();
+        foreach (var item in CardDatabase.Instance.fullCardList)
         {
-            if(card.cardType == CardType.Spell)
-            {
-                if(card.skill == "" || card.skill == " ")
-                {
-                    Debug.Log(card.cardName);
-                }
-            }
+            Debug.Log(item.innateSkills.Dagger);
+        }
+
+
+        foreach (var passive in innateString)
+        {
+            Debug.Log(passive);
         }
     }
 
+
+    private async void SavePlayerTestAsync()
+    {
+        await UnityServices.InitializeAsync();
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        var data = new Dictionary<string, object> { { "PlayerData", "HelloWorld" } };
+        await CloudSaveService.Instance.Data.ForceSaveAsync(data);
+        Debug.Log("Saved");
+    } 
 }

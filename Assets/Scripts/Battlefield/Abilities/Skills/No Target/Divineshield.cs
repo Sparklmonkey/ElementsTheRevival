@@ -7,7 +7,7 @@ public class Divineshield : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.card.passive.Add("divineshield");
+        target.card.passiveSkills.DivineShield = true;
         target.UpdateCard();
     }
 

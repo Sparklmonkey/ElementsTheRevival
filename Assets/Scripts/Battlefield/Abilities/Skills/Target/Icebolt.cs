@@ -20,7 +20,7 @@ public class Icebolt : AbilityEffect
         }
         target.card.DefDamage += damageToDeal;
         target.card.Freeze += willFreeze ? 3 : 0;
-        if (target.card.DefNow > 0 && target.card.innate.Contains("voodoo"))
+        if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
             Owner.ModifyHealthLogic(target.card.DefNow < damageToDeal ? target.card.DefNow : damageToDeal, true, false);
             Owner.AddPlayerCounter(PlayerCounters.Freeze, target.card.Freeze += willFreeze ? 3 : 0);

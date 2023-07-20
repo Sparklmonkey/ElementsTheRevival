@@ -23,7 +23,7 @@ public class PassiveBehaviour : CardTypeBehaviour
                 break;
         }
 
-        if (CardPair.card.innate.Contains("bones"))
+        if (CardPair.card.innateSkills.Bones)
         {
             Owner.AddPlayerCounter(PlayerCounters.Bone, 7);
         }
@@ -31,7 +31,7 @@ public class PassiveBehaviour : CardTypeBehaviour
 
     public override void OnCardRemove()
     {
-        if (CardPair.card.innate.Contains("bones"))
+        if (CardPair.card.innateSkills.Bones)
         {
             Owner.AddPlayerCounter(PlayerCounters.Bone, -9999);
         }
@@ -76,7 +76,7 @@ public class PassiveBehaviour : CardTypeBehaviour
 
     public override void DeathTrigger()
     {
-        if (CardPair.card.innate.Contains("bones"))
+        if (CardPair.card.innateSkills.Bones)
         {
             Owner.AddPlayerCounter(PlayerCounters.Bone, 2);
         }
@@ -102,29 +102,29 @@ public class PassiveBehaviour : CardTypeBehaviour
         {
             int atknow = CardPair.card.AtkNow;
 
-            if (CardPair.card.innate.Contains("regenerate"))
+            if (CardPair.card.innateSkills.Regenerate)
             {
                 Owner.ModifyHealthLogic(5, false, false);
             }
-            if (CardPair.card.innate.Contains("fiery"))
+            if (CardPair.card.innateSkills.Fiery)
             {
                 atknow += Mathf.FloorToInt(Owner.GetAllQuantaOfElement(Element.Fire) / 5);
             }
-            if (CardPair.card.innate.Contains("hammer"))
+            if (CardPair.card.innateSkills.Hammer)
             {
                 if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Earth || Owner.playerPassiveManager.GetMark().card.costElement == Element.Gravity)
                 {
                     atknow++;
                 }
             }
-            if (CardPair.card.innate.Contains("dagger"))
+            if (CardPair.card.innateSkills.Dagger)
             {
                 if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Death || Owner.playerPassiveManager.GetMark().card.costElement == Element.Darkness)
                 {
                     atknow++;
                 }
             }
-            if (CardPair.card.innate.Contains("bow"))
+            if (CardPair.card.innateSkills.Bow)
             {
                 if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Air)
                 {
@@ -138,13 +138,13 @@ public class PassiveBehaviour : CardTypeBehaviour
                 CardPair.card.Freeze--;
             }
 
-            if (CardPair.card.IsDelayed)
+            if (CardPair.card.innateSkills.Delay > 0)
             {
                 atknow = 0;
-                CardPair.card.innate.Remove("delay");
+                CardPair.card.innateSkills.Delay--;
             }
 
-            if (!CardPair.card.passive.Contains("momentum"))
+            if (!CardPair.card.passiveSkills.Momentum)
             {
                 Enemy.ManageShield(ref atknow, ref CardPair);
             }
@@ -154,15 +154,15 @@ public class PassiveBehaviour : CardTypeBehaviour
 
             if (atknow > 0)
             {
-                if (CardPair.card.innate.Contains("vampire"))
+                if (CardPair.card.passiveSkills.Vampire)
                 {
                     Owner.ModifyHealthLogic(atknow, false, false);
                 }
-                if (CardPair.card.passive.Contains("venom"))
+                if (CardPair.card.passiveSkills.Venom)
                 {
                     Enemy.AddPlayerCounter(PlayerCounters.Poison, 1);
                 }
-                if (CardPair.card.innate.Contains("scramble"))
+                if (CardPair.card.innateSkills.Scramble)
                 {
                     Enemy.ScrambleQuanta();
                 }

@@ -9,7 +9,7 @@ public class Congeal : AbilityEffect
     {
         target.card.Freeze += 4;
         target.UpdateCard();
-        if (target.card.DefNow > 0 && target.card.innate.Contains("voodoo"))
+        if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
             Owner.AddPlayerCounter(PlayerCounters.Freeze,4);
         }

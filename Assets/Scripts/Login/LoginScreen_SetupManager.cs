@@ -125,7 +125,6 @@ public class LoginScreen_SetupManager : MonoBehaviour
         }
 
     }
-
     public void GoToUpdateApp()
     {
         if(Application.platform == RuntimePlatform.Android)

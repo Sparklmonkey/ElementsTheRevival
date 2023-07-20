@@ -13,7 +13,7 @@ public class Luciferin : AbilityEffect
         {
             if (idCardi.card.skill == "")
             {
-                idCardi.card.passive.Add("light");
+                idCardi.card.passiveSkills.Light = true;
                 idCardi.card.desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
                 idCardi.UpdateCard();
             }

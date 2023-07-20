@@ -14,7 +14,7 @@ public class CreatureManager : FieldManager
     {
         var idCardList = GetAllValidCardIds();
         if (idCardList.Count == 0) { return new List<IDCardPair>(); }
-        return idCardList.FindAll(x => x.card.passive.Contains("gravity pull"));
+        return idCardList.FindAll(x => x.card.passiveSkills.GravityPull);
     }
 
     public void CreatureTurnDown()

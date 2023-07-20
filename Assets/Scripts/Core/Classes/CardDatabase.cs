@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using Newtonsoft.Json;
 
 
 public class CardDatabase : MonoBehaviour
@@ -105,8 +106,9 @@ public class CardDatabase : MonoBehaviour
     public void SetupNewCardBase()
     {
         TextAsset jsonString = Resources.Load<TextAsset>("Cards/CardDatabase");
-        CardDB cardDBNew = JsonUtility.FromJson<CardDB>(jsonString.text);
-        fullCardList = cardDBNew.cardDb;
+        CardDB newDC = JsonConvert.DeserializeObject<CardDB>(jsonString.text);
+        //CardDB cardDBNew = JsonUtility.FromJson<CardDB>(jsonString.text);
+        fullCardList = newDC.cardDb;
     }
     public Card GetCardFromId(string id)
     {
@@ -368,7 +370,7 @@ public class CardDatabase : MonoBehaviour
         Card card = fromCard == null ? isUpgraded ? GetRandomEliteHatchCreature() : GetRandomHatchCreature() : fromCard;
         card.atk += Random.Range(0, 4);
         card.def += Random.Range(0, 4);
-        card.passive.Add("mutant");
+        card.passiveSkills.Mutant = true;
         card.skillCost = Random.Range(1, 3);
         card.skillElement = card.costElement;
         int index = Random.Range(0, mutantActiveAList.Count);
@@ -378,12 +380,12 @@ public class CardDatabase : MonoBehaviour
         {
             case "immaterial":
                 card.skillCost = 0;
-                card.innate.Add("immaterial");
+                card.innateSkills.Immaterial = true;
                 break;
             case "momentum":
             case "scavenger":
                 card.skillCost = 0;
-                card.passive.Add(abilityName);
+                card.passiveSkills.Scavenger = true;
                 break;
             default:
                 card.skill = abilityName;
@@ -520,32 +522,32 @@ public class CardDatabase : MonoBehaviour
 
         if(elementCount[Element.Air] > 0)
         {
-            golem.innate.Add("airborne");
+            golem.innateSkills.Airborne = true;
         }
 
         if (elementCount[Element.Darkness] > 0)
         {
-            golem.innate.Add("devourer");
+            golem.innateSkills.Devourer = true;
         }
 
         if (elementCount[Element.Darkness] > 1)
         {
-            golem.innate.Add("voodoo");
+            golem.innateSkills.Voodoo = true;
         }
 
         if (elementCount[Element.Gravity] > 1)
         {
-            golem.passive.Add("momentum");
+            golem.passiveSkills.Momentum = true;
         }
 
         if (elementCount[Element.Life] > 1)
         {
-            golem.passive.Add("adrenaline");
+            golem.passiveSkills.Adrenaline = true;
         }
 
         if (elementCount[Element.Aether] > 1)
         {
-            golem.innate.Add("immaterial");
+            golem.innateSkills.Immaterial = true;
         }
 
         var maxValueKey = elementCount.Aggregate((x, y) => x.Value >= y.Value ? x : y).Key;
@@ -565,7 +567,7 @@ public class CardDatabase : MonoBehaviour
                         break;
                     case 6:
                     case 7:
-                        golem.innate.Add("immaterial");
+                        golem.innateSkills.Immaterial = true;
                         golem.desc = "Immaterial: \n Golem can not be targeted.";
                         break;
                     default:
@@ -606,7 +608,7 @@ public class CardDatabase : MonoBehaviour
                 {
                     case 3:
                     case 4:
-                        golem.innate.Add("vampire");
+                        golem.passiveSkills.Vampire = true;
                         break;
                     case 5:
                         golem.skill = "liquidshadow";
@@ -659,11 +661,11 @@ public class CardDatabase : MonoBehaviour
                         break;
                     case 2:
                     case 3:
-                        golem.passive.Add("scavenger");
+                        golem.passiveSkills.Scavenger = true;
                         golem.desc = "Scavenger:\nEvery time a creature dies, Shard Golem gains +1/+1";
                         break;
                     case 4:
-                        golem.passive.Add("venom");
+                        golem.passiveSkills.Venom = true;
                         golem.desc = "Deal 1 poison damage at the end of every turn.\nPoison damage is cumulative.";
                         break;
                     case 5:
@@ -673,7 +675,7 @@ public class CardDatabase : MonoBehaviour
                         break;
                     case 6:
                     case 7:
-                        golem.passive.Add("deadly venom");
+                        golem.passiveSkills.DeadlyVenom = true;
                         golem.desc = "Deadly Venom: \nAdd 2 poison damage to each successful attack. Cause poisoning if ingested.";
                         break;
                     default:
@@ -734,7 +736,7 @@ public class CardDatabase : MonoBehaviour
                         golem.skillCost = 2;
                         break;
                     case 5:
-                        golem.innate.Add("scramble");
+                        golem.innateSkills.Scramble = true;
                         golem.desc = "Randomly convert some of the opponent's quantums into other elements.";
                         break;
                     case 6:
@@ -762,7 +764,7 @@ public class CardDatabase : MonoBehaviour
                         break;
                     case 4:
                     case 5:
-                        golem.passive.Add("neurotoxin");
+                        golem.passiveSkills.Neurotoxin = true;
                         golem.desc = "Neurotoxin: Add 1 poison damage to each successful attack, 1 extra poison for each card played by afflicted player.";
                         break;
                     case 6:
@@ -785,7 +787,7 @@ public class CardDatabase : MonoBehaviour
                         break;
                     case 3:
                     case 4:
-                        golem.innate.Add("fiery");
+                        golem.innateSkills.Fiery = true;
                         golem.desc = "Deal X damages at the end of every turn. X is the number of <sprite=8> you own, divided by 5.";
                         break;
                     case 5:

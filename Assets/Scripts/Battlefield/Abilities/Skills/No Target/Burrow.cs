@@ -7,15 +7,15 @@ public class Burrow : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        if (target.card.passive.Contains("burrow"))
+        if (target.card.passiveSkills.Burrow)
         {
-            target.card.passive.Remove("burrow");
+            target.card.passiveSkills.Burrow = false;
             target.card.atk *= 2;
             target.card.AtkModify *= 2;
         }
         else
         {
-            target.card.passive.Add("burrow");
+            target.card.passiveSkills.Burrow = true;
             target.card.atk /= 2;
             target.card.AtkModify /= 2;
         }

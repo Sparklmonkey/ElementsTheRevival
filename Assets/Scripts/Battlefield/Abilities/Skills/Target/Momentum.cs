@@ -9,7 +9,7 @@ public class Momentum : AbilityEffect
     {
         target.card.AtkModify++;
         target.card.DefModify++;
-        target.card.passive.Add("momentum");
+        target.card.passiveSkills.Momentum = true;
         target.UpdateCard();
     }
 

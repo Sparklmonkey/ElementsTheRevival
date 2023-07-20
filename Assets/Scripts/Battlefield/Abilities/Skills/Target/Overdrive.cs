@@ -9,7 +9,7 @@ public class Overdrive : AbilityEffect
     {
         target.card.desc = "Overdrive: \n Gain +3 /-1 per turn";
         target.card.skill = "";
-        target.card.passive.Add("overdrive");
+        target.card.passiveSkills.Overdrive = true;
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

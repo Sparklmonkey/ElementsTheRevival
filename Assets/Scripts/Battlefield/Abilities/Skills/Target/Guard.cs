@@ -7,13 +7,9 @@ public class Guard : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.card.innate.Add("delay");
-        BattleVars.shared.abilityOrigin.card.innate.Add("delay");
-        if(target.card.innate == null)
-        {
-            target.card.DefDamage += BattleVars.shared.abilityOrigin.card.AtkNow;
-        }
-        else if (!target.card.innate.Contains("airborne"))
+        target.card.innateSkills.Delay++;
+        BattleVars.shared.abilityOrigin.card.innateSkills.Delay++;
+        if (!target.card.innateSkills.Airborne)
         {
             target.card.DefDamage += BattleVars.shared.abilityOrigin.card.AtkNow;
         }

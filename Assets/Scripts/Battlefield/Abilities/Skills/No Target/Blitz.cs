@@ -11,10 +11,10 @@ public class Blitz : AbilityEffect
         var idCardList = Owner.playerCreatureField.GetAllValidCardIds();
         foreach (var idCardi in idCardList)
         {
-            if (idCardi.card.innate.Contains("airborne"))
+            if (idCardi.card.innateSkills.Airborne)
             {
                 Game_AnimationManager.shared.StartAnimation("Dive", target.transform);
-                idCardi.card.passive.Add("dive");
+                idCardi.card.passiveSkills.Dive = true;
                 target.card.AtkModify *= 2;
                 target.card.atk *= 2;
                 idCardi.UpdateCard();

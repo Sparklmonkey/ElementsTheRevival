@@ -80,7 +80,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public bool IsTargetable()
     {
-        var isCardTargetable = HasCard() ? !card.innate.Contains("immaterial") && !card.passive.Contains("burrow") : false;
+        var isCardTargetable = HasCard() ? !card.innateSkills.Immaterial && !card.passiveSkills.Burrow : false;
         if (id.Field == FieldEnum.Player)
         {
             isCardTargetable = true;

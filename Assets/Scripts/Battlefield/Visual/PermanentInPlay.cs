@@ -38,7 +38,7 @@ namespace Elements.Duel.Visual
                 stackCount.text = stackCountValue > 1 ? $"{stackCountValue}X" : "";
             }
             transform.parent.gameObject.SetActive(true);
-            immaterialIndicator.SetActive(cardToDisplay.innate.Contains("immaterial"));
+            immaterialIndicator.SetActive(cardToDisplay.innateSkills.Immaterial);
             bool isPlayer = true;// GetObjectID().Owner.Equals(OwnerEnum.Player);
             if (cardToDisplay.cardName.Contains("Pendulum"))
             {

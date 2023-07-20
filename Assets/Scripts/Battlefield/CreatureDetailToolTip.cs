@@ -14,21 +14,21 @@ public class CreatureDetailToolTip : MonoBehaviour
         atkFull.text = cardOnDisplay.atk.ToString();
         hpCurrent.text = cardOnDisplay.def.ToString();
         frozenCount.text = cardOnDisplay.Freeze.ToString();
-        delayCount.text = cardOnDisplay.IsDelayed ? "1" : "0";
+        delayCount.text = $"{cardOnDisplay.innateSkills.Delay}";
         this.fieldIndex.text = fieldIndex.ToString();
         atkCurrent.text = cardOnDisplay.atk.ToString();
 
-        if (cardOnDisplay.innate?.Count > 0)
-        {
-            passiveTwo.text = cardOnDisplay.innate[0];
-        }
+        //if (cardOnDisplay.innate?.Count > 0)
+        //{
+        //    passiveTwo.text = cardOnDisplay.innate[0];
+        //}
 
         passiveOne.text = "";
         //Top Line Passive
-        if(cardOnDisplay.passive?.Count > 0)
-        {
-            passiveOne.text = cardOnDisplay.passive[0];
-        }
+        //if(cardOnDisplay.passive?.Count > 0)
+        //{
+        //    passiveOne.text = cardOnDisplay.passive[0];
+        //}
     }
     // Start is called before the first frame update
     void Start()

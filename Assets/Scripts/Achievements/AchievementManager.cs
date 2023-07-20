@@ -31,6 +31,7 @@ public class AchievementManager
 
 public class AchievementIdleYet : AchievementBiolerplate
 {
+    public override int AchievementId => 0;
     public override string AchievementProperty => "AchievementIdleYet";
 
     public override string AchievementName => "Are we idle yet?";
@@ -41,6 +42,7 @@ public class AchievementIdleYet : AchievementBiolerplate
 
 public class AchievementCreatureDomination : AchievementBiolerplate
 {
+    public override int AchievementId => 0;
     public override string AchievementProperty => "AchievementCreatureDomination";
 
     public override string AchievementName => "Creature Domination";
@@ -50,6 +52,7 @@ public class AchievementCreatureDomination : AchievementBiolerplate
 
 public class AchievementCreatureless : AchievementBiolerplate
 {
+    public override int AchievementId => 0;
     public override string AchievementProperty => "AchievementCreatureless";
 
     public override string AchievementName => "Creatureless";
@@ -59,6 +62,7 @@ public class AchievementCreatureless : AchievementBiolerplate
 
 public class AchievementDeckout : AchievementBiolerplate
 {
+    public override int AchievementId => 0;
     public override string AchievementProperty => "AchievementDeckout";
 
     public override string AchievementName => "Deckout";
@@ -68,6 +72,7 @@ public class AchievementDeckout : AchievementBiolerplate
 
 public class AchievementDoubleKill: AchievementBiolerplate
 {
+    public override int AchievementId => 0;
     public override string AchievementProperty => "AchievementDoubleKill";
 
     public override string AchievementName => "Double Kill";
@@ -77,6 +82,7 @@ public class AchievementDoubleKill: AchievementBiolerplate
 
 public class AchievementHandOverload : AchievementBiolerplate
 {
+    public override int AchievementId => 0;
     public override string AchievementProperty => "AchievementHandOverload";
 
     public override string AchievementName => "Hand Overload";
@@ -86,6 +92,7 @@ public class AchievementHandOverload : AchievementBiolerplate
 
 public class AchievementFeatherHands : AchievementBiolerplate
 {
+    public override int AchievementId => 0;
     public override string AchievementProperty => "AchievementFeatherHands";
 
     public override string AchievementName => "Feather Hands";
@@ -95,6 +102,7 @@ public class AchievementFeatherHands : AchievementBiolerplate
 
 public class AchievementQuantaOverload : AchievementBiolerplate
 {
+    public override int AchievementId => 0;
     public override string AchievementProperty => "AchievementQuantaOverload";
 
     public override string AchievementName => "Quanta Overload";
@@ -104,6 +112,7 @@ public class AchievementQuantaOverload : AchievementBiolerplate
 
 public class AchievementChromaExcess : AchievementBiolerplate
 {
+    public override int AchievementId => 0;
     public override string AchievementProperty => "AchievementChromaExcess";
 
     public override string AchievementName => "Chroma Excess";

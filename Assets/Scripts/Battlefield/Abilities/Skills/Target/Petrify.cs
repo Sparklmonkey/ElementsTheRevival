@@ -9,7 +9,7 @@ public class Petrify : AbilityEffect
     {
         for (int i = 0; i < 6; i++)
         {
-            target.card.innate.Add("delay");
+            target.card.innateSkills.Delay++;
         }
         target.card.DefModify += 20;
         target.UpdateCard();

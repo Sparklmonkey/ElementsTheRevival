@@ -8,7 +8,7 @@ public class Readiness : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         target.card.skillCost = 0;
-        target.card.passive.Add("readiness");
+        target.card.passiveSkills.Readiness = true;
         target.UpdateCard();
     }
 

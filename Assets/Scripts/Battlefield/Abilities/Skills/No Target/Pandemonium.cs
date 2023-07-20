@@ -12,8 +12,8 @@ public class Pandemonium : AbilityEffect
 
         foreach (var idCardi in idList)
         {
-            if (idCardi.card.IsImmaterial) { continue; }
-            if (idCardi.card.IsBurrowed) { continue; }
+            if (idCardi.card.innateSkills.Immaterial) { continue; }
+            if (idCardi.card.passiveSkills.Burrow) { continue; }
             var chaos = new Chaos { Owner = Owner };
             chaos.Activate(idCardi);
         }
@@ -22,8 +22,8 @@ public class Pandemonium : AbilityEffect
 
         foreach (var idCardi in idList)
         {
-            if (idCardi.card.IsImmaterial) { continue; }
-            if (idCardi.card.IsBurrowed) { continue; }
+            if (idCardi.card.innateSkills.Immaterial) { continue; }
+            if (idCardi.card.passiveSkills.Burrow) { continue; }
             var chaos = new Chaos { Owner = Owner };
             chaos.Activate(idCardi);
         }

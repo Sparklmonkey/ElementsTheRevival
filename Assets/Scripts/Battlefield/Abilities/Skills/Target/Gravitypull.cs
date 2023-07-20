@@ -7,7 +7,7 @@ public class Gravitypull : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.card.passive.Add("gravity pull");
+        target.card.passiveSkills.GravityPull = true;
         target.UpdateCard();
     }
 

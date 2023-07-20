@@ -14,14 +14,14 @@ public class EffectDisplayManager : MonoBehaviour
 
     public void UpdateEffectDisplay(Card card, int stack)
     {
-        _momentumImage.SetActive(card.passive.Contains("momentum"));
-        _psionImage.SetActive(card.IsPsion);
-        _immaterialImage.SetActive(card.IsImmaterial);
-        _gravityImage.SetActive(card.IsGravity);
-        _delayedImage.SetActive(card.IsDelayed);
+        _momentumImage.SetActive(card.passiveSkills.Momentum);
+        _psionImage.SetActive(card.passiveSkills.Psion);
+        _immaterialImage.SetActive(card.innateSkills.Immaterial);
+        _gravityImage.SetActive(card.passiveSkills.GravityPull);
+        _delayedImage.SetActive(card.innateSkills.Delay > 0);
         _frozenImage.SetActive(card.Freeze > 0);
-        _burrowedImage.SetActive(card.IsBurrowed);
-        _adrenalineImage.SetActive(card.IsAdrenaline);
+        _burrowedImage.SetActive(card.passiveSkills.Burrow);
+        _adrenalineImage.SetActive(card.passiveSkills.Adrenaline);
         _poisonImage.SetActive(card.Poison != 0);
 
         if (card.Poison != 0)

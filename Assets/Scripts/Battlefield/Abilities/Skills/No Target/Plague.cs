@@ -12,8 +12,8 @@ public class Plague : AbilityEffect
 
         foreach (var idCardi in idList)
         {
-            if (idCardi.card.IsImmaterial) { continue; }
-            if (idCardi.card.IsBurrowed) { continue; }
+            if (idCardi.card.innateSkills.Immaterial) { continue; }
+            if (idCardi.card.passiveSkills.Burrow) { continue; }
             idCardi.card.Poison += 1;
             idCardi.UpdateCard();
         }

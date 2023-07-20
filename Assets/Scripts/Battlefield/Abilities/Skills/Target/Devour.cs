@@ -10,7 +10,7 @@ public class Devour : AbilityEffect
     {
         BattleVars.shared.abilityOrigin.card.AtkModify++;
         BattleVars.shared.abilityOrigin.card.DefModify++;
-        if (target.card.innate.Contains("poisonous"))
+        if (target.card.innateSkills.Poisonous)
         {
             BattleVars.shared.abilityOrigin.card.Poison++;
         }

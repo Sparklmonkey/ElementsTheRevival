@@ -46,7 +46,7 @@ public class Chaos : AbilityEffect
             case 6:
                 iDCard.card.skill = "";
                 iDCard.card.desc = "";
-                iDCard.card.passive.Clear();
+                iDCard.card.passiveSkills = new();
                 break;
             case 7:
                 Card cardToPlay = new(iDCard.card);
@@ -69,12 +69,12 @@ public class Chaos : AbilityEffect
                 }
                 break;
             case 10:
-                if (iDCard.card.innate.Contains("mummy"))
+                if (iDCard.card.innateSkills.Mummy)
                 {
                     Card pharoah = CardDatabase.Instance.GetCardFromId(iDCard.card.iD.IsUpgraded() ? "7qc" : "5rs");
                     iDCard.PlayCard(pharoah);
                 }
-                else if (iDCard.card.innate.Contains("undead"))
+                else if (iDCard.card.innateSkills.Undead)
                 {
                     Card rndCreature = iDCard.card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteCreature() : CardDatabase.Instance.GetRandomCreature();
                     iDCard.PlayCard(rndCreature);
@@ -87,7 +87,7 @@ public class Chaos : AbilityEffect
                 }
                 break;
             case 11:
-                iDCard.card.passive.Add("gravity pull");
+                iDCard.card.passiveSkills.GravityPull = true;
                 break;
             default:
                 break;
@@ -100,7 +100,7 @@ public class Chaos : AbilityEffect
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
         if (possibleTargets.Count == 0) { return new(); }
-        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.innate.Contains("airborne"));
+        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.innateSkills.Airborne);
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)

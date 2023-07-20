@@ -7,7 +7,7 @@ public class Adrenaline : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.card.passive.Add("adrenaline");
+        target.card.passiveSkills.Adrenaline = true;
         target.UpdateCard();
     }
 

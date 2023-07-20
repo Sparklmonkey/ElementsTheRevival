@@ -2,6 +2,7 @@
 
 public abstract class AchievementBiolerplate
 {
+    public abstract int AchievementId { get; }
     public abstract string AchievementProperty { get; }
     public abstract string AchievementName { get; }
     public abstract string AchievementDescription { get; }
