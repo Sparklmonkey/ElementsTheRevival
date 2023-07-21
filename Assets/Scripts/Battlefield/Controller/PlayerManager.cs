@@ -435,7 +435,7 @@ public class PlayerManager : MonoBehaviour
                 break;
         }
 
-        return canAfford && hasSpace && !cardToCheck.AbilityUsed;
+        return canAfford && hasSpace;
     }
 
     public bool IsAbilityUsable(IDCardPair cardToCheck)
@@ -1004,6 +1004,11 @@ public class PlayerManager : MonoBehaviour
             BattleVars.shared.isSelectingTarget = true;
             SkillManager.Instance.SetupTargetHighlights(this, iDCardPair);
         }
+    }
+
+    public bool HasGravityCreatures()
+    {
+        return playerCreatureField.GetCreaturesWithGravity().Count > 0;
     }
 }
 

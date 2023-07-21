@@ -107,11 +107,14 @@ public class CreatureBehaviour : CardTypeBehaviour
                 bool isFreedomEffect = Random.Range(0, 100) < (25 * Owner.playerCounters.freedom) && CardPair.card.costElement.Equals(Element.Air);
                 atkNow = Mathf.FloorToInt(isFreedomEffect ? atkNow * 1.5f : atkNow);
                 Game_SoundManager.shared.PlayAudioClip("CreatureDamage");
-                Enemy.ManageGravityCreatures(ref atkNow, ref CardPair);
-                if (CardPair.card.DefNow <= 0)
+                if (Enemy.HasGravityCreatures())
                 {
-                    CardPair.RemoveCard();
-                    return;
+                    Enemy.ManageGravityCreatures(ref atkNow, ref CardPair);
+                    if (CardPair.card.DefNow <= 0)
+                    {
+                        CardPair.RemoveCard();
+                        return;
+                    }
                 }
 
                 if (!CardPair.card.passiveSkills.Momentum)
