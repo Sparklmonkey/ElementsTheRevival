@@ -54,7 +54,7 @@ public class Bazaar_PlayerInventoryManager : InventoryManager
         }
         selectedElement = element;
         Element filter = (Element)selectedElement;
-        List<Card> cardsToShow = new List<Card>();
+        List<Card> cardsToShow = new();
         foreach (Card card in cardList)
         {
             if (card.cardName == "Animate Weapon")
@@ -76,7 +76,7 @@ public class Bazaar_PlayerInventoryManager : InventoryManager
             if (card.costElement != filter || card.BuyPrice == 0) { continue; }
             cardsToShow.Add(card);
         }
-        SetupContentView(cardsToShow, false);
+        SetupContentView(cardsToShow, true);
     }
 
     private void AccountBazaarSuccess(AccountResponse accountResponse)

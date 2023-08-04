@@ -34,7 +34,7 @@ public class Card
     public int DefModify { get; set; }
     public int DefDamage { get; set; }
     public int AtkModify { get; set; }
-    public int BuyPrice { get { return (rarity * rarity * 6) + cost; } }
+    public int BuyPrice { get { return iD.IsUpgraded() ? iD.GetRegularBuyPrice() + 1500 : (rarity * rarity * 6) + cost; } }
     public int SellPrice { get { return (rarity * rarity * 4) + cost; } }
     public Card(Card cardToCopy)
     {

@@ -10,11 +10,13 @@ public class Bazaar_PlayerDataManager : MonoBehaviour
     private Bazaar_ShopInventoryManager shopInventoryManager;
 
     [SerializeField]
-    private List<Card> playerInvetoryTest, shopInventoryList;
-    [SerializeField]
     private TextMeshProUGUI deckCount;
     [SerializeField]
     private ErrorMessageManager confirmationMessage;
+
+    private Card cardToChange;
+    private bool isAdd = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +24,7 @@ public class Bazaar_PlayerDataManager : MonoBehaviour
         shopInventoryManager = GetComponent<Bazaar_ShopInventoryManager>();
         playerInventoryManager.SetupPlayerInvetoryView(PlayerData.shared.cardInventory.DeserializeCard());
         
-        shopInventoryManager.SetupInitialCardView(shopInventoryList);
+        shopInventoryManager.SetupInitialCardView();
         deckCount.text = $"( {PlayerData.shared.cardInventory.Count} )";
         GetComponent<Bazaar_TransactionManager>().SetupTransactionManager(PlayerData.shared.electrum);
     }
@@ -47,8 +49,6 @@ public class Bazaar_PlayerDataManager : MonoBehaviour
         confirmationMessage.SetupErrorMessage($"Are you sure you want to {(isAdd ? "buy" : "sell")} {card.cardName}?");
     }
 
-    private Card cardToChange;
-    private bool isAdd = false;
     public void ConfirmModification()
     {
         confirmationMessage.gameObject.SetActive(false);
@@ -73,7 +73,6 @@ public class Bazaar_PlayerDataManager : MonoBehaviour
         }
         PlayerData.SaveData();
         deckCount.text = $"( {PlayerData.shared.cardInventory.Count} )";
-        //shopInventoryManager.SetupInitialCardView(shopInventoryList);
         playerInventoryManager.SetupPlayerInvetoryView(PlayerData.shared.cardInventory.DeserializeCard());
     }
 

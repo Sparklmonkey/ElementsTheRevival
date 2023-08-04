@@ -8,7 +8,7 @@ public class Bazaar_ShopInventoryManager : InventoryManager
     private int selectedElement = 12;
     private List<Card> inventoryCardList;
 
-    public void SetupInitialCardView(List<Card> cardList)
+    public void SetupInitialCardView()
     {
         inventoryCardList = CardDatabase.Instance.GetAllBazaarCards();
         UpdateCardFilter(0);

@@ -59,6 +59,17 @@ namespace Elements.Duel.Manager
             {
                 if(!idCard.HasCard()) { continue; }
                 idCard.cardBehaviour.OnTurnStart();
+                if(idCard.card.TurnsInPlay <= 0)
+                {
+                    if(idCard.id.Index == 2)
+                    {
+                        RemoveWeapon();
+                    }
+                    else
+                    {
+                        RemoveShield();
+                    }
+                }
                 idCard.UpdateCard();
             }
         }

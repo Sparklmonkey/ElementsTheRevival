@@ -18,7 +18,7 @@
 			"desc": "Each turn 3 random quantums are generated"
 		},
 		{
-			"iD": "4sj",
+			"iD": "8pj",
 			"imageID": "Entropy",
 			"cardName": "Mark of Entropy",
 			"cardType": 6,
@@ -35,7 +35,7 @@
 			"desc": ""
 		},
 		{
-			"iD": "4sk",
+			"iD": "8pk",
 			"imageID": "Death",
 			"cardName": "Mark of Death",
 			"cardType": 6,
@@ -52,7 +52,7 @@
 			"desc": ""
 		},
 		{
-			"iD": "4sl",
+			"iD": "8pl",
 			"imageID": "Gravity",
 			"cardName": "Mark of Gravity",
 			"cardType": 6,
@@ -69,7 +69,7 @@
 			"desc": ""
 		},
 		{
-			"iD": "4sm",
+			"iD": "8pm",
 			"imageID": "Earth",
 			"cardName": "Mark of Earth",
 			"cardType": 6,
@@ -86,7 +86,7 @@
 			"desc": ""
 		},
 		{
-			"iD": "4sn",
+			"iD": "8pn",
 			"imageID": "Life",
 			"cardName": "Mark of Life",
 			"cardType": 6,
@@ -103,7 +103,7 @@
 			"desc": ""
 		},
 		{
-			"iD": "4so",
+			"iD": "8po",
 			"imageID": "Fire",
 			"cardName": "Mark of Fire",
 			"cardType": 6,
@@ -120,7 +120,7 @@
 			"desc": ""
 		},
 		{
-			"iD": "4sp",
+			"iD": "8pp",
 			"imageID": "Water",
 			"cardName": "Mark of Water",
 			"cardType": 6,
@@ -137,7 +137,7 @@
 			"desc": ""
 		},
 		{
-			"iD": "4sq",
+			"iD": "8pq",
 			"imageID": "Light",
 			"cardName": "Mark of Light",
 			"cardType": 6,
@@ -154,7 +154,7 @@
 			"desc": ""
 		},
 		{
-			"iD": "4sr",
+			"iD": "8pr",
 			"imageID": "Air",
 			"cardName": "Mark of Air",
 			"cardType": 6,
@@ -171,7 +171,7 @@
 			"desc": ""
 		},
 		{
-			"iD": "4ss",
+			"iD": "8ps",
 			"imageID": "Time",
 			"cardName": "Mark of Time",
 			"cardType": 6,
@@ -188,7 +188,7 @@
 			"desc": ""
 		},
 		{
-			"iD": "4st",
+			"iD": "8pt",
 			"imageID": "Darkness",
 			"cardName": "Mark of Darkness",
 			"cardType": 6,
@@ -205,7 +205,7 @@
 			"desc": ""
 		},
 		{
-			"iD": "4su",
+			"iD": "8pu",
 			"imageID": "Aether",
 			"cardName": "Mark of Aether",
 			"cardType": 6,
@@ -4062,210 +4062,6 @@
 			"passiveSkills": {},
 			"innateSkills": {},
 			"desc": "Each turn 3 random quantums are generated. Gain 3 extra quantum when you play this card."
-		},
-		{
-			"iD": "6r3",
-			"imageID": "Entropy",
-			"cardName": "Mark of Entropy",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 6,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
-		},
-		{
-			"iD": "6r4",
-			"imageID": "Death",
-			"cardName": "Mark of Death",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 4,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
-		},
-		{
-			"iD": "6r5",
-			"imageID": "Gravity",
-			"cardName": "Mark of Gravity",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 9,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
-		},
-		{
-			"iD": "6r6",
-			"imageID": "Earth",
-			"cardName": "Mark of Earth",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 5,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
-		},
-		{
-			"iD": "6r7",
-			"imageID": "Life",
-			"cardName": "Mark of Life",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 10,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
-		},
-		{
-			"iD": "6r8",
-			"imageID": "Fire",
-			"cardName": "Mark of Fire",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 8,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
-		},
-		{
-			"iD": "6r9",
-			"imageID": "Water",
-			"cardName": "Mark of Water",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 11,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
-		},
-		{
-			"iD": "6ra",
-			"imageID": "Light",
-			"cardName": "Mark of Light",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 3,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
-		},
-		{
-			"iD": "6rb",
-			"imageID": "Air",
-			"cardName": "Mark of Air",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 1,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
-		},
-		{
-			"iD": "6rc",
-			"imageID": "Time",
-			"cardName": "Mark of Time",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 7,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
-		},
-		{
-			"iD": "6rd",
-			"imageID": "Darkness",
-			"cardName": "Mark of Darkness",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 2,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
-		},
-		{
-			"iD": "6re",
-			"imageID": "Aether",
-			"cardName": "Mark of Aether",
-			"cardType": 6,
-			"atk": 0,
-			"def": 0,
-			"skill": "",
-			"skillCost": 0,
-			"skillElement": 12,
-			"cost": 0,
-			"costElement": 0,
-			"rarity": 1,
-			"passiveSkills": {},
-			"innateSkills": {},
-			"desc": ""
 		},
 		{
 			"iD": "6rj",

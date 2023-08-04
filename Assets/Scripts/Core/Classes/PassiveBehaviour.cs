@@ -7,10 +7,6 @@ public class PassiveBehaviour : CardTypeBehaviour
     {
         switch (CardPair.card.iD)
         {
-            case "7q9":
-            case "5rp":
-                CardPair.card.TurnsInPlay = 1;
-                break;
             case "7n8":
             case "5oo":
                 CardPair.card.TurnsInPlay = 5;
@@ -41,21 +37,11 @@ public class PassiveBehaviour : CardTypeBehaviour
     {
         switch (CardPair.card.iD)
         {
-            case "7q9":
-            case "5rp":
-                CardPair.card.TurnsInPlay--;
-                if(CardPair.card.TurnsInPlay <= 0)
-                {
-                    CardPair.RemoveCard();
-                    return;
-                }
-                break;
             case "7n8":
             case "5oo":
                 CardPair.card.TurnsInPlay--;
                 if (CardPair.card.TurnsInPlay <= 0)
                 {
-                    CardPair.RemoveCard();
                     return;
                 }
                 break;
@@ -64,14 +50,12 @@ public class PassiveBehaviour : CardTypeBehaviour
                 CardPair.card.TurnsInPlay--;
                 if (CardPair.card.TurnsInPlay <= 0)
                 {
-                    CardPair.RemoveCard();
                     return;
                 }
                 break;
             default:
                 break;
         }
-        CardPair.UpdateCard();
     }
 
     public override void DeathTrigger()

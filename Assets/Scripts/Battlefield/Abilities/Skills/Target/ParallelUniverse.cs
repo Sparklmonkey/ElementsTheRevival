@@ -8,7 +8,19 @@ public class Paralleluniverse : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         Game_AnimationManager.shared.StartAnimation("ParallelUniverse", target.transform);
-        Owner.PlayCardOnFieldLogic(new(target.card));
+        Card dupe = new(target.card);
+        dupe.DefDamage = target.card.DefDamage;
+        dupe.DefModify = target.card.DefModify;
+        dupe.AtkModify = target.card.AtkModify;
+
+        if (dupe.innateSkills.Voodoo)
+        {
+            var opponent = DuelManager.GetNotIDOwner(Owner.playerID.id);
+            opponent.ModifyHealthLogic(target.card.DefDamage, true, false);
+            opponent.AddPlayerCounter(PlayerCounters.Poison, target.card.Poison);
+        }
+
+        Owner.PlayCardOnFieldLogic(dupe);
         return;
     }
 

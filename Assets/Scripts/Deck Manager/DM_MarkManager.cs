@@ -16,6 +16,7 @@ public class DM_MarkManager : MonoBehaviour
     {
         return markElement;
     }
+
     public void SetupMarkCard(int element)
     {
         markElement = (Element)element;

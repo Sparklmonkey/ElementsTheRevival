@@ -9,7 +9,7 @@ public class PermanentBehaviour : CardTypeBehaviour
         {
             case "7q9":
             case "5rp":
-                CardPair.card.TurnsInPlay = 1;
+                CardPair.card.TurnsInPlay = 2;
                 Owner.AddPlayerCounter(PlayerCounters.Delay, 1);
                 DuelManager.GetNotIDOwner(CardPair.id).AddPlayerCounter(PlayerCounters.Delay, 1);
                 break;

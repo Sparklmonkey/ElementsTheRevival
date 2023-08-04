@@ -265,6 +265,12 @@ public static class ExtensionMethods
         return (cardValue + 2000).IntToBase32();
     }
 
+    public static int GetRegularBuyPrice(this string cardID)
+    {
+        var regCard = CardDatabase.Instance.GetCardFromId(cardID.GetUppedRegular());
+        return (regCard.rarity * regCard.rarity * 6) + regCard.cost;
+    }
+
     public static bool IsValidCard(this Card card)
     {
         if(card != null)
@@ -275,9 +281,15 @@ public static class ExtensionMethods
     }
     public static bool IsBazaarLegal(this string cardID)
     {
-        return (cardID != "4sj" && cardID != "4sk" && cardID != "4sl" && cardID != "4sm" && cardID != "4sn" && cardID != "4so" && cardID != "4sp" && cardID != "4sq" && 
-            cardID != "4sr" && cardID != "4st" && cardID != "4su" && cardID != "4t8" && cardID != "4vr" && cardID != "4t1" && cardID != "4t2");
+        if ((PlayerData.shared.currentQuestIndex < 7 || PlayerPrefs.GetFloat("ShouldShowRareCard") == 1) && cardID.IsUpgraded())
+        {
+            return false;
+        }
+        var uppedRegId = cardID.GetUppedRegular();
+        return !_bazaarIllegalIds.Contains(cardID) && !_bazaarIllegalIds.Contains(uppedRegId);
     }
+
+    private static readonly List<string> _bazaarIllegalIds = new() { "4sj", "4sk", "4sl", "4sm", "4sn", "4so", "4sp", "4sq", "4sr", "4st", "4su", "4t8", "4vr", "4t1", "4t2" };
 
     public static bool IsUpgraded(this string cardID)
     {

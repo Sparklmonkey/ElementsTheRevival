@@ -145,15 +145,16 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private CardDetailView cardDetailView;
 
-    public void ManageShield(ref int atkNow, ref IDCardPair cardPair)
+    public bool ManageShield(ref int atkNow, ref IDCardPair cardPair)
     {
         IDCardPair shield = playerPassiveManager.GetShield();
-        if(shield.card.skill == "") { return; }
+        if(shield.card.skill == "") { return false; }
         var shieldSkill = shield.card.skill.GetShieldScript<ShieldAbility>();
         shieldSkill.Owner = this;
         shieldSkill.Enemy = DuelManager.GetNotIDOwner(playerID.id);
 
         shieldSkill.ActivateShield(ref atkNow, ref cardPair);
+        return false;
     }
 
     public PlayerDisplayer playerDisplayer;

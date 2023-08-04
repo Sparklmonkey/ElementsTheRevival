@@ -119,7 +119,7 @@ public class CardDatabase : MonoBehaviour
 
     internal List<Card> GetAllBazaarCards()
     {
-        return new List<Card>(fullCardList.FindAll(x => !x.IsRare() && !x.iD.IsUpgraded() && x.iD.IsBazaarLegal()));
+        return new List<Card>(fullCardList.FindAll(x => !x.IsRare() && x.iD.IsBazaarLegal()));
     }
 
     internal List<Card> GetCardListWithID(List<string> cardRewards)
@@ -138,8 +138,9 @@ public class CardDatabase : MonoBehaviour
         return list;
     }
 
-    public List<string> markIds = new(){ "4su", "4sr", "4st", "4sq", "4sk", "4sm", "4sj", "4ss", "4so", "4sl", "4sn", "4sp" };
-    internal Card GetRandomSpell()
+    public List<string> markIds = new(){ "8pu", "8pr", "8pt", "8pq", "8pk", "8pm", "8pj", "8ps", "8po", "8pl", "8pn", "8pp" };
+
+    public Card GetRandomSpell()
     {
         List<Card> list = new (fullCardList.FindAll(x => x.cardType == CardType.Spell && !x.iD.IsUpgraded()));
         Card card = list[Random.Range(0, list.Count)];
