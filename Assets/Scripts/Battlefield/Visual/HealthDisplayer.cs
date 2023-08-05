@@ -46,7 +46,7 @@ namespace Elements.Duel.Visual
             int difference = current - newMaxHp;
 
             string toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
-            maxHp.text = maxHp.ToString();
+            maxHp.text = newMaxHp.ToString();
 
             StartCoroutine(AnimateTextChange(toShow));
             int temp = currentHP - DuelManager.GetPossibleDamage(isPlayer);

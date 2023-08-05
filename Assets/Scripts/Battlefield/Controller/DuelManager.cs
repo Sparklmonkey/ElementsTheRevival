@@ -42,8 +42,8 @@ public class DuelManager : MonoBehaviour
 
     public static bool IsSundialInPlay()
     {
-        if (Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5rp" || x.card.iD == "7q9").Count > 0) { return true; }
-        if (Instance.enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5rp" || x.card.iD == "7q9").Count > 0) { return true; }
+        if (Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => (x.card.iD == "5rp" || x.card.iD == "7q9") && x.card.TurnsInPlay > 1).Count > 0) { return true; }
+        if (Instance.enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => (x.card.iD == "5rp" || x.card.iD == "7q9") && x.card.TurnsInPlay > 1).Count > 0) { return true; }
         return false;
     }
     public static void SetOpponentDeck(List<CardObject> opponentShuffledDeck)

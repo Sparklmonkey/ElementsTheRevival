@@ -63,10 +63,6 @@ namespace Elements.Duel.Manager
                 {
                     if(idCard.id.Index == 2)
                     {
-                        RemoveWeapon();
-                    }
-                    else
-                    {
                         RemoveShield();
                     }
                 }

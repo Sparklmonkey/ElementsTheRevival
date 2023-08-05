@@ -10,6 +10,12 @@ public class CreatureBehaviour : CardTypeBehaviour
             Owner.AddPlayerCounter(PlayerCounters.Scarab, 1);
         }
 
+        if (CardPair.card.passiveSkills.Burrow)
+        {
+            CardPair.card.atk /= 2;
+            CardPair.card.AtkModify /= 2;
+        }
+
         if (CardPair.card.innateSkills.Integrity)
         {
             var shardList = Owner.playerHand.GetAllValidCardIds().FindAll(x => x.card.cardName.Contains("Shard of"));
@@ -119,11 +125,13 @@ public class CreatureBehaviour : CardTypeBehaviour
 
                 if (!CardPair.card.passiveSkills.Momentum)
                 {
-                    Enemy.ManageShield(ref atkNow, ref CardPair);
-                    if (CardPair.card.DefNow <= 0)
+                    if(Enemy.ManageShield(ref atkNow, ref CardPair))
                     {
-                        CardPair.RemoveCard();
-                        return;
+                        if (CardPair.card.DefNow <= 0)
+                        {
+                            CardPair.RemoveCard();
+                            return;
+                        }
                     }
                 }
 

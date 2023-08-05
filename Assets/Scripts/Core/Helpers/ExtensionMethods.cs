@@ -281,6 +281,10 @@ public static class ExtensionMethods
     }
     public static bool IsBazaarLegal(this string cardID)
     {
+        if (CardDatabase.Instance.markIds.Contains(cardID))
+        {
+            return false;
+        }
         if ((PlayerData.shared.currentQuestIndex < 7 || PlayerPrefs.GetFloat("ShouldShowRareCard") == 1) && cardID.IsUpgraded())
         {
             return false;
@@ -289,7 +293,7 @@ public static class ExtensionMethods
         return !_bazaarIllegalIds.Contains(cardID) && !_bazaarIllegalIds.Contains(uppedRegId);
     }
 
-    private static readonly List<string> _bazaarIllegalIds = new() { "4sj", "4sk", "4sl", "4sm", "4sn", "4so", "4sp", "4sq", "4sr", "4st", "4su", "4t8", "4vr", "4t1", "4t2" };
+    private static readonly List<string> _bazaarIllegalIds = new() { "4sj", "4sk", "4sl", "4sm", "4sn", "4so", "4sp", "4sq", "4sr", "4st", "8pu", "4t8", "4vr", "4t1", "4t2", "8pu", "8pr", "8pt", "8pq", "8pk", "8pm", "8pj", "8ps", "8po", "8pl", "8pn", "8pp" };
 
     public static bool IsUpgraded(this string cardID)
     {
