@@ -20,7 +20,7 @@ public class Dash_ResetAccountManager : MonoBehaviour
         if (inputField.text == "DELETE")
         {
             int objectId = PlayerData.shared.id;
-            PlayerData.shared = new PlayerData();
+            PlayerData.shared.ResetAccount();
             PlayerData.shared.id = objectId;
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
             //if (PlayerPrefs.GetInt("IsGuest") == 1)

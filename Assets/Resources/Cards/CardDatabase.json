@@ -1373,7 +1373,7 @@
 			"cost": 2,
 			"costElement": 5,
 			"rarity": 2,
-			"passiveSkills": { "burrow" : true },
+			"passiveSkills": { },
 			"innateSkills": {},
 			"desc": "<sprite=5> : Burrow\nThe antlion can not be targeted, but its damage is halved."
 		},
@@ -1509,7 +1509,7 @@
 			"cost": 8,
 			"costElement": 5,
 			"rarity": 3,
-			"passiveSkills": { "burrow" : true },
+			"passiveSkills": {},
 			"innateSkills": {},
 			"desc": "<sprite=5> : Burrow\nThe shrieker can not be targeted, but its damage is halved."
 		},
@@ -3498,7 +3498,7 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 3,
-			"passiveSkills": { "burrow" : true },
+			"passiveSkills": { },
 			"innateSkills": { "devourer" : true },
 			"desc": "Absorb 1 quantum from your opponent per turn and return a <sprite=2> to you.\n<sprite=5> : Burrow"
 		},
@@ -5181,7 +5181,7 @@
 			"cost": 2,
 			"costElement": 5,
 			"rarity": 17,
-			"passiveSkills": { "burrow" : true },
+			"passiveSkills": {},
 			"innateSkills": {},
 			"desc": "<sprite=5> : Burrow\nThe antlion can not be targeted, but its damage is halved."
 		},
@@ -5317,9 +5317,9 @@
 			"cost": 8,
 			"costElement": 5,
 			"rarity": 17,
-			"passiveSkills": { "burrow" : true },
+			"passiveSkills": {},
 			"innateSkills": {},
-			"desc": ""
+			"desc": "<sprite=5> : Burrow\nThe shrieker can not be targeted, but its damage is halved."
 		},
 		{
 			"iD": "77i",
@@ -7306,7 +7306,7 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 17,
-			"passiveSkills": { "burrow" : true },
+			"passiveSkills": {},
 			"innateSkills": { "devourer" : true },
 			"desc": "Absorb 1 quantum from your opponent per turn and return a <sprite=2> to you.\n<sprite=5> : Burrow"
 		},

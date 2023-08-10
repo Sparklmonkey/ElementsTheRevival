@@ -20,6 +20,32 @@ public class PlayerData
     public int arenaLosses;
     public int playerScore;
     public string completedQuests = "";
+
+    internal void ResetAccount()
+    {
+        markElement = Element.Aether;
+        currentDeck = new();
+        cardInventory = new();
+        savedDecks = new();
+        electrum = 0;
+        gamesWon = 0;
+        gamesLost = 0;
+        playerScore = 0;
+        currentQuestIndex = 0;
+        nextFalseGod = "";
+        petName = "";
+        completedQuests = "";
+        petCount = 0;
+        playedOracleToday = false;
+        dayLastOraclePlay = DateTime.Now;
+        hasDefeatedLevel0 = false;
+        removedCardFromDeck = false;
+        hasBoughtCardBazaar = false;
+        hasSoldCardBazaar = false;
+        hasDefeatedLevel1 = false;
+        hasDefeatedLevel2 = false;
+    }
+
     public int currentQuestIndex = 0;
     //Saved Decks
     public List<string> savedDecks;
@@ -49,7 +75,7 @@ public class PlayerData
     //Quest 5 Flag
     public bool hasDefeatedLevel2;
 
-    public List<string> redeemedCodes = new List<string>();
+    public List<string> redeemedCodes = new();
 
     public int gameStatsId;
 

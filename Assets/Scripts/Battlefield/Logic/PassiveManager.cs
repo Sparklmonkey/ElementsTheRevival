@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Elements.Duel.Manager
 {
@@ -52,14 +53,14 @@ namespace Elements.Duel.Manager
         {
             return pairList[1].id;
         }
-
+        private readonly List<string> turnCount = new() { "7n8", "5oo", "61t", "80d" };
         public void PassiveTurnDown()
         {
             foreach (var idCard in pairList)
-            {
-                if(!idCard.HasCard()) { continue; }
+            { 
+                if (!idCard.HasCard()) { continue; }
                 idCard.cardBehaviour.OnTurnStart();
-                if(idCard.card.TurnsInPlay <= 0)
+                if(idCard.card.TurnsInPlay <= 0 && turnCount.Contains(idCard.card.iD))
                 {
                     if(idCard.id.Index == 2)
                     {
