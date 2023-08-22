@@ -83,9 +83,8 @@ public class Dash_AccountManagement : MonoBehaviour
 
     public void UpdateFieldsWithInfo()
     {
-        (string, string) emailAndUsername = ApiManager.shared.GetEmailAndUsername();
-        usernameField.text = emailAndUsername.Item2;
-        emailField.text = emailAndUsername.Item1 == "" ? "Not yet set!" : emailAndUsername.Item1;
+        usernameField.text = ApiManager.shared.GetEmail();
+        emailField.text = usernameField.text == "" ? "Not yet set!" : usernameField.text;
         submitButton.interactable = false;
         submitButtonText.text = "Submit";
     }

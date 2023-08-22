@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,7 +16,7 @@ public class PvP_LobbyConnecteduser : MonoBehaviour
     private PvpUserInfo opponenInfo;
     public void SetupPvpScreen(PvpUserInfo opponent)
     {
-        youUsername.text = ApiManager.shared.GetEmailAndUsername().Item2;
+        youUsername.text = PlayerData.shared.userName;
         youScore.text = PlayerData.shared.playerScore.ToString();
         youWin.text = PlayerData.shared.gamesWon.ToString();
         youLose.text = PlayerData.shared.gamesLost.ToString();

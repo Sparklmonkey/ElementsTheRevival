@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading;
 using UnityEngine;
 
 public static class ExtensionMethods
 {
-
+    private static readonly string usernameCriteria = @"^[a-zA-Z0-9.,@_-]{3,20}$";
+    private static readonly string passwordCriteria = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!#$%^&*()\-_=+{};:,<.>/?\\[\]|]).{8,30}$";
+    public static bool UsernameCheck(this string username) => Regex.IsMatch(username, usernameCriteria, RegexOptions.None);
+    public static bool PasswordCheck(this string password) => Regex.IsMatch(password, passwordCriteria, RegexOptions.None);
 
     public static List<string> SerializeCard(this List<Card> cardList)
     {

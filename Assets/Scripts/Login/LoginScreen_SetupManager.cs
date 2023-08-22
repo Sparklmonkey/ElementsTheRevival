@@ -6,17 +6,16 @@ public class LoginScreen_SetupManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private TMP_InputField username, password;
+    private TMP_InputField username, password, newUsername, newPassword;
     [SerializeField]
     private TextMeshProUGUI errorMessage, versionLabel;
     [SerializeField]
-    private GameObject appUpdatePopUp, maintainancePopUp;
+    private GameObject appUpdatePopUp, maintainancePopUp, selectNewUserPassword;
     private GameObject touchBlocker;
-    private delegate void SuccessHandler(LoginResponse loginResponse);
-    private delegate void FailureHandler(LoginResponse loginResponse);
 
     public List<TMP_InputField> fields;
     int _fieldIndexer;
+
 
     private void Update()
     {
@@ -31,10 +30,9 @@ public class LoginScreen_SetupManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            AttemptToLogin();
+            AttemptToLoginUsernamePassword();
         }
     }
-
 
     void Start()
     {
@@ -66,12 +64,38 @@ public class LoginScreen_SetupManager : MonoBehaviour
         GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
     }
 
-    public void PlayAsGuest()
+    public async void PlayAsGuest()
     {
-        PlayerPrefs.SetInt("IsGuest", 1);
-        if (PlayerPrefs.HasKey("SaveData"))
+        if(await ApiManager.shared.LoginAsGuest())
         {
-            PlayerData.LoadData();
+            GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
+        }
+        else
+        {
+            GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
+        }
+    }
+
+    public async void AttemptToLoginUsernamePassword()
+    {
+        touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+        touchBlocker.transform.SetAsFirstSibling();
+        await ApiManager.shared.SignInWithUsernamePasswordAsync(username.text, password.text, HandleUserLogin);
+    }
+
+    public async void AttemptToLoginUnity()
+    {
+        touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+        touchBlocker.transform.SetAsFirstSibling();
+        await ApiManager.shared.SignInWithUnityAsync(HandleUserLogin);
+    }
+
+    public void HandleUserLogin(string responseMessage)
+    {
+        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+        Destroy(touchBlocker);
+        if (responseMessage == "Success")
+        {
             if (PlayerData.shared.currentDeck.Count < 30)
             {
                 GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
@@ -83,16 +107,36 @@ public class LoginScreen_SetupManager : MonoBehaviour
         }
         else
         {
-            PlayerData.shared = new PlayerData();
-            GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
+            errorMessage.text = responseMessage;
         }
     }
 
-    public void AttemptToLogin()
+
+    private async void HandleLegacyUserLogin(LoginResponse response)
     {
-        touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-        touchBlocker.transform.SetAsFirstSibling();
-        LoginRequest loginRequest = new LoginRequest()
+        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+        Destroy(touchBlocker);
+
+        if (username.text.UsernameCheck() && password.text.PasswordCheck())
+        {
+            await ApiManager.shared.SignUpWithUsernamePasswordAsync(username.text, password.text, HandleUserRegistration);
+            return;
+        }
+        selectNewUserPassword.SetActive(true);
+    }
+
+    public async void UpdateUsernamePassword()
+    {
+        if (newUsername.text.UsernameCheck() && newPassword.text.PasswordCheck())
+        {
+            await ApiManager.shared.SignUpWithUsernamePasswordAsync(newUsername.text, newPassword.text, HandleUserRegistration);
+            return;
+        }
+    }
+
+    public async void HandleUserLoginWithLegacyFallback()
+    {
+        LoginRequest loginRequest = new()
         {
             Username = username.text,
             Password = password.text,
@@ -101,88 +145,22 @@ public class LoginScreen_SetupManager : MonoBehaviour
             Platform = $"{Application.platform}",
             AppVersion = $"{Application.version}"
         };
-        StartCoroutine(ApiManager.shared.Login(loginRequest, LoginSuccess, LoginRequestFailure));
+        await ApiManager.shared.LoginLegacy(loginRequest, HandleLegacyUserLogin);
     }
 
-    // Success / Failure Handlers
-    private void LoginSuccess(LoginResponse loginResponse)
+    public void HandleUserRegistration(string responseMessage)
     {
-        PlayerPrefs.SetInt("IsGuest", 0);
-        PlayerData.LoadFromApi(loginResponse.playerData);
-        ApiManager.shared.SetPlayerId(loginResponse.playerId);
-        ApiManager.shared.SetToken(loginResponse.token);
-        ApiManager.shared.SetUsernameAndEmail(username.text, loginResponse.emailAddress);
-        PlayerPrefs.SetString("SavedUser", username.text);
         touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(touchBlocker);
-        if (PlayerData.shared.currentDeck.Count < 30)
+        if (responseMessage == "Success")
         {
+            PlayerData.shared = new();
+            PlayerData.shared.userName = username.text;
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
         }
         else
         {
-            GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
-        }
-
-    }
-    public void GoToUpdateApp()
-    {
-        if(Application.platform == RuntimePlatform.Android)
-        {
-            Application.OpenURL("market://details?id=com.SparklmonkeyGames.ElementsRevival");
-        }
-    }
-    private void LoginRequestFailure(LoginResponse loginResponse)
-    {
-        string errorMessage = "Something went wrong. Try again in a bit.";
-        switch (loginResponse.errorMessage)
-        {
-            case ErrorCases.UserNameInUse:
-                errorMessage = "Username is already in user. Please try a different one.";
-                break;
-            case ErrorCases.UserDoesNotExist:
-                errorMessage = "There is no account linked to that username.";
-                break;
-            case ErrorCases.IncorrectPassword:
-                errorMessage = "Something went wrong. The username or password is incorrect.";
-                break;
-            case ErrorCases.AllGood:
-                errorMessage = "All Good";
-                break;
-            case ErrorCases.UserMismatch:
-                errorMessage = "User Mismatch";
-                break;
-            case ErrorCases.UnknownError:
-                errorMessage = "Unknown Error";
-                break;
-            case ErrorCases.IncorrectEmail:
-                errorMessage = "The email provided is not valid. Please try again.";
-                break;
-            case ErrorCases.OtpIncorrect:
-                errorMessage = "Failed to verify the code. We have sent a new one to try again.";
-                break;
-            case ErrorCases.OtpExpired:
-                errorMessage = "Failed to verify the code. We have sent a new one to try again.";
-                break;
-            case ErrorCases.AccountNotVerified:
-                errorMessage = "Your account has not been verified. We have sent a confirmation code to the email used on registration to verify your account.";
-                break;
-            case ErrorCases.AppUpdateRequired:
-                errorMessage = "Please update game.";
-                appUpdatePopUp.SetActive(true);
-                break;
-            case ErrorCases.ServerMaintainance:
-                errorMessage = "The server is under maintainance at the moment. Please try again later.";
-                maintainancePopUp.SetActive(true);
-                break;
-            default:
-                break;
-        }
-        this.errorMessage.text = errorMessage;
-        if(loginResponse.errorMessage != ErrorCases.AppUpdateRequired)
-        {
-            touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-            Destroy(touchBlocker);
+            errorMessage.text = responseMessage;
         }
     }
 }

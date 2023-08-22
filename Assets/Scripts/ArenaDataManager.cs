@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -62,7 +62,7 @@ public class ArenaDataManager : MonoBehaviour
             BattleVars.shared.isArena = true;
             BattleVars.shared.isTest = true;
             BattleVars.shared.enemyAiData = enemyAi;
-            BattleVars.shared.enemyAiData.opponentName = ApiManager.shared.GetEmailAndUsername().Item2;
+            BattleVars.shared.enemyAiData.opponentName = PlayerData.shared.userName;
             BattleVars.shared.enemyAiData.deck = string.Join(" ", PlayerData.shared.arenaT50Deck);
             BattleVars.shared.enemyAiData.mark = PlayerData.shared.arenaT50Mark;
             arenaResponse = null;

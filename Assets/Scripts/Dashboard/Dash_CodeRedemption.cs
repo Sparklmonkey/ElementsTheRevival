@@ -1,12 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class Dash_CodeRedemption : MonoBehaviour
 {
-    private List<string> validCodes = new List<string> { "ElementsDiscordOEtG", "Legacy_ETG" };
     [SerializeField]
     private TextMeshProUGUI errorMessage, electrumRewardAmount, cardRewardLabel;
     [SerializeField]
@@ -14,7 +11,7 @@ public class Dash_CodeRedemption : MonoBehaviour
     [SerializeField]
     private CardDisplayDetail cardDisplayDetail;
 
-    public void RedeemCode(TMP_InputField input)
+    public async void RedeemCode(TMP_InputField input)
     {
 
         CodeRedemptionRequest codeRedemptionRequest = new CodeRedemptionRequest();
@@ -22,45 +19,46 @@ public class Dash_CodeRedemption : MonoBehaviour
         codeRedemptionRequest.CodeValue = input.text;
         codeRedemptionRequest.PlayerSavedData = PlayerData.shared;
 
-        StartCoroutine(ApiManager.shared.CheckRedeemCode(codeRedemptionRequest, CodeRedeemSuccessHandler, CodeRedeemFailureHandler));
+        await ApiManager.shared.CheckCodeRedemption(input.text, CodeRedepmtionHandler);
     }
 
-    private void CodeRedeemSuccessHandler(CodeRedemptionResponse codeRedemptionResponse)
+    private async void CodeRedepmtionHandler(CodeRedemptionResponse response)
     {
-        if (codeRedemptionResponse.electrumReward > 0)
+        if (!response.canRedeem)
         {
-            electrumRewardDisplay.SetActive(true);
-            codeRedemptionResponse.playerSavedData.electrum += codeRedemptionResponse.electrumReward;
-            electrumRewardAmount.text = codeRedemptionResponse.electrumReward.ToString();
+            errorMessage.text = response.errorMessage;
+            return;
         }
 
-        if (codeRedemptionResponse.cardRewards.Count > 0)
+        if(response.electrumReward > 0)
         {
-            if(codeRedemptionResponse.cardRewards[0] != "")
+            electrumRewardDisplay.SetActive(true);
+            PlayerData.shared.electrum += response.electrumReward;
+            electrumRewardAmount.text = response.electrumReward.ToString();
+        }
+
+        if (response.cardRewards.Count > 0)
+        {
+            if (response.cardRewards[0] != "")
             {
-                List<Card> cards = CardDatabase.Instance.GetCardListWithID(codeRedemptionResponse.cardRewards);
+                List<Card> cards = CardDatabase.Instance.GetCardListWithID(response.cardRewards);
                 cardRewardLabel.text = "Cards Gained:";
 
-                if (codeRedemptionResponse.isCardSelection)
+                if (response.isCardSelection)
                 {
                     chooseCardButton.gameObject.SetActive(true);
                     cardRewardLabel.text = "Choose A Card:";
                 }
                 else
                 {
-                    codeRedemptionResponse.playerSavedData.cardInventory.AddRange(codeRedemptionResponse.cardRewards);
+                    PlayerData.shared.cardInventory.AddRange(response.cardRewards);
                 }
                 SetupCardRewardView(cards);
             }
         }
-        else
-        {
-            StartCoroutine(ApiManager.shared.SaveToApi(AccountSuccess, AccountFailure));
-        }
-
-        errorMessage.text = "Code Successfully Redeemed!";
-        PlayerData.LoadFromApi(codeRedemptionResponse.playerSavedData);
+        await ApiManager.shared.SaveDataToUnity();
         GetComponent<DashboardPlayerData>().UpdateDashboard();
+        errorMessage.text = "Code Successfully Redeemed!";
     }
 
     private void SetupCardRewardView(List<Card> cardObjects)
@@ -75,11 +73,6 @@ public class Dash_CodeRedemption : MonoBehaviour
             GameObject redeemCardObject = Instantiate(redeemCardPrefab, cardContentView.transform);
             redeemCardObject.GetComponent<RedeemCardObject>().SetupObject(card, this);
         }
-    }
-
-    private void CodeRedeemFailureHandler(CodeRedemptionResponse codeRedemptionResponse)
-    {
-        errorMessage.text = "Code is either invalid or has already been redeemed.";
     }
 
     public void DisplayCardDetail(Card card)

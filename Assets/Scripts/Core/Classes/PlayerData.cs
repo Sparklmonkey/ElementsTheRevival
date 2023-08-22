@@ -19,6 +19,7 @@ public class PlayerData
     public int arenaWins;
     public int arenaLosses;
     public int playerScore;
+    public string userName = "";
     public string completedQuests = "";
 
     internal void ResetAccount()
@@ -99,16 +100,6 @@ public class PlayerData
     {
         if(ApiManager.isTrainer) { return; }
         PlayerPrefs.SetString("SaveData", JsonUtility.ToJson(shared));
-    }
-
-    public static bool LoadData()
-    {
-        if (PlayerPrefs.HasKey("SaveData"))
-        {
-            shared = JsonUtility.FromJson<PlayerData>(PlayerPrefs.GetString("SaveData"));
-            return true;
-        }
-        return false;
     }
 
     public PlayerData()

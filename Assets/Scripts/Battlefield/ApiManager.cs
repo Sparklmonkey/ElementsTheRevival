@@ -1,18 +1,25 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
+using Unity.Services.Authentication;
+using Unity.Services.CloudCode;
+using Unity.Services.Core;
 using System.Text;
+using Unity.Services.CloudSave;
 using UnityEngine;
 using UnityEngine.Networking;
+using Unity.Services.PlayerAccounts;
+using System.Threading.Tasks;
 
+public delegate void CachedPlayerHandler(bool wasSuccess);
+public delegate void RegisterUserHandler(string responseMessage);
+public delegate void LoginUserHandler(string responseMessage);
+public delegate void CodeRedemptionHandler(CodeRedemptionResponse response);
+public delegate void LoginLegacyHandler(LoginResponse response);
 
 public delegate void AccountSuccessHandler(AccountResponse accountResponse);
 public delegate void AccountFailureHandler(AccountResponse accountResponse);
 public delegate void LoginSuccessHandler(LoginResponse loginResponse);
 public delegate void LoginFailureHandler(LoginResponse loginResponse);
-public delegate void CodeRedeemSuccessHandler(CodeRedemptionResponse codeRedemptionResponse);
-public delegate void CodeRedeemFailureHandler(CodeRedemptionResponse codeRedemptionResponse);
 public delegate void GameStatUpdateHandler(bool wasSuccess);
 public delegate void GetArenaDeckHandler(ArenaResponse response);
 
@@ -23,16 +30,55 @@ public class ApiManager : MonoBehaviour
 
     public GameObject touchBlocker;
     public static bool isTrainer;
+    public bool isUnityUser = false;
     public static ApiManager shared;
     private string BaseUrl = "https://www.sparklmonkeygames.com/";
     private string apiKey = "ElementRevival-ApiKey";
     private string token = "";
     private string playerID = "";
     private string emailAddress = "";
-    private string userName = "";
+
+    private string updateNote;
+
+    private class UpdateNote
+    {
+        public string note;
+    }
+
+    public async void GetUpdateNote()
+    {
+        var response = await CloudCodeService.Instance.CallEndpointAsync<UpdateNote>("latest-update-note", null);
+        Debug.Log(response.note);
+        updateNote = response.note;
+    }
+
     public IEnumerator Login(LoginRequest loginRequest, LoginSuccessHandler loginSuccess, LoginFailureHandler loginFailure)
     {
         using UnityWebRequest uwr = shared.CreateApiPostRequest("Login/login", loginRequest);
+        yield return uwr.SendWebRequest();
+
+        if (uwr.result == UnityWebRequest.Result.ConnectionError)
+        {
+            LoginResponse loginResponse = new LoginResponse { errorMessage = ErrorCases.UnknownError };
+            loginFailure(loginResponse);
+        }
+        else
+        {
+            LoginResponse loginResponse = JsonUtility.FromJson<LoginResponse>(uwr.downloadHandler.text);
+            if (loginResponse.errorMessage == ErrorCases.AllGood)
+            {
+                loginSuccess(loginResponse);
+                yield break;
+            }
+
+            loginFailure(loginResponse);
+            yield break;
+        }
+    }
+
+    public IEnumerator CheckAppVersion(LoginRequest loginRequest, LoginSuccessHandler loginSuccess, LoginFailureHandler loginFailure)
+    {
+        using UnityWebRequest uwr = shared.CreateApiPostRequest("Login/version", loginRequest);
         yield return uwr.SendWebRequest();
 
         if (uwr.result == UnityWebRequest.Result.ConnectionError)
@@ -70,6 +116,7 @@ public class ApiManager : MonoBehaviour
             StartCoroutine(RefreshToken(true));
         }
     }
+
     public IEnumerator UpdateGameStats(GameStatRequest request, GameStatUpdateHandler handler)
     {
         using UnityWebRequest uwr = shared.CreateApiPostRequest("UserData/update-stats", request);
@@ -95,29 +142,6 @@ public class ApiManager : MonoBehaviour
         }
     }
 
-    public IEnumerator CheckAppVersion(LoginRequest loginRequest, LoginSuccessHandler loginSuccess, LoginFailureHandler loginFailure)
-    {
-        using UnityWebRequest uwr = shared.CreateApiPostRequest("Login/version", loginRequest);
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result == UnityWebRequest.Result.ConnectionError)
-        {
-            LoginResponse loginResponse = new LoginResponse { errorMessage = ErrorCases.UnknownError };
-            loginFailure(loginResponse);
-        }
-        else
-        {
-            LoginResponse loginResponse = JsonUtility.FromJson<LoginResponse>(uwr.downloadHandler.text);
-            if (loginResponse.errorMessage == ErrorCases.AllGood)
-            {
-                loginSuccess(loginResponse);
-                yield break;
-            }
-
-            loginFailure(loginResponse);
-            yield break;
-        }
-    }
     public IEnumerator RegisterUser(string endpoint, LoginRequest requestToSend, LoginSuccessHandler successHandler, LoginFailureHandler failureHandler)
     {
         UnityWebRequest uwr = shared.CreateApiPostRequest(endpoint, requestToSend);
@@ -142,15 +166,15 @@ public class ApiManager : MonoBehaviour
         }
     }
 
-    public void SetUsernameAndEmail(string username, string emailAddress)
+    public void SetUsernameAndEmail(string emailAddress)
     {
-        userName = username;
         this.emailAddress = emailAddress;
     }
 
-    private void Start()
+    private async void Start()
     {
-
+        await UnityServices.InitializeAsync();
+        await PlayerAccountService.Instance.StartSignInAsync();
         if (shared != null)
         {
             return;
@@ -159,10 +183,63 @@ public class ApiManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public (string, string) GetEmailAndUsername() => (emailAddress, userName);
+    private async void SignInWithUnityTest()
+    {
+        await UnityServices.InitializeAsync();
+        PlayerAccountService.Instance.SignedIn += SignInWithUnity;
+        if (AuthenticationService.Instance.SessionTokenExists)
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            //LoadSomeData();
+        }
+        else
+        {
+            await PlayerAccountService.Instance.StartSignInAsync();
+        }
+
+    }
+
+    public async Task SaveDataToUnity()
+    {
+        var data = new Dictionary<string, object> { { "SaveData", PlayerData.shared } };
+        await CloudSaveService.Instance.Data.ForceSaveAsync(data);
+    }
+
+    async void SignInWithUnity()
+    {
+        try
+        {
+            await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+            //LoadSomeData();
+        }
+        catch (AuthenticationException ex)
+        {
+            // Compare error code to AuthenticationErrorCodes
+            // Notify the player with the proper error message
+            Debug.LogException(ex);
+        }
+        catch (RequestFailedException ex)
+        {
+            // Compare error code to CommonErrorCodes
+            // Notify the player with the proper error message
+            Debug.LogException(ex);
+        }
+    }
+
+    public string GetEmail() => emailAddress;
+
+    private async void UnityCloudSave()
+    {
+        var data = new Dictionary<string, object> { { "SaveData", PlayerData.shared } };
+        await CloudSaveService.Instance.Data.ForceSaveAsync(data);
+    }
 
     public IEnumerator SaveToApi(AccountSuccessHandler successHandler, AccountFailureHandler failureHandler)
     {
+        UnityCloudSave();
+        successHandler(new());
+        yield break;
+
         AccountRequest requestToSend = new AccountRequest
         {
             PlayerId = shared.GetPlayerId(),
@@ -229,35 +306,6 @@ public class ApiManager : MonoBehaviour
     public void SetPlayerId(string id) { shared.playerID = id; }
     public string GetPlayerId() => shared.playerID;
 
-
-
-
-    public IEnumerator CheckRedeemCode(CodeRedemptionRequest requestToSend, CodeRedeemSuccessHandler successHandler, CodeRedeemFailureHandler failureHandler)
-    {
-        requestToSend.Token = token;
-        UnityWebRequest uwr = shared.CreateApiPostRequest("UserData/redeem-code", requestToSend);
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result == UnityWebRequest.Result.ConnectionError)
-        {
-            CodeRedemptionResponse codeRedemptionResponse = new CodeRedemptionResponse { wasValidCode = false };
-            failureHandler(codeRedemptionResponse);
-        }
-        else
-        {
-            CodeRedemptionResponse codeRedemptionResponse = JsonUtility.FromJson<CodeRedemptionResponse>(uwr.downloadHandler.text);
-            if (codeRedemptionResponse.wasValidCode)
-            {
-                successHandler(codeRedemptionResponse);
-                yield break;
-            }
-
-            failureHandler(codeRedemptionResponse);
-            yield break;
-        }
-    }
-
-
     public UnityWebRequest CreateApiGetRequest(string actionUrl)
     {
         return CreateApiRequest(BaseUrl + actionUrl, UnityWebRequest.kHttpVerbGET, null);
@@ -279,11 +327,13 @@ public class ApiManager : MonoBehaviour
         {
             bodyString = JsonUtility.ToJson(body);
         }
-        var request = new UnityWebRequest();
-        request.url = url;
-        request.method = method;
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.uploadHandler = new UploadHandlerRaw(string.IsNullOrEmpty(bodyString) ? null : Encoding.UTF8.GetBytes(bodyString));
+        var request = new UnityWebRequest
+        {
+            url = url,
+            method = method,
+            downloadHandler = new DownloadHandlerBuffer(),
+            uploadHandler = new UploadHandlerRaw(string.IsNullOrEmpty(bodyString) ? null : Encoding.UTF8.GetBytes(bodyString))
+        };
         request.SetRequestHeader("Accept", "application/test");
         request.SetRequestHeader("Access-Control-Allow-Origin", "*");
         request.SetRequestHeader("Content-Type", "application/json");
@@ -291,5 +341,172 @@ public class ApiManager : MonoBehaviour
         request.SetRequestHeader("Authorization", $"Bearer {token}");
         request.timeout = 60;
         return request;
+    }
+
+
+
+    public async Task LoginLegacy(LoginRequest loginRequest, LoginLegacyHandler loginSuccess)
+    {
+        using UnityWebRequest uwr = shared.CreateApiPostRequest("Login/login", loginRequest);
+        await uwr.SendWebRequest();
+
+        if (uwr.result == UnityWebRequest.Result.ConnectionError)
+        {
+            LoginResponse loginResponse = new(){ errorMessage = ErrorCases.UnknownError };
+            loginSuccess(loginResponse);
+        }
+        else
+        {
+            LoginResponse loginResponse = JsonUtility.FromJson<LoginResponse>(uwr.downloadHandler.text);
+            if (loginResponse.errorMessage == ErrorCases.AllGood)
+            {
+                loginSuccess(loginResponse);
+            }
+
+            loginSuccess(loginResponse);
+        }
+    }
+
+
+    public async Task CheckCodeRedemption(string redeemCode, CodeRedemptionHandler handler)
+    {
+        var arguments = new Dictionary<string, object> { { "redeemCode", redeemCode } };
+        var response = await CloudCodeService.Instance.CallEndpointAsync<CodeRedemptionResponse>("redeem-code", arguments);
+        handler(response);
+    }
+
+    public async void LoginCachedUser(CachedPlayerHandler handler)
+    {
+        if (AuthenticationService.Instance.SessionTokenExists)
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            var hasData = await LoadSomeData();
+            handler(hasData);
+        }
+        else
+        {
+            handler(false);
+        }
+    }
+
+    public async Task SignUpWithUsernamePasswordAsync(string username, string password, RegisterUserHandler handler)
+    {
+        try
+        {
+            await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
+            handler("Success");
+        }
+        catch (AuthenticationException ex)
+        {
+            if (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
+            {
+                handler("Username is already in user. Please try a different one.");
+            }
+            else
+            {
+                handler("Something went wrong. Please try again later.");
+            }
+        }
+        catch (RequestFailedException)
+        {
+            handler("Something went wrong. Please try again later.");
+        }
+    }
+
+    public async Task SignUpWithUnityAsync(string username, RegisterUserHandler handler)
+    {
+        try
+        {
+            await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+            PlayerData.shared = new();
+            PlayerData.shared.userName = username;
+            handler("Success");
+        }
+        catch (AuthenticationException ex)
+        {
+            if (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
+            {
+                handler("Username is already in user. Please try a different one.");
+            }
+            else
+            {
+                handler("Something went wrong. Please try again later.");
+            }
+        }
+        catch (RequestFailedException)
+        {
+            handler("Something went wrong. Please try again later.");
+        }
+    }
+
+    public async Task SignInWithUsernamePasswordAsync(string username, string password, LoginUserHandler handler)
+    {
+        try
+        {
+            await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
+            await LoadSomeData();
+            handler("Success");
+        }
+        catch (AuthenticationException ex)
+        {
+            if (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
+            {
+                handler("Username is already in user. Please try a different one.");
+            }
+            else
+            {
+                handler("Something went wrong. Please try again later.");
+            }
+        }
+        catch (RequestFailedException)
+        {
+            handler("Something went wrong. Please try again later.");
+        }
+    }
+
+    public async Task SignInWithUnityAsync(LoginUserHandler handler)
+    {
+        try
+        {
+            await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+            await LoadSomeData();
+            handler("Success");
+        }
+        catch (AuthenticationException ex)
+        {
+            if (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
+            {
+                handler("Username is already in user. Please try a different one.");
+            }
+            else
+            {
+                handler("Something went wrong. Please try again later.");
+            }
+        }
+        catch (RequestFailedException)
+        {
+            handler("Something went wrong. Please try again later.");
+        }
+    }
+
+    public async Task<bool> LoginAsGuest()
+    {
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        return await LoadSomeData();
+    }
+
+    public async Task<bool> LoadSomeData()
+    {
+        Dictionary<string, string> savedData = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> { "SaveData" });
+        if (savedData == null)
+        {
+            PlayerData.shared = new();
+            return false;
+        }
+        else
+        {
+            PlayerData.shared = JsonUtility.FromJson<PlayerData>(savedData["SaveData"]);
+            return true;
+        }
     }
 }
