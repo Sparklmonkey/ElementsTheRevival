@@ -1,9 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Services.Authentication;
-using Unity.Services.CloudSave;
-using Unity.Services.Core;
-using Unity.Services.PlayerAccounts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -29,8 +25,7 @@ public class SplashScreen : MonoBehaviour
     private bool isLoadingNextScene = false;
     private bool mustWait = true;
     private bool dataLoaded = false;
-    [SerializeField]
-    private GameObject appUpdatePopUp;
+
     private IEnumerator MoveImageAround(GameObject imageToMove, int finalIndex)
     {
         if(finalIndex == 0)

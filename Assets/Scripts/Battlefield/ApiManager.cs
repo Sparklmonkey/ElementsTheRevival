@@ -11,17 +11,12 @@ using Unity.Services.PlayerAccounts;
 using System.Threading.Tasks;
 
 public delegate void CachedPlayerHandler(bool wasSuccess);
-public delegate void RegisterUserHandler(string responseMessage);
 public delegate void LoginUserHandler(string responseMessage);
 public delegate void CodeRedemptionHandler(CodeRedemptionResponse response);
 public delegate void LoginLegacyHandler(LoginResponse response);
 
-public delegate void AccountSuccessHandler(AccountResponse accountResponse);
-public delegate void AccountFailureHandler(AccountResponse accountResponse);
-public delegate void LoginSuccessHandler(LoginResponse loginResponse);
-public delegate void LoginFailureHandler(LoginResponse loginResponse);
 public delegate void GameStatUpdateHandler(bool wasSuccess);
-public delegate void GetArenaDeckHandler(ArenaResponse response);
+public delegate void ArenaResponseHandler(ArenaResponse response);
 
 public delegate void SimpleAction();
 
@@ -29,92 +24,29 @@ public class ApiManager : MonoBehaviour
 {
 
     public GameObject touchBlocker;
+
     public static bool isTrainer;
     public bool isUnityUser = false;
     public static ApiManager shared;
+
+    public void LogoutUser()
+    {
+        AuthenticationService.Instance.SignOut(true);
+    }
+
     private string BaseUrl = "https://www.sparklmonkeygames.com/";
     private string apiKey = "ElementRevival-ApiKey";
     private string token = "";
     private string playerID = "";
     private string emailAddress = "";
 
-    private string updateNote;
+    public AppInfo appInfo;
 
-    private class UpdateNote
+    public class AppInfo
     {
-        public string note;
-    }
-
-    public async void GetUpdateNote()
-    {
-        var response = await CloudCodeService.Instance.CallEndpointAsync<UpdateNote>("latest-update-note", null);
-        Debug.Log(response.note);
-        updateNote = response.note;
-    }
-
-    public IEnumerator Login(LoginRequest loginRequest, LoginSuccessHandler loginSuccess, LoginFailureHandler loginFailure)
-    {
-        using UnityWebRequest uwr = shared.CreateApiPostRequest("Login/login", loginRequest);
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result == UnityWebRequest.Result.ConnectionError)
-        {
-            LoginResponse loginResponse = new LoginResponse { errorMessage = ErrorCases.UnknownError };
-            loginFailure(loginResponse);
-        }
-        else
-        {
-            LoginResponse loginResponse = JsonUtility.FromJson<LoginResponse>(uwr.downloadHandler.text);
-            if (loginResponse.errorMessage == ErrorCases.AllGood)
-            {
-                loginSuccess(loginResponse);
-                yield break;
-            }
-
-            loginFailure(loginResponse);
-            yield break;
-        }
-    }
-
-    public IEnumerator CheckAppVersion(LoginRequest loginRequest, LoginSuccessHandler loginSuccess, LoginFailureHandler loginFailure)
-    {
-        using UnityWebRequest uwr = shared.CreateApiPostRequest("Login/version", loginRequest);
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result == UnityWebRequest.Result.ConnectionError)
-        {
-            LoginResponse loginResponse = new LoginResponse { errorMessage = ErrorCases.UnknownError };
-            loginFailure(loginResponse);
-        }
-        else
-        {
-            LoginResponse loginResponse = JsonUtility.FromJson<LoginResponse>(uwr.downloadHandler.text);
-            if (loginResponse.errorMessage == ErrorCases.AllGood)
-            {
-                loginSuccess(loginResponse);
-                yield break;
-            }
-
-            loginFailure(loginResponse);
-            yield break;
-        }
-    }
-
-    public IEnumerator RefreshToken(bool isRetry)
-    {
-        if (!isRetry) { yield return new WaitForSecondsRealtime(840); }
-
-        using UnityWebRequest uwr = shared.CreateApiGetRequest("UserData/refresh-token");
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result == UnityWebRequest.Result.Success)
-        {
-            SetToken(uwr.downloadHandler.text);
-        }
-        else
-        {
-            StartCoroutine(RefreshToken(true));
-        }
+        public bool isMaintainence;
+        public bool shouldUpdate;
+        public string updateNote;
     }
 
     public IEnumerator UpdateGameStats(GameStatRequest request, GameStatUpdateHandler handler)
@@ -125,47 +57,6 @@ public class ApiManager : MonoBehaviour
         handler(uwr.result == UnityWebRequest.Result.Success);
     }
 
-    public IEnumerator GetOpponentDeck(GetArenaDeckHandler handler)
-    {
-        using UnityWebRequest uwr = shared.CreateApiGetRequest("UserData/get-opponent");
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result == UnityWebRequest.Result.ConnectionError)
-        {
-            handler(new ArenaResponse());
-        }
-        else
-        {
-            ArenaResponse arenaResponse = JsonUtility.FromJson<ArenaResponse>(uwr.downloadHandler.text);
-            handler(arenaResponse);
-            yield break;
-        }
-    }
-
-    public IEnumerator RegisterUser(string endpoint, LoginRequest requestToSend, LoginSuccessHandler successHandler, LoginFailureHandler failureHandler)
-    {
-        UnityWebRequest uwr = shared.CreateApiPostRequest(endpoint, requestToSend);
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result == UnityWebRequest.Result.ConnectionError)
-        {
-            LoginResponse loginResponse = new LoginResponse { errorMessage = ErrorCases.UnknownError };
-            failureHandler(loginResponse);
-        }
-        else
-        {
-            LoginResponse loginResponse = JsonUtility.FromJson<LoginResponse>(uwr.downloadHandler.text);
-            if (loginResponse.errorMessage == ErrorCases.AllGood)
-            {
-                successHandler(loginResponse);
-                yield break;
-            }
-
-            failureHandler(loginResponse);
-            yield break;
-        }
-    }
-
     public void SetUsernameAndEmail(string emailAddress)
     {
         this.emailAddress = emailAddress;
@@ -174,7 +65,7 @@ public class ApiManager : MonoBehaviour
     private async void Start()
     {
         await UnityServices.InitializeAsync();
-        await PlayerAccountService.Instance.StartSignInAsync();
+        //await PlayerAccountService.Instance.StartSignInAsync();
         if (shared != null)
         {
             return;
@@ -183,125 +74,7 @@ public class ApiManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private async void SignInWithUnityTest()
-    {
-        await UnityServices.InitializeAsync();
-        PlayerAccountService.Instance.SignedIn += SignInWithUnity;
-        if (AuthenticationService.Instance.SessionTokenExists)
-        {
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            //LoadSomeData();
-        }
-        else
-        {
-            await PlayerAccountService.Instance.StartSignInAsync();
-        }
-
-    }
-
-    public async Task SaveDataToUnity()
-    {
-        var data = new Dictionary<string, object> { { "SaveData", PlayerData.shared } };
-        await CloudSaveService.Instance.Data.ForceSaveAsync(data);
-    }
-
-    async void SignInWithUnity()
-    {
-        try
-        {
-            await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
-            //LoadSomeData();
-        }
-        catch (AuthenticationException ex)
-        {
-            // Compare error code to AuthenticationErrorCodes
-            // Notify the player with the proper error message
-            Debug.LogException(ex);
-        }
-        catch (RequestFailedException ex)
-        {
-            // Compare error code to CommonErrorCodes
-            // Notify the player with the proper error message
-            Debug.LogException(ex);
-        }
-    }
-
     public string GetEmail() => emailAddress;
-
-    private async void UnityCloudSave()
-    {
-        var data = new Dictionary<string, object> { { "SaveData", PlayerData.shared } };
-        await CloudSaveService.Instance.Data.ForceSaveAsync(data);
-    }
-
-    public IEnumerator SaveToApi(AccountSuccessHandler successHandler, AccountFailureHandler failureHandler)
-    {
-        UnityCloudSave();
-        successHandler(new());
-        yield break;
-
-        AccountRequest requestToSend = new AccountRequest
-        {
-            PlayerId = shared.GetPlayerId(),
-            SavedData = PlayerData.shared,
-            Token = token
-        };
-
-        using UnityWebRequest uwr = shared.CreateApiPostRequest("UserData/save-game", requestToSend);
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result == UnityWebRequest.Result.ConnectionError)
-        {
-            AccountResponse accountResponse = new AccountResponse { errorMessage = ErrorCases.UnknownError };
-            failureHandler(accountResponse);
-        }
-        else
-        {
-            AccountResponse accountResponse = JsonUtility.FromJson<AccountResponse>(uwr.downloadHandler.text);
-            if (accountResponse.errorMessage == ErrorCases.AllGood)
-            {
-                token = accountResponse.token;
-                successHandler(accountResponse);
-                yield break;
-            }
-
-            failureHandler(accountResponse);
-            yield break;
-        }
-    }
-
-    public IEnumerator UpdateUserAccount(AccountRequest accountRequest, AccountSuccessHandler successHandler, AccountFailureHandler failureHandler)
-    {
-        accountRequest.Token = token;
-        accountRequest.PlayerId = playerID;
-
-        using UnityWebRequest uwr = shared.CreateApiPostRequest("UserData/update-account", accountRequest);
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result == UnityWebRequest.Result.ConnectionError)
-        {
-            Debug.Log("Error While Sending: " + uwr.error);
-        }
-        else
-        {
-            AccountResponse accountResponse = JsonUtility.FromJson<AccountResponse>(uwr.downloadHandler.text);
-            if (accountResponse.errorMessage == ErrorCases.AllGood)
-            {
-                successHandler(accountResponse);
-                yield break;
-            }
-
-            failureHandler(accountResponse);
-            yield break;
-        }
-    }
-
-    public void SetToken(string token)
-    {
-        this.token = token;
-
-        StartCoroutine(RefreshToken(false));
-    }
 
     public void SetPlayerId(string id) { shared.playerID = id; }
     public string GetPlayerId() => shared.playerID;
@@ -360,6 +133,7 @@ public class ApiManager : MonoBehaviour
             LoginResponse loginResponse = JsonUtility.FromJson<LoginResponse>(uwr.downloadHandler.text);
             if (loginResponse.errorMessage == ErrorCases.AllGood)
             {
+                PlayerData.LoadFromApi(loginResponse.playerData);
                 loginSuccess(loginResponse);
             }
 
@@ -367,6 +141,11 @@ public class ApiManager : MonoBehaviour
         }
     }
 
+    public async Task GetT50Opponent(ArenaResponseHandler handler)
+    {
+        var response = await CloudCodeService.Instance.CallEndpointAsync<ArenaResponse>("get-t50-opponent", null);
+        handler(response);
+    }
 
     public async Task CheckCodeRedemption(string redeemCode, CodeRedemptionHandler handler)
     {
@@ -377,30 +156,66 @@ public class ApiManager : MonoBehaviour
 
     public async void LoginCachedUser(CachedPlayerHandler handler)
     {
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        await GetAppInfo();
+
         if (AuthenticationService.Instance.SessionTokenExists)
         {
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
             var hasData = await LoadSomeData();
             handler(hasData);
         }
         else
         {
+            AuthenticationService.Instance.SignOut();
             handler(false);
         }
     }
 
-    public async Task SignUpWithUsernamePasswordAsync(string username, string password, RegisterUserHandler handler)
+    public async Task UserLoginAsync(LoginType loginType, LoginUserHandler handler, string username = "", string password = "")
     {
         try
         {
-            await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
+            switch (loginType)
+            {
+                case LoginType.Unity:
+                    await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+                    await LoadSomeData();
+                    isUnityUser = true;
+                    break;
+                case LoginType.UserPass:
+                    await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
+                    await LoadSomeData();
+                    break;
+                case LoginType.RegisterUserPass:
+                    await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
+                    PlayerData.shared = new();
+                    PlayerData.shared.userName = username;
+                    await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
+                    await SaveDataToUnity();
+                    break;
+                case LoginType.RegisterUnity:
+                    await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+                    PlayerData.shared = new();
+                    PlayerData.shared.userName = username;
+                    await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
+                    await SaveDataToUnity();
+                    isUnityUser = true;
+                    break;
+                case LoginType.LinkUserPass:
+                    await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
+                    await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
+                    await SaveDataToUnity();
+                    break;
+                default:
+                    break;
+            }
             handler("Success");
         }
         catch (AuthenticationException ex)
         {
             if (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
             {
-                handler("Username is already in user. Please try a different one.");
+                handler("Username is already in use. Please try a different one.");
             }
             else
             {
@@ -413,80 +228,58 @@ public class ApiManager : MonoBehaviour
         }
     }
 
-    public async Task SignUpWithUnityAsync(string username, RegisterUserHandler handler)
+    public async Task<bool> UpdateUserData(string inGameUserName, string oldPassword = "", string newPassword = "")
     {
         try
         {
-            await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
-            PlayerData.shared = new();
-            PlayerData.shared.userName = username;
-            handler("Success");
+            if(inGameUserName != PlayerData.shared.userName)
+            {
+                PlayerData.shared.userName = inGameUserName;
+                await AuthenticationService.Instance.UpdatePlayerNameAsync(inGameUserName);
+                await SaveDataToUnity();
+            }
+            if(oldPassword != "")
+            {
+                await AuthenticationService.Instance.UpdatePasswordAsync(oldPassword, newPassword);
+            }
+            return true;
         }
-        catch (AuthenticationException ex)
+
+        catch (AuthenticationException)
         {
-            if (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
-            {
-                handler("Username is already in user. Please try a different one.");
-            }
-            else
-            {
-                handler("Something went wrong. Please try again later.");
-            }
+            return false;
         }
         catch (RequestFailedException)
         {
-            handler("Something went wrong. Please try again later.");
+            return false;
         }
     }
 
-    public async Task SignInWithUsernamePasswordAsync(string username, string password, LoginUserHandler handler)
+    public async Task<bool> CheckUsername(string username)
     {
-        try
-        {
-            await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
-            await LoadSomeData();
-            handler("Success");
-        }
-        catch (AuthenticationException ex)
-        {
-            if (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
-            {
-                handler("Username is already in user. Please try a different one.");
-            }
-            else
-            {
-                handler("Something went wrong. Please try again later.");
-            }
-        }
-        catch (RequestFailedException)
-        {
-            handler("Something went wrong. Please try again later.");
-        }
+        var arguments = new Dictionary<string, object> { { "username", username } };
+        var response = await CloudCodeService.Instance.CallEndpointAsync<bool>("check-username", arguments);
+        return response;
     }
 
-    public async Task SignInWithUnityAsync(LoginUserHandler handler)
+    public async Task GetAppInfo()
     {
-        try
-        {
-            await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
-            await LoadSomeData();
-            handler("Success");
-        }
-        catch (AuthenticationException ex)
-        {
-            if (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
-            {
-                handler("Username is already in user. Please try a different one.");
-            }
-            else
-            {
-                handler("Something went wrong. Please try again later.");
-            }
-        }
-        catch (RequestFailedException)
-        {
-            handler("Something went wrong. Please try again later.");
-        }
+        var arguments = new Dictionary<string, object> { { "appVersion", Application.version } };
+        appInfo = await CloudCodeService.Instance.CallEndpointAsync<AppInfo>("get-app-info", arguments);
+        Debug.Log(appInfo);
+    }
+
+    public async Task SavePlayerScore()
+    {
+        var arguments = new Dictionary<string, object> { { "playerScore", PlayerData.shared.playerScore } };
+        await CloudCodeService.Instance.CallEndpointAsync("update-player-score", arguments);
+    }
+
+    public async Task SaveDataToUnity()
+    {
+        await SavePlayerScore();
+        var data = new Dictionary<string, object> { { "SaveData", PlayerData.shared } };
+        await CloudSaveService.Instance.Data.ForceSaveAsync(data);
     }
 
     public async Task<bool> LoginAsGuest()
@@ -509,4 +302,14 @@ public class ApiManager : MonoBehaviour
             return true;
         }
     }
+}
+
+
+public enum LoginType
+{
+    Unity,
+    UserPass,
+    RegisterUserPass,
+    RegisterUnity,
+    LinkUserPass
 }

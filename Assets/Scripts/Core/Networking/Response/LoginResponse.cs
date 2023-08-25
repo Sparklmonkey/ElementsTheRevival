@@ -11,17 +11,6 @@ public class LoginResponse
     public string token;
 }
 
-//[Serializable]
-//public class CodeRedemptionResponse
-//{
-//    public int electrumReward;
-//    public List<string> cardRewards;
-//    public bool wasValidCode;
-//    public bool isCardSelection;
-//    public bool isSingleUseCode;
-//    public PlayerData playerSavedData;
-//}
-
 [Serializable]
 public class CodeRedemptionResponse
 {

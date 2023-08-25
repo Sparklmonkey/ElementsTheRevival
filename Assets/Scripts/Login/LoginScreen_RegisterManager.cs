@@ -46,9 +46,17 @@ public class LoginScreen_RegisterManager : MonoBehaviour
             return;
         }
 
-        touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
-        touchBlocker.transform.SetAsFirstSibling();
-        await ApiManager.shared.SignUpWithUsernamePasswordAsync(username.text, password.text, HandleUserRegistration);
+        if(await ApiManager.shared.CheckUsername(username.text))
+        {
+            touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
+            touchBlocker.transform.SetAsFirstSibling();
+            await ApiManager.shared.UserLoginAsync(LoginType.RegisterUserPass, HandleUserRegistration, username.text, password.text);
+        }
+        else
+        {
+            serverResponse.text = "Username is already in use. Please try a different one.";
+        }
+
     }
 
     public async void AttemptToRegisterWithUnity()
@@ -59,14 +67,19 @@ public class LoginScreen_RegisterManager : MonoBehaviour
             return;
         }
 
-        touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
-        touchBlocker.transform.SetAsFirstSibling();
-        await ApiManager.shared.SignUpWithUnityAsync(username.text, HandleUserRegistration);
-        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(touchBlocker);
+        if (await ApiManager.shared.CheckUsername(username.text))
+        {
+            touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
+            touchBlocker.transform.SetAsFirstSibling();
+            await ApiManager.shared.UserLoginAsync(LoginType.RegisterUnity, HandleUserRegistration, username.text);
+        }
+        else
+        {
+            serverResponse.text = "Username is already in use. Please try a different one.";
+        }
     }
 
-    public void HandleUserRegistration(string responseMessage)
+    public async void HandleUserRegistration(string responseMessage)
     {
         touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(touchBlocker);
@@ -74,6 +87,7 @@ public class LoginScreen_RegisterManager : MonoBehaviour
         {
             PlayerData.shared = new();
             PlayerData.shared.userName = username.text;
+            await ApiManager.shared.SaveDataToUnity();
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
         }
         else

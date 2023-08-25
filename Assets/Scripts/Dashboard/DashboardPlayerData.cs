@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DashboardPlayerData : MonoBehaviour
@@ -11,7 +10,7 @@ public class DashboardPlayerData : MonoBehaviour
     [SerializeField]
     private Button oracleButton, falseGobButton;
     private static GameObject touchBlocker;
-    // Start is called before the first frame update
+
     void Start()
     {
         UpdateDashboard();
@@ -22,38 +21,24 @@ public class DashboardPlayerData : MonoBehaviour
     {
         CancelInvoke();
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    public void PeriodicSave()
+    public async void PeriodicSave()
     {
         if (ApiManager.isTrainer)
         {
             return;
         }
-        PlayerData.SaveData();
-        if (PlayerPrefs.GetInt("IsGuest") == 1)
-        {
-            PlayerData.SaveData();
-        }
-        else
-        {
-            touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-            StartCoroutine(ApiManager.shared.SaveToApi(AccountSuccess, AccountFailure));
-        }
-    }
+        await ApiManager.shared.SaveDataToUnity();
 
-
-    private void AccountSuccess(AccountResponse accountResponse)
-    {
-        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(touchBlocker);
         saveStatus.transform.parent.gameObject.SetActive(true);
         saveStatus.text = "Save Success";
-        Invoke("HideSaveStatus", 3f);
+        Invoke(nameof(HideSaveStatus), 3f);
+    }
+
+    public void LogoutUser()
+    {
+        ApiManager.shared.LogoutUser();
+        SceneManager.LoadScene("LoginScreen");
     }
 
     private void HideSaveStatus()
@@ -61,14 +46,6 @@ public class DashboardPlayerData : MonoBehaviour
         saveStatus.transform.parent.gameObject.SetActive(false);
     }
 
-    private void AccountFailure(AccountResponse accountResponse)
-    {
-        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(touchBlocker);
-        saveStatus.transform.parent.gameObject.SetActive(true);
-        saveStatus.text = "Save Failed";
-        Invoke("HideSaveStatus", 3f);
-    }
     public void UpdateDashboard()
     {
         playerScore.text = PlayerData.shared.playerScore.ToString();

@@ -80,22 +80,22 @@ public class LoginScreen_SetupManager : MonoBehaviour
     {
         touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
         touchBlocker.transform.SetAsFirstSibling();
-        await ApiManager.shared.SignInWithUsernamePasswordAsync(username.text, password.text, HandleUserLogin);
+        await ApiManager.shared.UserLoginAsync(LoginType.UserPass, HandleUserLogin, username.text, password.text);
     }
 
     public async void AttemptToLoginUnity()
     {
         touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
         touchBlocker.transform.SetAsFirstSibling();
-        await ApiManager.shared.SignInWithUnityAsync(HandleUserLogin);
+        await ApiManager.shared.UserLoginAsync(LoginType.Unity, HandleUserLogin);
     }
 
     public void HandleUserLogin(string responseMessage)
     {
-        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(touchBlocker);
         if (responseMessage == "Success")
         {
+            touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+            Destroy(touchBlocker);
             if (PlayerData.shared.currentDeck.Count < 30)
             {
                 GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
@@ -107,29 +107,32 @@ public class LoginScreen_SetupManager : MonoBehaviour
         }
         else
         {
-            errorMessage.text = responseMessage;
+            HandleUserLoginWithLegacyFallback();
         }
     }
 
 
     private async void HandleLegacyUserLogin(LoginResponse response)
     {
-        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(touchBlocker);
 
-        if (username.text.UsernameCheck() && password.text.PasswordCheck())
+        if (username.text.UsernameCheck() && password.text.PasswordCheck() && await ApiManager.shared.CheckUsername(username.text))
         {
-            await ApiManager.shared.SignUpWithUsernamePasswordAsync(username.text, password.text, HandleUserRegistration);
+            await ApiManager.shared.UserLoginAsync(LoginType.RegisterUserPass, HandleUserRegistration, username.text, password.text);
+            await ApiManager.shared.SaveDataToUnity();
             return;
         }
+        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+        Destroy(touchBlocker);
         selectNewUserPassword.SetActive(true);
     }
 
     public async void UpdateUsernamePassword()
     {
-        if (newUsername.text.UsernameCheck() && newPassword.text.PasswordCheck())
+        touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+        touchBlocker.transform.SetAsFirstSibling();
+        if (newUsername.text.UsernameCheck() && newPassword.text.PasswordCheck() && await ApiManager.shared.CheckUsername(username.text))
         {
-            await ApiManager.shared.SignUpWithUsernamePasswordAsync(newUsername.text, newPassword.text, HandleUserRegistration);
+            await ApiManager.shared.UserLoginAsync(LoginType.UserPass, HandleUserRegistration, username.text, password.text);
             return;
         }
     }
@@ -154,8 +157,6 @@ public class LoginScreen_SetupManager : MonoBehaviour
         Destroy(touchBlocker);
         if (responseMessage == "Success")
         {
-            PlayerData.shared = new();
-            PlayerData.shared.userName = username.text;
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
         }
         else

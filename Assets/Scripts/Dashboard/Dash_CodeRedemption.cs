@@ -81,7 +81,7 @@ public class Dash_CodeRedemption : MonoBehaviour
         cardDisplayDetail.SetupCardView(card, true, false);
     }
 
-    public void ChooseCard()
+    public async void ChooseCard()
     {
         if (ApiManager.isTrainer)
         {
@@ -89,22 +89,12 @@ public class Dash_CodeRedemption : MonoBehaviour
         }
         PlayerData.shared.cardInventory.Add(cardDisplayDetail.card.iD);
 
-        StartCoroutine(ApiManager.shared.SaveToApi(AccountSuccess, AccountFailure));
+        await ApiManager.shared.SaveDataToUnity();
         electrumRewardDisplay.SetActive(false);
         cardRewardObject.SetActive(false);
         cardDisplayDetail.gameObject.SetActive(false);
         redeemObject.SetActive(false);
         chooseCardButton.SetActive(false);
-    }
-
-
-    private static void AccountSuccess(AccountResponse accountResponse)
-    {
-        //Maybe Do Something??
-    }
-    private static void AccountFailure(AccountResponse accountResponse)
-    {
-        // Maybe Do Something??
     }
 
     public void HideRedeem()
