@@ -46,5 +46,15 @@ namespace Elements.Duel.Manager
             if (availableIndex < 0) { return; }
             pairList[availableIndex].PlayCard(card);
         }
+
+        public void ShowCardsForPrecog()
+        {
+            foreach (var item in pairList)
+            {
+                if (!item.HasCard()) { continue; }
+                item.isHidden = false;
+                item.UpdateCard();
+            }
+        }
     }
 }

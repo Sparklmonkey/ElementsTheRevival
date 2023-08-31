@@ -23,7 +23,7 @@ public class Earthquake : AbilityEffect
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerPermanentManager.GetAllValidCardIds();
-        possibleTargets.AddRange(enemy.playerPermanentManager.GetAllValidCardIds());
+        possibleTargets.AddRange(enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.cardType == CardType.Pillar));
         if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable());
     }

@@ -12,7 +12,7 @@ public class EffectDisplayManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _poisonCount;
 
-    public void UpdateEffectDisplay(Card card, int stack)
+    public void UpdateEffectDisplay(Card card, int stack, bool isHidden = true)
     {
         _momentumImage.SetActive(card.passiveSkills.Momentum);
         _psionImage.SetActive(card.passiveSkills.Psion);

@@ -1,18 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class DeckManagerInputManager : MonoBehaviour
+public class DeckCodeManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private TMP_InputField legacyDeckCodeField, oetgDeckCodeField;
+
+    public void SetupFields(string deckCode, Element markElement)
     {
-        
+        if(deckCode.Contains(" "))
+        {
+            legacyDeckCodeField.text = deckCode + " " + CardDatabase.Instance.markIds[(int)markElement];
+            oetgDeckCodeField.text = legacyDeckCodeField.text.ConvertLegacyToOetg();
+        }
+        else
+        {
+            oetgDeckCodeField.text = deckCode;
+            legacyDeckCodeField.text = deckCode.ConvertOetgToLegacy();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public string GetDeckCode() => legacyDeckCodeField.text;
+
+    public void UpdateDeckFields(TMP_InputField deckCode)
     {
-        
+        if (deckCode.text.Contains(" "))
+        {
+            legacyDeckCodeField.text = deckCode.text;
+            oetgDeckCodeField.text = deckCode.text.ConvertLegacyToOetg();
+        }
+        else
+        {
+            oetgDeckCodeField.text = deckCode.text;
+            legacyDeckCodeField.text = deckCode.text.ConvertOetgToLegacy();
+        }
     }
 }

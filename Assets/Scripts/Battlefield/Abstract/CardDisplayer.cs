@@ -158,7 +158,7 @@ public abstract class CardDisplayer : MonoBehaviour
     }
 
 
-    public abstract void DisplayCard(Card cardToDisplay, int stack = 0);
+    public abstract void DisplayCard(Card cardToDisplay, int stack = 0, bool isHidden = true);
     public abstract void HideCard(Card cardToDisplay, int stack = 0);
 
     private enum DissolveState

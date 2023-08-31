@@ -59,7 +59,7 @@ public class LoginScreen_SetupManager : MonoBehaviour
         fullList.Sort((x, y) => string.Compare(x, y));
         PlayerData.shared.cardInventory = new List<string>(fullList);
 
-        PlayerData.shared.currentDeck = Resources.Load<StarterDeck>($"StarterDecks/Darkness").deck.SerializeCard();
+        PlayerData.shared.currentDeck = StarterDecks.Instance.GetStarterDeck(Element.Darkness);
         PlayerData.shared.markElement = Element.Darkness;
         PlayerData.shared.currentQuestIndex = 8;
         PlayerData.shared.electrum = 9999999;
