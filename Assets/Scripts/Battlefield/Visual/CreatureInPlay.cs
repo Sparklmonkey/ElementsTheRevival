@@ -17,7 +17,7 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private GameObject upMovingText, activeAHolder;
 
-        public override void DisplayCard(Card cardToDisplay, int stackAmount)
+        public override void DisplayCard(Card cardToDisplay, int stackAmount, bool isHidden)
         {
             transform.parent.gameObject.SetActive(true);
             cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);

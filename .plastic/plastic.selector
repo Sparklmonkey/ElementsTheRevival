@@ -1,4 +1,3 @@
-repository "Elements Mobile@Sparklmonkey@cloud"
+rep "Elements Mobile@Sparklmonkey@cloud"
   path "/"
-    smartbranch "/main/New Main/masterBranch"  
-     
+    smartbranch "/main/New Main/masterBranch/BaseMain"    

@@ -3583,8 +3583,8 @@
 			"cost": 1,
 			"costElement": 2,
 			"rarity": 6,
-			"passiveSkills": {},
-			"innateSkills": { "vampire" : true },
+			"passiveSkills": { "vampire" : true },
+			"innateSkills": { },
 			"desc": "Weapon: Deal 4 damages at the end of every turn. The damage dealt is returned to you as healing."
 		},
 		{
@@ -7391,8 +7391,8 @@
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 18,
-			"passiveSkills": {},
-			"innateSkills": { "vampire" : true },
+			"passiveSkills": { "vampire" : true },
+			"innateSkills": { },
 			"desc": "Weapon: Deal 6 damages at the end of every turn. The damage dealt is returned to you as healing."
 		},
 		{

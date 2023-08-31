@@ -12,11 +12,12 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public Card card;
     public int stackCount = 0;
     public bool isPlayer;
+    public bool isHidden = true;
     public CardTypeBehaviour cardBehaviour;
 
     public bool IsActive() => transform.parent.gameObject.activeSelf;
 
-    public event Action<Card, int> OnCardChanged;
+    public event Action<Card, int, bool> OnCardChanged;
     public event Action<Card, int> OnCardRemoved;
 
     public event Action<IDCardPair, bool> OnHoverObject;
@@ -107,7 +108,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         }
         cardBehaviour.StackCount = stackCount;
         cardBehaviour.OnCardPlay();
-        OnCardChanged?.Invoke(card, stackCount);
+        OnCardChanged?.Invoke(card, stackCount, isHidden);
     }
 
     public void UpdateCard()
@@ -122,7 +123,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
                 return;
             }
         }
-        OnCardChanged?.Invoke(card, stackCount);
+        OnCardChanged?.Invoke(card, stackCount, isHidden);
     }
 
     public void RemoveCard()
@@ -132,6 +133,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             StartCoroutine(Game_AnimationManager.shared.PlayAnimation("CardDeath", transform));
             Game_SoundManager.shared.PlayAudioClip("RemoveCardFromField");
         }
+        isHidden = true;
         stackCount--;
         cardBehaviour.OnCardRemove();
         OnCardRemoved?.Invoke(card, stackCount);
@@ -146,7 +148,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     internal bool HasCard()
     {
         if( card == null && id.Field != FieldEnum.Player) { return false; }
-        return card != null && card.iD != "4t2" && card.iD != "4t1" && card.cardName != "" && card.cardType != CardType.Mark;
+        return card != null && card.iD != "4t2" && card.iD != "4t1" && card.cardName != "";
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -182,7 +184,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             return;
         }
         this.card = card;
-        OnCardChanged?.Invoke(card, stackCount);
+        OnCardChanged?.Invoke(card, stackCount, isHidden);
     }
 
     public void IsTargeted(bool shouldShowTarget)

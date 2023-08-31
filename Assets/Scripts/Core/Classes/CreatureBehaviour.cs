@@ -104,6 +104,36 @@ public class CreatureBehaviour : CardTypeBehaviour
             isFirstAttack = false;
             if (!shouldSkip)
             {
+
+                if (CardPair.card.innateSkills.Regenerate)
+                {
+                    Owner.ModifyHealthLogic(5, false, false);
+                }
+                if (CardPair.card.innateSkills.Fiery)
+                {
+                    atkNow += Mathf.FloorToInt(Owner.GetAllQuantaOfElement(Element.Fire) / 5);
+                }
+                if (CardPair.card.innateSkills.Hammer)
+                {
+                    if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Earth || Owner.playerPassiveManager.GetMark().card.costElement == Element.Gravity)
+                    {
+                        atkNow++;
+                    }
+                }
+                if (CardPair.card.innateSkills.Dagger)
+                {
+                    if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Death || Owner.playerPassiveManager.GetMark().card.costElement == Element.Darkness)
+                    {
+                        atkNow++;
+                    }
+                }
+                if (CardPair.card.innateSkills.Bow)
+                {
+                    if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Air)
+                    {
+                        atkNow++;
+                    }
+                }
                 bool isFreedomEffect = Random.Range(0, 100) < (25 * Owner.playerCounters.freedom) && CardPair.card.costElement.Equals(Element.Air);
                 atkNow = Mathf.FloorToInt(isFreedomEffect ? atkNow * 1.5f : atkNow);
                 Game_SoundManager.shared.PlayAudioClip("CreatureDamage");
@@ -129,7 +159,7 @@ public class CreatureBehaviour : CardTypeBehaviour
                     }
                 }
 
-                if (atkNow > 0)
+                if (atkNow > 0 && adrenalineIndex < 2)
                 {
                     if (CardPair.card.passiveSkills.Venom)
                     {
@@ -144,7 +174,8 @@ public class CreatureBehaviour : CardTypeBehaviour
                         Enemy.AddPlayerCounter(PlayerCounters.Neurotoxin, 1);
                     }
                 }
-                if (atkNow != 0)
+
+                if (atkNow != 0 && adrenalineIndex < 2)
                 {
                     if (CardPair.card.passiveSkills.Vampire)
                     {
@@ -153,15 +184,18 @@ public class CreatureBehaviour : CardTypeBehaviour
                     Enemy.ModifyHealthLogic(atkNow, true, CardPair.card.passiveSkills.Psion);
                 }
 
-                EndTurnPassiveEffect();
+                if (adrenalineIndex < 2)
+                {
+                    EndTurnPassiveEffect();
+                }
+
                 SingularityEffect();
-                CreatureTurnDownTick();
                 CardPair.UpdateCard();
                 if (!CardPair.HasCard()) { return; }
                 if (CardPair.card.AtkNow != 0 && hasAdrenaline)
                 {
                     adrenalineIndex++;
-                    if (DuelManager.AdrenalineDamageList[Mathf.Abs(CardPair.card.AtkNow) - 1].Count >= adrenalineIndex)
+                    if (DuelManager.AdrenalineDamageList[Mathf.Abs(CardPair.card.AtkNow) - 1].Count <= adrenalineIndex)
                     {
                         hasAdrenaline = false;
                     }
@@ -175,6 +209,8 @@ public class CreatureBehaviour : CardTypeBehaviour
                     }
                 }
             }
+            CreatureTurnDownTick();
+            CardPair.UpdateCard();
         }
     }
 
@@ -207,9 +243,9 @@ public class CreatureBehaviour : CardTypeBehaviour
                 if (Enemy.GetAllQuantaOfElement(Element.Other) > 0 && Enemy.playerCounters.sanctuary == 0)
                 {
                     Enemy.SpendQuantaLogic(Element.Other, 1);
-                    Game_AnimationManager.shared.StartAnimation("QuantaGenerate", transform, Element.Darkness);
-                    Owner.GenerateQuantaLogic(Element.Darkness, 1);
                 }
+                Game_AnimationManager.shared.StartAnimation("QuantaGenerate", transform, Element.Darkness);
+                Owner.GenerateQuantaLogic(Element.Darkness, 1);
             }
             if (CardPair.card.passiveSkills.Overdrive)
             {
@@ -225,6 +261,7 @@ public class CreatureBehaviour : CardTypeBehaviour
             {
                 Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("4t8"));
             }
+
         }
 
         if (CardPair.card.innateSkills.Swarm)

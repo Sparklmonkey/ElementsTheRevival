@@ -13,7 +13,7 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private TextMeshProUGUI cardName, cardCost;
 
-        public override void DisplayCard(Card cardToDisplay, int stack = 1)
+        public override void DisplayCard(Card cardToDisplay, int stack = 1, bool isHidden = true)
         {
             if(cardToDisplay == null)
             {
@@ -23,12 +23,22 @@ namespace Elements.Duel.Visual
             transform.parent.gameObject.SetActive(true);
             if (!belongsToPlayer)
             {
-                isHidden.color = ElementColours.GetWhiteColor();
-                cardName.text = " ";
+                Debug.Log("Belongs to Ai");
+                if(isHidden)
+                {
+                    Debug.Log("Should be Hidden");
+                    this.isHidden.sprite = ImageHelper.GetCardBackImage();
+                    this.isHidden.color = ElementColours.GetWhiteColor();
+                    cardName.text = " ";
+                    PlayMaterializeAnimation(Element.Aether);
+                    return;
+                }
+                Debug.Log("Should be Shown");
+                this.isHidden.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
                 PlayMaterializeAnimation(Element.Aether);
                 return;
             }
-            isHidden.color = ElementColours.GetInvisibleColor();
+            this.isHidden.color = ElementColours.GetInvisibleColor();
 
             cardName.text = cardToDisplay.cardName;
             cardName.font = cardToDisplay.iD.IsUpgraded() ? underlayWhite : underlayBlack;
@@ -63,16 +73,6 @@ namespace Elements.Duel.Visual
             SetCardImage(cardToDisplay.imageID, cardToDisplay.cardName.Contains("Pendulum"), cardToDisplay.costElement == cardToDisplay.skillElement, cardToDisplay.costElement);
 
             PlayMaterializeAnimation(cardToDisplay.costElement);
-        }
-
-        internal void ShowCardForPrecog(Card cardToDisplay)
-        {
-            isHidden.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
-        }
-
-        internal void HideCardForPrecog()
-        {
-            isHidden.sprite = ImageHelper.GetCardBackImage();
         }
 
         private void SetCardImage(string imageId, bool isPendulum, bool shouldShowMarkElement, Element costElement)

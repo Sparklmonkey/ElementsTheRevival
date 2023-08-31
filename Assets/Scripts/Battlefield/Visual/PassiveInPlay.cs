@@ -17,7 +17,7 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private GameObject upMovingText, activeAHolder, immaterialIndicator;
         
-        public override void DisplayCard(Card cardToDisplay, int stack = 0)
+        public override void DisplayCard(Card cardToDisplay, int stack = 0, bool isHidden = true)
         {
             cardImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
             cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);

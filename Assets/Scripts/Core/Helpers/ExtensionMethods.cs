@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Threading;
 using UnityEngine;
 
 public static class ExtensionMethods
 {
-    private static readonly string usernameCriteria = @"^[a-zA-Z0-9.,@_-]{3,20}$";
-    private static readonly string passwordCriteria = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!#$%^&*()\-_=+{};:,<.>/?\\[\]|]).{8,30}$";
-    public static bool UsernameCheck(this string username) => Regex.IsMatch(username, usernameCriteria, RegexOptions.None);
-    public static bool PasswordCheck(this string password) => Regex.IsMatch(password, passwordCriteria, RegexOptions.None);
+
 
     public static List<string> SerializeCard(this List<Card> cardList)
     {
@@ -298,6 +294,69 @@ public static class ExtensionMethods
     }
 
     private static readonly List<string> _bazaarIllegalIds = new() { "4sj", "4sk", "4sl", "4sm", "4sn", "4so", "4sp", "4sq", "4sr", "4st", "8pu", "4t8", "4vr", "4t1", "4t2", "8pu", "8pr", "8pt", "8pq", "8pk", "8pm", "8pj", "8ps", "8po", "8pl", "8pn", "8pp" };
+
+
+    public static string ConvertLegacyToOetg(this string legacyCode)
+    {
+        var returnString = "0";
+        var legacyList = legacyCode.Split(" ");
+        var cardDict = new Dictionary<string, int>();
+        var markId = "";
+        foreach (var item in legacyList)
+        {
+            if (item == " ") { continue; }
+            if (item == "") { continue; }
+            if (CardDatabase.Instance.markIds.Contains(item)) { markId = item; continue; }
+            if (cardDict.ContainsKey(item))
+            {
+                cardDict[item]++;
+            }
+            else
+            {
+                cardDict.Add(item, 1);
+            }
+        }
+        foreach (KeyValuePair<string, int> item in cardDict)
+        {
+            var countString = item.Value.IntToBase32();
+            var cardId = (item.Key.Base32ToInt() - 4000).IntToBase32().ToString();
+            var stringId = cardId.Length == 2 ? $"0{cardId}" : cardId;
+            returnString += $"{countString}{stringId}0";
+        }
+        return returnString + $"1{markId}";
+    }
+
+    public static string ConvertOetgToLegacy(this string oetgCode)
+    {
+        var returnStr = new List<string>();
+        var deckSeparated = new List<string>(ChunksUpto(oetgCode, 5));
+        var mark = deckSeparated[^1][1..];
+        deckSeparated.RemoveAt(deckSeparated.Count - 1);
+
+        foreach (var oCard in deckSeparated)
+        {
+            int cardCount = oCard[0].ToString().Base32ToInt();
+            var legacyId = (oCard[1..].Base32ToInt() + 4000).IntToBase32();
+            for (int i = 0; i < cardCount; i++)
+            {
+                returnStr.Add(legacyId);
+            }
+        }
+
+        returnStr.Add(mark);
+        return string.Join(" ", returnStr);
+    }
+
+    static List<string> ChunksUpto(string str, int maxChunkSize)
+    {
+        var returnStr = new List<string>();
+        for (int i = 0; i < str.Length; i += maxChunkSize)
+        {
+            returnStr.Add(str.Substring(i, Math.Min(maxChunkSize, str.Length - i))[1..]);
+        }
+
+        return returnStr;
+    }
 
     public static bool IsUpgraded(this string cardID)
     {

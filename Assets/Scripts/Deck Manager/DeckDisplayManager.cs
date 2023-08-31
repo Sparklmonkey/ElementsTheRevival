@@ -184,7 +184,7 @@ public class DeckDisplayManager : MonoBehaviour
 
     public void RemoveAllDeckCards()
     {
-        List<DMCardPrefab> children = new List<DMCardPrefab>(deckContentView.GetComponentsInChildren<DMCardPrefab>());
+        List<DMCardPrefab> children = new(deckContentView.GetComponentsInChildren<DMCardPrefab>());
         foreach (DMCardPrefab child in children)
         {
             playerInverntory.Add(child.GetCard());
@@ -233,7 +233,6 @@ public class DeckDisplayManager : MonoBehaviour
         playerDeck.Add(card);
         UpdateCardView();
     }
-
 
     public void ShowCardDisplay(Card card)
     {
@@ -286,8 +285,9 @@ public class DeckDisplayManager : MonoBehaviour
         {
             returnString += $"{card.iD} ";
         }
-        returnString += $"{CardDatabase.Instance.markIds[(int)markManager.GetMarkSelected()]}";
-        deckCodeField.text = returnString;
+        //returnString += $"{CardDatabase.Instance.markIds[(int)markManager.GetMarkSelected()]}";
+        GetComponent<DeckCodeManager>().SetupFields(returnString, markManager.GetMarkSelected());
+        //deckCodeField.text = returnString;
     }
 
     public void OpenDeckPreset(string deckCode)
@@ -309,10 +309,10 @@ public class DeckDisplayManager : MonoBehaviour
         deckCodePopUpObject.SetActive(false);
     }
 
-    public void ImportDeckCode()
+    public void ImportLegacyDeckCode()
     {
         RemoveAllDeckCards();
-        List<string> idList = new List<string>(deckCodeField.text.Split(" "));
+        List<string> idList = new (deckCodeField.text.Split(" "));
         foreach (var id in idList)
         {
             int cardIndex = playerInverntory.FindIndex(x => x.iD == id);
@@ -328,7 +328,7 @@ public class DeckDisplayManager : MonoBehaviour
         deckCodePopUpObject.SetActive(false);
     }
 
-    public async void SaveDeck()
+    public void SaveDeck()
     {
         if (playerDeck.Count >= 30 && playerDeck.Count <= 60)
         {
@@ -349,30 +349,23 @@ public class DeckDisplayManager : MonoBehaviour
                 GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
                 return;
             }
-
-            menuBtn.gameObject.SetActive(false);
-            touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-            await ApiManager.shared.SaveDataToUnity();
-
-            touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-            Destroy(touchBlocker);
-            menuBtn.gameObject.SetActive(true);
-            if (isArena)
+            if (PlayerPrefs.GetInt("IsGuest") == 1)
             {
-                isArena = false;
-                SceneManager.LoadScene("Top50");
+                PlayerData.SaveData();
+                GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
             }
             else
             {
-                isArena = false;
-                SceneManager.LoadScene("Dashboard");
+                menuBtn.gameObject.SetActive(false);
+                touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+                StartCoroutine(ApiManager.shared.SaveToApi(AccountSuccess, AccountFailure));
             }
             return;
         }
         errorMessage.SetupErrorMessage("You deck has to have between 30 and 60 cards");
     }
 
-    public async void GoToBazaar()
+    public void GoToBazaar()
     {
         if (playerDeck.Count >= 30 && playerDeck.Count <= 60)
         {
@@ -388,16 +381,40 @@ public class DeckDisplayManager : MonoBehaviour
                 PlayerData.shared.cardInventory = playerInverntory.SerializeCard();
             }
 
-            menuBtn.gameObject.SetActive(false);
-            touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-            await ApiManager.shared.SaveDataToUnity();
-
-            touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-            Destroy(touchBlocker);
-            menuBtn.gameObject.SetActive(true);
-            SceneManager.LoadScene("Bazaar");
+            if (ApiManager.isTrainer)
+            {
+                GetComponent<DashboardSceneManager>().LoadNewScene("Bazaar");
+                return;
+            }
+            if (PlayerPrefs.GetInt("IsGuest") == 1)
+            {
+                PlayerData.SaveData();
+                GetComponent<DashboardSceneManager>().LoadNewScene("Bazaar");
+            }
+            else
+            {
+                bazaarBtn.gameObject.SetActive(false);
+                touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+                isArena = false;
+                StartCoroutine(ApiManager.shared.SaveToApi(AccountBazaarSuccess, AccountBazaarFailure));
+            }
             return;
         }
         errorMessage.SetupErrorMessage("You deck has to have between 30 and 60 cards");
+    }
+
+    private void AccountBazaarSuccess(AccountResponse accountResponse)
+    {
+        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+        Destroy(touchBlocker);
+        bazaarBtn.gameObject.SetActive(true);
+        SceneManager.LoadScene("Bazaar");
+    }
+    private void AccountBazaarFailure(AccountResponse accountResponse)
+    {
+        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+        Destroy(touchBlocker);
+        bazaarBtn.gameObject.SetActive(true);
+        SceneManager.LoadScene("Bazaar");
     }
 }
