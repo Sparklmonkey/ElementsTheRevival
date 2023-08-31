@@ -17,11 +17,16 @@ public class Drainlife : AbilityEffect
             Owner.ModifyHealthLogic(damageToDeal, false, false);
             return;
         }
+        int defPlaceHolder = target.card.DefNow;
         target.card.DefDamage += damageToDeal;
-        Owner.ModifyHealthLogic(target.card.DefNow < damageToDeal ? target.card.DefNow : damageToDeal, false, false);
+        var amountToHeal = target.card.DefNow > 0 ? damageToDeal : defPlaceHolder;
+
+
+        Owner.ModifyHealthLogic(amountToHeal, false, false);
         if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
-            Owner.ModifyHealthLogic(target.card.DefNow < damageToDeal ? target.card.DefNow : damageToDeal, true, false);
+
+            Owner.ModifyHealthLogic(amountToHeal, true, false);
         }
         target.UpdateCard();
     }

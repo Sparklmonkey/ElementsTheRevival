@@ -18,7 +18,7 @@ namespace Elements.Duel.Visual
 
         public override void HideCard(Card cardToDisplay, int stackCountValue) => ManagePermanent(cardToDisplay, stackCountValue);
 
-        public override void DisplayCard(Card cardToDisplay, int stackCountValue) => ManagePermanent(cardToDisplay, stackCountValue);
+        public override void DisplayCard(Card cardToDisplay, int stackCountValue, bool isHidden = true) => ManagePermanent(cardToDisplay, stackCountValue);
 
         private void ManagePermanent(Card cardToDisplay, int stackCountValue)
         {

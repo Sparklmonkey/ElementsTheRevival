@@ -184,7 +184,7 @@ public class DeckDisplayManager : MonoBehaviour
 
     public void RemoveAllDeckCards()
     {
-        List<DMCardPrefab> children = new List<DMCardPrefab>(deckContentView.GetComponentsInChildren<DMCardPrefab>());
+        List<DMCardPrefab> children = new(deckContentView.GetComponentsInChildren<DMCardPrefab>());
         foreach (DMCardPrefab child in children)
         {
             playerInverntory.Add(child.GetCard());
@@ -233,7 +233,6 @@ public class DeckDisplayManager : MonoBehaviour
         playerDeck.Add(card);
         UpdateCardView();
     }
-
 
     public void ShowCardDisplay(Card card)
     {
@@ -286,8 +285,9 @@ public class DeckDisplayManager : MonoBehaviour
         {
             returnString += $"{card.iD} ";
         }
-        returnString += $"{CardDatabase.Instance.markIds[(int)markManager.GetMarkSelected()]}";
-        deckCodeField.text = returnString;
+        //returnString += $"{CardDatabase.Instance.markIds[(int)markManager.GetMarkSelected()]}";
+        GetComponent<DeckCodeManager>().SetupFields(returnString, markManager.GetMarkSelected());
+        //deckCodeField.text = returnString;
     }
 
     public void OpenDeckPreset(string deckCode)
@@ -309,10 +309,10 @@ public class DeckDisplayManager : MonoBehaviour
         deckCodePopUpObject.SetActive(false);
     }
 
-    public void ImportDeckCode()
+    public void ImportLegacyDeckCode()
     {
         RemoveAllDeckCards();
-        List<string> idList = new List<string>(deckCodeField.text.Split(" "));
+        List<string> idList = new (deckCodeField.text.Split(" "));
         foreach (var id in idList)
         {
             int cardIndex = playerInverntory.FindIndex(x => x.iD == id);

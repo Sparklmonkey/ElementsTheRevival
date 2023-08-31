@@ -336,20 +336,8 @@ public class PlayerManager : MonoBehaviour
 
         for (int i = 0; i < cards.Count; i++)
         {
-            //handDisplayers[i].ShowCardForPrecog(cards[i]);
+            playerHand.ShowCardsForPrecog();
         }
-        shouldHideCards = true;
-    }
-    internal void HideHand()
-    {
-        if (!shouldHideCards) { return; }
-        var cards = playerHand.GetAllValidCardIds();
-
-        for (int i = 0; i < cards.Count; i++)
-        {
-            //handDisplayers[i].HideCardForPrecog();
-        }
-        shouldHideCards = false;
     }
 
     public void CardDetailButton(Button buttonCase)
@@ -496,7 +484,6 @@ public class PlayerManager : MonoBehaviour
 
     public List<ID> cloakIndex = new();
     public int sacrificeCount;
-    private bool shouldHideCards;
 
     //Play Card From Hand Logic and Visual Command Pair
     public void PlayCardFromHandLogic(IDCardPair cardID)
