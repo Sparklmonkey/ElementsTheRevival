@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -161,7 +161,6 @@ RectTransform:
   - {fileID: 1099156252}
   - {fileID: 1080656773}
   m_Father: {fileID: 89413799}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -237,7 +236,6 @@ RectTransform:
   m_Children:
   - {fileID: 1441057274}
   m_Father: {fileID: 1322493951}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.01, y: 0.01}
   m_AnchorMax: {x: 0.99, y: 0.45}
@@ -282,7 +280,6 @@ RectTransform:
   m_Children:
   - {fileID: 1821314493}
   m_Father: {fileID: 953248092}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -322,7 +319,6 @@ RectTransform:
   m_Children:
   - {fileID: 31966194}
   m_Father: {fileID: 1139119047}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0.1}
   m_AnchorMax: {x: 0.9, y: 0.9}
@@ -417,7 +413,6 @@ RectTransform:
   - {fileID: 297979169}
   - {fileID: 1085045750}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.013}
   m_AnchorMax: {x: 0.25, y: 0.086}
@@ -510,7 +505,6 @@ RectTransform:
   - {fileID: 286984386}
   - {fileID: 1992008275}
   m_Father: {fileID: 564089381}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.05}
   m_AnchorMax: {x: 0.97, y: 0.95}
@@ -560,6 +554,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -651,6 +646,9 @@ PrefabInstance:
       value: StarterDeckCard (34)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &156959708 stripped
 RectTransform:
@@ -699,7 +697,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 566059093}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -753,7 +750,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -837,7 +834,6 @@ RectTransform:
   - {fileID: 982552487}
   - {fileID: 705070419}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.178}
   m_AnchorMax: {x: 0.25, y: 0.251}
@@ -901,6 +897,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -992,6 +989,9 @@ PrefabInstance:
       value: StarterDeckCard (13)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &216353519 stripped
 RectTransform:
@@ -1003,6 +1003,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -1094,6 +1095,9 @@ PrefabInstance:
       value: StarterDeckCard (8)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &284997486 stripped
 RectTransform:
@@ -1105,6 +1109,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -1196,6 +1201,9 @@ PrefabInstance:
       value: StarterDeckCard (12)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &285139810 stripped
 RectTransform:
@@ -1234,7 +1242,6 @@ RectTransform:
   m_Children:
   - {fileID: 1417251657}
   m_Father: {fileID: 154275063}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.35, y: 0}
   m_AnchorMax: {x: 0.65, y: 1}
@@ -1313,7 +1320,6 @@ RectTransform:
   - {fileID: 885267863}
   - {fileID: 1629010935}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.423}
   m_AnchorMax: {x: 0.25, y: 0.496}
@@ -1404,7 +1410,6 @@ RectTransform:
   m_Children:
   - {fileID: 982219368}
   m_Father: {fileID: 154275063}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.3, y: 1}
@@ -1480,7 +1485,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 560960038}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -1556,7 +1560,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 101507852}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1610,7 +1613,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1665,6 +1668,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -1756,6 +1760,9 @@ PrefabInstance:
       value: StarterDeckCard (23)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &325999541 stripped
 RectTransform:
@@ -1805,7 +1812,6 @@ RectTransform:
   m_Children:
   - {fileID: 1723223333}
   m_Father: {fileID: 1329066438}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -1881,7 +1887,6 @@ RectTransform:
   - {fileID: 393373423}
   - {fileID: 1524446962}
   m_Father: {fileID: 1080656773}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2, y: 0.05}
   m_AnchorMax: {x: 0.36, y: 0.6}
@@ -1921,7 +1926,6 @@ RectTransform:
   m_Children:
   - {fileID: 1766793698}
   m_Father: {fileID: 364809596}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -2041,7 +2045,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1932475439}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2095,7 +2098,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2150,6 +2153,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -2241,6 +2245,9 @@ PrefabInstance:
       value: StarterDeckCard (28)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &456050710 stripped
 RectTransform:
@@ -2289,7 +2296,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 566059093}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -2339,6 +2345,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1322493951}
     m_Modifications:
     - target: {fileID: 668016794162726877, guid: f3376cb161d9649498e5cc73d9ec0cbd, type: 3}
@@ -2446,6 +2453,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3376cb161d9649498e5cc73d9ec0cbd, type: 3}
 --- !u!224 &471710103 stripped
 RectTransform:
@@ -2486,7 +2496,6 @@ RectTransform:
   m_Children:
   - {fileID: 865656975}
   m_Father: {fileID: 2095557781}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.62, y: 0.1}
   m_AnchorMax: {x: 0.72, y: 0.9}
@@ -2630,7 +2639,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2112410975}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -2685,7 +2693,6 @@ GameObject:
   m_Component:
   - component: {fileID: 499603671}
   - component: {fileID: 499603670}
-  - component: {fileID: 499603669}
   - component: {fileID: 499603668}
   - component: {fileID: 499603672}
   m_Layer: 5
@@ -2711,30 +2718,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 55
---- !u!114 &499603669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 499603667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 2340, y: 1080}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.5
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+    m_Bits: 4294967295
 --- !u!223 &499603670
 Canvas:
   m_ObjectHideFlags: 0
@@ -2752,7 +2736,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2770,7 +2756,6 @@ RectTransform:
   m_Children:
   - {fileID: 1139119047}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2843,6 +2828,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -2934,6 +2920,9 @@ PrefabInstance:
       value: StarterDeckCard (32)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &528538222 stripped
 RectTransform:
@@ -2956,6 +2945,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -3047,6 +3037,9 @@ PrefabInstance:
       value: StarterDeckCard (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &540120522 stripped
 RectTransform:
@@ -3094,9 +3087,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -3130,13 +3131,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 544775233}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &544775237
 MonoBehaviour:
@@ -3168,9 +3169,20 @@ MonoBehaviour:
   m_Dithering: 0
   m_ClearDepth: 1
   m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!1 &560960037
 GameObject:
   m_ObjectHideFlags: 0
@@ -3205,7 +3217,6 @@ RectTransform:
   - {fileID: 903025061}
   - {fileID: 296800112}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.508}
   m_AnchorMax: {x: 0.25, y: 0.581}
@@ -3421,7 +3432,6 @@ RectTransform:
   - {fileID: 739578952}
   - {fileID: 154275063}
   m_Father: {fileID: 31966194}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.45}
   m_AnchorMax: {x: 0.4, y: 0.55}
@@ -3462,7 +3472,6 @@ RectTransform:
   - {fileID: 206442057}
   - {fileID: 462582243}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.588}
   m_AnchorMax: {x: 0.25, y: 0.661}
@@ -3526,6 +3535,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -3617,6 +3627,9 @@ PrefabInstance:
       value: StarterDeckCard (7)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &573627619 stripped
 RectTransform:
@@ -3628,6 +3641,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -3719,6 +3733,9 @@ PrefabInstance:
       value: StarterDeckCard (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &578138233 stripped
 RectTransform:
@@ -3730,6 +3747,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -3821,6 +3839,9 @@ PrefabInstance:
       value: StarterDeckCard (11)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &587345800 stripped
 RectTransform:
@@ -3832,6 +3853,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -3923,6 +3945,9 @@ PrefabInstance:
       value: StarterDeckCard (37)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &599293367 stripped
 RectTransform:
@@ -3971,7 +3996,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 730845165}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -4021,6 +4045,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -4112,6 +4137,9 @@ PrefabInstance:
       value: StarterDeckCard (14)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &641369107 stripped
 RectTransform:
@@ -4214,7 +4242,6 @@ RectTransform:
   - {fileID: 786647985}
   - {fileID: 1433452358}
   m_Father: {fileID: 1234598626}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.05}
   m_AnchorMax: {x: 0.97, y: 0.95}
@@ -4252,7 +4279,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1405285850}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.75}
   m_AnchorMax: {x: 1, y: 1}
@@ -4361,6 +4387,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -4452,6 +4479,9 @@ PrefabInstance:
       value: StarterDeckCard (31)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &672210673 stripped
 RectTransform:
@@ -4500,7 +4530,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2112410975}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4554,7 +4583,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4635,7 +4664,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 211725331}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -4714,7 +4742,6 @@ RectTransform:
   - {fileID: 1663476522}
   - {fileID: 603288848}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.753}
   m_AnchorMax: {x: 0.25, y: 0.826}
@@ -4804,7 +4831,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 564089381}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0.05}
   m_AnchorMax: {x: 0.48, y: 0.95}
@@ -4965,7 +4991,6 @@ RectTransform:
   - {fileID: 101507852}
   - {fileID: 1322493951}
   m_Father: {fileID: 1139119047}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.95}
@@ -5015,6 +5040,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -5106,6 +5132,9 @@ PrefabInstance:
       value: StarterDeckCard (20)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &776000379 stripped
 RectTransform:
@@ -5153,7 +5182,6 @@ RectTransform:
   m_Children:
   - {fileID: 1381166761}
   m_Father: {fileID: 643939152}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5193,7 +5221,6 @@ RectTransform:
   m_Children:
   - {fileID: 1417697738}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.02}
   m_AnchorMax: {x: 0.75, y: 0.1}
@@ -5325,7 +5352,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1080287117}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0.05}
   m_AnchorMax: {x: 0.48, y: 0.95}
@@ -5574,7 +5600,6 @@ RectTransform:
   - {fileID: 1926504951}
   - {fileID: 1329066438}
   m_Father: {fileID: 31966194}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.65}
   m_AnchorMax: {x: 0.4, y: 0.75}
@@ -5586,6 +5611,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -5677,6 +5703,9 @@ PrefabInstance:
       value: StarterDeckCard (15)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &826298857 stripped
 RectTransform:
@@ -5716,7 +5745,6 @@ RectTransform:
   m_Children:
   - {fileID: 909588120}
   m_Father: {fileID: 1405285850}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -5836,7 +5864,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 478538858}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5890,7 +5917,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.25
+  m_fontSize: 34.8
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5945,6 +5972,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -6036,6 +6064,9 @@ PrefabInstance:
       value: StarterDeckCard (26)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &869233404 stripped
 RectTransform:
@@ -6073,7 +6104,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1514734518}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -6149,7 +6179,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 289759323}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6203,7 +6232,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6284,7 +6313,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 560960038}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6338,7 +6366,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6419,7 +6447,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1785698658}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.679, y: 0}
   m_AnchorMax: {x: 0.679, y: 1}
@@ -6495,7 +6522,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 855012266}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6571,7 +6597,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1322493951}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3, y: 0.5}
   m_AnchorMax: {x: 0.75, y: 0.99}
@@ -6773,7 +6798,6 @@ RectTransform:
   - {fileID: 86741712}
   - {fileID: 1785698658}
   m_Father: {fileID: 1080287117}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.05}
   m_AnchorMax: {x: 0.97, y: 0.95}
@@ -6811,7 +6835,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 294254149}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6946,7 +6969,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 211725331}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7002,7 +7024,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7057,6 +7079,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -7148,6 +7171,9 @@ PrefabInstance:
       value: StarterDeckCard (25)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &991241374 stripped
 RectTransform:
@@ -7170,6 +7196,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -7261,6 +7288,9 @@ PrefabInstance:
       value: StarterDeckCard (29)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &998664862 stripped
 RectTransform:
@@ -7298,7 +7328,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 763958236}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4, y: 1}
   m_AnchorMax: {x: 0.6, y: 1}
@@ -7352,7 +7381,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 71.4
+  m_fontSize: 75
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7436,7 +7465,6 @@ RectTransform:
   - {fileID: 1696077724}
   - {fileID: 1612096481}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.343}
   m_AnchorMax: {x: 0.25, y: 0.416}
@@ -7526,7 +7554,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2126702935}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7580,7 +7607,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7663,7 +7690,6 @@ RectTransform:
   - {fileID: 808102294}
   - {fileID: 953248092}
   m_Father: {fileID: 31966194}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.05}
   m_AnchorMax: {x: 0.4, y: 0.15}
@@ -7742,7 +7768,6 @@ RectTransform:
   - {fileID: 1405285850}
   - {fileID: 364809596}
   m_Father: {fileID: 31966194}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.35}
   m_AnchorMax: {x: 0.98, y: 0.75}
@@ -7818,7 +7843,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1992008275}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7955,7 +7979,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 101507852}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -8032,7 +8055,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 31966194}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.9}
   m_AnchorMax: {x: 0.05, y: 1}
@@ -8164,7 +8186,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 643939152}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8214,6 +8235,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -8305,6 +8327,9 @@ PrefabInstance:
       value: StarterDeckCard (17)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1108156165 stripped
 RectTransform:
@@ -8333,6 +8358,7 @@ GameObject:
   - component: {fileID: 1139119047}
   - component: {fileID: 1139119049}
   - component: {fileID: 1139119048}
+  - component: {fileID: 1139119050}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -8356,10 +8382,9 @@ RectTransform:
   - {fileID: 763958236}
   - {fileID: 89413799}
   m_Father: {fileID: 499603671}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8401,6 +8426,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139119046}
   m_CullTransparentMesh: 1
+--- !u!114 &1139119050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139119046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 3
+  m_AspectRatio: 2.1666667
 --- !u!114 &1157943442 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8297444730308556039, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -8456,7 +8495,6 @@ RectTransform:
   - {fileID: 2114908661}
   - {fileID: 643939152}
   m_Father: {fileID: 31966194}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.25}
   m_AnchorMax: {x: 0.4, y: 0.35}
@@ -8506,6 +8544,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -8597,6 +8636,9 @@ PrefabInstance:
       value: StarterDeckCard (21)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1239244215 stripped
 RectTransform:
@@ -8648,7 +8690,6 @@ RectTransform:
   - {fileID: 1289706731}
   - {fileID: 1863315758}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.093}
   m_AnchorMax: {x: 0.25, y: 0.166}
@@ -8749,7 +8790,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1274225565}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8803,7 +8843,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8884,7 +8924,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1932475439}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -8960,7 +8999,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1514734518}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9014,7 +9052,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9100,7 +9138,6 @@ RectTransform:
   - {fileID: 81801172}
   - {fileID: 1631152627}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3, y: 0.115}
   m_AnchorMax: {x: 0.97, y: 0.885}
@@ -9150,6 +9187,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -9241,6 +9279,9 @@ PrefabInstance:
       value: StarterDeckCard (19)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1326620414 stripped
 RectTransform:
@@ -9280,7 +9321,6 @@ RectTransform:
   - {fileID: 342011708}
   - {fileID: 2138745732}
   m_Father: {fileID: 825283588}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.05}
   m_AnchorMax: {x: 0.97, y: 0.95}
@@ -9356,7 +9396,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1080656773}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0.8}
   m_AnchorMax: {x: 0.75, y: 1}
@@ -9465,6 +9504,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -9556,6 +9596,9 @@ PrefabInstance:
       value: StarterDeckCard (10)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1374303714 stripped
 RectTransform:
@@ -9604,7 +9647,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 786647985}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.679, y: 1}
@@ -9654,6 +9696,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -9745,6 +9788,9 @@ PrefabInstance:
       value: StarterDeckCard (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1387973889 stripped
 RectTransform:
@@ -9793,7 +9839,6 @@ RectTransform:
   - {fileID: 855012266}
   - {fileID: 652696452}
   m_Father: {fileID: 1080656773}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.02, y: 0.05}
   m_AnchorMax: {x: 0.18, y: 0.6}
@@ -9831,7 +9876,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 286984386}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9966,7 +10010,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 791505432}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10100,7 +10143,6 @@ RectTransform:
   m_Children:
   - {fileID: 1725466377}
   m_Father: {fileID: 643939152}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10112,6 +10154,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -10203,6 +10246,9 @@ PrefabInstance:
       value: StarterDeckCard (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1434651006 stripped
 RectTransform:
@@ -10278,7 +10324,6 @@ RectTransform:
   - {fileID: 2138225976}
   - {fileID: 1965831233}
   m_Father: {fileID: 81801172}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10345,19 +10390,20 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1441144673}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1170, y: 540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1452682634
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -10449,6 +10495,9 @@ PrefabInstance:
       value: StarterDeckCard (24)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1452682635 stripped
 RectTransform:
@@ -10522,7 +10571,6 @@ RectTransform:
   - {fileID: 1316244037}
   - {fileID: 882148823}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.838}
   m_AnchorMax: {x: 0.25, y: 0.9110001}
@@ -10612,7 +10660,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 364809596}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.75}
   m_AnchorMax: {x: 1, y: 1}
@@ -10721,6 +10768,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -10812,6 +10860,9 @@ PrefabInstance:
       value: StarterDeckCard (22)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1535032201 stripped
 RectTransform:
@@ -10860,7 +10911,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2126702935}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -10947,7 +10997,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1073209430}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -11034,7 +11083,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 289759323}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -11084,6 +11132,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1322493951}
     m_Modifications:
     - target: {fileID: 668016794162726877, guid: f3376cb161d9649498e5cc73d9ec0cbd, type: 3}
@@ -11191,6 +11240,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3376cb161d9649498e5cc73d9ec0cbd, type: 3}
 --- !u!224 &1631152627 stripped
 RectTransform:
@@ -11218,6 +11270,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -11309,6 +11362,9 @@ PrefabInstance:
       value: StarterDeckCard (18)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1637801581 stripped
 RectTransform:
@@ -11331,6 +11387,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1322493951}
     m_Modifications:
     - target: {fileID: 668016794162726877, guid: f3376cb161d9649498e5cc73d9ec0cbd, type: 3}
@@ -11438,6 +11495,9 @@ PrefabInstance:
       value: 30.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3376cb161d9649498e5cc73d9ec0cbd, type: 3}
 --- !u!224 &1650789631 stripped
 RectTransform:
@@ -11486,7 +11546,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 730845165}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -11540,7 +11599,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11595,6 +11654,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -11686,6 +11746,9 @@ PrefabInstance:
       value: StarterDeckCard (35)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1663730061 stripped
 RectTransform:
@@ -11719,6 +11782,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -11810,6 +11874,9 @@ PrefabInstance:
       value: StarterDeckCard (27)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1685338430 stripped
 RectTransform:
@@ -11858,7 +11925,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1073209430}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -11912,7 +11978,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11993,7 +12059,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2138745732}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -12128,7 +12193,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 953248092}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -12204,7 +12268,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 342011708}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -12339,7 +12402,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1433452358}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.679, y: 0}
   m_AnchorMax: {x: 0.679, y: 1}
@@ -12471,13 +12533,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1727431116}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &1727431119
 MonoBehaviour:
@@ -12491,14 +12553,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 1
+  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
   m_LightLayerMask: 1
+  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
   m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 1
 --- !u!114 &1743412126 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 588772693, guid: f3376cb161d9649498e5cc73d9ec0cbd, type: 3}
@@ -12541,7 +12606,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 393373423}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -12591,6 +12655,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -12682,6 +12747,9 @@ PrefabInstance:
       value: StarterDeckCard (33)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1777244812 stripped
 RectTransform:
@@ -12729,7 +12797,6 @@ RectTransform:
   m_Children:
   - {fileID: 904612901}
   m_Father: {fileID: 953248092}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -12741,6 +12808,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -12832,6 +12900,9 @@ PrefabInstance:
       value: StarterDeckCard (16)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1795084093 stripped
 RectTransform:
@@ -12880,7 +12951,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 86741712}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.679, y: 1}
@@ -12956,7 +13026,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1274225565}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -13006,6 +13075,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -13097,6 +13167,9 @@ PrefabInstance:
       value: StarterDeckCard (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1903167716 stripped
 RectTransform:
@@ -13145,7 +13218,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825283588}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0.05}
   m_AnchorMax: {x: 0.48, y: 0.95}
@@ -13283,7 +13355,6 @@ RectTransform:
   - {fileID: 428736854}
   - {fileID: 1298252823}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.917}
   m_AnchorMax: {x: 0.25, y: 0.99}
@@ -13347,6 +13418,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -13438,6 +13510,9 @@ PrefabInstance:
       value: StarterDeckCard (39)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1965831233 stripped
 RectTransform:
@@ -13525,7 +13600,6 @@ RectTransform:
   m_Children:
   - {fileID: 1084641298}
   m_Father: {fileID: 154275063}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -13537,6 +13611,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -13628,6 +13703,9 @@ PrefabInstance:
       value: StarterDeckCard (36)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &1999648031 stripped
 RectTransform:
@@ -13661,6 +13739,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -13752,6 +13831,9 @@ PrefabInstance:
       value: StarterDeckCard (9)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &2004793097 stripped
 RectTransform:
@@ -13774,6 +13856,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -13865,6 +13948,9 @@ PrefabInstance:
       value: StarterDeckCard (30)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &2038797811 stripped
 RectTransform:
@@ -13913,7 +13999,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 31966194}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.35, y: 0.8}
   m_AnchorMax: {x: 0.65, y: 0.98}
@@ -14058,7 +14143,6 @@ RectTransform:
   m_Children:
   - {fileID: 478538858}
   m_Father: {fileID: 1139119047}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.95}
   m_AnchorMax: {x: 1, y: 1}
@@ -14099,7 +14183,6 @@ RectTransform:
   - {fileID: 678166945}
   - {fileID: 484149530}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.673}
   m_AnchorMax: {x: 0.25, y: 0.746}
@@ -14189,7 +14272,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1234598626}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0.05}
   m_AnchorMax: {x: 0.48, y: 0.95}
@@ -14298,6 +14380,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -14389,6 +14472,9 @@ PrefabInstance:
       value: StarterDeckCard (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &2122944710 stripped
 RectTransform:
@@ -14440,7 +14526,6 @@ RectTransform:
   - {fileID: 1074897742}
   - {fileID: 1587778015}
   m_Father: {fileID: 763958236}
-  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.258}
   m_AnchorMax: {x: 0.25, y: 0.331}
@@ -14504,6 +14589,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -14595,6 +14681,9 @@ PrefabInstance:
       value: StarterDeckCard (38)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &2138225976 stripped
 RectTransform:
@@ -14682,7 +14771,6 @@ RectTransform:
   m_Children:
   - {fileID: 1706786050}
   m_Father: {fileID: 1329066438}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -14705,6 +14793,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1441057274}
     m_Modifications:
     - target: {fileID: 8297444730308556046, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
@@ -14796,6 +14885,9 @@ PrefabInstance:
       value: StarterDeckCard
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7cdf44c27ae1d4b9789ba2158bb6d9, type: 3}
 --- !u!224 &5671865594324785601 stripped
 RectTransform:
@@ -14813,3 +14905,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7ae523bae63d34eb4dde62ccc950ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 544775236}
+  - {fileID: 1727431118}
+  - {fileID: 1441144676}
+  - {fileID: 499603671}

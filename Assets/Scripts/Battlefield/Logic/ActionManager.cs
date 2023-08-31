@@ -13,7 +13,7 @@ public class ActionManager
 
         if (isPlayer)
         {
-            action = new($"{ApiManager.shared.GetEmailAndUsername().Item2}", "Draw", ownerCard.imageID, "", false);
+            action = new($"{PlayerData.shared.userName}", "Draw", ownerCard.imageID, "", false);
         }
         else
         {
@@ -24,13 +24,13 @@ public class ActionManager
 
     public static void AddCardPlayedOnFieldAction(bool isPlayer, Card ownerCard)
     {
-        ElementAction action = new($"{(isPlayer ? ApiManager.shared.GetEmailAndUsername().Item2 : BattleVars.shared.enemyAiData.opponentName)}", "Played", ownerCard.imageID, "", false);
+        ElementAction action = new($"{(isPlayer ? PlayerData.shared.userName : BattleVars.shared.enemyAiData.opponentName)}", "Played", ownerCard.imageID, "", false);
         
         actionList.Add(action);
     }
     public static void AddSpellPlayedAction(bool isPlayer, IDCardPair origin , IDCardPair target)
     {
-        string owner = isPlayer ? ApiManager.shared.GetEmailAndUsername().Item2 : BattleVars.shared.enemyAiData.opponentName;
+        string owner = isPlayer ? PlayerData.shared.userName : BattleVars.shared.enemyAiData.opponentName;
         bool shouldShowArrow = target.HasCard();
         string targetId = target.HasCard() ? target.card.imageID : "";
         ElementAction action = new(owner, "Played Spell", origin.card.imageID, targetId, shouldShowArrow);
@@ -40,7 +40,7 @@ public class ActionManager
 
     public static void AddAbilityActivatedAction(bool isPlayer, IDCardPair origin, IDCardPair target)
     {
-        string owner = isPlayer ? ApiManager.shared.GetEmailAndUsername().Item2 : BattleVars.shared.enemyAiData.opponentName;
+        string owner = isPlayer ? PlayerData.shared.userName : BattleVars.shared.enemyAiData.opponentName;
         bool shouldShowArrow = target.HasCard();
         string targetId = target.HasCard() ? target.card.imageID : "";
         ElementAction action = new(owner, "Activated Ability", origin.card.imageID, targetId, shouldShowArrow);

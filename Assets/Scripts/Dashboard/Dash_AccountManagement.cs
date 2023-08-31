@@ -7,20 +7,34 @@ using UnityEngine.UI;
 public class Dash_AccountManagement : MonoBehaviour
 {
     [SerializeField]
-    private TMP_InputField usernameField, emailField, currentPasswordField, newPasswordField, confirmNewPasswordField;
+    private TMP_InputField usernameField, currentPasswordField, newPasswordField;
     [SerializeField]
-    private Button submitButton;
+    private Button submitButton, deleteAccountButton;
     [SerializeField]
     private TextMeshProUGUI submitButtonText;
     [SerializeField]
     private Error_Animated error_Animated;
     private GameObject touchBlocker;
 
+    private void OnEnable()
+    {
+        if (ApiManager.shared.isUnityUser)
+        {
+            currentPasswordField.gameObject.SetActive(false);
+            newPasswordField.gameObject.SetActive(false);
+            deleteAccountButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            currentPasswordField.gameObject.SetActive(true);
+            newPasswordField.gameObject.SetActive(true);
+            deleteAccountButton.gameObject.SetActive(false);
+        }
+    }
+
     public void ShouldEnableButton()
     {
         if (currentPasswordField.text == "" || currentPasswordField.text == null) { return; }
-        if (!VerifyEmailAddress(emailField.text)) { return; }
-        if (newPasswordField.text != confirmNewPasswordField.text) { return; }
         if (usernameField.text == "" || usernameField.text == null) { return; }
 
         submitButton.interactable = true;
@@ -30,93 +44,61 @@ public class Dash_AccountManagement : MonoBehaviour
     public void ClearPwdFields()
     {
         newPasswordField.text = "";
-        confirmNewPasswordField.text = "";
         currentPasswordField.text = "";
     }
 
-    public void SubmitNewAccountChanges()
+    public async void UpdateInGameUserPassword()
     {
         if (ApiManager.isTrainer) { return; }
-        AccountRequest accountRequest = new AccountRequest
+
+        if(newPasswordField.text != "")
         {
-            OldPassword = currentPasswordField.text,
-            Username = usernameField.text,
-            NewEmailAddress = emailField.text,
-            NewPassword = newPasswordField.text,
-            SavedData = PlayerData.shared
-        };
+            if (!newPasswordField.text.PasswordCheck())
+            {
+                error_Animated.DisplayAnimatedError("The new Password does not meet the criteria.");
+                return;
+            }
+        }
+
+        if(usernameField.text != PlayerData.shared.userName)
+        {
+            if(!usernameField.text.UsernameCheck())
+            {
+                error_Animated.DisplayAnimatedError("The new Username does not meet the criteria.");
+                return;
+            }
+        }
         submitButton.interactable = false;
         submitButtonText.text = "Submitting . . .";
-
-        StartCoroutine(ApiManager.shared.UpdateUserAccount(accountRequest, AccountUpdateSuccess, AccountUpdateFailure));
         touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-    }
 
+        var response = await ApiManager.shared.UpdateUserData(usernameField.text, currentPasswordField.text, newPasswordField.text);
 
-    public void AccountUpdateSuccess(AccountResponse accountResponse)
-    {
-        usernameField.text = accountResponse.username;
-        emailField.text = accountResponse.emailAddress;
-
-        submitButton.interactable = false;
+        submitButton.interactable = true;
         submitButtonText.text = "Submit";
         touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(touchBlocker);
-    }
-    public void AccountUpdateFailure(AccountResponse accountResponse)
-    {
-        switch (accountResponse.errorMessage)
+
+        if (!response)
         {
-            case ErrorCases.UserNameInUse:
-                error_Animated.DisplayAnimatedError("Username is already in use. Please try again.");
-                break;
-            case ErrorCases.IncorrectPassword:
-                error_Animated.DisplayAnimatedError("The current password you provided is incorrect. Please try again.");
-                break;
-            default:
-                error_Animated.DisplayAnimatedError("Mmm something went wrong on our end. We will be looking into it. Please try again later.");
-                break;
+            error_Animated.DisplayAnimatedError("Mmm something went wrong on our end. We will be looking into it. Please try again later.");
         }
-        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(touchBlocker);
     }
 
     public void UpdateFieldsWithInfo()
     {
-        (string, string) emailAndUsername = ApiManager.shared.GetEmailAndUsername();
-        usernameField.text = emailAndUsername.Item2;
-        emailField.text = emailAndUsername.Item1 == "" ? "Not yet set!" : emailAndUsername.Item1;
+        usernameField.text = PlayerData.shared.userName;
         submitButton.interactable = false;
         submitButtonText.text = "Submit";
     }
 
-    private bool VerifyEmailAddress(string address)
+    public void ShowUnityPrivacy()
     {
-        string[] atCharacter;
-        string[] dotCharacter;
-        atCharacter = address.Split("@"[0]);
-        if (atCharacter.Length == 2)
-        {
-            dotCharacter = atCharacter[1].Split("."[0]);
-            if (dotCharacter.Length >= 2)
-            {
-                if (dotCharacter[dotCharacter.Length - 1].Length == 0)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
+        Application.OpenURL("https://docs.unity.com/ugs/en-us/manual/authentication/manual/mailto:unity-player-login-privacy@unity3d.com");
+    }
+
+    public void DeleteUnityAccount()
+    {
+        Application.OpenURL("https://player-account.unity.com/");
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,7 +17,7 @@ public class ArenaDataManager : MonoBehaviour
     private static EnemyAi enemyAi;
     private static ArenaResponse arenaResponse;
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
         playerScore.text = PlayerData.shared.playerScore.ToString();
         playerWin.text = PlayerData.shared.arenaWins.ToString();
@@ -27,7 +27,7 @@ public class ArenaDataManager : MonoBehaviour
         playerMark.sprite = ImageHelper.GetElementImage(PlayerData.shared.arenaT50Mark.ToString());
         if(arenaResponse == null)
         {
-            StartCoroutine(ApiManager.shared.GetOpponentDeck(ArenaResponseHandler));
+            await ApiManager.shared.GetT50Opponent(ArenaResponseHandler);
         }
         else
         {
@@ -52,7 +52,6 @@ public class ArenaDataManager : MonoBehaviour
     }
     public void TestSelf()
     {
-
         if (PlayerData.shared.arenaT50Deck.Count < 30)
         {
             responseText.text = "Please set a deck to use in Arena T50. \n You can do so by tapping the 'Modify Deck' button";
@@ -62,7 +61,7 @@ public class ArenaDataManager : MonoBehaviour
             BattleVars.shared.isArena = true;
             BattleVars.shared.isTest = true;
             BattleVars.shared.enemyAiData = enemyAi;
-            BattleVars.shared.enemyAiData.opponentName = ApiManager.shared.GetEmailAndUsername().Item2;
+            BattleVars.shared.enemyAiData.opponentName = PlayerData.shared.userName;
             BattleVars.shared.enemyAiData.deck = string.Join(" ", PlayerData.shared.arenaT50Deck);
             BattleVars.shared.enemyAiData.mark = PlayerData.shared.arenaT50Mark;
             arenaResponse = null;
@@ -78,7 +77,6 @@ public class ArenaDataManager : MonoBehaviour
             return;
         }
 
-        Debug.Log(arenaResponse.opponentDeck);
 
         oppInfo.SetActive(true);
         oppMark.sprite = ImageHelper.GetElementImage(((Element)arenaResponse.deckMark).FastElementString());
@@ -99,6 +97,7 @@ public class ArenaDataManager : MonoBehaviour
     {
         SceneManager.LoadScene("Dashboard");
     }
+
     public void GoToDeckManager()
     {
         DeckDisplayManager.isArena = true;

@@ -23,9 +23,9 @@ public class SplashScreen : MonoBehaviour
     private List<GameObject> imageObjects;
 
     private bool isLoadingNextScene = false;
+    private bool mustWait = true;
+    private bool dataLoaded = false;
 
-    [SerializeField]
-    private GameObject appUpdatePopUp;
     private IEnumerator MoveImageAround(GameObject imageToMove, int finalIndex)
     {
         if(finalIndex == 0)
@@ -79,7 +79,7 @@ public class SplashScreen : MonoBehaviour
         {
             PlayerPrefs.SetInt("IsAltArt", 0); 
         }
-
+        ApiManager.shared.LoginCachedUser(HandleChachedUser);
         StartCoroutine(MoveImageAround(imageObjects[11], 12));
         StartCoroutine(StartTitleAnimation());
     }
@@ -100,11 +100,21 @@ public class SplashScreen : MonoBehaviour
 
     private IEnumerator LoadNextScene()
     {
+        while (mustWait)
+        {
+            yield return new WaitForSeconds(1f);
+        }
         isLoadingNextScene = true;
         yield return new WaitForSeconds(1f);
         PlayerPrefs.SetFloat("HasSeenSplash", 1f);
-
-        SceneManager.LoadScene("LoginScreen");
+        if (dataLoaded)
+        {
+            SceneManager.LoadScene("Dashboard");
+        }
+        else
+        {
+            SceneManager.LoadScene("LoginScreen");
+        }
     }
 
     private IEnumerator StartTitleAnimation()
@@ -124,4 +134,11 @@ public class SplashScreen : MonoBehaviour
         shader.SetFloat("_Fade", 1f);
         StartCoroutine(LoadNextScene());
     }
+
+    public void HandleChachedUser(bool wasSuccess)
+    {
+        dataLoaded = wasSuccess;
+        mustWait = false;
+    }
+
 }
