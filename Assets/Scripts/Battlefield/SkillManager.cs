@@ -52,7 +52,7 @@ public class SkillManager
         ability.Owner = owner;
         ability.Origin = card;
         var enemy = DuelManager.GetNotIDOwner(owner.playerID.id);
-        DuelManager.SetupHighlights(ability.GetPossibleTargets(enemy));
+        DuelManager.Instance.SetupHighlights(ability.GetPossibleTargets(enemy));
     }
 
     public void SkillRoutineWithTarget(PlayerManager owner, IDCardPair target)

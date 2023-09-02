@@ -96,7 +96,7 @@ public class CreatureBehaviour : CardTypeBehaviour
         bool isFirstAttack = true;
         int atkNow = CardPair.card.AtkNow;
 
-        bool shouldSkip = DuelManager.IsSundialInPlay() || Owner.playerCounters.patience > 0 || CardPair.card.Freeze > 0 || CardPair.card.innateSkills.Delay > 0 || atkNow == 0;
+        bool shouldSkip = DuelManager.Instance.GetCardCount(new() { "5rp", "7q9" }) > 0 || Owner.playerCounters.patience > 0 || CardPair.card.Freeze > 0 || CardPair.card.innateSkills.Delay > 0 || atkNow == 0;
         CardPair.card.AbilityUsed = false;
 
         while (isFirstAttack || hasAdrenaline)

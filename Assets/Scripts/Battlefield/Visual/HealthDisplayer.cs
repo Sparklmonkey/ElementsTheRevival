@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace Elements.Duel.Visual
 {
-    public class HealthDisplayer : Identifiable
+    public class HealthDisplayer : MonoBehaviour
     {
 
         [SerializeField]
@@ -26,7 +26,7 @@ namespace Elements.Duel.Visual
             currentHp.text = currentHP.ToString();
 
             StartCoroutine(AnimateTextChange(toShow));
-            int temp = currentHP - DuelManager.GetPossibleDamage(isPlayer);
+            int temp = currentHP - DuelManager.Instance.GetPossibleDamage(isPlayer);
             hpSlider.value = temp < 0 ? 0 : temp;
 
             damageSlider.value = currentHP;
@@ -49,7 +49,7 @@ namespace Elements.Duel.Visual
             maxHp.text = newMaxHp.ToString();
 
             StartCoroutine(AnimateTextChange(toShow));
-            int temp = currentHP - DuelManager.GetPossibleDamage(isPlayer);
+            int temp = currentHP - DuelManager.Instance.GetPossibleDamage(isPlayer);
             hpSlider.value = temp < 0 ? 0 : temp;
 
             damageSlider.value = currentHP;
@@ -81,7 +81,7 @@ namespace Elements.Duel.Visual
 
 
             StartCoroutine(AnimateTextChange(toShow));
-            int temp = currentHP - DuelManager.GetPossibleDamage(isPlayer);
+            int temp = currentHP - DuelManager.Instance.GetPossibleDamage(isPlayer);
             hpSlider.value = temp < 0 ? 0 : temp;
 
             damageSlider.value = currentHP;

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Elements.Duel.Visual
 {
-    public class PlayerDisplayer : Identifiable
+    public class PlayerDisplayer : MonoBehaviour
     {
         [SerializeField]
         private Image validTargetGlow;

@@ -333,11 +333,7 @@ public class PlayerManager : MonoBehaviour
     internal void DisplayHand()
     {
         var cards = playerHand.GetAllValidCardIds();
-
-        for (int i = 0; i < cards.Count; i++)
-        {
-            playerHand.ShowCardsForPrecog();
-        }
+        playerHand.ShowCardsForPrecog();
     }
 
     public void CardDetailButton(Button buttonCase)
@@ -656,8 +652,8 @@ public class PlayerManager : MonoBehaviour
     {
         List<IDCardPair> creatures = playerCreatureField.GetAllValidCardIds();
 
-        int eclipseCount = DuelManager.GetEclipseCount();
-        int nightfallCount = DuelManager.GetNightfallCount();
+        int eclipseCount = DuelManager.Instance.GetCardCount(new() { "7ta" });
+        int nightfallCount = DuelManager.Instance.GetCardCount(new() { "5uq" });
 
         int atkMod = 0;
         int defMod = 0;
@@ -743,12 +739,12 @@ public class PlayerManager : MonoBehaviour
         {
             if (newLocationId.card.costElement.Equals(Element.Darkness) || newLocationId.card.costElement.Equals(Element.Death))
             {
-                if (DuelManager.GetEclipseCount() > 0)
+                if (DuelManager.Instance.GetCardCount(new() { "7ta" }) > 0)
                 {
                     newLocationId.card.DefModify += 1;
                     newLocationId.card.AtkModify += 2;
                 }
-                else if (DuelManager.GetNightfallCount() > 0)
+                else if (DuelManager.Instance.GetCardCount(new() { "5uq" }) > 0)
                 {
                     newLocationId.card.DefModify += 1;
                     newLocationId.card.AtkModify += 1;

@@ -46,7 +46,7 @@ public class CreatureAbilities
 
     public IEnumerator ActivateRetroVirus(PlayerManager aiManager)
     {
-        var possibleTargets = DuelManager.GetOtherPlayer().playerCreatureField.GetAllValidCardIds();
+        var possibleTargets = DuelManager.Instance.player.playerCreatureField.GetAllValidCardIds();
         if (possibleTargets.Count < 2) { yield break; }
 
         List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
@@ -98,7 +98,7 @@ public class CreatureAbilities
 
     public IEnumerator ActivateBloodsucker(PlayerManager aiManager)
     {
-        var possibleTargets = DuelManager.GetOtherPlayer().playerCreatureField.GetAllValidCardIds();
+        var possibleTargets = DuelManager.Instance.player.playerCreatureField.GetAllValidCardIds();
         if (possibleTargets.Count < 1) { yield break; }
 
         List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());

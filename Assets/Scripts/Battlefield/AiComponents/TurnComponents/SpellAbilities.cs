@@ -6,7 +6,7 @@ public class SpellAbilities
 {
     public IEnumerator PlayMiracle(PlayerManager aiManager)
     {
-        if (DuelManager.GetPossibleDamage(false) + 20 < aiManager.healthManager.GetCurrentHealth()) { yield break; }
+        if (DuelManager.Instance.GetPossibleDamage(false) + 20 < aiManager.healthManager.GetCurrentHealth()) { yield break; }
         //Get Hand Cards
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
 

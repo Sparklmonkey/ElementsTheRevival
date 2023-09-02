@@ -8,7 +8,7 @@ public class Precognition : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         Owner.DrawCardFromDeckLogic();
-        DuelManager.RevealOpponentsHand();
+        DuelManager.Instance.enemy.DisplayHand();
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

@@ -136,7 +136,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                     var creatureList = Owner.playerCreatureField.GetAllValidCardIds();
                     foreach (var creature in creatureList)
                     {
-                        int statModifier = DuelManager.IsFloodInPlay() && floodList.Contains(CardPair.id.Index) ? 5 : 2;
+                        int statModifier = DuelManager.Instance.GetCardCount(new() { "5ih", "7h1" }) > 0 && floodList.Contains(CardPair.id.Index) ? 5 : 2;
                         creature.card.AtkModify += statModifier;
                         creature.card.AtkModify += statModifier;
                         CardPair.UpdateCard();

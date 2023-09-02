@@ -52,7 +52,7 @@ public class MediumAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         {
             loopBreak++;
 
-            if (DuelManager.IsSundialInPlay() && (idCardList[cardIndex].card.iD == "5rp" || idCardList[cardIndex].card.iD == "7q9"))
+            if (DuelManager.Instance.GetCardCount(new() { "5rp", "7q9" }) > 0 && (idCardList[cardIndex].card.iD == "5rp" || idCardList[cardIndex].card.iD == "7q9"))
             {
                 continue;
             }

@@ -148,7 +148,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     internal bool HasCard()
     {
         if( card == null && id.Field != FieldEnum.Player) { return false; }
-        return card != null && card.iD != "4t2" && card.iD != "4t1" && card.cardName != "";
+        return card != null && card.iD != "4t2" && card.iD != "4t1" && card.cardName != "" && card.cardType != CardType.Mark;
     }
 
     public void OnPointerClick(PointerEventData eventData)
