@@ -4047,16 +4047,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Thank you for your support and feedback. \nDue to several issues caused
-    by my bad implementation of backend services and DB management, I will migrating
-    to a more native implementation.\nThis will allow for Unity Player Accounts that
-    can be linked to Google and Apple.\nAuto login will also be available\nThis may
-    be a painful migration, so if possible, please keep a list or screenshot of all
-    the cards on your acocunt in case something happens, that way I can restore those
-    cards."
+  m_text: "Due to several issues that have been reported, I am currently working
+    on \nmoving over to Unity Player Account and Unity Authentication. For better
+    stability.\nThis will most likely be a painful migration and I apologise profusely
+    for this.\nIf possible, please keep a list of all your cards/coins/etc, or a
+    screenshot even. In case, so I can help restore them if something fails.\nThe
+    new update should be ready by November. If all goes well, Pvp and proper Arena
+    should be even closer :)"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a18b4846a2d6d744d81dfd2196508413, type: 2}
-  m_sharedMaterial: {fileID: 6092029347066350737, guid: a18b4846a2d6d744d81dfd2196508413, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1062e58bf180b7449a86ab98d1a233d4, type: 2}
+  m_sharedMaterial: {fileID: -10103414177704674, guid: 1062e58bf180b7449a86ab98d1a233d4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4080,7 +4080,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 61.65
+  m_fontSize: 52.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11038,6 +11038,7 @@ GameObject:
   - component: {fileID: 1537988390}
   - component: {fileID: 1537988392}
   - component: {fileID: 1537988391}
+  - component: {fileID: 1537988393}
   m_Layer: 5
   m_Name: MigrationMessage
   m_TagString: Untagged
@@ -11104,6 +11105,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1537988389}
   m_CullTransparentMesh: 1
+--- !u!114 &1537988393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537988389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2dc7b6a3c5044cc4b60ae47563cf005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1552564242
 GameObject:
   m_ObjectHideFlags: 0
