@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Net;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class Oracle_SpinManager : MonoBehaviour
 {
@@ -43,7 +38,7 @@ public class Oracle_SpinManager : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Dashboard");
+        SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 
     private void SetupResultBlock()
@@ -62,7 +57,7 @@ public class Oracle_SpinManager : MonoBehaviour
         PlayerData.shared.nextFalseGod = nextFalseGod.text;
         PlayerData.shared.cardInventory.Add(cardToShow.iD);
         PlayerData.SaveData();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Dashboard");
+        SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 
     private void SetupFortuneText()

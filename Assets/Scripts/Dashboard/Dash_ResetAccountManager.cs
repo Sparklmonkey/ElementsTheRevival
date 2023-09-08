@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +18,7 @@ public class Dash_ResetAccountManager : MonoBehaviour
         if (inputField.text == "RESET")
         {
             PlayerData.shared.ResetAccount();
-            await ApiManager.shared.SaveDataToUnity();
+            await ApiManager.Instance.SaveDataToUnity();
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
         }
         else

@@ -51,7 +51,7 @@ public class Chaos : AbilityEffect
             case 7:
                 Card cardToPlay = new(iDCard.card);
                 Owner.PlayCardOnFieldLogic(cardToPlay);
-                Game_AnimationManager.shared.StartAnimation("Steal", iDCard.transform);
+                AnimationManager.Instance.StartAnimation("Steal", iDCard.transform);
                 iDCard.RemoveCard();
                 return;
             case 8:

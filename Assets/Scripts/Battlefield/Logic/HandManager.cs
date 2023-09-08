@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Elements.Duel.Visual;
-using UnityEngine;
 
 namespace Elements.Duel.Manager
 {

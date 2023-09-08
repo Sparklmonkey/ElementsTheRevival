@@ -2701,10 +2701,6 @@ PrefabInstance:
       value: SoundManager
       objectReference: {fileID: 0}
     - target: {fileID: 8368273815864342443, guid: 13f805d7307958b4aa0fdbda061c8af6, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8368273815864342443, guid: 13f805d7307958b4aa0fdbda061c8af6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1076.2428
       objectReference: {fileID: 0}
@@ -6053,25 +6049,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841992026}
   m_CullTransparentMesh: 1
---- !u!1 &863137486 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 729747558192423322, guid: 3d10724650cdad64cbcfbffef0f270aa, type: 3}
-  m_PrefabInstance: {fileID: 729747557616804457}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &863137489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863137486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eecd38674e3f34e7db9619b3efa0a2c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  touchBlocker: {fileID: 0}
-  isUnityUser: 0
 --- !u!1 &870081511
 GameObject:
   m_ObjectHideFlags: 0
@@ -18098,10 +18075,6 @@ PrefabInstance:
       value: ApiManager
       objectReference: {fileID: 0}
     - target: {fileID: 729747558192423325, guid: 3d10724650cdad64cbcfbffef0f270aa, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 729747558192423325, guid: 3d10724650cdad64cbcfbffef0f270aa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -18141,14 +18114,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 729747558192423324, guid: 3d10724650cdad64cbcfbffef0f270aa, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 729747558192423322, guid: 3d10724650cdad64cbcfbffef0f270aa, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 863137489}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d10724650cdad64cbcfbffef0f270aa, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -63,7 +59,7 @@ public class GameOverVisual : MonoBehaviour
             {
                 PlayerData.shared.arenaWins++;
             }
-            ApiManager.shared.StartCoroutine(ApiManager.shared.UpdateGameStats(new GameStatRequest(BattleVars.shared.enemyAiData, true, BattleVars.shared.isArena), GameStatHandler));
+            ApiManager.Instance.StartCoroutine(ApiManager.Instance.UpdateGameStats(new GameStatRequest(BattleVars.shared.enemyAiData, true, BattleVars.shared.isArena), GameStatHandler));
 
             PlayerData.shared.electrum += BattleVars.shared.enemyAiData.costToPlay;
         }
@@ -76,7 +72,7 @@ public class GameOverVisual : MonoBehaviour
             PlayerData.shared.gamesLost++;
             PlayerData.shared.playerScore -= BattleVars.shared.enemyAiData.scoreWin / 2;
             PlayerData.shared.playerScore = PlayerData.shared.playerScore < 0 ? 0 : PlayerData.shared.playerScore;
-            ApiManager.shared.StartCoroutine(ApiManager.shared.UpdateGameStats(new GameStatRequest(BattleVars.shared.enemyAiData, false, BattleVars.shared.isArena), GameStatHandler));
+            ApiManager.Instance.StartCoroutine(ApiManager.Instance.UpdateGameStats(new GameStatRequest(BattleVars.shared.enemyAiData, false, BattleVars.shared.isArena), GameStatHandler));
             
 
         }
@@ -94,12 +90,12 @@ public class GameOverVisual : MonoBehaviour
         PlayerData.SaveData();
         if(didWinStatic && !BattleVars.shared.isTest)
         {
-            SceneManager.LoadScene("SpinnerScene");
+            SceneTransitionManager.Instance.LoadScene("SpinnerScene");
         }
         else
         {
             BattleVars.shared.isTest = false;
-            SceneManager.LoadScene("Dashboard");
+            SceneTransitionManager.Instance.LoadScene("Dashboard");
         }
     }
 

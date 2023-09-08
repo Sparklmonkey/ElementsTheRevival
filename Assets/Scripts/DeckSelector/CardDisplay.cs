@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour
@@ -18,7 +17,7 @@ public class CardDisplay : MonoBehaviour
     public void SetupCardView(Card cardToDisplay)
     {
         card = cardToDisplay;
-        if (cardToDisplay.cardName.Contains("Pendulum") && SceneManager.GetActiveScene().name == "Battlefield")
+        if (cardToDisplay.cardName.Contains("Pendulum") && SceneTransitionManager.Instance.GetActiveScene() == "Battlefield")
         {
             Element pendulumElement = cardToDisplay.costElement;
             Element markElement = BattleVars.shared.isPlayerTurn ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;

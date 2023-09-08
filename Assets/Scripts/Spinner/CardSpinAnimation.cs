@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,7 +62,7 @@ public class CardSpinAnimation : MonoBehaviour
         {
             upgradedIndicator.SetActive(true);
         }
-        Game_SoundManager.shared.PlayAudioClip("SpinCardStop");
+        SoundManager.Instance.PlayAudioClip("SpinCardStop");
     }
 
 }

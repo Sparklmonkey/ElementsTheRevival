@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class DeckSelector : MonoBehaviour
 {
@@ -52,7 +49,7 @@ public class DeckSelector : MonoBehaviour
         PlayerData.shared.markElement = playerDeck;
         PlayerData.shared.currentDeck = StarterDecks.Instance.GetStarterDeck(playerDeck);
         PlayerData.shared.cardInventory = new List<string>();
-        SceneManager.LoadScene("Dashboard");
+        SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 }
 

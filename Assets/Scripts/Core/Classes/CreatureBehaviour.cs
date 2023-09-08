@@ -136,7 +136,7 @@ public class CreatureBehaviour : CardTypeBehaviour
                 }
                 bool isFreedomEffect = Random.Range(0, 100) < (25 * Owner.playerCounters.freedom) && CardPair.card.costElement.Equals(Element.Air);
                 atkNow = Mathf.FloorToInt(isFreedomEffect ? atkNow * 1.5f : atkNow);
-                Game_SoundManager.shared.PlayAudioClip("CreatureDamage");
+                SoundManager.Instance.PlayAudioClip("CreatureDamage");
                 if (Enemy.HasGravityCreatures())
                 {
                     Enemy.ManageGravityCreatures(ref atkNow, ref CardPair);
@@ -220,22 +220,22 @@ public class CreatureBehaviour : CardTypeBehaviour
         {
             if (CardPair.card.passiveSkills.Air)
             {
-                Game_AnimationManager.shared.StartAnimation("QuantaGenerate", transform, Element.Air);
+                AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Element.Air);
                 Owner.GenerateQuantaLogic(Element.Air, 1);
             }
             if (CardPair.card.passiveSkills.Earth)
             {
-                Game_AnimationManager.shared.StartAnimation("QuantaGenerate", transform, Element.Earth);
+                AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Element.Earth);
                 Owner.GenerateQuantaLogic(Element.Earth, 1);
             }
             if (CardPair.card.passiveSkills.Fire)
             {
-                Game_AnimationManager.shared.StartAnimation("QuantaGenerate", transform, Element.Fire);
+                AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Element.Fire);
                 Owner.GenerateQuantaLogic(Element.Fire, 1);
             }
             if (CardPair.card.passiveSkills.Light)
             {
-                Game_AnimationManager.shared.StartAnimation("QuantaGenerate", transform, Element.Light);
+                AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Element.Light);
                 Owner.GenerateQuantaLogic(Element.Light, 1);
             }
             if (CardPair.card.innateSkills.Devourer)
@@ -244,7 +244,7 @@ public class CreatureBehaviour : CardTypeBehaviour
                 {
                     Enemy.SpendQuantaLogic(Element.Other, 1);
                 }
-                Game_AnimationManager.shared.StartAnimation("QuantaGenerate", transform, Element.Darkness);
+                AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Element.Darkness);
                 Owner.GenerateQuantaLogic(Element.Darkness, 1);
             }
             if (CardPair.card.passiveSkills.Overdrive)
@@ -348,7 +348,7 @@ public class CreatureBehaviour : CardTypeBehaviour
                 break;
             default:
                 Card duplicate = new(CardPair.card);
-                Game_AnimationManager.shared.StartAnimation("ParallelUniverse", transform);
+                AnimationManager.Instance.StartAnimation("ParallelUniverse", transform);
                 DuelManager.GetIDOwner(CardPair.id).PlayCardOnFieldLogic(duplicate);
                 break;
         }

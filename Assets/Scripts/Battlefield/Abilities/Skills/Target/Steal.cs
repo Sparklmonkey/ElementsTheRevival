@@ -8,7 +8,7 @@ public class Steal : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         Owner.PlayCardOnFieldLogic(new(target.card));
-        Game_AnimationManager.shared.StartAnimation("Steal", target.transform);
+        AnimationManager.Instance.StartAnimation("Steal", target.transform);
         target.RemoveCard();
         return;
     }

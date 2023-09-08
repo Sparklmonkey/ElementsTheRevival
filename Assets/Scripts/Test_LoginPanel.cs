@@ -1,4 +1,4 @@
-//using System.Collections;
+﻿//using System.Collections;
 //using System.Collections.Generic;
 //using UnityEngine;
 //using TMPro;
@@ -17,16 +17,16 @@
 //            Username = userInput.text,
 //            Password = pwdInput.text
 //        };
-//        StartCoroutine(ApiManager.shared.Login(request, LoginSuccess, LoginFailure));
+//        StartCoroutine(ApiManager.Instance.Login(request, LoginSuccess, LoginFailure));
 //    }
 
 //    public void LoginSuccess(LoginResponse loginResponse)
 //    {
-//        ApiManager.shared.SetToken(loginResponse.token);
-//        ApiManager.shared.SetUsernameAndEmail(userInput.text, loginResponse.emailAddress);
+//        ApiManager.Instance.SetToken(loginResponse.token);
+//        ApiManager.Instance.SetUsernameAndEmail(userInput.text, loginResponse.emailAddress);
 //        PlayerData.shared = loginResponse.playerData;
 //        Game_PvpHubConnection.shared.StartPvpHubConnection();
-//        StartCoroutine(ApiManager.shared.RefreshToken());
+//        StartCoroutine(ApiManager.Instance.RefreshToken());
 //        //gameObject.SetActive(false);
 //    }
 

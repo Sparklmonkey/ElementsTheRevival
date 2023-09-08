@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 public class Photosynthesis : AbilityEffect
@@ -7,7 +7,7 @@ public class Photosynthesis : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Game_AnimationManager.shared.StartAnimation("QuantaGenerate", target.transform, Element.Life);
+        AnimationManager.Instance.StartAnimation("QuantaGenerate", target.transform, Element.Life);
         Owner.GenerateQuantaLogic(Element.Life, 2);
     }
 

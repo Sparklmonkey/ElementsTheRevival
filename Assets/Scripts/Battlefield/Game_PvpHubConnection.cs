@@ -1,4 +1,4 @@
-
+﻿
 //using System;
 //using System.Collections;
 //using System.Collections.Generic;
@@ -35,7 +35,7 @@
 //        connection = new HubConnectionBuilder()
 //            .WithUrl(BaseUrl, options =>
 //            {
-//                options.AccessTokenProvider = () => Task.FromResult(ApiManager.shared.GetToken());
+//                options.AccessTokenProvider = () => Task.FromResult(ApiManager.Instance.GetToken());
 //                //options.Headers.Add("Ocp-Apim-Subscription-Key", "74041a9edafd4118a226d2106a4c498d");
 //            })
 //            .Build();

@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DashboardPlayerData : MonoBehaviour
@@ -28,7 +27,7 @@ public class DashboardPlayerData : MonoBehaviour
         {
             return;
         }
-        await ApiManager.shared.SaveDataToUnity();
+        await ApiManager.Instance.SaveDataToUnity();
 
         saveStatus.transform.parent.gameObject.SetActive(true);
         saveStatus.text = "Save Success";
@@ -37,8 +36,8 @@ public class DashboardPlayerData : MonoBehaviour
 
     public void LogoutUser()
     {
-        ApiManager.shared.LogoutUser();
-        SceneManager.LoadScene("LoginScreen");
+        ApiManager.Instance.LogoutUser();
+        SceneTransitionManager.Instance.LoadScene("LoginScreen");
     }
 
     private void HideSaveStatus()

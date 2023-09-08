@@ -7,7 +7,7 @@ public class Web : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Game_AnimationManager.shared.StartAnimation("Web", target.transform);
+        AnimationManager.Instance.StartAnimation("Web", target.transform);
         target.card.innateSkills.Airborne = false;
         target.UpdateCard();
         return;

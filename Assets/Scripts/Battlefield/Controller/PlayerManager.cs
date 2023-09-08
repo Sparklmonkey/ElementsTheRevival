@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -486,7 +486,7 @@ public class PlayerManager : MonoBehaviour
     {
         //Logic Side
         //Get Card SO In Hand
-        Game_SoundManager.shared.PlayAudioClip("CardPlay");
+        SoundManager.Instance.PlayAudioClip("CardPlay");
         if (playerCounters.neurotoxin > 0)
         {
             AddPlayerCounter(PlayerCounters.Neurotoxin, 1);

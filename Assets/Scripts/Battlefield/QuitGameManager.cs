@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class QuitGameManager : MonoBehaviour
 {
@@ -27,6 +24,6 @@ public class QuitGameManager : MonoBehaviour
 
     public void MoveToDashboardScene()
     {
-        SceneManager.LoadScene("Dashboard");
+        SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 }

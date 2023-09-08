@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Bazaar_PlayerInventoryManager : InventoryManager
 {
@@ -26,15 +24,16 @@ public class Bazaar_PlayerInventoryManager : InventoryManager
     {
         if (ApiManager.isTrainer)
         {
-            GetComponent<DashboardSceneManager>().LoadNewScene("DeckManagement");
+            SceneTransitionManager.Instance.LoadScene("DeckManagement");
+            return;
         }
 
         touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-        await ApiManager.shared.SaveDataToUnity();
+        await ApiManager.Instance.SaveDataToUnity();
         touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(touchBlocker);
         DeckDisplayManager.isArena = false;
-        SceneManager.LoadScene("Dashboard");
+        SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 
     public void UpdateCardFilter(int element)
@@ -82,10 +81,10 @@ public class Bazaar_PlayerInventoryManager : InventoryManager
 
 
         touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-        await ApiManager.shared.SaveDataToUnity();
+        await ApiManager.Instance.SaveDataToUnity();
         touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(touchBlocker);
-        SceneManager.LoadScene("Dashboard");
+        SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 
 }

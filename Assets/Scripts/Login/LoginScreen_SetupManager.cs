@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 
@@ -38,7 +38,7 @@ public class LoginScreen_SetupManager : MonoBehaviour
     {
         fields = new List<TMP_InputField> { username, password };
         ApiManager.isTrainer = false;
-        Game_SoundManager.shared.PlayBGM("LoginScreen");
+        SoundManager.Instance.PlayBGM("LoginScreen");
         username.text = PlayerPrefs.HasKey("SavedUser") ? PlayerPrefs.GetString("SavedUser") : "";
         versionLabel.text = $"Version {Application.version}";
     }
@@ -66,7 +66,7 @@ public class LoginScreen_SetupManager : MonoBehaviour
 
     public async void PlayAsGuest()
     {
-        if(await ApiManager.shared.LoginAsGuest())
+        if(await ApiManager.Instance.LoginAsGuest())
         {
             GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
         }
@@ -80,14 +80,14 @@ public class LoginScreen_SetupManager : MonoBehaviour
     {
         touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
         touchBlocker.transform.SetAsFirstSibling();
-        await ApiManager.shared.UserLoginAsync(LoginType.UserPass, HandleUserLogin, username.text, password.text);
+        await ApiManager.Instance.UserLoginAsync(LoginType.UserPass, HandleUserLogin, username.text, password.text);
     }
 
     public async void AttemptToLoginUnity()
     {
         touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
         touchBlocker.transform.SetAsFirstSibling();
-        await ApiManager.shared.UserLoginAsync(LoginType.Unity, HandleUserLogin);
+        await ApiManager.Instance.UserLoginAsync(LoginType.Unity, HandleUserLogin);
     }
 
     public void HandleUserLogin(string responseMessage)
@@ -115,10 +115,10 @@ public class LoginScreen_SetupManager : MonoBehaviour
     private async void HandleLegacyUserLogin(LoginResponse response)
     {
 
-        if (username.text.UsernameCheck() && password.text.PasswordCheck() && await ApiManager.shared.CheckUsername(username.text))
+        if (username.text.UsernameCheck() && password.text.PasswordCheck() && await ApiManager.Instance.CheckUsername(username.text))
         {
-            await ApiManager.shared.UserLoginAsync(LoginType.RegisterUserPass, HandleUserRegistration, username.text, password.text);
-            await ApiManager.shared.SaveDataToUnity();
+            await ApiManager.Instance.UserLoginAsync(LoginType.RegisterUserPass, HandleUserRegistration, username.text, password.text);
+            await ApiManager.Instance.SaveDataToUnity();
             return;
         }
         touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
@@ -130,9 +130,9 @@ public class LoginScreen_SetupManager : MonoBehaviour
     {
         touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
         touchBlocker.transform.SetAsFirstSibling();
-        if (newUsername.text.UsernameCheck() && newPassword.text.PasswordCheck() && await ApiManager.shared.CheckUsername(username.text))
+        if (newUsername.text.UsernameCheck() && newPassword.text.PasswordCheck() && await ApiManager.Instance.CheckUsername(username.text))
         {
-            await ApiManager.shared.UserLoginAsync(LoginType.UserPass, HandleUserRegistration, username.text, password.text);
+            await ApiManager.Instance.UserLoginAsync(LoginType.UserPass, HandleUserRegistration, username.text, password.text);
             return;
         }
     }
@@ -148,7 +148,7 @@ public class LoginScreen_SetupManager : MonoBehaviour
             Platform = $"{Application.platform}",
             AppVersion = $"{Application.version}"
         };
-        await ApiManager.shared.LoginLegacy(loginRequest, HandleLegacyUserLogin);
+        await ApiManager.Instance.LoginLegacy(loginRequest, HandleLegacyUserLogin);
     }
 
     public void HandleUserRegistration(string responseMessage)

@@ -1,10 +1,9 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -45,7 +44,7 @@ public class SpinManager : MonoBehaviour
         if (BattleVars.shared.elementalMastery) 
         { 
             coinsWon *= 2;
-            Game_SoundManager.shared.PlayAudioClip("ElementalMastery");
+            SoundManager.Instance.PlayAudioClip("ElementalMastery");
             elementalMasteryLabel.SetActive(true); 
         }
 
@@ -75,7 +74,7 @@ public class SpinManager : MonoBehaviour
         }
         PlayerData.shared.electrum += int.Parse(electrumValue.text);
         PlayerData.SaveData();
-        SceneManager.LoadScene("Dashboard");
+        SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 
     public void StartSpinning()

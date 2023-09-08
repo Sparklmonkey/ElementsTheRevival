@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 public class Blitz : AbilityEffect
@@ -13,7 +13,7 @@ public class Blitz : AbilityEffect
         {
             if (idCardi.card.innateSkills.Airborne)
             {
-                Game_AnimationManager.shared.StartAnimation("Dive", target.transform);
+                AnimationManager.Instance.StartAnimation("Dive", target.transform);
                 idCardi.card.passiveSkills.Dive = true;
                 target.card.AtkModify *= 2;
                 target.card.atk *= 2;

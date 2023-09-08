@@ -20,6 +20,7 @@ public class PlayerData
     public int arenaLosses;
     public int playerScore;
     public string userName = "";
+    public string email = "";
     public string completedQuests = "";
 
     internal void ResetAccount()

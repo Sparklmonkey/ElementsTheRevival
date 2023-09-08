@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 public class Deadalive : AbilityEffect
@@ -7,7 +7,7 @@ public class Deadalive : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Game_AnimationManager.shared.StartAnimation("DeadAndAlive", target.transform);
+        AnimationManager.Instance.StartAnimation("DeadAndAlive", target.transform);
         DuelManager.Instance.ActivateDeathTriggers();
     }
 

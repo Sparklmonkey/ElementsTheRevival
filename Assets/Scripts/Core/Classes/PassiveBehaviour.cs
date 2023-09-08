@@ -70,7 +70,7 @@ public class PassiveBehaviour : CardTypeBehaviour
     {
         if(CardPair.card.cardType == CardType.Mark)
         {
-            StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
+            StartCoroutine(AnimationManager.Instance.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
             if (BattleVars.shared.enemyAiData.maxHP >= 150 && CardPair.id.Owner == OwnerEnum.Opponent)
             {
                 Owner.GenerateQuantaLogic(CardPair.card.costElement, 3);

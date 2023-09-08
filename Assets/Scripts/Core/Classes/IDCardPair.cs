@@ -130,8 +130,8 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         if(id.Field != FieldEnum.Hand)
         {
-            StartCoroutine(Game_AnimationManager.shared.PlayAnimation("CardDeath", transform));
-            Game_SoundManager.shared.PlayAudioClip("RemoveCardFromField");
+            StartCoroutine(AnimationManager.Instance.PlayAnimation("CardDeath", transform));
+            SoundManager.Instance.PlayAudioClip("RemoveCardFromField");
         }
         isHidden = true;
         stackCount--;

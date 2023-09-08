@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -46,11 +46,11 @@ public class LoginScreen_RegisterManager : MonoBehaviour
             return;
         }
 
-        if(await ApiManager.shared.CheckUsername(username.text))
+        if(await ApiManager.Instance.CheckUsername(username.text))
         {
             touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
             touchBlocker.transform.SetAsFirstSibling();
-            await ApiManager.shared.UserLoginAsync(LoginType.RegisterUserPass, HandleUserRegistration, username.text, password.text);
+            await ApiManager.Instance.UserLoginAsync(LoginType.RegisterUserPass, HandleUserRegistration, username.text, password.text);
         }
         else
         {
@@ -67,11 +67,11 @@ public class LoginScreen_RegisterManager : MonoBehaviour
             return;
         }
 
-        if (await ApiManager.shared.CheckUsername(username.text))
+        if (await ApiManager.Instance.CheckUsername(username.text))
         {
             touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
             touchBlocker.transform.SetAsFirstSibling();
-            await ApiManager.shared.UserLoginAsync(LoginType.RegisterUnity, HandleUserRegistration, username.text);
+            await ApiManager.Instance.UserLoginAsync(LoginType.RegisterUnity, HandleUserRegistration, username.text);
         }
         else
         {
@@ -87,7 +87,7 @@ public class LoginScreen_RegisterManager : MonoBehaviour
         {
             PlayerData.shared = new();
             PlayerData.shared.userName = username.text;
-            await ApiManager.shared.SaveDataToUnity();
+            await ApiManager.Instance.SaveDataToUnity();
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
         }
         else

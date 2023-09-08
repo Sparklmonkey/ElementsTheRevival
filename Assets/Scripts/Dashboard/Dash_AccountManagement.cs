@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -18,7 +18,7 @@ public class Dash_AccountManagement : MonoBehaviour
 
     private void OnEnable()
     {
-        if (ApiManager.shared.isUnityUser)
+        if (ApiManager.Instance.isUnityUser)
         {
             currentPasswordField.gameObject.SetActive(false);
             newPasswordField.gameObject.SetActive(false);
@@ -72,7 +72,7 @@ public class Dash_AccountManagement : MonoBehaviour
         submitButtonText.text = "Submitting . . .";
         touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
 
-        var response = await ApiManager.shared.UpdateUserData(usernameField.text, currentPasswordField.text, newPasswordField.text);
+        var response = await ApiManager.Instance.UpdateUserData(usernameField.text, currentPasswordField.text, newPasswordField.text);
 
         submitButton.interactable = true;
         submitButtonText.text = "Submit";

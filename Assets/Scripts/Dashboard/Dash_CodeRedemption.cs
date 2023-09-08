@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -19,7 +19,7 @@ public class Dash_CodeRedemption : MonoBehaviour
         codeRedemptionRequest.CodeValue = input.text;
         codeRedemptionRequest.PlayerSavedData = PlayerData.shared;
 
-        await ApiManager.shared.CheckCodeRedemption(input.text, CodeRedepmtionHandler);
+        await ApiManager.Instance.CheckCodeRedemption(input.text, CodeRedepmtionHandler);
     }
 
     private async void CodeRedepmtionHandler(CodeRedemptionResponse response)
@@ -56,7 +56,7 @@ public class Dash_CodeRedemption : MonoBehaviour
                 SetupCardRewardView(cards);
             }
         }
-        await ApiManager.shared.SaveDataToUnity();
+        await ApiManager.Instance.SaveDataToUnity();
         GetComponent<DashboardPlayerData>().UpdateDashboard();
         errorMessage.text = "Code Successfully Redeemed!";
     }
@@ -89,7 +89,7 @@ public class Dash_CodeRedemption : MonoBehaviour
         }
         PlayerData.shared.cardInventory.Add(cardDisplayDetail.card.iD);
 
-        await ApiManager.shared.SaveDataToUnity();
+        await ApiManager.Instance.SaveDataToUnity();
         electrumRewardDisplay.SetActive(false);
         cardRewardObject.SetActive(false);
         cardDisplayDetail.gameObject.SetActive(false);

@@ -8,7 +8,7 @@ public class Mutation : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Game_AnimationManager.shared.StartAnimation("Mutation", target.transform);
+        AnimationManager.Instance.StartAnimation("Mutation", target.transform);
         switch (GetMutationResult())
         {
             case MutationEnum.Kill:

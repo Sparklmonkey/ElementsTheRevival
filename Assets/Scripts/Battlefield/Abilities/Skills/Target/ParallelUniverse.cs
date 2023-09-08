@@ -7,7 +7,7 @@ public class Paralleluniverse : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Game_AnimationManager.shared.StartAnimation("ParallelUniverse", target.transform);
+        AnimationManager.Instance.StartAnimation("ParallelUniverse", target.transform);
         Card dupe = new(target.card);
         dupe.DefDamage = target.card.DefDamage;
         dupe.DefModify = target.card.DefModify;

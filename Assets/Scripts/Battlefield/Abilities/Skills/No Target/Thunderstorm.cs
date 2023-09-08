@@ -10,7 +10,7 @@ public class Thunderstorm : AbilityEffect
         var victim = DuelManager.GetNotIDOwner(target.id);
         var idList = victim.playerCreatureField.GetAllValidCardIds();
 
-        Game_SoundManager.shared.PlayAudioClip("Lightning");
+        SoundManager.Instance.PlayAudioClip("Lightning");
         foreach (var idCardi in idList)
         {
             if (idCardi.card.innateSkills.Immaterial) { continue; }

@@ -1,11 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DeckDisplayManager : MonoBehaviour
@@ -315,7 +310,7 @@ public class DeckDisplayManager : MonoBehaviour
             }
             menuBtn.gameObject.SetActive(false);
             touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-            await ApiManager.shared.SaveDataToUnity();
+            await ApiManager.Instance.SaveDataToUnity();
 
             touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
             Destroy(touchBlocker);
@@ -323,12 +318,12 @@ public class DeckDisplayManager : MonoBehaviour
             if (isArena)
             {
                 isArena = false;
-                SceneManager.LoadScene("Top50");
+                SceneTransitionManager.Instance.LoadScene("Top50");
             }
             else
             {
                 isArena = false;
-                SceneManager.LoadScene("Dashboard");
+                SceneTransitionManager.Instance.LoadScene("Dashboard");
             }
             return;
         }
@@ -353,17 +348,17 @@ public class DeckDisplayManager : MonoBehaviour
 
             if (ApiManager.isTrainer)
             {
-                GetComponent<DashboardSceneManager>().LoadNewScene("Bazaar");
+                SceneTransitionManager.Instance.LoadScene("Bazaar");
                 return;
             }
             menuBtn.gameObject.SetActive(false);
             touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-            await ApiManager.shared.SaveDataToUnity();
+            await ApiManager.Instance.SaveDataToUnity();
 
             touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
             Destroy(touchBlocker);
             menuBtn.gameObject.SetActive(true);
-            SceneManager.LoadScene("Bazaar");
+            SceneTransitionManager.Instance.LoadScene("Bazaar");
             return;
         }
         errorMessage.SetupErrorMessage("You deck has to have between 30 and 60 cards");

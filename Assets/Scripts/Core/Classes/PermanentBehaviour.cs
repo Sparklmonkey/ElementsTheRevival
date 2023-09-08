@@ -170,7 +170,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                 Owner.GenerateQuantaLogic(CardPair.card.skillElement, CardPair.card.costElement == Element.Other ? 3 * StackCount : 1 * StackCount);
                 if (Owner.isPlayer || Owner.playerCounters.invisibility <= 0)
                 {
-                    StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
+                    StartCoroutine(AnimationManager.Instance.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
                 }
 
                 CardPair.card.skillElement = CardPair.card.skillElement == CardPair.card.costElement ? DuelManager.GetIDOwner(CardPair.id).playerPassiveManager.GetMark().card.costElement : CardPair.card.costElement;
@@ -180,7 +180,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                 Owner.GenerateQuantaLogic(CardPair.card.costElement, CardPair.card.costElement == Element.Other ? 3 * StackCount : 1 * StackCount);
                 if (Owner.isPlayer || Owner.playerCounters.invisibility <= 0)
                 {
-                    StartCoroutine(Game_AnimationManager.shared.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
+                    StartCoroutine(AnimationManager.Instance.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
                 }
             }
         }

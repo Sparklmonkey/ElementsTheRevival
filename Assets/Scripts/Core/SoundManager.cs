@@ -2,22 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game_SoundManager : MonoBehaviour
+public class SoundManager : Singleton<SoundManager>
 {
-    public static Game_SoundManager shared;
     [SerializeField]
     private AudioSource soundFX;
     [SerializeField]
     private AudioSource backgroundMusic;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        if(shared != null)
-        {
-            return;
-        }
-        DontDestroyOnLoad(this);
-        shared = this;
         UpdateVolume();
     }
 
@@ -40,6 +33,7 @@ public class Game_SoundManager : MonoBehaviour
     {
         backgroundMusic.Stop();
     }
+
     public void PlayBGM(string bgmName)
     {
         AudioClip clipToPlay = audioClips.Find(x => x.name == bgmName);

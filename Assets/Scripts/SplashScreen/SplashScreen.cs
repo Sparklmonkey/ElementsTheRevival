@@ -1,7 +1,6 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SplashScreen : MonoBehaviour
@@ -79,7 +78,6 @@ public class SplashScreen : MonoBehaviour
         {
             PlayerPrefs.SetInt("IsAltArt", 0); 
         }
-        ApiManager.shared.LoginCachedUser(HandleChachedUser);
         StartCoroutine(MoveImageAround(imageObjects[11], 12));
         StartCoroutine(StartTitleAnimation());
     }
@@ -100,6 +98,7 @@ public class SplashScreen : MonoBehaviour
 
     private IEnumerator LoadNextScene()
     {
+        ApiManager.Instance.LoginCachedUser(HandleChachedUser);
         while (mustWait)
         {
             yield return new WaitForSeconds(1f);
@@ -109,11 +108,11 @@ public class SplashScreen : MonoBehaviour
         PlayerPrefs.SetFloat("HasSeenSplash", 1f);
         if (dataLoaded)
         {
-            SceneManager.LoadScene("Dashboard");
+            SceneTransitionManager.Instance.LoadScene("Dashboard");
         }
         else
         {
-            SceneManager.LoadScene("LoginScreen");
+            SceneTransitionManager.Instance.LoadScene("LoginScreen");
         }
     }
 

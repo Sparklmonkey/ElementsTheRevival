@@ -20,14 +20,13 @@ public delegate void ArenaResponseHandler(ArenaResponse response);
 
 public delegate void SimpleAction();
 
-public class ApiManager : MonoBehaviour
+public class ApiManager : Singleton<ApiManager>
 {
 
     public GameObject touchBlocker;
 
     public static bool isTrainer;
     public bool isUnityUser = false;
-    public static ApiManager shared;
 
     public void LogoutUser()
     {
@@ -38,7 +37,6 @@ public class ApiManager : MonoBehaviour
     private string apiKey = "ElementRevival-ApiKey";
     private string token = "";
     private string playerID = "";
-    private string emailAddress = "";
 
     public AppInfo appInfo;
 
@@ -51,33 +49,20 @@ public class ApiManager : MonoBehaviour
 
     public IEnumerator UpdateGameStats(GameStatRequest request, GameStatUpdateHandler handler)
     {
-        using UnityWebRequest uwr = shared.CreateApiPostRequest("UserData/update-stats", request);
+        using UnityWebRequest uwr = CreateApiPostRequest("UserData/update-stats", request);
         yield return uwr.SendWebRequest();
 
         handler(uwr.result == UnityWebRequest.Result.Success);
     }
 
-    public void SetUsernameAndEmail(string emailAddress)
-    {
-        this.emailAddress = emailAddress;
-    }
-
     private async void Start()
     {
         await UnityServices.InitializeAsync();
-        //await PlayerAccountService.Instance.StartSignInAsync();
-        if (shared != null)
-        {
-            return;
-        }
-        shared = this;
         DontDestroyOnLoad(gameObject);
     }
 
-    public string GetEmail() => emailAddress;
-
-    public void SetPlayerId(string id) { shared.playerID = id; }
-    public string GetPlayerId() => shared.playerID;
+    public void SetPlayerId(string id) { playerID = id; }
+    public string GetPlayerId() => playerID;
 
     public UnityWebRequest CreateApiGetRequest(string actionUrl)
     {
@@ -120,7 +105,7 @@ public class ApiManager : MonoBehaviour
 
     public async Task LoginLegacy(LoginRequest loginRequest, LoginLegacyHandler loginSuccess)
     {
-        using UnityWebRequest uwr = shared.CreateApiPostRequest("Login/login", loginRequest);
+        using UnityWebRequest uwr = CreateApiPostRequest("Login/login", loginRequest);
         await uwr.SendWebRequest();
 
         if (uwr.result == UnityWebRequest.Result.ConnectionError)
@@ -156,11 +141,14 @@ public class ApiManager : MonoBehaviour
 
     public async void LoginCachedUser(CachedPlayerHandler handler)
     {
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
-        await GetAppInfo();
-
-        if (AuthenticationService.Instance.SessionTokenExists)
+        if (AuthenticationService.Instance.IsSignedIn)
         {
+            var hasData = await LoadSomeData();
+            handler(hasData);
+        }
+        else if (AuthenticationService.Instance.SessionTokenExists)
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
             var hasData = await LoadSomeData();
             handler(hasData);
         }
@@ -290,6 +278,7 @@ public class ApiManager : MonoBehaviour
 
     public async Task<bool> LoadSomeData()
     {
+        await GetAppInfo();
         Dictionary<string, string> savedData = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> { "SaveData" });
         if (savedData == null)
         {

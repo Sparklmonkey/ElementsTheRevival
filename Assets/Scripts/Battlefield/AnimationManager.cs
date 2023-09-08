@@ -5,18 +5,10 @@ using UnityEngine;
 
 public delegate void ActionEffect();
 
-public class Game_AnimationManager : MonoBehaviour
+public class AnimationManager : Singleton<AnimationManager>
 {
-    public static Game_AnimationManager shared;
     [SerializeField]
     private GameObject animationPrefab;
-    private void Start()
-    {
-        if(shared == null)
-        {
-            shared = this;
-        }
-    }
 
     public void StartAnimation(string animName, Transform transform, Element element = Element.Other)
     {

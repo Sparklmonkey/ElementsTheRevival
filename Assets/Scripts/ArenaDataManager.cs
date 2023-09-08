@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ArenaDataManager : MonoBehaviour
@@ -27,7 +24,7 @@ public class ArenaDataManager : MonoBehaviour
         playerMark.sprite = ImageHelper.GetElementImage(PlayerData.shared.arenaT50Mark.ToString());
         if(arenaResponse == null)
         {
-            await ApiManager.shared.GetT50Opponent(ArenaResponseHandler);
+            await ApiManager.Instance.GetT50Opponent(ArenaResponseHandler);
         }
         else
         {
@@ -47,11 +44,12 @@ public class ArenaDataManager : MonoBehaviour
             BattleVars.shared.isArena = true;
             BattleVars.shared.enemyAiData = enemyAi;
             arenaResponse = null;
-            SceneManager.LoadScene("Battlefield");
+            SceneTransitionManager.Instance.LoadScene("Battlefield");
         }
     }
     public void TestSelf()
     {
+
         if (PlayerData.shared.arenaT50Deck.Count < 30)
         {
             responseText.text = "Please set a deck to use in Arena T50. \n You can do so by tapping the 'Modify Deck' button";
@@ -65,7 +63,7 @@ public class ArenaDataManager : MonoBehaviour
             BattleVars.shared.enemyAiData.deck = string.Join(" ", PlayerData.shared.arenaT50Deck);
             BattleVars.shared.enemyAiData.mark = PlayerData.shared.arenaT50Mark;
             arenaResponse = null;
-            SceneManager.LoadScene("Battlefield");
+            SceneTransitionManager.Instance.LoadScene("Battlefield");
         }
     }
 
@@ -77,6 +75,7 @@ public class ArenaDataManager : MonoBehaviour
             return;
         }
 
+        Debug.Log(arenaResponse.opponentDeck);
 
         oppInfo.SetActive(true);
         oppMark.sprite = ImageHelper.GetElementImage(((Element)arenaResponse.deckMark).FastElementString());
@@ -95,12 +94,11 @@ public class ArenaDataManager : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        SceneManager.LoadScene("Dashboard");
+        SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
-
     public void GoToDeckManager()
     {
         DeckDisplayManager.isArena = true;
-        SceneManager.LoadScene("DeckManagement");
+        SceneTransitionManager.Instance.LoadScene("DeckManagement");
     }
 }

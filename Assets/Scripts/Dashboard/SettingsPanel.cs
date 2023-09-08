@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class SettingsPanel : MonoBehaviour
@@ -24,7 +24,7 @@ public class SettingsPanel : MonoBehaviour
         }
         PlayerPrefs.SetFloat("BGMVolume", bgmVolumeSlider.value);
         PlayerPrefs.SetFloat("SFXVolume", sfxVolumeSlider.value);
-        Game_SoundManager.shared.UpdateVolume();
+        SoundManager.Instance.UpdateVolume();
         gameObject.SetActive(false);
     }
 
@@ -52,6 +52,6 @@ public class SettingsPanel : MonoBehaviour
     {
         PlayerPrefs.SetFloat("BGMVolume", bgmVolumeSlider.value);
         PlayerPrefs.SetFloat("SFXVolume", sfxVolumeSlider.value);
-        Game_SoundManager.shared.UpdateVolume();
+        SoundManager.Instance.UpdateVolume();
     }
 }
