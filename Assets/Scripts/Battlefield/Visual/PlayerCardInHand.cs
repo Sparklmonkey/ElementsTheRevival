@@ -23,17 +23,14 @@ namespace Elements.Duel.Visual
             transform.parent.gameObject.SetActive(true);
             if (!belongsToPlayer)
             {
-                Debug.Log("Belongs to Ai");
                 if(isHidden)
                 {
-                    Debug.Log("Should be Hidden");
                     this.isHidden.sprite = ImageHelper.GetCardBackImage();
                     this.isHidden.color = ElementColours.GetWhiteColor();
                     cardName.text = " ";
                     PlayMaterializeAnimation(Element.Aether);
                     return;
                 }
-                Debug.Log("Should be Shown");
                 this.isHidden.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
                 PlayMaterializeAnimation(Element.Aether);
                 return;

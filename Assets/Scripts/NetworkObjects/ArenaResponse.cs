@@ -5,9 +5,9 @@ using UnityEngine;
 [Serializable]
 public class ArenaResponse
 {
-    public List<string> opponentDeck;
-    public int deckMark;
-    public string username;
+    public List<string> arenaT50Deck;
+    public int arenaT50Mark;
+    public string userName;
     public int playerScore;
     public int arenaWins;
     public int arenaLoses;

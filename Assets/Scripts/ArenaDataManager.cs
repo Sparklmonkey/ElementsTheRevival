@@ -69,27 +69,25 @@ public class ArenaDataManager : MonoBehaviour
 
     private void ArenaResponseHandler(ArenaResponse arenaResponse)
     {
-        if(arenaResponse.opponentDeck.Count == 0)
+        if(arenaResponse.arenaT50Deck.Count == 0)
         {
             responseText.text = "No opponent found, try again later";
             return;
         }
 
-        Debug.Log(arenaResponse.opponentDeck);
-
         oppInfo.SetActive(true);
-        oppMark.sprite = ImageHelper.GetElementImage(((Element)arenaResponse.deckMark).FastElementString());
-        oppName.text = arenaResponse.username;
-        enemyAi.opponentName = arenaResponse.username;
-        enemyAi.mark = (Element)arenaResponse.deckMark;
-        enemyAi.deck = string.Join(" ", arenaResponse.opponentDeck);
+        oppMark.sprite = ImageHelper.GetElementImage(((Element)arenaResponse.arenaT50Mark).FastElementString());
+        oppName.text = arenaResponse.userName;
+        enemyAi.opponentName = arenaResponse.userName;
+        enemyAi.mark = (Element)arenaResponse.arenaT50Mark;
+        enemyAi.deck = string.Join(" ", arenaResponse.arenaT50Deck);
         oppWin.text = arenaResponse.arenaWins.ToString();
         oppScore.text = arenaResponse.playerScore.ToString();
         oppLoss.text = arenaResponse.arenaLoses.ToString();
         oppRank.text = arenaResponse.arenaRank.ToString();
         ArenaDataManager.arenaResponse = arenaResponse;
         startGameBtn.SetActive(true);
-        responseText.text = $"Your opponent is {arenaResponse.username}";
+        responseText.text = $"Your opponent is {arenaResponse.userName}";
     }
 
     public void ReturnToMenu()
