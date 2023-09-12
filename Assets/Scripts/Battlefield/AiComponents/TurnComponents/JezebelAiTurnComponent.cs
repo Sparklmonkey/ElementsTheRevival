@@ -25,38 +25,4 @@ public class JezebelAiTurnComponent : AiBaseFunctions, IAiTurnComponent
             yield return aiManager.StartCoroutine(PlayPermanent(aiManager, "Cloak"));
         }
     }
-    private IEnumerator ActivateAbilities(PlayerManager aiManager, CardType cardType)
-    {
-        var idCardList = aiManager.playerCreatureField.GetAllValidCardIds();
-
-        int cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x));
-
-        if (cardIndex == -1) { yield break; }
-
-        int loopBreak = 0;
-        while (cardIndex != -1 && loopBreak < 10)
-        {
-            loopBreak++;
-
-            if(SkillManager.Instance.ShouldAskForTarget(idCardList[cardIndex]))
-            {
-                var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
-                if(target == null)
-                {
-                    cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x) && x.card.cardName != idCardList[cardIndex].card.cardName);
-                    continue;
-                }
-                BattleVars.shared.abilityOrigin = idCardList[cardIndex];
-                aiManager.ActivateAbility(target);
-                cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x));
-            }
-            else
-            {
-                BattleVars.shared.abilityOrigin = idCardList[cardIndex];
-                aiManager.ActivateAbility(idCardList[cardIndex]);
-                cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x));
-            }
-        }
-    }
-
 }

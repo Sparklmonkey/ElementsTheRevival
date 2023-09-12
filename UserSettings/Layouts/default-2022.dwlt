@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1792
     height: 956
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Console
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 86
+  controlID: 23
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 21
+  controlID: 24
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 87
+  controlID: 90
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -324,9 +324,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 521
+    y: 520.5
     width: 1002
-    height: 447
+    height: 447.5
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -380,22 +380,22 @@ MonoBehaviour:
       x: 0
       y: 21
       width: 1002
-      height: 426
-    m_Scale: {x: 0.7888889, y: 0.7888889}
-    m_Translation: {x: 501, y: 213}
+      height: 426.5
+    m_Scale: {x: 0.7898149, y: 0.78981483}
+    m_Translation: {x: 501, y: 213.25}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -635.07043
+      x: -634.32587
       y: -270
-      width: 1270.1409
+      width: 1268.6517
       height: 540
     m_MinimalGUI: 1
-  m_defaultScale: 0.7888889
-  m_LastWindowPixelSize: {x: 2004, y: 894}
+  m_defaultScale: 0.78981483
+  m_LastWindowPixelSize: {x: 2004, y: 895}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 00000000000000000000
@@ -705,9 +705,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1032.9633, y: 321.8028, z: -6.447883}
+    m_Target: {x: 1170, y: 513, z: 0}
     speed: 2
-    m_Value: {x: 1032.9633, y: 321.8028, z: -6.447883}
+    m_Value: {x: 1170, y: 513, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -757,9 +757,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 420.5022
+    m_Target: 10
     speed: 2
-    m_Value: 420.5022
+    m_Value: 10
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -855,9 +855,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 305a0000
+      m_SelectedIDs: b8870000
       m_LastClickedID: 0
-      m_ExpandedIDs: 22fbffff
+      m_ExpandedIDs: 4832e6ff367ae6ffaa1be8ff2c1beeff22fbffffa078000040490200744b0200304d02005e4d0200384f02002056020082b10200b0b1020042b6020078b602006cb8020072ba0200c0bb0200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -916,7 +916,7 @@ MonoBehaviour:
     m_SaveData: []
     m_OverlaysVisible: 1
   m_SearchFilter:
-    m_NameFilter: apimana
+    m_NameFilter: splas
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -928,7 +928,7 @@ MonoBehaviour:
     m_Folders:
     - Assets/Scripts/Battlefield/Logic
     m_Globs: []
-    m_OriginalText: apimana
+    m_OriginalText: splas
     m_ImportLogFlags: 0
     m_FilterByTypeIntersection: 0
   m_ViewMode: 0
@@ -968,7 +968,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 1142}
+    scrollPos: {x: 0, y: 1252}
     m_SelectedIDs: 
     m_LastClickedID: 0
     m_ExpandedIDs: ffffffff000000005c7900005e79000060790000627900006479000066790000687900006a7900006c7900006e79000070790000727900007479000076790000787900007a7900007c7900007e79000080790000827900008479000086790000887900008a7900008c7900008e790000907900009279000094790000

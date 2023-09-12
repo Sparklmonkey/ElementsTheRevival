@@ -47082,8 +47082,6 @@ GameObject:
   - component: {fileID: 1912330871}
   - component: {fileID: 1912330870}
   - component: {fileID: 1912330875}
-  - component: {fileID: 1912330874}
-  - component: {fileID: 1912330876}
   - component: {fileID: 1912330877}
   m_Layer: 5
   m_Name: Canvas
@@ -47175,19 +47173,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1912330874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1912330869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c8d4b2a725a14cabb67b83209199e49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dissolveMaterial: {fileID: 2100000, guid: 5dc37807cf2c14e5983476cc99ad808d, type: 2}
 --- !u!114 &1912330875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47209,20 +47194,6 @@ MonoBehaviour:
   floodImageEnemy: {fileID: 1582502770}
   coinFlip: {fileID: 1752137513}
   targetingObject: {fileID: 514993720}
---- !u!114 &1912330876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1912330869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 140f2ed3944873f4baefa1232f2050ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idList: []
-  transformList: []
 --- !u!114 &1912330877
 MonoBehaviour:
   m_ObjectHideFlags: 0

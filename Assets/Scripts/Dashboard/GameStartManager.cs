@@ -6,8 +6,8 @@ public class GameStartManager : MonoBehaviour
     [SerializeField]
     private Error_Animated errorMessageManager;
 
-    private readonly List<string> elderPrefix = new List<string> { "Aeth", "Air", "Shad", "Lum", "Mor", "Ter", "Dis", "Chr", "Pyr", "Mas", "Vit", "Aqua" };
-    private readonly List<string> elderSuffix = new List<string> { "eric", "es", "ow", "iel", "tis", "ra", "cord", "onos", "ofuze", "sa", "al", "rius" };
+    private readonly List<string> elderPrefix = new (){ "Aeth", "Air", "Shad", "Lum", "Mor", "Ter", "Dis", "Chr", "Pyr", "Mas", "Vit", "Aqua" };
+    private readonly List<string> elderSuffix = new (){ "eric", "es", "ow", "iel", "tis", "ra", "cord", "onos", "ofuze", "sa", "al", "rius" };
 
     public void StartGameOnDificulty(int level)
     {
@@ -20,11 +20,13 @@ public class GameStartManager : MonoBehaviour
                 ai = Resources.Load<EnemyAi>("EnemyAi/Level0/Random");
                 ai.mark = (Element)Random.Range(0, 12);
                 ai.deck = string.Join(" ", CardDatabase.Instance.GetRandomDeck());
+                ai.name = ai.mark.FastElementString();
                 break;
             case 1:
                 ai = Resources.Load<EnemyAi>("EnemyAi/Level1/Random");
                 ai.mark = (Element)Random.Range(0, 12);
                 ai.deck = string.Join(" ", CardDatabase.Instance.GetRandomDeck());
+                ai.name = ai.mark.FastElementString();
                 break;
             case 2:
                 Element elementDeck = (Element)Random.Range(0, 12);
@@ -57,7 +59,6 @@ public class GameStartManager : MonoBehaviour
                 {
                     falseGod = falseGodNameList[Random.Range(0, falseGodNameList.Count)];
                 }
-                //ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/Serket");
                 ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/{falseGod}");
                 PlayerData.shared.nextFalseGod = "";
                 break;

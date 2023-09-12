@@ -47,25 +47,6 @@ public class ArenaDataManager : MonoBehaviour
             SceneTransitionManager.Instance.LoadScene("Battlefield");
         }
     }
-    public void TestSelf()
-    {
-
-        if (PlayerData.shared.arenaT50Deck.Count < 30)
-        {
-            responseText.text = "Please set a deck to use in Arena T50. \n You can do so by tapping the 'Modify Deck' button";
-        }
-        else
-        {
-            BattleVars.shared.isArena = true;
-            BattleVars.shared.isTest = true;
-            BattleVars.shared.enemyAiData = enemyAi;
-            BattleVars.shared.enemyAiData.opponentName = PlayerData.shared.userName;
-            BattleVars.shared.enemyAiData.deck = string.Join(" ", PlayerData.shared.arenaT50Deck);
-            BattleVars.shared.enemyAiData.mark = PlayerData.shared.arenaT50Mark;
-            arenaResponse = null;
-            SceneTransitionManager.Instance.LoadScene("Battlefield");
-        }
-    }
 
     private void ArenaResponseHandler(ArenaResponse arenaResponse)
     {

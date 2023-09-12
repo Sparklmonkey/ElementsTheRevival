@@ -20,15 +20,10 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public event Action<Card, int, bool> OnCardChanged;
     public event Action<Card, int> OnCardRemoved;
 
-    public event Action<IDCardPair, bool> OnHoverObject;
     public event Action<IDCardPair> OnClickObject;
-
-    public event Action<int> OnCreatureAttack;
 
     public event Action<bool> OnBeingTargeted;
     public event Action<bool> OnBeingPlayable;
-
-    public event Action<IDCardPair, PlayerManager, PlayerManager> OnTurnEnd;
 
     void Start()
     {
@@ -153,6 +148,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        ToolTipCanvas.Instance.HideToolTip();
         if (!HasCard() && id.Field != FieldEnum.Player) { return; }
         OnClickObject?.Invoke(this);
     }

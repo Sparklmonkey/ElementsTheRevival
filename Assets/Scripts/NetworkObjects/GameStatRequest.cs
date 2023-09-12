@@ -6,26 +6,40 @@ using UnityEngine;
 
 public class GameStatRequest
 {
-    public string fgName;
-    public int hbPrimary;
-    public int hbSecondary;
-    public bool isL1;
-    public bool isL2;
-    public bool isL3;
-    public bool isArena;
-    public bool didWin;
-    public int gameStatId;
+    public int aiLevel;
+    public string aiName;
+    public bool isWin;
 
     public GameStatRequest(EnemyAi enemy, bool didWin, bool isArena)
     {
-        this.didWin = didWin;
-        this.isArena = isArena;
-        isL1 = enemy.spins == 0;
-        isL2 = enemy.spins == 1;
-        isL3 = enemy.spins == 2;
-        hbPrimary = enemy.spins == 3 && enemy.maxHP == 150 ? (int)BattleVars.shared.primaryElement : 14;
-        hbSecondary = enemy.spins == 3 && enemy.maxHP == 150 ? (int)BattleVars.shared.secondaryElement : 14;
-        fgName = enemy.spins == 3 && enemy.maxHP == 200 ? enemy.opponentName : "";
-        gameStatId = PlayerData.shared.gameStatsId;
+        isWin = didWin;
+        aiName = enemy.opponentName;
+        switch (enemy.spins)
+        {
+            case 0:
+                aiLevel = 0;
+                break;
+            case 1:
+                aiLevel = 1;
+                break;
+            case 2:
+                aiLevel = 2;
+                break;
+            case 3 when enemy.maxHP == 100:
+                aiLevel = 3;
+                break;
+            case 3 when enemy.maxHP == 150:
+                aiLevel = 4;
+                break;
+            case 3 when enemy.maxHP == 200:
+                aiLevel = 5;
+                break;
+            default:
+                if (isArena)
+                {
+                    aiLevel = 6;
+                }
+                break;
+        }
     }
 }

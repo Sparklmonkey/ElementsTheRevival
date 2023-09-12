@@ -47,12 +47,12 @@ public class ApiManager : Singleton<ApiManager>
         public string updateNote;
     }
 
-    public IEnumerator UpdateGameStats(GameStatRequest request, GameStatUpdateHandler handler)
+    public async Task UpdateGameStats(GameStatRequest request)
     {
-        using UnityWebRequest uwr = CreateApiPostRequest("UserData/update-stats", request);
-        yield return uwr.SendWebRequest();
-
-        handler(uwr.result == UnityWebRequest.Result.Success);
+        var arguments = new Dictionary<string, object> { { "aiLevel", request.aiLevel }, { "isWin", request.isWin }, { "aiName", request.aiName} };
+        Debug.Log(arguments);
+        var wasSuccess = await CloudCodeService.Instance.CallModuleEndpointAsync<string>("GameDataModule", "UpdateGameData", arguments);
+        Debug.Log(wasSuccess);
     }
 
     private async void Start()

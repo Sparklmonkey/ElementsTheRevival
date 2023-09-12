@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
-  m_Name: Random
+  m_Name: Life
   m_EditorClassIdentifier: 
   opponentName: Aether
   maxHP: 50
-  mark: 5
-  deck: 
+  mark: 10
+  deck: 606 5t2 5gi 5mq 606 5aa 576 5bs 4vc 5de 596 625 55n 5um 62c 5ie 5fc 5v8 596
+    5ok 5ul 55u 52i 55n 61v 5un 52t 5bv 5v8 5ut 4vn 624 621 593 52p 4vk 55t 5oh 5ig
+    4vk
   spins: 0
   coinAvg: 1
   costToPlay: 0

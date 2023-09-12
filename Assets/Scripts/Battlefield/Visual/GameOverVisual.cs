@@ -19,7 +19,7 @@ public class GameOverVisual : MonoBehaviour
     private static bool didWinStatic;
     public static bool isGameOver = false;
 
-    public static void ShowGameOverScreen(bool didWin)
+    public async static void ShowGameOverScreen(bool didWin)
     {
         DuelManager.Instance.enemy.StopAllCoroutines();
         DuelManager.Instance.player.StopAllCoroutines();
@@ -59,7 +59,7 @@ public class GameOverVisual : MonoBehaviour
             {
                 PlayerData.shared.arenaWins++;
             }
-            ApiManager.Instance.StartCoroutine(ApiManager.Instance.UpdateGameStats(new GameStatRequest(BattleVars.shared.enemyAiData, true, BattleVars.shared.isArena), GameStatHandler));
+            await ApiManager.Instance.UpdateGameStats(new GameStatRequest(BattleVars.shared.enemyAiData, true, BattleVars.shared.isArena));
 
             PlayerData.shared.electrum += BattleVars.shared.enemyAiData.costToPlay;
         }
@@ -72,18 +72,12 @@ public class GameOverVisual : MonoBehaviour
             PlayerData.shared.gamesLost++;
             PlayerData.shared.playerScore -= BattleVars.shared.enemyAiData.scoreWin / 2;
             PlayerData.shared.playerScore = PlayerData.shared.playerScore < 0 ? 0 : PlayerData.shared.playerScore;
-            ApiManager.Instance.StartCoroutine(ApiManager.Instance.UpdateGameStats(new GameStatRequest(BattleVars.shared.enemyAiData, false, BattleVars.shared.isArena), GameStatHandler));
-            
-
+            await ApiManager.Instance.UpdateGameStats(new GameStatRequest(BattleVars.shared.enemyAiData, false, BattleVars.shared.isArena));
         }
 
         PlayerData.SaveData();
     }
 
-    public static void GameStatHandler(bool wasSuccess)
-    {
-
-    }
 
     public void MoveToSpinnerScreen()
     {

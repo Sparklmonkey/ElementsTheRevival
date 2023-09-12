@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
-  m_Name: Random
+  m_Name: Light
   m_EditorClassIdentifier: 
   opponentName: Ethereal
   maxHP: 100
-  mark: 0
-  deck: 
+  mark: 3
+  deck: 5i4 5mq 5pu 5rg 606 55k 5i4 52g 5uk 4sa 59c 5rq 597 61v 5ie 5le 58r 5ie 5fk
+    5p0 4vm 5ie 5v0 52k 5rh 5ib 5bv 52j 5um 55l 50a 622 5c2 52p 52p 58t 5f6 593 4vn
+    595
   spins: 1
   coinAvg: 1
   costToPlay: 0

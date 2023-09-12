@@ -25,14 +25,6 @@ public class CardSO : ScriptableObject
     public int basePower;
     public int hp;
     public int maxHP;
-
-    [Header("Script Field")]
-    public CardAbilities cardAbilities;
-
-
-    [Header("Passives")]
-    public CardPassives cardPassives;
-
     [Header("On Field Info")]
     public bool firstTurn = true;
     public bool pendulumTurn = true;
