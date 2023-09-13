@@ -16,9 +16,8 @@
 
 namespace GooglePlayGames.BasicApi.Video
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using GooglePlayGames.OurUtils;
+    using System.Linq;
 
     /// <summary>
     /// Represents the video recording capabilities.
@@ -64,7 +63,7 @@ namespace GooglePlayGames.BasicApi.Video
         {
             if (captureMode != VideoCaptureMode.Unknown)
             {
-                return mCaptureModesSupported[(int) captureMode];
+                return mCaptureModesSupported[(int)captureMode];
             }
             else
             {
@@ -78,7 +77,7 @@ namespace GooglePlayGames.BasicApi.Video
         {
             if (qualityLevel != VideoQualityLevel.Unknown)
             {
-                return mQualityLevelsSupported[(int) qualityLevel];
+                return mQualityLevelsSupported[(int)qualityLevel];
             }
             else
             {

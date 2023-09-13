@@ -1,4 +1,4 @@
-public abstract class ShieldAbility 
+public abstract class ShieldAbility
 {
     public PlayerManager Owner;
     public PlayerManager Enemy;

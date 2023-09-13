@@ -1,13 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 public class GravitonAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 {
     public IEnumerator RestOfTurn(PlayerManager aiManager)
     {
-        
+
         //Play Arsenic if none in play
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Elite Titan"));
         //Play Arsenic if none in play

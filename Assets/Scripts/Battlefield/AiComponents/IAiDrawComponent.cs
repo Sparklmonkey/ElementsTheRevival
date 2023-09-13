@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using UnityEngine;
-
-public interface IAiDrawComponent
+﻿public interface IAiDrawComponent
 {
     void StartTurnDrawCard(PlayerManager aiManager);
 }
@@ -10,7 +7,7 @@ public class FalseGodDrawComponenet : IAiDrawComponent
 {
     public void StartTurnDrawCard(PlayerManager aiManager)
     {
-        if(aiManager.GetHandCards().Count < 8)
+        if (aiManager.GetHandCards().Count < 8)
         {
             aiManager.DrawCardFromDeckLogic();
         }

@@ -1,5 +1,4 @@
-﻿using System;
-public enum TextDirection
+﻿public enum TextDirection
 {
     Up,
     Down,

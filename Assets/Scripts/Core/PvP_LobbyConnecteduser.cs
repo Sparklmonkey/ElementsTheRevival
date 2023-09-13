@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using TMPro;
 using UnityEngine;
-using TMPro;
 using UnityEngine.SceneManagement;
 
 public class PvP_LobbyConnecteduser : MonoBehaviour
@@ -21,7 +17,7 @@ public class PvP_LobbyConnecteduser : MonoBehaviour
         youWin.text = PlayerData.shared.gamesWon.ToString();
         youLose.text = PlayerData.shared.gamesLost.ToString();
 
-        if(opponent == null) { return; }
+        if (opponent == null) { return; }
         oppUsername.text = opponent.Username;
         oppLose.text = opponent.Lost.ToString();
         oppWin.text = opponent.Win.ToString();

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,7 +35,7 @@ public class ServicesSpinner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!shouldMove) { return; }
+        if (!shouldMove) { return; }
         MoveElementIcon(0, elementsIsMovingToCenter[0]);
         MoveElementIcon(1, elementsIsMovingToCenter[1]);
         MoveElementIcon(2, elementsIsMovingToCenter[2]);

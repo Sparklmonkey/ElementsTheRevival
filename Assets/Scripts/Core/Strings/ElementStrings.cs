@@ -107,7 +107,7 @@ public static class ElementStrings
 
         foreach (CardBodyString item in cardBodyStringArray.cardBodyStrings)
         {
-            if(item.cardName == cardName)
+            if (item.cardName == cardName)
             {
                 return item.bodyString;
             }

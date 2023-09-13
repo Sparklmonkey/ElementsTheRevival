@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +31,7 @@ public class Dash_ResetAccountAnimator : MonoBehaviour
             yield return null;
         }
         content.SetActive(aValue == 1f);
-        if(aValue == 0f)
+        if (aValue == 0f)
         {
             gameObject.SetActive(false);
         }

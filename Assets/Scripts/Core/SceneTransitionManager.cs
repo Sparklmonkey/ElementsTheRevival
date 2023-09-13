@@ -1,4 +1,3 @@
-using System;
 using UnityEngine.SceneManagement;
 
 public class SceneTransitionManager : Singleton<SceneTransitionManager>

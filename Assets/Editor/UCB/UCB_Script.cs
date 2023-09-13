@@ -1,10 +1,8 @@
-using UnityEngine;
 using System;
 using System.IO;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Callbacks;
+using UnityEngine;
 
 public class UCB_Script
 {

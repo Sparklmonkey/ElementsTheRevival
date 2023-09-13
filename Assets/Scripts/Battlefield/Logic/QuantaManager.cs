@@ -1,7 +1,5 @@
-﻿using System.Collections;
+﻿using Elements.Duel.Visual;
 using System.Collections.Generic;
-using System.Linq;
-using Elements.Duel.Visual;
 using UnityEngine;
 
 namespace Elements.Duel.Manager
@@ -44,7 +42,7 @@ namespace Elements.Duel.Manager
                 _quantaObjects.Find(x => x.element == element).UpdateQuanta(amount, isAdd);
             }
 
-       
+
         }
 
         public int GetQuantaForElement(Element element) => element.Equals(Element.Other) ? _quantaObjects.GetFullQuantaCount() : _quantaObjects[(int)element].count;

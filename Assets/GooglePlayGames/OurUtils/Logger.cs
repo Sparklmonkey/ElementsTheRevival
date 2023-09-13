@@ -85,7 +85,7 @@ namespace GooglePlayGames.OurUtils
                 timeString = string.Empty;
             }
 
-            return string.Format("{0} [Play Games Plugin " + PluginVersion.VersionString+ "] {1} {2}: {3}",
+            return string.Format("{0} [Play Games Plugin " + PluginVersion.VersionString + "] {1} {2}: {3}",
                 prefix, timeString, logType, msg);
         }
     }

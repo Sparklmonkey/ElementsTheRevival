@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public abstract class AiBaseFunctions
@@ -18,7 +16,7 @@ public abstract class AiBaseFunctions
 
         for (int i = 0; i < 7; i++)
         {
-            if(cardIndex == -1) { yield break; }
+            if (cardIndex == -1) { yield break; }
 
             aiManager.PlayCardFromHandLogic(idCardList[cardIndex]);
 
@@ -157,7 +155,7 @@ public abstract class AiBaseFunctions
         }
     }
 
-    public IEnumerator ActivateRepeatAbilityNoTarget(PlayerManager aiManager, CardType cardType,string regularName, string uppedName)
+    public IEnumerator ActivateRepeatAbilityNoTarget(PlayerManager aiManager, CardType cardType, string regularName, string uppedName)
     {
         var idCardList = cardType.Equals(CardType.Creature) ? aiManager.playerCreatureField.GetAllValidCardIds() : aiManager.playerPermanentManager.GetAllValidCardIds();
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-public class PvpUserInfo
+﻿public class PvpUserInfo
 {
     public int Score { get; set; }
     public int Win { get; set; }

@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
 public class Card
@@ -98,9 +96,9 @@ public class Card
 [Serializable]
 public class CardDB
 {
-	public List<Card> cardDb;
-	public CardDB()
+    public List<Card> cardDb;
+    public CardDB()
     {
-		cardDb = new List<Card>();
+        cardDb = new List<Card>();
     }
 }

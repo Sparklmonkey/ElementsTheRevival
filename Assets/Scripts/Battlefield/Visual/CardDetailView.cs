@@ -1,7 +1,6 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
 
 namespace Elements.Duel.Visual
 {
@@ -18,7 +17,7 @@ namespace Elements.Duel.Visual
         private IDCardPair idCard;
         public void SetupCardDisplay(IDCardPair idCard)
         {
-            if(!idCard.HasCard()) { return; }
+            if (!idCard.HasCard()) { return; }
             this.idCard = idCard;
             SetupButton();
             cardDisplay.SetupCardView(idCard.card);
@@ -42,7 +41,7 @@ namespace Elements.Duel.Visual
                 actionButton.gameObject.SetActive(false);
                 return;
             }
-                
+
             if (idCard.card.cardType == CardType.Spell)
             {
                 if (!SkillManager.Instance.ShouldAskForTarget(idCard) && hasQuanta && isPlayerTurn)

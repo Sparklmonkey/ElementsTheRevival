@@ -106,7 +106,7 @@ public class DuelManager : MonoBehaviour
 
     private void Awake()
     {
-        if(_instance != null)
+        if (_instance != null)
         {
             Destroy(gameObject);
         }
@@ -233,7 +233,7 @@ public class DuelManager : MonoBehaviour
     {
         if (!BattleVars.shared.isPlayerTurn) { return; }
 
-        if(validTargets.Count > 0)
+        if (validTargets.Count > 0)
         {
             if (BattleVars.shared.isSelectingTarget && validTargets.Contains(idCard))
             {

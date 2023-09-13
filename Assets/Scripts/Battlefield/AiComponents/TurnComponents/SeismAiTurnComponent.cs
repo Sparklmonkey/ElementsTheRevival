@@ -2,11 +2,11 @@
 
 public class SeismAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 {
-    
+
 
     public IEnumerator RestOfTurn(PlayerManager aiManager)
     {
-        
+
         //Play Arsenic if none in play
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Elite Pulverizer"));
         //Play Arsenic if none in play

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class CreatureAbilities
 {
@@ -15,7 +14,7 @@ public class CreatureAbilities
             if (SkillManager.Instance.ShouldAskForTarget(creature))
             {
                 var target = SkillManager.Instance.GetRandomTarget(aiManager, creature);
-                if(target == null) { continue; }
+                if (target == null) { continue; }
 
                 BattleVars.shared.abilityOrigin = creature;
                 SkillManager.Instance.SkillRoutineWithTarget(aiManager, target);
@@ -38,7 +37,7 @@ public class CreatureAbilities
 
         foreach (var pegasus in pegasusList)
         {
-            if(!aiManager.IsAbilityUsable(pegasus)) { continue; }
+            if (!aiManager.IsAbilityUsable(pegasus)) { continue; }
             BattleVars.shared.abilityOrigin = pegasus;
             aiManager.ActivateAbility(pegasus);
         }
@@ -90,7 +89,7 @@ public class CreatureAbilities
         {
             if (!aiManager.IsAbilityUsable(spider)) { continue; }
             var target = SkillManager.Instance.GetRandomTarget(aiManager, spider);
-            if(target == null) { continue; }
+            if (target == null) { continue; }
             BattleVars.shared.abilityOrigin = spider;
             aiManager.ActivateAbility(target);
         }
@@ -130,7 +129,7 @@ public class CreatureAbilities
 
         for (int i = 0; i < creatureList.Count; i++)
         {
-            if(!aiManager.IsAbilityUsable(creatureList[i])) { continue; }
+            if (!aiManager.IsAbilityUsable(creatureList[i])) { continue; }
             if (creatureList[i].card.skill == "endow")
             {
                 if (aiManager.playerPassiveManager.GetWeapon() == null) { continue; }

@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
 public class PseudoPvPAction
@@ -11,7 +8,7 @@ public class PseudoPvPAction
     public PseudoID targetId;
 }
 [Serializable]
-public class PvP_Action 
+public class PvP_Action
 {
     public ActionType ActionType;
     public ID OriginId;

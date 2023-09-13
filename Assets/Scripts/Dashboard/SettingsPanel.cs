@@ -10,11 +10,11 @@ public class SettingsPanel : MonoBehaviour
     public void CloseSettingsPanel()
     {
         PlayerPrefs.SetInt("QuickPlay", quickPlay.currentToggle);
-        if(animSpeed.currentToggle == 2)
+        if (animSpeed.currentToggle == 2)
         {
             PlayerPrefs.SetFloat("AnimSpeed", 0);
         }
-        else if(animSpeed.currentToggle == 1)
+        else if (animSpeed.currentToggle == 1)
         {
             PlayerPrefs.SetFloat("AnimSpeed", 0.01f);
         }

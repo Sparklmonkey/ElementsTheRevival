@@ -32,10 +32,10 @@ public class GameOverVisual : MonoBehaviour
         continueButtonStatic.gameObject.SetActive(true);
         rayBlockerStatic.gameObject.SetActive(true);
         gameOverTextStatic.text = didWin ? "You Won!" : "You Lost";
-        if(BattleVars.shared.isTest){return;}
+        if (BattleVars.shared.isTest) { return; }
         if (didWin)
         {
-            if(DuelManager.Instance.player.healthManager.IsMaxHealth())
+            if (DuelManager.Instance.player.healthManager.IsMaxHealth())
             {
                 BattleVars.shared.elementalMastery = true;
             }
@@ -59,8 +59,8 @@ public class GameOverVisual : MonoBehaviour
             {
                 PlayerData.shared.arenaWins++;
             }
-            await ApiManager.Instance.UpdateGameStats(new GameStatRequest(BattleVars.shared.enemyAiData, true, BattleVars.shared.isArena));
-
+            GameStats.shared.UpdateValues(new GameStatRequest(BattleVars.shared.enemyAiData, true, BattleVars.shared.isArena));
+            await ApiManager.Instance.SaveGameStats();
             PlayerData.shared.electrum += BattleVars.shared.enemyAiData.costToPlay;
         }
         else
@@ -72,7 +72,8 @@ public class GameOverVisual : MonoBehaviour
             PlayerData.shared.gamesLost++;
             PlayerData.shared.playerScore -= BattleVars.shared.enemyAiData.scoreWin / 2;
             PlayerData.shared.playerScore = PlayerData.shared.playerScore < 0 ? 0 : PlayerData.shared.playerScore;
-            await ApiManager.Instance.UpdateGameStats(new GameStatRequest(BattleVars.shared.enemyAiData, false, BattleVars.shared.isArena));
+            GameStats.shared.UpdateValues(new GameStatRequest(BattleVars.shared.enemyAiData, true, BattleVars.shared.isArena));
+            await ApiManager.Instance.SaveGameStats();
         }
 
         PlayerData.SaveData();
@@ -82,7 +83,7 @@ public class GameOverVisual : MonoBehaviour
     public void MoveToSpinnerScreen()
     {
         PlayerData.SaveData();
-        if(didWinStatic && !BattleVars.shared.isTest)
+        if (didWinStatic && !BattleVars.shared.isTest)
         {
             SceneTransitionManager.Instance.LoadScene("SpinnerScene");
         }

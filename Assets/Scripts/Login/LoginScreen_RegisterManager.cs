@@ -46,7 +46,7 @@ public class LoginScreen_RegisterManager : MonoBehaviour
             return;
         }
 
-        if(await ApiManager.Instance.CheckUsername(username.text))
+        if (await ApiManager.Instance.CheckUsername(username.text))
         {
             touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
             touchBlocker.transform.SetAsFirstSibling();

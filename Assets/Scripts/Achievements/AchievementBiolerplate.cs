@@ -14,7 +14,7 @@ public abstract class AchievementBiolerplate
 
         if (value is int castValue)
         {
-            if(castValue >= aiDifficulty) { return; }
+            if (castValue >= aiDifficulty) { return; }
             int coinsToAdd = (aiDifficulty - castValue) * 50;
             pinfo.SetValue(AchievementManager.Instance.achievements, aiDifficulty);
             PlayerData.shared.electrum += coinsToAdd;

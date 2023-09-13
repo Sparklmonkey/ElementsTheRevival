@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +8,7 @@ public class DeckCodeManager : MonoBehaviour
 
     public void SetupFields(string deckCode, Element markElement)
     {
-        if(deckCode.Contains(" "))
+        if (deckCode.Contains(" "))
         {
             legacyDeckCodeField.text = deckCode + " " + CardDatabase.Instance.markIds[(int)markElement];
             oetgDeckCodeField.text = legacyDeckCodeField.text.ConvertLegacyToOetg();

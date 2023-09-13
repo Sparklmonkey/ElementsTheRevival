@@ -57,12 +57,12 @@ namespace Elements.Duel.Manager
         public void PassiveTurnDown()
         {
             foreach (var idCard in pairList)
-            { 
+            {
                 if (!idCard.HasCard()) { continue; }
                 idCard.cardBehaviour.OnTurnStart();
-                if(idCard.card.TurnsInPlay <= 0 && turnCount.Contains(idCard.card.iD))
+                if (idCard.card.TurnsInPlay <= 0 && turnCount.Contains(idCard.card.iD))
                 {
-                    if(idCard.id.Index == 2)
+                    if (idCard.id.Index == 2)
                     {
                         RemoveShield();
                     }

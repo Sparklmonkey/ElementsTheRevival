@@ -1,5 +1,5 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "CardSO", menuName = "ScriptableObjects/CardSO", order = 1)]
 [Serializable]
@@ -9,7 +9,7 @@ public class CardSO : ScriptableObject
     public Sprite cardImage;
     public string cardName;
     public string iD;
-    [TextArea(4,4)]
+    [TextArea(4, 4)]
     public string description;
     public int buyPrice;
     public int sellPrice;

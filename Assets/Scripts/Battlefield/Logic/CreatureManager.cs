@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Elements.Duel.Visual;
-using UnityEngine;
 
 [Serializable]
 public class CreatureManager : FieldManager
 {
-    private readonly List<int> creatureCardOrder = new (){ 11, 13, 9, 10, 12, 14, 8, 16, 18, 20, 22, 0, 2, 4, 6, 15, 17, 19, 21, 1, 3, 5, 7 };
-    private readonly List<int> safeZones = new (){ 11, 13, 10, 12, 14 };
+    private readonly List<int> creatureCardOrder = new() { 11, 13, 9, 10, 12, 14, 8, 16, 18, 20, 22, 0, 2, 4, 6, 15, 17, 19, 21, 1, 3, 5, 7 };
+    private readonly List<int> safeZones = new() { 11, 13, 10, 12, 14 };
 
     public List<IDCardPair> GetCreaturesWithGravity()
     {

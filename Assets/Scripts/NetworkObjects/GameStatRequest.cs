@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 [Serializable]
 
 public class GameStatRequest
@@ -14,32 +11,36 @@ public class GameStatRequest
     {
         isWin = didWin;
         aiName = enemy.opponentName;
-        switch (enemy.spins)
+
+        if (isArena)
         {
-            case 0:
-                aiLevel = 0;
-                break;
-            case 1:
-                aiLevel = 1;
-                break;
-            case 2:
-                aiLevel = 2;
-                break;
-            case 3 when enemy.maxHP == 100:
-                aiLevel = 3;
-                break;
-            case 3 when enemy.maxHP == 150:
-                aiLevel = 4;
-                break;
-            case 3 when enemy.maxHP == 200:
-                aiLevel = 5;
-                break;
-            default:
-                if (isArena)
-                {
-                    aiLevel = 6;
-                }
-                break;
+            aiLevel = 6;
         }
+        else
+        {
+            switch (enemy.spins)
+            {
+                case 0:
+                    aiLevel = 0;
+                    break;
+                case 1:
+                    aiLevel = 1;
+                    break;
+                case 2:
+                    aiLevel = 2;
+                    break;
+                case 3 when enemy.maxHP == 100:
+                    aiLevel = 3;
+                    break;
+                case 3 when enemy.maxHP == 150:
+                    aiLevel = 4;
+                    break;
+                case 3 when enemy.maxHP == 200:
+                    aiLevel = 5;
+                    break;
+                default:
+                    break;
+            }
+        }        
     }
 }

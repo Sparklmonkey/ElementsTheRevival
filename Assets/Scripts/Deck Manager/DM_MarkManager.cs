@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +21,7 @@ public class DM_MarkManager : MonoBehaviour
         //Card mark = CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.markIds[(int)markElement]);
         markImage.sprite = ImageHelper.GetElementImage(((Element)element).FastElementString());
         headBackground.sprite = ImageHelper.GetCardHeadBackground(((Element)element).FastElementString());
-        markName.text = $"Mark of {markElement}"; 
+        markName.text = $"Mark of {markElement}";
     }
 
 }

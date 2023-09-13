@@ -1,9 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -29,7 +24,7 @@ public class MediumAiTurnComponent : AiBaseFunctions, IAiTurnComponent
     {
         if (cardType.Equals(CardType.Shield))
         {
-            if(aiManager.playerPassiveManager.GetShield().card.skill != "none")
+            if (aiManager.playerPassiveManager.GetShield().card.skill != "none")
             {
                 yield break;
             }
@@ -65,6 +60,6 @@ public class MediumAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         }
     }
 
-    
+
 
 }

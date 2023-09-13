@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 using TMPro;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class LoginScreen_SetupManager : MonoBehaviour
 {
@@ -66,7 +66,7 @@ public class LoginScreen_SetupManager : MonoBehaviour
 
     public async void PlayAsGuest()
     {
-        if(await ApiManager.Instance.LoginAsGuest())
+        if (await ApiManager.Instance.LoginAsGuest())
         {
             GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
         }

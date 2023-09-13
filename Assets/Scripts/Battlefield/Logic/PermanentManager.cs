@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Elements.Duel.Manager
 {
@@ -58,19 +57,19 @@ namespace Elements.Duel.Manager
                     mark = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
                     if (card.skill == " " && elementnow == card.skillElement)
                     {
-                        QuantaObject quantaObject = new (elementnow, stackCountList[i]);
+                        QuantaObject quantaObject = new(elementnow, stackCountList[i]);
                         listToReturn.Add((quantaObject, pairList[i].id));
                         card.skillElement = mark;
                     }
                     else if (card.skill == " " && elementnow != card.skillElement)
                     {
-                        QuantaObject quantaObject = new (card.skillElement, stackCountList[i]);
+                        QuantaObject quantaObject = new(card.skillElement, stackCountList[i]);
                         listToReturn.Add((quantaObject, pairList[i].id));
                         card.skillElement = card.costElement;
                     }
                     else
                     {
-                        QuantaObject quantaObject = new (card.costElement, stackCountList[i]);
+                        QuantaObject quantaObject = new(card.costElement, stackCountList[i]);
                         listToReturn.Add((quantaObject, pairList[i].id));
                     }
                 }
@@ -106,7 +105,7 @@ namespace Elements.Duel.Manager
         {
             foreach (var idCard in pairList)
             {
-                if(!idCard.HasCard()) { continue; }
+                if (!idCard.HasCard()) { continue; }
                 idCard.cardBehaviour.OnTurnStart();
             }
         }

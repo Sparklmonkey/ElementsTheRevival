@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 public class Rainoffire : AbilityEffect
 {
@@ -19,7 +18,7 @@ public class Rainoffire : AbilityEffect
             idCardi.UpdateCard();
         }
 
-        if(victim.playerCounters.invisibility > 0)
+        if (victim.playerCounters.invisibility > 0)
         {
             victim.RemoveAllCloaks();
         }

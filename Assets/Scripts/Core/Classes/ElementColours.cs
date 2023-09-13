@@ -37,7 +37,7 @@ public static class ElementColours
 
     public static Color GetRandomColour()
     {
-        Element element = (Element)Random.Range(0,12);
+        Element element = (Element)Random.Range(0, 12);
 
         return element switch
         {

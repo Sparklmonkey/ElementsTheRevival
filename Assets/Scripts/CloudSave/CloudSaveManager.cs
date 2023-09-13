@@ -1,14 +1,12 @@
-using Unity.Services.Core;
-using Unity.Services.Authentication;
-using Unity.Services.CloudSave;
-using System.Collections;
 using System.Collections.Generic;
+using Unity.Services.CloudSave;
+using Unity.Services.Core;
 using UnityEngine;
 
 public class CloudSaveManager : MonoBehaviour
 {
     private static readonly CloudSaveManager instance = new();
-    
+
     static CloudSaveManager()
     {
     }

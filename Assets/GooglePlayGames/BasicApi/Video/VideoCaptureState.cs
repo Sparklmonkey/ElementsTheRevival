@@ -16,10 +16,6 @@
 
 namespace GooglePlayGames.BasicApi.Video
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using GooglePlayGames.OurUtils;
-
     /// <summary>
     /// Represents the video recording capabilities.
     /// </summary>

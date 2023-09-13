@@ -1,14 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.CloudCode;
-using Unity.Services.Core;
-using System.Text;
 using Unity.Services.CloudSave;
+using Unity.Services.Core;
+using Unity.Services.PlayerAccounts;
 using UnityEngine;
 using UnityEngine.Networking;
-using Unity.Services.PlayerAccounts;
-using System.Threading.Tasks;
 
 public delegate void CachedPlayerHandler(bool wasSuccess);
 public delegate void LoginUserHandler(string responseMessage);
@@ -47,26 +46,10 @@ public class ApiManager : Singleton<ApiManager>
         public string updateNote;
     }
 
-    public async Task UpdateGameStats(GameStatRequest request)
-    {
-        var arguments = new Dictionary<string, object> { { "aiLevel", request.aiLevel }, { "isWin", request.isWin }, { "aiName", request.aiName} };
-        Debug.Log(arguments);
-        var wasSuccess = await CloudCodeService.Instance.CallModuleEndpointAsync<string>("GameDataModule", "UpdateGameData", arguments);
-        Debug.Log(wasSuccess);
-    }
-
     private async void Start()
     {
         await UnityServices.InitializeAsync();
         DontDestroyOnLoad(gameObject);
-    }
-
-    public void SetPlayerId(string id) { playerID = id; }
-    public string GetPlayerId() => playerID;
-
-    public UnityWebRequest CreateApiGetRequest(string actionUrl)
-    {
-        return CreateApiRequest(BaseUrl + actionUrl, UnityWebRequest.kHttpVerbGET, null);
     }
 
     public UnityWebRequest CreateApiPostRequest(string actionUrl, object body = null)
@@ -101,8 +84,6 @@ public class ApiManager : Singleton<ApiManager>
         return request;
     }
 
-
-
     public async Task LoginLegacy(LoginRequest loginRequest, LoginLegacyHandler loginSuccess)
     {
         using UnityWebRequest uwr = CreateApiPostRequest("Login/login", loginRequest);
@@ -110,7 +91,7 @@ public class ApiManager : Singleton<ApiManager>
 
         if (uwr.result == UnityWebRequest.Result.ConnectionError)
         {
-            LoginResponse loginResponse = new(){ errorMessage = ErrorCases.UnknownError };
+            LoginResponse loginResponse = new() { errorMessage = ErrorCases.UnknownError };
             loginSuccess(loginResponse);
         }
         else
@@ -143,13 +124,13 @@ public class ApiManager : Singleton<ApiManager>
     {
         if (AuthenticationService.Instance.IsSignedIn)
         {
-            var hasData = await LoadSomeData();
+            var hasData = await LoadGameData();
             handler(hasData);
         }
         else if (AuthenticationService.Instance.SessionTokenExists)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            var hasData = await LoadSomeData();
+            var hasData = await LoadGameData();
             handler(hasData);
         }
         else
@@ -167,12 +148,12 @@ public class ApiManager : Singleton<ApiManager>
             {
                 case LoginType.Unity:
                     await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
-                    await LoadSomeData();
+                    await LoadGameData();
                     isUnityUser = true;
                     break;
                 case LoginType.UserPass:
                     await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
-                    await LoadSomeData();
+                    await LoadGameData();
                     break;
                 case LoginType.RegisterUserPass:
                     await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
@@ -220,13 +201,13 @@ public class ApiManager : Singleton<ApiManager>
     {
         try
         {
-            if(inGameUserName != PlayerData.shared.userName)
+            if (inGameUserName != PlayerData.shared.userName)
             {
                 PlayerData.shared.userName = inGameUserName;
                 await AuthenticationService.Instance.UpdatePlayerNameAsync(inGameUserName);
                 await SaveDataToUnity();
             }
-            if(oldPassword != "")
+            if (oldPassword != "")
             {
                 await AuthenticationService.Instance.UpdatePasswordAsync(oldPassword, newPassword);
             }
@@ -262,6 +243,11 @@ public class ApiManager : Singleton<ApiManager>
         var arguments = new Dictionary<string, object> { { "playerScore", PlayerData.shared.playerScore } };
         await CloudCodeService.Instance.CallEndpointAsync("update-player-score", arguments);
     }
+    public async Task SaveGameStats()
+    {
+        var data = new Dictionary<string, object> { { "GameStats", GameStats.shared } };
+        await CloudSaveService.Instance.Data.ForceSaveAsync(data);
+    }
 
     public async Task SaveDataToUnity()
     {
@@ -273,13 +259,23 @@ public class ApiManager : Singleton<ApiManager>
     public async Task<bool> LoginAsGuest()
     {
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
-        return await LoadSomeData();
+        return await LoadGameData();
     }
 
-    public async Task<bool> LoadSomeData()
+    public async Task<bool> LoadGameData()
     {
         await GetAppInfo();
         Dictionary<string, string> savedData = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> { "SaveData" });
+        Dictionary<string, string> gameStats = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> { "GameStats" });
+        if (gameStats == null)
+        {
+            GameStats.shared = new();
+        }
+        else
+        {
+            GameStats.shared = JsonUtility.FromJson<GameStats>(gameStats["GameStats"]);
+        }
+
         if (savedData == null)
         {
             PlayerData.shared = new();

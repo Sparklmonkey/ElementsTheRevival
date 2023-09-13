@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,7 +43,7 @@ namespace Elements.Duel.Visual
             {
                 activeAHolder.SetActive(true);
                 activeAName.text = cardToDisplay.skill;
-                if(cardToDisplay.skillCost > 0)
+                if (cardToDisplay.skillCost > 0)
                 {
                     activeACost.text = cardToDisplay.skillCost.ToString();
                     activeAElement.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);

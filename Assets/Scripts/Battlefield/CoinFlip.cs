@@ -27,7 +27,7 @@ public class CoinFlip : MonoBehaviour
         playerStarts = flipTimes % 2 == 0;
         StartCoroutine(WaitPlease(0.0001f, 1.0f));
     }
-    
+
     public IEnumerator WaitPlease(float duration, float size)
     {
         flipTimes = Random.Range(8, 13);

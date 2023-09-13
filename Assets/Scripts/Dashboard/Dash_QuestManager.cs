@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -25,7 +23,7 @@ public class Dash_QuestManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     public void SetupQuestPanel()
@@ -42,7 +40,7 @@ public class Dash_QuestManager : MonoBehaviour
             return;
         }
 
-        if(PlayerPrefs.GetFloat("ShouldShowRareCard") == 1)
+        if (PlayerPrefs.GetFloat("ShouldShowRareCard") == 1)
         {
             selectionPanel.SetActive(true);
             questStartObject.SetActive(true);

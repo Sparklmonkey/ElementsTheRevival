@@ -22,7 +22,7 @@
 //    //{
 
 //    //    UserName = "Sparklmonkey";
-        
+
 //    //    Debug.Log("Hello World!");
 //    //    connection = new HubConnectionBuilder()
 //    //        .WithUrl("http://localhost:5000/pvpHub", options =>

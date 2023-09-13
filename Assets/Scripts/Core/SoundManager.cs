@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
@@ -25,7 +24,7 @@ public class SoundManager : Singleton<SoundManager>
     public void PlayAudioClip(string audioName)
     {
         AudioClip clipToPlay = audioClips.Find(x => x.name == audioName);
-        
+
         soundFX.PlayOneShot(clipToPlay);
     }
 
@@ -37,7 +36,7 @@ public class SoundManager : Singleton<SoundManager>
     public void PlayBGM(string bgmName)
     {
         AudioClip clipToPlay = audioClips.Find(x => x.name == bgmName);
-        
+
         backgroundMusic.clip = clipToPlay;
         backgroundMusic.loop = true;
         backgroundMusic.Play();

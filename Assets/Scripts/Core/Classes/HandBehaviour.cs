@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-public class HandBehaviour : CardTypeBehaviour
+﻿public class HandBehaviour : CardTypeBehaviour
 {
     public override void OnCardPlay()
     {

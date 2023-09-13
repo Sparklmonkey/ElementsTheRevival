@@ -334,7 +334,7 @@ namespace GooglePlayGames.Editor
                 throw new Exception("cannot be empty");
             }
 
-            string[] parts = s.Split(new char[] {'.'});
+            string[] parts = s.Split(new char[] { '.' });
             foreach (string p in parts)
             {
                 char[] bytes = p.ToCharArray();
@@ -588,7 +588,7 @@ namespace GooglePlayGames.Editor
             EnsureDirExists(dirName);
             foreach (DictionaryEntry ent in resourceKeys)
             {
-                string key = MakeIdentifier((string) ent.Key);
+                string key = MakeIdentifier((string)ent.Key);
                 constantsValues += "        public const string " +
                                    key + " = \"" + ent.Value + "\"; // <GPGSID>\n";
             }

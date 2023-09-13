@@ -1,16 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 public class MorteAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 {
     public IEnumerator RestOfTurn(PlayerManager aiManager)
     {
         yield return aiManager.StartCoroutine(spellManager.PlayMiracle(aiManager));
-        
+
         //Play shield
-        if(aiManager.playerCounters.bone < 1)
+        if (aiManager.playerCounters.bone < 1)
         {
             yield return aiManager.StartCoroutine(PlayShield(aiManager, "Elite Bone Wall"));
         }

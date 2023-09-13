@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -27,9 +25,9 @@ public class SupportView : MonoBehaviour
         //subject of the mail
         string subject = MyEscapeURL("Feedback & Suggestions");
         //body of the mail which consists of Device Model and its Operating System
-        
+
         string body = MyEscapeURL("Please Enter your message here\n\n\n\n");
-           
+
         Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
 
     }

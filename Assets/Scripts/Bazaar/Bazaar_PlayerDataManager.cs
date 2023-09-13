@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -23,7 +20,7 @@ public class Bazaar_PlayerDataManager : MonoBehaviour
         playerInventoryManager = GetComponent<Bazaar_PlayerInventoryManager>();
         shopInventoryManager = GetComponent<Bazaar_ShopInventoryManager>();
         playerInventoryManager.SetupPlayerInvetoryView(PlayerData.shared.cardInventory.DeserializeCard());
-        
+
         shopInventoryManager.SetupInitialCardView();
         deckCount.text = $"( {PlayerData.shared.cardInventory.Count} )";
         GetComponent<Bazaar_TransactionManager>().SetupTransactionManager(PlayerData.shared.electrum);
@@ -32,7 +29,7 @@ public class Bazaar_PlayerDataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public bool CanBuyCard(int buyPrice)

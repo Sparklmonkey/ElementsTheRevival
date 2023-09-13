@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class ActionManager
 {
@@ -25,10 +22,10 @@ public class ActionManager
     public static void AddCardPlayedOnFieldAction(bool isPlayer, Card ownerCard)
     {
         ElementAction action = new($"{(isPlayer ? PlayerData.shared.userName : BattleVars.shared.enemyAiData.opponentName)}", "Played", ownerCard.imageID, "", false);
-        
+
         actionList.Add(action);
     }
-    public static void AddSpellPlayedAction(bool isPlayer, IDCardPair origin , IDCardPair target)
+    public static void AddSpellPlayedAction(bool isPlayer, IDCardPair origin, IDCardPair target)
     {
         string owner = isPlayer ? PlayerData.shared.userName : BattleVars.shared.enemyAiData.opponentName;
         bool shouldShowArrow = target.HasCard();

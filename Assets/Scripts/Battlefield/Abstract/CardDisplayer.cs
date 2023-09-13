@@ -33,7 +33,7 @@ public abstract class CardDisplayer : MonoBehaviour
 
     public void ShouldShowTarget(bool shouldShow)
     {
-            validTargetGlow.color = shouldShow ? new Color(15, 255, 0, 255) : new Color(0, 0, 0, 0);
+        validTargetGlow.color = shouldShow ? new Color(15, 255, 0, 255) : new Color(0, 0, 0, 0);
     }
 
     public void ShouldShowUsableGlow(bool shouldShow)
@@ -83,7 +83,7 @@ public abstract class CardDisplayer : MonoBehaviour
                 BattleVars.shared.isAnimationPlaying = true;
                 foreach (Image image in imageList)
                 {
-                    Material dissolveMat = new (dissolveMaterial);
+                    Material dissolveMat = new(dissolveMaterial);
                     dissolveMat.SetTexture("_MainTex", image.sprite.texture);
                     image.material = dissolveMat;
                     image.material.SetFloat("_Fade", valueToSet);
@@ -118,7 +118,7 @@ public abstract class CardDisplayer : MonoBehaviour
 
         float currentTime = 0f;
         float animSpeed = PlayerPrefs.GetFloat("AnimSpeed");
-        if(animSpeed != 0)
+        if (animSpeed != 0)
         {
             while (currentTime < animSpeed)
             {

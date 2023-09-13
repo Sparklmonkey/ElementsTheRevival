@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,7 +48,7 @@ public class InventoryManager : MonoBehaviour
         {
             GetComponent<Bazaar_PlayerDataManager>().ModifyPlayerCardInventory(card, false);
         }
-        else if(GetComponent<Bazaar_PlayerDataManager>().CanBuyCard(card.BuyPrice))
+        else if (GetComponent<Bazaar_PlayerDataManager>().CanBuyCard(card.BuyPrice))
         {
             GetComponent<Bazaar_PlayerDataManager>().ModifyPlayerCardInventory(card, true);
         }
@@ -75,7 +74,7 @@ public class InventoryManager : MonoBehaviour
         foreach (var card in cardList)
         {
             DMCardPrefabNoTT dMCard = dMCards.Find(x => x.GetCard().cardName == card.cardName);
-            if(dMCard != null)
+            if (dMCard != null)
             {
                 dMCard.AddCard();
             }

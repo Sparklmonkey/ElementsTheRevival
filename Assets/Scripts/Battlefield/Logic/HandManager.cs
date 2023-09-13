@@ -26,7 +26,7 @@ namespace Elements.Duel.Manager
 
             for (int i = 0; i < 8; i++)
             {
-                if(i < cardList.Count)
+                if (i < cardList.Count)
                 {
                     pairList[i].PlayCard(cardList[i]);
                     continue;

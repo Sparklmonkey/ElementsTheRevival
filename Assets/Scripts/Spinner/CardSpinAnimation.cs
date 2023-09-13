@@ -49,7 +49,7 @@ public class CardSpinAnimation : MonoBehaviour
             imageToDissolve.material = null;
 
             count++;
-            if(count == imageList.Count)
+            if (count == imageList.Count)
             {
                 break;
             }

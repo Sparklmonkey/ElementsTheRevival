@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Bazaar_ShopInventoryManager : InventoryManager
 {
@@ -16,7 +14,7 @@ public class Bazaar_ShopInventoryManager : InventoryManager
 
     public void UpdateCardFilter(int element)
     {
-        if(element == selectedElement) { return; }
+        if (element == selectedElement) { return; }
 
 
         selectedElement = element;

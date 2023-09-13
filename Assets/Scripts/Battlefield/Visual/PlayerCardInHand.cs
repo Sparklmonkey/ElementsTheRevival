@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace Elements.Duel.Visual
 {
@@ -15,7 +15,7 @@ namespace Elements.Duel.Visual
 
         public override void DisplayCard(Card cardToDisplay, int stack = 1, bool isHidden = true)
         {
-            if(cardToDisplay == null)
+            if (cardToDisplay == null)
             {
                 ClearDisplay();
             }
@@ -23,7 +23,7 @@ namespace Elements.Duel.Visual
             transform.parent.gameObject.SetActive(true);
             if (!belongsToPlayer)
             {
-                if(isHidden)
+                if (isHidden)
                 {
                     this.isHidden.sprite = ImageHelper.GetCardBackImage();
                     this.isHidden.color = ElementColours.GetWhiteColor();
@@ -40,7 +40,7 @@ namespace Elements.Duel.Visual
             cardName.text = cardToDisplay.cardName;
             cardName.font = cardToDisplay.iD.IsUpgraded() ? underlayWhite : underlayBlack;
             cardName.color = cardToDisplay.iD.IsUpgraded() ? ElementColours.GetBlackColor() : ElementColours.GetWhiteColor();
-            
+
             cardCost.text = cardToDisplay.cost.ToString();
             cardElement.sprite = ImageHelper.GetElementImage(cardToDisplay.costElement.ToString());
 

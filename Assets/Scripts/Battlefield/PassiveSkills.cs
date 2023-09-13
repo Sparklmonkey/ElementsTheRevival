@@ -21,10 +21,10 @@ public struct PassiveSkills
     public bool Dive { get; set; }
     public bool DivineShield { get; set; }
     public bool Antimatter { get; set; }
-    public bool Adrenaline { get;  set; }
-    public bool Overdrive { get;  set; }
-    public bool Acceleration { get;  set; }
-    public bool GravityPull { get;  set; }
+    public bool Adrenaline { get; set; }
+    public bool Overdrive { get; set; }
+    public bool Acceleration { get; set; }
+    public bool GravityPull { get; set; }
     public bool Mutant { get; set; }
     public bool Readiness { get; set; }
 }

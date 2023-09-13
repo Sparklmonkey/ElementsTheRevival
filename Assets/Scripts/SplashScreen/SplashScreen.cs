@@ -27,7 +27,7 @@ public class SplashScreen : MonoBehaviour
 
     private IEnumerator MoveImageAround(GameObject imageToMove, int finalIndex)
     {
-        if(finalIndex == 0)
+        if (finalIndex == 0)
         {
             while (imageToMove.transform.position != finalPositions[0].position)
             {
@@ -43,18 +43,18 @@ public class SplashScreen : MonoBehaviour
             {
                 imageToMove.transform.position = Vector3.MoveTowards(imageToMove.transform.position, finalPositions[i].position, 1500f * Time.deltaTime);
                 whileLoopBreak++;
-                if(whileLoopBreak == 16)
+                if (whileLoopBreak == 16)
                 {
                     imageToMove.transform.position = finalPositions[i].position;
                 }
                 yield return null;
             }
             whileLoopBreak = 0;
-            if(i == 0 && finalIndex > 0)
+            if (i == 0 && finalIndex > 0)
             {
                 StartCoroutine(MoveImageAround(imageObjects[finalIndex - 1], finalIndex - 1));
             }
-            if(i == finalIndex)
+            if (i == finalIndex)
             {
                 yield break;
             }
@@ -76,7 +76,7 @@ public class SplashScreen : MonoBehaviour
         PlayerPrefs.SetInt("IsAltArt", 0);
         if (!PlayerPrefs.HasKey("IsAltArt"))
         {
-            PlayerPrefs.SetInt("IsAltArt", 0); 
+            PlayerPrefs.SetInt("IsAltArt", 0);
         }
         StartCoroutine(MoveImageAround(imageObjects[11], 12));
         StartCoroutine(StartTitleAnimation());

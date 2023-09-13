@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Elements.Duel.Manager;
-using Elements.Duel.Visual;
+﻿using Elements.Duel.Visual;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -123,7 +121,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void RemoveCard()
     {
-        if(id.Field != FieldEnum.Hand)
+        if (id.Field != FieldEnum.Hand)
         {
             StartCoroutine(AnimationManager.Instance.PlayAnimation("CardDeath", transform));
             SoundManager.Instance.PlayAudioClip("RemoveCardFromField");
@@ -142,7 +140,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     internal bool HasCard()
     {
-        if( card == null && id.Field != FieldEnum.Player) { return false; }
+        if (card == null && id.Field != FieldEnum.Player) { return false; }
         return card != null && card.iD != "4t2" && card.iD != "4t1" && card.cardName != "" && card.cardType != CardType.Mark;
     }
 
@@ -174,7 +172,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void HandCardUpdate(Card card)
     {
-        if(card == null)
+        if (card == null)
         {
             OnCardRemoved?.Invoke(card, 0);
             return;
@@ -192,5 +190,5 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         OnBeingPlayable?.Invoke(shouldShowGlow);
     }
-    
+
 }

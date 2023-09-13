@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PassiveBehaviour : CardTypeBehaviour
 {
@@ -68,7 +67,7 @@ public class PassiveBehaviour : CardTypeBehaviour
 
     public override void OnTurnEnd()
     {
-        if(CardPair.card.cardType == CardType.Mark)
+        if (CardPair.card.cardType == CardType.Mark)
         {
             StartCoroutine(AnimationManager.Instance.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
             if (BattleVars.shared.enemyAiData.maxHP >= 150 && CardPair.id.Owner == OwnerEnum.Opponent)
@@ -153,6 +152,6 @@ public class PassiveBehaviour : CardTypeBehaviour
             CardPair.card.AbilityUsed = false;
         }
 
-        
+
     }
 }

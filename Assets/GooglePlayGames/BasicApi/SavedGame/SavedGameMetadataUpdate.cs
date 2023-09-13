@@ -16,8 +16,8 @@
 
 namespace GooglePlayGames.BasicApi.SavedGame
 {
-    using System;
     using GooglePlayGames.OurUtils;
+    using System;
 
     /// <summary>
     /// A struct representing the mutation of saved game metadata. Fields can either have a new value

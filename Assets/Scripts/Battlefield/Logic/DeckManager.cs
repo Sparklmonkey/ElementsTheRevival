@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Elements.Duel.Manager
 {
@@ -31,7 +31,7 @@ namespace Elements.Duel.Manager
 
         public Card GetTopCard()
         {
-            if(deck.Count == 0) { return null; }
+            if (deck.Count == 0) { return null; }
             return deck[0];
         }
     }

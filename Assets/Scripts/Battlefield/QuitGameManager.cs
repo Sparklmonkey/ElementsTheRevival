@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ public class QuitGameManager : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI gameTime, gameTurns, coinsLost, coinsLeft;
-    
+
     public void SetupSurrenderScreen()
     {
         GameOverVisual.isGameOver = true;

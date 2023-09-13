@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 {
 
     private IEnumerator ActivateEliteQueen(PlayerManager aiManager)
     {
-        List<IDCardPair> creaturelist = new (aiManager.playerCreatureField.GetAllValidCardIds());
+        List<IDCardPair> creaturelist = new(aiManager.playerCreatureField.GetAllValidCardIds());
         List<IDCardPair> queenCards = new();
 
         foreach (var creature in creaturelist)
@@ -40,7 +38,7 @@ public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         if (weapon.card.cardName == "Weapon") { yield break; }
         if (aiManager.IsAbilityUsable(weapon)) { yield break; }
         var target = SkillManager.Instance.GetRandomTarget(aiManager, weapon);
-        if(target == null) { yield break; }
+        if (target == null) { yield break; }
 
         BattleVars.shared.abilityOrigin = weapon;
 

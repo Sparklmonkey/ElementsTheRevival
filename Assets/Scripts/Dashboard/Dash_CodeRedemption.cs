@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class Dash_CodeRedemption : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class Dash_CodeRedemption : MonoBehaviour
             return;
         }
 
-        if(response.electrumReward > 0)
+        if (response.electrumReward > 0)
         {
             electrumRewardDisplay.SetActive(true);
             PlayerData.shared.electrum += response.electrumReward;

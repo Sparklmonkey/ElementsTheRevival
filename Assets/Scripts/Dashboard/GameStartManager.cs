@@ -6,8 +6,8 @@ public class GameStartManager : MonoBehaviour
     [SerializeField]
     private Error_Animated errorMessageManager;
 
-    private readonly List<string> elderPrefix = new (){ "Aeth", "Air", "Shad", "Lum", "Mor", "Ter", "Dis", "Chr", "Pyr", "Mas", "Vit", "Aqua" };
-    private readonly List<string> elderSuffix = new (){ "eric", "es", "ow", "iel", "tis", "ra", "cord", "onos", "ofuze", "sa", "al", "rius" };
+    private readonly List<string> elderPrefix = new() { "Aeth", "Air", "Shad", "Lum", "Mor", "Ter", "Dis", "Chr", "Pyr", "Mas", "Vit", "Aqua" };
+    private readonly List<string> elderSuffix = new() { "eric", "es", "ow", "iel", "tis", "ra", "cord", "onos", "ofuze", "sa", "al", "rius" };
 
     public void StartGameOnDificulty(int level)
     {
@@ -38,7 +38,7 @@ public class GameStartManager : MonoBehaviour
                 break;
             case 3:
                 elementDeck = (Element)Random.Range(0, 12);
-                if(elementDeck == Element.Entropy)
+                if (elementDeck == Element.Entropy)
                 {
                     elementDeck = Element.Aether;
                 }
@@ -72,7 +72,7 @@ public class GameStartManager : MonoBehaviour
                 break;
         }
 
-        if(PlayerData.shared.electrum < ai.costToPlay)
+        if (PlayerData.shared.electrum < ai.costToPlay)
         {
             errorMessageManager.DisplayAnimatedError("Insufficient Electrum");
         }

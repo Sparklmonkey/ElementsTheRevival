@@ -16,8 +16,8 @@
 
 namespace GooglePlayGames.Editor
 {
-    using UnityEngine;
     using UnityEditor;
+    using UnityEngine;
 
     public class GPGSDocsUI
     {

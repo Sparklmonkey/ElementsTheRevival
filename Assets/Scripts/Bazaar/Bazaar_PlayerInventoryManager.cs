@@ -40,7 +40,7 @@ public class Bazaar_PlayerInventoryManager : InventoryManager
     {
         if (element == selectedElement) { return; }
 
-        if(element == 14)
+        if (element == 14)
         {
             SetupPlayerInvetoryView(PlayerData.shared.cardInventory.DeserializeCard());
             return;

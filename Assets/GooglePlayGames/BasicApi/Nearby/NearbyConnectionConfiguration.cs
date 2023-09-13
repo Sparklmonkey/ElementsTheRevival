@@ -16,8 +16,8 @@
 
 namespace GooglePlayGames.BasicApi.Nearby
 {
-    using System;
     using GooglePlayGames.OurUtils;
+    using System;
 
     public enum InitializationStatus
     {

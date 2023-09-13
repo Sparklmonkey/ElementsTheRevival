@@ -22,7 +22,7 @@ public class ArenaDataManager : MonoBehaviour
         BattleVars.shared.ResetBattleVars();
         enemyAi = Resources.Load<EnemyAi>("EnemyAi/Arena/Random");
         playerMark.sprite = ImageHelper.GetElementImage(PlayerData.shared.arenaT50Mark.ToString());
-        if(arenaResponse == null)
+        if (arenaResponse == null)
         {
             await ApiManager.Instance.GetT50Opponent(ArenaResponseHandler);
         }
@@ -50,7 +50,7 @@ public class ArenaDataManager : MonoBehaviour
 
     private void ArenaResponseHandler(ArenaResponse arenaResponse)
     {
-        if(arenaResponse.arenaT50Deck.Count == 0)
+        if (arenaResponse.arenaT50Deck.Count == 0)
         {
             responseText.text = "No opponent found, try again later";
             return;

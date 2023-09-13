@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Elements.Duel.Manager;
+using Elements.Duel.Visual;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Elements.Duel.Manager;
-using Elements.Duel.Visual;
-using System.Linq;
-using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -19,7 +17,7 @@ public class PlayerManager : MonoBehaviour
             case PlayerCounters.Bone:
                 playerCounters.bone += amount;
                 if (playerCounters.bone < 0) { playerCounters.bone = 0; }
-                
+
                 break;
             case PlayerCounters.Invisibility:
                 playerCounters.invisibility += amount;
@@ -56,7 +54,7 @@ public class PlayerManager : MonoBehaviour
                 if (playerCounters.silence < 0) { playerCounters.silence = 0; }
                 break;
             case PlayerCounters.Purify:
-                if(playerCounters.poison > 0)
+                if (playerCounters.poison > 0)
                 {
                     playerCounters.poison = 0;
                     playerCounters.neurotoxin = 0;
@@ -71,7 +69,7 @@ public class PlayerManager : MonoBehaviour
 
     public void RemoveAllCloaks()
     {
-        foreach(var perm in playerPermanentManager.GetAllValidCardIds())
+        foreach (var perm in playerPermanentManager.GetAllValidCardIds())
         {
             if (perm.card.iD == "5v2" || perm.card.iD == "7ti")
             {
@@ -121,7 +119,7 @@ public class PlayerManager : MonoBehaviour
     public void ManageGravityCreatures(ref int atkNow, ref IDCardPair attacker)
     {
         var gravityCreatures = playerCreatureField.GetCreaturesWithGravity();
-        if(gravityCreatures.Count == 0) { return; }
+        if (gravityCreatures.Count == 0) { return; }
 
         foreach (var creature in gravityCreatures)
         {
@@ -148,7 +146,7 @@ public class PlayerManager : MonoBehaviour
     public bool ManageShield(ref int atkNow, ref IDCardPair cardPair)
     {
         IDCardPair shield = playerPassiveManager.GetShield();
-        if(shield.card.skill == "") { return false; }
+        if (shield.card.skill == "") { return false; }
         var shieldSkill = shield.card.skill.GetShieldScript<ShieldAbility>();
         shieldSkill.Owner = this;
         shieldSkill.Enemy = DuelManager.GetNotIDOwner(playerID.id);
@@ -435,7 +433,7 @@ public class PlayerManager : MonoBehaviour
         if (cardToCheck.card.cardType == CardType.Mark) { return false; }
 
         bool canAfford = playerQuantaManager.HasEnoughQuanta(cardToCheck.card.skillElement, cardToCheck.card.skillCost);
-        if(canAfford && SkillManager.Instance.ShouldAskForTarget(cardToCheck)) { return true; }
+        if (canAfford && SkillManager.Instance.ShouldAskForTarget(cardToCheck)) { return true; }
 
         if (!SkillManager.Instance.HasEnoughTargets(this, cardToCheck)) { return false; }
         if (cardToCheck.card.skill.ToString().Contains("hasten"))
@@ -752,7 +750,7 @@ public class PlayerManager : MonoBehaviour
                 newLocationId.UpdateCard();
             }
         }
-        
+
         return newLocationId;
     }
 
@@ -771,7 +769,7 @@ public class PlayerManager : MonoBehaviour
         var permList = playerPermanentManager.GetAllValidCardIds();
 
         var pillarList = permList.FindAll(x => x.card.cardType == CardType.Pillar);
-        if(pillarList.Count > 0)
+        if (pillarList.Count > 0)
         {
             foreach (var pillar in pillarList)
             {
@@ -861,7 +859,7 @@ public class PlayerManager : MonoBehaviour
         playerCounters = new Counters();
         playerID.id = new(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Player, 0);
 
-        List<Card> deck = new (isPlayer ?
+        List<Card> deck = new(isPlayer ?
                     PlayerData.shared.currentDeck.DeserializeCard()
                     : new List<string>(BattleVars.shared.enemyAiData.deck.Split(" ")).DeserializeCard());
 

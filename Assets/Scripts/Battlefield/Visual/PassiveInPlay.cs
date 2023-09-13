@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +14,7 @@ namespace Elements.Duel.Visual
         private TextMeshProUGUI activeAName, activeACost;
         [SerializeField]
         private GameObject upMovingText, activeAHolder, immaterialIndicator;
-        
+
         public override void DisplayCard(Card cardToDisplay, int stack = 0, bool isHidden = true)
         {
             cardImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);

@@ -71,7 +71,7 @@ public class SkillManager
         ability.Owner = owner;
         ability.Origin = iDCard;
         var targets = ability.GetPossibleTargets(DuelManager.GetIDOwner(owner.playerID.id));
-        if(targets.Count == 0) { return null; }
+        if (targets.Count == 0) { return null; }
         return ability.SelectRandomTarget(targets);
     }
 

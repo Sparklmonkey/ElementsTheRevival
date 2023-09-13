@@ -26,7 +26,7 @@ public class SpinManager : MonoBehaviour
     private int GetBonusGain()
     {
         EnemyAi enemyAi = BattleVars.shared.enemyAiData;
-        if(enemyAi.hpDivide == 0)
+        if (enemyAi.hpDivide == 0)
         {
             return 0;
         }
@@ -41,11 +41,11 @@ public class SpinManager : MonoBehaviour
         int bonus = GetBonusGain();
         int coinsWon = bonus;
         PlayerData.shared.playerScore += (BattleVars.shared.enemyAiData.scoreWin + bonus);
-        if (BattleVars.shared.elementalMastery) 
-        { 
+        if (BattleVars.shared.elementalMastery)
+        {
             coinsWon *= 2;
             SoundManager.Instance.PlayAudioClip("ElementalMastery");
-            elementalMasteryLabel.SetActive(true); 
+            elementalMasteryLabel.SetActive(true);
         }
 
         oppDeck = new List<string>(BattleVars.shared.enemyAiData.deck.Split(" ")).DeserializeCard();
@@ -83,7 +83,7 @@ public class SpinManager : MonoBehaviour
         {
             MoveToDashboard();
         }
-        else if(canSpin)
+        else if (canSpin)
         {
             int count = int.Parse(spinCount.text);
             count--;
@@ -137,12 +137,12 @@ public class SpinManager : MonoBehaviour
         Card cardTwo = spinResult[1];
         Card cardThree = spinResult[2];
 
-        if(cardOne.cardName == cardThree.cardName && cardOne.cardName == cardTwo.cardName)
+        if (cardOne.cardName == cardThree.cardName && cardOne.cardName == cardTwo.cardName)
         {
             shouldWinCard = true;
             cardsWon.Add(CardDatabase.Instance.GetCardFromId(cardOne.iD));
         }
-        else if(cardOne.cardName == cardTwo.cardName || cardOne.cardName == cardThree.cardName || cardTwo.cardName == cardThree.cardName)
+        else if (cardOne.cardName == cardTwo.cardName || cardOne.cardName == cardThree.cardName || cardTwo.cardName == cardThree.cardName)
         {
             shouldWinCoins = true;
         }
@@ -163,7 +163,7 @@ public class SpinManager : MonoBehaviour
 
     private void Update()
     {
-        if(finishSpinCount == 3)
+        if (finishSpinCount == 3)
         {
             canSpin = true;
             finishSpinCount = 0;
@@ -184,17 +184,17 @@ public class SpinManager : MonoBehaviour
 
     private void UpdateCardsWonSection()
     {
-        if(cardsWon.Count == 1)
+        if (cardsWon.Count == 1)
         {
             cardWonOne.SetActive(true);
             cardWonOne.GetComponent<CardDisplayDetail>().SetupCardView(cardsWon[0], true, false);
         }
-        else if(cardsWon.Count == 2)
+        else if (cardsWon.Count == 2)
         {
             cardWonTwo.SetActive(true);
             cardWonTwo.GetComponent<CardDisplayDetail>().SetupCardView(cardsWon[1], true, false);
         }
-        else if(cardsWon.Count == 3)
+        else if (cardsWon.Count == 3)
         {
             cardWonThree.SetActive(true);
             cardWonThree.GetComponent<CardDisplayDetail>().SetupCardView(cardsWon[2], true, false);

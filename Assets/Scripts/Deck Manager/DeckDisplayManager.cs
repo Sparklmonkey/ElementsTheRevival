@@ -63,8 +63,8 @@ public class DeckDisplayManager : MonoBehaviour
         inventoryCount.text = $"( {playerInverntory.Count} Cards ) ";
         foreach (Card deckCard in playerDeck)
         {
-                GameObject cardHeadObject = Instantiate(cardHeadPrefab, deckContentView);
-                cardHeadObject.GetComponent<DMCardPrefab>().SetupCardHead(deckCard, this);
+            GameObject cardHeadObject = Instantiate(cardHeadPrefab, deckContentView);
+            cardHeadObject.GetComponent<DMCardPrefab>().SetupCardHead(deckCard, this);
         }
         foreach (Card inventoryCard in playerInverntory)
         {
@@ -85,7 +85,7 @@ public class DeckDisplayManager : MonoBehaviour
     public void SetupDeckPresetView(string deckcode)
     {
         deckPresetContentView.transform.parent.parent.gameObject.SetActive(false);
-        List<DeckPresetHead> children = new (deckPresetContentView.GetComponentsInChildren<DeckPresetHead>());
+        List<DeckPresetHead> children = new(deckPresetContentView.GetComponentsInChildren<DeckPresetHead>());
         foreach (var child in children)
         {
             Destroy(child.gameObject);
@@ -154,7 +154,7 @@ public class DeckDisplayManager : MonoBehaviour
                 cardHeadObject.GetComponent<DMCardPrefab>().SetupCardHead(inventoryCard, this);
                 inventoryDMCard.Add(cardHeadObject.GetComponent<DMCardPrefab>());
             }
-            
+
         }
     }
 
@@ -198,8 +198,8 @@ public class DeckDisplayManager : MonoBehaviour
         playerDeck.Sort((x, y) => string.Compare(x.iD, y.iD));
         foreach (Card deckCard in playerDeck)
         {
-                GameObject cardHeadObject = Instantiate(cardHeadPrefab, deckContentView);
-                cardHeadObject.GetComponent<DMCardPrefab>().SetupCardHead(deckCard, this);
+            GameObject cardHeadObject = Instantiate(cardHeadPrefab, deckContentView);
+            cardHeadObject.GetComponent<DMCardPrefab>().SetupCardHead(deckCard, this);
         }
         FilterInventoryCardsByElement(currentFilterSelection);
     }
@@ -271,11 +271,11 @@ public class DeckDisplayManager : MonoBehaviour
     public void ImportLegacyDeckCode()
     {
         RemoveAllDeckCards();
-        List<string> idList = new (deckCodeField.text.Split(" "));
+        List<string> idList = new(deckCodeField.text.Split(" "));
         foreach (var id in idList)
         {
             int cardIndex = playerInverntory.FindIndex(x => x.iD == id);
-            if(cardIndex == -1) { continue; }
+            if (cardIndex == -1) { continue; }
             playerDeck.Add(playerInverntory[cardIndex]);
             playerInverntory.RemoveAt(cardIndex);
             if (CardDatabase.Instance.markIds.Contains(id))

@@ -97,7 +97,7 @@ public class Oracle_SpinManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(oracleSpinStarted) { return; }
+        if (oracleSpinStarted) { return; }
         transform.Rotate(new Vector3(0, 0, -20 * Time.deltaTime));
     }
 

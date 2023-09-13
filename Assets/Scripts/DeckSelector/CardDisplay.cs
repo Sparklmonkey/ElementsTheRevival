@@ -36,7 +36,7 @@ public class CardDisplay : MonoBehaviour
         }
 
         cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
-        
+
         cardName.text = cardToDisplay.cardName;
         string backGroundString = cardToDisplay.cardName == "Animate Weapon" ? "Air" :
                                 cardToDisplay.cardName == "Luciferin" || cardToDisplay.cardName == "Luciferase" ? "Light" :
@@ -63,7 +63,7 @@ public class CardDisplay : MonoBehaviour
             creatureValues.text = cardToDisplay.AtkNow + "|" + cardToDisplay.DefNow;
             creatureValues.font = creatureValuesFont;
         }
-        else if(cardToDisplay.cardType.Equals(CardType.Spell))
+        else if (cardToDisplay.cardType.Equals(CardType.Spell))
         {
             creatureValues.text = "~";
             creatureValues.font = spellIconFont;
@@ -86,7 +86,7 @@ public class CardDisplay : MonoBehaviour
             cardName.font = cardNameRegular;
             cardName.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
         }
-        
+
         rareIndicator.color = !cardToDisplay.IsRare() ? new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue) : new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
     }
 

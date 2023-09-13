@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 public class Blackhole : AbilityEffect
 {
@@ -9,7 +8,7 @@ public class Blackhole : AbilityEffect
     {
         var victim = Owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
         int hpToRestore = 0;
-        if(victim.playerCounters.sanctuary == 0)
+        if (victim.playerCounters.sanctuary == 0)
         {
             for (int i = 0; i < 12; i++)
             {
@@ -30,7 +29,7 @@ public class Blackhole : AbilityEffect
                 }
             }
         }
-        
+
         Owner.ModifyHealthLogic(hpToRestore, false, false);
     }
 

@@ -279,7 +279,7 @@ public static class ExtensionMethods
 
     public static bool IsValidCard(this Card card)
     {
-        if(card != null)
+        if (card != null)
         {
             return card.cardName != "Shield_" && card.cardName != "Weapon" && card.cardType != CardType.Mark && !card.innateSkills.Immaterial && !card.passiveSkills.Burrow;
         }
@@ -499,7 +499,7 @@ public static class DeckCodeExtension
         foreach (KeyValuePair<string, int> item in cardDict)
         {
             string cardCount = item.Value.IntToBase32();
-            if(cardCount.Length == 1)
+            if (cardCount.Length == 1)
             {
                 cardCount = $"0{cardCount}";
             }

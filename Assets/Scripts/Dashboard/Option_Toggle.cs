@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +23,7 @@ public class Option_Toggle : MonoBehaviour
     {
         toggleOptions[currentToggle].color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue / 2);
         currentToggle++;
-        if(currentToggle >= toggleOptions.Count) { currentToggle = 0; }
+        if (currentToggle >= toggleOptions.Count) { currentToggle = 0; }
         toggleOptions[currentToggle].color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
     }
 

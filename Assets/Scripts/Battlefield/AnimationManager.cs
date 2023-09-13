@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +16,7 @@ public class AnimationManager : Singleton<AnimationManager>
 
     public IEnumerator PlayAnimation(string animName, Transform transform, Element element = Element.Other)
     {
-        if(PlayerPrefs.GetFloat("AnimSpeed") == 0)
+        if (PlayerPrefs.GetFloat("AnimSpeed") == 0)
         {
             yield break;
         }
@@ -109,7 +108,7 @@ public class AnimationManager : Singleton<AnimationManager>
         Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
-    } 
+    }
 
     private (Vector2, Vector2) GetCardDeathAnimModification(Vector2 parentSize)
     {
@@ -121,7 +120,7 @@ public class AnimationManager : Singleton<AnimationManager>
         Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
-    } 
+    }
 
     private (Vector2, Vector2) GetMutationAnimModification(Vector2 parentSize)
     {
@@ -133,7 +132,7 @@ public class AnimationManager : Singleton<AnimationManager>
         Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
-    } 
+    }
     private (Vector2, Vector2) GetBlessingAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new Vector2(217, 166);

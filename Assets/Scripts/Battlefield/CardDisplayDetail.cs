@@ -16,7 +16,7 @@ public class CardDisplayDetail : MonoBehaviour
 
     public void SetupCardView(Card cardToDisplay, bool belongsToPlayer, bool isBattlefield)
     {
-        if(cardToDisplay == null) { gameObject.SetActive(false); return; }
+        if (cardToDisplay == null) { gameObject.SetActive(false); return; }
         card = cardToDisplay;
 
         if (cardToDisplay.cardName.Contains("Pendulum") && isBattlefield)
@@ -36,7 +36,7 @@ public class CardDisplayDetail : MonoBehaviour
         {
             cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
         }
-        
+
         cardName.text = cardToDisplay.cardName;
         string backGroundString = cardToDisplay.cardName == "Animate Weapon" ? "Air" :
                                 cardToDisplay.cardName == "Luciferin" || cardToDisplay.cardName == "Luciferase" ? "Light" :

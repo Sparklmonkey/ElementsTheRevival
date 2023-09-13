@@ -149,7 +149,7 @@ public class CreatureBehaviour : CardTypeBehaviour
 
                 if (!CardPair.card.passiveSkills.Momentum)
                 {
-                    if(Enemy.ManageShield(ref atkNow, ref CardPair))
+                    if (Enemy.ManageShield(ref atkNow, ref CardPair))
                     {
                         if (CardPair.card.DefNow <= 0)
                         {

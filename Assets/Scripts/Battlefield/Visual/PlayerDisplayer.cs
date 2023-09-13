@@ -65,7 +65,7 @@ namespace Elements.Duel.Visual
             silenceImage.gameObject.SetActive(playerCounters.silence > 0);
             sanctImage.gameObject.SetActive(playerCounters.sanctuary > 0);
 
-            if(playerCounters.bone > 0)
+            if (playerCounters.bone > 0)
             {
                 boneShieldLabel.text = $"{playerCounters.bone}";
             }

@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 public class Duality : AbilityEffect
 {
@@ -9,7 +7,7 @@ public class Duality : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         var cardToAdd = DuelManager.GetNotIDOwner(target.id).deckManager.GetTopCard();
-        if(cardToAdd == null) { return; }
+        if (cardToAdd == null) { return; }
         Owner.playerHand.AddCardToHand(new(cardToAdd));
     }
 

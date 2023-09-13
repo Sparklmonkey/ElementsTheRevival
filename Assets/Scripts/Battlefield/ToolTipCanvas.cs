@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ToolTipCanvas : MonoBehaviour
 {
@@ -21,7 +17,7 @@ public class ToolTipCanvas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
     private void Awake()
     {
@@ -88,7 +84,7 @@ public class ToolTipCanvas : MonoBehaviour
     void Update()
     {
         if (!isCreatureField) { return; }
-        if(toolTipStart > detailThreshold && !creatureDetailToollTip.activeSelf)
+        if (toolTipStart > detailThreshold && !creatureDetailToollTip.activeSelf)
         {
             creatureDetailToollTip.SetActive(true);
             creatureDetailToollTip.GetComponent<CreatureDetailToolTip>().SetupDetailView(cardOnDisplay, fieldIndex);

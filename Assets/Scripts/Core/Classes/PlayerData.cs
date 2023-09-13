@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [Serializable]
@@ -99,7 +99,7 @@ public class PlayerData
 
     public static void SaveData()
     {
-        if(ApiManager.isTrainer) { return; }
+        if (ApiManager.isTrainer) { return; }
         PlayerPrefs.SetString("SaveData", JsonUtility.ToJson(shared));
     }
 

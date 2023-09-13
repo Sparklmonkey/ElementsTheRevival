@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ActionDisplayManager : MonoBehaviour
@@ -14,7 +12,7 @@ public class ActionDisplayManager : MonoBehaviour
     {
         if (ActionManager.actionList == null) { return; }
         actionViewObject.SetActive(true);
-        if(ActionManager.actionList.Count == 0) { return; }
+        if (ActionManager.actionList.Count == 0) { return; }
 
         ClearView();
         for (int i = ActionManager.actionList.Count - 1; i >= 0; i--)

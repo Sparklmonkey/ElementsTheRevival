@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class AchievementManager
 {
     private static readonly AchievementManager instance = new();
@@ -70,7 +66,7 @@ public class AchievementDeckout : AchievementBiolerplate
     public override string AchievementDescription => "Win through deckout";
 }
 
-public class AchievementDoubleKill: AchievementBiolerplate
+public class AchievementDoubleKill : AchievementBiolerplate
 {
     public override int AchievementId => 0;
     public override string AchievementProperty => "AchievementDoubleKill";

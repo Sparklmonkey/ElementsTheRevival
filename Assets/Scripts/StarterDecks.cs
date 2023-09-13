@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class StarterDecks 
+public class StarterDecks
 {
     private static readonly StarterDecks instance = new();
 
@@ -45,7 +43,7 @@ public class StarterDecks
     }
 
 
-    public (string,string) GetDisplayCards(Element element)
+    public (string, string) GetDisplayCards(Element element)
     {
         return element switch
         {

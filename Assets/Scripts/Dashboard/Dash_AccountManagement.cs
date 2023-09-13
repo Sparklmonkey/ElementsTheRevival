@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +49,7 @@ public class Dash_AccountManagement : MonoBehaviour
     {
         if (ApiManager.isTrainer) { return; }
 
-        if(newPasswordField.text != "")
+        if (newPasswordField.text != "")
         {
             if (!newPasswordField.text.PasswordCheck())
             {
@@ -60,9 +58,9 @@ public class Dash_AccountManagement : MonoBehaviour
             }
         }
 
-        if(usernameField.text != PlayerData.shared.userName)
+        if (usernameField.text != PlayerData.shared.userName)
         {
-            if(!usernameField.text.UsernameCheck())
+            if (!usernameField.text.UsernameCheck())
             {
                 error_Animated.DisplayAnimatedError("The new Username does not meet the criteria.");
                 return;

@@ -258,7 +258,7 @@ namespace GooglePlayGames.BasicApi
     {
         public static bool StatusIsSuccess(ResponseStatus status)
         {
-            return ((int) status) > 0;
+            return ((int)status) > 0;
         }
     }
 }
