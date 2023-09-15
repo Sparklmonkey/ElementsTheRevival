@@ -4,7 +4,7 @@ using UnityEngine;
 public class Nymph : AbilityEffect
 {
     public override bool NeedsTarget() => true;
-    public override TargetPriority GetPriority() => TargetPriority.Pillar;
+    public override TargetPriority GetPriority() => TargetPriority.OwnPillar;
 
     public override void Activate(IDCardPair target)
     {

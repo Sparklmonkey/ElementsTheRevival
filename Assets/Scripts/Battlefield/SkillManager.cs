@@ -114,9 +114,16 @@ public class SkillManager
             else if (priority == TargetPriority.OpHighAtk)
             {
                 score += possibleTarget.id.owner == OwnerEnum.Player ? 75 : 0;
-                score += possibleTarget.card.AtkNow * 5;
-                score += possibleTarget.card.DefNow;
-                score += possibleTarget.card.skill != "" ? 15 : 5;
+                if (possibleTarget.id.field == FieldEnum.Player)
+                {
+                    score += 20;
+                }
+                else
+                {
+                    score += possibleTarget.card.AtkNow * 5;
+                    score += possibleTarget.card.DefNow;
+                    score += possibleTarget.card.skill != "" ? 15 : 5;
+                }
                 if (score < 75)
                 {
                     score = 0;
@@ -135,12 +142,17 @@ public class SkillManager
             }
             else if (priority == TargetPriority.Pillar)
             {
-                score += possibleTarget.card.cardType == CardType.Pillar ? 75 : 0;
+                score += possibleTarget.id.owner == OwnerEnum.Player ? 75 : 0;
+                score += possibleTarget.card.cardType == CardType.Pillar ? 50 : 0;
                 score += possibleTarget.card.skill != "" ? 15 : 5;
                 if (score < 75)
                 {
                     score = 0;
                 }
+            }
+            else if (priority == TargetPriority.OwnPillar)
+            {
+                score = 75;
             }
             else if (priority == TargetPriority.Permanent)
             {

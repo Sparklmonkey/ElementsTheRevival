@@ -7,6 +7,7 @@
 
     public override void OnCardRemove()
     {
+        cardPair.card = null;
         return;
     }
 

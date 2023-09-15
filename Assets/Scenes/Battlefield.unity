@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4768,7 +4768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &152816639
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6802,7 +6802,7 @@ MonoBehaviour:
   cardDetailView: {fileID: 1780469455}
   playerDisplayer: {fileID: 1212562475}
   playerHand:
-    pairList:
+    PairList:
     - {fileID: 5151530501525870204}
     - {fileID: 1611110100}
     - {fileID: 1629746321}
@@ -6811,24 +6811,9 @@ MonoBehaviour:
     - {fileID: 1677482787}
     - {fileID: 115945709}
     - {fileID: 33687703}
-    stackCountList: 0000000000000000000000000000000000000000000000000000000000000000
+    StackCountList: 0000000000000000000000000000000000000000000000000000000000000000
   playerCreatureField:
-    pairList:
-    - {fileID: 35147175}
-    - {fileID: 1796333368}
-    - {fileID: 723529803}
-    - {fileID: 1887197540}
-    - {fileID: 283843302}
-    - {fileID: 1838541041}
-    - {fileID: 1281658207}
-    - {fileID: 1379033329}
-    - {fileID: 1594447925}
-    - {fileID: 1328653822}
-    - {fileID: 538730152}
-    - {fileID: 2143416290}
-    - {fileID: 658511398}
-    - {fileID: 298693753}
-    - {fileID: 37727394}
+    PairList:
     - {fileID: 1191742997}
     - {fileID: 4871303}
     - {fileID: 833205515}
@@ -6837,9 +6822,24 @@ MonoBehaviour:
     - {fileID: 1290615125}
     - {fileID: 1644941529}
     - {fileID: 927832063}
-    stackCountList: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    - {fileID: 1594447925}
+    - {fileID: 1328653822}
+    - {fileID: 538730152}
+    - {fileID: 2143416290}
+    - {fileID: 658511398}
+    - {fileID: 298693753}
+    - {fileID: 37727394}
+    - {fileID: 35147175}
+    - {fileID: 1796333368}
+    - {fileID: 723529803}
+    - {fileID: 1887197540}
+    - {fileID: 283843302}
+    - {fileID: 1838541041}
+    - {fileID: 1281658207}
+    - {fileID: 1379033329}
+    StackCountList: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   playerPermanentManager:
-    pairList:
+    PairList:
     - {fileID: 1284973514}
     - {fileID: 1298583284}
     - {fileID: 153145985}
@@ -6854,13 +6854,13 @@ MonoBehaviour:
     - {fileID: 1261986523}
     - {fileID: 674830075}
     - {fileID: 717227243}
-    stackCountList: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    StackCountList: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   playerPassiveManager:
-    pairList:
+    PairList:
     - {fileID: 1794288716}
     - {fileID: 1060680083}
     - {fileID: 1274376516}
-    stackCountList: 000000000000000000000000
+    StackCountList: 000000000000000000000000
   playerCounters:
     freeze: 0
     delay: 0
@@ -18013,7 +18013,7 @@ MonoBehaviour:
   cardDetailView: {fileID: 1780469455}
   playerDisplayer: {fileID: 753189428}
   playerHand:
-    pairList:
+    PairList:
     - {fileID: 2106350587}
     - {fileID: 826658304}
     - {fileID: 955105992}
@@ -18022,24 +18022,9 @@ MonoBehaviour:
     - {fileID: 949622724}
     - {fileID: 792565572}
     - {fileID: 577348339}
-    stackCountList: 0000000000000000000000000000000000000000000000000000000000000000
+    StackCountList: 0000000000000000000000000000000000000000000000000000000000000000
   playerCreatureField:
-    pairList:
-    - {fileID: 717120648}
-    - {fileID: 1878219108}
-    - {fileID: 499549823}
-    - {fileID: 1892758953}
-    - {fileID: 494086981}
-    - {fileID: 795295655}
-    - {fileID: 1594696717}
-    - {fileID: 1813596365}
-    - {fileID: 1952415251}
-    - {fileID: 1049544134}
-    - {fileID: 664807152}
-    - {fileID: 1830140389}
-    - {fileID: 183275219}
-    - {fileID: 2817695}
-    - {fileID: 513201238}
+    PairList:
     - {fileID: 8942002426017225735}
     - {fileID: 344245166}
     - {fileID: 9348951}
@@ -18048,9 +18033,24 @@ MonoBehaviour:
     - {fileID: 1240632517}
     - {fileID: 1150371812}
     - {fileID: 1320462323}
-    stackCountList: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    - {fileID: 1952415251}
+    - {fileID: 1049544134}
+    - {fileID: 664807152}
+    - {fileID: 1830140389}
+    - {fileID: 183275219}
+    - {fileID: 2817695}
+    - {fileID: 513201238}
+    - {fileID: 717120648}
+    - {fileID: 1878219108}
+    - {fileID: 499549823}
+    - {fileID: 1892758953}
+    - {fileID: 494086981}
+    - {fileID: 795295655}
+    - {fileID: 1594696717}
+    - {fileID: 1813596365}
+    StackCountList: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   playerPermanentManager:
-    pairList:
+    PairList:
     - {fileID: 8940418289196240589}
     - {fileID: 1856725926}
     - {fileID: 1449702101}
@@ -18065,13 +18065,13 @@ MonoBehaviour:
     - {fileID: 423144843}
     - {fileID: 458899463}
     - {fileID: 934413370}
-    stackCountList: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    StackCountList: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   playerPassiveManager:
-    pairList:
+    PairList:
     - {fileID: 1325418806}
     - {fileID: 1544488868}
     - {fileID: 1936652798}
-    stackCountList: 000000000000000000000000
+    StackCountList: 000000000000000000000000
   playerCounters:
     freeze: 0
     delay: 0
@@ -18576,7 +18576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe4111b7eebc4f208c0599d39513733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardPair: {fileID: 0}
+  cardPair: {fileID: 0}
 --- !u!114 &753189430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18590,9 +18590,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id:
-    Owner: 0
-    Field: 4
-    Index: 0
+    owner: 0
+    field: 4
+    index: 0
   card:
     iD: 
     imageID: 
@@ -25188,9 +25188,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id:
-    Owner: 1
-    Field: 2
-    Index: 1
+    owner: 1
+    field: 2
+    index: 1
   card:
     iD: 
     imageID: 
@@ -25221,7 +25221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardPair: {fileID: 0}
+  cardPair: {fileID: 0}
 --- !u!1 &1065080235
 GameObject:
   m_ObjectHideFlags: 0
@@ -28692,7 +28692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe4111b7eebc4f208c0599d39513733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardPair: {fileID: 0}
+  cardPair: {fileID: 0}
 --- !u!114 &1212562480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28706,9 +28706,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id:
-    Owner: 1
-    Field: 4
-    Index: 0
+    owner: 1
+    field: 4
+    index: 0
   card:
     iD: 
     imageID: 
@@ -30597,9 +30597,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id:
-    Owner: 0
-    Field: 2
-    Index: 2
+    owner: 0
+    field: 2
+    index: 2
   card:
     iD: 
     imageID: 
@@ -30630,7 +30630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardPair: {fileID: 0}
+  cardPair: {fileID: 0}
 --- !u!1 &1275716990
 GameObject:
   m_ObjectHideFlags: 0
@@ -32912,9 +32912,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id:
-    Owner: 0
-    Field: 2
-    Index: 0
+    owner: 0
+    field: 2
+    index: 0
   card:
     iD: 
     imageID: 
@@ -32945,7 +32945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardPair: {fileID: 0}
+  cardPair: {fileID: 0}
 --- !u!1 &1325448804
 GameObject:
   m_ObjectHideFlags: 0
@@ -36143,7 +36143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1486940282
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37468,9 +37468,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id:
-    Owner: 0
-    Field: 2
-    Index: 1
+    owner: 0
+    field: 2
+    index: 1
   card:
     iD: 
     imageID: 
@@ -37501,7 +37501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardPair: {fileID: 0}
+  cardPair: {fileID: 0}
 --- !u!1 &1557051220
 GameObject:
   m_ObjectHideFlags: 0
@@ -43219,9 +43219,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id:
-    Owner: 1
-    Field: 2
-    Index: 0
+    owner: 1
+    field: 2
+    index: 0
   card:
     iD: 
     imageID: 
@@ -43252,7 +43252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardPair: {fileID: 0}
+  cardPair: {fileID: 0}
 --- !u!1 &1794985823
 GameObject:
   m_ObjectHideFlags: 0
@@ -43599,7 +43599,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1808926737
 RectTransform:
   m_ObjectHideFlags: 0
@@ -46657,7 +46657,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1899971877
 RectTransform:
   m_ObjectHideFlags: 0
@@ -47490,9 +47490,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id:
-    Owner: 0
-    Field: 2
-    Index: 2
+    owner: 0
+    field: 2
+    index: 2
   card:
     iD: 
     imageID: 
@@ -47523,7 +47523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c67fbc5eab4b4ef0a74a51452f5feb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardPair: {fileID: 0}
+  cardPair: {fileID: 0}
 --- !u!1 &1943860767
 GameObject:
   m_ObjectHideFlags: 0

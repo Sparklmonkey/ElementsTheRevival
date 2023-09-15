@@ -13,5 +13,6 @@ public enum TargetPriority
     HighestHp,
     LowestHp,
     HighestCost,
-    HasSkill
+    HasSkill,
+    OwnPillar
 }
