@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Option_Toggle : MonoBehaviour
+public class OptionToggle : MonoBehaviour
 {
     [SerializeField]
     private List<Image> toggleOptions;

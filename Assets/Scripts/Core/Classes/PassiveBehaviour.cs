@@ -4,21 +4,21 @@ public class PassiveBehaviour : CardTypeBehaviour
 {
     public override void OnCardPlay()
     {
-        switch (CardPair.card.iD)
+        switch (cardPair.card.iD)
         {
             case "7n8":
             case "5oo":
-                CardPair.card.TurnsInPlay = 5;
+                cardPair.card.TurnsInPlay = 5;
                 break;
             case "61t":
             case "80d":
-                CardPair.card.TurnsInPlay = 3;
+                cardPair.card.TurnsInPlay = 3;
                 break;
             default:
                 break;
         }
 
-        if (CardPair.card.innateSkills.Bones)
+        if (cardPair.card.innateSkills.Bones)
         {
             Owner.AddPlayerCounter(PlayerCounters.Bone, 7);
         }
@@ -26,7 +26,7 @@ public class PassiveBehaviour : CardTypeBehaviour
 
     public override void OnCardRemove()
     {
-        if (CardPair.card.innateSkills.Bones)
+        if (cardPair.card.innateSkills.Bones)
         {
             Owner.AddPlayerCounter(PlayerCounters.Bone, -9999);
         }
@@ -34,20 +34,20 @@ public class PassiveBehaviour : CardTypeBehaviour
 
     public override void OnTurnStart()
     {
-        switch (CardPair.card.iD)
+        switch (cardPair.card.iD)
         {
             case "7n8":
             case "5oo":
-                CardPair.card.TurnsInPlay--;
-                if (CardPair.card.TurnsInPlay <= 0)
+                cardPair.card.TurnsInPlay--;
+                if (cardPair.card.TurnsInPlay <= 0)
                 {
                     return;
                 }
                 break;
             case "61t":
             case "80d":
-                CardPair.card.TurnsInPlay--;
-                if (CardPair.card.TurnsInPlay <= 0)
+                cardPair.card.TurnsInPlay--;
+                if (cardPair.card.TurnsInPlay <= 0)
                 {
                     return;
                 }
@@ -59,7 +59,7 @@ public class PassiveBehaviour : CardTypeBehaviour
 
     public override void DeathTrigger()
     {
-        if (CardPair.card.innateSkills.Bones)
+        if (cardPair.card.innateSkills.Bones)
         {
             Owner.AddPlayerCounter(PlayerCounters.Bone, 2);
         }
@@ -67,46 +67,46 @@ public class PassiveBehaviour : CardTypeBehaviour
 
     public override void OnTurnEnd()
     {
-        if (CardPair.card.cardType == CardType.Mark)
+        if (cardPair.card.cardType == CardType.Mark)
         {
-            StartCoroutine(AnimationManager.Instance.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
-            if (BattleVars.shared.enemyAiData.maxHP >= 150 && CardPair.id.Owner == OwnerEnum.Opponent)
+            AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, cardPair.card.costElement);
+            if (BattleVars.Shared.EnemyAiData.maxHp >= 150 && cardPair.id.owner == OwnerEnum.Opponent)
             {
-                Owner.GenerateQuantaLogic(CardPair.card.costElement, 3);
+                Owner.GenerateQuantaLogic(cardPair.card.costElement, 3);
             }
             else
             {
-                Owner.GenerateQuantaLogic(CardPair.card.costElement, 1);
+                Owner.GenerateQuantaLogic(cardPair.card.costElement, 1);
             }
         }
 
-        if (CardPair.card.cardType == CardType.Weapon)
+        if (cardPair.card.cardType == CardType.Weapon)
         {
-            int atknow = CardPair.card.AtkNow;
+            int atknow = cardPair.card.AtkNow;
 
-            if (CardPair.card.innateSkills.Regenerate)
+            if (cardPair.card.innateSkills.Regenerate)
             {
                 Owner.ModifyHealthLogic(5, false, false);
             }
-            if (CardPair.card.innateSkills.Fiery)
+            if (cardPair.card.innateSkills.Fiery)
             {
                 atknow += Mathf.FloorToInt(Owner.GetAllQuantaOfElement(Element.Fire) / 5);
             }
-            if (CardPair.card.innateSkills.Hammer)
+            if (cardPair.card.innateSkills.Hammer)
             {
                 if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Earth || Owner.playerPassiveManager.GetMark().card.costElement == Element.Gravity)
                 {
                     atknow++;
                 }
             }
-            if (CardPair.card.innateSkills.Dagger)
+            if (cardPair.card.innateSkills.Dagger)
             {
                 if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Death || Owner.playerPassiveManager.GetMark().card.costElement == Element.Darkness)
                 {
                     atknow++;
                 }
             }
-            if (CardPair.card.innateSkills.Bow)
+            if (cardPair.card.innateSkills.Bow)
             {
                 if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Air)
                 {
@@ -114,21 +114,21 @@ public class PassiveBehaviour : CardTypeBehaviour
                 }
             }
 
-            if (CardPair.card.Freeze > 0)
+            if (cardPair.card.Freeze > 0)
             {
                 atknow = 0;
-                CardPair.card.Freeze--;
+                cardPair.card.Freeze--;
             }
 
-            if (CardPair.card.innateSkills.Delay > 0)
+            if (cardPair.card.innateSkills.Delay > 0)
             {
                 atknow = 0;
-                CardPair.card.innateSkills.Delay--;
+                cardPair.card.innateSkills.Delay--;
             }
 
-            if (!CardPair.card.passiveSkills.Momentum)
+            if (!cardPair.card.passiveSkills.Momentum)
             {
-                Enemy.ManageShield(ref atknow, ref CardPair);
+                Enemy.ManageShield(ref atknow, ref cardPair);
             }
 
             //Send Damage
@@ -136,20 +136,20 @@ public class PassiveBehaviour : CardTypeBehaviour
 
             if (atknow > 0)
             {
-                if (CardPair.card.passiveSkills.Vampire)
+                if (cardPair.card.passiveSkills.Vampire)
                 {
                     Owner.ModifyHealthLogic(atknow, false, false);
                 }
-                if (CardPair.card.passiveSkills.Venom)
+                if (cardPair.card.passiveSkills.Venom)
                 {
                     Enemy.AddPlayerCounter(PlayerCounters.Poison, 1);
                 }
-                if (CardPair.card.innateSkills.Scramble)
+                if (cardPair.card.innateSkills.Scramble)
                 {
                     Enemy.ScrambleQuanta();
                 }
             }
-            CardPair.card.AbilityUsed = false;
+            cardPair.card.AbilityUsed = false;
         }
 
 

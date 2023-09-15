@@ -25,36 +25,36 @@ public class DeckDisplayManager : MonoBehaviour
     [SerializeField]
     private ErrorMessageManager errorMessage;
     [SerializeField]
-    private DM_MarkManager markManager;
-    public static bool isArena;
-    private GameObject touchBlocker;
-    private List<DMCardPrefab> inventoryDMCard;
+    private DmMarkManager markManager;
+    public static bool IsArena;
+    private GameObject _touchBlocker;
+    private List<DmCardPrefab> _inventoryDmCard;
 
-    private int currentFilterSelection = 14;
+    private int _currentFilterSelection = 14;
     // Start is called before the first frame update
     void Start()
     {
-        inventoryDMCard = new List<DMCardPrefab>();
+        _inventoryDmCard = new List<DmCardPrefab>();
         //Sort By ID
 
-        if (isArena)
+        if (IsArena)
         {
             menuBtnText.text = "Arena T50";
-            playerDeck = PlayerData.shared.arenaT50Deck.DeserializeCard();
-            playerInverntory = PlayerData.shared.cardInventory.DeserializeCard();
-            playerInverntory.AddRange(PlayerData.shared.currentDeck.DeserializeCard());
+            playerDeck = PlayerData.Shared.arenaT50Deck.DeserializeCard();
+            playerInverntory = PlayerData.Shared.cardInventory.DeserializeCard();
+            playerInverntory.AddRange(PlayerData.Shared.currentDeck.DeserializeCard());
             foreach (var item in playerDeck)
             {
                 playerInverntory.Remove(item);
             }
-            markManager.SetupMarkCard((int)PlayerData.shared.arenaT50Mark);
+            markManager.SetupMarkCard((int)PlayerData.Shared.arenaT50Mark);
         }
         else
         {
             menuBtnText.text = "Main Menu";
-            playerDeck = PlayerData.shared.currentDeck.DeserializeCard();
-            playerInverntory = PlayerData.shared.cardInventory.DeserializeCard();
-            markManager.SetupMarkCard((int)PlayerData.shared.markElement);
+            playerDeck = PlayerData.Shared.currentDeck.DeserializeCard();
+            playerInverntory = PlayerData.Shared.cardInventory.DeserializeCard();
+            markManager.SetupMarkCard((int)PlayerData.Shared.markElement);
         }
         playerDeck.Sort((x, y) => string.Compare(x.iD, y.iD));
         playerInverntory.Sort((x, y) => string.Compare(x.iD, y.iD));
@@ -64,11 +64,11 @@ public class DeckDisplayManager : MonoBehaviour
         foreach (Card deckCard in playerDeck)
         {
             GameObject cardHeadObject = Instantiate(cardHeadPrefab, deckContentView);
-            cardHeadObject.GetComponent<DMCardPrefab>().SetupCardHead(deckCard, this);
+            cardHeadObject.GetComponent<DmCardPrefab>().SetupCardHead(deckCard, this);
         }
         foreach (Card inventoryCard in playerInverntory)
         {
-            DMCardPrefab dMCardPrefab = inventoryDMCard.Find(x => x.GetCard().cardName == inventoryCard.cardName);
+            DmCardPrefab dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().cardName == inventoryCard.cardName);
             if (dMCardPrefab != null)
             {
                 dMCardPrefab.AddCard();
@@ -76,8 +76,8 @@ public class DeckDisplayManager : MonoBehaviour
             else
             {
                 GameObject cardHeadObject = Instantiate(cardHeadPrefab, inventoryContentView);
-                cardHeadObject.GetComponent<DMCardPrefab>().SetupCardHead(inventoryCard, this);
-                inventoryDMCard.Add(cardHeadObject.GetComponent<DMCardPrefab>());
+                cardHeadObject.GetComponent<DmCardPrefab>().SetupCardHead(inventoryCard, this);
+                _inventoryDmCard.Add(cardHeadObject.GetComponent<DmCardPrefab>());
             }
         }
     }
@@ -91,7 +91,7 @@ public class DeckDisplayManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (var deckPreset in PlayerData.shared.savedDecks)
+        foreach (var deckPreset in PlayerData.Shared.savedDecks)
         {
             var deck = deckPreset.Split(":");
 
@@ -103,15 +103,15 @@ public class DeckDisplayManager : MonoBehaviour
 
     public void FilterInventoryCardsByElement(int element)
     {
-        currentFilterSelection = element;
-        inventoryDMCard = new List<DMCardPrefab>();
+        _currentFilterSelection = element;
+        _inventoryDmCard = new List<DmCardPrefab>();
         ClearInventoryView();
         playerInverntory.Sort((x, y) => string.Compare(x.iD, y.iD));
         if (element == 14)
         {
             foreach (Card inventoryCard in playerInverntory)
             {
-                DMCardPrefab dMCardPrefab = inventoryDMCard.Find(x => x.GetCard().cardName == inventoryCard.cardName);
+                DmCardPrefab dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().cardName == inventoryCard.cardName);
                 if (dMCardPrefab != null)
                 {
                     dMCardPrefab.AddCard();
@@ -119,8 +119,8 @@ public class DeckDisplayManager : MonoBehaviour
                 else
                 {
                     GameObject cardHeadObject = Instantiate(cardHeadPrefab, inventoryContentView);
-                    cardHeadObject.GetComponent<DMCardPrefab>().SetupCardHead(inventoryCard, this);
-                    inventoryDMCard.Add(cardHeadObject.GetComponent<DMCardPrefab>());
+                    cardHeadObject.GetComponent<DmCardPrefab>().SetupCardHead(inventoryCard, this);
+                    _inventoryDmCard.Add(cardHeadObject.GetComponent<DmCardPrefab>());
                 }
             }
             return;
@@ -143,7 +143,7 @@ public class DeckDisplayManager : MonoBehaviour
         foreach (Card inventoryCard in filteredList)
         {
 
-            DMCardPrefab dMCardPrefab = inventoryDMCard.Find(x => x.GetCard().cardName == inventoryCard.cardName);
+            DmCardPrefab dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().cardName == inventoryCard.cardName);
             if (dMCardPrefab != null)
             {
                 dMCardPrefab.AddCard();
@@ -151,8 +151,8 @@ public class DeckDisplayManager : MonoBehaviour
             else
             {
                 GameObject cardHeadObject = Instantiate(cardHeadPrefab, inventoryContentView);
-                cardHeadObject.GetComponent<DMCardPrefab>().SetupCardHead(inventoryCard, this);
-                inventoryDMCard.Add(cardHeadObject.GetComponent<DMCardPrefab>());
+                cardHeadObject.GetComponent<DmCardPrefab>().SetupCardHead(inventoryCard, this);
+                _inventoryDmCard.Add(cardHeadObject.GetComponent<DmCardPrefab>());
             }
 
         }
@@ -160,16 +160,16 @@ public class DeckDisplayManager : MonoBehaviour
 
     private void ClearInventoryView()
     {
-        List<DMCardPrefab> children = new List<DMCardPrefab>(inventoryContentView.GetComponentsInChildren<DMCardPrefab>());
-        foreach (DMCardPrefab child in children)
+        List<DmCardPrefab> children = new List<DmCardPrefab>(inventoryContentView.GetComponentsInChildren<DmCardPrefab>());
+        foreach (DmCardPrefab child in children)
         {
             Destroy(child.gameObject);
         }
     }
     private void ClearDeckView()
     {
-        List<DMCardPrefab> children = new List<DMCardPrefab>(deckContentView.GetComponentsInChildren<DMCardPrefab>());
-        foreach (DMCardPrefab child in children)
+        List<DmCardPrefab> children = new List<DmCardPrefab>(deckContentView.GetComponentsInChildren<DmCardPrefab>());
+        foreach (DmCardPrefab child in children)
         {
             Destroy(child.gameObject);
         }
@@ -177,8 +177,8 @@ public class DeckDisplayManager : MonoBehaviour
 
     public void RemoveAllDeckCards()
     {
-        List<DMCardPrefab> children = new(deckContentView.GetComponentsInChildren<DMCardPrefab>());
-        foreach (DMCardPrefab child in children)
+        List<DmCardPrefab> children = new(deckContentView.GetComponentsInChildren<DmCardPrefab>());
+        foreach (DmCardPrefab child in children)
         {
             playerInverntory.Add(child.GetCard());
             ClearDeckView();
@@ -191,7 +191,7 @@ public class DeckDisplayManager : MonoBehaviour
 
     private void UpdateCardView()
     {
-        inventoryDMCard = new List<DMCardPrefab>();
+        _inventoryDmCard = new List<DmCardPrefab>();
         ClearDeckView();
         deckCount.text = $"( {playerDeck.Count} Cards ) ";
         inventoryCount.text = $"( {playerInverntory.Count} Cards ) ";
@@ -199,17 +199,17 @@ public class DeckDisplayManager : MonoBehaviour
         foreach (Card deckCard in playerDeck)
         {
             GameObject cardHeadObject = Instantiate(cardHeadPrefab, deckContentView);
-            cardHeadObject.GetComponent<DMCardPrefab>().SetupCardHead(deckCard, this);
+            cardHeadObject.GetComponent<DmCardPrefab>().SetupCardHead(deckCard, this);
         }
-        FilterInventoryCardsByElement(currentFilterSelection);
+        FilterInventoryCardsByElement(_currentFilterSelection);
     }
 
     public void ChangeParentContentView(Transform transform)
     {
-        Card card = transform.GetComponent<DMCardPrefab>().GetCard();
+        Card card = transform.GetComponent<DmCardPrefab>().GetCard();
         if (transform.parent.name == "DeckContentView")
         {
-            PlayerData.shared.removedCardFromDeck = true;
+            PlayerData.Shared.removedCardFromDeck = true;
             playerDeck.Remove(card);
             playerInverntory.Add(card);
             UpdateCardView();
@@ -259,7 +259,7 @@ public class DeckDisplayManager : MonoBehaviour
             if (cardIndex == -1) { continue; }
             playerDeck.Add(playerInverntory[cardIndex]);
             playerInverntory.RemoveAt(cardIndex);
-            if (CardDatabase.Instance.markIds.Contains(id))
+            if (CardDatabase.Instance.MarkIds.Contains(id))
             {
                 markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).costElement);
             }
@@ -278,7 +278,7 @@ public class DeckDisplayManager : MonoBehaviour
             if (cardIndex == -1) { continue; }
             playerDeck.Add(playerInverntory[cardIndex]);
             playerInverntory.RemoveAt(cardIndex);
-            if (CardDatabase.Instance.markIds.Contains(id))
+            if (CardDatabase.Instance.MarkIds.Contains(id))
             {
                 markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).costElement);
             }
@@ -291,38 +291,38 @@ public class DeckDisplayManager : MonoBehaviour
     {
         if (playerDeck.Count >= 30 && playerDeck.Count <= 60)
         {
-            if (isArena)
+            if (IsArena)
             {
-                PlayerData.shared.arenaT50Deck = playerDeck.SerializeCard();
-                PlayerData.shared.arenaT50Mark = markManager.GetMarkSelected();
+                PlayerData.Shared.arenaT50Deck = playerDeck.SerializeCard();
+                PlayerData.Shared.arenaT50Mark = markManager.GetMarkSelected();
             }
             else
             {
-                PlayerData.shared.currentDeck = playerDeck.SerializeCard();
-                PlayerData.shared.markElement = markManager.GetMarkSelected();
-                PlayerData.shared.cardInventory = playerInverntory.SerializeCard();
+                PlayerData.Shared.currentDeck = playerDeck.SerializeCard();
+                PlayerData.Shared.markElement = markManager.GetMarkSelected();
+                PlayerData.Shared.cardInventory = playerInverntory.SerializeCard();
             }
 
-            if (ApiManager.isTrainer)
+            if (ApiManager.IsTrainer)
             {
                 GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
                 return;
             }
             menuBtn.gameObject.SetActive(false);
-            touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+            _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
             await ApiManager.Instance.SaveDataToUnity();
 
-            touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-            Destroy(touchBlocker);
+            _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+            Destroy(_touchBlocker);
             menuBtn.gameObject.SetActive(true);
-            if (isArena)
+            if (IsArena)
             {
-                isArena = false;
+                IsArena = false;
                 SceneTransitionManager.Instance.LoadScene("Top50");
             }
             else
             {
-                isArena = false;
+                IsArena = false;
                 SceneTransitionManager.Instance.LoadScene("Dashboard");
             }
             return;
@@ -334,29 +334,29 @@ public class DeckDisplayManager : MonoBehaviour
     {
         if (playerDeck.Count >= 30 && playerDeck.Count <= 60)
         {
-            if (isArena)
+            if (IsArena)
             {
-                PlayerData.shared.arenaT50Deck = playerDeck.SerializeCard();
-                PlayerData.shared.arenaT50Mark = markManager.GetMarkSelected();
+                PlayerData.Shared.arenaT50Deck = playerDeck.SerializeCard();
+                PlayerData.Shared.arenaT50Mark = markManager.GetMarkSelected();
             }
             else
             {
-                PlayerData.shared.currentDeck = playerDeck.SerializeCard();
-                PlayerData.shared.markElement = markManager.GetMarkSelected();
-                PlayerData.shared.cardInventory = playerInverntory.SerializeCard();
+                PlayerData.Shared.currentDeck = playerDeck.SerializeCard();
+                PlayerData.Shared.markElement = markManager.GetMarkSelected();
+                PlayerData.Shared.cardInventory = playerInverntory.SerializeCard();
             }
 
-            if (ApiManager.isTrainer)
+            if (ApiManager.IsTrainer)
             {
                 SceneTransitionManager.Instance.LoadScene("Bazaar");
                 return;
             }
             menuBtn.gameObject.SetActive(false);
-            touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+            _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
             await ApiManager.Instance.SaveDataToUnity();
 
-            touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-            Destroy(touchBlocker);
+            _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+            Destroy(_touchBlocker);
             menuBtn.gameObject.SetActive(true);
             SceneTransitionManager.Instance.LoadScene("Bazaar");
             return;

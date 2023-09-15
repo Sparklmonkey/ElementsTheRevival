@@ -4,19 +4,19 @@ public class PermanentBehaviour : CardTypeBehaviour
 {
     public override void OnCardPlay()
     {
-        switch (CardPair.card.iD)
+        switch (cardPair.card.iD)
         {
             case "7q9":
             case "5rp":
-                CardPair.card.TurnsInPlay = 2;
+                cardPair.card.TurnsInPlay = 2;
                 Owner.AddPlayerCounter(PlayerCounters.Delay, 1);
-                DuelManager.GetNotIDOwner(CardPair.id).AddPlayerCounter(PlayerCounters.Delay, 1);
+                DuelManager.GetNotIDOwner(cardPair.id).AddPlayerCounter(PlayerCounters.Delay, 1);
                 break;
             case "5v2":
             case "7ti":
                 Owner.AddPlayerCounter(PlayerCounters.Invisibility, 3);
-                CardPair.card.TurnsInPlay = 3;
-                Owner.ActivateCloakEffect(CardPair);
+                cardPair.card.TurnsInPlay = 3;
+                Owner.ActivateCloakEffect(cardPair);
                 break;
             case "5j2":
             case "7hi":
@@ -24,7 +24,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                 break;
             case "5uq":
             case "7ta":
-                DuelManager.Instance.UpdateNightFallEclipse(true, CardPair.card.iD);
+                DuelManager.Instance.UpdateNightFallEclipse(true, cardPair.card.iD);
                 break;
             case "5pa":
             case "7nq":
@@ -38,7 +38,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                 break;
         }
 
-        if (CardPair.card.innateSkills.Sanctuary)
+        if (cardPair.card.innateSkills.Sanctuary)
         {
             Owner.AddPlayerCounter(PlayerCounters.Sanctuary, 1);
         }
@@ -46,11 +46,11 @@ public class PermanentBehaviour : CardTypeBehaviour
 
     public override void OnCardRemove()
     {
-        switch (CardPair.card.iD)
+        switch (cardPair.card.iD)
         {
             case "5v2":
             case "7ti":
-                Owner.ResetCloakPermParent(CardPair);
+                Owner.ResetCloakPermParent(cardPair);
                 if (Owner.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5v2" || x.card.iD == "7ti").Count == 1)
                 {
                     Owner.DeactivateCloakEffect();
@@ -63,7 +63,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                 break;
             case "5uq":
             case "7ta":
-                DuelManager.Instance.UpdateNightFallEclipse(false, CardPair.card.iD);
+                DuelManager.Instance.UpdateNightFallEclipse(false, cardPair.card.iD);
                 break;
             case "5pa":
             case "7nq":
@@ -77,68 +77,72 @@ public class PermanentBehaviour : CardTypeBehaviour
                 break;
         }
 
-        if (CardPair.card.innateSkills.Sanctuary)
+        if (cardPair.card.innateSkills.Sanctuary)
         {
             Owner.AddPlayerCounter(PlayerCounters.Sanctuary, -1);
+        }
+        if(cardPair.stackCount == 0)
+        {
+            cardPair.card = null;
         }
     }
 
     public override void OnTurnStart()
     {
         List<string> permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
-        CardPair.card.AbilityUsed = false;
-        if (permanentsWithCountdown.Contains(CardPair.card.iD))
+        cardPair.card.AbilityUsed = false;
+        if (permanentsWithCountdown.Contains(cardPair.card.iD))
         {
-            CardPair.card.TurnsInPlay--;
+            cardPair.card.TurnsInPlay--;
 
-            if (CardPair.card.TurnsInPlay == 0)
+            if (cardPair.card.TurnsInPlay == 0)
             {
-                CardPair.RemoveCard();
+                cardPair.RemoveCard();
                 return;
             }
         }
-        CardPair.UpdateCard();
+        cardPair.UpdateCard();
     }
 
     public override void DeathTrigger()
     {
-        if (CardPair.card.innateSkills.SoulCatch)
+        if (cardPair.card.innateSkills.SoulCatch)
         {
-            Owner.GenerateQuantaLogic(Element.Death, CardPair.card.iD.IsUpgraded() ? 3 : 2);
+            Owner.GenerateQuantaLogic(Element.Death, cardPair.card.iD.IsUpgraded() ? 3 : 2);
         }
-        if (CardPair.card.innateSkills.Boneyard)
+        if (cardPair.card.innateSkills.Boneyard)
         {
-            Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId(CardPair.card.iD.IsUpgraded() ? "716" : "52m"));
+            Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId(cardPair.card.iD.IsUpgraded() ? "716" : "52m"));
         }
     }
 
     public override void OnTurnEnd()
     {
-        if (CardPair.card.cardType == CardType.Artifact)
+        if (cardPair.card.cardType == CardType.Artifact)
         {
-            if (CardPair.card.innateSkills.Empathy)
+            if (cardPair.card.innateSkills.Empathy)
             {
                 int creatureCount = Owner.playerCreatureField.GetAllValidCardIds().Count;
                 Owner.ModifyHealthLogic(creatureCount, false, false);
             }
-            if (CardPair.card.innateSkills.Gratitude)
+            if (cardPair.card.innateSkills.Gratitude)
             {
                 int healthAmount = Owner.playerPassiveManager.GetMark().card.costElement == Element.Life ? 5 : 3;
                 Owner.ModifyHealthLogic(healthAmount, false, false);
             }
 
             List<int> floodList = new() { 11, 13, 9, 10, 12 };
-            switch (CardPair.card.iD)
+            switch (cardPair.card.iD)
             {
                 case "5j2":
                 case "7hi":
                     var creatureList = Owner.playerCreatureField.GetAllValidCardIds();
                     foreach (var creature in creatureList)
                     {
-                        int statModifier = DuelManager.Instance.GetCardCount(new() { "5ih", "7h1" }) > 0 && floodList.Contains(CardPair.id.Index) ? 5 : 2;
+                        int statModifier = DuelManager.Instance.GetCardCount(new() { "5ih", "7h1" }) > 0 && floodList.Contains(cardPair.id.index) ? 5 : 2;
                         creature.card.AtkModify += statModifier;
                         creature.card.AtkModify += statModifier;
-                        CardPair.UpdateCard();
+                        cardPair.UpdateCard();
                     }
                     break;
                 case "5ih":
@@ -150,36 +154,36 @@ public class PermanentBehaviour : CardTypeBehaviour
                     break;
             }
 
-            if (CardPair.card.innateSkills.Sanctuary)
+            if (cardPair.card.innateSkills.Sanctuary)
             {
                 Owner.ModifyHealthLogic(4, false, false);
             }
 
-            if (CardPair.card.innateSkills.Void)
+            if (cardPair.card.innateSkills.Void)
             {
                 int healthChange = Owner.playerPassiveManager.GetMark().card.costElement == Element.Darkness ? 3 : 2;
-                DuelManager.GetNotIDOwner(CardPair.id).ModifyMaxHealthLogic(healthChange, false);
+                DuelManager.GetNotIDOwner(cardPair.id).ModifyMaxHealthLogic(healthChange, false);
             }
         }
 
-        if (CardPair.card.cardType == CardType.Pillar)
+        if (cardPair.card.cardType == CardType.Pillar)
         {
-            if (CardPair.card.cardName.Contains("Pendulum"))
+            if (cardPair.card.cardName.Contains("Pendulum"))
             {
-                Owner.GenerateQuantaLogic(CardPair.card.skillElement, CardPair.card.costElement == Element.Other ? 3 * StackCount : 1 * StackCount);
+                Owner.GenerateQuantaLogic(cardPair.card.skillElement, cardPair.card.costElement == Element.Other ? 3 * StackCount : 1 * StackCount);
                 if (Owner.isPlayer || Owner.playerCounters.invisibility <= 0)
                 {
-                    StartCoroutine(AnimationManager.Instance.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
+                    AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, cardPair.card.costElement);
                 }
 
-                CardPair.card.skillElement = CardPair.card.skillElement == CardPair.card.costElement ? DuelManager.GetIDOwner(CardPair.id).playerPassiveManager.GetMark().card.costElement : CardPair.card.costElement;
+                cardPair.card.skillElement = cardPair.card.skillElement == cardPair.card.costElement ? DuelManager.GetIDOwner(cardPair.id).playerPassiveManager.GetMark().card.costElement : cardPair.card.costElement;
             }
             else
             {
-                Owner.GenerateQuantaLogic(CardPair.card.costElement, CardPair.card.costElement == Element.Other ? 3 * StackCount : 1 * StackCount);
+                Owner.GenerateQuantaLogic(cardPair.card.costElement, cardPair.card.costElement == Element.Other ? 3 * StackCount : 1 * StackCount);
                 if (Owner.isPlayer || Owner.playerCounters.invisibility <= 0)
                 {
-                    StartCoroutine(AnimationManager.Instance.PlayAnimation("QuantaGenerate", transform, CardPair.card.costElement));
+                    AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, cardPair.card.costElement);
                 }
             }
         }

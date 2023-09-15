@@ -12,30 +12,30 @@ public class ActionCell : MonoBehaviour
     public void SetupFromElementAction(ElementAction elementAction)
     {
 
-        owner.text = elementAction.owner;
-        action.text = elementAction.action;
+        owner.text = elementAction.Owner;
+        action.text = elementAction.Action;
 
-        if (elementAction.originImage == "")
+        if (elementAction.OriginImage == "")
         {
             originImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue);
         }
         else
         {
             originImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
-            originImage.sprite = ImageHelper.GetCardImage(elementAction.originImage);
+            originImage.sprite = ImageHelper.GetCardImage(elementAction.OriginImage);
         }
 
-        if (elementAction.targetImage == "")
+        if (elementAction.TargetImage == "")
         {
             targetImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue);
         }
         else
         {
             targetImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
-            targetImage.sprite = ImageHelper.GetCardImage(elementAction.targetImage);
+            targetImage.sprite = ImageHelper.GetCardImage(elementAction.TargetImage);
         }
 
-        if (elementAction.shouldShowArrow)
+        if (elementAction.ShouldShowArrow)
         {
             actionArrow.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
         }

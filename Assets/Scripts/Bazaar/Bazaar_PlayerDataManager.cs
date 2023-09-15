@@ -1,29 +1,29 @@
 using TMPro;
 using UnityEngine;
 
-public class Bazaar_PlayerDataManager : MonoBehaviour
+public class BazaarPlayerDataManager : MonoBehaviour
 {
-    private Bazaar_PlayerInventoryManager playerInventoryManager;
-    private Bazaar_ShopInventoryManager shopInventoryManager;
+    private BazaarPlayerInventoryManager _playerInventoryManager;
+    private BazaarShopInventoryManager _shopInventoryManager;
 
     [SerializeField]
     private TextMeshProUGUI deckCount;
     [SerializeField]
     private ErrorMessageManager confirmationMessage;
 
-    private Card cardToChange;
-    private bool isAdd = false;
+    private Card _cardToChange;
+    private bool _isAdd = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerInventoryManager = GetComponent<Bazaar_PlayerInventoryManager>();
-        shopInventoryManager = GetComponent<Bazaar_ShopInventoryManager>();
-        playerInventoryManager.SetupPlayerInvetoryView(PlayerData.shared.cardInventory.DeserializeCard());
+        _playerInventoryManager = GetComponent<BazaarPlayerInventoryManager>();
+        _shopInventoryManager = GetComponent<BazaarShopInventoryManager>();
+        _playerInventoryManager.SetupPlayerInvetoryView(PlayerData.Shared.cardInventory.DeserializeCard());
 
-        shopInventoryManager.SetupInitialCardView();
-        deckCount.text = $"( {PlayerData.shared.cardInventory.Count} )";
-        GetComponent<Bazaar_TransactionManager>().SetupTransactionManager(PlayerData.shared.electrum);
+        _shopInventoryManager.SetupInitialCardView();
+        deckCount.text = $"( {PlayerData.Shared.cardInventory.Count} )";
+        GetComponent<BazaarTransactionManager>().SetupTransactionManager(PlayerData.Shared.electrum);
     }
 
     // Update is called once per frame
@@ -34,13 +34,13 @@ public class Bazaar_PlayerDataManager : MonoBehaviour
 
     public bool CanBuyCard(int buyPrice)
     {
-        return PlayerData.shared.electrum >= buyPrice;
+        return PlayerData.Shared.electrum >= buyPrice;
     }
 
     public void ModifyPlayerCardInventory(Card card, bool isAdd)
     {
-        cardToChange = card;
-        this.isAdd = isAdd;
+        _cardToChange = card;
+        this._isAdd = isAdd;
 
         confirmationMessage.gameObject.SetActive(true);
         confirmationMessage.SetupErrorMessage($"Are you sure you want to {(isAdd ? "buy" : "sell")} {card.cardName}?");
@@ -49,34 +49,34 @@ public class Bazaar_PlayerDataManager : MonoBehaviour
     public void ConfirmModification()
     {
         confirmationMessage.gameObject.SetActive(false);
-        if (isAdd)
+        if (_isAdd)
         {
-            GetComponent<Bazaar_TransactionManager>().ChangeCoinCount(cardToChange.BuyPrice, true);
-            PlayerData.shared.cardInventory.Add(cardToChange.iD);
+            GetComponent<BazaarTransactionManager>().ChangeCoinCount(_cardToChange.BuyPrice, true);
+            PlayerData.Shared.cardInventory.Add(_cardToChange.iD);
         }
         else
         {
             int index = 0;
-            for (int i = 0; i < PlayerData.shared.cardInventory.Count; i++)
+            for (int i = 0; i < PlayerData.Shared.cardInventory.Count; i++)
             {
-                if (PlayerData.shared.cardInventory[i] == cardToChange.iD)
+                if (PlayerData.Shared.cardInventory[i] == _cardToChange.iD)
                 {
                     index = i;
                     break;
                 }
             }
-            GetComponent<Bazaar_TransactionManager>().ChangeCoinCount(cardToChange.SellPrice, false);
-            PlayerData.shared.cardInventory.RemoveAt(index);
+            GetComponent<BazaarTransactionManager>().ChangeCoinCount(_cardToChange.SellPrice, false);
+            PlayerData.Shared.cardInventory.RemoveAt(index);
         }
         PlayerData.SaveData();
-        deckCount.text = $"( {PlayerData.shared.cardInventory.Count} )";
-        playerInventoryManager.SetupPlayerInvetoryView(PlayerData.shared.cardInventory.DeserializeCard());
+        deckCount.text = $"( {PlayerData.Shared.cardInventory.Count} )";
+        _playerInventoryManager.SetupPlayerInvetoryView(PlayerData.Shared.cardInventory.DeserializeCard());
     }
 
     public void CancelModification()
     {
         confirmationMessage.gameObject.SetActive(false);
-        cardToChange = null;
-        isAdd = false;
+        _cardToChange = null;
+        _isAdd = false;
     }
 }

@@ -17,7 +17,7 @@ public class ParadoxAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         //Activate Graboids
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityNoTarget(aiManager, CardType.Artifact, "Golden Hourglass", "Electrum Hourglass"));
         //Activate Stone Skin
-        yield return aiManager.StartCoroutine(spellManager.PlayBlessings(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayBlessings(aiManager));
 
         //
     }

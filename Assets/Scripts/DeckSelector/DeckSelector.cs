@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeckSelector : MonoBehaviour
 {
-    private Element playerDeck;
+    private Element _playerDeck;
 
     [SerializeField]
     private List<StarterDeckCardHead> cardHeads;
@@ -23,17 +23,17 @@ public class DeckSelector : MonoBehaviour
     }
     public void ElementSelection(Element element)
     {
-        playerDeck = element;
-        elementDescription.text = ElementStrings.GetElementDescription(playerDeck);
+        _playerDeck = element;
+        elementDescription.text = ElementStrings.GetElementDescription(_playerDeck);
         ClearGridView();
-        List<Card> starterDeck = StarterDecks.Instance.GetStarterDeck(playerDeck).DeserializeCard();
+        List<Card> starterDeck = StarterDecks.Instance.GetStarterDeck(_playerDeck).DeserializeCard();
 
         for (int i = 0; i < cardHeads.Count; i++)
         {
             cardHeads[i].SetupCardHead(starterDeck[i], cardDisplayDetail);
         }
         cardDisplayDetail.gameObject.SetActive(false);
-        (string, string) displayCards = StarterDecks.Instance.GetDisplayCards(playerDeck);
+        (string, string) displayCards = StarterDecks.Instance.GetDisplayCards(_playerDeck);
         cardOne.SetupCardView(CardDatabase.Instance.GetCardFromId(displayCards.Item1));
         cardTwo.SetupCardView(CardDatabase.Instance.GetCardFromId(displayCards.Item2));
     }
@@ -46,9 +46,9 @@ public class DeckSelector : MonoBehaviour
 
     public void StartGame()
     {
-        PlayerData.shared.markElement = playerDeck;
-        PlayerData.shared.currentDeck = StarterDecks.Instance.GetStarterDeck(playerDeck);
-        PlayerData.shared.cardInventory = new List<string>();
+        PlayerData.Shared.markElement = _playerDeck;
+        PlayerData.Shared.currentDeck = StarterDecks.Instance.GetStarterDeck(_playerDeck);
+        PlayerData.Shared.cardInventory = new List<string>();
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 }

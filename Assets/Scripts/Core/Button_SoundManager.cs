@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Button_SoundManager : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
+public class ButtonSoundManager : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {

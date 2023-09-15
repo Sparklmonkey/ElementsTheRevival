@@ -21,11 +21,11 @@ public class WelcomeQuest : IQuest
 
     public string QuestReward => "Reward: 10";
 
-    public bool IsComplete => PlayerData.shared.hasDefeatedLevel0;
+    public bool IsComplete => PlayerData.Shared.hasDefeatedLevel0;
 
     public void RewardPlayer()
     {
-        PlayerData.shared.electrum += 10;
+        PlayerData.Shared.electrum += 10;
     }
 }
 
@@ -39,11 +39,11 @@ public class ImproveDeckQuest : IQuest
 
     public string QuestReward => "Reward: 20";
 
-    public bool IsComplete => PlayerData.shared.removedCardFromDeck;
+    public bool IsComplete => PlayerData.Shared.removedCardFromDeck;
 
     public void RewardPlayer()
     {
-        PlayerData.shared.electrum += 20;
+        PlayerData.Shared.electrum += 20;
     }
 }
 
@@ -57,11 +57,11 @@ public class BazaarQuest : IQuest
 
     public string QuestReward => "Reward: 30";
 
-    public bool IsComplete => PlayerData.shared.hasSoldCardBazaar && PlayerData.shared.hasBoughtCardBazaar;
+    public bool IsComplete => PlayerData.Shared.hasSoldCardBazaar && PlayerData.Shared.hasBoughtCardBazaar;
 
     public void RewardPlayer()
     {
-        PlayerData.shared.electrum += 30;
+        PlayerData.Shared.electrum += 30;
     }
 }
 public class ElementalOneQuest : IQuest
@@ -74,11 +74,11 @@ public class ElementalOneQuest : IQuest
 
     public string QuestReward => "Reward: 35";
 
-    public bool IsComplete => PlayerData.shared.hasDefeatedLevel1;
+    public bool IsComplete => PlayerData.Shared.hasDefeatedLevel1;
 
     public void RewardPlayer()
     {
-        PlayerData.shared.electrum += 35;
+        PlayerData.Shared.electrum += 35;
     }
 }
 public class ElementalTwoQuest : IQuest
@@ -91,11 +91,11 @@ public class ElementalTwoQuest : IQuest
 
     public string QuestReward => "Reward: 40";
 
-    public bool IsComplete => PlayerData.shared.hasDefeatedLevel2;
+    public bool IsComplete => PlayerData.Shared.hasDefeatedLevel2;
 
     public void RewardPlayer()
     {
-        PlayerData.shared.electrum += 40;
+        PlayerData.Shared.electrum += 40;
     }
 }
 
@@ -109,11 +109,11 @@ public class ScoreOneQuest : IQuest
 
     public string QuestReward => "Reward: 150";
 
-    public bool IsComplete => PlayerData.shared.playerScore > 150;
+    public bool IsComplete => PlayerData.Shared.playerScore > 150;
 
     public void RewardPlayer()
     {
-        PlayerData.shared.electrum += 150;
+        PlayerData.Shared.electrum += 150;
     }
 }
 
@@ -127,7 +127,7 @@ public class ScoreTwoQuest : IQuest
 
     public string QuestReward => "Reward: A rare card";
 
-    public bool IsComplete => PlayerData.shared.playerScore > 500;
+    public bool IsComplete => PlayerData.Shared.playerScore > 500;
 
     public void RewardPlayer()
     {

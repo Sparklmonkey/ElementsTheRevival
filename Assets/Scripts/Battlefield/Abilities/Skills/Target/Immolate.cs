@@ -4,6 +4,7 @@ using UnityEngine;
 public class Immolate : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.SelfLowAtk;
 
     public override void Activate(IDCardPair target)
     {
@@ -19,13 +20,21 @@ public class Immolate : AbilityEffect
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
-        if (possibleTargets.Count == 0) { return new(); }
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets[Random.Range(0, posibleTargets.Count)];
+        if (possibleTargets.Count == 0)
+        {
+            return null;
+        }
+
+        return possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

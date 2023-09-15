@@ -11,39 +11,39 @@ public class ArenaDataManager : MonoBehaviour
     [SerializeField]
     private GameObject oppInfo, startGameBtn;
 
-    private static EnemyAi enemyAi;
-    private static ArenaResponse arenaResponse;
+    private static EnemyAi _enemyAi;
+    private static ArenaResponse _arenaResponse;
     // Start is called before the first frame update
     async void Start()
     {
-        playerScore.text = PlayerData.shared.playerScore.ToString();
-        playerWin.text = PlayerData.shared.arenaWins.ToString();
-        playerLoss.text = PlayerData.shared.arenaLosses.ToString();
-        BattleVars.shared.ResetBattleVars();
-        enemyAi = Resources.Load<EnemyAi>("EnemyAi/Arena/Random");
-        playerMark.sprite = ImageHelper.GetElementImage(PlayerData.shared.arenaT50Mark.ToString());
-        if (arenaResponse == null)
+        playerScore.text = PlayerData.Shared.playerScore.ToString();
+        playerWin.text = PlayerData.Shared.arenaWins.ToString();
+        playerLoss.text = PlayerData.Shared.arenaLosses.ToString();
+        BattleVars.Shared.ResetBattleVars();
+        _enemyAi = Resources.Load<EnemyAi>("EnemyAi/Arena/Random");
+        playerMark.sprite = ImageHelper.GetElementImage(PlayerData.Shared.arenaT50Mark.ToString());
+        if (_arenaResponse == null)
         {
             await ApiManager.Instance.GetT50Opponent(ArenaResponseHandler);
         }
         else
         {
-            ArenaResponseHandler(arenaResponse);
+            ArenaResponseHandler(_arenaResponse);
         }
     }
 
     public void StartGame()
     {
 
-        if (PlayerData.shared.arenaT50Deck.Count < 30)
+        if (PlayerData.Shared.arenaT50Deck.Count < 30)
         {
             responseText.text = "Please set a deck to use in Arena T50. \n You can do so by tapping the 'Modify Deck' button";
         }
         else
         {
-            BattleVars.shared.isArena = true;
-            BattleVars.shared.enemyAiData = enemyAi;
-            arenaResponse = null;
+            BattleVars.Shared.IsArena = true;
+            BattleVars.Shared.EnemyAiData = _enemyAi;
+            _arenaResponse = null;
             SceneTransitionManager.Instance.LoadScene("Battlefield");
         }
     }
@@ -59,14 +59,14 @@ public class ArenaDataManager : MonoBehaviour
         oppInfo.SetActive(true);
         oppMark.sprite = ImageHelper.GetElementImage(((Element)arenaResponse.arenaT50Mark).FastElementString());
         oppName.text = arenaResponse.userName;
-        enemyAi.opponentName = arenaResponse.userName;
-        enemyAi.mark = (Element)arenaResponse.arenaT50Mark;
-        enemyAi.deck = string.Join(" ", arenaResponse.arenaT50Deck);
+        _enemyAi.opponentName = arenaResponse.userName;
+        _enemyAi.mark = (Element)arenaResponse.arenaT50Mark;
+        _enemyAi.deck = string.Join(" ", arenaResponse.arenaT50Deck);
         oppWin.text = arenaResponse.arenaWins.ToString();
         oppScore.text = arenaResponse.playerScore.ToString();
         oppLoss.text = arenaResponse.arenaLoses.ToString();
         oppRank.text = arenaResponse.arenaRank.ToString();
-        ArenaDataManager.arenaResponse = arenaResponse;
+        ArenaDataManager._arenaResponse = arenaResponse;
         startGameBtn.SetActive(true);
         responseText.text = $"Your opponent is {arenaResponse.userName}";
     }
@@ -77,7 +77,7 @@ public class ArenaDataManager : MonoBehaviour
     }
     public void GoToDeckManager()
     {
-        DeckDisplayManager.isArena = true;
+        DeckDisplayManager.IsArena = true;
         SceneTransitionManager.Instance.LoadScene("DeckManagement");
     }
 }

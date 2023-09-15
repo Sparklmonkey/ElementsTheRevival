@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 
-public class Pvp_PlayerController
+public class PvpPlayerController
 {
-    PlayerManager enemyManager;
-    public Pvp_PlayerController(PlayerManager enemyManager)
+    PlayerManager _enemyManager;
+    public PvpPlayerController(PlayerManager enemyManager)
     {
-        this.enemyManager = enemyManager;
+        this._enemyManager = enemyManager;
     }
 
-    public void GetPvpAction(PvP_Action pvP_Action)
+    public void GetPvpAction(PvPAction pvPAction)
     {
-        Debug.Log(pvP_Action.ActionType);
+        Debug.Log(pvPAction.actionType);
         //switch (pvP_Action.ActionType)
         //{
         //    //Play card that is not a spell from hand

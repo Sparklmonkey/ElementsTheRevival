@@ -26,38 +26,38 @@ namespace Elements.Duel.Manager
         {
             if (element.Equals(Element.Other))
             {
-                List<QuantaObject> quantaList = isAdd ? _quantaObjects : _quantaObjects.FindAll(x => x.count > 0);
+                List<QuantaObject> quantaList = isAdd ? _quantaObjects : _quantaObjects.FindAll(x => x.Count > 0);
                 QuantaObject rndQuanta = quantaList[Random.Range(0, quantaList.Count)];
 
                 while (amount > 0)
                 {
                     rndQuanta.UpdateQuanta(1, isAdd);
                     amount--;
-                    quantaList = isAdd ? _quantaObjects : _quantaObjects.FindAll(x => x.count > 0);
+                    quantaList = isAdd ? _quantaObjects : _quantaObjects.FindAll(x => x.Count > 0);
                     rndQuanta = quantaList[Random.Range(0, quantaList.Count)];
                 }
             }
             else
             {
-                _quantaObjects.Find(x => x.element == element).UpdateQuanta(amount, isAdd);
+                _quantaObjects.Find(x => x.Element == element).UpdateQuanta(amount, isAdd);
             }
 
 
         }
 
-        public int GetQuantaForElement(Element element) => element.Equals(Element.Other) ? _quantaObjects.GetFullQuantaCount() : _quantaObjects[(int)element].count;
+        public int GetQuantaForElement(Element element) => element.Equals(Element.Other) ? _quantaObjects.GetFullQuantaCount() : _quantaObjects[(int)element].Count;
 
         public List<int> GetCurrentQuanta()
         {
             List<int> listToReturn = new List<int>();
             foreach (QuantaObject item in _quantaObjects)
             {
-                listToReturn.Add(item.count);
+                listToReturn.Add(item.Count);
             }
             return listToReturn;
         }
 
-        public bool HasEnoughQuanta(Element element, int amount) => element.Equals(Element.Other) ? _quantaObjects.GetFullQuantaCount() >= amount : _quantaObjects.Find(x => x.element == element).count >= amount;
+        public bool HasEnoughQuanta(Element element, int amount) => element.Equals(Element.Other) ? _quantaObjects.GetFullQuantaCount() >= amount : _quantaObjects.Find(x => x.Element == element).Count >= amount;
 
     }
 }

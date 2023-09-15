@@ -13,14 +13,14 @@ namespace Elements.Duel.Manager
             switch (card.cardType)
             {
                 case CardType.Weapon:
-                    pairList[1].PlayCard(card);
-                    return pairList[1];
+                    PairList[1].PlayCard(card);
+                    return PairList[1];
                 case CardType.Shield:
-                    pairList[2].PlayCard(card);
-                    return pairList[2];
+                    PairList[2].PlayCard(card);
+                    return PairList[2];
                 case CardType.Mark:
-                    pairList[0].PlayCard(card);
-                    return pairList[0];
+                    PairList[0].PlayCard(card);
+                    return PairList[0];
                 default:
                     break;
             }
@@ -29,40 +29,40 @@ namespace Elements.Duel.Manager
 
         public IDCardPair GetShield()
         {
-            return pairList[2];
+            return PairList[2];
         }
         public IDCardPair GetWeapon()
         {
-            return pairList[1];
+            return PairList[1];
         }
 
         public IDCardPair GetMark()
         {
-            return pairList[0];
+            return PairList[0];
         }
         public ID GetMarkID()
         {
-            return pairList[0].id;
+            return PairList[0].id;
         }
 
         internal ID GetShieldID()
         {
-            return pairList[2].id;
+            return PairList[2].id;
         }
         internal ID GetWeaponID()
         {
-            return pairList[1].id;
+            return PairList[1].id;
         }
-        private readonly List<string> turnCount = new() { "7n8", "5oo", "61t", "80d" };
+        private readonly List<string> _turnCount = new() { "7n8", "5oo", "61t", "80d" };
         public void PassiveTurnDown()
         {
-            foreach (var idCard in pairList)
+            foreach (var idCard in PairList)
             {
                 if (!idCard.HasCard()) { continue; }
                 idCard.cardBehaviour.OnTurnStart();
-                if (idCard.card.TurnsInPlay <= 0 && turnCount.Contains(idCard.card.iD))
+                if (idCard.card.TurnsInPlay <= 0 && _turnCount.Contains(idCard.card.iD))
                 {
-                    if (idCard.id.Index == 2)
+                    if (idCard.id.index == 2)
                     {
                         RemoveShield();
                     }
@@ -73,12 +73,12 @@ namespace Elements.Duel.Manager
 
         internal void RemoveWeapon()
         {
-            pairList[1].PlayCard(CardDatabase.Instance.GetPlaceholderCard(1));
+            PairList[1].PlayCard(CardDatabase.Instance.GetPlaceholderCard(1));
         }
 
         internal void RemoveShield()
         {
-            pairList[2].PlayCard(CardDatabase.Instance.GetPlaceholderCard(0));
+            PairList[2].PlayCard(CardDatabase.Instance.GetPlaceholderCard(0));
         }
     }
 }

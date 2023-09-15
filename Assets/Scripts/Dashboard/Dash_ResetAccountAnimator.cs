@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Dash_ResetAccountAnimator : MonoBehaviour
+public class DashResetAccountAnimator : MonoBehaviour
 {
     [SerializeField]
     private Image accountInfoFrame;

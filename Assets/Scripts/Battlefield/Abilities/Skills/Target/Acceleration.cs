@@ -5,6 +5,8 @@ public class Acceleration : AbilityEffect
 {
     public override bool NeedsTarget() => true;
 
+    public override TargetPriority GetPriority() => TargetPriority.HighestHp;
+
     public override void Activate(IDCardPair target)
     {
         target.card.desc = "Acceleration: \n Gain +2 /-1 per turn";
@@ -16,23 +18,39 @@ public class Acceleration : AbilityEffect
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0) { return new(); }
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
-
-        var opCreatures = posibleTargets.FindAll(x => x.id.Owner == OwnerEnum.Opponent && x.HasCard());
-
-        if (opCreatures.Count == 0)
+        if (possibleTargets.Count == 0)
         {
             return null;
         }
-        else
+
+        IDCardPair currentTarget = null;
+        var score = 0;
+
+        foreach (var target in possibleTargets)
         {
-            return opCreatures.Aggregate((i1, i2) => i1.card.DefNow >= i2.card.DefNow ? i1 : i2);
+            int currentScore = target.id.owner == Owner.playerID.id.owner ? 75 : 50;
+            currentScore += target.card.AtkNow;
+            currentScore += target.card.DefNow;
+
+            currentScore += target.card.skill == "" ? 15 : 0;
+
+            if (currentScore > score)
+            {
+                score = currentScore;
+                currentTarget = target;
+            }
         }
+
+        return currentTarget;
     }
 }

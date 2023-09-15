@@ -1,40 +1,36 @@
 using System.Collections;
-using UnityEngine;
 
 public class EnemyController
 {
-    private PlayerManager self;
+    private readonly PlayerManager _self;
 
-    private IAiDrawComponent aiDraw;
-    private IAiDiscardComponent aiDiscard;
-    private IAiTurnComponent aiTurn;
+    private readonly IAiDrawComponent _aiDraw;
+    private readonly IAiDiscardComponent _aiDiscard;
+    private readonly IAiTurnComponent _aiTurn;
 
     public EnemyController(PlayerManager enemyManager)
     {
-        self = enemyManager;
-        aiDraw = BattleVars.shared.enemyAiData.drawComponent.GetScriptFromName<IAiDrawComponent>();
-        aiDiscard = BattleVars.shared.enemyAiData.discardComponent.GetScriptFromName<IAiDiscardComponent>();
-        aiTurn = BattleVars.shared.enemyAiData.turnComponent.GetScriptFromName<IAiTurnComponent>();
+        _self = enemyManager;
+        _aiDraw = BattleVars.Shared.EnemyAiData.drawComponent.GetScriptFromName<IAiDrawComponent>();
+        _aiDiscard = BattleVars.Shared.EnemyAiData.discardComponent.GetScriptFromName<IAiDiscardComponent>();
+        _aiTurn = BattleVars.Shared.EnemyAiData.turnComponent.GetScriptFromName<IAiTurnComponent>();
     }
-    //private bool shouldUpdateHand = false;
 
     public IEnumerator StartTurn()
     {
-        self.TurnDownTick();
-        Debug.Log("Draw Card for turn");
-        aiDraw.StartTurnDrawCard(self);
+        _self.TurnDownTick();
 
-        if (self.playerCounters.silence > 0) { self.StartCoroutine(DuelManager.Instance.EndTurn()); yield break; }
-        Debug.Log("Play Pillars");
-        yield return self.StartCoroutine(aiTurn.PlayPillars(self));
-        //yield return new WaitForSeconds(5);
-        Debug.Log("Play Rest of turn");
-        yield return self.StartCoroutine(aiTurn.RestOfTurn(self));
-        Debug.Log("Discard if needed");
-        aiDiscard.DiscardCard(self);
+        _aiDraw.StartTurnDrawCard(_self);
 
-        Debug.Log("End Turn");
-        self.StartCoroutine(DuelManager.Instance.EndTurn());
+        if (_self.playerCounters.silence > 0) { _self.StartCoroutine(DuelManager.Instance.EndTurn()); yield break; }
+
+        yield return _self.StartCoroutine(_aiTurn.PlayPillars(_self));
+
+        yield return _self.StartCoroutine(_aiTurn.RestOfTurn(_self));
+
+        _aiDiscard.DiscardCard(_self);
+
+        _self.StartCoroutine(DuelManager.Instance.EndTurn());
     }
 
 }

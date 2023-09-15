@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Error_Animated_Battlefield : MonoBehaviour
+public class ErrorAnimatedBattlefield : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> frameOpacity;
@@ -13,30 +13,30 @@ public class Error_Animated_Battlefield : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI errorMessage;
 
-    private string messageToDisplay;
+    private string _messageToDisplay;
 
     public int spritePerFrame = 3;
 
-    private int index = 0;
+    private int _index = 0;
     [SerializeField]
     private Image image;
     public void DisplayAnimatedError(string errorMessage)
     {
         gameObject.SetActive(true);
-        messageToDisplay = errorMessage;
+        _messageToDisplay = errorMessage;
         StartCoroutine(AnimateErrorMessage());
     }
 
     private IEnumerator AnimateErrorMessage()
     {
-        while (index != animationSprites.Count)
+        while (_index != animationSprites.Count)
         {
-            image.sprite = animationSprites[index];
-            index++;
+            image.sprite = animationSprites[_index];
+            _index++;
             yield return new WaitForFrames(spritePerFrame);
         }
 
-        errorMessage.text = messageToDisplay;
+        errorMessage.text = _messageToDisplay;
 
         foreach (GameObject item in frameOpacity)
         {
@@ -58,7 +58,7 @@ public class Error_Animated_Battlefield : MonoBehaviour
             image.sprite = animationSprites[i];
             yield return new WaitForFrames(spritePerFrame);
         }
-        index = 0;
+        _index = 0;
         gameObject.SetActive(false);
     }
 

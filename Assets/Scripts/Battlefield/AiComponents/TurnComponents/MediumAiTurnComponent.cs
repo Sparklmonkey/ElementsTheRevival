@@ -56,7 +56,7 @@ public class MediumAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
             idCardList = aiManager.playerHand.GetAllValidCardIds();
             cardIndex = idCardList.FindIndex(x => x.card.cardType.Equals(cardType) && aiManager.IsCardPlayable(x.card));
-            yield return new WaitForSeconds(BattleVars.shared.aiPlaySpeed);
+            yield return new WaitForSeconds(BattleVars.Shared.AIPlaySpeed);
         }
     }
 

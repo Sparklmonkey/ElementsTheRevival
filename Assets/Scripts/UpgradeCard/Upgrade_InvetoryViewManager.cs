@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Upgrade_InvetoryViewManager : MonoBehaviour
+public class UpgradeInvetoryViewManager : MonoBehaviour
 {
     [SerializeField]
     private CardDisplay currentCardDisplay, upgradedCardDisplay;
@@ -9,30 +9,30 @@ public class Upgrade_InvetoryViewManager : MonoBehaviour
     private Transform inventoryView;
     [SerializeField]
     private GameObject cardHeadPrefab;
-    private int selectedElement = 12;
-    private List<Card> inventoryCardList;
-    private List<UCardHead> cardHeads;
+    private int _selectedElement = 12;
+    private List<Card> _inventoryCardList;
+    private List<UCardHead> _cardHeads;
 
     public void SetupInitialCardView(List<Card> cardList)
     {
-        inventoryCardList = cardList;
-        selectedElement = 12;
+        _inventoryCardList = cardList;
+        _selectedElement = 12;
         UpdateCardFilter(14);
     }
 
     public void UpdateCardFilter(int element)
     {
-        if (selectedElement == element) { return; }
-        selectedElement = element;
+        if (_selectedElement == element) { return; }
+        _selectedElement = element;
         if (element == 14)
         {
-            SetupContentView(inventoryCardList);
+            SetupContentView(_inventoryCardList);
             return;
         }
 
-        Element filter = (Element)selectedElement;
+        Element filter = (Element)_selectedElement;
         List<Card> cardsToShow = new List<Card>();
-        foreach (Card card in inventoryCardList)
+        foreach (Card card in _inventoryCardList)
         {
             if (card.costElement != filter) { continue; }
             cardsToShow.Add(card);
@@ -59,7 +59,7 @@ public class Upgrade_InvetoryViewManager : MonoBehaviour
 
     public void UpgradeCard(Card cardToUpgrade)
     {
-        GetComponent<Upgrade_PlayerDataManager>().UpgradeCardInInventory(cardToUpgrade);
+        GetComponent<UpgradePlayerDataManager>().UpgradeCardInInventory(cardToUpgrade);
     }
 
     public void SetupContentView(List<Card> cardList)
@@ -69,7 +69,7 @@ public class Upgrade_InvetoryViewManager : MonoBehaviour
         cardList.Sort((x, y) => string.Compare(x.iD, y.iD));
         foreach (Card card in cardList)
         {
-            UCardHead dMCardPrefab = cardHeads.Find(x => x.GetCard().cardName == card.cardName);
+            UCardHead dMCardPrefab = _cardHeads.Find(x => x.GetCard().cardName == card.cardName);
             if (dMCardPrefab != null)
             {
                 dMCardPrefab.AddCard();
@@ -78,14 +78,14 @@ public class Upgrade_InvetoryViewManager : MonoBehaviour
             {
                 GameObject cardHeadObject = Instantiate(cardHeadPrefab, inventoryView);
                 cardHeadObject.GetComponent<UCardHead>().SetupCardHead(card, this);
-                cardHeads.Add(cardHeadObject.GetComponent<UCardHead>());
+                _cardHeads.Add(cardHeadObject.GetComponent<UCardHead>());
             }
         }
     }
 
     public void ClearContentView()
     {
-        cardHeads = new List<UCardHead>();
+        _cardHeads = new List<UCardHead>();
         List<UCardHead> children = new List<UCardHead>(inventoryView.GetComponentsInChildren<UCardHead>());
         foreach (UCardHead child in children)
         {

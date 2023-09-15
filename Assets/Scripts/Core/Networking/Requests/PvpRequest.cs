@@ -4,6 +4,6 @@ public class PvpRequest
 {
     public string PlayerId;
     public string OpponentId;
-    public List<PvP_Action> ActionList;
+    public List<PvPAction> ActionList;
     public string Token;
 }

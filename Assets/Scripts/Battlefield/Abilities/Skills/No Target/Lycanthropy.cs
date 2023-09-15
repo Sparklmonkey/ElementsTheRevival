@@ -18,8 +18,9 @@ public class Lycanthropy : AbilityEffect
         return new();
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
         return null;
     }
+    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

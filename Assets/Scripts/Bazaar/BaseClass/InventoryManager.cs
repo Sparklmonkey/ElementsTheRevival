@@ -6,15 +6,15 @@ public class InventoryManager : MonoBehaviour
     [SerializeField]
     private Transform contentView;
     [SerializeField]
-    private Bazaar_CardDisplayManager cardDisplayManager;
+    private BazaarCardDisplayManager cardDisplayManager;
     [SerializeField]
     private GameObject cardHeadPrefab;
-    private List<DMCardPrefabNoTT> dMCards = new List<DMCardPrefabNoTT>();
+    private List<DmCardPrefabNoTt> _dMCards = new List<DmCardPrefabNoTt>();
 
-    private bool isInventory;
+    private bool _isInventory;
     public void SetupContentView(List<Card> cardList, bool isInventory)
     {
-        this.isInventory = isInventory;
+        this._isInventory = isInventory;
         ClearContentView();
         if (isInventory)
         {
@@ -25,7 +25,7 @@ public class InventoryManager : MonoBehaviour
             foreach (Card card in cardList)
             {
                 GameObject cardHeadObject = Instantiate(cardHeadPrefab, contentView);
-                cardHeadObject.GetComponent<DMCardPrefabNoTT>().SetupCardHead(card, isInventory, this);
+                cardHeadObject.GetComponent<DmCardPrefabNoTt>().SetupCardHead(card, isInventory, this);
             }
         }
     }
@@ -33,7 +33,7 @@ public class InventoryManager : MonoBehaviour
     public void ShowCardDisplay(Card card)
     {
         cardDisplayManager.gameObject.SetActive(true);
-        cardDisplayManager.SetupCardDisplay(card, !isInventory);
+        cardDisplayManager.SetupCardDisplay(card, !_isInventory);
     }
 
     public void HideCardDisplay()
@@ -41,25 +41,25 @@ public class InventoryManager : MonoBehaviour
         cardDisplayManager.gameObject.SetActive(false);
     }
 
-    public void ChangeCardOwner(DMCardPrefabNoTT cardObject)
+    public void ChangeCardOwner(DmCardPrefabNoTt cardObject)
     {
         Card card = cardObject.GetCard();
-        if (isInventory)
+        if (_isInventory)
         {
-            GetComponent<Bazaar_PlayerDataManager>().ModifyPlayerCardInventory(card, false);
+            GetComponent<BazaarPlayerDataManager>().ModifyPlayerCardInventory(card, false);
         }
-        else if (GetComponent<Bazaar_PlayerDataManager>().CanBuyCard(card.BuyPrice))
+        else if (GetComponent<BazaarPlayerDataManager>().CanBuyCard(card.BuyPrice))
         {
-            GetComponent<Bazaar_PlayerDataManager>().ModifyPlayerCardInventory(card, true);
+            GetComponent<BazaarPlayerDataManager>().ModifyPlayerCardInventory(card, true);
         }
 
-        GetComponent<Bazaar_PlayerInventoryManager>().UpdateCardView();
+        GetComponent<BazaarPlayerInventoryManager>().UpdateCardView();
     }
 
     public void ClearContentView()
     {
-        List<DMCardPrefabNoTT> children = new List<DMCardPrefabNoTT>(contentView.GetComponentsInChildren<DMCardPrefabNoTT>());
-        foreach (DMCardPrefabNoTT child in children)
+        List<DmCardPrefabNoTt> children = new List<DmCardPrefabNoTt>(contentView.GetComponentsInChildren<DmCardPrefabNoTt>());
+        foreach (DmCardPrefabNoTt child in children)
         {
             Destroy(child.gameObject);
         }
@@ -67,13 +67,13 @@ public class InventoryManager : MonoBehaviour
 
     public void UpdateCardView()
     {
-        dMCards = new List<DMCardPrefabNoTT>();
+        _dMCards = new List<DmCardPrefabNoTt>();
         ClearContentView();
-        List<Card> cardList = PlayerData.shared.cardInventory.DeserializeCard();
+        List<Card> cardList = PlayerData.Shared.cardInventory.DeserializeCard();
         cardList.Sort((x, y) => string.Compare(x.iD, y.iD));
         foreach (var card in cardList)
         {
-            DMCardPrefabNoTT dMCard = dMCards.Find(x => x.GetCard().cardName == card.cardName);
+            DmCardPrefabNoTt dMCard = _dMCards.Find(x => x.GetCard().cardName == card.cardName);
             if (dMCard != null)
             {
                 dMCard.AddCard();
@@ -81,8 +81,8 @@ public class InventoryManager : MonoBehaviour
             else
             {
                 GameObject cardHeadObject = Instantiate(cardHeadPrefab, contentView);
-                cardHeadObject.GetComponent<DMCardPrefabNoTT>().SetupCardHead(card, isInventory, this);
-                dMCards.Add(cardHeadObject.GetComponent<DMCardPrefabNoTT>());
+                cardHeadObject.GetComponent<DmCardPrefabNoTt>().SetupCardHead(card, _isInventory, this);
+                _dMCards.Add(cardHeadObject.GetComponent<DmCardPrefabNoTt>());
             }
         }
     }
@@ -90,7 +90,7 @@ public class InventoryManager : MonoBehaviour
     public void AddCardToView(Card card, bool isInventory)
     {
         GameObject cardHeadObject = Instantiate(cardHeadPrefab, contentView);
-        cardHeadObject.GetComponent<DMCardPrefabNoTT>().SetupCardHead(card, isInventory, this);
+        cardHeadObject.GetComponent<DmCardPrefabNoTt>().SetupCardHead(card, isInventory, this);
     }
 
     public void RemoveCardFromView(Transform cardTransform)

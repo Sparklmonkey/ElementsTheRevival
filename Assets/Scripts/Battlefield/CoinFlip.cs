@@ -13,8 +13,8 @@ public class CoinFlip : MonoBehaviour
     [SerializeField]
     private GameObject parent;
     public List<Sprite> sides;
-    private int flipCount = 1;
-    private int flipTimes = 4;
+    private int _flipCount = 1;
+    private int _flipTimes = 4;
 
     public bool playerStarts = false;
     private void Start()
@@ -23,16 +23,16 @@ public class CoinFlip : MonoBehaviour
 
     public void FlipCoinRandom()
     {
-        flipTimes = Random.Range(8, 13);
-        playerStarts = flipTimes % 2 == 0;
+        _flipTimes = Random.Range(8, 13);
+        playerStarts = _flipTimes % 2 == 0;
         StartCoroutine(WaitPlease(0.0001f, 1.0f));
     }
 
     public IEnumerator WaitPlease(float duration, float size)
     {
-        flipTimes = Random.Range(8, 13);
-        playerStarts = flipTimes % 2 == 0;
-        while (flipTimes > 0)
+        _flipTimes = Random.Range(8, 13);
+        playerStarts = _flipTimes % 2 == 0;
+        while (_flipTimes > 0)
         {
             while (size > 0.1)
             {
@@ -40,15 +40,15 @@ public class CoinFlip : MonoBehaviour
                 transform.localScale = new Vector3(1, size, 1);
                 yield return null;
             }
-            coinImage.sprite = sides[flipCount % 2];
+            coinImage.sprite = sides[_flipCount % 2];
             while (size < 0.99)
             {
                 size = size + 0.14f;
                 transform.localScale = new Vector3(1, size, size);
                 yield return new WaitForSeconds(duration);
             }
-            flipCount++;
-            flipTimes--;
+            _flipCount++;
+            _flipTimes--;
         }
         result.text = playerStarts ? "You won the coin toss.\n It is your turn" : "You lost the coin toss. \n It is your opponent's turn";
 
@@ -63,7 +63,7 @@ public class CoinFlip : MonoBehaviour
     public void FlipCoinWithResult(int flipCounts, bool willStart)
     {
 
-        flipTimes = flipCounts;
+        _flipTimes = flipCounts;
         playerStarts = willStart;
         StartCoroutine(WaitPlease(0.0001f, 1.0f));
     }

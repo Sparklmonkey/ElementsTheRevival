@@ -161,29 +161,29 @@ public class PlayerManager : MonoBehaviour
     public CreatureManager playerCreatureField;
     public PermanentManager playerPermanentManager;
 
-    public QuantaManager playerQuantaManager;
-    public DeckManager deckManager;
+    public QuantaManager PlayerQuantaManager;
+    public DeckManager DeckManager;
     public PassiveManager playerPassiveManager;
-    public HealthManager healthManager;
-    public CardDetailManager cardDetailManager;
+    public HealthManager HealthManager;
+    public CardDetailManager CardDetailManager;
     public Counters playerCounters;
 
     public bool isPlayer;
 
-    private float animSpeed;
+    private float _animSpeed;
     private void Update()
     {
-        animSpeed = PlayerPrefs.GetFloat("AnimSpeed");
+        _animSpeed = PlayerPrefs.GetFloat("AnimSpeed");
     }
 
     public void ClearFloodedArea(List<int> safeZones)
     {
-        if (DuelManager.floodCount > 0)
+        if (DuelManager.FloodCount > 0)
         {
             var idList = playerCreatureField.GetAllValidCardIds();
             foreach (var idCard in idList)
             {
-                if (safeZones.Contains(idCard.id.Index)) { continue; }
+                if (safeZones.Contains(idCard.id.index)) { continue; }
                 if (idCard.card.costElement.Equals(Element.Other)) { continue; }
                 if (idCard.card.costElement.Equals(Element.Water)) { continue; }
                 if (idCard.card.innateSkills.Immaterial) { continue; }
@@ -195,7 +195,7 @@ public class PlayerManager : MonoBehaviour
 
     public bool HasSufficientQuanta(Element element, int cost)
     {
-        return playerQuantaManager.HasEnoughQuanta(element, cost);
+        return PlayerQuantaManager.HasEnoughQuanta(element, cost);
     }
 
     public List<IDCardPair> GetHandCards()
@@ -205,12 +205,12 @@ public class PlayerManager : MonoBehaviour
 
     public int GetAllQuantaOfElement(Element element)
     {
-        return playerQuantaManager.GetQuantaForElement(element);
+        return PlayerQuantaManager.GetQuantaForElement(element);
     }
 
     public void ScrambleQuanta()
     {
-        int total = playerQuantaManager.GetQuantaForElement(Element.Other);
+        int total = PlayerQuantaManager.GetQuantaForElement(Element.Other);
 
         if (total <= 9)
         {
@@ -235,7 +235,7 @@ public class PlayerManager : MonoBehaviour
 
     public void StartTurn()
     {
-        if (deckManager.GetDeckCount() <= 0)
+        if (DeckManager.GetDeckCount() <= 0)
         {
             GameOverVisual.ShowGameOverScreen(!isPlayer);
             return;
@@ -289,7 +289,7 @@ public class PlayerManager : MonoBehaviour
 
     public void AddCardToDeck(Card card)
     {
-        deckManager.AddCardToTop(card);
+        DeckManager.AddCardToTop(card);
     }
     //Logic
 
@@ -340,52 +340,52 @@ public class PlayerManager : MonoBehaviour
         {
             case "Play":
                 if (playerCounters.silence > 0) { return; }
-                PlayCardFromHandLogic(cardDetailManager.GetCardID());
-                cardDetailManager.ClearID();
+                PlayCardFromHandLogic(CardDetailManager.GetCardID());
+                CardDetailManager.ClearID();
                 break;
             case "Activate":
-                ActivateAbility(cardDetailManager.GetCardID());
-                cardDetailManager.ClearID();
+                ActivateAbility(CardDetailManager.GetCardID());
+                CardDetailManager.ClearID();
                 break;
             case "Select Target":
-                BattleVars.shared.isSelectingTarget = true;
-                SkillManager.Instance.SetupTargetHighlights(this, BattleVars.shared.abilityOrigin);
+                BattleVars.Shared.IsSelectingTarget = true;
+                SkillManager.Instance.SetupTargetHighlights(this, BattleVars.Shared.AbilityOrigin);
                 break;
             default:
-                cardDetailManager.ClearID();
+                CardDetailManager.ClearID();
                 break;
         }
     }
 
     public void ActivateAbility(IDCardPair target)
     {
-        if (BattleVars.shared.abilityOrigin.card.cardType.Equals(CardType.Spell))
+        if (BattleVars.Shared.AbilityOrigin.card.cardType.Equals(CardType.Spell))
         {
-            if (SkillManager.Instance.ShouldAskForTarget(BattleVars.shared.abilityOrigin))
+            if (SkillManager.Instance.ShouldAskForTarget(BattleVars.Shared.AbilityOrigin))
             {
                 SkillManager.Instance.SkillRoutineWithTarget(this, target);
             }
             else
             {
-                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.shared.abilityOrigin);
+                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.Shared.AbilityOrigin);
             }
-            PlayCardFromHandLogic(BattleVars.shared.abilityOrigin);
+            PlayCardFromHandLogic(BattleVars.Shared.AbilityOrigin);
         }
         else
         {
-            if (BattleVars.shared.abilityOrigin.card.skill != "photosynthesis")
+            if (BattleVars.Shared.AbilityOrigin.card.skill != "photosynthesis")
             {
-                BattleVars.shared.abilityOrigin.card.AbilityUsed = true;
+                BattleVars.Shared.AbilityOrigin.card.AbilityUsed = true;
             }
-            SpendQuantaLogic(BattleVars.shared.abilityOrigin.card.skillElement, BattleVars.shared.abilityOrigin.card.skillCost);
+            SpendQuantaLogic(BattleVars.Shared.AbilityOrigin.card.skillElement, BattleVars.Shared.AbilityOrigin.card.skillCost);
 
-            if (SkillManager.Instance.ShouldAskForTarget(BattleVars.shared.abilityOrigin))
+            if (SkillManager.Instance.ShouldAskForTarget(BattleVars.Shared.AbilityOrigin))
             {
                 SkillManager.Instance.SkillRoutineWithTarget(this, target);
             }
             else
             {
-                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.shared.abilityOrigin);
+                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.Shared.AbilityOrigin);
             }
 
         }
@@ -400,7 +400,7 @@ public class PlayerManager : MonoBehaviour
 
     public bool IsCardPlayable(Card cardToCheck)
     {
-        bool canAfford = playerQuantaManager.HasEnoughQuanta(cardToCheck.costElement, cardToCheck.cost);
+        bool canAfford = PlayerQuantaManager.HasEnoughQuanta(cardToCheck.costElement, cardToCheck.cost);
         bool hasSpace = true;
 
         switch (cardToCheck.cardType)
@@ -424,38 +424,19 @@ public class PlayerManager : MonoBehaviour
     public bool IsAbilityUsable(IDCardPair cardToCheck)
     {
         if (!cardToCheck.HasCard()) { return false; }
-        if (cardToCheck.card.skill == "" || cardToCheck.card.skill == "none" || cardToCheck.card.skill == null || cardToCheck.card.skill == " ") { return false; }
+        if (cardToCheck.card.skill is "" or "none" or null or " ") { return false; }
         if (cardToCheck.card.AbilityUsed) { return false; }
         if (cardToCheck.card.innateSkills.Delay > 0) { return false; }
         if (cardToCheck.card.Freeze > 0) { return false; }
-        if (cardToCheck.card.cardType == CardType.Shield) { return false; }
-        if (cardToCheck.card.cardType == CardType.Pillar) { return false; }
-        if (cardToCheck.card.cardType == CardType.Mark) { return false; }
-
-        bool canAfford = playerQuantaManager.HasEnoughQuanta(cardToCheck.card.skillElement, cardToCheck.card.skillCost);
+        if (cardToCheck.card.cardType is CardType.Shield or CardType.Pillar or CardType.Mark) { return false; }
+        
+        var canAfford = PlayerQuantaManager.HasEnoughQuanta(cardToCheck.card.skillElement, cardToCheck.card.skillCost);
         if (canAfford && SkillManager.Instance.ShouldAskForTarget(cardToCheck)) { return true; }
 
         if (!SkillManager.Instance.HasEnoughTargets(this, cardToCheck)) { return false; }
-        if (cardToCheck.card.skill.ToString().Contains("hasten"))
-        {
-            if (playerHand.GetAllValidCardIds().Count == 8) { return false; }
-        }
 
-        return canAfford;
-    }
-
-    public bool IsSpellPlayable(Card cardToCheck)
-    {
-        if (cardToCheck == null) { return false; }
-        if (cardToCheck.skill == "" || cardToCheck.skill == "none") { return false; }
-
-        bool canAfford = playerQuantaManager.HasEnoughQuanta(cardToCheck.costElement, cardToCheck.cost);
-        if (cardToCheck.skill == "flying")
-        {
-            if (playerPassiveManager.GetWeapon().card.iD == "4t2") { return false; }
-        }
-
-        return canAfford;
+        if (!cardToCheck.card.skill.Contains("hasten")) return canAfford;
+        return playerHand.GetAllValidCardIds().Count != 8 && canAfford;
     }
 
     //Command Methods
@@ -464,7 +445,7 @@ public class PlayerManager : MonoBehaviour
         int amountToAdd = 8 - playerHand.GetAllValidCardIds().Count;
         for (int i = 0; i < amountToAdd; i++)
         {
-            deckManager.AddCardToTop(CardDatabase.Instance.GetCardFromId(newCard.iD));
+            DeckManager.AddCardToTop(CardDatabase.Instance.GetCardFromId(newCard.iD));
             DrawCardFromDeckLogic();
         }
     }
@@ -473,7 +454,7 @@ public class PlayerManager : MonoBehaviour
     public void ModifyHealthLogic(int amount, bool isDamage, bool fromSpell)
     {
         if (sacrificeCount > 0) { isDamage = !isDamage; }
-        healthManager.ModifyHealth(amount, isDamage);
+        HealthManager.ModifyHealth(amount, isDamage);
     }
 
     public List<ID> cloakIndex = new();
@@ -510,9 +491,9 @@ public class PlayerManager : MonoBehaviour
         DisplayPlayableGlow();
     }
 
-    internal void ModifyMaxHealthLogic(int maxHPBuff, bool isIncrease)
+    internal void ModifyMaxHealthLogic(int maxHpBuff, bool isIncrease)
     {
-        healthManager.ModifyMaxHealth(maxHPBuff, isIncrease);
+        HealthManager.ModifyMaxHealth(maxHpBuff, isIncrease);
     }
 
     //Draw Card From Deck Logic and Visual Command Pair
@@ -522,7 +503,7 @@ public class PlayerManager : MonoBehaviour
         if (playerHand.GetAllValidCardIds().Count == 8) { return; }
         //Logic Side
         //Get Card From Deck
-        Card newCard = deckManager.DrawCard();
+        Card newCard = DeckManager.DrawCard();
         if (newCard == null)
         {
             Debug.Log("Game Over");
@@ -643,7 +624,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (isPlayer) { return; }
         cardPair.transform.parent.transform.parent = permParent.transform;
-        cardPair.transform.SetSiblingIndex(cardPair.id.Index);
+        cardPair.transform.SetSiblingIndex(cardPair.id.index);
     }
 
     public void CheckEclipseNightfall(bool isAdded, string id)
@@ -761,7 +742,7 @@ public class PlayerManager : MonoBehaviour
             ModifyHealthLogic(cardToDiscard.card.iD.IsUpgraded() ? 13 : 10, true, false);
         }
         playerHand.UpdateHandVisual(cardToDiscard);
-        BattleVars.shared.hasToDiscard = false;
+        BattleVars.Shared.HasToDiscard = false;
     }
 
     public void EndTurnRoutine()
@@ -812,35 +793,35 @@ public class PlayerManager : MonoBehaviour
     public void SpendQuantaLogic(Element element, int amount)
     {
 
-        if ((isPlayer && !BattleVars.shared.isPlayerTurn) || (!isPlayer && BattleVars.shared.isPlayerTurn))
+        if ((isPlayer && !BattleVars.Shared.IsPlayerTurn) || (!isPlayer && BattleVars.Shared.IsPlayerTurn))
         {
             if (playerCounters.sanctuary > 0)
             {
                 return;
             }
         }
-        playerQuantaManager.ChangeQuanta(element, amount, false);
+        PlayerQuantaManager.ChangeQuanta(element, amount, false);
     }
 
     public void GenerateQuantaLogic(Element element, int amount)
     {
 
-        if ((isPlayer && !BattleVars.shared.isPlayerTurn) || (!isPlayer && BattleVars.shared.isPlayerTurn))
+        if ((isPlayer && !BattleVars.Shared.IsPlayerTurn) || (!isPlayer && BattleVars.Shared.IsPlayerTurn))
         {
             if (playerCounters.sanctuary > 0)
             {
                 return;
             }
         }
-        playerQuantaManager.ChangeQuanta(element, amount, true);
+        PlayerQuantaManager.ChangeQuanta(element, amount, true);
     }
 
     private IEnumerator SetupPassiveDisplayers()
     {
         Element markElement;
-        markElement = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
+        markElement = isPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
 
-        Card mark = CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.markIds[(int)markElement]);
+        Card mark = CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.MarkIds[(int)markElement]);
         playerPassiveManager.PlayPassive(mark);
         playerPassiveManager.PlayPassive(CardDatabase.Instance.GetPlaceholderCard(2));
         playerPassiveManager.PlayPassive(CardDatabase.Instance.GetPlaceholderCard(1));
@@ -852,34 +833,34 @@ public class PlayerManager : MonoBehaviour
     {
         playerCreatureField.ClearField();
         playerPermanentManager.ClearField();
-        playerQuantaManager = new QuantaManager(quantaDisplayers, this);
-        cardDetailManager = new CardDetailManager();
-        cardDetailManager.OnDisplayNewCard += cardDetailView.SetupCardDisplay;
-        cardDetailManager.OnRemoveCard += cardDetailView.CancelButtonAction;
+        PlayerQuantaManager = new QuantaManager(quantaDisplayers, this);
+        CardDetailManager = new CardDetailManager();
+        CardDetailManager.OnDisplayNewCard += cardDetailView.SetupCardDisplay;
+        CardDetailManager.OnRemoveCard += cardDetailView.CancelButtonAction;
         playerCounters = new Counters();
         playerID.id = new(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Player, 0);
 
         List<Card> deck = new(isPlayer ?
-                    PlayerData.shared.currentDeck.DeserializeCard()
-                    : new List<string>(BattleVars.shared.enemyAiData.deck.Split(" ")).DeserializeCard());
+                    PlayerData.Shared.currentDeck.DeserializeCard()
+                    : new List<string>(BattleVars.Shared.EnemyAiData.deck.Split(" ")).DeserializeCard());
 
-        if (BattleVars.shared.enemyAiData.maxHP == 200 && !isPlayer)
+        if (BattleVars.Shared.EnemyAiData.maxHp == 200 && !isPlayer)
         {
             deck.AddRange(deck);
 
         }
         deck.Shuffle();
-        deckManager = new DeckManager(deck);
-        deckManager.OnDeckCountChange += deckDisplayer.UpdateDeckCount;
+        DeckManager = new DeckManager(deck);
+        DeckManager.OnDeckCountChange += deckDisplayer.UpdateDeckCount;
         for (int i = 0; i < 7; i++)
         {
             DrawCardFromDeckLogic(true);
         }
 
-        healthManager = new HealthManager(isPlayer ? 100 : BattleVars.shared.enemyAiData.maxHP, isPlayer);
-        healthDisplayer.SetHPStart(healthManager.GetCurrentHealth());
-        healthManager.HealthChangedEvent += healthDisplayer.OnHealthChanged;
-        healthManager.MaxHealthUpdatedEvent += healthDisplayer.OnMaxHealthChanged;
+        HealthManager = new HealthManager(isPlayer ? 100 : BattleVars.Shared.EnemyAiData.maxHp, isPlayer);
+        healthDisplayer.SetHpStart(HealthManager.GetCurrentHealth());
+        HealthManager.OnHealthChangedEvent += healthDisplayer.OnHealthChanged;
+        HealthManager.OnMaxHealthUpdatedEvent += healthDisplayer.OnMaxHealthChanged;
         playerID.card = null;
         //if (isPlayer && PlayerData.shared.petName != "" && PlayerData.shared.petName != null)
         //{
@@ -895,7 +876,7 @@ public class PlayerManager : MonoBehaviour
         OnPlayerCounterUpdate += playerDisplayer.UpdatePlayerIndicators;
         if (!isPlayer)
         {
-            DuelManager.allPlayersSetup = true;
+            DuelManager.AllPlayersSetup = true;
         }
         yield return null;
     }
@@ -918,7 +899,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetupCardDisplay(IDCardPair iDCardPair)
     {
-        cardDetailManager.SetCardOnDisplay(iDCardPair);
+        CardDetailManager.SetCardOnDisplay(iDCardPair);
     }
 
     public void QuickPlay(IDCardPair iDCardPair)
@@ -955,7 +936,7 @@ public class PlayerManager : MonoBehaviour
 
     private void ProcessAbilityCard(IDCardPair iDCardPair)
     {
-        BattleVars.shared.abilityOrigin = iDCardPair;
+        BattleVars.Shared.AbilityOrigin = iDCardPair;
 
         if (!SkillManager.Instance.ShouldAskForTarget(iDCardPair))
         {
@@ -968,14 +949,14 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            BattleVars.shared.isSelectingTarget = true;
+            BattleVars.Shared.IsSelectingTarget = true;
             SkillManager.Instance.SetupTargetHighlights(this, iDCardPair);
         }
     }
 
     private void ProcessSpellCard(IDCardPair iDCardPair)
     {
-        BattleVars.shared.abilityOrigin = iDCardPair;
+        BattleVars.Shared.AbilityOrigin = iDCardPair;
         if (!SkillManager.Instance.ShouldAskForTarget(iDCardPair))
         {
             SkillManager.Instance.SkillRoutineNoTarget(this, iDCardPair);
@@ -983,7 +964,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            BattleVars.shared.isSelectingTarget = true;
+            BattleVars.Shared.IsSelectingTarget = true;
             SkillManager.Instance.SetupTargetHighlights(this, iDCardPair);
         }
     }

@@ -10,11 +10,11 @@
 
     public override string QuestReward => "Reward: 150";
 
-    public override bool RequirementCheck() => PlayerData.shared.playerScore > 150;
+    public override bool RequirementCheck() => PlayerData.Shared.playerScore > 150;
 
     public override void RedeemQuest()
     {
-        PlayerData.shared.electrum += 150;
-        PlayerData.shared.completedQuests += "_5";
+        PlayerData.Shared.electrum += 150;
+        PlayerData.Shared.completedQuests += "_5";
     }
 }

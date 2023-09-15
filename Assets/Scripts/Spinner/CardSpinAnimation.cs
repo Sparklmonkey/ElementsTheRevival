@@ -12,7 +12,7 @@ public class CardSpinAnimation : MonoBehaviour
     [SerializeField]
     private GameObject upgradedIndicator;
     public bool isUpgraded;
-    private List<Sprite> imageList;
+    private List<Sprite> _imageList;
 
     //public Coroutine SetupSpinner(List<Sprite> imageList)
     //{
@@ -21,7 +21,7 @@ public class CardSpinAnimation : MonoBehaviour
 
     public IEnumerator DissolveAnimation(List<Sprite> imageList)
     {
-        this.imageList = imageList;
+        this._imageList = imageList;
         nextImage.sprite = imageList[0];
         int count = 0;
         upgradedIndicator.SetActive(false);
@@ -57,7 +57,7 @@ public class CardSpinAnimation : MonoBehaviour
             imageToDissolve.sprite = imageList[count - 1];
             imageToDissolve.gameObject.SetActive(true);
         }
-        SpinManager.finishSpinCount++;
+        SpinManager.FinishSpinCount++;
         if (isUpgraded)
         {
             upgradedIndicator.SetActive(true);

@@ -10,48 +10,48 @@ class Stat
 [Serializable]
 internal class GameStats
 {
-    public static GameStats shared;
+    public static GameStats Shared;
 
-    public Dictionary<string, Stat> aiLevel0;
-    public Dictionary<string, Stat> aiLevel1;
-    public Dictionary<string, Stat> aiLevel2;
-    public Dictionary<string, Stat> aiLevel3;
-    public Dictionary<string, Stat> aiLevel4;
-    public Dictionary<string, Stat> aiLevel5;
+    public Dictionary<string, Stat> AILevel0;
+    public Dictionary<string, Stat> AILevel1;
+    public Dictionary<string, Stat> AILevel2;
+    public Dictionary<string, Stat> AILevel3;
+    public Dictionary<string, Stat> AILevel4;
+    public Dictionary<string, Stat> AILevel5;
     public Dictionary<string, Stat> ArenaT50;
     public Dictionary<string, Stat> PvpOne;
     public Dictionary<string, Stat> PvpTwo;
     public GameStats()
     {
-        aiLevel0 = new();
-        aiLevel1 = new();
-        aiLevel2 = new();
-        aiLevel3 = new();
-        aiLevel4 = new();
-        aiLevel5 = new();
+        AILevel0 = new();
+        AILevel1 = new();
+        AILevel2 = new();
+        AILevel3 = new();
+        AILevel4 = new();
+        AILevel5 = new();
         PvpOne = new() { { "Sparklmonkey", new() } };
         PvpTwo = new() { { "Sparklmonkey", new() } };
         ArenaT50 = new() { { "Sparklmonkey", new() } };
         foreach (var item in StringHelper.ElementStringList)
         {
-            aiLevel0.Add(item, new());
-            aiLevel1.Add(item, new());
+            AILevel0.Add(item, new());
+            AILevel1.Add(item, new());
         }
         foreach (var item in StringHelper.Ai2List)
         {
-            aiLevel2.Add(item, new());
-            aiLevel3.Add(item, new());
+            AILevel2.Add(item, new());
+            AILevel3.Add(item, new());
         }
         foreach (var item in StringHelper.ElderPrefix)
         {
             foreach (var item2 in StringHelper.ElderSuffix)
             {
-                aiLevel4.Add($"{item}{item2}", new());
+                AILevel4.Add($"{item}{item2}", new());
             }
         }
         foreach (var item in StringHelper.FalseGodNameList)
         {
-            aiLevel5.Add(item, new());
+            AILevel5.Add(item, new());
         }
     }
 
@@ -62,61 +62,61 @@ internal class GameStats
             case 0:
                 if (stats.isWin)
                 {
-                    aiLevel0[stats.aiName].wins++;
+                    AILevel0[stats.aiName].wins++;
                 }
                 else
                 {
-                    aiLevel0[stats.aiName].loses++;
+                    AILevel0[stats.aiName].loses++;
                 }
                 break;
             case 1:
                 if (stats.isWin)
                 {
-                    aiLevel1[stats.aiName].wins++;
+                    AILevel1[stats.aiName].wins++;
                 }
                 else
                 {
-                    aiLevel1[stats.aiName].loses++;
+                    AILevel1[stats.aiName].loses++;
                 }
                 break;
             case 2:
                 if (stats.isWin)
                 {
-                    aiLevel2[stats.aiName].wins++;
+                    AILevel2[stats.aiName].wins++;
                 }
                 else
                 {
-                    aiLevel2[stats.aiName].loses++;
+                    AILevel2[stats.aiName].loses++;
                 }
                 break;
             case 3:
                 if (stats.isWin)
                 {
-                    aiLevel3[stats.aiName].wins++;
+                    AILevel3[stats.aiName].wins++;
                 }
                 else
                 {
-                    aiLevel3[stats.aiName].loses++;
+                    AILevel3[stats.aiName].loses++;
                 }
                 break;
             case 4:
                 if (stats.isWin)
                 {
-                    aiLevel4[stats.aiName].wins++;
+                    AILevel4[stats.aiName].wins++;
                 }
                 else
                 {
-                    aiLevel4[stats.aiName].loses++;
+                    AILevel4[stats.aiName].loses++;
                 }
                 break;
             case 5:
                 if (stats.isWin)
                 {
-                    aiLevel5[stats.aiName].wins++;
+                    AILevel5[stats.aiName].wins++;
                 }
                 else
                 {
-                    aiLevel5[stats.aiName].loses++;
+                    AILevel5[stats.aiName].loses++;
                 }
                 break;
             case 6:

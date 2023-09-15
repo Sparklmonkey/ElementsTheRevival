@@ -4,16 +4,17 @@ using UnityEngine;
 public class Devour : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.OpHighAtk;
 
     public override void Activate(IDCardPair target)
     {
-        BattleVars.shared.abilityOrigin.card.AtkModify++;
-        BattleVars.shared.abilityOrigin.card.DefModify++;
+        BattleVars.Shared.AbilityOrigin.card.AtkModify++;
+        BattleVars.Shared.AbilityOrigin.card.DefModify++;
         if (target.card.innateSkills.Poisonous)
         {
-            BattleVars.shared.abilityOrigin.card.Poison++;
+            BattleVars.Shared.AbilityOrigin.card.Poison++;
         }
-        BattleVars.shared.abilityOrigin.UpdateCard();
+        BattleVars.Shared.AbilityOrigin.UpdateCard();
         target.RemoveCard();
     }
 
@@ -26,11 +27,11 @@ public class Devour : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable() && x.card.DefNow < Origin.card.DefNow);
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
+        if (possibleTargets.Count == 0) { return null; }
 
-        var opCreatures = posibleTargets.FindAll(x => x.id.Owner == OwnerEnum.Player && x.HasCard());
+        var opCreatures = possibleTargets.FindAll(x => x.id.owner == OwnerEnum.Player && x.HasCard());
 
         if (opCreatures.Count == 0)
         {
@@ -38,7 +39,7 @@ public class Devour : AbilityEffect
         }
         else
         {
-            return opCreatures[Random.Range(0, posibleTargets.Count)];
+            return opCreatures[Random.Range(0, possibleTargets.Count)];
         }
     }
 }

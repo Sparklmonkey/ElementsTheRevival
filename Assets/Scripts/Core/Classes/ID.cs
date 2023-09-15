@@ -1,38 +1,39 @@
 ﻿using System;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class PseudoID
 {
-    public int owner { get; set; }
-    public int field { get; set; }
-    public int index { get; set; }
+    public int Owner { get; set; }
+    public int Field { get; set; }
+    public int Index { get; set; }
 }
 
 
 [Serializable]
 public class ID
 {
-    public OwnerEnum Owner;
-    public FieldEnum Field;
-    public int Index;
+    [FormerlySerializedAs("Owner")] public OwnerEnum owner;
+    [FormerlySerializedAs("Field")] public FieldEnum field;
+    [FormerlySerializedAs("Index")] public int index;
     public ID(ID id)
     {
-        Owner = id.Owner;
-        Field = id.Field;
-        Index = id.Index;
+        owner = id.owner;
+        field = id.field;
+        index = id.index;
     }
 
     public ID(int owner, int field, int index)
     {
-        Owner = (OwnerEnum)owner;
-        Field = (FieldEnum)field;
-        Index = index;
+        this.owner = (OwnerEnum)owner;
+        this.field = (FieldEnum)field;
+        this.index = index;
     }
 
     public ID(OwnerEnum owner, FieldEnum field, int index)
     {
-        Owner = owner;
-        Field = field;
-        Index = index;
+        this.owner = owner;
+        this.field = field;
+        this.index = index;
     }
 }

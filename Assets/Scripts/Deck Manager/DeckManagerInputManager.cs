@@ -10,7 +10,7 @@ public class DeckCodeManager : MonoBehaviour
     {
         if (deckCode.Contains(" "))
         {
-            legacyDeckCodeField.text = deckCode + " " + CardDatabase.Instance.markIds[(int)markElement];
+            legacyDeckCodeField.text = deckCode + " " + CardDatabase.Instance.MarkIds[(int)markElement];
             oetgDeckCodeField.text = legacyDeckCodeField.text.ConvertLegacyToOetg();
         }
         else

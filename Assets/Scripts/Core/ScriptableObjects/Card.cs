@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "CardSO", menuName = "ScriptableObjects/CardSO", order = 1)]
 [Serializable]
-public class CardSO : ScriptableObject
+public class CardSo : ScriptableObject
 {
     [Header("Basic Info")]
     public Sprite cardImage;
@@ -24,7 +25,7 @@ public class CardSO : ScriptableObject
     public int power;
     public int basePower;
     public int hp;
-    public int maxHP;
+    [FormerlySerializedAs("maxHP")] public int maxHp;
     [Header("On Field Info")]
     public bool firstTurn = true;
     public bool pendulumTurn = true;

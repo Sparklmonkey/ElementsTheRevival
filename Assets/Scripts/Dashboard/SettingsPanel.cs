@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class SettingsPanel : MonoBehaviour
 {
     [SerializeField]
-    private Option_Toggle quickPlay, animSpeed;
+    private OptionToggle quickPlay, animSpeed;
     [SerializeField]
     private Slider bgmVolumeSlider, sfxVolumeSlider;
     public void CloseSettingsPanel()

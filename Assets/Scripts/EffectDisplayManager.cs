@@ -1,31 +1,57 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class EffectDisplayManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _poisonImage, _momentumImage, _psionImage, _immaterialImage, _gravityImage, _delayedImage, _frozenImage, _burrowedImage, _adrenalineImage;
-    [SerializeField]
-    private TextMeshProUGUI _poisonCount;
+    [FormerlySerializedAs("_poisonImage")] [SerializeField]
+    private GameObject poisonImage;
+
+    [FormerlySerializedAs("_momentumImage")] [SerializeField]
+    private GameObject momentumImage;
+
+    [FormerlySerializedAs("_psionImage")] [SerializeField]
+    private GameObject psionImage;
+
+    [FormerlySerializedAs("_immaterialImage")] [SerializeField]
+    private GameObject immaterialImage;
+
+    [FormerlySerializedAs("_gravityImage")] [SerializeField]
+    private GameObject gravityImage;
+
+    [FormerlySerializedAs("_delayedImage")] [SerializeField]
+    private GameObject delayedImage;
+
+    [FormerlySerializedAs("_frozenImage")] [SerializeField]
+    private GameObject frozenImage;
+
+    [FormerlySerializedAs("_burrowedImage")] [SerializeField]
+    private GameObject burrowedImage;
+
+    [FormerlySerializedAs("_adrenalineImage")] [SerializeField]
+    private GameObject adrenalineImage;
+
+    [FormerlySerializedAs("_poisonCount")] [SerializeField]
+    private TextMeshProUGUI poisonCount;
 
     public void UpdateEffectDisplay(Card card, int stack, bool isHidden = true)
     {
-        _momentumImage.SetActive(card.passiveSkills.Momentum);
-        _psionImage.SetActive(card.passiveSkills.Psion);
-        _immaterialImage.SetActive(card.innateSkills.Immaterial);
-        _gravityImage.SetActive(card.passiveSkills.GravityPull);
-        _delayedImage.SetActive(card.innateSkills.Delay > 0);
-        _frozenImage.SetActive(card.Freeze > 0);
-        _burrowedImage.SetActive(card.passiveSkills.Burrow);
-        _adrenalineImage.SetActive(card.passiveSkills.Adrenaline);
-        _poisonImage.SetActive(card.Poison != 0);
+        momentumImage.SetActive(card.passiveSkills.Momentum);
+        psionImage.SetActive(card.passiveSkills.Psion);
+        immaterialImage.SetActive(card.innateSkills.Immaterial);
+        gravityImage.SetActive(card.passiveSkills.GravityPull);
+        delayedImage.SetActive(card.innateSkills.Delay > 0);
+        frozenImage.SetActive(card.Freeze > 0);
+        burrowedImage.SetActive(card.passiveSkills.Burrow);
+        adrenalineImage.SetActive(card.passiveSkills.Adrenaline);
+        poisonImage.SetActive(card.Poison != 0);
 
         if (card.Poison != 0)
         {
-            _poisonImage.GetComponent<Image>().sprite = ImageHelper.GetPoisonSprite(card.Poison > 0);
-            _poisonImage.GetComponent<Image>().color = card.IsAflatoxin ? new(108f, 108f, 108f) : new(byte.MaxValue, byte.MaxValue, byte.MaxValue);
-            _poisonCount.text = $"{Mathf.Abs(card.Poison)}";
+            poisonImage.GetComponent<Image>().sprite = ImageHelper.GetPoisonSprite(card.Poison > 0);
+            poisonImage.GetComponent<Image>().color = card.IsAflatoxin ? new(108f, 108f, 108f) : new(byte.MaxValue, byte.MaxValue, byte.MaxValue);
+            poisonCount.text = $"{Mathf.Abs(card.Poison)}";
         }
     }
 }

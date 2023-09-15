@@ -14,27 +14,27 @@ namespace Elements.Duel.Visual
 
         [SerializeField]
         private Button actionButton;
-        private IDCardPair idCard;
+        private IDCardPair _idCard;
         public void SetupCardDisplay(IDCardPair idCard)
         {
             if (!idCard.HasCard()) { return; }
-            this.idCard = idCard;
+            this._idCard = idCard;
             SetupButton();
             cardDisplay.SetupCardView(idCard.card);
         }
 
         private void SetupButton()
         {
-            var element = idCard.id.Field == FieldEnum.Hand ? idCard.card.costElement : idCard.card.skillElement;
-            var cost = idCard.id.Field == FieldEnum.Hand ? idCard.card.cost : idCard.card.skillCost;
+            var element = _idCard.id.field == FieldEnum.Hand ? _idCard.card.costElement : _idCard.card.skillElement;
+            var cost = _idCard.id.field == FieldEnum.Hand ? _idCard.card.cost : _idCard.card.skillCost;
 
 
             bool hasQuanta = DuelManager.Instance.player.HasSufficientQuanta(element, cost);
-            var isPlayerTurn = BattleVars.shared.isPlayerTurn;
+            var isPlayerTurn = BattleVars.Shared.IsPlayerTurn;
             gameObject.SetActive(true);
             actionButton.gameObject.SetActive(true);
 
-            if (idCard.id.Owner == OwnerEnum.Opponent || !isPlayerTurn)
+            if (_idCard.id.owner == OwnerEnum.Opponent || !isPlayerTurn)
             {
                 buttonText.text = "";
                 actionButton.name = "";
@@ -42,20 +42,20 @@ namespace Elements.Duel.Visual
                 return;
             }
 
-            if (idCard.card.cardType == CardType.Spell)
+            if (_idCard.card.cardType == CardType.Spell)
             {
-                if (!SkillManager.Instance.ShouldAskForTarget(idCard) && hasQuanta && isPlayerTurn)
+                if (!SkillManager.Instance.ShouldAskForTarget(_idCard) && hasQuanta && isPlayerTurn)
                 {
                     buttonText.text = "Activate";
                     actionButton.name = "Activate";
-                    BattleVars.shared.abilityOrigin = idCard;
+                    BattleVars.Shared.AbilityOrigin = _idCard;
                     return;
                 }
-                else if (SkillManager.Instance.ShouldAskForTarget(idCard) && hasQuanta && isPlayerTurn)
+                else if (SkillManager.Instance.ShouldAskForTarget(_idCard) && hasQuanta && isPlayerTurn)
                 {
                     buttonText.text = "Select Target";
                     actionButton.name = "Select Target";
-                    BattleVars.shared.abilityOrigin = idCard;
+                    BattleVars.Shared.AbilityOrigin = _idCard;
                     return;
                 }
                 else if (!hasQuanta)
@@ -66,7 +66,7 @@ namespace Elements.Duel.Visual
                 }
             }
 
-            if (idCard.id.Field == FieldEnum.Hand)
+            if (_idCard.id.field == FieldEnum.Hand)
             {
                 if (hasQuanta)
                 {
@@ -81,26 +81,26 @@ namespace Elements.Duel.Visual
                 return;
             }
 
-            if (idCard.card.skill != "")
+            if (_idCard.card.skill != "")
             {
-                if (idCard.card.AbilityUsed)
+                if (_idCard.card.AbilityUsed)
                 {
                     buttonText.text = "Already Used";
                     actionButton.name = "Insufficient Quanta";
                     return;
                 }
-                if (!SkillManager.Instance.ShouldAskForTarget(idCard) && hasQuanta && isPlayerTurn)
+                if (!SkillManager.Instance.ShouldAskForTarget(_idCard) && hasQuanta && isPlayerTurn)
                 {
                     buttonText.text = "Activate";
                     actionButton.name = "Activate";
-                    BattleVars.shared.abilityOrigin = idCard;
+                    BattleVars.Shared.AbilityOrigin = _idCard;
                     return;
                 }
-                else if (SkillManager.Instance.ShouldAskForTarget(idCard) && hasQuanta && isPlayerTurn)
+                else if (SkillManager.Instance.ShouldAskForTarget(_idCard) && hasQuanta && isPlayerTurn)
                 {
                     buttonText.text = "Select Target";
                     actionButton.name = "Select Target";
-                    BattleVars.shared.abilityOrigin = idCard;
+                    BattleVars.Shared.AbilityOrigin = _idCard;
                     return;
                 }
                 else if (!hasQuanta)
@@ -118,7 +118,7 @@ namespace Elements.Duel.Visual
 
         public void CancelButtonAction()
         {
-            BattleVars.shared.abilityOrigin = null;
+            BattleVars.Shared.AbilityOrigin = null;
             gameObject.SetActive(false);
         }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DMCardPrefab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class DmCardPrefab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField]
     private Card cardToShow;
@@ -17,12 +17,12 @@ public class DMCardPrefab : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField]
     private TMP_FontAsset underlayBlack, underlayWhite;
 
-    private DeckDisplayManager deckDisplayManager;
-    private int cardCountValue = 0;
+    private DeckDisplayManager _deckDisplayManager;
+    private int _cardCountValue = 0;
     public Card GetCard() => cardToShow;
     public void SetupCardHead(Card card, DeckDisplayManager deckDisplayManager)
     {
-        this.deckDisplayManager = deckDisplayManager;
+        this._deckDisplayManager = deckDisplayManager;
         cardName.text = card.cardName;
 
         if (card.iD.IsUpgraded())
@@ -42,8 +42,8 @@ public class DMCardPrefab : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         cardElement.sprite = ImageHelper.GetCardBackGroundImage(backGroundString);
         cardImage.sprite = ImageHelper.GetCardImage(card.imageID);
         cardToShow = card;
-        cardCountValue = 1;
-        cardCount.text = cardCountValue.ToString();
+        _cardCountValue = 1;
+        cardCount.text = _cardCountValue.ToString();
         uppedShine.gameObject.SetActive(card.iD.IsUpgraded());
         rareIndicator.gameObject.SetActive(card.IsRare());
         //actionButton.onClick.AddListener(delegate { this.deckDisplayManager.ChangeParentContentView(transform); });
@@ -51,29 +51,29 @@ public class DMCardPrefab : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void AddCard()
     {
-        cardCountValue++;
-        cardCount.text = cardCountValue.ToString();
+        _cardCountValue++;
+        cardCount.text = _cardCountValue.ToString();
     }
 
     public void RemoveCard()
     {
-        cardCountValue--;
-        cardCount.text = cardCountValue.ToString();
+        _cardCountValue--;
+        cardCount.text = _cardCountValue.ToString();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        deckDisplayManager.ShowCardDisplay(cardToShow);
+        _deckDisplayManager.ShowCardDisplay(cardToShow);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        deckDisplayManager.HideCardDisplay();
+        _deckDisplayManager.HideCardDisplay();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        deckDisplayManager.ChangeParentContentView(this.transform);
+        _deckDisplayManager.ChangeParentContentView(this.transform);
     }
 
 }

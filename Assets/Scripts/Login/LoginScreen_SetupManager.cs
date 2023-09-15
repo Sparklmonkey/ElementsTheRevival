@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-public class LoginScreen_SetupManager : MonoBehaviour
+public class LoginScreenSetupManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
@@ -11,7 +11,7 @@ public class LoginScreen_SetupManager : MonoBehaviour
     private TextMeshProUGUI errorMessage, versionLabel;
     [SerializeField]
     private GameObject appUpdatePopUp, maintainancePopUp, selectNewUserPassword;
-    private GameObject touchBlocker;
+    private GameObject _touchBlocker;
 
     public List<TMP_InputField> fields;
     int _fieldIndexer;
@@ -37,7 +37,7 @@ public class LoginScreen_SetupManager : MonoBehaviour
     void Start()
     {
         fields = new List<TMP_InputField> { username, password };
-        ApiManager.isTrainer = false;
+        ApiManager.IsTrainer = false;
         SoundManager.Instance.PlayBGM("LoginScreen");
         username.text = PlayerPrefs.HasKey("SavedUser") ? PlayerPrefs.GetString("SavedUser") : "";
         versionLabel.text = $"Version {Application.version}";
@@ -45,9 +45,9 @@ public class LoginScreen_SetupManager : MonoBehaviour
 
     public void PlayAsTrainer()
     {
-        ApiManager.isTrainer = true;
-        PlayerData.shared = new PlayerData();
-        List<string> simpleList = CardDatabase.Instance.trainerCardList;
+        ApiManager.IsTrainer = true;
+        PlayerData.Shared = new PlayerData();
+        List<string> simpleList = CardDatabase.Instance.TrainerCardList;
         List<string> fullList = new List<string>(simpleList);
         fullList.AddRange(simpleList);
         fullList.AddRange(simpleList);
@@ -55,12 +55,12 @@ public class LoginScreen_SetupManager : MonoBehaviour
         fullList.AddRange(simpleList);
         fullList.AddRange(simpleList);
         fullList.Sort((x, y) => string.Compare(x, y));
-        PlayerData.shared.cardInventory = new List<string>(fullList);
+        PlayerData.Shared.cardInventory = new List<string>(fullList);
 
-        PlayerData.shared.currentDeck = StarterDecks.Instance.GetStarterDeck(Element.Darkness);
-        PlayerData.shared.markElement = Element.Darkness;
-        PlayerData.shared.currentQuestIndex = 8;
-        PlayerData.shared.electrum = 9999999;
+        PlayerData.Shared.currentDeck = StarterDecks.Instance.GetStarterDeck(Element.Darkness);
+        PlayerData.Shared.markElement = Element.Darkness;
+        PlayerData.Shared.currentQuestIndex = 8;
+        PlayerData.Shared.electrum = 9999999;
         GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
     }
 
@@ -78,15 +78,15 @@ public class LoginScreen_SetupManager : MonoBehaviour
 
     public async void AttemptToLoginUsernamePassword()
     {
-        touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-        touchBlocker.transform.SetAsFirstSibling();
+        _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+        _touchBlocker.transform.SetAsFirstSibling();
         await ApiManager.Instance.UserLoginAsync(LoginType.UserPass, HandleUserLogin, username.text, password.text);
     }
 
     public async void AttemptToLoginUnity()
     {
-        touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-        touchBlocker.transform.SetAsFirstSibling();
+        _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+        _touchBlocker.transform.SetAsFirstSibling();
         await ApiManager.Instance.UserLoginAsync(LoginType.Unity, HandleUserLogin);
     }
 
@@ -94,9 +94,9 @@ public class LoginScreen_SetupManager : MonoBehaviour
     {
         if (responseMessage == "Success")
         {
-            touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-            Destroy(touchBlocker);
-            if (PlayerData.shared.currentDeck.Count < 30)
+            _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+            Destroy(_touchBlocker);
+            if (PlayerData.Shared.currentDeck.Count < 30)
             {
                 GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
             }
@@ -121,15 +121,15 @@ public class LoginScreen_SetupManager : MonoBehaviour
             await ApiManager.Instance.SaveDataToUnity();
             return;
         }
-        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(touchBlocker);
+        _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+        Destroy(_touchBlocker);
         selectNewUserPassword.SetActive(true);
     }
 
     public async void UpdateUsernamePassword()
     {
-        touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-        touchBlocker.transform.SetAsFirstSibling();
+        _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+        _touchBlocker.transform.SetAsFirstSibling();
         if (newUsername.text.UsernameCheck() && newPassword.text.PasswordCheck() && await ApiManager.Instance.CheckUsername(username.text))
         {
             await ApiManager.Instance.UserLoginAsync(LoginType.UserPass, HandleUserRegistration, username.text, password.text);
@@ -141,20 +141,20 @@ public class LoginScreen_SetupManager : MonoBehaviour
     {
         LoginRequest loginRequest = new()
         {
-            Username = username.text,
-            Password = password.text,
-            EmailAddress = "",
-            OtpCode = "",
-            Platform = $"{Application.platform}",
-            AppVersion = $"{Application.version}"
+            username = username.text,
+            password = password.text,
+            emailAddress = "",
+            otpCode = "",
+            platform = $"{Application.platform}",
+            appVersion = $"{Application.version}"
         };
         await ApiManager.Instance.LoginLegacy(loginRequest, HandleLegacyUserLogin);
     }
 
     public void HandleUserRegistration(string responseMessage)
     {
-        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(touchBlocker);
+        _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+        Destroy(_touchBlocker);
         if (responseMessage == "Success")
         {
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");

@@ -2,14 +2,14 @@
 using TMPro;
 using UnityEngine;
 
-public class LoginScreen_RegisterManager : MonoBehaviour
+public class LoginScreenRegisterManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
     private TMP_InputField username, password, email;
     [SerializeField]
     private TextMeshProUGUI serverResponse;
-    private GameObject touchBlocker;
+    private GameObject _touchBlocker;
 
     public List<TMP_InputField> fields;
     int _fieldIndexer;
@@ -48,8 +48,8 @@ public class LoginScreen_RegisterManager : MonoBehaviour
 
         if (await ApiManager.Instance.CheckUsername(username.text))
         {
-            touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
-            touchBlocker.transform.SetAsFirstSibling();
+            _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
+            _touchBlocker.transform.SetAsFirstSibling();
             await ApiManager.Instance.UserLoginAsync(LoginType.RegisterUserPass, HandleUserRegistration, username.text, password.text);
         }
         else
@@ -69,8 +69,8 @@ public class LoginScreen_RegisterManager : MonoBehaviour
 
         if (await ApiManager.Instance.CheckUsername(username.text))
         {
-            touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
-            touchBlocker.transform.SetAsFirstSibling();
+            _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
+            _touchBlocker.transform.SetAsFirstSibling();
             await ApiManager.Instance.UserLoginAsync(LoginType.RegisterUnity, HandleUserRegistration, username.text);
         }
         else
@@ -81,12 +81,12 @@ public class LoginScreen_RegisterManager : MonoBehaviour
 
     public async void HandleUserRegistration(string responseMessage)
     {
-        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(touchBlocker);
+        _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+        Destroy(_touchBlocker);
         if (responseMessage == "Success")
         {
-            PlayerData.shared = new();
-            PlayerData.shared.userName = username.text;
+            PlayerData.Shared = new();
+            PlayerData.Shared.userName = username.text;
             await ApiManager.Instance.SaveDataToUnity();
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
         }

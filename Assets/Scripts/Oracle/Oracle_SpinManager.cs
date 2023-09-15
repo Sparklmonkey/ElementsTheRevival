@@ -3,14 +3,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Oracle_SpinManager : MonoBehaviour
+public class OracleSpinManager : MonoBehaviour
 {
 
-    private int electrumToAdd;
+    private int _electrumToAdd;
 
-    private Vector3 finalRotation;
-    private bool oracleSpinStarted = false;
-    private int maxRotationCount = 3;
+    private Vector3 _finalRotation;
+    private bool _oracleSpinStarted = false;
+    private int _maxRotationCount = 3;
     [SerializeField]
     private Material dissolveMaterial;
     [SerializeField]
@@ -25,15 +25,15 @@ public class Oracle_SpinManager : MonoBehaviour
     void Start()
     {
         (Card, int, Vector3) oracleResult = OracleHelper.GetOracleResults();
-        cardToShow = oracleResult.Item1;
-        electrumToAdd = oracleResult.Item2;
-        finalRotation = oracleResult.Item3;
+        _cardToShow = oracleResult.Item1;
+        _electrumToAdd = oracleResult.Item2;
+        _finalRotation = oracleResult.Item3;
     }
-    Card cardToShow = null;
+    Card _cardToShow = null;
     public void StartRotation()
     {
         StartCoroutine(OracleRotatation());
-        cardDisplay.SetupCardView(cardToShow);
+        cardDisplay.SetupCardView(_cardToShow);
     }
 
     public void ReturnToMenu()
@@ -44,39 +44,39 @@ public class Oracle_SpinManager : MonoBehaviour
     private void SetupResultBlock()
     {
         canKeepCard.text = "Yes";
-        electrumReward.text = $"{electrumToAdd}";
+        electrumReward.text = $"{_electrumToAdd}";
         nextFalseGod.text = OracleHelper.GetNextFalseGod();
         getCardButton.gameObject.SetActive(true);
-        petName.text = OracleHelper.GetPetForNextBattle(cardToShow.costElement);
+        petName.text = OracleHelper.GetPetForNextBattle(_cardToShow.costElement);
     }
     public void SaveOracleResults()
     {
-        PlayerData.shared.electrum += electrumToAdd;
-        PlayerData.shared.petName = petName.text;
-        PlayerData.shared.petCount = 3;
-        PlayerData.shared.nextFalseGod = nextFalseGod.text;
-        PlayerData.shared.cardInventory.Add(cardToShow.iD);
+        PlayerData.Shared.electrum += _electrumToAdd;
+        PlayerData.Shared.petName = petName.text;
+        PlayerData.Shared.petCount = 3;
+        PlayerData.Shared.nextFalseGod = nextFalseGod.text;
+        PlayerData.Shared.cardInventory.Add(_cardToShow.iD);
         PlayerData.SaveData();
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 
     private void SetupFortuneText()
     {
-        cardName.text = cardToShow.cardName;
-        fortuneHead.text = ElementStrings.GetFortuneHeadString(cardToShow.cardType, cardToShow.costElement, cardToShow.cardName);
-        fortuneBody.text = ElementStrings.GetCardBodyString(cardToShow.cardName);
-        PlayerData.shared.playedOracleToday = true;
+        cardName.text = _cardToShow.cardName;
+        fortuneHead.text = ElementStrings.GetFortuneHeadString(_cardToShow.cardType, _cardToShow.costElement, _cardToShow.cardName);
+        fortuneBody.text = ElementStrings.GetCardBodyString(_cardToShow.cardName);
+        PlayerData.Shared.playedOracleToday = true;
         SetupResultBlock();
     }
 
     private IEnumerator OracleRotatation()
     {
         int rotationCount = 0;
-        oracleSpinStarted = true;
+        _oracleSpinStarted = true;
 
         float previousValue = 200;
         //Vector3 finalDestination = transform.localEulerAngles * 1000 
-        while (rotationCount < maxRotationCount || cardToShow == null)
+        while (rotationCount < _maxRotationCount || _cardToShow == null)
         {
             transform.Rotate(new Vector3(0, 0, -150 * Time.deltaTime));
             yield return null;
@@ -85,19 +85,19 @@ public class Oracle_SpinManager : MonoBehaviour
             previousValue = currentValue;
         }
 
-        while (transform.eulerAngles.z > finalRotation.z)
+        while (transform.eulerAngles.z > _finalRotation.z)
         {
             transform.Rotate(new Vector3(0, 0, -30 * Time.deltaTime));
             yield return null;
         }
-        transform.eulerAngles = finalRotation;
+        transform.eulerAngles = _finalRotation;
         StartCoroutine(MaterializeAnimation());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (oracleSpinStarted) { return; }
+        if (_oracleSpinStarted) { return; }
         transform.Rotate(new Vector3(0, 0, -20 * Time.deltaTime));
     }
 
@@ -109,7 +109,7 @@ public class Oracle_SpinManager : MonoBehaviour
         cardHide.material = dissolveMat;
         cardHide.material.SetFloat("_Fade", 1f);
         cardHide.material.SetFloat("_Scale", 25f);
-        cardHide.material.SetColor("_EdgeColour", ElementColours.GetElementColour(cardToShow.costElement));
+        cardHide.material.SetColor("_EdgeColour", ElementColours.GetElementColour(_cardToShow.costElement));
 
         float currentTime = 1;
         while (currentTime > 0f)

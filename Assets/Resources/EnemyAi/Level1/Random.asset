@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
-  m_Name: Light
+  m_Name: Aether
   m_EditorClassIdentifier: 
   opponentName: Ethereal
   maxHP: 100
-  mark: 3
-  deck: 5i4 5mq 5pu 5rg 606 55k 5i4 52g 5uk 4sa 59c 5rq 597 61v 5ie 5le 58r 5ie 5fk
-    5p0 4vm 5ie 5v0 52k 5rh 5ib 5bv 52j 5um 55l 50a 622 5c2 52p 52p 58t 5f6 593 4vn
-    595
+  mark: 0
+  deck: 5de 61o 5oc 61o 5gi 4vc 5bs 5uk 5rg 5gi 5fa 5rn 52u 5bv 5p0 5lb 5v0 5ls 534
+    5i5 5ii 5um 5if 4vm 61v 5ib 5bv 597 590 5v8 61r 5ia 5ia 58t 5v1 5f4 53e 595 5m6
+    52p
   spins: 1
   coinAvg: 1
   costToPlay: 0

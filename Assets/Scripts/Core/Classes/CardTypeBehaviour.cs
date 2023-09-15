@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class CardTypeBehaviour : MonoBehaviour
 {
-    public IDCardPair CardPair;
+    [FormerlySerializedAs("CardPair")] public IDCardPair cardPair;
     public PlayerManager Owner { get; set; }
     public PlayerManager Enemy { get; set; }
     public int StackCount { get; set; }

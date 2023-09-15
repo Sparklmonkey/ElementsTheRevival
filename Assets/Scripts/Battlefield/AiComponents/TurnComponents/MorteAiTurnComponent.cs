@@ -4,7 +4,7 @@ public class MorteAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 {
     public IEnumerator RestOfTurn(PlayerManager aiManager)
     {
-        yield return aiManager.StartCoroutine(spellManager.PlayMiracle(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayMiracle(aiManager));
 
         //Play shield
         if (aiManager.playerCounters.bone < 1)

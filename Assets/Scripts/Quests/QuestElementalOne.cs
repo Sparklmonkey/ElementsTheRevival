@@ -9,10 +9,10 @@
 
     public override string QuestReward => "Reward: 35";
 
-    public override bool RequirementCheck() => PlayerData.shared.hasDefeatedLevel1;
+    public override bool RequirementCheck() => PlayerData.Shared.hasDefeatedLevel1;
     public override void RedeemQuest()
     {
-        PlayerData.shared.electrum += 35;
-        PlayerData.shared.completedQuests += "_3";
+        PlayerData.Shared.electrum += 35;
+        PlayerData.Shared.completedQuests += "_3";
     }
 }

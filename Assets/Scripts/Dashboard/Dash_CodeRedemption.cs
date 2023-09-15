@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Dash_CodeRedemption : MonoBehaviour
+public class DashCodeRedemption : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI errorMessage, electrumRewardAmount, cardRewardLabel;
@@ -16,8 +16,8 @@ public class Dash_CodeRedemption : MonoBehaviour
 
         CodeRedemptionRequest codeRedemptionRequest = new CodeRedemptionRequest();
 
-        codeRedemptionRequest.CodeValue = input.text;
-        codeRedemptionRequest.PlayerSavedData = PlayerData.shared;
+        codeRedemptionRequest.codeValue = input.text;
+        codeRedemptionRequest.playerSavedData = PlayerData.Shared;
 
         await ApiManager.Instance.CheckCodeRedemption(input.text, CodeRedepmtionHandler);
     }
@@ -33,7 +33,7 @@ public class Dash_CodeRedemption : MonoBehaviour
         if (response.electrumReward > 0)
         {
             electrumRewardDisplay.SetActive(true);
-            PlayerData.shared.electrum += response.electrumReward;
+            PlayerData.Shared.electrum += response.electrumReward;
             electrumRewardAmount.text = response.electrumReward.ToString();
         }
 
@@ -51,7 +51,7 @@ public class Dash_CodeRedemption : MonoBehaviour
                 }
                 else
                 {
-                    PlayerData.shared.cardInventory.AddRange(response.cardRewards);
+                    PlayerData.Shared.cardInventory.AddRange(response.cardRewards);
                 }
                 SetupCardRewardView(cards);
             }
@@ -83,11 +83,11 @@ public class Dash_CodeRedemption : MonoBehaviour
 
     public async void ChooseCard()
     {
-        if (ApiManager.isTrainer)
+        if (ApiManager.IsTrainer)
         {
             return;
         }
-        PlayerData.shared.cardInventory.Add(cardDisplayDetail.card.iD);
+        PlayerData.Shared.cardInventory.Add(cardDisplayDetail.card.iD);
 
         await ApiManager.Instance.SaveDataToUnity();
         electrumRewardDisplay.SetActive(false);

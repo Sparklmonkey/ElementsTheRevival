@@ -4,6 +4,7 @@ using UnityEngine;
 public class Fractal : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.SelfHighAtk;
 
     public override void Activate(IDCardPair target)
     {
@@ -16,13 +17,40 @@ public class Fractal : AbilityEffect
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0) { return new(); }
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets[Random.Range(0, posibleTargets.Count)];
+        if (possibleTargets.Count == 0)
+        {
+            return null;
+        }
+
+        IDCardPair currentTarget = null;
+        var score = 0;
+
+        foreach (var target in possibleTargets)
+        {
+            int currentScore = 100;
+            currentScore -= target.card.AtkNow;
+            currentScore -= target.card.DefNow;
+
+            currentScore -= target.card.skill == "" ? 30 : 0;
+            currentScore += target.card.cost * 10;
+
+            if (currentScore > score)
+            {
+                score = currentScore;
+                currentTarget = target;
+            }
+        }
+
+        return currentTarget;
     }
 }

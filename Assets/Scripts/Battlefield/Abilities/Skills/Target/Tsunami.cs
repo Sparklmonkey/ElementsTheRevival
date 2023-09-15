@@ -4,6 +4,7 @@ using UnityEngine;
 public class Tsunami : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.Pillar;
 
     public override void Activate(IDCardPair target)
     {
@@ -24,13 +25,21 @@ public class Tsunami : AbilityEffect
     {
         var possibleTargets = Owner.playerPermanentManager.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerPermanentManager.GetAllValidCardIds());
-        if (possibleTargets.Count == 0) { return new(); }
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
     public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (possibleTargets.Count == 0) { return null; }
+        if (possibleTargets.Count == 0)
+        {
+            return null;
+        }
+
         return possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

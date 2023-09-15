@@ -12,8 +12,16 @@ public class Thunderstorm : AbilityEffect
         SoundManager.Instance.PlayAudioClip("Lightning");
         foreach (var idCardi in idList)
         {
-            if (idCardi.card.innateSkills.Immaterial) { continue; }
-            if (idCardi.card.passiveSkills.Burrow) { continue; }
+            if (idCardi.card.innateSkills.Immaterial)
+            {
+                continue;
+            }
+
+            if (idCardi.card.passiveSkills.Burrow)
+            {
+                continue;
+            }
+
             idCardi.card.DefDamage += 2;
             idCardi.UpdateCard();
         }
@@ -24,8 +32,10 @@ public class Thunderstorm : AbilityEffect
         return new();
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
         return null;
     }
+
+    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

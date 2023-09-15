@@ -47,7 +47,7 @@ namespace Elements.Duel.Visual
             cardElement.color = ElementColours.GetWhiteColor();
 
 
-            if (CardDatabase.Instance.cardNameToBackGroundString.TryGetValue(cardToDisplay.cardName, out string backGroundString))
+            if (CardDatabase.Instance.CardNameToBackGroundString.TryGetValue(cardToDisplay.cardName, out string backGroundString))
             {
                 cardBackground.sprite = ImageHelper.GetCardBackGroundImage(backGroundString);
             }
@@ -76,7 +76,7 @@ namespace Elements.Duel.Visual
         {
             if (isPendulum)
             {
-                Element markElement = belongsToPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
+                Element markElement = belongsToPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
                 if (!shouldShowMarkElement)
                 {
                     cardImage.sprite = ImageHelper.GetPendulumImage(costElement.FastElementString(), markElement.FastElementString());

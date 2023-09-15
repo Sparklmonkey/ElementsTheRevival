@@ -5,72 +5,75 @@ public class CreatureBehaviour : CardTypeBehaviour
 {
     public override void OnCardPlay()
     {
-        if (CardPair.card.innateSkills.Swarm)
+        if (cardPair.card.innateSkills.Swarm)
         {
             Owner.AddPlayerCounter(PlayerCounters.Scarab, 1);
         }
 
-        if (CardPair.card.innateSkills.Integrity)
+        if (cardPair.card.innateSkills.Integrity)
         {
             var shardList = Owner.playerHand.GetAllValidCardIds().FindAll(x => x.card.cardName.Contains("Shard of"));
-            CardPair.card = CardDatabase.Instance.GetGolemAbility(shardList);
+            cardPair.card = CardDatabase.Instance.GetGolemAbility(shardList);
         }
 
-        if (CardPair.card.innateSkills.Chimera)
+        if (cardPair.card.innateSkills.Chimera)
         {
             var creatureList = Owner.playerCreatureField.GetAllValidCardIds();
-            (int, int) chimeraPwrHP = (0, 0);
+            (int, int) chimeraPwrHp = (0, 0);
 
             if (creatureList.Count > 0)
             {
                 foreach (var creature in creatureList)
                 {
-                    if (creature.id != CardPair.id)
+                    if (creature.id != cardPair.id)
                     {
-                        chimeraPwrHP.Item1 += creature.card.AtkNow;
-                        chimeraPwrHP.Item2 += creature.card.DefNow;
+                        chimeraPwrHp.Item1 += creature.card.AtkNow;
+                        chimeraPwrHp.Item2 += creature.card.DefNow;
                         creature.RemoveCard();
                     }
                 }
             }
 
-            CardPair.card.atk = chimeraPwrHP.Item1;
-            CardPair.card.def = chimeraPwrHP.Item2;
-            CardPair.UpdateCard();
+            cardPair.card.atk = chimeraPwrHp.Item1;
+            cardPair.card.def = chimeraPwrHp.Item2;
+            cardPair.UpdateCard();
         }
     }
 
     public override void OnCardRemove()
     {
-        if (CardPair.card.innateSkills.Swarm)
+        if (cardPair.card.innateSkills.Swarm)
         {
             Owner.AddPlayerCounter(PlayerCounters.Scarab, -1);
         }
-        if (!CardPair.card.cardName.Contains("Skeleton"))
+
+        if (ShouldActivateDeathTriggers())
         {
             DuelManager.Instance.ActivateDeathTriggers();
         }
 
-        if (CardPair.card.IsAflatoxin)
+
+        if (cardPair.card.IsAflatoxin)
         {
-            CardPair.PlayCard(CardDatabase.Instance.GetCardFromId("6ro"));
+            cardPair.PlayCard(CardDatabase.Instance.GetCardFromId("6ro"));
             return;
         }
 
-        if (CardPair.card.passiveSkills.Phoenix)
+        if (cardPair.card.passiveSkills.Phoenix && !ShouldActivateDeathTriggers())
         {
-            if (BattleVars.shared.abilityOrigin != null)
-            {
-                if (BattleVars.shared.abilityOrigin.card.skill != "reverse time")
-                {
-                    CardPair.PlayCard(CardDatabase.Instance.GetCardFromId(CardPair.card.iD.IsUpgraded() ? "7dt" : "5fd"));
-                }
-            }
-            else
-            {
-                CardPair.PlayCard(CardDatabase.Instance.GetCardFromId(CardPair.card.iD.IsUpgraded() ? "7dt" : "5fd"));
-            }
+            cardPair.PlayCard(CardDatabase.Instance.GetCardFromId(cardPair.card.iD.IsUpgraded() ? "7dt" : "5fd"));
+            return;
         }
+        cardPair.card = null;
+    }
+
+    private bool ShouldActivateDeathTriggers()
+    {
+        if (BattleVars.Shared.AbilityOrigin != null)
+        {
+            return BattleVars.Shared.AbilityOrigin.card.skill != "reversetime";
+        }
+        return cardPair.card.cardName.Contains("Skeleton");
     }
 
     public override void OnTurnStart()
@@ -80,11 +83,11 @@ public class CreatureBehaviour : CardTypeBehaviour
 
     public override void DeathTrigger()
     {
-        if (CardPair.card.passiveSkills.Scavenger)
+        if (cardPair.card.passiveSkills.Scavenger)
         {
-            CardPair.card.AtkModify += 1;
-            CardPair.card.DefModify += 1;
-            CardPair.UpdateCard();
+            cardPair.card.AtkModify += 1;
+            cardPair.card.DefModify += 1;
+            cardPair.UpdateCard();
         }
 
     }
@@ -92,12 +95,12 @@ public class CreatureBehaviour : CardTypeBehaviour
     public override void OnTurnEnd()
     {
         int adrenalineIndex = 0;
-        bool hasAdrenaline = CardPair.card.passiveSkills.Adrenaline;
+        bool hasAdrenaline = cardPair.card.passiveSkills.Adrenaline;
         bool isFirstAttack = true;
-        int atkNow = CardPair.card.AtkNow;
+        int atkNow = cardPair.card.AtkNow;
 
-        bool shouldSkip = DuelManager.Instance.GetCardCount(new() { "5rp", "7q9" }) > 0 || Owner.playerCounters.patience > 0 || CardPair.card.Freeze > 0 || CardPair.card.innateSkills.Delay > 0 || atkNow == 0;
-        CardPair.card.AbilityUsed = false;
+        bool shouldSkip = DuelManager.Instance.GetCardCount(new() { "5rp", "7q9" }) > 0 || Owner.playerCounters.patience > 0 || cardPair.card.Freeze > 0 || cardPair.card.innateSkills.Delay > 0 || atkNow == 0;
+        cardPair.card.AbilityUsed = false;
 
         while (isFirstAttack || hasAdrenaline)
         {
@@ -105,55 +108,55 @@ public class CreatureBehaviour : CardTypeBehaviour
             if (!shouldSkip)
             {
 
-                if (CardPair.card.innateSkills.Regenerate)
+                if (cardPair.card.innateSkills.Regenerate)
                 {
                     Owner.ModifyHealthLogic(5, false, false);
                 }
-                if (CardPair.card.innateSkills.Fiery)
+                if (cardPair.card.innateSkills.Fiery)
                 {
                     atkNow += Mathf.FloorToInt(Owner.GetAllQuantaOfElement(Element.Fire) / 5);
                 }
-                if (CardPair.card.innateSkills.Hammer)
+                if (cardPair.card.innateSkills.Hammer)
                 {
                     if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Earth || Owner.playerPassiveManager.GetMark().card.costElement == Element.Gravity)
                     {
                         atkNow++;
                     }
                 }
-                if (CardPair.card.innateSkills.Dagger)
+                if (cardPair.card.innateSkills.Dagger)
                 {
                     if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Death || Owner.playerPassiveManager.GetMark().card.costElement == Element.Darkness)
                     {
                         atkNow++;
                     }
                 }
-                if (CardPair.card.innateSkills.Bow)
+                if (cardPair.card.innateSkills.Bow)
                 {
                     if (Owner.playerPassiveManager.GetMark().card.costElement == Element.Air)
                     {
                         atkNow++;
                     }
                 }
-                bool isFreedomEffect = Random.Range(0, 100) < (25 * Owner.playerCounters.freedom) && CardPair.card.costElement.Equals(Element.Air);
+                bool isFreedomEffect = Random.Range(0, 100) < (25 * Owner.playerCounters.freedom) && cardPair.card.costElement.Equals(Element.Air);
                 atkNow = Mathf.FloorToInt(isFreedomEffect ? atkNow * 1.5f : atkNow);
                 SoundManager.Instance.PlayAudioClip("CreatureDamage");
                 if (Enemy.HasGravityCreatures())
                 {
-                    Enemy.ManageGravityCreatures(ref atkNow, ref CardPair);
-                    if (CardPair.card.DefNow <= 0)
+                    Enemy.ManageGravityCreatures(ref atkNow, ref cardPair);
+                    if (cardPair.card.DefNow <= 0)
                     {
-                        CardPair.RemoveCard();
+                        cardPair.RemoveCard();
                         return;
                     }
                 }
 
-                if (!CardPair.card.passiveSkills.Momentum)
+                if (!cardPair.card.passiveSkills.Momentum)
                 {
-                    if (Enemy.ManageShield(ref atkNow, ref CardPair))
+                    if (Enemy.ManageShield(ref atkNow, ref cardPair))
                     {
-                        if (CardPair.card.DefNow <= 0)
+                        if (cardPair.card.DefNow <= 0)
                         {
-                            CardPair.RemoveCard();
+                            cardPair.RemoveCard();
                             return;
                         }
                     }
@@ -161,15 +164,15 @@ public class CreatureBehaviour : CardTypeBehaviour
 
                 if (atkNow > 0 && adrenalineIndex < 2)
                 {
-                    if (CardPair.card.passiveSkills.Venom)
+                    if (cardPair.card.passiveSkills.Venom)
                     {
                         Enemy.AddPlayerCounter(PlayerCounters.Poison, 1);
                     }
-                    if (CardPair.card.passiveSkills.DeadlyVenom)
+                    if (cardPair.card.passiveSkills.DeadlyVenom)
                     {
                         Enemy.AddPlayerCounter(PlayerCounters.Poison, 2);
                     }
-                    if (CardPair.card.passiveSkills.Neurotoxin)
+                    if (cardPair.card.passiveSkills.Neurotoxin)
                     {
                         Enemy.AddPlayerCounter(PlayerCounters.Neurotoxin, 1);
                     }
@@ -177,11 +180,11 @@ public class CreatureBehaviour : CardTypeBehaviour
 
                 if (atkNow != 0 && adrenalineIndex < 2)
                 {
-                    if (CardPair.card.passiveSkills.Vampire)
+                    if (cardPair.card.passiveSkills.Vampire)
                     {
                         Owner.ModifyHealthLogic(atkNow, false, false);
                     }
-                    Enemy.ModifyHealthLogic(atkNow, true, CardPair.card.passiveSkills.Psion);
+                    Enemy.ModifyHealthLogic(atkNow, true, cardPair.card.passiveSkills.Psion);
                 }
 
                 if (adrenalineIndex < 2)
@@ -190,19 +193,19 @@ public class CreatureBehaviour : CardTypeBehaviour
                 }
 
                 SingularityEffect();
-                CardPair.UpdateCard();
-                if (!CardPair.HasCard()) { return; }
-                if (CardPair.card.AtkNow != 0 && hasAdrenaline)
+                cardPair.UpdateCard();
+                if (!cardPair.HasCard()) { return; }
+                if (cardPair.card.AtkNow != 0 && hasAdrenaline)
                 {
                     adrenalineIndex++;
-                    if (DuelManager.AdrenalineDamageList[Mathf.Abs(CardPair.card.AtkNow) - 1].Count <= adrenalineIndex)
+                    if (DuelManager.AdrenalineDamageList[Mathf.Abs(cardPair.card.AtkNow) - 1].Count <= adrenalineIndex)
                     {
                         hasAdrenaline = false;
                     }
                     else
                     {
-                        atkNow = DuelManager.AdrenalineDamageList[Mathf.Abs(CardPair.card.AtkNow) - 1][adrenalineIndex];
-                        if (CardPair.card.passiveSkills.Antimatter)
+                        atkNow = DuelManager.AdrenalineDamageList[Mathf.Abs(cardPair.card.AtkNow) - 1][adrenalineIndex];
+                        if (cardPair.card.passiveSkills.Antimatter)
                         {
                             atkNow = -atkNow;
                         }
@@ -210,35 +213,35 @@ public class CreatureBehaviour : CardTypeBehaviour
                 }
             }
             CreatureTurnDownTick();
-            CardPair.UpdateCard();
+            cardPair.UpdateCard();
         }
     }
 
     private void EndTurnPassiveEffect()
     {
-        if (CardPair.card.innateSkills.Delay == 0)
+        if (cardPair.card.innateSkills.Delay == 0)
         {
-            if (CardPair.card.passiveSkills.Air)
+            if (cardPair.card.passiveSkills.Air)
             {
                 AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Element.Air);
                 Owner.GenerateQuantaLogic(Element.Air, 1);
             }
-            if (CardPair.card.passiveSkills.Earth)
+            if (cardPair.card.passiveSkills.Earth)
             {
                 AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Element.Earth);
                 Owner.GenerateQuantaLogic(Element.Earth, 1);
             }
-            if (CardPair.card.passiveSkills.Fire)
+            if (cardPair.card.passiveSkills.Fire)
             {
                 AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Element.Fire);
                 Owner.GenerateQuantaLogic(Element.Fire, 1);
             }
-            if (CardPair.card.passiveSkills.Light)
+            if (cardPair.card.passiveSkills.Light)
             {
                 AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Element.Light);
                 Owner.GenerateQuantaLogic(Element.Light, 1);
             }
-            if (CardPair.card.innateSkills.Devourer)
+            if (cardPair.card.innateSkills.Devourer)
             {
                 if (Enemy.GetAllQuantaOfElement(Element.Other) > 0 && Enemy.playerCounters.sanctuary == 0)
                 {
@@ -247,79 +250,79 @@ public class CreatureBehaviour : CardTypeBehaviour
                 AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Element.Darkness);
                 Owner.GenerateQuantaLogic(Element.Darkness, 1);
             }
-            if (CardPair.card.passiveSkills.Overdrive)
+            if (cardPair.card.passiveSkills.Overdrive)
             {
-                CardPair.card.AtkModify += 3;
-                CardPair.card.DefModify -= 1;
+                cardPair.card.AtkModify += 3;
+                cardPair.card.DefModify -= 1;
             }
-            if (CardPair.card.passiveSkills.Acceleration)
+            if (cardPair.card.passiveSkills.Acceleration)
             {
-                CardPair.card.AtkModify += 2;
-                CardPair.card.DefModify -= 1;
+                cardPair.card.AtkModify += 2;
+                cardPair.card.DefModify -= 1;
             }
-            if (CardPair.card.passiveSkills.Infest)
+            if (cardPair.card.passiveSkills.Infest)
             {
                 Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("4t8"));
             }
 
         }
 
-        if (CardPair.card.innateSkills.Swarm)
+        if (cardPair.card.innateSkills.Swarm)
         {
-            CardPair.card.def = Owner.playerCounters.scarab;
-            CardPair.UpdateCard();
+            cardPair.card.def = Owner.playerCounters.scarab;
+            cardPair.UpdateCard();
         }
     }
 
     private void CreatureTurnDownTick()
     {
-        if (CardPair.card.passiveSkills.Dive)
+        if (cardPair.card.passiveSkills.Dive)
         {
-            CardPair.card.passiveSkills.Dive = false;
-            CardPair.card.atk /= 2;
-            CardPair.card.AtkModify /= 2;
+            cardPair.card.passiveSkills.Dive = false;
+            cardPair.card.atk /= 2;
+            cardPair.card.AtkModify /= 2;
         }
 
-        if (CardPair.card.Freeze > 0)
+        if (cardPair.card.Freeze > 0)
         {
-            CardPair.card.Freeze--;
+            cardPair.card.Freeze--;
         }
 
-        if (CardPair.card.Charge > 0)
+        if (cardPair.card.Charge > 0)
         {
-            CardPair.card.Charge--;
-            CardPair.card.AtkModify--;
-            CardPair.card.DefModify--;
+            cardPair.card.Charge--;
+            cardPair.card.AtkModify--;
+            cardPair.card.DefModify--;
 
         }
-        if (CardPair.card.innateSkills.Delay > 0)
+        if (cardPair.card.innateSkills.Delay > 0)
         {
-            CardPair.card.innateSkills.Delay--;
+            cardPair.card.innateSkills.Delay--;
         }
 
-        int healthChange = CardPair.card.Poison;
-        CardPair.card.DefDamage += healthChange;
+        int healthChange = cardPair.card.Poison;
+        cardPair.card.DefDamage += healthChange;
     }
 
     private void SingularityEffect()
     {
-        if (!CardPair.card.innateSkills.Singularity) { return; }
+        if (!cardPair.card.innateSkills.Singularity) { return; }
         List<string> singuEffects = new() { "Chaos", "Copy", "Nova" };
-        if (CardPair.card.AtkNow > 0)
+        if (cardPair.card.AtkNow > 0)
         {
-            CardPair.card.atk = -(Mathf.Abs(CardPair.card.atk));
-            CardPair.card.AtkModify = -(Mathf.Abs(CardPair.card.AtkModify));
+            cardPair.card.atk = -(Mathf.Abs(cardPair.card.atk));
+            cardPair.card.AtkModify = -(Mathf.Abs(cardPair.card.AtkModify));
         }
 
-        if (!CardPair.card.innateSkills.Immaterial)
+        if (!cardPair.card.innateSkills.Immaterial)
         {
             singuEffects.Add("Immaterial");
         }
-        if (!CardPair.card.passiveSkills.Adrenaline)
+        if (!cardPair.card.passiveSkills.Adrenaline)
         {
             singuEffects.Add("Adrenaline");
         }
-        if (!CardPair.card.passiveSkills.Vampire)
+        if (!cardPair.card.passiveSkills.Vampire)
         {
             singuEffects.Add("Vampire");
         }
@@ -327,29 +330,29 @@ public class CreatureBehaviour : CardTypeBehaviour
         switch (singuEffects[Random.Range(0, singuEffects.Count)])
         {
             case "Immaterial":
-                CardPair.card.innateSkills.Immaterial = true;
+                cardPair.card.innateSkills.Immaterial = true;
                 break;
             case "Vampire":
-                CardPair.card.passiveSkills.Vampire = true;
+                cardPair.card.passiveSkills.Vampire = true;
                 break;
             case "Chaos":
                 int chaos = Random.Range(1, 6);
-                CardPair.card.AtkModify += chaos;
-                CardPair.card.DefModify += chaos;
+                cardPair.card.AtkModify += chaos;
+                cardPair.card.DefModify += chaos;
                 break;
             case "Nova":
                 for (int y = 0; y < 12; y++)
                 {
-                    DuelManager.GetNotIDOwner(CardPair.id).GenerateQuantaLogic((Element)y, 1);
+                    DuelManager.GetNotIDOwner(cardPair.id).GenerateQuantaLogic((Element)y, 1);
                 }
                 break;
             case "Addrenaline":
-                CardPair.card.passiveSkills.Adrenaline = true;
+                cardPair.card.passiveSkills.Adrenaline = true;
                 break;
             default:
-                Card duplicate = new(CardPair.card);
+                Card duplicate = new(cardPair.card);
                 AnimationManager.Instance.StartAnimation("ParallelUniverse", transform);
-                DuelManager.GetIDOwner(CardPair.id).PlayCardOnFieldLogic(duplicate);
+                DuelManager.GetIDOwner(cardPair.id).PlayCardOnFieldLogic(duplicate);
                 break;
         }
     }

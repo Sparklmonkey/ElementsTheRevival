@@ -12,15 +12,15 @@ public class CardDisplay : MonoBehaviour
     private TextMeshProUGUI cardName, cardCost, cardDescription, creatureValues;
     [SerializeField]
     private TMP_FontAsset cardNameRegular, cardNameUpped, creatureValuesFont, spellIconFont;
-    private Card card;
+    private Card _card;
 
     public void SetupCardView(Card cardToDisplay)
     {
-        card = cardToDisplay;
+        _card = cardToDisplay;
         if (cardToDisplay.cardName.Contains("Pendulum") && SceneTransitionManager.Instance.GetActiveScene() == "Battlefield")
         {
             Element pendulumElement = cardToDisplay.costElement;
-            Element markElement = BattleVars.shared.isPlayerTurn ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
+            Element markElement = BattleVars.Shared.IsPlayerTurn ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
             if (cardToDisplay.costElement == cardToDisplay.skillElement)
             {
                 cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
@@ -74,7 +74,7 @@ public class CardDisplay : MonoBehaviour
             cardType.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
         }
 
-        if (card.iD.IsUpgraded())
+        if (_card.iD.IsUpgraded())
         {
             upgradeShine.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
             cardName.font = cardNameUpped;

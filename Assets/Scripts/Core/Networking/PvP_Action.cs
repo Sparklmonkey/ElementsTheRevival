@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class PseudoPvPAction
@@ -8,17 +9,17 @@ public class PseudoPvPAction
     public PseudoID targetId;
 }
 [Serializable]
-public class PvP_Action
+public class PvPAction
 {
-    public ActionType ActionType;
-    public ID OriginId;
-    public ID TargetId;
+    [FormerlySerializedAs("ActionType")] public ActionType actionType;
+    [FormerlySerializedAs("OriginId")] public ID originId;
+    [FormerlySerializedAs("TargetId")] public ID targetId;
 
-    public PvP_Action(ActionType actionType, ID originId, ID targetId)
+    public PvPAction(ActionType actionType, ID originId, ID targetId)
     {
-        ActionType = actionType;
-        OriginId = originId;
-        TargetId = targetId;
+        this.actionType = actionType;
+        this.originId = originId;
+        this.targetId = targetId;
     }
 }
 

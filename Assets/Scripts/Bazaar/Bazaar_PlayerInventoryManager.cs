@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Bazaar_PlayerInventoryManager : InventoryManager
+public class BazaarPlayerInventoryManager : InventoryManager
 {
     [SerializeField]
     private TextMeshProUGUI cardCount;
@@ -10,19 +10,19 @@ public class Bazaar_PlayerInventoryManager : InventoryManager
     private List<Card> testList;
     [SerializeField]
     private GameObject touchBlocker;
-    private int selectedElement;
-    private List<Card> cardList;
+    private int _selectedElement;
+    private List<Card> _cardList;
 
     public void SetupPlayerInvetoryView(List<Card> cardList)
     {
-        this.cardList = cardList;
+        this._cardList = cardList;
         cardList.Sort((x, y) => string.Compare(x.iD, y.iD));
         SetupContentView(cardList, true);
     }
 
     public async void GoToDeckManagement()
     {
-        if (ApiManager.isTrainer)
+        if (ApiManager.IsTrainer)
         {
             SceneTransitionManager.Instance.LoadScene("DeckManagement");
             return;
@@ -32,23 +32,23 @@ public class Bazaar_PlayerInventoryManager : InventoryManager
         await ApiManager.Instance.SaveDataToUnity();
         touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(touchBlocker);
-        DeckDisplayManager.isArena = false;
+        DeckDisplayManager.IsArena = false;
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 
     public void UpdateCardFilter(int element)
     {
-        if (element == selectedElement) { return; }
+        if (element == _selectedElement) { return; }
 
         if (element == 14)
         {
-            SetupPlayerInvetoryView(PlayerData.shared.cardInventory.DeserializeCard());
+            SetupPlayerInvetoryView(PlayerData.Shared.cardInventory.DeserializeCard());
             return;
         }
-        selectedElement = element;
-        Element filter = (Element)selectedElement;
+        _selectedElement = element;
+        Element filter = (Element)_selectedElement;
         List<Card> cardsToShow = new();
-        foreach (Card card in cardList)
+        foreach (Card card in _cardList)
         {
             if (card.cardName == "Animate Weapon")
             {
@@ -74,7 +74,7 @@ public class Bazaar_PlayerInventoryManager : InventoryManager
 
     public async void GoToDashboard()
     {
-        if (ApiManager.isTrainer)
+        if (ApiManager.IsTrainer)
         {
             GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
         }

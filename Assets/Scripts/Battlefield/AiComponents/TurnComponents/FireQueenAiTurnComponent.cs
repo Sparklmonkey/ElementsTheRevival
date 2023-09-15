@@ -26,7 +26,7 @@ public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         foreach (var queen in queenCards)
         {
             if (!aiManager.IsAbilityUsable(queen)) { continue; }
-            BattleVars.shared.abilityOrigin = queen;
+            BattleVars.Shared.AbilityOrigin = queen;
             aiManager.ActivateAbility(queen);
         }
     }
@@ -40,7 +40,7 @@ public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         var target = SkillManager.Instance.GetRandomTarget(aiManager, weapon);
         if (target == null) { yield break; }
 
-        BattleVars.shared.abilityOrigin = weapon;
+        BattleVars.Shared.AbilityOrigin = weapon;
 
         aiManager.ActivateAbility(target);
     }
@@ -49,13 +49,13 @@ public class FireQueenAiTurnComponent : AiBaseFunctions, IAiTurnComponent
     {
         //Play Weapon if none in play
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Eagle's Eye"));
-        yield return aiManager.StartCoroutine(spellManager.PlayAnimateWeapon(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayAnimateWeapon(aiManager));
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Elite Fahrenheit"));
-        yield return aiManager.StartCoroutine(spellManager.PlayAnimateWeapon(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayAnimateWeapon(aiManager));
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Eagle's Eye"));
-        yield return aiManager.StartCoroutine(spellManager.PlayAnimateWeapon(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayAnimateWeapon(aiManager));
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Elite Fahrenheit"));
-        yield return aiManager.StartCoroutine(spellManager.PlayAnimateWeapon(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayAnimateWeapon(aiManager));
 
         //Play Creatures
         yield return aiManager.StartCoroutine(PlayPermanent(aiManager, "Elite Queen"));

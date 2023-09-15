@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Upgrade_PlayerDataManager : MonoBehaviour
+public class UpgradePlayerDataManager : MonoBehaviour
 {
 
-    private Upgrade_InvetoryViewManager playerInventoryManager;
+    private UpgradeInvetoryViewManager _playerInventoryManager;
 
     [SerializeField]
     private List<Card> playerInventory;
@@ -15,23 +15,23 @@ public class Upgrade_PlayerDataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerInventoryManager = GetComponent<Upgrade_InvetoryViewManager>();
-        if (PlayerData.shared == null)
+        _playerInventoryManager = GetComponent<UpgradeInvetoryViewManager>();
+        if (PlayerData.Shared == null)
         {
-            playerInventoryManager.SetupInitialCardView(playerInventory);
-            PlayerData.shared = new PlayerData();
-            PlayerData.shared.electrum = 965;
+            _playerInventoryManager.SetupInitialCardView(playerInventory);
+            PlayerData.Shared = new PlayerData();
+            PlayerData.Shared.electrum = 965;
         }
         else
         {
-            playerInventoryManager.SetupInitialCardView(PlayerData.shared.cardInventory.DeserializeCard());
+            _playerInventoryManager.SetupInitialCardView(PlayerData.Shared.cardInventory.DeserializeCard());
         }
 
-        deckCount.text = $"( {PlayerData.shared.cardInventory.Count} )";
-        GetComponent<Upgrade_TransactionManager>().SetupTransactionManager();
+        deckCount.text = $"( {PlayerData.Shared.cardInventory.Count} )";
+        GetComponent<UpgradeTransactionManager>().SetupTransactionManager();
     }
 
-    private Card cardToUpgrade;
+    private Card _cardToUpgrade;
 
     public void UpgradeCardInInventory(Card cardToUpgrade)
     {
@@ -41,13 +41,13 @@ public class Upgrade_PlayerDataManager : MonoBehaviour
             return;
         }
 
-        if (PlayerData.shared.electrum < 1500)
+        if (PlayerData.Shared.electrum < 1500)
         {
             Debug.Log("Not Enough Gold");
             return;
         }
 
-        this.cardToUpgrade = cardToUpgrade;
+        this._cardToUpgrade = cardToUpgrade;
         confirmationPopUp.gameObject.SetActive(true);
         confirmationPopUp.SetupErrorMessage($"Are you sure you want to UPGRADE {cardToUpgrade.cardName}?");
     }
@@ -56,26 +56,26 @@ public class Upgrade_PlayerDataManager : MonoBehaviour
     {
         int cardIndex = 0;
 
-        for (int i = 0; i < PlayerData.shared.cardInventory.Count; i++)
+        for (int i = 0; i < PlayerData.Shared.cardInventory.Count; i++)
         {
-            if (PlayerData.shared.cardInventory[i] == cardToUpgrade.iD)
+            if (PlayerData.Shared.cardInventory[i] == _cardToUpgrade.iD)
             {
                 cardIndex = i;
                 break;
             }
         }
-        PlayerData.shared.cardInventory.RemoveAt(cardIndex);
-        PlayerData.shared.cardInventory.Add(cardToUpgrade.iD.GetUppedRegular());
-        playerInventoryManager.SetupContentView(PlayerData.shared.cardInventory.DeserializeCard());
-        GetComponent<Upgrade_TransactionManager>().ChangeCoinCount();
+        PlayerData.Shared.cardInventory.RemoveAt(cardIndex);
+        PlayerData.Shared.cardInventory.Add(_cardToUpgrade.iD.GetUppedRegular());
+        _playerInventoryManager.SetupContentView(PlayerData.Shared.cardInventory.DeserializeCard());
+        GetComponent<UpgradeTransactionManager>().ChangeCoinCount();
         PlayerData.SaveData();
-        cardToUpgrade = null;
+        _cardToUpgrade = null;
         confirmationPopUp.gameObject.SetActive(false);
     }
 
     public void CancelUpgrade()
     {
-        cardToUpgrade = null;
+        _cardToUpgrade = null;
         confirmationPopUp.gameObject.SetActive(false);
     }
 }

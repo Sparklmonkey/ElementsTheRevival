@@ -6,7 +6,8 @@ public class Hatch : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.PlayCard(target.card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteHatchCreature() : CardDatabase.Instance.GetRandomHatchCreature());
+        var cardToPlay = CardDatabase.Instance.GetRandomCard(CardType.Creature, target.card.iD.IsUpgraded(), true);
+        target.PlayCard(cardToPlay);
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
@@ -14,8 +15,9 @@ public class Hatch : AbilityEffect
         return new();
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
         return null;
     }
+    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

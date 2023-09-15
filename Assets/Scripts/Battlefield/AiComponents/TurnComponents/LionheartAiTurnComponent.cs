@@ -18,13 +18,13 @@ public class LionheartAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         yield return aiManager.StartCoroutine(PlayShield(aiManager, "Turtle Shield"));
 
         //Play Spells
-        yield return aiManager.StartCoroutine(spellManager.PlayAnimateWeapon(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayAnimateWeapon(aiManager));
 
         //Activate Abilities
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityNoTarget(aiManager, CardType.Artifact, "Golden Hourglass", "Electrum Hourglass"));
-        yield return aiManager.StartCoroutine(creatureManager.ActivateCrusaders(aiManager));
+        yield return aiManager.StartCoroutine(CreatureManager.ActivateCrusaders(aiManager));
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Artifact, "Anubis", "Elite Anubis"));
-        yield return aiManager.StartCoroutine(spellManager.ActivateQuintessence(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.ActivateQuintessence(aiManager));
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Artifact, "Eternity", "Elite Eternity"));
 
     }

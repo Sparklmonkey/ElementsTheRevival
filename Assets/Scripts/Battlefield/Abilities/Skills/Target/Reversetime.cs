@@ -4,6 +4,7 @@ using UnityEngine;
 public class Reversetime : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.HighestCost;
 
     public override void Activate(IDCardPair target)
     {
@@ -13,7 +14,7 @@ public class Reversetime : AbilityEffect
         }
         else if (target.card.innateSkills.Undead)
         {
-            target.PlayCard(target.card.iD.IsUpgraded() ? CardDatabase.Instance.GetRandomEliteCreature() : CardDatabase.Instance.GetRandomCreature());
+            target.PlayCard(CardDatabase.Instance.GetRandomCard(CardType.Creature, target.card.iD.IsUpgraded(), true));
         }
         else
         {
@@ -27,13 +28,21 @@ public class Reversetime : AbilityEffect
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0) { return new(); }
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets[Random.Range(0, posibleTargets.Count)];
+        if (possibleTargets.Count == 0)
+        {
+            return null;
+        }
+
+        return possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

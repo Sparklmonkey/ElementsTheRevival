@@ -42,7 +42,7 @@ namespace Elements.Duel.Visual
             if (cardToDisplay.cardName.Contains("Pendulum"))
             {
                 Element pendulumElement = cardToDisplay.costElement;
-                Element markElement = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
+                Element markElement = isPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
                 if (cardToDisplay.costElement == cardToDisplay.skillElement)
                 {
                     cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());

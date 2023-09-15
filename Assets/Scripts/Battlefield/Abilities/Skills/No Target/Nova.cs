@@ -10,11 +10,11 @@ public class Nova : AbilityEffect
         {
             Owner.GenerateQuantaLogic((Element)i, 1);
         }
-        if (BattleVars.shared.isSingularity > 1)
+        if (BattleVars.Shared.IsSingularity > 1)
         {
             Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("4vr"));
         }
-        BattleVars.shared.isSingularity++;
+        BattleVars.Shared.IsSingularity++;
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
@@ -22,8 +22,9 @@ public class Nova : AbilityEffect
         return new();
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
         return null;
     }
+    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

@@ -11,15 +11,23 @@ public class Plague : AbilityEffect
 
         foreach (var idCardi in idList)
         {
-            if (idCardi.card.innateSkills.Immaterial) { continue; }
-            if (idCardi.card.passiveSkills.Burrow) { continue; }
+            if (idCardi.card.innateSkills.Immaterial)
+            {
+                continue;
+            }
+
+            if (idCardi.card.passiveSkills.Burrow)
+            {
+                continue;
+            }
+
             idCardi.card.Poison += 1;
             idCardi.UpdateCard();
         }
 
-        if (BattleVars.shared.abilityOrigin.card.cardType == CardType.Creature)
+        if (BattleVars.Shared.AbilityOrigin.card.cardType == CardType.Creature)
         {
-            BattleVars.shared.abilityOrigin.RemoveCard();
+            BattleVars.Shared.AbilityOrigin.RemoveCard();
         }
     }
 
@@ -28,8 +36,10 @@ public class Plague : AbilityEffect
         return new();
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
         return null;
     }
+
+    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

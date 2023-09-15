@@ -15,7 +15,7 @@ namespace Elements.Duel.Manager
         {
             if (card.cardType.Equals(CardType.Pillar))
             {
-                IDCardPair stackedCard = pairList.FirstOrDefault(idCard => idCard.HasCard() && idCard.card.iD == card.iD);
+                IDCardPair stackedCard = PairList.FirstOrDefault(idCard => idCard.HasCard() && idCard.card.iD == card.iD);
                 if (stackedCard != null)
                 {
                     stackedCard.PlayCard(card);
@@ -27,14 +27,14 @@ namespace Elements.Duel.Manager
 
             foreach (int orderIndex in permanentCardOrder)
             {
-                if (!pairList[orderIndex].HasCard())
+                if (!PairList[orderIndex].HasCard())
                 {
-                    if (stackCountList.Count > 0)
+                    if (StackCountList.Count > 0)
                     {
-                        stackCountList[orderIndex]++;
+                        StackCountList[orderIndex]++;
                     }
-                    pairList[orderIndex].PlayCard(card);
-                    return pairList[orderIndex];
+                    PairList[orderIndex].PlayCard(card);
+                    return PairList[orderIndex];
                 }
             }
             return null;
@@ -45,32 +45,32 @@ namespace Elements.Duel.Manager
             List<(QuantaObject, ID)> listToReturn = new List<(QuantaObject, ID)>();
             //List<QuantaObject> listToReturn = new List<QuantaObject>();
             //List<ID> ids = new List<ID>();
-            for (int i = 0; i < pairList.Count; i++)
+            for (int i = 0; i < PairList.Count; i++)
             {
-                if (pairList[i].card != null)
+                if (PairList[i].card != null)
                 {
-                    Card card = pairList[i].card;
+                    Card card = PairList[i].card;
 
                     Element elementnow = card.costElement;
                     Element mark;
-                    bool isPlayer = pairList[i].id.Owner.Equals(OwnerEnum.Player);
-                    mark = isPlayer ? PlayerData.shared.markElement : BattleVars.shared.enemyAiData.mark;
+                    bool isPlayer = PairList[i].id.owner.Equals(OwnerEnum.Player);
+                    mark = isPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
                     if (card.skill == " " && elementnow == card.skillElement)
                     {
-                        QuantaObject quantaObject = new(elementnow, stackCountList[i]);
-                        listToReturn.Add((quantaObject, pairList[i].id));
+                        QuantaObject quantaObject = new(elementnow, StackCountList[i]);
+                        listToReturn.Add((quantaObject, PairList[i].id));
                         card.skillElement = mark;
                     }
                     else if (card.skill == " " && elementnow != card.skillElement)
                     {
-                        QuantaObject quantaObject = new(card.skillElement, stackCountList[i]);
-                        listToReturn.Add((quantaObject, pairList[i].id));
+                        QuantaObject quantaObject = new(card.skillElement, StackCountList[i]);
+                        listToReturn.Add((quantaObject, PairList[i].id));
                         card.skillElement = card.costElement;
                     }
                     else
                     {
-                        QuantaObject quantaObject = new(card.costElement, stackCountList[i]);
-                        listToReturn.Add((quantaObject, pairList[i].id));
+                        QuantaObject quantaObject = new(card.costElement, StackCountList[i]);
+                        listToReturn.Add((quantaObject, PairList[i].id));
                     }
                 }
             }
@@ -82,13 +82,13 @@ namespace Elements.Duel.Manager
         {
             List<int> listToReturn = new();
 
-            foreach (IDCardPair item in pairList)
+            foreach (IDCardPair item in PairList)
             {
                 if (item.HasCard())
                 {
                     if (item.card.cardType.Equals(CardType.Pillar))
                     {
-                        listToReturn.Add(item.id.Index);
+                        listToReturn.Add(item.id.index);
                     }
                 }
             }
@@ -98,12 +98,12 @@ namespace Elements.Duel.Manager
 
         public int GetStackAt(int index)
         {
-            return stackCountList[index];
+            return StackCountList[index];
         }
 
         public void PermanentTurnDown()
         {
-            foreach (var idCard in pairList)
+            foreach (var idCard in PairList)
             {
                 if (!idCard.HasCard()) { continue; }
                 idCard.cardBehaviour.OnTurnStart();
@@ -112,7 +112,7 @@ namespace Elements.Duel.Manager
 
         internal void ClearField()
         {
-            foreach (var pair in pairList)
+            foreach (var pair in PairList)
             {
                 pair.card = null;
             }

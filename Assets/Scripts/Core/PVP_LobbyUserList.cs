@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PVP_LobbyUserList : MonoBehaviour
+public class PvpLobbyUserList : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

@@ -20,8 +20,8 @@ public class IncarnateAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Bone Wall"));
 
         //Activate Life Nymphs on Death stalkers and Scorpions
-        yield return aiManager.StartCoroutine(creatureManager.ActivateBloodsucker(aiManager));
+        yield return aiManager.StartCoroutine(CreatureManager.ActivateBloodsucker(aiManager));
         //Activate Retrovirus
-        yield return aiManager.StartCoroutine(creatureManager.ActivateRetroVirus(aiManager));
+        yield return aiManager.StartCoroutine(CreatureManager.ActivateRetroVirus(aiManager));
     }
 }

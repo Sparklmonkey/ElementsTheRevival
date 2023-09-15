@@ -4,6 +4,7 @@ using UnityEngine;
 public class Destroy : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.Permanent;
 
     public override void Activate(IDCardPair target)
     {
@@ -35,11 +36,11 @@ public class Destroy : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
+        if (possibleTargets.Count == 0) { return null; }
 
-        var opCreatures = posibleTargets.FindAll(x => x.id.Owner == OwnerEnum.Player && x.HasCard());
+        var opCreatures = possibleTargets.FindAll(x => x.id.owner == OwnerEnum.Player && x.HasCard());
 
         if (opCreatures.Count == 0)
         {
@@ -47,7 +48,7 @@ public class Destroy : AbilityEffect
         }
         else
         {
-            return opCreatures[Random.Range(0, posibleTargets.Count)];
+            return opCreatures[Random.Range(0, possibleTargets.Count)];
         }
     }
 }

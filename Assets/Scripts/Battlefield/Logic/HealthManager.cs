@@ -7,8 +7,8 @@ namespace Elements.Duel.Manager
         private int _maxHealth;
         private int _currentHealth;
         private bool _isPlayer;
-        public event Action<int, bool> HealthChangedEvent;
-        public event Action<int, bool> MaxHealthUpdatedEvent;
+        public event Action<int, bool> OnHealthChangedEvent;
+        public event Action<int, bool> OnMaxHealthUpdatedEvent;
 
         public HealthManager(int maxHealth, bool isPlayer)
         {
@@ -21,21 +21,21 @@ namespace Elements.Duel.Manager
             _currentHealth += isDamage ? -amount : amount;
 
             _currentHealth = _currentHealth > _maxHealth ? _maxHealth : _currentHealth;
-            HealthChangedEvent?.Invoke(_currentHealth, _isPlayer);
+            OnHealthChangedEvent?.Invoke(_currentHealth, _isPlayer);
         }
 
 
-        public void ModifyMaxHealth(int maxHPBuff, bool isIncrease)
+        public void ModifyMaxHealth(int maxHpBuff, bool isIncrease)
         {
             if (isIncrease)
             {
-                _maxHealth += maxHPBuff;
+                _maxHealth += maxHpBuff;
             }
             else
             {
-                _maxHealth -= maxHPBuff;
+                _maxHealth -= maxHpBuff;
             }
-            MaxHealthUpdatedEvent?.Invoke(_maxHealth, _isPlayer);
+            OnMaxHealthUpdatedEvent?.Invoke(_maxHealth, _isPlayer);
         }
 
         public int GetMaxHealth() => _maxHealth;

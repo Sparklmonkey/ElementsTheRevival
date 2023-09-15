@@ -2,20 +2,20 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PvP_LobbyConnecteduser : MonoBehaviour
+public class PvPLobbyConnecteduser : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI youUsername, youScore, youWin, youLose, oppUsername, oppScore, oppWin, oppLose;
 
-    private bool shouldUpdateOpInfo;
+    private bool _shouldUpdateOpInfo;
 
-    private PvpUserInfo opponenInfo;
+    private PvpUserInfo _opponenInfo;
     public void SetupPvpScreen(PvpUserInfo opponent)
     {
-        youUsername.text = PlayerData.shared.userName;
-        youScore.text = PlayerData.shared.playerScore.ToString();
-        youWin.text = PlayerData.shared.gamesWon.ToString();
-        youLose.text = PlayerData.shared.gamesLost.ToString();
+        youUsername.text = PlayerData.Shared.userName;
+        youScore.text = PlayerData.Shared.playerScore.ToString();
+        youWin.text = PlayerData.Shared.gamesWon.ToString();
+        youLose.text = PlayerData.Shared.gamesLost.ToString();
 
         if (opponent == null) { return; }
         oppUsername.text = opponent.Username;
@@ -26,26 +26,26 @@ public class PvP_LobbyConnecteduser : MonoBehaviour
 
     public void UpdateOpInfo(PvpUserInfo opponent)
     {
-        opponenInfo = opponent;
-        shouldUpdateOpInfo = true;
+        _opponenInfo = opponent;
+        _shouldUpdateOpInfo = true;
     }
 
     private void Update()
     {
-        if (shouldUpdateOpInfo)
+        if (_shouldUpdateOpInfo)
         {
-            SetupPvpScreen(opponenInfo);
-            shouldUpdateOpInfo = false;
+            SetupPvpScreen(_opponenInfo);
+            _shouldUpdateOpInfo = false;
         }
-        if (shouldMoveToBattlefield)
+        if (_shouldMoveToBattlefield)
         {
             SceneManager.LoadScene("PvPBattlefield");
-            shouldMoveToBattlefield = false;
+            _shouldMoveToBattlefield = false;
         }
     }
-    private bool shouldMoveToBattlefield;
+    private bool _shouldMoveToBattlefield;
     public void MoveToPvpBattlefield()
     {
-        shouldMoveToBattlefield = true;
+        _shouldMoveToBattlefield = true;
     }
 }

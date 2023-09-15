@@ -27,6 +27,6 @@ public class RainbowAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityWithTarget(aiManager, CardType.Artifact, "Eagle's Eye", "Eagle's Eye"));
         yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Gravity Force", "Gravity Force"));
-        yield return aiManager.StartCoroutine(spellManager.PlayMiracle(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayMiracle(aiManager));
     }
 }

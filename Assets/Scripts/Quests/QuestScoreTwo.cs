@@ -12,11 +12,11 @@ public class QuestScoreTwo : QuestBiolerplate
 
     public override string QuestReward => "Reward: A rare card";
 
-    public override bool RequirementCheck() => PlayerData.shared.playerScore > 500;
+    public override bool RequirementCheck() => PlayerData.Shared.playerScore > 500;
 
     public override void RedeemQuest()
     {
         PlayerPrefs.SetFloat("ShouldShowRareCard", 1);
-        PlayerData.shared.completedQuests += "_6";
+        PlayerData.Shared.completedQuests += "_6";
     }
 }

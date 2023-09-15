@@ -1,26 +1,26 @@
 using System.Collections.Generic;
 
-public class Bazaar_ShopInventoryManager : InventoryManager
+public class BazaarShopInventoryManager : InventoryManager
 {
 
-    private int selectedElement = 12;
-    private List<Card> inventoryCardList;
+    private int _selectedElement = 12;
+    private List<Card> _inventoryCardList;
 
     public void SetupInitialCardView()
     {
-        inventoryCardList = CardDatabase.Instance.GetAllBazaarCards();
+        _inventoryCardList = CardDatabase.Instance.GetAllBazaarCards();
         UpdateCardFilter(0);
     }
 
     public void UpdateCardFilter(int element)
     {
-        if (element == selectedElement) { return; }
+        if (element == _selectedElement) { return; }
 
 
-        selectedElement = element;
-        Element filter = (Element)selectedElement;
+        _selectedElement = element;
+        Element filter = (Element)_selectedElement;
         List<Card> cardsToShow = new List<Card>();
-        foreach (Card card in inventoryCardList)
+        foreach (Card card in _inventoryCardList)
         {
             if (card.cardName == "Animate Weapon")
             {

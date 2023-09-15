@@ -16,22 +16,22 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private GameObject upMovingText;
 
-        public void OnHealthChanged(int currentHP, bool isPlayer)
+        public void OnHealthChanged(int currentHp, bool isPlayer)
         {
-            if (currentHP.ToString() == currentHp.text) { return; }
-            int current = int.Parse(currentHp.text);
-            int difference = current - currentHP;
+            if (currentHp.ToString() == this.currentHp.text) { return; }
+            int current = int.Parse(this.currentHp.text);
+            int difference = current - currentHp;
 
             string toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
-            currentHp.text = currentHP.ToString();
+            this.currentHp.text = currentHp.ToString();
 
             StartCoroutine(AnimateTextChange(toShow));
-            int temp = currentHP - DuelManager.Instance.GetPossibleDamage(isPlayer);
+            int temp = currentHp - DuelManager.Instance.GetPossibleDamage(isPlayer);
             hpSlider.value = temp < 0 ? 0 : temp;
 
-            damageSlider.value = currentHP;
+            damageSlider.value = currentHp;
 
-            if (currentHP <= 0)
+            if (currentHp <= 0)
             {
                 Debug.Log("Game Over");
                 GameOverVisual.ShowGameOverScreen(!isPlayer);
@@ -41,7 +41,7 @@ namespace Elements.Duel.Visual
         public void OnMaxHealthChanged(int newMaxHp, bool isPlayer)
         {
             if (newMaxHp.ToString() == maxHp.text) { return; }
-            int currentHP = int.Parse(currentHp.text);
+            int currentHp = int.Parse(this.currentHp.text);
             int current = int.Parse(maxHp.text);
             int difference = current - newMaxHp;
 
@@ -49,19 +49,19 @@ namespace Elements.Duel.Visual
             maxHp.text = newMaxHp.ToString();
 
             StartCoroutine(AnimateTextChange(toShow));
-            int temp = currentHP - DuelManager.Instance.GetPossibleDamage(isPlayer);
+            int temp = currentHp - DuelManager.Instance.GetPossibleDamage(isPlayer);
             hpSlider.value = temp < 0 ? 0 : temp;
 
-            damageSlider.value = currentHP;
+            damageSlider.value = currentHp;
 
-            if (currentHP <= 0)
+            if (currentHp <= 0)
             {
                 Debug.Log("Game Over");
                 GameOverVisual.ShowGameOverScreen(!isPlayer);
             }
         }
 
-        public void SetHPStart(int hpToSet)
+        public void SetHpStart(int hpToSet)
         {
             maxHp.text = currentHp.text = hpToSet.ToString();
             hpSlider.maxValue = hpToSet;
@@ -70,23 +70,23 @@ namespace Elements.Duel.Visual
             damageSlider.value = hpToSet;
         }
 
-        public IEnumerator UpdateHPView(int currentHP, bool isPlayer)
+        public IEnumerator UpdateHpView(int currentHp, bool isPlayer)
         {
-            if (currentHP.ToString() == currentHp.text) { yield break; }
-            int current = int.Parse(currentHp.text);
-            int difference = current - currentHP;
+            if (currentHp.ToString() == this.currentHp.text) { yield break; }
+            int current = int.Parse(this.currentHp.text);
+            int difference = current - currentHp;
 
             string toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
-            currentHp.text = currentHP.ToString();
+            this.currentHp.text = currentHp.ToString();
 
 
             StartCoroutine(AnimateTextChange(toShow));
-            int temp = currentHP - DuelManager.Instance.GetPossibleDamage(isPlayer);
+            int temp = currentHp - DuelManager.Instance.GetPossibleDamage(isPlayer);
             hpSlider.value = temp < 0 ? 0 : temp;
 
-            damageSlider.value = currentHP;
+            damageSlider.value = currentHp;
 
-            if (currentHP <= 0)
+            if (currentHp <= 0)
             {
                 Debug.Log("Game Over");
                 GameOverVisual.ShowGameOverScreen(!isPlayer);
@@ -106,7 +106,7 @@ namespace Elements.Duel.Visual
             Destroy(sText);
         }
 
-        public void UpdateMaxHPView(int newMax)
+        public void UpdateMaxHpView(int newMax)
         {
             maxHp.text = $"{newMax}";
             hpSlider.maxValue = newMax;

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DMCardPrefabNoTT : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class DmCardPrefabNoTt : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField]
     private Card cardToShow;
@@ -15,13 +15,13 @@ public class DMCardPrefabNoTT : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     [SerializeField]
     private TMP_FontAsset underlayBlack, underlayWhite;
-    private int cardCountValue = 0;
-    private InventoryManager inventoryManager;
+    private int _cardCountValue = 0;
+    private InventoryManager _inventoryManager;
     public Card GetCard() => cardToShow;
 
     public void SetupCardHead(Card card, bool isInventory, InventoryManager inventoryManager)
     {
-        this.inventoryManager = inventoryManager;
+        this._inventoryManager = inventoryManager;
         this.isInventory = isInventory;
         cardName.text = card.cardName;
 
@@ -42,8 +42,8 @@ public class DMCardPrefabNoTT : MonoBehaviour, IPointerEnterHandler, IPointerExi
         cardElement.sprite = ImageHelper.GetCardBackGroundImage(backGroundString);
         cardImage.sprite = ImageHelper.GetCardImage(card.imageID);
         cardToShow = card;
-        cardCountValue = 1;
-        cardCount.text = cardCountValue.ToString();
+        _cardCountValue = 1;
+        cardCount.text = _cardCountValue.ToString();
         if (!isInventory)
         {
             cardCount.gameObject.SetActive(false);
@@ -56,21 +56,21 @@ public class DMCardPrefabNoTT : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void AddCard()
     {
-        cardCountValue++;
-        cardCount.text = cardCountValue.ToString();
+        _cardCountValue++;
+        cardCount.text = _cardCountValue.ToString();
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        inventoryManager.ShowCardDisplay(cardToShow);
+        _inventoryManager.ShowCardDisplay(cardToShow);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        inventoryManager.HideCardDisplay();
+        _inventoryManager.HideCardDisplay();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        inventoryManager.ChangeCardOwner(this);
+        _inventoryManager.ChangeCardOwner(this);
     }
 }

@@ -7,13 +7,13 @@ public class OctaneAiTurnComponent : AiBaseFunctions, IAiTurnComponent
     {
         //Play Arsenic if none in play
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Eagle's Eye"));
-        yield return aiManager.StartCoroutine(spellManager.PlayAnimateWeapon(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayAnimateWeapon(aiManager));
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Eagle's Eye"));
-        yield return aiManager.StartCoroutine(spellManager.PlayAnimateWeapon(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayAnimateWeapon(aiManager));
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Eagle's Eye"));
-        yield return aiManager.StartCoroutine(spellManager.PlayAnimateWeapon(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayAnimateWeapon(aiManager));
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Eagle's Eye"));
-        yield return aiManager.StartCoroutine(spellManager.PlayAnimateWeapon(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayAnimateWeapon(aiManager));
 
         yield return aiManager.StartCoroutine(PlayShield(aiManager, "Fire Buckler"));
         //Play Creatures

@@ -2,7 +2,7 @@
 
 public abstract class FieldManager
 {
-    public List<IDCardPair> pairList;
-    public List<int> stackCountList = new();
-    public List<IDCardPair> GetAllValidCardIds() => new(pairList.FindAll(x => x.HasCard()));
+    public List<IDCardPair> PairList;
+    public List<int> StackCountList = new();
+    public List<IDCardPair> GetAllValidCardIds() => new(PairList.FindAll(x => x.HasCard()));
 }

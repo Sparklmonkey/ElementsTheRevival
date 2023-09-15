@@ -4,6 +4,7 @@ using System.Linq;
 public class Sniper : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.OpHighAtk;
 
     public override void Activate(IDCardPair target)
     {
@@ -12,6 +13,7 @@ public class Sniper : AbilityEffect
         {
             Owner.ModifyHealthLogic(3, true, false);
         }
+
         target.UpdateCard();
     }
 
@@ -19,13 +21,21 @@ public class Sniper : AbilityEffect
     {
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0) { return new(); }
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets.Aggregate((i1, i2) => i1.card.AtkNow >= i2.card.AtkNow ? i1 : i2);
+        if (possibleTargets.Count == 0)
+        {
+            return null;
+        }
+
+        return possibleTargets.Aggregate((i1, i2) => i1.card.AtkNow >= i2.card.AtkNow ? i1 : i2);
     }
 }

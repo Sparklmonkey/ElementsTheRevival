@@ -6,7 +6,9 @@ public class Queen : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Owner.PlayCardOnFieldLogic(target.card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n4") : CardDatabase.Instance.GetCardFromId("5ok"));
+        Owner.PlayCardOnFieldLogic(target.card.iD.IsUpgraded()
+            ? CardDatabase.Instance.GetCardFromId("7n4")
+            : CardDatabase.Instance.GetCardFromId("5ok"));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
@@ -14,8 +16,10 @@ public class Queen : AbilityEffect
         return new();
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
         return null;
     }
+
+    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

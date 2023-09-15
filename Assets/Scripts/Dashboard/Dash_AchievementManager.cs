@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dash_AchievementManager : MonoBehaviour
+public class DashAchievementManager : MonoBehaviour
 {
     [SerializeField]
     private List<AchievementCell> achievementCells;
-    private List<AchievementData> listOfPossibleAchievements;
+    private List<AchievementData> _listOfPossibleAchievements;
 
-    private int pageIndex;
+    private int _pageIndex;
 
     private void ChangePage(bool isNext)
     {
-        pageIndex += isNext ? 1 : -1;
-        if (pageIndex * 4 > listOfPossibleAchievements.Count) { pageIndex = 0; }
-        if (pageIndex < 0) { pageIndex = listOfPossibleAchievements.Count / 4; }
+        _pageIndex += isNext ? 1 : -1;
+        if (_pageIndex * 4 > _listOfPossibleAchievements.Count) { _pageIndex = 0; }
+        if (_pageIndex < 0) { _pageIndex = _listOfPossibleAchievements.Count / 4; }
     }
 
     public void SetupFirstPage()

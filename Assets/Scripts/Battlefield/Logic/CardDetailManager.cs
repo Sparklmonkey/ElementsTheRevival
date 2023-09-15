@@ -4,7 +4,7 @@ namespace Elements.Duel.Manager
 
     public class CardDetailManager
     {
-        private IDCardPair cardOnDisplay;
+        private IDCardPair _cardOnDisplay;
 
 
         public event Action<IDCardPair> OnDisplayNewCard;
@@ -12,14 +12,14 @@ namespace Elements.Duel.Manager
 
         public void SetCardOnDisplay(IDCardPair idCard)
         {
-            cardOnDisplay = idCard;
+            _cardOnDisplay = idCard;
             OnDisplayNewCard?.Invoke(idCard);
         }
 
-        public IDCardPair GetCardID() => cardOnDisplay;
+        public IDCardPair GetCardID() => _cardOnDisplay;
         public void ClearID()
         {
-            cardOnDisplay = null;
+            _cardOnDisplay = null;
             OnRemoveCard?.Invoke();
         }
     }

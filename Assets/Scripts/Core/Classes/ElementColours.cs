@@ -2,35 +2,35 @@
 
 public static class ElementColours
 {
-    private static Color earthColour => GetColourFromHex("#94430E");
+    private static Color EarthColour => GetColourFromHex("#94430E");
 
-    private static Color entropyColour => GetColourFromHex("#CA58CA");
+    private static Color EntropyColour => GetColourFromHex("#CA58CA");
 
-    private static Color darknessColour => GetColourFromHex("#292836");
+    private static Color DarknessColour => GetColourFromHex("#292836");
 
-    private static Color deathColour => GetColourFromHex("#56329D");
+    private static Color DeathColour => GetColourFromHex("#56329D");
 
-    private static Color lifeColour => GetColourFromHex("#2BB134");
+    private static Color LifeColour => GetColourFromHex("#2BB134");
 
-    private static Color lightColour => GetColourFromHex("#D6D6D2");
+    private static Color LightColour => GetColourFromHex("#D6D6D2");
 
-    private static Color aetherColour => GetColourFromHex("#55C6B2");
+    private static Color AetherColour => GetColourFromHex("#55C6B2");
 
-    private static Color waterColour => GetColourFromHex("#064CCB");
+    private static Color WaterColour => GetColourFromHex("#064CCB");
 
-    private static Color timeColour => GetColourFromHex("#DAC13A");
+    private static Color TimeColour => GetColourFromHex("#DAC13A");
 
-    private static Color airColour => GetColourFromHex("#79CBFF");
+    private static Color AirColour => GetColourFromHex("#79CBFF");
 
-    private static Color gravityColour => GetColourFromHex("#F67A1B");
+    private static Color GravityColour => GetColourFromHex("#F67A1B");
 
-    private static Color fireColour => GetColourFromHex("#CB360B");
+    private static Color FireColour => GetColourFromHex("#CB360B");
 
     private static Color GetColourFromHex(string hexCode)
     {
-        if (ColorUtility.TryParseHtmlString(hexCode, out var Colour))
+        if (ColorUtility.TryParseHtmlString(hexCode, out var colour))
         {
-            return Colour;
+            return colour;
         }
         return Color.white;
     }
@@ -41,40 +41,40 @@ public static class ElementColours
 
         return element switch
         {
-            Element.Aether => aetherColour,
-            Element.Air => airColour,
-            Element.Darkness => darknessColour,
-            Element.Light => lightColour,
-            Element.Death => deathColour,
-            Element.Earth => earthColour,
-            Element.Entropy => entropyColour,
-            Element.Time => timeColour,
-            Element.Fire => fireColour,
-            Element.Gravity => gravityColour,
-            Element.Life => lifeColour,
-            Element.Water => waterColour,
-            Element.Other => aetherColour,
-            _ => aetherColour,
+            Element.Aether => AetherColour,
+            Element.Air => AirColour,
+            Element.Darkness => DarknessColour,
+            Element.Light => LightColour,
+            Element.Death => DeathColour,
+            Element.Earth => EarthColour,
+            Element.Entropy => EntropyColour,
+            Element.Time => TimeColour,
+            Element.Fire => FireColour,
+            Element.Gravity => GravityColour,
+            Element.Life => LifeColour,
+            Element.Water => WaterColour,
+            Element.Other => AetherColour,
+            _ => AetherColour,
         };
     }
     public static Color GetElementColour(Element element)
     {
         return element switch
         {
-            Element.Aether => aetherColour,
-            Element.Air => airColour,
-            Element.Darkness => darknessColour,
-            Element.Light => lightColour,
-            Element.Death => deathColour,
-            Element.Earth => earthColour,
-            Element.Entropy => entropyColour,
-            Element.Time => timeColour,
-            Element.Fire => fireColour,
-            Element.Gravity => gravityColour,
-            Element.Life => lifeColour,
-            Element.Water => waterColour,
+            Element.Aether => AetherColour,
+            Element.Air => AirColour,
+            Element.Darkness => DarknessColour,
+            Element.Light => LightColour,
+            Element.Death => DeathColour,
+            Element.Earth => EarthColour,
+            Element.Entropy => EntropyColour,
+            Element.Time => TimeColour,
+            Element.Fire => FireColour,
+            Element.Gravity => GravityColour,
+            Element.Life => LifeColour,
+            Element.Water => WaterColour,
             Element.Other => GetRandomColour(),
-            _ => aetherColour,
+            _ => AetherColour,
         };
     }
 

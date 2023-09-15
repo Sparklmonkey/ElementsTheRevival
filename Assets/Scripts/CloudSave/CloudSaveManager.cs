@@ -27,7 +27,7 @@ public class CloudSaveManager : MonoBehaviour
     private async void SavePlayerTestAsync()
     {
         await UnityServices.InitializeAsync();
-        var data = new Dictionary<string, object> { { "PlayerData", PlayerData.shared } };
+        var data = new Dictionary<string, object> { { "PlayerData", PlayerData.Shared } };
         await CloudSaveService.Instance.Data.ForceSaveAsync(data);
         Debug.Log("https://icons8.com/icon/46579/google-play");
     }

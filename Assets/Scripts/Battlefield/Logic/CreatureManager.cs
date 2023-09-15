@@ -4,8 +4,8 @@ using System.Collections.Generic;
 [Serializable]
 public class CreatureManager : FieldManager
 {
-    private readonly List<int> creatureCardOrder = new() { 11, 13, 9, 10, 12, 14, 8, 16, 18, 20, 22, 0, 2, 4, 6, 15, 17, 19, 21, 1, 3, 5, 7 };
-    private readonly List<int> safeZones = new() { 11, 13, 10, 12, 14 };
+    private readonly List<int> _creatureCardOrder = new() { 11, 13, 9, 10, 12, 14, 8, 16, 18, 20, 22, 0, 2, 4, 6, 15, 17, 19, 21, 1, 3, 5, 7 };
+    private readonly List<int> _safeZones = new() { 11, 13, 10, 12, 14 };
 
     public List<IDCardPair> GetCreaturesWithGravity()
     {
@@ -16,7 +16,7 @@ public class CreatureManager : FieldManager
 
     public void CreatureTurnDown()
     {
-        foreach (var idCard in pairList)
+        foreach (var idCard in PairList)
         {
             if (idCard.HasCard())
             {
@@ -29,25 +29,25 @@ public class CreatureManager : FieldManager
 
     public IDCardPair PlayCreature(Card card)
     {
-        if (DuelManager.floodCount > 0 && !card.costElement.Equals(Element.Other) && !card.costElement.Equals(Element.Water))
+        if (DuelManager.FloodCount > 0 && !card.costElement.Equals(Element.Other) && !card.costElement.Equals(Element.Water))
         {
 
-            foreach (int orderIndex in safeZones)
+            foreach (int orderIndex in _safeZones)
             {
-                if (!pairList[orderIndex].HasCard())
+                if (!PairList[orderIndex].HasCard())
                 {
-                    pairList[orderIndex].PlayCard(card);
-                    return pairList[orderIndex];
+                    PairList[orderIndex].PlayCard(card);
+                    return PairList[orderIndex];
                 }
             }
         }
 
-        foreach (int orderIndex in creatureCardOrder)
+        foreach (int orderIndex in _creatureCardOrder)
         {
-            if (!pairList[orderIndex].HasCard())
+            if (!PairList[orderIndex].HasCard())
             {
-                pairList[orderIndex].PlayCard(card);
-                return pairList[orderIndex];
+                PairList[orderIndex].PlayCard(card);
+                return PairList[orderIndex];
             }
 
         }
@@ -56,7 +56,7 @@ public class CreatureManager : FieldManager
 
     internal void ClearField()
     {
-        foreach (var pair in pairList)
+        foreach (var pair in PairList)
         {
             pair.card = null;
         }

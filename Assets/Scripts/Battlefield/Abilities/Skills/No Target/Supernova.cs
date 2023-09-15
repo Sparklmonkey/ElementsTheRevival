@@ -10,11 +10,13 @@ public class Supernova : AbilityEffect
         {
             Owner.GenerateQuantaLogic((Element)i, 2);
         }
-        if (BattleVars.shared.isSingularity > 0)
+
+        if (BattleVars.Shared.IsSingularity > 0)
         {
             Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("6ub"));
         }
-        BattleVars.shared.isSingularity++;
+
+        BattleVars.Shared.IsSingularity++;
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
@@ -22,8 +24,10 @@ public class Supernova : AbilityEffect
         return new();
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
         return null;
     }
+
+    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

@@ -12,70 +12,72 @@ public class GameOverVisual : MonoBehaviour
     [SerializeField]
     public Image rayBlocker;
 
-    private static GameOverVisual instance;
-    private static TextMeshProUGUI gameOverTextStatic;
-    private static Button continueButtonStatic;
-    private static Image rayBlockerStatic;
-    private static bool didWinStatic;
-    public static bool isGameOver = false;
+    private static GameObject _touchBlocker;
+    private static GameOverVisual _instance;
+    private static TextMeshProUGUI _gameOverTextStatic;
+    private static Button _continueButtonStatic;
+    private static Image _rayBlockerStatic;
+    private static bool _didWinStatic;
+    public static bool IsGameOver = false;
 
     public async static void ShowGameOverScreen(bool didWin)
     {
         DuelManager.Instance.enemy.StopAllCoroutines();
         DuelManager.Instance.player.StopAllCoroutines();
 
-        BattleVars.shared.playerHP = DuelManager.Instance.player.healthManager.GetCurrentHealth();
-        isGameOver = true;
-        instance.StopAllCoroutines();
-        didWinStatic = didWin;
-        gameOverTextStatic.gameObject.SetActive(true);
-        continueButtonStatic.gameObject.SetActive(true);
-        rayBlockerStatic.gameObject.SetActive(true);
-        gameOverTextStatic.text = didWin ? "You Won!" : "You Lost";
-        if (BattleVars.shared.isTest) { return; }
+        BattleVars.Shared.PlayerHp = DuelManager.Instance.player.HealthManager.GetCurrentHealth();
+        IsGameOver = true;
+        _didWinStatic = didWin;
+        _gameOverTextStatic.gameObject.SetActive(true);
+        _rayBlockerStatic.gameObject.SetActive(true);
+        _gameOverTextStatic.text = didWin ? "You Won!" : "You Lost";
+        if (BattleVars.Shared.IsTest) { return; }
+        _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), GameObject.Find("GameOverManager").transform);
         if (didWin)
         {
-            if (DuelManager.Instance.player.healthManager.IsMaxHealth())
+            if (DuelManager.Instance.player.HealthManager.IsMaxHealth())
             {
-                BattleVars.shared.elementalMastery = true;
+                BattleVars.Shared.ElementalMastery = true;
             }
-            PlayerData.shared.gamesWon++;
+            PlayerData.Shared.gamesWon++;
 
-            if (BattleVars.shared.enemyAiData.spins == 0)
+            if (BattleVars.Shared.EnemyAiData.spins == 0)
             {
-                PlayerData.shared.hasDefeatedLevel0 = true;
-            }
-
-            if (BattleVars.shared.enemyAiData.spins == 1)
-            {
-                PlayerData.shared.hasDefeatedLevel1 = true;
+                PlayerData.Shared.hasDefeatedLevel0 = true;
             }
 
-            if (BattleVars.shared.enemyAiData.spins == 2)
+            if (BattleVars.Shared.EnemyAiData.spins == 1)
             {
-                PlayerData.shared.hasDefeatedLevel2 = true;
+                PlayerData.Shared.hasDefeatedLevel1 = true;
             }
-            if (BattleVars.shared.isArena)
+
+            if (BattleVars.Shared.EnemyAiData.spins == 2)
             {
-                PlayerData.shared.arenaWins++;
+                PlayerData.Shared.hasDefeatedLevel2 = true;
             }
-            GameStats.shared.UpdateValues(new GameStatRequest(BattleVars.shared.enemyAiData, true, BattleVars.shared.isArena));
+            if (BattleVars.Shared.IsArena)
+            {
+                PlayerData.Shared.arenaWins++;
+            }
+            GameStats.Shared.UpdateValues(new GameStatRequest(BattleVars.Shared.EnemyAiData, true, BattleVars.Shared.IsArena));
             await ApiManager.Instance.SaveGameStats();
-            PlayerData.shared.electrum += BattleVars.shared.enemyAiData.costToPlay;
+            PlayerData.Shared.electrum += BattleVars.Shared.EnemyAiData.costToPlay;
         }
         else
         {
-            if (BattleVars.shared.isArena)
+            if (BattleVars.Shared.IsArena)
             {
-                PlayerData.shared.arenaLosses++;
+                PlayerData.Shared.arenaLosses++;
             }
-            PlayerData.shared.gamesLost++;
-            PlayerData.shared.playerScore -= BattleVars.shared.enemyAiData.scoreWin / 2;
-            PlayerData.shared.playerScore = PlayerData.shared.playerScore < 0 ? 0 : PlayerData.shared.playerScore;
-            GameStats.shared.UpdateValues(new GameStatRequest(BattleVars.shared.enemyAiData, true, BattleVars.shared.isArena));
+            PlayerData.Shared.gamesLost++;
+            PlayerData.Shared.playerScore -= BattleVars.Shared.EnemyAiData.scoreWin / 2;
+            PlayerData.Shared.playerScore = PlayerData.Shared.playerScore < 0 ? 0 : PlayerData.Shared.playerScore;
+            GameStats.Shared.UpdateValues(new GameStatRequest(BattleVars.Shared.EnemyAiData, true, BattleVars.Shared.IsArena));
             await ApiManager.Instance.SaveGameStats();
         }
 
+        Destroy(_touchBlocker);
+        _continueButtonStatic.gameObject.SetActive(true);
         PlayerData.SaveData();
     }
 
@@ -83,22 +85,22 @@ public class GameOverVisual : MonoBehaviour
     public void MoveToSpinnerScreen()
     {
         PlayerData.SaveData();
-        if (didWinStatic && !BattleVars.shared.isTest)
+        if (_didWinStatic && !BattleVars.Shared.IsTest)
         {
             SceneTransitionManager.Instance.LoadScene("SpinnerScene");
         }
         else
         {
-            BattleVars.shared.isTest = false;
+            BattleVars.Shared.IsTest = false;
             SceneTransitionManager.Instance.LoadScene("Dashboard");
         }
     }
 
     private void Start()
     {
-        gameOverTextStatic = gameOverText;
-        continueButtonStatic = continueButton;
-        rayBlockerStatic = rayBlocker;
-        instance = this;
+        _gameOverTextStatic = gameOverText;
+        _continueButtonStatic = continueButton;
+        _rayBlockerStatic = rayBlocker;
+        _instance = this;
     }
 }

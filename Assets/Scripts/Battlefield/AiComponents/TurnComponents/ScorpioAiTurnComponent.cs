@@ -19,7 +19,7 @@ public class ScorpioAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
         yield return aiManager.StartCoroutine(ActivateRepeatSpellNoTarget(aiManager, "Poison", "Deadly Poison"));
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityNoTarget(aiManager, CardType.Creature, "Chrysaora", "Physalia"));
-        yield return aiManager.StartCoroutine(creatureManager.ActivateAllCreatureAbility(aiManager));
+        yield return aiManager.StartCoroutine(CreatureManager.ActivateAllCreatureAbility(aiManager));
         yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Congeal", "Congeal"));
         yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Twin Universe", "Twin Universe"));
         yield return aiManager.StartCoroutine(ActivateRepeatSpellWithTarget(aiManager, "Ice Lance", "Ice Lance"));

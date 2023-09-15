@@ -4,15 +4,15 @@ using UnityEngine;
 public class GameStartManager : MonoBehaviour
 {
     [SerializeField]
-    private Error_Animated errorMessageManager;
+    private ErrorAnimated errorMessageManager;
 
-    private readonly List<string> elderPrefix = new() { "Aeth", "Air", "Shad", "Lum", "Mor", "Ter", "Dis", "Chr", "Pyr", "Mas", "Vit", "Aqua" };
-    private readonly List<string> elderSuffix = new() { "eric", "es", "ow", "iel", "tis", "ra", "cord", "onos", "ofuze", "sa", "al", "rius" };
+    private readonly List<string> _elderPrefix = new() { "Aeth", "Air", "Shad", "Lum", "Mor", "Ter", "Dis", "Chr", "Pyr", "Mas", "Vit", "Aqua" };
+    private readonly List<string> _elderSuffix = new() { "eric", "es", "ow", "iel", "tis", "ra", "cord", "onos", "ofuze", "sa", "al", "rius" };
 
     public void StartGameOnDificulty(int level)
     {
 
-        BattleVars.shared.ResetBattleVars();
+        BattleVars.Shared.ResetBattleVars();
         EnemyAi ai;
         switch (level)
         {
@@ -46,21 +46,21 @@ public class GameStartManager : MonoBehaviour
                 break;
             case 4:
                 ai = Instantiate(Resources.Load<EnemyAi>("EnemyAi/Level4/Random"));
-                BattleVars.shared.primaryElement = (Element)Random.Range(0, 12);
-                BattleVars.shared.secondaryElement = (Element)Random.Range(0, 12);
-                string aiName = $"{elderPrefix[(int)BattleVars.shared.primaryElement]}{elderSuffix[(int)BattleVars.shared.secondaryElement]}";
-                ai.mark = BattleVars.shared.secondaryElement;
+                BattleVars.Shared.PrimaryElement = (Element)Random.Range(0, 12);
+                BattleVars.Shared.SecondaryElement = (Element)Random.Range(0, 12);
+                string aiName = $"{_elderPrefix[(int)BattleVars.Shared.PrimaryElement]}{_elderSuffix[(int)BattleVars.Shared.SecondaryElement]}";
+                ai.mark = BattleVars.Shared.SecondaryElement;
                 ai.opponentName = aiName;
-                ai.deck = string.Join(" ", CardDatabase.Instance.GetHalfBloodDeck(BattleVars.shared.primaryElement, BattleVars.shared.secondaryElement).SerializeCard());
+                ai.deck = string.Join(" ", CardDatabase.Instance.GetHalfBloodDeck(BattleVars.Shared.PrimaryElement, BattleVars.Shared.SecondaryElement).SerializeCard());
                 break;
             case 5:
-                string falseGod = PlayerData.shared.nextFalseGod;
+                string falseGod = PlayerData.Shared.nextFalseGod;
                 if (falseGod == "")
                 {
-                    falseGod = falseGodNameList[Random.Range(0, falseGodNameList.Count)];
+                    falseGod = _falseGodNameList[Random.Range(0, _falseGodNameList.Count)];
                 }
                 ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/{falseGod}");
-                PlayerData.shared.nextFalseGod = "";
+                PlayerData.Shared.nextFalseGod = "";
                 break;
             default:
                 elementDeck = (Element)Random.Range(0, 12);
@@ -72,46 +72,49 @@ public class GameStartManager : MonoBehaviour
                 break;
         }
 
-        if (PlayerData.shared.electrum < ai.costToPlay)
+        if (PlayerData.Shared.electrum < ai.costToPlay)
         {
             errorMessageManager.DisplayAnimatedError("Insufficient Electrum");
         }
         else
         {
-            PlayerData.shared.electrum -= ai.costToPlay;
-            BattleVars.shared.enemyAiData = ai;
+            PlayerData.Shared.electrum -= ai.costToPlay;
+            BattleVars.Shared.EnemyAiData = ai;
             SceneTransitionManager.Instance.LoadScene("Battlefield");
         }
     }
-    private List<string> falseGodNameList = new List<string> { "Divine Glory",
-                                                                "Serket",
-                                                                "Morte",
-                                                                "Lionheart",
-                                                                "Incarnate",
-                                                                "Fire Queen",
-                                                                "Seism",
-                                                                "Miracle",
-                                                                "Graviton",
-                                                                "Paradox",
-                                                                "Akebono",
-                                                                "Neptune",
-                                                                "Scorpio",
-                                                                "Osiris",
-                                                                "Octane",
-                                                                "Rainbow",
-                                                                "Obliterator",
-                                                                "Gemini",
-                                                                "Chaos Lord",
-                                                                "Dark Matter",
-                                                                "Decay",
-                                                                "Destiny",
-                                                                "Dream Catcher",
-                                                                "Elidnis",
-                                                                "Eternal Phoenix",
-                                                                "Ferox",
-                                                                "Gemini",
-                                                                "Hecate",
-                                                                "Hermes",
-                                                                "Jezebel"};
+    private readonly List<string> _falseGodNameList = new()
+    {
+        "Divine Glory",
+        "Serket",
+        "Morte",
+        "Lionheart",
+        "Incarnate",
+        "Fire Queen",
+        "Seism",
+        "Miracle",
+        "Graviton",
+        "Paradox",
+        "Akebono",
+        "Neptune",
+        "Scorpio",
+        "Osiris",
+        "Octane",
+        "Rainbow",
+        "Obliterator",
+        "Gemini",
+        "Chaos Lord",
+        "Dark Matter",
+        "Decay",
+        "Destiny",
+        "Dream Catcher",
+        "Elidnis",
+        "Eternal Phoenix",
+        "Ferox",
+        "Gemini",
+        "Hecate",
+        "Hermes",
+        "Jezebel"
+    };
 
 }

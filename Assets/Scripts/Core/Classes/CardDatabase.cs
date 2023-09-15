@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 
-public class CardDatabase : MonoBehaviour
+public class CardDatabase
 {
 
     private static readonly CardDatabase instance = new();
@@ -13,9 +13,9 @@ public class CardDatabase : MonoBehaviour
     {
     }
 
-    private CardDatabase()
+    public CardDatabase()
     {
-        SetupNewCardBase();
+        FullCardList = SetupNewCardBase();
     }
 
     public static CardDatabase Instance
@@ -26,34 +26,36 @@ public class CardDatabase : MonoBehaviour
         }
     }
 
-    public Dictionary<string, string> cardNameToBackGroundString = new()
+    public Dictionary<string, string> CardNameToBackGroundString = new()
     {
         {"Animate Weapon", "Air"},
         {"Luciferin", "Light"},
         {"Luciferase", "Light"}
     };
 
-    public List<string> rareWeaponRewards = new() { "5ic", "5ol", "5ur", "5f7", "5lh", "4vl", "52q", "55s", "58v", "5c5", "5ro", "61u" };
+    private readonly AiDeckBuilder _deckBuilder = new();
 
-    public List<Card> fullCardList;
+    public List<string> RareWeaponRewards = new (){ "5ic", "5ol", "5ur", "5f7", "5lh", "4vl", "52q", "55s", "58v", "5c5", "5ro","61u"};
 
-    private readonly List<string> illegalPets = new() { "4vr", "4t8", "4vf", "52h", "55o", "58r", "5bt", "5f2", "5id", "5la", "5of", "5rm", "5ul", "61v", "5lt", "7kd" };
+    public List<Card> FullCardList = new();
+
+    private readonly List<string> _illegalPets = new() { "4vr", "4t8", "4vf", "52h", "55o", "58r", "5bt", "5f2", "5id", "5la", "5of", "5rm", "5ul", "61v", "5lt", "7kd" };
 
     public Card GetRandomPet()
     {
-        return fullCardList.Find(x => !x.iD.IsUpgraded() && !illegalPets.Contains(x.iD) && x.cardType.Equals(CardType.Creature));
+        return FullCardList.Find(x => !x.iD.IsUpgraded() && !_illegalPets.Contains(x.iD) && x.cardType.Equals(CardType.Creature));
     }
 
     public Card GetOracleCreature(Element element)
     {
-        return fullCardList.Find(x => !x.iD.IsUpgraded()
+        return FullCardList.Find(x => !x.iD.IsUpgraded()
                         && x.costElement.Equals(element)
-                        && !illegalPets.Contains(x.iD)
+                        && !_illegalPets.Contains(x.iD)
                         && x.cardType.Equals(CardType.Creature)
                         && !x.cardName.Contains("Shard of"));
     }
 
-    public List<string> trainerCardList = new(){ "562", "5c7", "52s", "4vn", "595", "55v", "5lf", "4vo", "4vi", "5f6", "5us", "593", "592", "5f4", "5oi", "622", "5i7", "55t",
+    public List<string> TrainerCardList = new(){ "562", "5c7", "52s", "4vn", "595", "55v", "5lf", "4vo", "4vi", "5f6", "5us", "593", "592", "5f4", "5oi", "622", "5i7", "55t",
         "5c2", "5lc", "5i8", "5f9", "61q", "5uu", "5lj", "5li", "5c9", "55q", "4vk", "5v1", "4vj", "5ig", "4vp", "61r", "52p", "58t", "52o", "5rr", "5ia", "621", "5fb", "5f8", "5rk", "5on", "624",
         "5op", "5up", "594", "5oh", "7n2", "6u2", "7gn", "7dp", "718", "71c", "77l", "74f", "6u8", "80i", "7te", "7ap", "7th", "7h0", "6u9", "7qb", "7gq", "80h", "7n7", "80k", "7n9", "7an", "7dm",
         "7dk", "7do", "77k", "74d", "77d", "7js", "7go", "6u7", "7jv", "7ai", "7k2", "6u4", "719", "7t9", "7n1", "7k3", "74i", "77i", "77j", "7dr", "7q4", "7tc", "6u3", "80a", "80b", "74a", "52n",
@@ -69,14 +71,14 @@ public class CardDatabase : MonoBehaviour
         "75m","7bu","7la","7ri","7i6","7ac","744","7jo","7t4","6qq","778","7q0","7gk","7ms","63a","61o","5pu","4vc","52g","5f0","606","542","5aa","5bs","50u","5gi","576","55k","5de","5mq","5l8","5uk",
         "4sa","58o","5rg","5t2","5jm","5i4","5oc","808","6ts","710","7dg","81q","7oe","7um","72i","78q","6ve","7f2","75m","7bu","7la","7ri","7i6","7ac","744","7jo","7t4","6qq","778","7q0","7gk","7ms"};
 
-    public List<string> weaponIdList = new(){ "52q", "4t3", "4vl", "5c5", "5ro", "5f7", "4t5", "61u", "5lh", "5ol", "58v", "4tb", "4t4", "55s", "5ic", "5ur", "6rj", "7n5", "80e",
+    public List<string> WeaponIdList = new(){ "52q", "4t3", "4vl", "5c5", "5ro", "5f7", "4t5", "61u", "5lh", "5ol", "58v", "4tb", "4t4", "55s", "5ic", "5ur", "6rj", "7n5", "80e",
         "71a", "6u5", "7q8", "7dn", "77f", "74c", "6rl", "7al", "6rr", "6rk", "7k1", "7gs", "7tb" };
     public Card GetShardOfElement(Element element)
     {
         return GetAllShards().Find(x => x.costElement.Equals(element) && !x.iD.IsUpgraded());
     }
 
-    private readonly List<string> mutantActiveAList = new()
+    private readonly List<string> _mutantActiveAList = new()
         {
             "hatch",
             "destroy",
@@ -102,23 +104,22 @@ public class CardDatabase : MonoBehaviour
             "scavenger"
         };
 
-    public void SetupNewCardBase()
+    public List<Card> SetupNewCardBase()
     {
         TextAsset jsonString = Resources.Load<TextAsset>("Cards/CardDatabase");
-        CardDB newDC = JsonConvert.DeserializeObject<CardDB>(jsonString.text);
-        //CardDB cardDBNew = JsonUtility.FromJson<CardDB>(jsonString.text);
-        fullCardList = newDC.cardDb;
+        CardDB newDc = JsonConvert.DeserializeObject<CardDB>(jsonString.text);
+        return newDc.cardDb;
     }
     public Card GetCardFromId(string id)
     {
-        Card baseCard = fullCardList.Find(x => x.iD == id);
+        Card baseCard = FullCardList.Find(x => x.iD == id);
 
         return baseCard.Clone();
     }
 
     internal List<Card> GetAllBazaarCards()
     {
-        return new List<Card>(fullCardList.FindAll(x => !x.IsRare() && x.iD.IsBazaarLegal()));
+        return new List<Card>(FullCardList.FindAll(x => !x.IsRare() && x.iD.IsBazaarLegal()));
     }
 
     internal List<Card> GetCardListWithID(List<string> cardRewards)
@@ -133,93 +134,49 @@ public class CardDatabase : MonoBehaviour
 
     public List<Card> GetAllShards()
     {
-        List<Card> list = new(fullCardList.FindAll(x => x.cardName.Contains("Shard of")));
+        List<Card> list = new(FullCardList.FindAll(x => x.cardName.Contains("Shard of")));
         return list;
     }
 
-    public List<string> markIds = new() { "8pu", "8pr", "8pt", "8pq", "8pk", "8pm", "8pj", "8ps", "8po", "8pl", "8pn", "8pp" };
+    public List<string> MarkIds = new() { "8pu", "8pr", "8pt", "8pq", "8pk", "8pm", "8pj", "8ps", "8po", "8pl", "8pn", "8pp" };
+    private readonly List<string> _illegalHatchCards = new (){ "7qa", "7q2", "5ri", "61s", "80c", "6ro", "4t8", "6ub", "4vr", "74g", "560", "7dt", "5fd", "5rm", "7q6", "5lt", "7kd", "4t9", "6rp" };
 
-    public Card GetRandomSpell()
+    public Card GetRandomCard(CardType cardType, bool isUpgraded, bool shouldBeHatchLegal, Element element = Element.Aether, bool shouldBeElement = false)
     {
-        List<Card> list = new(fullCardList.FindAll(x => x.cardType == CardType.Spell && !x.iD.IsUpgraded()));
-        Card card = list[Random.Range(0, list.Count)];
-        return card.Clone();
-    }
-    public Card GetRandomEliteSpell()
-    {
-        List<Card> list = new(fullCardList.FindAll(x => x.cardType == CardType.Spell && x.iD.IsUpgraded()));
-        Card card = list[Random.Range(0, list.Count)];
-        return card.Clone();
-    }
-
-    public Card GetRandomEliteCreature()
-    {
-        List<Card> list = new(fullCardList.FindAll(x => !illegalHatchCards.Contains(x.iD) && x.cardType == CardType.Creature && x.iD.IsUpgraded()));
-        Card card = list[Random.Range(0, list.Count)];
-        return card.Clone();
-    }
-
-    public Card GetRandomCreature()
-    {
-        List<Card> list = new(fullCardList.FindAll(x => !illegalHatchCards.Contains(x.iD) && x.cardType == CardType.Creature && !x.iD.IsUpgraded()));
-        Card card = list[Random.Range(0, list.Count)];
-        return card.Clone();
-    }
-
-    public Card GetRandomHatchCreature()
-    {
-        List<Card> list = new(fullCardList.FindAll(x => !illegalHatchCards.Contains(x.iD) && x.cardType.Equals(CardType.Creature) && !x.iD.IsUpgraded()));
-        System.Random rnd = new();
-        Card card = list.OrderBy(x => rnd.Next())
-                          .First();
-        Card cardToReturn = card.Clone();
-        cardToReturn.cardName = cardToReturn.cardName.Replace("(Clone)", "");
-        return cardToReturn;
-    }
-
-    List<string> illegalHatchCards = new() { "7qa", "7q2", "5ri", "61s", "80c", "6ro", "4t8", "6ub", "4vr", "74g", "560", "7dt", "5fd", "5rm", "7q6", "5lt", "7kd", "4t9", "6rp" };
-    public Card GetRandomEliteHatchCreature()
-    {
-        List<Card> list = new(fullCardList.FindAll(x => !illegalHatchCards.Contains(x.iD) && x.cardType.Equals(CardType.Creature) && x.iD.IsUpgraded()));
-        System.Random rnd = new();
-        Card card = list.OrderBy(x => rnd.Next())
-                          .First();
-        Card cardToReturn = card.Clone();
-        cardToReturn.cardName = cardToReturn.cardName.Replace("(Clone)", "");
-        return cardToReturn;
-    }
-
-    public Card GetRandomPillar()
-    {
-        List<Card> list = new(fullCardList.FindAll(x => x.cardType == CardType.Pillar && !x.iD.IsUpgraded()));
-        Card card = list[Random.Range(0, list.Count)];
-        return card.Clone();
-    }
-
-    public Card GetRandomTower()
-    {
-        List<Card> list = new(fullCardList.FindAll(x => x.cardType == CardType.Pillar && x.iD.IsUpgraded()));
+        if(FullCardList.Count == 0)
+        {
+            FullCardList = SetupNewCardBase();
+        }
+        List<Card> list = new(FullCardList.FindAll(x => x.cardType.Equals(cardType) && x.iD.IsUpgraded() == isUpgraded && x.iD.IsDeckLegal()));
+        if (shouldBeHatchLegal)
+        {
+            list = list.FindAll(x => !_illegalHatchCards.Contains(x.iD));
+        }
+        if (shouldBeElement)
+        {
+            list = list.FindAll(x => x.costElement.Equals(element));
+        }
         Card card = list[Random.Range(0, list.Count)];
         return card.Clone();
     }
 
     public List<string> GetRandomDeck()
     {
-        if (fullCardList == null) { SetupNewCardBase(); }
+        if (FullCardList == null) { SetupNewCardBase(); }
         List<string> deckToReturn = new();
         for (int i = 0; i < 10; i++)
         {
-            deckToReturn.Add(GetRandomPillar().iD);
+            deckToReturn.Add(GetRandomCard(CardType.Pillar, false, true).iD);
         }
 
         for (int i = 0; i < 20; i++)
         {
-            deckToReturn.Add(GetRandomCreature().iD);
+            deckToReturn.Add(GetRandomCard(CardType.Creature, false, true).iD);
         }
 
         for (int i = 0; i < 10; i++)
         {
-            deckToReturn.Add(GetRandomSpell().iD);
+            deckToReturn.Add(GetRandomCard(CardType.Spell, false, true).iD);
         }
 
         return deckToReturn;
@@ -230,7 +187,7 @@ public class CardDatabase : MonoBehaviour
         string upgradedFolder = shouldBeUpgraded ? "Upgraded" : "Regular";
 
 
-        List<Card> reducedList = fullCardList.FindAll(x => x.costElement.Equals(element)
+        List<Card> reducedList = FullCardList.FindAll(x => x.costElement.Equals(element)
         && x.cardType.Equals(type)
         && !x.cardName.Contains("Shard of")
         && !x.cardName.Contains(" Nymph")
@@ -244,137 +201,18 @@ public class CardDatabase : MonoBehaviour
         return GetRandomCardOfTypeWithElement((CardType)Random.Range(0, 6), element, shouldBeUpgraded);
     }
 
-    public List<Card> GetHalfBloodDeck(Element primary, Element secondary)
-    {
-        List<Card> deckToReturn = new();
-
-        //Get Quantum Pillars
-        for (int i = 0; i < 4; i++)
-        {
-            deckToReturn.Add(GetCardFromId("4sa"));
-        }
-
-        bool shouldBeUpgraded = Random.Range(0, 100) < 30;
-        //Get Major Element Pillars
-        for (int i = 0; i < 20; i++)
-        {
-            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Pillar, primary, shouldBeUpgraded));
-            shouldBeUpgraded = Random.Range(0, 100) < 30;
-        }
-
-        //Get Major Element Cards
-        int cardTotal = 30;
-        int cardCount = Random.Range(0, cardTotal);
-        // Creatures
-        for (int i = 0; i < cardCount; i++)
-        {
-            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Creature, primary, shouldBeUpgraded));
-            shouldBeUpgraded = Random.Range(0, 100) < 30;
-        }
-        cardTotal -= cardCount;
-
-        //Spells
-        cardCount = Random.Range(0, cardTotal);
-        for (int i = 0; i < cardCount; i++)
-        {
-            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Spell, primary, shouldBeUpgraded));
-            shouldBeUpgraded = Random.Range(0, 100) < 30;
-        }
-        cardTotal -= cardCount;
-
-        cardCount = 0;
-        //Artifacts
-        if (!primary.Equals(Element.Earth))
-        {
-            cardCount = Random.Range(0, cardTotal);
-            for (int i = 0; i < cardCount; i++)
-            {
-                deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Artifact, primary, shouldBeUpgraded));
-                shouldBeUpgraded = Random.Range(0, 100) < 30;
-            }
-        }
-        cardTotal -= cardCount;
-
-        //Weapon
-        cardCount = Random.Range(0, cardTotal);
-        for (int i = 0; i < cardCount; i++)
-        {
-            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Weapon, primary, shouldBeUpgraded));
-            shouldBeUpgraded = Random.Range(0, 100) < 30;
-        }
-        cardTotal -= cardCount;
-
-        //Shield
-        cardCount = cardTotal;
-        for (int i = 0; i < cardCount; i++)
-        {
-            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Shield, primary, shouldBeUpgraded));
-            shouldBeUpgraded = Random.Range(0, 100) < 30;
-        }
-        //Get Major Element Cards
-        cardTotal = 10;
-        cardCount = Random.Range(0, cardTotal);
-        // Creatures
-        for (int i = 0; i < cardCount; i++)
-        {
-            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Creature, secondary, shouldBeUpgraded));
-            shouldBeUpgraded = Random.Range(0, 100) < 30;
-        }
-        cardTotal -= cardCount;
-
-        //Spells
-        cardCount = Random.Range(0, cardTotal);
-        for (int i = 0; i < cardCount; i++)
-        {
-            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Spell, secondary, shouldBeUpgraded));
-            shouldBeUpgraded = Random.Range(0, 100) < 30;
-        }
-        cardTotal -= cardCount;
-
-        cardCount = 0;
-        //Artifacts
-        if (!primary.Equals(Element.Earth))
-        {
-            cardCount = Random.Range(0, cardTotal);
-            for (int i = 0; i < cardCount; i++)
-            {
-                deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Artifact, secondary, shouldBeUpgraded));
-                shouldBeUpgraded = Random.Range(0, 100) < 30;
-            }
-        }
-        cardTotal -= cardCount;
-
-        //Weapon
-        cardCount = Random.Range(0, cardTotal);
-        for (int i = 0; i < cardCount; i++)
-        {
-            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Weapon, secondary, shouldBeUpgraded));
-            shouldBeUpgraded = Random.Range(0, 100) < 30;
-        }
-        cardTotal -= cardCount;
-
-        //Shield
-        cardCount = cardTotal;
-        for (int i = 0; i < cardCount; i++)
-        {
-            deckToReturn.Add(GetRandomCardOfTypeWithElement(CardType.Shield, secondary, shouldBeUpgraded));
-            shouldBeUpgraded = Random.Range(0, 100) < 30;
-        }
-
-        return deckToReturn;
-    }
+    public List<Card> GetHalfBloodDeck(Element primary, Element secondary) => _deckBuilder.GetHalfBloodDeck(primary, secondary);
 
     public Card GetMutant(bool isUpgraded, Card fromCard = null)
     {
-
-        Card card = fromCard == null ? isUpgraded ? GetRandomEliteHatchCreature() : GetRandomHatchCreature() : fromCard;
+        Card card = fromCard == null ? GetRandomCard(CardType.Creature, isUpgraded, true) : fromCard;
         card.atk += Random.Range(0, 4);
         card.def += Random.Range(0, 4);
         card.passiveSkills.Mutant = true;
         card.skillCost = Random.Range(1, 3);
         card.skillElement = card.costElement;
-        int index = Random.Range(0, mutantActiveAList.Count);
-        string abilityName = mutantActiveAList[index];
+        int index = Random.Range(0, _mutantActiveAList.Count);
+        string abilityName = _mutantActiveAList[index];
 
         switch (abilityName)
         {
@@ -392,12 +230,12 @@ public class CardDatabase : MonoBehaviour
                 break;
         }
         string skillCost = card.skillCost == 0 ? "" : card.skillCost == 1 ? $"<sprite={(int)card.costElement}>" : $"<sprite={(int)card.costElement}><sprite={(int)card.costElement}>";
-        card.desc = $"{AddSpacesToSentence(abilityName)} {skillCost} : \n {mutantActiveADescList[index]}";
+        card.desc = $"{AddSpacesToSentence(abilityName)} {skillCost} : \n {_mutantActiveADescList[index]}";
 
         return card;
     }
 
-    private readonly List<string> mutantActiveADescList = new()
+    private readonly List<string> _mutantActiveADescList = new()
         {
             "The Mutant turns into a random creature",
             "Destroy the targeted permanent",
@@ -429,7 +267,7 @@ public class CardDatabase : MonoBehaviour
         return textInfo.ToTitleCase(text);
     }
 
-    private Dictionary<Element, string> regularNymphNames = new(){
+    private Dictionary<Element, string> _regularNymphNames = new(){
         { Element.Gravity, "568" },
         {Element.Earth, "59c" },
         {Element.Darkness, "5v8" },
@@ -445,7 +283,7 @@ public class CardDatabase : MonoBehaviour
     };
 
 
-    private Dictionary<Element, string> eliteNymphNames = new(){
+    private Dictionary<Element, string> _eliteNymphNames = new(){
         { Element.Gravity, "74o" },
         {Element.Earth, "77s" },
         {Element.Darkness, "7to" },
@@ -464,17 +302,17 @@ public class CardDatabase : MonoBehaviour
     {
         if (element.Equals(Element.Other))
         {
-            return GetCardFromId(regularNymphNames[(Element)Random.Range(0, 12)]);
+            return GetCardFromId(_regularNymphNames[(Element)Random.Range(0, 12)]);
         }
-        return GetCardFromId(regularNymphNames[element]);
+        return GetCardFromId(_regularNymphNames[element]);
     }
     public Card GetRandomEliteNymph(Element element)
     {
         if (element.Equals(Element.Other))
         {
-            return GetCardFromId(eliteNymphNames[(Element)Random.Range(0, 12)]);
+            return GetCardFromId(_eliteNymphNames[(Element)Random.Range(0, 12)]);
         }
-        return GetCardFromId(eliteNymphNames[element]);
+        return GetCardFromId(_eliteNymphNames[element]);
     }
 
     public Card GetGolemAbility(List<IDCardPair> shardList)
@@ -888,5 +726,93 @@ public class CardDatabase : MonoBehaviour
         }
         return GetCardFromId("4t1");
 
+    }
+}
+
+public class AiDeckBuilder
+{
+
+    public List<Card> GetHalfBloodDeck(Element primary, Element secondary)
+    {
+        List<Card> deckToReturn = new();
+        var intance = CardDatabase.Instance;
+        //Get Quantum Pillars
+        for (int i = 0; i < 4; i++)
+        {
+            deckToReturn.Add(intance.GetCardFromId("4sa"));
+        }
+
+        bool shouldBeUpgraded = Random.Range(0, 100) < 30;
+        //Get Major Element Pillars
+        for (int i = 0; i < 20; i++)
+        {
+            deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Pillar, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+        //Get Major Element Cards
+
+        //Weapon
+        for (int i = 0; i < 3; i++)
+        {
+            deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Weapon, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+
+        //Shield
+        for (int i = 0; i < 3; i++)
+        {
+            deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Shield, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+
+        // Creatures
+        for (int i = 0; i < 10; i++)
+        {
+            deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Creature, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+
+        //Spells
+        for (int i = 0; i < 10; i++)
+        {
+            deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Spell, primary, shouldBeUpgraded));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+
+        //Artifacts
+        if (!primary.Equals(Element.Earth))
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Artifact, primary, shouldBeUpgraded));
+                shouldBeUpgraded = Random.Range(0, 100) < 30;
+            }
+        }
+
+        //Get Minor Element Cards
+        // Creatures
+        for (int i = 0; i < 5; i++)
+        {
+            deckToReturn.Add(intance.GetRandomCard(CardType.Creature, shouldBeUpgraded, true, secondary, true));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+
+        //Spells
+        for (int i = 0; i < 4; i++)
+        {
+            deckToReturn.Add(intance.GetRandomCard(CardType.Spell, shouldBeUpgraded, true, secondary, true));
+            shouldBeUpgraded = Random.Range(0, 100) < 30;
+        }
+        //Artifacts
+        if (!primary.Equals(Element.Earth))
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                deckToReturn.Add(intance.GetRandomCard(CardType.Artifact, shouldBeUpgraded, true, secondary, true));
+                shouldBeUpgraded = Random.Range(0, 100) < 30;
+            }
+        }
+
+        return deckToReturn;
     }
 }

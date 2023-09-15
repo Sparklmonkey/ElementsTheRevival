@@ -2,7 +2,7 @@ public class AchievementManager
 {
     private static readonly AchievementManager instance = new();
 
-    public PlayerAchievements achievements;
+    public PlayerAchievements Achievements;
 
     static AchievementManager()
     {

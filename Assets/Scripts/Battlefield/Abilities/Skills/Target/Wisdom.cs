@@ -4,6 +4,7 @@ using UnityEngine;
 public class Wisdom : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.SelfHighAtk;
 
     public override void Activate(IDCardPair target)
     {
@@ -16,13 +17,21 @@ public class Wisdom : AbilityEffect
     {
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0) { return new(); }
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.card.innateSkills.Immaterial);
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets[Random.Range(0, posibleTargets.Count)];
+        if (possibleTargets.Count == 0)
+        {
+            return null;
+        }
+
+        return possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

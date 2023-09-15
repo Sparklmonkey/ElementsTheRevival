@@ -6,8 +6,8 @@ public class Stoneskin : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        int maxHPBuff = Owner.GetAllQuantaOfElement(Element.Earth);
-        Owner.ModifyMaxHealthLogic(maxHPBuff, true);
+        int maxHpBuff = Owner.GetAllQuantaOfElement(Element.Earth);
+        Owner.ModifyMaxHealthLogic(maxHpBuff, true);
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
@@ -15,8 +15,10 @@ public class Stoneskin : AbilityEffect
         return new();
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
         return null;
     }
+
+    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

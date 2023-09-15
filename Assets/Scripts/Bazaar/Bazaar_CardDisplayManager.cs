@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Bazaar_CardDisplayManager : MonoBehaviour
+public class BazaarCardDisplayManager : MonoBehaviour
 {
     [SerializeField]
     private CardDisplay cardDisplay;

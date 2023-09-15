@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class PlayerData
 {
-    public static PlayerData shared;
+    public static PlayerData Shared;
     public int id;
     public Element markElement;
     public List<string> currentDeck;
@@ -39,7 +39,7 @@ public class PlayerData
         completedQuests = "";
         petCount = 0;
         playedOracleToday = false;
-        dayLastOraclePlay = DateTime.Now;
+        DayLastOraclePlay = DateTime.Now;
         hasDefeatedLevel0 = false;
         removedCardFromDeck = false;
         hasBoughtCardBazaar = false;
@@ -57,7 +57,7 @@ public class PlayerData
     public int petCount;
     //public string username;
     public bool playedOracleToday;
-    public DateTime dayLastOraclePlay;
+    public DateTime DayLastOraclePlay;
 
     //Quest 1 Flag
     public bool hasDefeatedLevel0;
@@ -83,7 +83,7 @@ public class PlayerData
 
     public static void LoadFromApi(PlayerData playerData)
     {
-        shared = playerData;
+        Shared = playerData;
     }
 
     public static bool HasSaveFile()
@@ -99,8 +99,8 @@ public class PlayerData
 
     public static void SaveData()
     {
-        if (ApiManager.isTrainer) { return; }
-        PlayerPrefs.SetString("SaveData", JsonUtility.ToJson(shared));
+        if (ApiManager.IsTrainer) { return; }
+        PlayerPrefs.SetString("SaveData", JsonUtility.ToJson(Shared));
     }
 
     public PlayerData()
@@ -120,7 +120,7 @@ public class PlayerData
         completedQuests = "";
         petCount = 0;
         playedOracleToday = false;
-        dayLastOraclePlay = DateTime.Now;
+        DayLastOraclePlay = DateTime.Now;
         hasDefeatedLevel0 = false;
         removedCardFromDeck = false;
         hasBoughtCardBazaar = false;

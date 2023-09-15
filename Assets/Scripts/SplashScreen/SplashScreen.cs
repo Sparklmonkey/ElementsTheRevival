@@ -21,9 +21,9 @@ public class SplashScreen : MonoBehaviour
     [SerializeField]
     private List<GameObject> imageObjects;
 
-    private bool isLoadingNextScene = false;
-    private bool mustWait = true;
-    private bool dataLoaded = false;
+    private bool _isLoadingNextScene = false;
+    private bool _mustWait = true;
+    private bool _dataLoaded = false;
 
     private IEnumerator MoveImageAround(GameObject imageToMove, int finalIndex)
     {
@@ -84,7 +84,7 @@ public class SplashScreen : MonoBehaviour
 
     public void SkipSplashAnimation()
     {
-        if (PlayerPrefs.GetFloat("HasSeenSplash") == 1f && !isLoadingNextScene)
+        if (PlayerPrefs.GetFloat("HasSeenSplash") == 1f && !_isLoadingNextScene)
         {
             StopAllCoroutines();
             for (int i = 0; i < imageObjects.Count; i++)
@@ -99,14 +99,14 @@ public class SplashScreen : MonoBehaviour
     private IEnumerator LoadNextScene()
     {
         ApiManager.Instance.LoginCachedUser(HandleChachedUser);
-        while (mustWait)
+        while (_mustWait)
         {
             yield return new WaitForSeconds(1f);
         }
-        isLoadingNextScene = true;
+        _isLoadingNextScene = true;
         yield return new WaitForSeconds(1f);
         PlayerPrefs.SetFloat("HasSeenSplash", 1f);
-        if (dataLoaded)
+        if (_dataLoaded)
         {
             SceneTransitionManager.Instance.LoadScene("Dashboard");
         }
@@ -136,8 +136,8 @@ public class SplashScreen : MonoBehaviour
 
     public void HandleChachedUser(bool wasSuccess)
     {
-        dataLoaded = wasSuccess;
-        mustWait = false;
+        _dataLoaded = wasSuccess;
+        _mustWait = false;
     }
 
 }

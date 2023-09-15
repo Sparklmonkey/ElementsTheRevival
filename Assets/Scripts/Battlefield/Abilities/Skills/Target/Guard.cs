@@ -4,16 +4,18 @@ using UnityEngine;
 public class Guard : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.OpHighAtk;
 
     public override void Activate(IDCardPair target)
     {
         target.card.innateSkills.Delay++;
-        BattleVars.shared.abilityOrigin.card.innateSkills.Delay++;
+        BattleVars.Shared.AbilityOrigin.card.innateSkills.Delay++;
         if (!target.card.innateSkills.Airborne)
         {
-            target.card.DefDamage += BattleVars.shared.abilityOrigin.card.AtkNow;
+            target.card.DefDamage += BattleVars.Shared.AbilityOrigin.card.AtkNow;
         }
-        BattleVars.shared.abilityOrigin.UpdateCard();
+
+        BattleVars.Shared.AbilityOrigin.UpdateCard();
         target.UpdateCard();
     }
 
@@ -21,15 +23,22 @@ public class Guard : AbilityEffect
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0) { return new(); }
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
+        if (possibleTargets.Count == 0)
+        {
+            return null;
+        }
 
-        var opCreatures = posibleTargets.FindAll(x => x.id.Owner == OwnerEnum.Player && x.HasCard());
+        var opCreatures = possibleTargets.FindAll(x => x.id.owner == OwnerEnum.Player && x.HasCard());
 
         if (opCreatures.Count == 0)
         {
@@ -37,7 +46,7 @@ public class Guard : AbilityEffect
         }
         else
         {
-            return opCreatures[Random.Range(0, posibleTargets.Count)];
+            return opCreatures[Random.Range(0, possibleTargets.Count)];
         }
     }
 }

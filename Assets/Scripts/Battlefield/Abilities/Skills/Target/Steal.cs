@@ -4,6 +4,7 @@ using UnityEngine;
 public class Steal : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.Permanent;
 
     public override void Activate(IDCardPair target)
     {
@@ -16,14 +17,31 @@ public class Steal : AbilityEffect
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = enemy.playerPermanentManager.GetAllValidCardIds();
-        possibleTargets.AddRange(enemy.playerPassiveManager.GetAllValidCardIds());
-        if (possibleTargets.Count == 0) { return new(); }
+        if (enemy.playerPassiveManager.GetWeapon().HasCard())
+        {
+            possibleTargets.Add(enemy.playerPassiveManager.GetWeapon());
+        }
+
+        if (enemy.playerPassiveManager.GetShield().HasCard())
+        {
+            possibleTargets.Add(enemy.playerPassiveManager.GetShield());
+        }
+
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets[Random.Range(0, posibleTargets.Count)];
+        if (possibleTargets.Count == 0)
+        {
+            return null;
+        }
+
+        return possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

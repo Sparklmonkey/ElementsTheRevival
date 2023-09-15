@@ -6,33 +6,33 @@ namespace Elements.Duel.Manager
 
     public class DeckManager
     {
-        private List<Card> deck;
+        private List<Card> _deck;
 
-        public DeckManager(List<Card> deck) => this.deck = deck;
+        public DeckManager(List<Card> deck) => this._deck = deck;
 
         public event Action<int> OnDeckCountChange;
 
         public Card DrawCard()
         {
-            if (deck.Count == 0) { return null; }
-            Card newCard = new(deck[0]);
-            deck.RemoveAt(0);
-            OnDeckCountChange?.Invoke(deck.Count);
+            if (_deck.Count == 0) { return null; }
+            Card newCard = new(_deck[0]);
+            _deck.RemoveAt(0);
+            OnDeckCountChange?.Invoke(_deck.Count);
             return newCard;
         }
 
-        public int GetDeckCount() => deck.Count;
+        public int GetDeckCount() => _deck.Count;
 
         public void AddCardToTop(Card card)
         {
-            deck.Insert(0, card);
-            OnDeckCountChange?.Invoke(deck.Count);
+            _deck.Insert(0, card);
+            OnDeckCountChange?.Invoke(_deck.Count);
         }
 
         public Card GetTopCard()
         {
-            if (deck.Count == 0) { return null; }
-            return deck[0];
+            if (_deck.Count == 0) { return null; }
+            return _deck[0];
         }
     }
 }

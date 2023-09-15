@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public abstract class CardDisplayer : MonoBehaviour
 {
-    private List<Image> imageList;
-    private List<TextMeshProUGUI> textList;
+    private List<Image> _imageList;
+    private List<TextMeshProUGUI> _textList;
     [SerializeField]
     private Material dissolveMaterial;
     public TMP_FontAsset underlayBlack, underlayWhite;
@@ -15,17 +15,17 @@ public abstract class CardDisplayer : MonoBehaviour
     private Image validTargetGlow;
     [SerializeField]
     private Image isUsableGlow;
-    private Element element;
+    private Element _element;
     private void Awake()
     {
-        imageList = new();
-        textList = new(GetComponentsInChildren<TextMeshProUGUI>());
+        _imageList = new();
+        _textList = new(GetComponentsInChildren<TextMeshProUGUI>());
         List<Image> dirtyImageList = new(GetComponentsInChildren<Image>());
         foreach (Image item in dirtyImageList)
         {
             if (item.sprite != null)
             {
-                imageList.Add(item);
+                _imageList.Add(item);
             }
         }
         ShouldShowTarget(false);
@@ -50,7 +50,7 @@ public abstract class CardDisplayer : MonoBehaviour
 
     private void ShouldShowText(bool shouldShow)
     {
-        foreach (TextMeshProUGUI text in textList)
+        foreach (TextMeshProUGUI text in _textList)
         {
             text.gameObject.SetActive(shouldShow);
         }
@@ -71,7 +71,7 @@ public abstract class CardDisplayer : MonoBehaviour
 
     public void PlayMaterializeAnimation(Element element)
     {
-        this.element = element;
+        this._element = element;
         StartCoroutine(MaterializeAnimation());
     }
 
@@ -80,30 +80,30 @@ public abstract class CardDisplayer : MonoBehaviour
         switch (state)
         {
             case DissolveState.Start:
-                BattleVars.shared.isAnimationPlaying = true;
-                foreach (Image image in imageList)
+                BattleVars.Shared.IsAnimationPlaying = true;
+                foreach (Image image in _imageList)
                 {
                     Material dissolveMat = new(dissolveMaterial);
                     dissolveMat.SetTexture("_MainTex", image.sprite.texture);
                     image.material = dissolveMat;
                     image.material.SetFloat("_Fade", valueToSet);
                     image.material.SetFloat("_Scale", 100f);
-                    image.material.SetColor("_EdgeColour", ElementColours.GetElementColour(element));
+                    image.material.SetColor("_EdgeColour", ElementColours.GetElementColour(_element));
                 }
                 return;
             case DissolveState.Middle:
-                foreach (Image image in imageList)
+                foreach (Image image in _imageList)
                 {
                     image.material.SetFloat("_Fade", valueToSet);
                 }
                 return;
             case DissolveState.End:
-                foreach (Image image in imageList)
+                foreach (Image image in _imageList)
                 {
                     image.material.SetFloat("_Fade", valueToSet);
                     image.material = null;
                 }
-                BattleVars.shared.isAnimationPlaying = false;
+                BattleVars.Shared.IsAnimationPlaying = false;
                 return;
             default:
                 break;

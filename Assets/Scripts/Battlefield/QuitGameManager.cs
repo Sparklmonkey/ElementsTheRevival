@@ -1,24 +1,32 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QuitGameManager : MonoBehaviour
 {
-    [SerializeField]
-    private TextMeshProUGUI gameTime, gameTurns, coinsLost, coinsLeft;
+    private GameObject _touchBlocker;
+    [SerializeField] private TextMeshProUGUI gameTime, gameTurns, coinsLost, coinsLeft;
+    [SerializeField] private Button mainMenuButton;
 
-    public void SetupSurrenderScreen()
+    public async void SetupSurrenderScreen()
     {
-        GameOverVisual.isGameOver = true;
-        GameOverVisual.ShowGameOverScreen(false);
-        //PlayerData.shared.playerScore -= BattleVars.shared.enemyAiData.scoreWin / 2;
-        //PlayerData.shared.gamesLost++;
-        //PlayerData.shared.playerScore = PlayerData.shared.playerScore < 0 ? 0 : PlayerData.shared.playerScore;
-        //double gameTimeInSeconds = TimeSpan.FromTicks(DateTime.Now.Ticks - BattleVars.shared.gameStartInTicks).TotalSeconds;
-        //gameTime.text = $"Game time: {(int)gameTimeInSeconds}  seconds";
-        //gameTurns.text = $"Game length: {BattleVars.shared.turnCount}  turns";
+        GameOverVisual.IsGameOver = true;
+//        GameOverVisual.ShowGameOverScreen(false);
+        if (BattleVars.Shared.IsArena)
+        {
+            PlayerData.Shared.arenaLosses++;
+        }
 
-        //coinsLost.text = $"You lost: {BattleVars.shared.enemyAiData.costToPlay}";
-        //coinsLeft.text = $"Electrum coins left: {PlayerData.shared.electrum}";
+        PlayerData.Shared.gamesLost++;
+        PlayerData.Shared.playerScore -= BattleVars.Shared.EnemyAiData.scoreWin / 2;
+        PlayerData.Shared.playerScore = PlayerData.Shared.playerScore < 0 ? 0 : PlayerData.Shared.playerScore;
+        GameStats.Shared.UpdateValues(new GameStatRequest(BattleVars.Shared.EnemyAiData, true,
+            BattleVars.Shared.IsArena));
+        _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"),
+            GameObject.Find("QuitGameScreen").transform);
+        await ApiManager.Instance.SaveGameStats();
+        Destroy(_touchBlocker);
+        mainMenuButton.interactable = true;
     }
 
 

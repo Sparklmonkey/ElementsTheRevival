@@ -1,5 +1,5 @@
-﻿using Elements.Duel.Visual;
 using System;
+using Elements.Duel.Visual;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -26,7 +26,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     void Start()
     {
         cardBehaviour = GetComponent<CardTypeBehaviour>();
-        cardBehaviour.CardPair = this;
+        cardBehaviour.cardPair = this;
         cardBehaviour.Owner = isPlayer ? DuelManager.Instance.player : DuelManager.Instance.enemy;
         cardBehaviour.Enemy = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
         var parentName = transform.parent.gameObject.name;
@@ -74,8 +74,8 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public bool IsTargetable()
     {
-        var isCardTargetable = HasCard() ? !card.innateSkills.Immaterial && !card.passiveSkills.Burrow : false;
-        if (id.Field == FieldEnum.Player)
+        var isCardTargetable = HasCard() && !card.innateSkills.Immaterial && !card.passiveSkills.Burrow;
+        if (id.field == FieldEnum.Player)
         {
             isCardTargetable = true;
         }
@@ -91,7 +91,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void PlayCard(Card card)
     {
         this.card = card;
-        if (card.cardType == CardType.Pillar && id.Field == FieldEnum.Permanent)
+        if (card.cardType == CardType.Pillar && id.field == FieldEnum.Permanent)
         {
             stackCount++;
         }
@@ -121,43 +121,40 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void RemoveCard()
     {
-        if (id.Field != FieldEnum.Hand)
+        if (id.field != FieldEnum.Hand)
         {
-            StartCoroutine(AnimationManager.Instance.PlayAnimation("CardDeath", transform));
+            AnimationManager.Instance.StartAnimation("CardDeath", transform);
             SoundManager.Instance.PlayAudioClip("RemoveCardFromField");
         }
         isHidden = true;
         stackCount--;
+        if(stackCount < 0) { stackCount = 0; }
         cardBehaviour.OnCardRemove();
         OnCardRemoved?.Invoke(card, stackCount);
-        if (stackCount == 0)
-        {
-            card = null;
-        }
     }
 
     public Card GetCard() => card;
 
     internal bool HasCard()
     {
-        if (card == null && id.Field != FieldEnum.Player) { return false; }
+        if (card == null && id.field != FieldEnum.Player) { return false; }
         return card != null && card.iD != "4t2" && card.iD != "4t1" && card.cardName != "" && card.cardType != CardType.Mark;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         ToolTipCanvas.Instance.HideToolTip();
-        if (!HasCard() && id.Field != FieldEnum.Player) { return; }
+        if (!HasCard() && id.field != FieldEnum.Player) { return; }
         OnClickObject?.Invoke(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!HasCard()) { return; }
-        if (id.Field == FieldEnum.Hand && id.Owner == OwnerEnum.Opponent) { return; }
+        if (id.field == FieldEnum.Hand && id.owner == OwnerEnum.Opponent) { return; }
         RectTransform rectTransform = GetComponent<RectTransform>();
         Vector2 objectSize = new(rectTransform.rect.height, rectTransform.rect.width);
-        ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, card, id.Index + 1, id.Field == FieldEnum.Creature);
+        ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, card, id.index + 1, id.field == FieldEnum.Creature);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -167,7 +164,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public bool IsFromHand()
     {
-        return id.Field.Equals(FieldEnum.Hand);
+        return id.field.Equals(FieldEnum.Hand);
     }
 
     public void HandCardUpdate(Card card)

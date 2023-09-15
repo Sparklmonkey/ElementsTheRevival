@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Dash_AccountInfoAnimator : MonoBehaviour
+public class DashAccountInfoAnimator : MonoBehaviour
 {
     [SerializeField]
     private Image accountInfoFrame;
@@ -33,11 +33,11 @@ public class Dash_AccountInfoAnimator : MonoBehaviour
         content.SetActive(aValue == 1f);
         if (aValue == 1f)
         {
-            GetComponent<Dash_AccountManagement>().UpdateFieldsWithInfo();
+            GetComponent<DashAccountManagement>().UpdateFieldsWithInfo();
         }
         else
         {
-            GetComponent<Dash_AccountManagement>().ClearPwdFields();
+            GetComponent<DashAccountManagement>().ClearPwdFields();
             gameObject.SetActive(false);
         }
     }

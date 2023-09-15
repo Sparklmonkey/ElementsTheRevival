@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Upgrade_TransactionManager : MonoBehaviour
+public class UpgradeTransactionManager : MonoBehaviour
 {
 
     [SerializeField]
@@ -9,12 +9,12 @@ public class Upgrade_TransactionManager : MonoBehaviour
 
     public void SetupTransactionManager()
     {
-        coinCount.text = $"{PlayerData.shared.electrum}";
+        coinCount.text = $"{PlayerData.Shared.electrum}";
     }
 
     public void ChangeCoinCount()
     {
-        PlayerData.shared.electrum -= 1500;
-        coinCount.text = $"{PlayerData.shared.electrum}";
+        PlayerData.Shared.electrum -= 1500;
+        coinCount.text = $"{PlayerData.Shared.electrum}";
     }
 }

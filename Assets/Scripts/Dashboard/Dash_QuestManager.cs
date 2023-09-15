@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Dash_QuestManager : MonoBehaviour
+public class DashQuestManager : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI questTitle, questDescription, questObjective, questReward, questCompleteTitle, questCompleteDesc, questCompleteObjective, questCompleteReward, selectionDesc;
@@ -19,7 +19,7 @@ public class Dash_QuestManager : MonoBehaviour
     private CardDisplay cardDisplay;
     [SerializeField]
     private List<RareCardObject> weaponObjects;
-    private string questCompleteDescription = "Great Job! \n Click the reward button to get your reward and move to your next quest.";
+    private string _questCompleteDescription = "Great Job! \n Click the reward button to get your reward and move to your next quest.";
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +34,7 @@ public class Dash_QuestManager : MonoBehaviour
         selectionPanel.SetActive(false);
         questStartObject.SetActive(false);
         questCompleteObject.SetActive(false);
-        if (PlayerData.shared.currentQuestIndex >= quests.Count && PlayerPrefs.GetFloat("ShouldShowRareCard") != 1)
+        if (PlayerData.Shared.currentQuestIndex >= _quests.Count && PlayerPrefs.GetFloat("ShouldShowRareCard") != 1)
         {
             cardUpgradeObject.SetActive(true);
             return;
@@ -50,20 +50,20 @@ public class Dash_QuestManager : MonoBehaviour
             questObjective.text = "";
             questReward.text = "";
             claimRewardButton.gameObject.SetActive(false);
-            for (int i = 0; i < CardDatabase.Instance.rareWeaponRewards.Count; i++)
+            for (int i = 0; i < CardDatabase.Instance.RareWeaponRewards.Count; i++)
             {
-                weaponObjects[i].SetupSelection(CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.rareWeaponRewards[i]), this, cardDisplay);
+                weaponObjects[i].SetupSelection(CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.RareWeaponRewards[i]), this, cardDisplay);
             }
             return;
         }
 
-        IQuest questToDisplay = quests[PlayerData.shared.currentQuestIndex];
+        IQuest questToDisplay = _quests[PlayerData.Shared.currentQuestIndex];
 
         if (questToDisplay.IsComplete)
         {
             questCompleteObject.SetActive(true);
             questCompleteTitle.text = questToDisplay.QuestTitle;
-            questCompleteDesc.text = questCompleteDescription;
+            questCompleteDesc.text = _questCompleteDescription;
             questCompleteObjective.text = "";
             questCompleteReward.text = questToDisplay.QuestReward;
             claimRewardButton.onClick.RemoveAllListeners();
@@ -82,7 +82,7 @@ public class Dash_QuestManager : MonoBehaviour
 
     public void AddNewQuest()
     {
-        PlayerData.shared.currentQuestIndex++;
+        PlayerData.Shared.currentQuestIndex++;
         dashboardPlayerData.UpdateDashboard();
         SetupQuestPanel();
         PlayerData.SaveData();
@@ -94,5 +94,5 @@ public class Dash_QuestManager : MonoBehaviour
         dashboardPlayerData.gameObject.GetComponent<DashboardSceneManager>().LoadNewScene("CardUpgrade");
     }
 
-    static private List<IQuest> quests = new List<IQuest> { new WelcomeQuest(), new ImproveDeckQuest(), new BazaarQuest(), new ElementalOneQuest(), new ElementalTwoQuest(), new ScoreOneQuest(), new ScoreTwoQuest() };
+    static private List<IQuest> _quests = new List<IQuest> { new WelcomeQuest(), new ImproveDeckQuest(), new BazaarQuest(), new ElementalOneQuest(), new ElementalTwoQuest(), new ScoreOneQuest(), new ScoreTwoQuest() };
 }

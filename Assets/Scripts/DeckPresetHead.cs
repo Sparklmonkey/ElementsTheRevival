@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DeckPresetHead : MonoBehaviour, IPointerClickHandler
 {
-    private string deckCode;
+    private string _deckCode;
     [SerializeField]
     private TextMeshProUGUI cardName;
     [SerializeField]
@@ -13,11 +13,11 @@ public class DeckPresetHead : MonoBehaviour, IPointerClickHandler
 
     [SerializeField]
     private TMP_FontAsset underlayBlack;
-    private DeckDisplayManager manager;
+    private DeckDisplayManager _manager;
     public void SetupCardHead(string deckName, string markElement, string deckCode, DeckDisplayManager manager)
     {
-        this.manager = manager;
-        this.deckCode = deckCode;
+        this._manager = manager;
+        this._deckCode = deckCode;
         cardName.text = deckName;
         cardName.font = underlayBlack;
         cardName.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
@@ -26,8 +26,8 @@ public class DeckPresetHead : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log(deckCode);
-        manager.SetupDeckPresetView(deckCode);
+        Debug.Log(_deckCode);
+        _manager.SetupDeckPresetView(_deckCode);
     }
 
 }

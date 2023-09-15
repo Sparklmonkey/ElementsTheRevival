@@ -7,13 +7,13 @@ public class RedeemCardObject : MonoBehaviour, IPointerClickHandler
 {
     public TextMeshProUGUI cardName;
     public Image cardImage, cardHeadBackground;
-    private Card cardOnDisplay;
+    private Card _cardOnDisplay;
 
-    public Dash_CodeRedemption manager;
+    public DashCodeRedemption manager;
 
-    public void SetupObject(Card card, Dash_CodeRedemption manager)
+    public void SetupObject(Card card, DashCodeRedemption manager)
     {
-        cardOnDisplay = card;
+        _cardOnDisplay = card;
         this.manager = manager;
         cardName.text = card.cardName;
         cardImage.sprite = ImageHelper.GetCardImage(card.imageID);
@@ -22,6 +22,6 @@ public class RedeemCardObject : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        manager.DisplayCardDetail(cardOnDisplay);
+        manager.DisplayCardDetail(_cardOnDisplay);
     }
 }

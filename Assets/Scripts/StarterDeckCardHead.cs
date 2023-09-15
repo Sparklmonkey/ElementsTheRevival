@@ -14,10 +14,10 @@ public class StarterDeckCardHead : MonoBehaviour, IPointerEnterHandler, IPointer
 
     [SerializeField]
     private TMP_FontAsset underlayBlack;
-    private CardDisplay cardDisplay;
+    private CardDisplay _cardDisplay;
     public void SetupCardHead(Card card, CardDisplay cardDisplay)
     {
-        this.cardDisplay = cardDisplay;
+        this._cardDisplay = cardDisplay;
         cardName.text = card.cardName;
         cardName.font = underlayBlack;
         cardName.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
@@ -28,13 +28,13 @@ public class StarterDeckCardHead : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        cardDisplay.gameObject.SetActive(true);
-        cardDisplay.SetupCardView(cardToShow);
+        _cardDisplay.gameObject.SetActive(true);
+        _cardDisplay.SetupCardView(cardToShow);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        cardDisplay.gameObject.SetActive(false);
+        _cardDisplay.gameObject.SetActive(false);
     }
 
 }

@@ -6,7 +6,7 @@ public class Duality : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        var cardToAdd = DuelManager.GetNotIDOwner(target.id).deckManager.GetTopCard();
+        var cardToAdd = DuelManager.GetNotIDOwner(target.id).DeckManager.GetTopCard();
         if (cardToAdd == null) { return; }
         Owner.playerHand.AddCardToHand(new(cardToAdd));
     }
@@ -16,8 +16,9 @@ public class Duality : AbilityEffect
         return new();
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
         return null;
     }
+    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

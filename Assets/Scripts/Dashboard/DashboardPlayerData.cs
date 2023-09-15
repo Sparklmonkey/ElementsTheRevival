@@ -8,7 +8,7 @@ public class DashboardPlayerData : MonoBehaviour
     private TextMeshProUGUI playerScore, playerWins, playerLoses, electrumCount, oracleText, saveStatus;
     [SerializeField]
     private Button oracleButton, falseGobButton;
-    private static GameObject touchBlocker;
+    private static GameObject _touchBlocker;
 
     void Start()
     {
@@ -23,7 +23,7 @@ public class DashboardPlayerData : MonoBehaviour
 
     public async void PeriodicSave()
     {
-        if (ApiManager.isTrainer)
+        if (ApiManager.IsTrainer)
         {
             return;
         }
@@ -47,19 +47,19 @@ public class DashboardPlayerData : MonoBehaviour
 
     public void UpdateDashboard()
     {
-        playerScore.text = PlayerData.shared.playerScore.ToString();
-        playerWins.text = PlayerData.shared.gamesWon.ToString();
-        playerLoses.text = PlayerData.shared.gamesLost.ToString();
-        electrumCount.text = PlayerData.shared.electrum.ToString();
+        playerScore.text = PlayerData.Shared.playerScore.ToString();
+        playerWins.text = PlayerData.Shared.gamesWon.ToString();
+        playerLoses.text = PlayerData.Shared.gamesLost.ToString();
+        electrumCount.text = PlayerData.Shared.electrum.ToString();
         oracleButton.interactable = false;
-        falseGobButton.interactable = PlayerData.shared.currentQuestIndex >= 7;
+        falseGobButton.interactable = PlayerData.Shared.currentQuestIndex >= 7;
         if (PlayerPrefs.GetInt("IsGuest") == 1)
         {
-            oracleButton.interactable = PlayerData.shared.dayLastOraclePlay.Day < System.DateTime.Today.Day;
+            oracleButton.interactable = PlayerData.Shared.DayLastOraclePlay.Day < System.DateTime.Today.Day;
         }
         else
         {
-            oracleButton.interactable = !PlayerData.shared.playedOracleToday;
+            oracleButton.interactable = !PlayerData.Shared.playedOracleToday;
         }
         oracleText.text = oracleButton.interactable ? "See what the Oracle has for you today!" : "You cannot visit the Oracle yet";
     }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class ImageHelper
 {
-    private static string IsAltOROriginal()
+    private static string IsAltOrOriginal()
     {
         if (PlayerPrefs.GetInt("IsAltArt") == 1)
         {
@@ -29,7 +29,7 @@ public static class ImageHelper
 
     public static Sprite GetElementImage(string element)
     {
-        return Resources.Load<Sprite>($"Sprites/Elements/{IsAltOROriginal()}/" + element);
+        return Resources.Load<Sprite>($"Sprites/Elements/{IsAltOrOriginal()}/" + element);
     }
 
     public static Sprite GetCardBackGroundImage(string element)
@@ -53,6 +53,6 @@ public static class ImageHelper
 
     public static Sprite GetPoisonSprite(bool isPoison)
     {
-        return Resources.Load<Sprite>($"Sprites/PoisonTypes/{IsAltOROriginal()}/" + (isPoison ? "Death" : "Water"));
+        return Resources.Load<Sprite>($"Sprites/PoisonTypes/{IsAltOrOriginal()}/" + (isPoison ? "Death" : "Water"));
     }
 }

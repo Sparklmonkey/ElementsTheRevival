@@ -7,20 +7,20 @@ namespace Elements.Duel.Manager
     [Serializable]
     public class HandManager : FieldManager
     {
-        public bool ShouldDiscard() => pairList.FindAll(x => x.card != null).Count >= 8;
+        public bool ShouldDiscard() => PairList.FindAll(x => x.card != null).Count >= 8;
 
         public void UpdateHandVisual(IDCardPair cardPair)
         {
-            if (pairList.FindAll(x => x.HasCard()).Count == 0)
+            if (PairList.FindAll(x => x.HasCard()).Count == 0)
             {
                 return;
             }
 
             var cardList = new List<Card>();
-            foreach (var item in pairList)
+            foreach (var item in PairList)
             {
                 if (!item.HasCard()) { continue; }
-                if (item.id.Index == cardPair.id.Index) { continue; }
+                if (item.id.index == cardPair.id.index) { continue; }
                 cardList.Add(CardDatabase.Instance.GetCardFromId(item.card.iD));
             }
 
@@ -28,26 +28,26 @@ namespace Elements.Duel.Manager
             {
                 if (i < cardList.Count)
                 {
-                    pairList[i].PlayCard(cardList[i]);
+                    PairList[i].PlayCard(cardList[i]);
                     continue;
                 }
-                if (pairList[i].IsActive())
+                if (PairList[i].IsActive())
                 {
-                    pairList[i].RemoveCard();
+                    PairList[i].RemoveCard();
                 }
             }
         }
 
         public void AddCardToHand(Card card)
         {
-            int availableIndex = pairList.FindIndex(x => !x.HasCard());
+            int availableIndex = PairList.FindIndex(x => !x.HasCard());
             if (availableIndex < 0) { return; }
-            pairList[availableIndex].PlayCard(card);
+            PairList[availableIndex].PlayCard(card);
         }
 
         public void ShowCardsForPrecog()
         {
-            foreach (var item in pairList)
+            foreach (var item in PairList)
             {
                 if (!item.HasCard()) { continue; }
                 item.isHidden = false;

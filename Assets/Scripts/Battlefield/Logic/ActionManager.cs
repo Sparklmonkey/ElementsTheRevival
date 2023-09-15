@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class ActionManager
 {
-    public static List<ElementAction> actionList = new();
+    public static List<ElementAction> ActionList = new();
 
     public static void AddCardDrawAction(bool isPlayer, Card ownerCard)
     {
@@ -10,59 +10,59 @@ public class ActionManager
 
         if (isPlayer)
         {
-            action = new($"{PlayerData.shared.userName}", "Draw", ownerCard.imageID, "", false);
+            action = new($"{PlayerData.Shared.userName}", "Draw", ownerCard.imageID, "", false);
         }
         else
         {
-            action = new($"{BattleVars.shared.enemyAiData.opponentName}", "Draw", "", "", false);
+            action = new($"{BattleVars.Shared.EnemyAiData.opponentName}", "Draw", "", "", false);
         }
-        actionList.Add(action);
+        ActionList.Add(action);
     }
 
     public static void AddCardPlayedOnFieldAction(bool isPlayer, Card ownerCard)
     {
-        ElementAction action = new($"{(isPlayer ? PlayerData.shared.userName : BattleVars.shared.enemyAiData.opponentName)}", "Played", ownerCard.imageID, "", false);
+        ElementAction action = new($"{(isPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName)}", "Played", ownerCard.imageID, "", false);
 
-        actionList.Add(action);
+        ActionList.Add(action);
     }
     public static void AddSpellPlayedAction(bool isPlayer, IDCardPair origin, IDCardPair target)
     {
-        string owner = isPlayer ? PlayerData.shared.userName : BattleVars.shared.enemyAiData.opponentName;
+        string owner = isPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName;
         bool shouldShowArrow = target.HasCard();
         string targetId = target.HasCard() ? target.card.imageID : "";
         ElementAction action = new(owner, "Played Spell", origin.card.imageID, targetId, shouldShowArrow);
 
-        actionList.Add(action);
+        ActionList.Add(action);
     }
 
     public static void AddAbilityActivatedAction(bool isPlayer, IDCardPair origin, IDCardPair target)
     {
-        string owner = isPlayer ? PlayerData.shared.userName : BattleVars.shared.enemyAiData.opponentName;
+        string owner = isPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName;
         bool shouldShowArrow = target.HasCard();
         string targetId = target.HasCard() ? target.card.imageID : "";
         ElementAction action = new(owner, "Activated Ability", origin.card.imageID, targetId, shouldShowArrow);
 
-        actionList.Add(action);
+        ActionList.Add(action);
     }
 }
 
 
 public class ElementAction
 {
-    public string owner;
-    public string action;
+    public string Owner;
+    public string Action;
 
-    public string originImage;
-    public string targetImage;
-    public bool shouldShowArrow;
+    public string OriginImage;
+    public string TargetImage;
+    public bool ShouldShowArrow;
 
     public ElementAction(string owner, string action, string originImage, string targetImage, bool shouldShowArrow)
     {
-        this.owner = owner;
-        this.action = action;
-        this.originImage = originImage;
-        this.targetImage = targetImage;
-        this.shouldShowArrow = shouldShowArrow;
+        this.Owner = owner;
+        this.Action = action;
+        this.OriginImage = originImage;
+        this.TargetImage = targetImage;
+        this.ShouldShowArrow = shouldShowArrow;
     }
 
     public ElementAction()

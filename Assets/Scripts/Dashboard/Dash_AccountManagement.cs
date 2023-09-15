@@ -1,8 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class Dash_AccountManagement : MonoBehaviour
+public class DashAccountManagement : MonoBehaviour
 {
     [SerializeField]
     private TMP_InputField usernameField, currentPasswordField, newPasswordField;
@@ -10,9 +11,9 @@ public class Dash_AccountManagement : MonoBehaviour
     private Button submitButton, deleteAccountButton;
     [SerializeField]
     private TextMeshProUGUI submitButtonText;
-    [SerializeField]
-    private Error_Animated error_Animated;
-    private GameObject touchBlocker;
+    [FormerlySerializedAs("error_Animated")] [SerializeField]
+    private ErrorAnimated errorAnimated;
+    private GameObject _touchBlocker;
 
     private void OnEnable()
     {
@@ -47,45 +48,45 @@ public class Dash_AccountManagement : MonoBehaviour
 
     public async void UpdateInGameUserPassword()
     {
-        if (ApiManager.isTrainer) { return; }
+        if (ApiManager.IsTrainer) { return; }
 
         if (newPasswordField.text != "")
         {
             if (!newPasswordField.text.PasswordCheck())
             {
-                error_Animated.DisplayAnimatedError("The new Password does not meet the criteria.");
+                errorAnimated.DisplayAnimatedError("The new Password does not meet the criteria.");
                 return;
             }
         }
 
-        if (usernameField.text != PlayerData.shared.userName)
+        if (usernameField.text != PlayerData.Shared.userName)
         {
             if (!usernameField.text.UsernameCheck())
             {
-                error_Animated.DisplayAnimatedError("The new Username does not meet the criteria.");
+                errorAnimated.DisplayAnimatedError("The new Username does not meet the criteria.");
                 return;
             }
         }
         submitButton.interactable = false;
         submitButtonText.text = "Submitting . . .";
-        touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+        _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
 
         var response = await ApiManager.Instance.UpdateUserData(usernameField.text, currentPasswordField.text, newPasswordField.text);
 
         submitButton.interactable = true;
         submitButtonText.text = "Submit";
-        touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(touchBlocker);
+        _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+        Destroy(_touchBlocker);
 
         if (!response)
         {
-            error_Animated.DisplayAnimatedError("Mmm something went wrong on our end. We will be looking into it. Please try again later.");
+            errorAnimated.DisplayAnimatedError("Mmm something went wrong on our end. We will be looking into it. Please try again later.");
         }
     }
 
     public void UpdateFieldsWithInfo()
     {
-        usernameField.text = PlayerData.shared.userName;
+        usernameField.text = PlayerData.Shared.userName;
         submitButton.interactable = false;
         submitButtonText.text = "Submit";
     }

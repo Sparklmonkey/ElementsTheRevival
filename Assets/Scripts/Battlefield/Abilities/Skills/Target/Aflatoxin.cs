@@ -5,6 +5,8 @@ public class Aflatoxin : AbilityEffect
 {
     public override bool NeedsTarget() => true;
 
+    public override TargetPriority GetPriority() => TargetPriority.OpHighAtk;
+
     public override void Activate(IDCardPair target)
     {
         target.card.IsAflatoxin = true;
@@ -20,15 +22,22 @@ public class Aflatoxin : AbilityEffect
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0) { return new(); }
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
+        if (possibleTargets.Count == 0)
+        {
+            return null;
+        }
 
-        var opCreatures = posibleTargets.FindAll(x => x.id.Owner == OwnerEnum.Player && x.HasCard());
+        var opCreatures = possibleTargets.FindAll(x => x.id.owner == OwnerEnum.Player && x.HasCard());
 
         if (opCreatures.Count == 0)
         {
@@ -36,7 +45,7 @@ public class Aflatoxin : AbilityEffect
         }
         else
         {
-            return opCreatures[Random.Range(0, posibleTargets.Count)];
+            return opCreatures[Random.Range(0, possibleTargets.Count)];
         }
     }
 }

@@ -19,12 +19,12 @@ public class MiracleAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         yield return aiManager.StartCoroutine(PlayPermanent(aiManager, "Elite Queen"));
 
         //Activate Blessings
-        yield return aiManager.StartCoroutine(spellManager.PlayBlessings(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayBlessings(aiManager));
 
         //Activate Abilities
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityNoTarget(aiManager, CardType.Creature, "Pegasus", "Elite Pegasus"));
         yield return aiManager.StartCoroutine(ActivateRepeatAbilityNoTarget(aiManager, CardType.Creature, "Firefly Queen", "Elite Queen"));
 
-        yield return aiManager.StartCoroutine(spellManager.PlayMiracle(aiManager));
+        yield return aiManager.StartCoroutine(SpellManager.PlayMiracle(aiManager));
     }
 }

@@ -101,7 +101,7 @@ public static class ExtensionMethods
 
         foreach (QuantaObject item in quantaObjects)
         {
-            count += item.count;
+            count += item.Count;
         }
         return count;
     }
@@ -118,11 +118,11 @@ public static class ExtensionMethods
         return count;
     }
 
-    [ThreadStatic] private static System.Random Local;
+    [ThreadStatic] private static System.Random _local;
 
     public static System.Random ThisThreadsRandom
     {
-        get { return Local ??= new System.Random(unchecked((Environment.TickCount * 31) + Thread.CurrentThread.ManagedThreadId)); }
+        get { return _local ??= new System.Random(unchecked((Environment.TickCount * 31) + Thread.CurrentThread.ManagedThreadId)); }
     }
 
     public static void OrderSprites(this List<Sprite> listToOrder)
@@ -151,9 +151,9 @@ public static class ExtensionMethods
         return obj;
     }
 
-    public static T GetSkillScript<T>(this string AbilityName)
+    public static T GetSkillScript<T>(this string abilityName)
     {
-        var nameToCheck = AbilityName[0].ToString().ToUpper() + AbilityName[1..];
+        var nameToCheck = abilityName[0].ToString().ToUpper() + abilityName[1..];
         Type type = Type.GetType(nameToCheck);
         if (type == null)
         {
@@ -163,9 +163,9 @@ public static class ExtensionMethods
         return obj;
     }
 
-    public static T GetShieldScript<T>(this string AbilityName)
+    public static T GetShieldScript<T>(this string abilityName)
     {
-        var nameToCheck = $"Shield{AbilityName}";
+        var nameToCheck = $"Shield{abilityName}";
         Type type = Type.GetType(nameToCheck);
         if (type == null)
         {
@@ -224,7 +224,7 @@ public static class ExtensionMethods
         }
         for (int i = 0; i < listToCheck.Count; i++)
         {
-            if (listToCheck[i].element.Equals(element))
+            if (listToCheck[i].Element.Equals(element))
             {
                 return i;
             }
@@ -287,19 +287,28 @@ public static class ExtensionMethods
     }
     public static bool IsBazaarLegal(this string cardID)
     {
-        if (CardDatabase.Instance.markIds.Contains(cardID))
+        if (CardDatabase.Instance.MarkIds.Contains(cardID))
         {
             return false;
         }
-        if ((PlayerData.shared.currentQuestIndex < 7 || PlayerPrefs.GetFloat("ShouldShowRareCard") == 1) && cardID.IsUpgraded())
+        if ((PlayerData.Shared.currentQuestIndex < 7 || PlayerPrefs.GetFloat("ShouldShowRareCard") == 1) && cardID.IsUpgraded())
         {
             return false;
         }
         var uppedRegId = cardID.GetUppedRegular();
-        return !_bazaarIllegalIds.Contains(cardID) && !_bazaarIllegalIds.Contains(uppedRegId);
+        return !bazaarIllegalIds.Contains(cardID) && !bazaarIllegalIds.Contains(uppedRegId);
     }
 
-    private static readonly List<string> _bazaarIllegalIds = new() { "4sj", "4sk", "4sl", "4sm", "4sn", "4so", "4sp", "4sq", "4sr", "4st", "8pu", "4t8", "4vr", "4t1", "4t2", "8pu", "8pr", "8pt", "8pq", "8pk", "8pm", "8pj", "8ps", "8po", "8pl", "8pn", "8pp" };
+    public static bool IsDeckLegal(this string cardId)
+    {
+        if (CardDatabase.Instance.MarkIds.Contains(cardId))
+        {
+            return false;
+        }
+        return !bazaarIllegalIds.Contains(cardId);
+    }
+
+    private static readonly List<string> bazaarIllegalIds = new() { "4sj", "4sk", "4sl", "4sm", "4sn", "4so", "4sp", "4sq", "4sr", "4st", "8pu", "4t8", "4vr", "4t1", "4t2", "8pu", "8pr", "8pt", "8pq", "8pk", "8pm", "8pj", "8ps", "8po", "8pl", "8pn", "8pp" };
 
 
     public static string ConvertLegacyToOetg(this string legacyCode)
@@ -312,7 +321,7 @@ public static class ExtensionMethods
         {
             if (item == " ") { continue; }
             if (item == "") { continue; }
-            if (CardDatabase.Instance.markIds.Contains(item)) { markId = item; continue; }
+            if (CardDatabase.Instance.MarkIds.Contains(item)) { markId = item; continue; }
             if (cardDict.ContainsKey(item))
             {
                 cardDict[item]++;
@@ -420,7 +429,7 @@ public static class ExtensionMethods
         return new string(charArray);
     }
 
-    public static int Base32ToInt(this string base32number)
+    public static int Base32ToInt(this string base32Number)
     {
         char[] base32 = new char[] {
       '0','1','2','3','4','5','6','7',
@@ -430,7 +439,7 @@ public static class ExtensionMethods
 
         long n = 0;
 
-        foreach (char d in base32number.ToLowerInvariant())
+        foreach (char d in base32Number.ToLowerInvariant())
         {
             n = n << 5;
             int idx = Array.IndexOf(base32, d);

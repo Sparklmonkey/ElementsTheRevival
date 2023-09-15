@@ -4,6 +4,7 @@ using UnityEngine;
 public class Readiness : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.HasSkill;
 
     public override void Activate(IDCardPair target)
     {
@@ -16,12 +17,16 @@ public class Readiness : AbilityEffect
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0) { return new(); }
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        return posibleTargets[Random.Range(0, posibleTargets.Count)];
+        return possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

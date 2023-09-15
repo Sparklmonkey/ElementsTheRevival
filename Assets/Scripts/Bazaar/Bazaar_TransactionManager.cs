@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Bazaar_TransactionManager : MonoBehaviour
+public class BazaarTransactionManager : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI coinCount;
@@ -17,15 +17,15 @@ public class Bazaar_TransactionManager : MonoBehaviour
     {
         if (isAdd)
         {
-            PlayerData.shared.hasBoughtCardBazaar = true;
-            PlayerData.shared.electrum -= amount;
-            coinCount.text = $"{PlayerData.shared.electrum}";
+            PlayerData.Shared.hasBoughtCardBazaar = true;
+            PlayerData.Shared.electrum -= amount;
+            coinCount.text = $"{PlayerData.Shared.electrum}";
             return;
         }
 
-        PlayerData.shared.hasSoldCardBazaar = true;
-        PlayerData.shared.electrum += amount;
-        coinCount.text = $"{PlayerData.shared.electrum}";
+        PlayerData.Shared.hasSoldCardBazaar = true;
+        PlayerData.Shared.electrum += amount;
+        coinCount.text = $"{PlayerData.Shared.electrum}";
     }
 }
 

@@ -6,10 +6,10 @@ public class Miracle : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        int maxHp = Owner.healthManager.GetMaxHealth();
-        int currentHP = Owner.healthManager.GetCurrentHealth();
+        int maxHp = Owner.HealthManager.GetMaxHealth();
+        int currentHp = Owner.HealthManager.GetCurrentHealth();
 
-        int hpToHeal = maxHp - currentHP - 1;
+        int hpToHeal = maxHp - currentHp - 1;
 
         Owner.ModifyHealthLogic(hpToHeal, false, true);
         Owner.SpendQuantaLogic(Element.Light, 75);
@@ -20,8 +20,9 @@ public class Miracle : AbilityEffect
         return new();
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
         return null;
     }
+    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

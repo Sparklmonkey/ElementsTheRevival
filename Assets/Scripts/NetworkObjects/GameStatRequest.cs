@@ -29,13 +29,13 @@ public class GameStatRequest
                 case 2:
                     aiLevel = 2;
                     break;
-                case 3 when enemy.maxHP == 100:
+                case 3 when enemy.maxHp == 100:
                     aiLevel = 3;
                     break;
-                case 3 when enemy.maxHP == 150:
+                case 3 when enemy.maxHp == 150:
                     aiLevel = 4;
                     break;
-                case 3 when enemy.maxHP == 200:
+                case 3 when enemy.maxHp == 200:
                     aiLevel = 5;
                     break;
                 default:

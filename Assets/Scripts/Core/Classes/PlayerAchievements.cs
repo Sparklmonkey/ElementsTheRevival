@@ -1,24 +1,25 @@
 ﻿using System;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class PlayerAchievements
 {
     // -1 => Not Complete, 0 => Ai level 0, 1 => Ai Level 1, etc
 
-    public int IdleYet;
+    [FormerlySerializedAs("IdleYet")] public int idleYet;
 
-    public int CreatureDomination;
+    [FormerlySerializedAs("CreatureDomination")] public int creatureDomination;
 
-    public int Creatureless;
+    [FormerlySerializedAs("Creatureless")] public int creatureless;
 
-    public int Deckout;
+    [FormerlySerializedAs("Deckout")] public int deckout;
 
-    public int DoubleKill;
+    [FormerlySerializedAs("DoubleKill")] public int doubleKill;
 
-    public int HandOverload;
+    [FormerlySerializedAs("HandOverload")] public int handOverload;
 
-    public int FeatherHands;
+    [FormerlySerializedAs("FeatherHands")] public int featherHands;
 
-    public int QuantaOverload;
+    [FormerlySerializedAs("QuantaOverload")] public int quantaOverload;
 
 }

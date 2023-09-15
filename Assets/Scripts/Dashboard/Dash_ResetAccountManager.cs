@@ -1,20 +1,20 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class Dash_ResetAccountManager : MonoBehaviour
+public class DashResetAccountManager : MonoBehaviour
 {
     [SerializeField]
-    private Error_Animated errorMessageManager;
+    private ErrorAnimated errorMessageManager;
 
     public async void ConfirmResetText(TMP_InputField inputField)
     {
-        if (ApiManager.isTrainer)
+        if (ApiManager.IsTrainer)
         {
             return;
         }
         if (inputField.text == "RESET")
         {
-            PlayerData.shared.ResetAccount();
+            PlayerData.Shared.ResetAccount();
             await ApiManager.Instance.SaveDataToUnity();
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
         }

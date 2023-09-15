@@ -4,6 +4,7 @@ using UnityEngine;
 public class Purify : AbilityEffect
 {
     public override bool NeedsTarget() => true;
+    public override TargetPriority GetPriority() => TargetPriority.IsPoisoned;
 
     public override void Activate(IDCardPair target)
     {
@@ -27,13 +28,21 @@ public class Purify : AbilityEffect
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
         possibleTargets.Add(enemy.playerID);
         possibleTargets.Add(Owner.playerID);
-        if (possibleTargets.Count == 0) { return new(); }
+        if (possibleTargets.Count == 0)
+        {
+            return new();
+        }
+
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> posibleTargets)
+    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
     {
-        if (posibleTargets.Count == 0) { return null; }
-        return posibleTargets[Random.Range(0, posibleTargets.Count)];
+        if (possibleTargets.Count == 0)
+        {
+            return null;
+        }
+
+        return possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

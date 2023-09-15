@@ -2,11 +2,11 @@
 
 public class JezebelAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 {
-    private int cloakCount = 0;
+    private int _cloakCount = 0;
 
     public IEnumerator RestOfTurn(PlayerManager aiManager)
     {
-        cloakCount--;
+        _cloakCount--;
         //Play Arsenic if none in play
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Vampire Dagger"));
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Permafrost Shield"));
@@ -17,7 +17,7 @@ public class JezebelAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 
         yield return aiManager.StartCoroutine(ActivateAbilities(aiManager, CardType.Creature));
         //Activate Cloak if no cloak active
-        if (cloakCount <= 0)
+        if (_cloakCount <= 0)
         {
             yield return aiManager.StartCoroutine(PlayPermanent(aiManager, "Cloak"));
         }

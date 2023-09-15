@@ -4,16 +4,16 @@ public class SpellAbilities
 {
     public IEnumerator PlayMiracle(PlayerManager aiManager)
     {
-        if (DuelManager.Instance.GetPossibleDamage(false) + 20 < aiManager.healthManager.GetCurrentHealth()) { yield break; }
+        if (DuelManager.Instance.GetPossibleDamage(false) + 20 < aiManager.HealthManager.GetCurrentHealth()) { yield break; }
         //Get Hand Cards
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
 
         int cardIndex = idCardList.FindIndex(x => x.card.iD == "5li" || x.card.cardName == "7k2");
 
         if (cardIndex == -1) { yield break; }
-        if (aiManager.playerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost))
+        if (aiManager.PlayerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost))
         {
-            BattleVars.shared.abilityOrigin = idCardList[cardIndex];
+            BattleVars.Shared.AbilityOrigin = idCardList[cardIndex];
 
             aiManager.ActivateAbility(idCardList[cardIndex]);
         }
@@ -30,9 +30,9 @@ public class SpellAbilities
         for (int i = 0; i < 7; i++)
         {
             if (cardIndex == -1) { yield break; }
-            if (!aiManager.playerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost)) { yield break; }
+            if (!aiManager.PlayerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost)) { yield break; }
 
-            BattleVars.shared.abilityOrigin = idCardList[cardIndex];
+            BattleVars.Shared.AbilityOrigin = idCardList[cardIndex];
 
             var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
             if (target == null) { yield break; }
@@ -53,9 +53,9 @@ public class SpellAbilities
         int cardIndex = idCardList.FindIndex(x => x.card.iD == "7n2" || x.card.iD == "5oi");
 
         if (cardIndex == -1) { yield break; }
-        if (aiManager.playerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost))
+        if (aiManager.PlayerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost))
         {
-            BattleVars.shared.abilityOrigin = idCardList[cardIndex];
+            BattleVars.Shared.AbilityOrigin = idCardList[cardIndex];
             aiManager.ActivateAbility(aiManager.playerPassiveManager.GetWeapon());
         }
     }
@@ -74,7 +74,7 @@ public class SpellAbilities
         {
             if (cardIndex == -1) { yield break; }
             if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { yield break; }
-            BattleVars.shared.abilityOrigin = idCardList[cardIndex];
+            BattleVars.Shared.AbilityOrigin = idCardList[cardIndex];
 
             var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
             if (target == null) { continue; }
@@ -100,7 +100,7 @@ public class SpellAbilities
         {
             if (cardIndex == -1) { yield break; }
             if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { yield break; }
-            BattleVars.shared.abilityOrigin = idCardList[cardIndex];
+            BattleVars.Shared.AbilityOrigin = idCardList[cardIndex];
 
             var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
             if (target == null) { continue; }
@@ -125,7 +125,7 @@ public class SpellAbilities
         {
             if (cardIndex == -1) { yield break; }
             if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { yield break; }
-            BattleVars.shared.abilityOrigin = idCardList[cardIndex];
+            BattleVars.Shared.AbilityOrigin = idCardList[cardIndex];
 
             var target = SkillManager.Instance.GetRandomTarget(aiManager, idCardList[cardIndex]);
             if (target == null) { continue; }

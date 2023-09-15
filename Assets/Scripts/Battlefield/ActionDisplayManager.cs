@@ -10,15 +10,15 @@ public class ActionDisplayManager : MonoBehaviour
 
     public void SetupActionView()
     {
-        if (ActionManager.actionList == null) { return; }
+        if (ActionManager.ActionList == null) { return; }
         actionViewObject.SetActive(true);
-        if (ActionManager.actionList.Count == 0) { return; }
+        if (ActionManager.ActionList.Count == 0) { return; }
 
         ClearView();
-        for (int i = ActionManager.actionList.Count - 1; i >= 0; i--)
+        for (int i = ActionManager.ActionList.Count - 1; i >= 0; i--)
         {
             GameObject actionCellObject = Instantiate(actionCellPrefab, actionContentView);
-            actionCellObject.GetComponent<ActionCell>().SetupFromElementAction(ActionManager.actionList[i]);
+            actionCellObject.GetComponent<ActionCell>().SetupFromElementAction(ActionManager.ActionList[i]);
         }
     }
 

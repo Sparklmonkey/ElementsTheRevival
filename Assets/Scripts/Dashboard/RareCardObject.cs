@@ -10,14 +10,14 @@ public class RareCardObject : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField]
     private TextMeshProUGUI cardName;
 
-    private CardDisplay cardDisplay;
-    private Dash_QuestManager questManager;
-    private Card rareCard;
-    public void SetupSelection(Card rareCard, Dash_QuestManager questManager, CardDisplay cardDisplay)
+    private CardDisplay _cardDisplay;
+    private DashQuestManager _questManager;
+    private Card _rareCard;
+    public void SetupSelection(Card rareCard, DashQuestManager questManager, CardDisplay cardDisplay)
     {
-        this.rareCard = rareCard;
-        this.cardDisplay = cardDisplay;
-        this.questManager = questManager;
+        this._rareCard = rareCard;
+        this._cardDisplay = cardDisplay;
+        this._questManager = questManager;
         cardImage.sprite = ImageHelper.GetCardImage(rareCard.imageID);
         backgroundColor.sprite = ImageHelper.GetCardBackGroundImage(rareCard.costElement.FastElementString());
         cardName.text = rareCard.cardName;
@@ -25,27 +25,27 @@ public class RareCardObject : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void SelectCard()
     {
-        PlayerData.shared.cardInventory.Add(rareCard.iD);
+        PlayerData.Shared.cardInventory.Add(_rareCard.iD);
         PlayerData.SaveData();
         PlayerPrefs.SetFloat("ShouldShowRareCard", 2);
-        questManager.SetupQuestPanel();
+        _questManager.SetupQuestPanel();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        cardDisplay.gameObject.SetActive(true);
-        cardDisplay.SetupCardView(rareCard);
+        _cardDisplay.gameObject.SetActive(true);
+        _cardDisplay.SetupCardView(_rareCard);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        cardDisplay.gameObject.SetActive(false);
+        _cardDisplay.gameObject.SetActive(false);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        PlayerData.shared.cardInventory.Add(rareCard.iD);
+        PlayerData.Shared.cardInventory.Add(_rareCard.iD);
         PlayerPrefs.SetFloat("ShouldShowRareCard", 2);
-        questManager.SetupQuestPanel();
+        _questManager.SetupQuestPanel();
     }
 }

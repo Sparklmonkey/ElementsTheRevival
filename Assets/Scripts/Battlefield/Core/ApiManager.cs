@@ -21,10 +21,7 @@ public delegate void SimpleAction();
 
 public class ApiManager : Singleton<ApiManager>
 {
-
-    public GameObject touchBlocker;
-
-    public static bool isTrainer;
+    public static bool IsTrainer;
     public bool isUnityUser = false;
 
     public void LogoutUser()
@@ -32,18 +29,16 @@ public class ApiManager : Singleton<ApiManager>
         AuthenticationService.Instance.SignOut(true);
     }
 
-    private string BaseUrl = "https://www.sparklmonkeygames.com/";
-    private string apiKey = "ElementRevival-ApiKey";
-    private string token = "";
-    private string playerID = "";
+    private readonly string _baseUrl = "https://www.sparklmonkeygames.com/";
+    private readonly string _apiKey = "ElementRevival-ApiKey";
 
-    public AppInfo appInfo;
+    private AppInfo _appInfo;
 
     public class AppInfo
     {
-        public bool isMaintainence;
-        public bool shouldUpdate;
-        public string updateNote;
+        public bool IsMaintainence;
+        public bool ShouldUpdate;
+        public string UpdateNote;
     }
 
     private async void Start()
@@ -54,7 +49,7 @@ public class ApiManager : Singleton<ApiManager>
 
     public UnityWebRequest CreateApiPostRequest(string actionUrl, object body = null)
     {
-        return CreateApiRequest(BaseUrl + actionUrl, UnityWebRequest.kHttpVerbPOST, body);
+        return CreateApiRequest(_baseUrl + actionUrl, UnityWebRequest.kHttpVerbPOST, body);
     }
 
     UnityWebRequest CreateApiRequest(string url, string method, object body)
@@ -78,8 +73,8 @@ public class ApiManager : Singleton<ApiManager>
         request.SetRequestHeader("Accept", "application/test");
         request.SetRequestHeader("Access-Control-Allow-Origin", "*");
         request.SetRequestHeader("Content-Type", "application/json");
-        request.SetRequestHeader("x-elementsrevival-apikey", apiKey);
-        request.SetRequestHeader("Authorization", $"Bearer {token}");
+        request.SetRequestHeader("x-elementsrevival-apikey", _apiKey);
+        request.SetRequestHeader("Authorization", $"Bearer ");
         request.timeout = 60;
         return request;
     }
@@ -157,15 +152,15 @@ public class ApiManager : Singleton<ApiManager>
                     break;
                 case LoginType.RegisterUserPass:
                     await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
-                    PlayerData.shared = new();
-                    PlayerData.shared.userName = username;
+                    PlayerData.Shared = new();
+                    PlayerData.Shared.userName = username;
                     await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
                     await SaveDataToUnity();
                     break;
                 case LoginType.RegisterUnity:
                     await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
-                    PlayerData.shared = new();
-                    PlayerData.shared.userName = username;
+                    PlayerData.Shared = new();
+                    PlayerData.Shared.userName = username;
                     await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
                     await SaveDataToUnity();
                     isUnityUser = true;
@@ -201,9 +196,9 @@ public class ApiManager : Singleton<ApiManager>
     {
         try
         {
-            if (inGameUserName != PlayerData.shared.userName)
+            if (inGameUserName != PlayerData.Shared.userName)
             {
-                PlayerData.shared.userName = inGameUserName;
+                PlayerData.Shared.userName = inGameUserName;
                 await AuthenticationService.Instance.UpdatePlayerNameAsync(inGameUserName);
                 await SaveDataToUnity();
             }
@@ -234,25 +229,25 @@ public class ApiManager : Singleton<ApiManager>
     public async Task GetAppInfo()
     {
         var arguments = new Dictionary<string, object> { { "appVersion", Application.version } };
-        appInfo = await CloudCodeService.Instance.CallEndpointAsync<AppInfo>("get-app-info", arguments);
-        Debug.Log(appInfo);
+        _appInfo = await CloudCodeService.Instance.CallEndpointAsync<AppInfo>("get-app-info", arguments);
+        Debug.Log(_appInfo);
     }
 
     public async Task SavePlayerScore()
     {
-        var arguments = new Dictionary<string, object> { { "playerScore", PlayerData.shared.playerScore } };
+        var arguments = new Dictionary<string, object> { { "playerScore", PlayerData.Shared.playerScore } };
         await CloudCodeService.Instance.CallEndpointAsync("update-player-score", arguments);
     }
     public async Task SaveGameStats()
     {
-        var data = new Dictionary<string, object> { { "GameStats", GameStats.shared } };
+        var data = new Dictionary<string, object> { { "GameStats", GameStats.Shared } };
         await CloudSaveService.Instance.Data.ForceSaveAsync(data);
     }
 
     public async Task SaveDataToUnity()
     {
         await SavePlayerScore();
-        var data = new Dictionary<string, object> { { "SaveData", PlayerData.shared } };
+        var data = new Dictionary<string, object> { { "SaveData", PlayerData.Shared } };
         await CloudSaveService.Instance.Data.ForceSaveAsync(data);
     }
 
@@ -269,21 +264,21 @@ public class ApiManager : Singleton<ApiManager>
         Dictionary<string, string> gameStats = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> { "GameStats" });
         if (gameStats == null)
         {
-            GameStats.shared = new();
+            GameStats.Shared = new();
         }
         else
         {
-            GameStats.shared = JsonUtility.FromJson<GameStats>(gameStats["GameStats"]);
+            GameStats.Shared = JsonUtility.FromJson<GameStats>(gameStats["GameStats"]);
         }
 
         if (savedData == null)
         {
-            PlayerData.shared = new();
+            PlayerData.Shared = new();
             return false;
         }
         else
         {
-            PlayerData.shared = JsonUtility.FromJson<PlayerData>(savedData["SaveData"]);
+            PlayerData.Shared = JsonUtility.FromJson<PlayerData>(savedData["SaveData"]);
             return true;
         }
     }

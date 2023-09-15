@@ -2,12 +2,12 @@
 
 public class SerketAiTurnComponent : AiBaseFunctions, IAiTurnComponent
 {
-    private int cloakCount = 0;
+    private int _cloakCount = 0;
 
 
     public IEnumerator RestOfTurn(PlayerManager aiManager)
     {
-        cloakCount--;
+        _cloakCount--;
         //Play Arsenic if none in play
         yield return aiManager.StartCoroutine(PlayWeapon(aiManager, "Elite Arsenic"));
 
@@ -21,8 +21,8 @@ public class SerketAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         yield return aiManager.StartCoroutine(PlayPermanent(aiManager, "Eclipse"));
 
         //Activate Life Nymphs on Death stalkers and Scorpions
-        yield return aiManager.StartCoroutine(creatureManager.ActivateAllCreatureAbility(aiManager));
-        if (cloakCount <= 0)
+        yield return aiManager.StartCoroutine(CreatureManager.ActivateAllCreatureAbility(aiManager));
+        if (_cloakCount <= 0)
         {
             yield return aiManager.StartCoroutine(PlayPermanent(aiManager, "Elite Cloak"));
         }
