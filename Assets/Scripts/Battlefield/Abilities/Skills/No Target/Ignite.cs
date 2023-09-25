@@ -8,9 +8,9 @@ public class Ignite : AbilityEffect
     {
         target.RemoveCard();
 
-        DuelManager.GetNotIDOwner(target.id).ModifyHealthLogic(20, true, false);
+        DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(20, true, false);
 
-        var idList = DuelManager.GetNotIDOwner(target.id).playerCreatureField.GetAllValidCardIds();
+        var idList = DuelManager.Instance.GetNotIDOwner(target.id).playerCreatureField.GetAllValidCardIds();
 
         foreach (var idCardi in idList)
         {

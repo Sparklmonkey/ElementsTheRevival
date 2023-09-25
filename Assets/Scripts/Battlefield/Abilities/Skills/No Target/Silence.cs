@@ -6,7 +6,7 @@ public class Silence : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Owner.AddPlayerCounter(PlayerCounters.Silence, 1);
+        DuelManager.Instance.GetNotIDOwner(Owner.playerID.id).AddPlayerCounter(PlayerCounters.Silence, 1);
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

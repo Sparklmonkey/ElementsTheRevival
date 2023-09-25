@@ -61,8 +61,6 @@ public class PlayerManager : MonoBehaviour
                 }
                 playerCounters.poison -= amount;
                 break;
-            default:
-                break;
         }
         OnPlayerCounterUpdate?.Invoke(playerCounters);
     }
@@ -116,14 +114,16 @@ public class PlayerManager : MonoBehaviour
         return value;
     }
 
-    public void ManageGravityCreatures(ref int atkNow, ref IDCardPair attacker)
+    public void ManageGravityCreatures(ref int atkNow)
     {
         var gravityCreatures = playerCreatureField.GetCreaturesWithGravity();
-        if (gravityCreatures.Count == 0) { return; }
-
+        if (gravityCreatures.Count == 0)
+        {
+            return;
+        }
+   
         foreach (var creature in gravityCreatures)
         {
-            attacker.card.DefDamage += creature.card.AtkNow;
             if (creature.card.DefNow >= atkNow)
             {
                 creature.card.DefModify -= atkNow;
@@ -136,7 +136,6 @@ public class PlayerManager : MonoBehaviour
                 atkNow -= creature.card.DefNow;
                 creature.RemoveCard();
             }
-            attacker.UpdateCard();
         }
     }
 
@@ -149,7 +148,7 @@ public class PlayerManager : MonoBehaviour
         if (shield.card.skill == "") { return false; }
         var shieldSkill = shield.card.skill.GetShieldScript<ShieldAbility>();
         shieldSkill.Owner = this;
-        shieldSkill.Enemy = DuelManager.GetNotIDOwner(playerID.id);
+        shieldSkill.Enemy = DuelManager.Instance.GetNotIDOwner(playerID.id);
 
         shieldSkill.ActivateShield(ref atkNow, ref cardPair);
         return false;
@@ -169,13 +168,6 @@ public class PlayerManager : MonoBehaviour
     public Counters playerCounters;
 
     public bool isPlayer;
-
-    private float _animSpeed;
-    private void Update()
-    {
-        _animSpeed = PlayerPrefs.GetFloat("AnimSpeed");
-    }
-
     public void ClearFloodedArea(List<int> safeZones)
     {
         if (DuelManager.FloodCount > 0)
@@ -235,11 +227,6 @@ public class PlayerManager : MonoBehaviour
 
     public void StartTurn()
     {
-        if (DeckManager.GetDeckCount() <= 0)
-        {
-            GameOverVisual.ShowGameOverScreen(!isPlayer);
-            return;
-        }
         TurnDownTick();
         DrawCardFromDeckLogic();
     }
@@ -322,15 +309,12 @@ public class PlayerManager : MonoBehaviour
                 return playerPassiveManager.PlayPassive(card);
             case CardType.Mark:
                 return playerPassiveManager.PlayPassive(card);
-            default:
-                break;
         }
         return null;
     }
 
     internal void DisplayHand()
     {
-        var cards = playerHand.GetAllValidCardIds();
         playerHand.ShowCardsForPrecog();
     }
 
@@ -413,8 +397,6 @@ public class PlayerManager : MonoBehaviour
                 break;
             case CardType.Artifact:
                 hasSpace = playerPermanentManager.GetAllValidCardIds().Count < 14;
-                break;
-            default:
                 break;
         }
 
@@ -504,12 +486,6 @@ public class PlayerManager : MonoBehaviour
         //Logic Side
         //Get Card From Deck
         Card newCard = DeckManager.DrawCard();
-        if (newCard == null)
-        {
-            Debug.Log("Game Over");
-            GameOverVisual.ShowGameOverScreen(!isPlayer);
-            return;
-        }
         //Add Card To Hand
         playerHand.AddCardToHand(newCard);
         if (!isInitialDraw)
@@ -610,7 +586,7 @@ public class PlayerManager : MonoBehaviour
     public void ActivateCloakEffect(IDCardPair cardPair)
     {
         if (isPlayer) { return; }
-        cloakVisual.SetActive(true); ;
+        cloakVisual.SetActive(true); 
         cardPair.transform.parent.transform.parent = cloakVisual.transform;
 
     }
@@ -651,7 +627,6 @@ public class PlayerManager : MonoBehaviour
                     {
                         atkMod = 2;
                         defMod = 1;
-                        break;
                     }
                     break;
                 case "5uq":
@@ -659,10 +634,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         atkMod = 1;
                         defMod = 1;
-                        break;
                     }
-                    break;
-                default:
                     break;
             }
         }
@@ -681,7 +653,6 @@ public class PlayerManager : MonoBehaviour
                     {
                         atkMod = -2;
                         defMod = -1;
-                        break;
                     }
                     break;
                 case "5uq":
@@ -689,10 +660,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         atkMod = -1;
                         defMod = -1;
-                        break;
                     }
-                    break;
-                default:
                     break;
             }
         }
@@ -768,7 +736,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        DuelManager.GetNotIDOwner(playerID.id).DealPoisonDamage();
+        DuelManager.Instance.GetNotIDOwner(playerID.id).DealPoisonDamage();
         var creaturelist = playerCreatureField.GetAllValidCardIds();
         if (creaturelist.Count > 0)
         {
@@ -880,8 +848,6 @@ public class PlayerManager : MonoBehaviour
         }
         yield return null;
     }
-
-
 
     public IEnumerator SetupPlayerManager(bool isPlayer)
     {

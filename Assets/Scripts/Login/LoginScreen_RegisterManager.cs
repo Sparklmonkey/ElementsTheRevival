@@ -9,6 +9,8 @@ public class LoginScreenRegisterManager : MonoBehaviour
     private TMP_InputField username, password, email;
     [SerializeField]
     private TextMeshProUGUI serverResponse;
+
+    [SerializeField] private GameObject linkDataPopUp;
     private GameObject _touchBlocker;
 
     public List<TMP_InputField> fields;
@@ -32,9 +34,36 @@ public class LoginScreenRegisterManager : MonoBehaviour
         fields = new List<TMP_InputField> { username, password };
     }
 
-    public async void AttemptToRegister()
+    public async void RegisterLinkData()
     {
+        _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
+        _touchBlocker.transform.SetAsFirstSibling();
+        
+        PlayerData.LoadData();
+        var response = await ApiManager.Instance.RegisterController(new()
+        {
+            username = username.text,
+            password = password.text,
+            email = email.text,
+            dataToLink = PlayerData.Shared
+        }, "link-data");
 
+        _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+        Destroy(_touchBlocker);
+        if (response.errorMessage == ErrorCases.AllGood)
+        {
+            PlayerData.Shared = response.savedData;
+            PlayerData.Shared.userName = username.text;
+            GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
+        }
+        else
+        {
+            serverResponse.text = response.errorMessage.ToLongDescription();
+        }
+    }
+
+    public void AttemptToRegister()
+    {
         if (!username.text.UsernameCheck())
         {
             serverResponse.text = "Username does not meet requirements";
@@ -46,53 +75,36 @@ public class LoginScreenRegisterManager : MonoBehaviour
             return;
         }
 
-        if (await ApiManager.Instance.CheckUsername(username.text))
+        if (PlayerPrefs.HasKey("SaveData"))
         {
-            _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
-            _touchBlocker.transform.SetAsFirstSibling();
-            await ApiManager.Instance.UserLoginAsync(LoginType.RegisterUserPass, HandleUserRegistration, username.text, password.text);
-        }
-        else
-        {
-            serverResponse.text = "Username is already in use. Please try a different one.";
-        }
-
-    }
-
-    public async void AttemptToRegisterWithUnity()
-    {
-        if (!username.text.UsernameCheck())
-        {
-            serverResponse.text = "Username does not meet requirements";
+            linkDataPopUp.SetActive(true);
             return;
         }
-
-        if (await ApiManager.Instance.CheckUsername(username.text))
-        {
-            _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
-            _touchBlocker.transform.SetAsFirstSibling();
-            await ApiManager.Instance.UserLoginAsync(LoginType.RegisterUnity, HandleUserRegistration, username.text);
-        }
-        else
-        {
-            serverResponse.text = "Username is already in use. Please try a different one.";
-        }
+        RegisterNewUser();
     }
 
-    public async void HandleUserRegistration(string responseMessage)
+    public async void RegisterNewUser()
     {
+        _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
+        _touchBlocker.transform.SetAsFirstSibling();
+        var response = await ApiManager.Instance.RegisterController(new()
+        {
+            username = username.text,
+            password = password.text,
+            email = email.text
+        }, "register");
+
         _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(_touchBlocker);
-        if (responseMessage == "Success")
+        if (response.errorMessage == ErrorCases.AllGood)
         {
-            PlayerData.Shared = new();
+            PlayerData.Shared = response.savedData;
             PlayerData.Shared.userName = username.text;
-            await ApiManager.Instance.SaveDataToUnity();
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
         }
         else
         {
-            serverResponse.text = responseMessage;
+            serverResponse.text = response.errorMessage.ToLongDescription();
         }
     }
 }

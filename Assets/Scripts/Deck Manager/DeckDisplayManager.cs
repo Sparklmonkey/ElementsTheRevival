@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DeckDisplayManager : MonoBehaviour
 {
     [SerializeField]
-    private List<Card> playerDeck, playerInverntory;
-
+    private List<Card> playerDeck, playerInventory, arenaInventory;
     [SerializeField]
     private TextMeshProUGUI deckCount, inventoryCount, menuBtnText;
     [SerializeField]
@@ -41,11 +41,12 @@ public class DeckDisplayManager : MonoBehaviour
         {
             menuBtnText.text = "Arena T50";
             playerDeck = PlayerData.Shared.arenaT50Deck.DeserializeCard();
-            playerInverntory = PlayerData.Shared.cardInventory.DeserializeCard();
-            playerInverntory.AddRange(PlayerData.Shared.currentDeck.DeserializeCard());
+            playerInventory = arenaInventory = PlayerData.Shared.cardInventory.DeserializeCard();
+            playerInventory.AddRange(PlayerData.Shared.currentDeck.DeserializeCard());
             foreach (var item in playerDeck)
             {
-                playerInverntory.Remove(item);
+                var index = playerInventory.FindIndex(x => x.iD == item.iD);
+                playerInventory.Remove(item);
             }
             markManager.SetupMarkCard((int)PlayerData.Shared.arenaT50Mark);
         }
@@ -53,20 +54,20 @@ public class DeckDisplayManager : MonoBehaviour
         {
             menuBtnText.text = "Main Menu";
             playerDeck = PlayerData.Shared.currentDeck.DeserializeCard();
-            playerInverntory = PlayerData.Shared.cardInventory.DeserializeCard();
+            playerInventory = PlayerData.Shared.cardInventory.DeserializeCard();
             markManager.SetupMarkCard((int)PlayerData.Shared.markElement);
         }
         playerDeck.Sort((x, y) => string.Compare(x.iD, y.iD));
-        playerInverntory.Sort((x, y) => string.Compare(x.iD, y.iD));
+        playerInventory.Sort((x, y) => string.Compare(x.iD, y.iD));
 
         deckCount.text = $"( {playerDeck.Count} Cards ) ";
-        inventoryCount.text = $"( {playerInverntory.Count} Cards ) ";
+        inventoryCount.text = $"( {playerInventory.Count} Cards ) ";
         foreach (Card deckCard in playerDeck)
         {
             GameObject cardHeadObject = Instantiate(cardHeadPrefab, deckContentView);
             cardHeadObject.GetComponent<DmCardPrefab>().SetupCardHead(deckCard, this);
         }
-        foreach (Card inventoryCard in playerInverntory)
+        foreach (Card inventoryCard in playerInventory)
         {
             DmCardPrefab dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().cardName == inventoryCard.cardName);
             if (dMCardPrefab != null)
@@ -106,10 +107,10 @@ public class DeckDisplayManager : MonoBehaviour
         _currentFilterSelection = element;
         _inventoryDmCard = new List<DmCardPrefab>();
         ClearInventoryView();
-        playerInverntory.Sort((x, y) => string.Compare(x.iD, y.iD));
+        playerInventory.Sort((x, y) => string.Compare(x.iD, y.iD));
         if (element == 14)
         {
-            foreach (Card inventoryCard in playerInverntory)
+            foreach (Card inventoryCard in playerInventory)
             {
                 DmCardPrefab dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().cardName == inventoryCard.cardName);
                 if (dMCardPrefab != null)
@@ -128,16 +129,16 @@ public class DeckDisplayManager : MonoBehaviour
 
         Element filter = (Element)element;
 
-        List<Card> filteredList = playerInverntory.FindAll(x => x.costElement == filter);
+        List<Card> filteredList = playerInventory.FindAll(x => x.costElement == filter);
 
         if (filter.Equals(Element.Air))
         {
-            filteredList.AddRange(playerInverntory.FindAll(x => x.cardName == "Animate Weapon"));
+            filteredList.AddRange(playerInventory.FindAll(x => x.cardName == "Animate Weapon"));
         }
 
         if (filter.Equals(Element.Light))
         {
-            filteredList.AddRange(playerInverntory.FindAll(x => x.cardName == "Luciferin" || x.cardName == "Luciferase"));
+            filteredList.AddRange(playerInventory.FindAll(x => x.cardName == "Luciferin" || x.cardName == "Luciferase"));
         }
 
         foreach (Card inventoryCard in filteredList)
@@ -180,13 +181,13 @@ public class DeckDisplayManager : MonoBehaviour
         List<DmCardPrefab> children = new(deckContentView.GetComponentsInChildren<DmCardPrefab>());
         foreach (DmCardPrefab child in children)
         {
-            playerInverntory.Add(child.GetCard());
+            playerInventory.Add(child.GetCard());
             ClearDeckView();
         }
         FilterInventoryCardsByElement(14);
         playerDeck.Clear();
         deckCount.text = $"( {playerDeck.Count} Cards ) ";
-        inventoryCount.text = $"( {playerInverntory.Count} Cards ) ";
+        inventoryCount.text = $"( {playerInventory.Count} Cards ) ";
     }
 
     private void UpdateCardView()
@@ -194,7 +195,7 @@ public class DeckDisplayManager : MonoBehaviour
         _inventoryDmCard = new List<DmCardPrefab>();
         ClearDeckView();
         deckCount.text = $"( {playerDeck.Count} Cards ) ";
-        inventoryCount.text = $"( {playerInverntory.Count} Cards ) ";
+        inventoryCount.text = $"( {playerInventory.Count} Cards ) ";
         playerDeck.Sort((x, y) => string.Compare(x.iD, y.iD));
         foreach (Card deckCard in playerDeck)
         {
@@ -211,7 +212,7 @@ public class DeckDisplayManager : MonoBehaviour
         {
             PlayerData.Shared.removedCardFromDeck = true;
             playerDeck.Remove(card);
-            playerInverntory.Add(card);
+            playerInventory.Add(card);
             UpdateCardView();
             return;
         }
@@ -222,7 +223,7 @@ public class DeckDisplayManager : MonoBehaviour
             return;
         }
 
-        playerInverntory.Remove(card);
+        playerInventory.Remove(card);
         playerDeck.Add(card);
         UpdateCardView();
     }
@@ -255,10 +256,10 @@ public class DeckDisplayManager : MonoBehaviour
         List<string> idList = deckCode.DecompressDeckCode();
         foreach (var id in idList)
         {
-            int cardIndex = playerInverntory.FindIndex(x => x.iD == id);
+            int cardIndex = playerInventory.FindIndex(x => x.iD == id);
             if (cardIndex == -1) { continue; }
-            playerDeck.Add(playerInverntory[cardIndex]);
-            playerInverntory.RemoveAt(cardIndex);
+            playerDeck.Add(playerInventory[cardIndex]);
+            playerInventory.RemoveAt(cardIndex);
             if (CardDatabase.Instance.MarkIds.Contains(id))
             {
                 markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).costElement);
@@ -274,10 +275,10 @@ public class DeckDisplayManager : MonoBehaviour
         List<string> idList = new(deckCodeField.text.Split(" "));
         foreach (var id in idList)
         {
-            int cardIndex = playerInverntory.FindIndex(x => x.iD == id);
+            int cardIndex = playerInventory.FindIndex(x => x.iD == id);
             if (cardIndex == -1) { continue; }
-            playerDeck.Add(playerInverntory[cardIndex]);
-            playerInverntory.RemoveAt(cardIndex);
+            playerDeck.Add(playerInventory[cardIndex]);
+            playerInventory.RemoveAt(cardIndex);
             if (CardDatabase.Instance.MarkIds.Contains(id))
             {
                 markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).costElement);
@@ -289,18 +290,19 @@ public class DeckDisplayManager : MonoBehaviour
 
     public async void SaveDeck()
     {
-        if (playerDeck.Count >= 30 && playerDeck.Count <= 60)
+        if (playerDeck.Count is >= 30 and <= 60)
         {
             if (IsArena)
             {
                 PlayerData.Shared.arenaT50Deck = playerDeck.SerializeCard();
                 PlayerData.Shared.arenaT50Mark = markManager.GetMarkSelected();
+                PlayerData.Shared.cardInventory = arenaInventory.SerializeCard();
             }
             else
             {
                 PlayerData.Shared.currentDeck = playerDeck.SerializeCard();
                 PlayerData.Shared.markElement = markManager.GetMarkSelected();
-                PlayerData.Shared.cardInventory = playerInverntory.SerializeCard();
+                PlayerData.Shared.cardInventory = playerInventory.SerializeCard();
             }
 
             if (ApiManager.IsTrainer)
@@ -310,7 +312,7 @@ public class DeckDisplayManager : MonoBehaviour
             }
             menuBtn.gameObject.SetActive(false);
             _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-            await ApiManager.Instance.SaveDataToUnity();
+            await ApiManager.Instance.SaveGameData();
 
             _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
             Destroy(_touchBlocker);
@@ -332,18 +334,19 @@ public class DeckDisplayManager : MonoBehaviour
 
     public async void GoToBazaar()
     {
-        if (playerDeck.Count >= 30 && playerDeck.Count <= 60)
+        if (playerDeck.Count is >= 30 and <= 60)
         {
             if (IsArena)
             {
                 PlayerData.Shared.arenaT50Deck = playerDeck.SerializeCard();
                 PlayerData.Shared.arenaT50Mark = markManager.GetMarkSelected();
+                PlayerData.Shared.cardInventory = arenaInventory.SerializeCard();
             }
             else
             {
                 PlayerData.Shared.currentDeck = playerDeck.SerializeCard();
                 PlayerData.Shared.markElement = markManager.GetMarkSelected();
-                PlayerData.Shared.cardInventory = playerInverntory.SerializeCard();
+                PlayerData.Shared.cardInventory = playerInventory.SerializeCard();
             }
 
             if (ApiManager.IsTrainer)
@@ -353,7 +356,7 @@ public class DeckDisplayManager : MonoBehaviour
             }
             menuBtn.gameObject.SetActive(false);
             _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-            await ApiManager.Instance.SaveDataToUnity();
+            await ApiManager.Instance.SaveGameData();
 
             _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
             Destroy(_touchBlocker);

@@ -11,7 +11,7 @@ public class Sniper : AbilityEffect
         target.card.DefDamage += 3;
         if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
-            Owner.ModifyHealthLogic(3, true, false);
+            DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(3, true, false);
         }
 
         target.UpdateCard();

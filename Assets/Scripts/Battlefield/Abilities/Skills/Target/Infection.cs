@@ -11,7 +11,7 @@ public class Infection : AbilityEffect
         target.card.Poison += 1;
         if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
-            Owner.AddPlayerCounter(PlayerCounters.Poison, 1);
+            DuelManager.Instance.GetNotIDOwner(target.id).AddPlayerCounter(PlayerCounters.Poison, 1);
         }
 
         target.UpdateCard();

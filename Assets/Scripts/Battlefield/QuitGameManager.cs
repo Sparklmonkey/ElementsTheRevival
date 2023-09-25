@@ -10,8 +10,7 @@ public class QuitGameManager : MonoBehaviour
 
     public async void SetupSurrenderScreen()
     {
-        GameOverVisual.IsGameOver = true;
-//        GameOverVisual.ShowGameOverScreen(false);
+        DuelManager.Instance.SetGameOver(true);
         if (BattleVars.Shared.IsArena)
         {
             PlayerData.Shared.arenaLosses++;
@@ -20,11 +19,10 @@ public class QuitGameManager : MonoBehaviour
         PlayerData.Shared.gamesLost++;
         PlayerData.Shared.playerScore -= BattleVars.Shared.EnemyAiData.scoreWin / 2;
         PlayerData.Shared.playerScore = PlayerData.Shared.playerScore < 0 ? 0 : PlayerData.Shared.playerScore;
-        GameStats.Shared.UpdateValues(new GameStatRequest(BattleVars.Shared.EnemyAiData, true,
-            BattleVars.Shared.IsArena));
         _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"),
             GameObject.Find("QuitGameScreen").transform);
-        await ApiManager.Instance.SaveGameStats();
+        await ApiManager.Instance.SaveGameStats(new (BattleVars.Shared.EnemyAiData, true,
+            BattleVars.Shared.IsArena));
         Destroy(_touchBlocker);
         mainMenuButton.interactable = true;
     }

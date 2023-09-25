@@ -29,7 +29,7 @@ public class BazaarPlayerInventoryManager : InventoryManager
         }
 
         touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-        await ApiManager.Instance.SaveDataToUnity();
+        await ApiManager.Instance.SaveGameData();
         touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(touchBlocker);
         DeckDisplayManager.IsArena = false;
@@ -81,7 +81,7 @@ public class BazaarPlayerInventoryManager : InventoryManager
 
 
         touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-        await ApiManager.Instance.SaveDataToUnity();
+        await ApiManager.Instance.SaveGameData();
         touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(touchBlocker);
         SceneTransitionManager.Instance.LoadScene("Dashboard");

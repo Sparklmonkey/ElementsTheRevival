@@ -12,6 +12,29 @@ public static class ExtensionMethods
     public static bool PasswordCheck(this string password) => Regex.IsMatch(password, passwordCriteria, RegexOptions.None);
 
 
+    public static string ToLongDescription(this ErrorCases error)
+    {
+        return error switch
+        {
+            ErrorCases.UserNameInUse =>
+                "Username is already being used by someone else. Please use a different username.",
+            ErrorCases.UserDoesNotExist => "Something went wrong. Please try again later.",
+            ErrorCases.IncorrectPassword =>
+                "Either your password or username is incorrect. Please double check and try again.",
+            ErrorCases.AllGood => "Success",
+            ErrorCases.UserMismatch => "Something went wrong. Please try again later.",
+            ErrorCases.UnknownError => "Something went wrong. Please try again later.",
+            ErrorCases.IncorrectEmail => "The email provided is incorrect. Please double check and try again.",
+            ErrorCases.OtpIncorrect => "Something went wrong. Please try again later.",
+            ErrorCases.OtpExpired => "Something went wrong. Please try again later.",
+            ErrorCases.AccountNotVerified => "Something went wrong. Please try again later.",
+            ErrorCases.AppUpdateRequired => "There is a new update available.",
+            ErrorCases.ServerMaintainance => "The servers are currently under maintenance, please check in later.",
+            ErrorCases.PasswordInvalid => "The entered Password does not meet the criteria.",
+            ErrorCases.UsernameInvalid => "The entered Username does not meet the criteria.",
+            _ => "Something went wrong. Please try again later.",
+        };
+    }
 
     public static List<string> SerializeCard(this List<Card> cardList)
     {

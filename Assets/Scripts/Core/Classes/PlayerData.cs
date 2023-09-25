@@ -68,7 +68,6 @@ public class PlayerData
     //Quest 3 Flags
     public bool hasBoughtCardBazaar;
 
-
     public bool hasSoldCardBazaar;
 
     //Quest 4 Flag
@@ -86,6 +85,12 @@ public class PlayerData
         Shared = playerData;
     }
 
+    public static bool LoadData()
+    {
+        if (!PlayerPrefs.HasKey("SaveData")) return false;
+        Shared = JsonUtility.FromJson<PlayerData>(PlayerPrefs.GetString("SaveData"));
+        return true;
+    }
     public static bool HasSaveFile()
     {
         return Directory.Exists(Application.persistentDataPath + "/game_save");

@@ -56,7 +56,7 @@ public class DashCodeRedemption : MonoBehaviour
                 SetupCardRewardView(cards);
             }
         }
-        await ApiManager.Instance.SaveDataToUnity();
+        await ApiManager.Instance.SaveGameData();
         GetComponent<DashboardPlayerData>().UpdateDashboard();
         errorMessage.text = "Code Successfully Redeemed!";
     }
@@ -89,7 +89,7 @@ public class DashCodeRedemption : MonoBehaviour
         }
         PlayerData.Shared.cardInventory.Add(cardDisplayDetail.card.iD);
 
-        await ApiManager.Instance.SaveDataToUnity();
+        await ApiManager.Instance.SaveGameData();
         electrumRewardDisplay.SetActive(false);
         cardRewardObject.SetActive(false);
         cardDisplayDetail.gameObject.SetActive(false);

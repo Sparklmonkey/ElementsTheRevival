@@ -10,8 +10,8 @@ public class Purify : AbilityEffect
     {
         if (!target.HasCard())
         {
-            DuelManager.GetIDOwner(target.id).sacrificeCount = 0;
-            DuelManager.GetIDOwner(target.id).AddPlayerCounter(PlayerCounters.Purify, 2);
+            DuelManager.Instance.GetIDOwner(target.id).sacrificeCount = 0;
+            DuelManager.Instance.GetIDOwner(target.id).AddPlayerCounter(PlayerCounters.Purify, 2);
             return;
         }
 

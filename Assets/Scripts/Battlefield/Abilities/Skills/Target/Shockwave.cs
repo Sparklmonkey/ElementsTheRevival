@@ -17,7 +17,7 @@ public class Shockwave : AbilityEffect
         target.card.DefDamage += 4;
         if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
-            Owner.ModifyHealthLogic(4, true, false);
+            DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(4, true, false);
         }
 
         target.UpdateCard();

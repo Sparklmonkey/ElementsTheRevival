@@ -184,9 +184,6 @@ public class CardDatabase
 
     public Card GetRandomCardOfTypeWithElement(CardType type, Element element, bool shouldBeUpgraded)
     {
-        string upgradedFolder = shouldBeUpgraded ? "Upgraded" : "Regular";
-
-
         List<Card> reducedList = FullCardList.FindAll(x => x.costElement.Equals(element)
         && x.cardType.Equals(type)
         && !x.cardName.Contains("Shard of")
@@ -408,8 +405,6 @@ public class CardDatabase
                         golem.innateSkills.Immaterial = true;
                         golem.desc = "Immaterial: \n Golem can not be targeted.";
                         break;
-                    default:
-                        break;
                 }
                 break;
             case Element.Air:
@@ -437,8 +432,6 @@ public class CardDatabase
                         golem.desc = "<sprite=1><sprite=1> : Unstable gas\n Generate unstable gas";
                         golem.skillCost = 2;
                         break;
-                    default:
-                        break;
                 }
                 break;
             case Element.Darkness:
@@ -458,8 +451,6 @@ public class CardDatabase
                         golem.skill = "steal";
                         golem.desc = "<sprite=2><sprite=2><sprite=2> : : Steal\nSteal a permanent";
                         golem.skillCost = 3;
-                        break;
-                    default:
                         break;
                 }
                 break;
@@ -484,8 +475,6 @@ public class CardDatabase
                         golem.skill = "luciferin";
                         golem.desc = "<sprite=3><sprite=3><sprite=3><sprite=3> : Luciferin\nAll your creatures without a skill gain \"bioluminescence\". Heal yourself for up to 10 HP";
                         golem.skillCost = 4;
-                        break;
-                    default:
                         break;
                 }
                 break;
@@ -516,8 +505,6 @@ public class CardDatabase
                         golem.passiveSkills.DeadlyVenom = true;
                         golem.desc = "Deadly Venom: \nAdd 2 poison damage to each successful attack. Cause poisoning if ingested.";
                         break;
-                    default:
-                        break;
                 }
                 break;
             case Element.Earth:
@@ -545,8 +532,6 @@ public class CardDatabase
                         golem.skill = "petrify";
                         golem.desc = "<sprite=5><sprite=5> : Petrify\nThe target creature gains +0/+20 but can not attack or use skills for 6 turns.";
                         golem.skillCost = 2;
-                        break;
-                    default:
                         break;
                 }
                 break;
@@ -583,8 +568,6 @@ public class CardDatabase
                         golem.desc = "<sprite=6><sprite=6><sprite=6><sprite=6> : Antimatter\nInvert the attack power of the target creature (the creature inflict heals instead of damage)";
                         golem.skillCost = 4;
                         break;
-                    default:
-                        break;
                 }
                 break;
             case Element.Time:
@@ -610,8 +593,6 @@ public class CardDatabase
                         golem.skill = "precognition";
                         golem.desc = "<sprite=7><sprite=7> : Precognition\nYou can see your opponent's hand. Draw a card.";
                         golem.skillCost = 2;
-                        break;
-                    default:
                         break;
                 }
                 break;
@@ -639,8 +620,6 @@ public class CardDatabase
                         golem.desc = "<sprite=8><sprite=8> : Rage\nThe target creature gains +5/-5";
                         golem.skillCost = 2;
                         break;
-                    default:
-                        break;
                 }
                 break;
             case Element.Gravity:
@@ -656,8 +635,6 @@ public class CardDatabase
                         golem.skill = "blackhole";
                         golem.desc = "<sprite=9><sprite=9><sprite=9><sprite=9> : Black Hole\nAbsorb 3 quanta per element from the opponent. Gain 1 HP per absorbed quantum.";
                         golem.skillCost = 4;
-                        break;
-                    default:
                         break;
                 }
                 break;
@@ -683,8 +660,6 @@ public class CardDatabase
                         golem.desc = "<sprite=10><sprite=10><sprite=10><sprite=10> Mitosis: \n Generate a daughter creature";
                         golem.skillCost = 4;
                         break;
-                    default:
-                        break;
                 }
                 break;
             case Element.Water:
@@ -708,11 +683,7 @@ public class CardDatabase
                         golem.desc = "<sprite=10><sprite=10><sprite=10><sprite=10> : Nymph's tears\nTurn one of your pillars into a Nymph";
                         golem.skillCost = 4;
                         break;
-                    default:
-                        break;
                 }
-                break;
-            default:
                 break;
         }
         return golem;
@@ -780,7 +751,7 @@ public class AiDeckBuilder
         }
 
         //Artifacts
-        if (!primary.Equals(Element.Earth))
+        if (!primary.Equals(Element.Entropy) && !primary.Equals(Element.Fire) && !primary.Equals(Element.Other))
         {
             for (int i = 0; i < 4; i++)
             {
@@ -803,8 +774,9 @@ public class AiDeckBuilder
             deckToReturn.Add(intance.GetRandomCard(CardType.Spell, shouldBeUpgraded, true, secondary, true));
             shouldBeUpgraded = Random.Range(0, 100) < 30;
         }
+        
         //Artifacts
-        if (!primary.Equals(Element.Earth))
+        if (!primary.Equals(Element.Entropy) && !primary.Equals(Element.Fire) && !primary.Equals(Element.Other))
         {
             for (int i = 0; i < 1; i++)
             {

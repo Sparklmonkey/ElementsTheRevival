@@ -10,7 +10,7 @@ public class Holylight : AbilityEffect
     {
         if (!target.HasCard())
         {
-            DuelManager.GetIDOwner(target.id).ModifyHealthLogic(10, false, false);
+            DuelManager.Instance.GetIDOwner(target.id).ModifyHealthLogic(10, false, false);
             return;
         }
 

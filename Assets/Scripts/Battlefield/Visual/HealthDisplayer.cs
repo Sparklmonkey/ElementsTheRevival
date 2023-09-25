@@ -30,12 +30,6 @@ namespace Elements.Duel.Visual
             hpSlider.value = temp < 0 ? 0 : temp;
 
             damageSlider.value = currentHp;
-
-            if (currentHp <= 0)
-            {
-                Debug.Log("Game Over");
-                GameOverVisual.ShowGameOverScreen(!isPlayer);
-            }
         }
 
         public void OnMaxHealthChanged(int newMaxHp, bool isPlayer)
@@ -53,12 +47,6 @@ namespace Elements.Duel.Visual
             hpSlider.value = temp < 0 ? 0 : temp;
 
             damageSlider.value = currentHp;
-
-            if (currentHp <= 0)
-            {
-                Debug.Log("Game Over");
-                GameOverVisual.ShowGameOverScreen(!isPlayer);
-            }
         }
 
         public void SetHpStart(int hpToSet)
@@ -85,13 +73,6 @@ namespace Elements.Duel.Visual
             hpSlider.value = temp < 0 ? 0 : temp;
 
             damageSlider.value = currentHp;
-
-            if (currentHp <= 0)
-            {
-                Debug.Log("Game Over");
-                GameOverVisual.ShowGameOverScreen(!isPlayer);
-            }
-
         }
 
         private IEnumerator AnimateTextChange(string difference)

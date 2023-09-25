@@ -26,7 +26,7 @@ public class SkillManager
         var ability = card.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
         ability.Origin = card;
-        var enemy = DuelManager.GetNotIDOwner(owner.playerID.id);
+        var enemy = DuelManager.Instance.GetNotIDOwner(owner.playerID.id);
         var targets = ability.GetPossibleTargets(enemy);
         if (ability.NeedsTarget())
         {
@@ -41,7 +41,7 @@ public class SkillManager
         var ability = card.card.skill.GetSkillScript<AbilityEffect>();
         ability.Owner = owner;
         ability.Origin = card;
-        var enemy = DuelManager.GetNotIDOwner(owner.playerID.id);
+        var enemy = DuelManager.Instance.GetNotIDOwner(owner.playerID.id);
         DuelManager.Instance.SetupHighlights(ability.GetPossibleTargets(enemy));
     }
 
@@ -72,7 +72,7 @@ public class SkillManager
         }
         ability.Owner = owner;
         ability.Origin = iDCard;
-        var targets = ability.GetPossibleTargets(DuelManager.GetNotIDOwner(owner.playerID.id));
+        var targets = ability.GetPossibleTargets(DuelManager.Instance.GetNotIDOwner(owner.playerID.id));
         if (targets.Count == 0)
         {
             return null;

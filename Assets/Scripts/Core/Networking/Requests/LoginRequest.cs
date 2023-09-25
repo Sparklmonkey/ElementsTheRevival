@@ -4,12 +4,14 @@ using UnityEngine.Serialization;
 [Serializable]
 public class LoginRequest
 {
-    [FormerlySerializedAs("Username")] public string username;
-    [FormerlySerializedAs("Password")] public string password;
-    [FormerlySerializedAs("EmailAddress")] public string emailAddress;
-    [FormerlySerializedAs("OtpCode")] public string otpCode;
-    [FormerlySerializedAs("Platform")] public string platform;
-    [FormerlySerializedAs("AppVersion")] public string appVersion;
+    public string username;
+    public string password;
+    public string accessToken;
+    
+    // [FormerlySerializedAs("EmailAddress")] public string emailAddress;
+    // [FormerlySerializedAs("OtpCode")] public string otpCode;
+    // [FormerlySerializedAs("Platform")] public string platform;
+    // [FormerlySerializedAs("AppVersion")] public string appVersion;
 }
 
 

@@ -14,7 +14,7 @@ public class Drainlife : AbilityEffect
 
         if (!target.HasCard())
         {
-            DuelManager.GetIDOwner(target.id).ModifyHealthLogic(damageToDeal, true, true);
+            DuelManager.Instance.GetIDOwner(target.id).ModifyHealthLogic(damageToDeal, true, true);
             Owner.ModifyHealthLogic(damageToDeal, false, false);
             return;
         }
@@ -27,7 +27,7 @@ public class Drainlife : AbilityEffect
         Owner.ModifyHealthLogic(amountToHeal, false, false);
         if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
-            Owner.ModifyHealthLogic(amountToHeal, true, false);
+            DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(amountToHeal, true, false);
         }
 
         target.UpdateCard();

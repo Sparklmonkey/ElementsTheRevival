@@ -6,7 +6,7 @@ public class Plague : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        var targetPlayer = DuelManager.GetNotIDOwner(target.id);
+        var targetPlayer = DuelManager.Instance.GetNotIDOwner(target.id);
         var idList = targetPlayer.playerCreatureField.GetAllValidCardIds();
 
         foreach (var idCardi in idList)

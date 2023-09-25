@@ -6,7 +6,7 @@ public class Duality : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        var cardToAdd = DuelManager.GetNotIDOwner(target.id).DeckManager.GetTopCard();
+        var cardToAdd = DuelManager.Instance.GetNotIDOwner(target.id).DeckManager.GetTopCard();
         if (cardToAdd == null) { return; }
         Owner.playerHand.AddCardToHand(new(cardToAdd));
     }

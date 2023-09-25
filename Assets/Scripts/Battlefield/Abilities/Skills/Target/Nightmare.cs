@@ -8,7 +8,7 @@ public class Nightmare : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        PlayerManager opponent = DuelManager.GetNotIDOwner(Owner.playerID.id);
+        PlayerManager opponent = DuelManager.Instance.GetNotIDOwner(Owner.playerID.id);
         Card creature = CardDatabase.Instance.GetCardFromId(target.card.iD);
 
         int damage = 7 - opponent.GetHandCards().Count;

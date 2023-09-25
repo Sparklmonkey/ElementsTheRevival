@@ -92,28 +92,25 @@ public class SplashScreen : MonoBehaviour
                 imageObjects[i].transform.position = finalPositions[i].position;
             }
             titleImage.material.SetFloat("_Fade", 1f);
-            StartCoroutine(LoadNextScene());
+            LoadNextScene();
         }
     }
 
-    private IEnumerator LoadNextScene()
+    private async void LoadNextScene()
     {
-        ApiManager.Instance.LoginCachedUser(HandleChachedUser);
-        while (_mustWait)
+        if (PlayerPrefs.HasKey("AccessToken"))
         {
-            yield return new WaitForSeconds(1f);
+            var token = PlayerPrefs.GetString("AccessToken");
+            var repsonse = await ApiManager.Instance.LoginController(new LoginRequest()
+            {
+                accessToken = token
+            }, "quick-login");
+            if (repsonse.errorMessage == ErrorCases.AllGood)
+            {
+                SceneTransitionManager.Instance.LoadScene("Dashboard");
+            }
         }
-        _isLoadingNextScene = true;
-        yield return new WaitForSeconds(1f);
-        PlayerPrefs.SetFloat("HasSeenSplash", 1f);
-        if (_dataLoaded)
-        {
-            SceneTransitionManager.Instance.LoadScene("Dashboard");
-        }
-        else
-        {
-            SceneTransitionManager.Instance.LoadScene("LoginScreen");
-        }
+        SceneTransitionManager.Instance.LoadScene("LoginScreen");
     }
 
     private IEnumerator StartTitleAnimation()
@@ -131,13 +128,6 @@ public class SplashScreen : MonoBehaviour
             yield return null;
         }
         shader.SetFloat("_Fade", 1f);
-        StartCoroutine(LoadNextScene());
+        LoadNextScene();
     }
-
-    public void HandleChachedUser(bool wasSuccess)
-    {
-        _dataLoaded = wasSuccess;
-        _mustWait = false;
-    }
-
 }

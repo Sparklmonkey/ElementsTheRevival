@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -43637,6 +43637,7 @@ MonoBehaviour:
   gameOverText: {fileID: 1486940283}
   continueButton: {fileID: 1899971878}
   rayBlocker: {fileID: 152816640}
+  IsGameOver: 0
 --- !u!1 &1810906473
 GameObject:
   m_ObjectHideFlags: 0
@@ -47096,6 +47097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87e2268dfa954667a94f2500e5cb7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverVisual: {fileID: 1808926738}
   player: {fileID: 734589350}
   enemy: {fileID: 234577395}
   endTurnButton: {fileID: 1139114455}

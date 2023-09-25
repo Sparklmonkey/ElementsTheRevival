@@ -14,7 +14,7 @@ public class Aflatoxin : AbilityEffect
         target.UpdateCard();
         if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
-            Owner.AddPlayerCounter(PlayerCounters.Poison, 2);
+            DuelManager.Instance.GetNotIDOwner(target.id).AddPlayerCounter(PlayerCounters.Poison, 2);
         }
     }
 

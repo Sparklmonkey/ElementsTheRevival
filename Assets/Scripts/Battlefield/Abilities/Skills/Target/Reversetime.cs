@@ -19,7 +19,7 @@ public class Reversetime : AbilityEffect
         else
         {
             Card baseCreature = CardDatabase.Instance.GetCardFromId(target.card.iD);
-            DuelManager.GetIDOwner(target.id).AddCardToDeck(baseCreature);
+            DuelManager.Instance.GetIDOwner(target.id).AddCardToDeck(baseCreature);
             target.RemoveCard();
         }
     }

@@ -8,7 +8,7 @@ public class Chaos : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        ChaosSeed(DuelManager.GetIDOwner(target.id), target);
+        ChaosSeed(DuelManager.Instance.GetIDOwner(target.id), target);
     }
 
     private void ChaosSeed(PlayerManager targetOwner, IDCardPair iDCard)

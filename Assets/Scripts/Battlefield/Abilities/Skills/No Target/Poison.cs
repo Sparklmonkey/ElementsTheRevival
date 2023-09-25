@@ -6,7 +6,7 @@ public class Poison : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        DuelManager.GetNotIDOwner(target.id).AddPlayerCounter(PlayerCounters.Poison, target.card.cardType.Equals(CardType.Spell) ? 2 : 1);
+        DuelManager.Instance.GetNotIDOwner(target.id).AddPlayerCounter(PlayerCounters.Poison, target.card.cardType.Equals(CardType.Spell) ? 2 : 1);
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

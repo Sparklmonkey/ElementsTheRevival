@@ -10,7 +10,7 @@ public class PermanentBehaviour : CardTypeBehaviour
             case "5rp":
                 cardPair.card.TurnsInPlay = 2;
                 Owner.AddPlayerCounter(PlayerCounters.Delay, 1);
-                DuelManager.GetNotIDOwner(cardPair.id).AddPlayerCounter(PlayerCounters.Delay, 1);
+                DuelManager.Instance.GetNotIDOwner(cardPair.id).AddPlayerCounter(PlayerCounters.Delay, 1);
                 break;
             case "5v2":
             case "7ti":
@@ -162,7 +162,7 @@ public class PermanentBehaviour : CardTypeBehaviour
             if (cardPair.card.innateSkills.Void)
             {
                 int healthChange = Owner.playerPassiveManager.GetMark().card.costElement == Element.Darkness ? 3 : 2;
-                DuelManager.GetNotIDOwner(cardPair.id).ModifyMaxHealthLogic(healthChange, false);
+                DuelManager.Instance.GetNotIDOwner(cardPair.id).ModifyMaxHealthLogic(healthChange, false);
             }
         }
 
@@ -176,7 +176,7 @@ public class PermanentBehaviour : CardTypeBehaviour
                     AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, cardPair.card.costElement);
                 }
 
-                cardPair.card.skillElement = cardPair.card.skillElement == cardPair.card.costElement ? DuelManager.GetIDOwner(cardPair.id).playerPassiveManager.GetMark().card.costElement : cardPair.card.costElement;
+                cardPair.card.skillElement = cardPair.card.skillElement == cardPair.card.costElement ? DuelManager.Instance.GetIDOwner(cardPair.id).playerPassiveManager.GetMark().card.costElement : cardPair.card.costElement;
             }
             else
             {

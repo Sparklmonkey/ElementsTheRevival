@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ public class ApiManager : Singleton<ApiManager>
 {
     public static bool IsTrainer;
     public bool isUnityUser = false;
-
+    private string _jwtToken;
     public void LogoutUser()
     {
         AuthenticationService.Instance.SignOut(true);
@@ -55,9 +56,9 @@ public class ApiManager : Singleton<ApiManager>
     UnityWebRequest CreateApiRequest(string url, string method, object body)
     {
         string bodyString = null;
-        if (body is string)
+        if (body is string s)
         {
-            bodyString = (string)body;
+            bodyString = s; 
         }
         else if (body != null)
         {
@@ -73,32 +74,54 @@ public class ApiManager : Singleton<ApiManager>
         request.SetRequestHeader("Accept", "application/test");
         request.SetRequestHeader("Access-Control-Allow-Origin", "*");
         request.SetRequestHeader("Content-Type", "application/json");
-        request.SetRequestHeader("x-elementsrevival-apikey", _apiKey);
         request.SetRequestHeader("Authorization", $"Bearer ");
         request.timeout = 60;
         return request;
     }
 
-    public async Task LoginLegacy(LoginRequest loginRequest, LoginLegacyHandler loginSuccess)
+    public async Task<LoginResponse> LoginController(LoginRequest loginRequest, string endPoint)
     {
-        using UnityWebRequest uwr = CreateApiPostRequest("Login/login", loginRequest);
+        using var uwr = CreateApiPostRequest($"login/{endPoint}", loginRequest);
+        await uwr.SendWebRequest();
+
+        if (uwr.result == UnityWebRequest.Result.ConnectionError)
+        {
+            return new() { errorMessage = ErrorCases.UnknownError };
+        }
+        else
+        {
+            var loginResponse = JsonUtility.FromJson<LoginResponse>(uwr.downloadHandler.text);
+            if (loginResponse.errorMessage == ErrorCases.AllGood)
+            {
+                _jwtToken = loginResponse.token;
+                PlayerPrefs.SetString("AccessToken", loginResponse.accessToken);
+                PlayerData.LoadFromApi(loginResponse.savedData);
+                return loginResponse;
+            }
+
+            return loginResponse;
+        }
+    }
+    
+    public async Task<LoginResponse> RegisterController(RegisterRequest registerRequest, string endPoint)
+    {
+        using var uwr = CreateApiPostRequest($"register/{endPoint}", registerRequest);
         await uwr.SendWebRequest();
 
         if (uwr.result == UnityWebRequest.Result.ConnectionError)
         {
             LoginResponse loginResponse = new() { errorMessage = ErrorCases.UnknownError };
-            loginSuccess(loginResponse);
+            return loginResponse;
         }
         else
         {
-            LoginResponse loginResponse = JsonUtility.FromJson<LoginResponse>(uwr.downloadHandler.text);
-            if (loginResponse.errorMessage == ErrorCases.AllGood)
-            {
-                PlayerData.LoadFromApi(loginResponse.playerData);
-                loginSuccess(loginResponse);
-            }
+            var loginResponse = JsonUtility.FromJson<LoginResponse>(uwr.downloadHandler.text);
+            if (loginResponse.errorMessage != ErrorCases.AllGood) return loginResponse;
+            _jwtToken = loginResponse.token;
+            PlayerPrefs.SetString("AccessToken", loginResponse.accessToken);
+            PlayerData.LoadFromApi(loginResponse.savedData);
+            return loginResponse;
 
-            loginSuccess(loginResponse);
         }
     }
 
@@ -115,82 +138,6 @@ public class ApiManager : Singleton<ApiManager>
         handler(response);
     }
 
-    public async void LoginCachedUser(CachedPlayerHandler handler)
-    {
-        if (AuthenticationService.Instance.IsSignedIn)
-        {
-            var hasData = await LoadGameData();
-            handler(hasData);
-        }
-        else if (AuthenticationService.Instance.SessionTokenExists)
-        {
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            var hasData = await LoadGameData();
-            handler(hasData);
-        }
-        else
-        {
-            AuthenticationService.Instance.SignOut();
-            handler(false);
-        }
-    }
-
-    public async Task UserLoginAsync(LoginType loginType, LoginUserHandler handler, string username = "", string password = "")
-    {
-        try
-        {
-            switch (loginType)
-            {
-                case LoginType.Unity:
-                    await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
-                    await LoadGameData();
-                    isUnityUser = true;
-                    break;
-                case LoginType.UserPass:
-                    await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
-                    await LoadGameData();
-                    break;
-                case LoginType.RegisterUserPass:
-                    await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
-                    PlayerData.Shared = new();
-                    PlayerData.Shared.userName = username;
-                    await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
-                    await SaveDataToUnity();
-                    break;
-                case LoginType.RegisterUnity:
-                    await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
-                    PlayerData.Shared = new();
-                    PlayerData.Shared.userName = username;
-                    await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
-                    await SaveDataToUnity();
-                    isUnityUser = true;
-                    break;
-                case LoginType.LinkUserPass:
-                    await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
-                    await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
-                    await SaveDataToUnity();
-                    break;
-                default:
-                    break;
-            }
-            handler("Success");
-        }
-        catch (AuthenticationException ex)
-        {
-            if (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
-            {
-                handler("Username is already in use. Please try a different one.");
-            }
-            else
-            {
-                handler("Something went wrong. Please try again later.");
-            }
-        }
-        catch (RequestFailedException)
-        {
-            handler("Something went wrong. Please try again later.");
-        }
-    }
 
     public async Task<bool> UpdateUserData(string inGameUserName, string oldPassword = "", string newPassword = "")
     {
@@ -200,7 +147,7 @@ public class ApiManager : Singleton<ApiManager>
             {
                 PlayerData.Shared.userName = inGameUserName;
                 await AuthenticationService.Instance.UpdatePlayerNameAsync(inGameUserName);
-                await SaveDataToUnity();
+                await SaveGameData();
             }
             if (oldPassword != "")
             {
@@ -219,13 +166,6 @@ public class ApiManager : Singleton<ApiManager>
         }
     }
 
-    public async Task<bool> CheckUsername(string username)
-    {
-        var arguments = new Dictionary<string, object> { { "username", username } };
-        var response = await CloudCodeService.Instance.CallEndpointAsync<bool>("check-username", arguments);
-        return response;
-    }
-
     public async Task GetAppInfo()
     {
         var arguments = new Dictionary<string, object> { { "appVersion", Application.version } };
@@ -233,55 +173,26 @@ public class ApiManager : Singleton<ApiManager>
         Debug.Log(_appInfo);
     }
 
-    public async Task SavePlayerScore()
+    public async Task SaveGameStats(GameStatRequest gameStatRequest)
     {
-        var arguments = new Dictionary<string, object> { { "playerScore", PlayerData.Shared.playerScore } };
-        await CloudCodeService.Instance.CallEndpointAsync("update-player-score", arguments);
-    }
-    public async Task SaveGameStats()
-    {
-        var data = new Dictionary<string, object> { { "GameStats", GameStats.Shared } };
-        await CloudSaveService.Instance.Data.ForceSaveAsync(data);
+        using var uwr = CreateApiPostRequest($"user-data/update-game-stats", gameStatRequest);
+        await uwr.SendWebRequest();
     }
 
-    public async Task SaveDataToUnity()
+    public async Task SaveGameData()
     {
-        await SavePlayerScore();
-        var data = new Dictionary<string, object> { { "SaveData", PlayerData.Shared } };
-        await CloudSaveService.Instance.Data.ForceSaveAsync(data);
+        using var uwr = CreateApiPostRequest($"user-data/save-data", PlayerData.Shared);
+        await uwr.SendWebRequest();
     }
+}
 
-    public async Task<bool> LoginAsGuest()
-    {
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
-        return await LoadGameData();
-    }
-
-    public async Task<bool> LoadGameData()
-    {
-        await GetAppInfo();
-        Dictionary<string, string> savedData = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> { "SaveData" });
-        Dictionary<string, string> gameStats = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> { "GameStats" });
-        if (gameStats == null)
-        {
-            GameStats.Shared = new();
-        }
-        else
-        {
-            GameStats.Shared = JsonUtility.FromJson<GameStats>(gameStats["GameStats"]);
-        }
-
-        if (savedData == null)
-        {
-            PlayerData.Shared = new();
-            return false;
-        }
-        else
-        {
-            PlayerData.Shared = JsonUtility.FromJson<PlayerData>(savedData["SaveData"]);
-            return true;
-        }
-    }
+[Serializable]
+public class RegisterRequest
+{
+    public string username;
+    public string password;
+    public string email;
+    public PlayerData dataToLink;
 }
 
 

@@ -10,14 +10,14 @@ public class Lightning : AbilityEffect
     {
         if (!target.HasCard())
         {
-            DuelManager.GetIDOwner(target.id).ModifyHealthLogic(5, true, true);
+            DuelManager.Instance.GetIDOwner(target.id).ModifyHealthLogic(5, true, true);
             return;
         }
 
         target.card.DefDamage += 5;
         if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
-            Owner.ModifyHealthLogic(5, true, false);
+            DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(5, true, false);
         }
 
         target.UpdateCard();

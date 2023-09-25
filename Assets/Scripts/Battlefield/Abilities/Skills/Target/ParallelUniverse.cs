@@ -16,7 +16,7 @@ public class Paralleluniverse : AbilityEffect
 
         if (dupe.innateSkills.Voodoo)
         {
-            var opponent = DuelManager.GetNotIDOwner(Owner.playerID.id);
+            var opponent = DuelManager.Instance.GetNotIDOwner(target.id);
             opponent.ModifyHealthLogic(target.card.DefDamage, true, false);
             opponent.AddPlayerCounter(PlayerCounters.Poison, target.card.Poison);
         }

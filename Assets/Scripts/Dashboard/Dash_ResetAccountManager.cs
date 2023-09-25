@@ -15,7 +15,7 @@ public class DashResetAccountManager : MonoBehaviour
         if (inputField.text == "RESET")
         {
             PlayerData.Shared.ResetAccount();
-            await ApiManager.Instance.SaveDataToUnity();
+            await ApiManager.Instance.SaveGameData();
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
         }
         else

@@ -12,7 +12,7 @@ public class Congeal : AbilityEffect
         target.UpdateCard();
         if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
-            Owner.AddPlayerCounter(PlayerCounters.Freeze, 4);
+            DuelManager.Instance.GetNotIDOwner(target.id).AddPlayerCounter(PlayerCounters.Freeze, 4);
         }
     }
 

@@ -14,5 +14,7 @@ public enum ErrorCases
     OtpExpired,
     AccountNotVerified,
     AppUpdateRequired,
-    ServerMaintainance
+    ServerMaintainance,
+    UsernameInvalid,
+    PasswordInvalid
 }

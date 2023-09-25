@@ -10,7 +10,7 @@ public class LoginScreenSetupManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI errorMessage, versionLabel;
     [SerializeField]
-    private GameObject appUpdatePopUp, maintainancePopUp, selectNewUserPassword;
+    private GameObject appUpdatePopUp, maintainancePopUp;
     private GameObject _touchBlocker;
 
     public List<TMP_InputField> fields;
@@ -61,18 +61,20 @@ public class LoginScreenSetupManager : MonoBehaviour
         PlayerData.Shared.markElement = Element.Darkness;
         PlayerData.Shared.currentQuestIndex = 8;
         PlayerData.Shared.electrum = 9999999;
-        GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
+        SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 
     public async void PlayAsGuest()
     {
-        if (await ApiManager.Instance.LoginAsGuest())
+        PlayerPrefs.SetInt("IsGuest", 1);
+        if (PlayerPrefs.HasKey("SaveData"))
         {
-            GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
+            PlayerData.LoadData();
         }
         else
         {
-            GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
+            PlayerData.Shared = new PlayerData();
+            SceneTransitionManager.Instance.LoadScene("DeckSelector");
         }
     }
 
@@ -80,88 +82,18 @@ public class LoginScreenSetupManager : MonoBehaviour
     {
         _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
         _touchBlocker.transform.SetAsFirstSibling();
-        await ApiManager.Instance.UserLoginAsync(LoginType.UserPass, HandleUserLogin, username.text, password.text);
-    }
-
-    public async void AttemptToLoginUnity()
-    {
-        _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-        _touchBlocker.transform.SetAsFirstSibling();
-        await ApiManager.Instance.UserLoginAsync(LoginType.Unity, HandleUserLogin);
-    }
-
-    public void HandleUserLogin(string responseMessage)
-    {
-        if (responseMessage == "Success")
-        {
-            _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-            Destroy(_touchBlocker);
-            if (PlayerData.Shared.currentDeck.Count < 30)
-            {
-                GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
-            }
-            else
-            {
-                GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
-            }
-        }
-        else
-        {
-            HandleUserLoginWithLegacyFallback();
-        }
-    }
-
-
-    private async void HandleLegacyUserLogin(LoginResponse response)
-    {
-
-        if (username.text.UsernameCheck() && password.text.PasswordCheck() && await ApiManager.Instance.CheckUsername(username.text))
-        {
-            await ApiManager.Instance.UserLoginAsync(LoginType.RegisterUserPass, HandleUserRegistration, username.text, password.text);
-            await ApiManager.Instance.SaveDataToUnity();
-            return;
-        }
-        _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(_touchBlocker);
-        selectNewUserPassword.SetActive(true);
-    }
-
-    public async void UpdateUsernamePassword()
-    {
-        _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
-        _touchBlocker.transform.SetAsFirstSibling();
-        if (newUsername.text.UsernameCheck() && newPassword.text.PasswordCheck() && await ApiManager.Instance.CheckUsername(username.text))
-        {
-            await ApiManager.Instance.UserLoginAsync(LoginType.UserPass, HandleUserRegistration, username.text, password.text);
-            return;
-        }
-    }
-
-    public async void HandleUserLoginWithLegacyFallback()
-    {
-        LoginRequest loginRequest = new()
+        var repsonse = await ApiManager.Instance.LoginController(new LoginRequest()
         {
             username = username.text,
-            password = password.text,
-            emailAddress = "",
-            otpCode = "",
-            platform = $"{Application.platform}",
-            appVersion = $"{Application.version}"
-        };
-        await ApiManager.Instance.LoginLegacy(loginRequest, HandleLegacyUserLogin);
-    }
-
-    public void HandleUserRegistration(string responseMessage)
-    {
-        _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-        Destroy(_touchBlocker);
-        if (responseMessage == "Success")
+            password = password.text
+        }, "basic-login");
+        if (repsonse.errorMessage == ErrorCases.AllGood)
         {
-            GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
+            SceneTransitionManager.Instance.LoadScene("Dashboard");
         }
         else
         {
-            errorMessage.text = responseMessage;
+            errorMessage.text = repsonse.errorMessage.ToLongDescription();
         }
     }
 }

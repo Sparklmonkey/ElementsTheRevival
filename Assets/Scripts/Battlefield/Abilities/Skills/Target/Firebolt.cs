@@ -14,14 +14,14 @@ public class Firebolt : AbilityEffect
 
         if (!target.HasCard())
         {
-            DuelManager.GetIDOwner(target.id).ModifyHealthLogic(damageToDeal, true, true);
+            DuelManager.Instance.GetIDOwner(target.id).ModifyHealthLogic(damageToDeal, true, true);
             return;
         }
 
         target.card.DefDamage += damageToDeal;
         if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
-            Owner.ModifyHealthLogic(target.card.DefNow < damageToDeal ? target.card.DefNow : damageToDeal, true, false);
+            DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(target.card.DefNow < damageToDeal ? target.card.DefNow : damageToDeal, true, false);
         }
 
         target.UpdateCard();

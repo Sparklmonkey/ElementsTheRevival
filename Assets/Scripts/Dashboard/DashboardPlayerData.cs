@@ -27,7 +27,7 @@ public class DashboardPlayerData : MonoBehaviour
         {
             return;
         }
-        await ApiManager.Instance.SaveDataToUnity();
+        await ApiManager.Instance.SaveGameData();
 
         saveStatus.transform.parent.gameObject.SetActive(true);
         saveStatus.text = "Save Success";

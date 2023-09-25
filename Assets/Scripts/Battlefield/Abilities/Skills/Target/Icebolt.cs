@@ -15,8 +15,8 @@ public class Icebolt : AbilityEffect
 
         if (!target.HasCard())
         {
-            DuelManager.GetIDOwner(target.id).ModifyHealthLogic(damageToDeal, true, true);
-            DuelManager.GetIDOwner(target.id).AddPlayerCounter(PlayerCounters.Freeze, willFreeze ? 3 : 0);
+            DuelManager.Instance.GetIDOwner(target.id).ModifyHealthLogic(damageToDeal, true, true);
+            DuelManager.Instance.GetIDOwner(target.id).AddPlayerCounter(PlayerCounters.Freeze, willFreeze ? 3 : 0);
             return;
         }
 
@@ -24,8 +24,8 @@ public class Icebolt : AbilityEffect
         target.card.Freeze += willFreeze ? 3 : 0;
         if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
-            Owner.ModifyHealthLogic(target.card.DefNow < damageToDeal ? target.card.DefNow : damageToDeal, true, false);
-            Owner.AddPlayerCounter(PlayerCounters.Freeze, target.card.Freeze += willFreeze ? 3 : 0);
+            DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(target.card.DefNow < damageToDeal ? target.card.DefNow : damageToDeal, true, false);
+            DuelManager.Instance.GetNotIDOwner(target.id).AddPlayerCounter(PlayerCounters.Freeze, target.card.Freeze += willFreeze ? 3 : 0);
         }
 
         target.UpdateCard();

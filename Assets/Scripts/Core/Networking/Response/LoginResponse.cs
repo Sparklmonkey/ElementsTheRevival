@@ -4,9 +4,9 @@ using System.Collections.Generic;
 [Serializable]
 public class LoginResponse
 {
-    public string playerId;
+    public string accessToken;
     public string emailAddress;
-    public PlayerData playerData;
+    public PlayerData savedData;
     public ErrorCases errorMessage;
     public string token;
 }

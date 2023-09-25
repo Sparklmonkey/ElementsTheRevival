@@ -12,7 +12,7 @@ public class Catapult : AbilityEffect
         damage += target.card.Freeze > 0 ? Mathf.FloorToInt(damage * 0.5f) : 0;
         target.RemoveCard();
 
-        DuelManager.GetNotIDOwner(target.id).ModifyHealthLogic(damage, true, false);
+        DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(damage, true, false);
         return;
     }
 

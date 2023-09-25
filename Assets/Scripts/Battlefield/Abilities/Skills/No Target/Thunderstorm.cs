@@ -6,7 +6,7 @@ public class Thunderstorm : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        var victim = DuelManager.GetNotIDOwner(target.id);
+        var victim = DuelManager.Instance.GetNotIDOwner(target.id);
         var idList = victim.playerCreatureField.GetAllValidCardIds();
 
         SoundManager.Instance.PlayAudioClip("Lightning");

@@ -11,7 +11,7 @@ public class Freeze : AbilityEffect
         target.card.Freeze += 3;
         if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
         {
-            Owner.AddPlayerCounter(PlayerCounters.Freeze, 3);
+            DuelManager.Instance.GetNotIDOwner(target.id).AddPlayerCounter(PlayerCounters.Freeze, 3);
         }
 
         target.UpdateCard();

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
-  m_Name: Life
+  m_Name: Darkness
   m_EditorClassIdentifier: 
   opponentName: Aether
-  maxHP: 50
-  mark: 10
-  deck: 606 5t2 5gi 5mq 606 5aa 576 5bs 4vc 5de 596 625 55n 5um 62c 5ie 5fc 5v8 596
-    5ok 5ul 55u 52i 55n 61v 5un 52t 5bv 5v8 5ut 4vn 624 621 593 52p 4vk 55t 5oh 5ig
-    4vk
+  maxHp: 50
+  mark: 2
+  deck: 576 61o 606 63a 5oc 5de 5f0 58o 5gi 61o 52m 52i 5id 5rq 590 4vd 596 5i5 4vq
+    55m 58p 55l 52u 5oj 52m 5id 5lb 596 5f1 5bv 5lc 62m 5li 562 5c9 4vp 61r 593 594
+    5op
   spins: 0
   coinAvg: 1
   costToPlay: 0
