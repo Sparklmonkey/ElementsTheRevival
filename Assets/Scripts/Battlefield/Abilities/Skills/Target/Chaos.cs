@@ -42,7 +42,7 @@ public class Chaos : AbilityEffect
                 break;
             case 4:
             case 5:
-                Owner.PlayCardOnFieldLogic(new(iDCard.card));
+                Owner.PlayCardOnField(new(iDCard.card));
                 break;
             case 6:
                 iDCard.card.skill = "";
@@ -51,7 +51,7 @@ public class Chaos : AbilityEffect
                 break;
             case 7:
                 Card cardToPlay = new(iDCard.card);
-                Owner.PlayCardOnFieldLogic(cardToPlay);
+                Owner.PlayCardOnField(cardToPlay);
                 AnimationManager.Instance.StartAnimation("Steal", iDCard.transform);
                 iDCard.RemoveCard();
                 return;

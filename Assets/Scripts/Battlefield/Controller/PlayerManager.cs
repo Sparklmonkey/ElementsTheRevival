@@ -280,8 +280,10 @@ public class PlayerManager : MonoBehaviour
     }
     //Logic
 
-    public IDCardPair PlayCardOnField(Card card)
+    public void PlayCardOnField(Card card)
     {
+        card.AbilityUsed = true;
+        ActionManager.AddCardPlayedOnFieldAction(isPlayer, card);
         switch (card.cardType)
         {
             case CardType.Pillar:
@@ -296,21 +298,20 @@ public class PlayerManager : MonoBehaviour
                         GenerateQuantaLogic(card.costElement, 1);
                     }
                 }
-                return playerPermanentManager.PlayPermanent(card);
+                playerPermanentManager.PlayPermanent(card);
+                break;
             case CardType.Creature:
-                return playerCreatureField.PlayCreature(card);
-            case CardType.Spell:
-                return null;
+                playerCreatureField.PlayCreature(card);
+                break;
             case CardType.Artifact:
-                return playerPermanentManager.PlayPermanent(card);
+                playerPermanentManager.PlayPermanent(card);
+                break;
             case CardType.Weapon:
-                return playerPassiveManager.PlayPassive(card);
             case CardType.Shield:
-                return playerPassiveManager.PlayPassive(card);
             case CardType.Mark:
-                return playerPassiveManager.PlayPassive(card);
+                playerPassiveManager.PlayPassive(card);
+                break;
         }
-        return null;
     }
 
     internal void DisplayHand()
@@ -455,12 +456,7 @@ public class PlayerManager : MonoBehaviour
         //Play Card on field if it is not a spell
         if (!cardID.card.cardType.Equals(CardType.Spell))
         {
-            var isNull = PlayCardOnFieldLogic(cardID.card);
-            if (isNull == null)
-            {
-                return;
-            }
-            ActionManager.AddCardPlayedOnFieldAction(isPlayer, cardID.card);
+            PlayCardOnField(cardID.card);
         }
 
         //Spend Quanta
@@ -676,33 +672,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    //Play Card from anywhere Logic and Visual
-    public IDCardPair PlayCardOnFieldLogic(Card card)
-    {
-        var newLocationId = PlayCardOnField(card);
-        if (newLocationId == null) { return null; }
-        newLocationId.card.AbilityUsed = true;
-        if (newLocationId.card.cardType.Equals(CardType.Creature))
-        {
-            if (newLocationId.card.costElement.Equals(Element.Darkness) || newLocationId.card.costElement.Equals(Element.Death))
-            {
-                if (DuelManager.Instance.GetCardCount(new() { "7ta" }) > 0)
-                {
-                    newLocationId.card.DefModify += 1;
-                    newLocationId.card.AtkModify += 2;
-                }
-                else if (DuelManager.Instance.GetCardCount(new() { "5uq" }) > 0)
-                {
-                    newLocationId.card.DefModify += 1;
-                    newLocationId.card.AtkModify += 1;
-                }
-                newLocationId.UpdateCard();
-            }
-        }
-
-        return newLocationId;
-    }
-
     public void DiscardCard(IDCardPair cardToDiscard)
     {
         if (cardToDiscard.card.innateSkills.Obsession)
@@ -844,7 +813,7 @@ public class PlayerManager : MonoBehaviour
         OnPlayerCounterUpdate += playerDisplayer.UpdatePlayerIndicators;
         if (!isPlayer)
         {
-            DuelManager.AllPlayersSetup = true;
+            DuelManager.Instance.allPlayersSetup = true;
         }
         yield return null;
     }

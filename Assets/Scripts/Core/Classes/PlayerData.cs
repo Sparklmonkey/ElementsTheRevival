@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Networking;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class PlayerData
@@ -12,7 +14,7 @@ public class PlayerData
     public List<string> currentDeck;
     public Element arenaT50Mark;
     public List<string> arenaT50Deck;
-    public List<string> cardInventory;
+    public List<string> inventoryCards;
     public int electrum;
     public int gamesWon;
     public int gamesLost;
@@ -27,7 +29,7 @@ public class PlayerData
     {
         markElement = Element.Aether;
         currentDeck = new();
-        cardInventory = new();
+        inventoryCards = new();
         savedDecks = new();
         electrum = 0;
         gamesWon = 0;
@@ -46,6 +48,8 @@ public class PlayerData
         hasSoldCardBazaar = false;
         hasDefeatedLevel1 = false;
         hasDefeatedLevel2 = false;
+        arenaT50Deck = new();
+        arenaT50Mark = Element.Aether;
     }
 
     public int currentQuestIndex = 0;
@@ -75,10 +79,6 @@ public class PlayerData
 
     //Quest 5 Flag
     public bool hasDefeatedLevel2;
-
-    public List<string> redeemedCodes = new();
-
-    public int gameStatsId;
 
     public static void LoadFromApi(PlayerData playerData)
     {
@@ -110,10 +110,9 @@ public class PlayerData
 
     public PlayerData()
     {
-
         markElement = Element.Aether;
         currentDeck = new();
-        cardInventory = new();
+        inventoryCards = new();
         savedDecks = new();
         electrum = 0;
         gamesWon = 0;
@@ -132,6 +131,8 @@ public class PlayerData
         hasSoldCardBazaar = false;
         hasDefeatedLevel1 = false;
         hasDefeatedLevel2 = false;
+        arenaT50Deck = new();
+        arenaT50Mark = Element.Aether;
     }
 
 }

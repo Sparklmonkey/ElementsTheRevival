@@ -48,7 +48,7 @@ public class DeckSelector : MonoBehaviour
     {
         PlayerData.Shared.markElement = _playerDeck;
         PlayerData.Shared.currentDeck = StarterDecks.Instance.GetStarterDeck(_playerDeck);
-        PlayerData.Shared.cardInventory = new List<string>();
+        PlayerData.Shared.inventoryCards = new List<string>();
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 }

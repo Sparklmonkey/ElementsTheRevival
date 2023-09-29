@@ -20,13 +20,13 @@ public class GameStartManager : MonoBehaviour
                 ai = Resources.Load<EnemyAi>("EnemyAi/Level0/Random");
                 ai.mark = (Element)Random.Range(0, 12);
                 ai.deck = string.Join(" ", CardDatabase.Instance.GetRandomDeck());
-                ai.name = ai.mark.FastElementString();
+                ai.opponentName = ai.mark.FastElementString();
                 break;
             case 1:
                 ai = Resources.Load<EnemyAi>("EnemyAi/Level1/Random");
                 ai.mark = (Element)Random.Range(0, 12);
                 ai.deck = string.Join(" ", CardDatabase.Instance.GetRandomDeck());
-                ai.name = ai.mark.FastElementString();
+                ai.opponentName = ai.mark.FastElementString();
                 break;
             case 2:
                 Element elementDeck = (Element)Random.Range(0, 12);
@@ -48,13 +48,13 @@ public class GameStartManager : MonoBehaviour
                 ai = Instantiate(Resources.Load<EnemyAi>("EnemyAi/Level4/Random"));
                 BattleVars.Shared.PrimaryElement = (Element)Random.Range(0, 12);
                 BattleVars.Shared.SecondaryElement = (Element)Random.Range(0, 12);
-                string aiName = $"{_elderPrefix[(int)BattleVars.Shared.PrimaryElement]}{_elderSuffix[(int)BattleVars.Shared.SecondaryElement]}";
+                var aiName = $"{_elderPrefix[(int)BattleVars.Shared.PrimaryElement]}{_elderSuffix[(int)BattleVars.Shared.SecondaryElement]}";
                 ai.mark = BattleVars.Shared.SecondaryElement;
                 ai.opponentName = aiName;
                 ai.deck = string.Join(" ", CardDatabase.Instance.GetHalfBloodDeck(BattleVars.Shared.PrimaryElement, BattleVars.Shared.SecondaryElement).SerializeCard());
                 break;
             case 5:
-                string falseGod = PlayerData.Shared.nextFalseGod;
+                var falseGod = PlayerData.Shared.nextFalseGod;
                 if (falseGod == "")
                 {
                     falseGod = _falseGodNameList[Random.Range(0, _falseGodNameList.Count)];

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
-  m_Name: Darkness
+  m_Name: Gravity
   m_EditorClassIdentifier: 
   opponentName: Aether
   maxHp: 50
-  mark: 2
-  deck: 576 61o 606 63a 5oc 5de 5f0 58o 5gi 61o 52m 52i 5id 5rq 590 4vd 596 5i5 4vq
-    55m 58p 55l 52u 5oj 52m 5id 5lb 596 5f1 5bv 5lc 62m 5li 562 5c9 4vp 61r 593 594
-    5op
+  mark: 9
+  deck: 52g 5de 5jm 52g 5rg 5pu 5pu 5jm 5f0 5gi 4vh 5f1 534 5bv 58u 568 55m 5un 5ie
+    55m 5f1 5rs 4vq 5le 5cg 55l 5v0 5ib 55m 4ve 50a 5rk 5i7 4vn 52o 5oh 55q 61q 55q
+    5oi
   spins: 0
   coinAvg: 1
   costToPlay: 0

@@ -22,7 +22,7 @@ public class EnemyController
 
         _aiDraw.StartTurnDrawCard(_self);
 
-        if (_self.playerCounters.silence > 0) { _self.StartCoroutine(DuelManager.Instance.EndTurn()); yield break; }
+        if (_self.playerCounters.silence > 0) { DuelManager.Instance.EndTurn(); yield break; }
 
         yield return _self.StartCoroutine(_aiTurn.PlayPillars(_self));
 
@@ -30,7 +30,7 @@ public class EnemyController
 
         _aiDiscard.DiscardCard(_self);
 
-        _self.StartCoroutine(DuelManager.Instance.EndTurn());
+        DuelManager.Instance.EndTurn();
     }
 
 }

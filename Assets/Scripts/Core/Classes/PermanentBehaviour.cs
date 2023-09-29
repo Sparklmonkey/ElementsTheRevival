@@ -112,7 +112,7 @@ public class PermanentBehaviour : CardTypeBehaviour
         }
         if (cardPair.card.innateSkills.Boneyard)
         {
-            Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId(cardPair.card.iD.IsUpgraded() ? "716" : "52m"));
+            Owner.PlayCardOnField(CardDatabase.Instance.GetCardFromId(cardPair.card.iD.IsUpgraded() ? "716" : "52m"));
         }
     }
 

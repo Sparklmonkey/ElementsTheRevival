@@ -70,7 +70,7 @@ public class SpinManager : MonoBehaviour
     {
         if (_cardsWon.Count > 0)
         {
-            PlayerData.Shared.cardInventory.AddRange(_cardsWon.SerializeCard());
+            PlayerData.Shared.inventoryCards.AddRange(_cardsWon.SerializeCard());
         }
         PlayerData.Shared.electrum += int.Parse(electrumValue.text);
         PlayerData.SaveData();

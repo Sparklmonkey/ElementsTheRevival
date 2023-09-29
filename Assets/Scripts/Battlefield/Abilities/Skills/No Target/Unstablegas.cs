@@ -6,7 +6,7 @@ public class Unstablegas : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Owner.PlayCardOnFieldLogic(target.card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n6") : CardDatabase.Instance.GetCardFromId("5om"));
+        Owner.PlayCardOnField(target.card.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n6") : CardDatabase.Instance.GetCardFromId("5om"));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

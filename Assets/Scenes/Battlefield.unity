@@ -26782,7 +26782,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1912330875}
         m_TargetAssemblyTypeName: DuelManager, Assembly-CSharp
-        m_MethodName: PlayerEndTurn
+        m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -47107,6 +47107,7 @@ MonoBehaviour:
   floodImageEnemy: {fileID: 1582502770}
   coinFlip: {fileID: 1752137513}
   targetingObject: {fileID: 514993720}
+  allPlayersSetup: 0
 --- !u!114 &1912330877
 MonoBehaviour:
   m_ObjectHideFlags: 0

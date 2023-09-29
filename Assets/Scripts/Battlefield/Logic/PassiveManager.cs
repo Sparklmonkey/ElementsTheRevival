@@ -7,24 +7,21 @@ namespace Elements.Duel.Manager
     public class PassiveManager : FieldManager
     {
 
-        public IDCardPair PlayPassive(Card card)
+        public void PlayPassive(Card card)
         {
 
             switch (card.cardType)
             {
                 case CardType.Weapon:
                     PairList[1].PlayCard(card);
-                    return PairList[1];
+                    break;
                 case CardType.Shield:
                     PairList[2].PlayCard(card);
-                    return PairList[2];
+                    break;
                 case CardType.Mark:
                     PairList[0].PlayCard(card);
-                    return PairList[0];
-                default:
                     break;
             }
-            return null;
         }
 
         public IDCardPair GetShield()

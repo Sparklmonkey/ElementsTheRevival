@@ -9,7 +9,7 @@ public class Dejavu : AbilityEffect
         target.card.skill = "";
         target.card.desc = "";
         Card dupe = new(target.card);
-        Owner.PlayCardOnFieldLogic(dupe);
+        Owner.PlayCardOnField(dupe);
         target.UpdateCard();
     }
 

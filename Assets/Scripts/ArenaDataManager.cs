@@ -1,3 +1,5 @@
+using System.Linq;
+using Networking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,12 +26,9 @@ public class ArenaDataManager : MonoBehaviour
         playerMark.sprite = ImageHelper.GetElementImage(PlayerData.Shared.arenaT50Mark.ToString());
         if (_arenaResponse == null)
         {
-            await ApiManager.Instance.GetT50Opponent(ArenaResponseHandler);
+            _arenaResponse = await ApiManager.Instance.GetT50Opponent();
         }
-        else
-        {
-            ArenaResponseHandler(_arenaResponse);
-        }
+        ArenaResponseHandler(_arenaResponse);
     }
 
     public void StartGame()
@@ -58,17 +57,17 @@ public class ArenaDataManager : MonoBehaviour
 
         oppInfo.SetActive(true);
         oppMark.sprite = ImageHelper.GetElementImage(((Element)arenaResponse.arenaT50Mark).FastElementString());
-        oppName.text = arenaResponse.userName;
-        _enemyAi.opponentName = arenaResponse.userName;
+        oppName.text = arenaResponse.username;
+        _enemyAi.opponentName = arenaResponse.username;
         _enemyAi.mark = (Element)arenaResponse.arenaT50Mark;
         _enemyAi.deck = string.Join(" ", arenaResponse.arenaT50Deck);
         oppWin.text = arenaResponse.arenaWins.ToString();
         oppScore.text = arenaResponse.playerScore.ToString();
         oppLoss.text = arenaResponse.arenaLoses.ToString();
         oppRank.text = arenaResponse.arenaRank.ToString();
-        ArenaDataManager._arenaResponse = arenaResponse;
+        _arenaResponse = arenaResponse;
         startGameBtn.SetActive(true);
-        responseText.text = $"Your opponent is {arenaResponse.userName}";
+        responseText.text = $"Your opponent is {arenaResponse.username}";
     }
 
     public void ReturnToMenu()

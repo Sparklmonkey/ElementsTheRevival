@@ -12,7 +12,7 @@ public class Nova : AbilityEffect
         }
         if (BattleVars.Shared.IsSingularity > 1)
         {
-            Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("4vr"));
+            Owner.PlayCardOnField(CardDatabase.Instance.GetCardFromId("4vr"));
         }
         BattleVars.Shared.IsSingularity++;
     }

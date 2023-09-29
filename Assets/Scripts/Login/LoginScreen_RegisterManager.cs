@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Networking;
 using TMPro;
 using UnityEngine;
 
@@ -50,16 +51,7 @@ public class LoginScreenRegisterManager : MonoBehaviour
 
         _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(_touchBlocker);
-        if (response.errorMessage == ErrorCases.AllGood)
-        {
-            PlayerData.Shared = response.savedData;
-            PlayerData.Shared.userName = username.text;
-            GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
-        }
-        else
-        {
-            serverResponse.text = response.errorMessage.ToLongDescription();
-        }
+        ManageResponse(response);
     }
 
     public void AttemptToRegister()
@@ -96,11 +88,21 @@ public class LoginScreenRegisterManager : MonoBehaviour
 
         _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(_touchBlocker);
+        ManageResponse(response);
+    }
+
+    private void ManageResponse(LoginResponse response)
+    {
         if (response.errorMessage == ErrorCases.AllGood)
         {
+            PlayerData.LoadFromApi(response.savedData);
+            PlayerData.Shared.email = response.emailAddress;
+            PlayerData.Shared.userName = username.text;
+            PlayerPrefs.SetString("AccessToken", response.accessToken);
             PlayerData.Shared = response.savedData;
             PlayerData.Shared.userName = username.text;
-            GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
+            
+            GetComponent<DashboardSceneManager>().LoadNewScene(PlayerData.Shared.currentDeck.Count > 0 ? "DeckSelector" : "Dashboard");
         }
         else
         {

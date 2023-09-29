@@ -6,7 +6,7 @@ public class Scarab : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Owner.PlayCardOnFieldLogic(target.card.iD.IsUpgraded()
+        Owner.PlayCardOnField(target.card.iD.IsUpgraded()
             ? CardDatabase.Instance.GetCardFromId("7qa")
             : CardDatabase.Instance.GetCardFromId("5rq"));
     }

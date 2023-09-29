@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Networking;
 using TMPro;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ public class BazaarPlayerInventoryManager : InventoryManager
 
         if (element == 14)
         {
-            SetupPlayerInvetoryView(PlayerData.Shared.cardInventory.DeserializeCard());
+            SetupPlayerInvetoryView(PlayerData.Shared.inventoryCards.DeserializeCard());
             return;
         }
         _selectedElement = element;

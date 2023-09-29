@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using UnityEngine;
@@ -60,6 +61,10 @@ public static class ExtensionMethods
         return newDeck.CompressDeckCode();
     }
 
+    public static List<string> GetListFromString(this string longString)
+    {
+        return longString.Split(" ").ToList();
+    }
     public static List<Card> DeserializeCard(this List<string> cardObjectList)
     {
         List<Card> listToReturn = new List<Card>();

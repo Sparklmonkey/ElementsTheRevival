@@ -9,7 +9,7 @@ public class Nymph : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         var element = target.card.costElement;
-        Owner.PlayCardOnFieldLogic(target.card.iD.IsUpgraded()
+        Owner.PlayCardOnField(target.card.iD.IsUpgraded()
             ? CardDatabase.Instance.GetRandomEliteNymph(element)
             : CardDatabase.Instance.GetRandomRegularNymph(element));
         target.RemoveCard();

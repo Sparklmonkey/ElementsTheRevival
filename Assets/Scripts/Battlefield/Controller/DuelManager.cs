@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DuelManager : MonoBehaviour
@@ -81,29 +82,27 @@ public class DuelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!AllPlayersSetup)
+        if (!allPlayersSetup)
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && Instance.endTurnButton.interactable)
-        {
-            BattleVars.Shared.SpaceTapped = true;
-            Instance.PlayerEndTurn();
-        }
+
+        if (!Input.GetKeyDown(KeyCode.Space) || !endTurnButton.interactable) return;
+        BattleVars.Shared.SpaceTapped = true;
+        EndTurn();
     }
 
     public PlayerManager GetIDOwner(ID iD)
     {
-        return iD.owner.Equals(OwnerEnum.Player) ? Instance.player : Instance.enemy;
+        return iD.owner.Equals(OwnerEnum.Player) ? player : enemy;
     }
 
     public PlayerManager GetNotIDOwner(ID iD)
     {
-        return iD.owner.Equals(OwnerEnum.Player) ? Instance.enemy : Instance.player;
+        return iD.owner.Equals(OwnerEnum.Player) ? enemy : player;
     }
 
-    public static bool AllPlayersSetup;
-    public static bool CanSetupOpDeck;
+    public bool allPlayersSetup;
 
     private void Awake()
     {
@@ -118,6 +117,7 @@ public class DuelManager : MonoBehaviour
         BattleVars.Shared.ElementalMastery = false;
         gameOverVisual.IsGameOver = false;
         ActionManager.ActionList = new List<ElementAction>();
+        endTurnButton.interactable = false;
     }
 
     private void Start()
@@ -141,6 +141,7 @@ public class DuelManager : MonoBehaviour
         {
             Instance.player.StartTurn();
             MessageManager.Shared.DisplayMessage("Your turn has started!");
+            endTurnButton.interactable = true;
         }
         else
         {
@@ -149,15 +150,10 @@ public class DuelManager : MonoBehaviour
         }
     }
 
-    public void PlayerEndTurn()
+    public void EndTurn()
     {
         endTurnButton.interactable = false;
         ResetTargeting();
-        StartCoroutine(EndTurn());
-    }
-
-    public IEnumerator EndTurn()
-    {
         BattleVars.Shared.IsSingularity = 0;
         Instance.player.HideAllPlayableGlow();
         if (BattleVars.Shared.IsPlayerTurn)
@@ -166,20 +162,20 @@ public class DuelManager : MonoBehaviour
             {
                 discardText.gameObject.SetActive(true);
                 BattleVars.Shared.HasToDiscard = true;
-                yield break;
+                return;
             }
         }
 
         if (IsGameWinForPlayer())
         {
             gameOverVisual.ShowGameOverScreen(true);
-            yield break;
+            return;
         }
 
         if (IsGameLossForPlayer())
         {
             gameOverVisual.ShowGameOverScreen(false);
-            yield break;
+            return;
         }
 
         if (BattleVars.Shared.IsPlayerTurn)
@@ -187,7 +183,7 @@ public class DuelManager : MonoBehaviour
             player.EndTurnRoutine();
 
             player.UpdateCounterAndEffects();
-            if (gameOverVisual.IsGameOver) { yield break; }
+            if (gameOverVisual.IsGameOver) { return; }
             OpponentCardsTurn = 0;
             Instance.enemy.StartCoroutine(_botContoller.StartTurn());
             BattleVars.Shared.TurnCount++;
@@ -196,7 +192,7 @@ public class DuelManager : MonoBehaviour
         {
             enemy.EndTurnRoutine();
             enemy.UpdateCounterAndEffects();
-            if (gameOverVisual.IsGameOver) { yield break; }
+            if (gameOverVisual.IsGameOver) { return; }
             PlayerCardsTurn = 0;
             player.StartTurn();
             endTurnButton.interactable = true;
@@ -261,8 +257,13 @@ public class DuelManager : MonoBehaviour
             if (BattleVars.Shared.IsSelectingTarget && _validTargets.Contains(idCard))
             {
                 player.ActivateAbility(idCard);
-                return;
             }
+            else
+            {
+                ResetTargeting();
+            }
+
+            return;
         }
 
         if (!idCard.HasCard()) { return; }
@@ -283,7 +284,7 @@ public class DuelManager : MonoBehaviour
                 player.DiscardCard(idCard);
                 BattleVars.Shared.HasToDiscard = false;
                 discardText.gameObject.SetActive(false);
-                StartCoroutine(EndTurn());
+                EndTurn();
                 return;
             }
         }

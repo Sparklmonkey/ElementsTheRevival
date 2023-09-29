@@ -17,4 +17,13 @@ public abstract class AiTurnBase
     public abstract Task ActivateArtifact(PlayerManager aiManager);
     public abstract Task PlayShield(PlayerManager aiManager);
     public abstract Task PlayWeapon(PlayerManager aiManager);
+
+    public abstract bool HasPillarToPlay();
+    public abstract bool HasCreatureToPlay();
+    public abstract bool HasSpellToPlay();
+    public abstract bool HasWeaponToPlay();
+    public abstract bool HasArtifactToPlay();
+    public abstract bool HasShieldToPlay();
+    public abstract bool HasCreatureAbilityToUse();
+    public abstract bool HasArtifactAbilityToUse();
 }

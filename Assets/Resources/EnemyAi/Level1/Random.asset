@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
-  m_Name: Aether
+  m_Name: Darkness
   m_EditorClassIdentifier: 
-  opponentName: Ethereal
-  maxHP: 100
-  mark: 0
-  deck: 5de 61o 5oc 61o 5gi 4vc 5bs 5uk 5rg 5gi 5fa 5rn 52u 5bv 5p0 5lb 5v0 5ls 534
-    5i5 5ii 5um 5if 4vm 61v 5ib 5bv 597 590 5v8 61r 5ia 5ia 58t 5v1 5f4 53e 595 5m6
-    52p
+  opponentName: Aether
+  maxHp: 100
+  mark: 2
+  deck: 63a 5jm 5uk 5de 50u 5mq 52g 5f0 5i4 5uk 5cg 5ru 5ib 61p 5bt 58p 5i5 4vh 61p
+    5io 5bt 55o 4ve 5of 5od 5id 5fk 5f2 568 5io 5ig 61q 5uu 5ia 5uu 5c7 5op 5lf 5c7
+    55q
   spins: 1
   coinAvg: 1
   costToPlay: 0

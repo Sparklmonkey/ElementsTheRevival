@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Networking;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ public class SplashScreen : MonoBehaviour
     [SerializeField]
     private List<Transform> finalPositions;
 
+    [SerializeField] private GameObject maintenancePopUp, appUpdatePopUp;
     [SerializeField]
     private List<GameObject> imageObjects;
 
@@ -49,7 +51,6 @@ public class SplashScreen : MonoBehaviour
                 }
                 yield return null;
             }
-            whileLoopBreak = 0;
             if (i == 0 && finalIndex > 0)
             {
                 StartCoroutine(MoveImageAround(imageObjects[finalIndex - 1], finalIndex - 1));
@@ -61,7 +62,11 @@ public class SplashScreen : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void GoToAppStore()
+    {
+        Application.OpenURL ("market://details?id=" + Application.productName);
+    }
+    private async void Start()
     {
         if (PlayerPrefs.GetInt("HasKeysStored") != 1)
         {
@@ -82,7 +87,7 @@ public class SplashScreen : MonoBehaviour
         StartCoroutine(StartTitleAnimation());
     }
 
-    public void SkipSplashAnimation()
+    public async void SkipSplashAnimation()
     {
         if (PlayerPrefs.GetFloat("HasSeenSplash") == 1f && !_isLoadingNextScene)
         {
@@ -98,21 +103,49 @@ public class SplashScreen : MonoBehaviour
 
     private async void LoadNextScene()
     {
-        if (PlayerPrefs.HasKey("AccessToken"))
+        var appInfo = await ApiManager.Instance.GetAppInfo();
+        if (appInfo.IsMaintenance)
         {
-            var token = PlayerPrefs.GetString("AccessToken");
-            var repsonse = await ApiManager.Instance.LoginController(new LoginRequest()
-            {
-                accessToken = token
-            }, "quick-login");
-            if (repsonse.errorMessage == ErrorCases.AllGood)
-            {
-                SceneTransitionManager.Instance.LoadScene("Dashboard");
-            }
+            maintenancePopUp.SetActive(true);
         }
-        SceneTransitionManager.Instance.LoadScene("LoginScreen");
+        else if (appInfo.ShouldUpdate)
+        {
+            appUpdatePopUp.SetActive(true);
+        }
+        else
+        {
+            if (PlayerPrefs.HasKey("AccessToken"))
+            {
+                var token = PlayerPrefs.GetString("AccessToken");
+                var response = await ApiManager.Instance.LoginController(new LoginRequest()
+                {
+                    accessToken = token
+                }, Endpointbuilder.userTokenLogin);
+                ManageResponse(response);
+                return;
+            }
+            SceneTransitionManager.Instance.LoadScene("LoginScreen");
+        }
     }
 
+    private void ManageResponse(LoginResponse response)
+    {
+        if (response.errorMessage == ErrorCases.AllGood)
+        {
+            PlayerData.LoadFromApi(response.savedData);
+            PlayerData.Shared.email = response.emailAddress;
+            PlayerPrefs.SetString("AccessToken", response.accessToken);
+            PlayerData.Shared = response.savedData;
+            PlayerData.Shared.userName = response.username;
+            
+            SceneTransitionManager.Instance.LoadScene("Dashboard");
+        }
+        else
+        {
+            SceneTransitionManager.Instance.LoadScene("LoginScreen");
+        }
+    }
+    
     private IEnumerator StartTitleAnimation()
     {
         Material shader = titleImage.material;

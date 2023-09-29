@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Core.Networking.Response;
+using Networking;
 using TMPro;
 using UnityEngine;
 
@@ -13,45 +16,43 @@ public class DashCodeRedemption : MonoBehaviour
 
     public async void RedeemCode(TMP_InputField input)
     {
-
-        CodeRedemptionRequest codeRedemptionRequest = new CodeRedemptionRequest();
-
-        codeRedemptionRequest.codeValue = input.text;
-        codeRedemptionRequest.playerSavedData = PlayerData.Shared;
-
-        await ApiManager.Instance.CheckCodeRedemption(input.text, CodeRedepmtionHandler);
+        var response = await ApiManager.Instance.CheckCodeRedemption(input.text);
+        CodeRedepmtionHandler(new(response));
     }
 
-    private async void CodeRedepmtionHandler(CodeRedemptionResponse response)
+    private async void CodeRedepmtionHandler(CodeDetails response)
     {
-        if (!response.canRedeem)
+        if (response.codeName == "NotValid")
         {
-            errorMessage.text = response.errorMessage;
+            errorMessage.text = "Code has already been used, or is invalid.";
             return;
         }
 
-        if (response.electrumReward > 0)
+        if (response.electrumRewards > 0)
         {
             electrumRewardDisplay.SetActive(true);
-            PlayerData.Shared.electrum += response.electrumReward;
-            electrumRewardAmount.text = response.electrumReward.ToString();
+            PlayerData.Shared.electrum += response.electrumRewards;
+            electrumRewardAmount.text = response.electrumRewards.ToString();
         }
 
-        if (response.cardRewards.Count > 0)
+        var cardList = response.cardRewards.Split(" ").ToList();
+        
+        
+        if (cardList.Count > 0)
         {
-            if (response.cardRewards[0] != "")
+            if (cardList[0] != "")
             {
-                List<Card> cards = CardDatabase.Instance.GetCardListWithID(response.cardRewards);
+                List<Card> cards = CardDatabase.Instance.GetCardListWithID(cardList);
                 cardRewardLabel.text = "Cards Gained:";
 
-                if (response.isCardSelection)
+                if (response.isCardSelect)
                 {
                     chooseCardButton.gameObject.SetActive(true);
                     cardRewardLabel.text = "Choose A Card:";
                 }
                 else
                 {
-                    PlayerData.Shared.cardInventory.AddRange(response.cardRewards);
+                    PlayerData.Shared.inventoryCards.AddRange(cardList);
                 }
                 SetupCardRewardView(cards);
             }
@@ -87,7 +88,7 @@ public class DashCodeRedemption : MonoBehaviour
         {
             return;
         }
-        PlayerData.Shared.cardInventory.Add(cardDisplayDetail.card.iD);
+        PlayerData.Shared.inventoryCards.Add(cardDisplayDetail.card.iD);
 
         await ApiManager.Instance.SaveGameData();
         electrumRewardDisplay.SetActive(false);

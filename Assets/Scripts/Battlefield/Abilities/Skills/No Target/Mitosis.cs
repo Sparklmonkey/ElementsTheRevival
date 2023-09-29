@@ -6,7 +6,7 @@ public class Mitosis : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId(target.card.iD));
+        Owner.PlayCardOnField(CardDatabase.Instance.GetCardFromId(target.card.iD));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

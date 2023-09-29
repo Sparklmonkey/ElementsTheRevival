@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : Singleton<SoundManager>
+public class SoundManager : SingletonMono<SoundManager>
 {
     [SerializeField]
     private AudioSource soundFX;

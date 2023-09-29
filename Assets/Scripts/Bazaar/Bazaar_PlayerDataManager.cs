@@ -19,10 +19,10 @@ public class BazaarPlayerDataManager : MonoBehaviour
     {
         _playerInventoryManager = GetComponent<BazaarPlayerInventoryManager>();
         _shopInventoryManager = GetComponent<BazaarShopInventoryManager>();
-        _playerInventoryManager.SetupPlayerInvetoryView(PlayerData.Shared.cardInventory.DeserializeCard());
+        _playerInventoryManager.SetupPlayerInvetoryView(PlayerData.Shared.inventoryCards.DeserializeCard());
 
         _shopInventoryManager.SetupInitialCardView();
-        deckCount.text = $"( {PlayerData.Shared.cardInventory.Count} )";
+        deckCount.text = $"( {PlayerData.Shared.inventoryCards.Count} )";
         GetComponent<BazaarTransactionManager>().SetupTransactionManager(PlayerData.Shared.electrum);
     }
 
@@ -52,25 +52,25 @@ public class BazaarPlayerDataManager : MonoBehaviour
         if (_isAdd)
         {
             GetComponent<BazaarTransactionManager>().ChangeCoinCount(_cardToChange.BuyPrice, true);
-            PlayerData.Shared.cardInventory.Add(_cardToChange.iD);
+            PlayerData.Shared.inventoryCards.Add(_cardToChange.iD);
         }
         else
         {
             int index = 0;
-            for (int i = 0; i < PlayerData.Shared.cardInventory.Count; i++)
+            for (int i = 0; i < PlayerData.Shared.inventoryCards.Count; i++)
             {
-                if (PlayerData.Shared.cardInventory[i] == _cardToChange.iD)
+                if (PlayerData.Shared.inventoryCards[i] == _cardToChange.iD)
                 {
                     index = i;
                     break;
                 }
             }
             GetComponent<BazaarTransactionManager>().ChangeCoinCount(_cardToChange.SellPrice, false);
-            PlayerData.Shared.cardInventory.RemoveAt(index);
+            PlayerData.Shared.inventoryCards.RemoveAt(index);
         }
         PlayerData.SaveData();
-        deckCount.text = $"( {PlayerData.Shared.cardInventory.Count} )";
-        _playerInventoryManager.SetupPlayerInvetoryView(PlayerData.Shared.cardInventory.DeserializeCard());
+        deckCount.text = $"( {PlayerData.Shared.inventoryCards.Count} )";
+        _playerInventoryManager.SetupPlayerInvetoryView(PlayerData.Shared.inventoryCards.DeserializeCard());
     }
 
     public void CancelModification()

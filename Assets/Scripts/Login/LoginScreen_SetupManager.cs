@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Networking;
 using TMPro;
 using UnityEngine;
 
@@ -6,11 +7,11 @@ public class LoginScreenSetupManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private TMP_InputField username, password, newUsername, newPassword;
+    private TMP_InputField username, password;
+
+    [SerializeField] private TextMeshProUGUI lastUpdateNote;
     [SerializeField]
     private TextMeshProUGUI errorMessage, versionLabel;
-    [SerializeField]
-    private GameObject appUpdatePopUp, maintainancePopUp;
     private GameObject _touchBlocker;
 
     public List<TMP_InputField> fields;
@@ -41,6 +42,7 @@ public class LoginScreenSetupManager : MonoBehaviour
         SoundManager.Instance.PlayBGM("LoginScreen");
         username.text = PlayerPrefs.HasKey("SavedUser") ? PlayerPrefs.GetString("SavedUser") : "";
         versionLabel.text = $"Version {Application.version}";
+        lastUpdateNote.text = ApiManager.Instance.AppInfo.UpdateNote;
     }
 
     public void PlayAsTrainer()
@@ -55,7 +57,7 @@ public class LoginScreenSetupManager : MonoBehaviour
         fullList.AddRange(simpleList);
         fullList.AddRange(simpleList);
         fullList.Sort((x, y) => string.Compare(x, y));
-        PlayerData.Shared.cardInventory = new List<string>(fullList);
+        PlayerData.Shared.inventoryCards = new List<string>(fullList);
 
         PlayerData.Shared.currentDeck = StarterDecks.Instance.GetStarterDeck(Element.Darkness);
         PlayerData.Shared.markElement = Element.Darkness;
@@ -64,7 +66,7 @@ public class LoginScreenSetupManager : MonoBehaviour
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 
-    public async void PlayAsGuest()
+    public void PlayAsGuest()
     {
         PlayerPrefs.SetInt("IsGuest", 1);
         if (PlayerPrefs.HasKey("SaveData"))
@@ -82,18 +84,32 @@ public class LoginScreenSetupManager : MonoBehaviour
     {
         _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
         _touchBlocker.transform.SetAsFirstSibling();
-        var repsonse = await ApiManager.Instance.LoginController(new LoginRequest()
+        var response = await ApiManager.Instance.LoginController(new LoginRequest()
         {
             username = username.text,
             password = password.text
-        }, "basic-login");
-        if (repsonse.errorMessage == ErrorCases.AllGood)
+        }, Endpointbuilder.userCredentialLogin);
+        
+        Destroy(_touchBlocker);
+        ManageResponse(response);
+    }
+    
+    
+    private void ManageResponse(LoginResponse response)
+    {
+        if (response.errorMessage == ErrorCases.AllGood)
         {
+            PlayerData.LoadFromApi(response.savedData);
+            PlayerData.Shared.email = response.emailAddress;
+            PlayerPrefs.SetString("AccessToken", response.accessToken);
+            PlayerData.Shared = response.savedData;
+            PlayerData.Shared.userName = username.text;
+            
             SceneTransitionManager.Instance.LoadScene("Dashboard");
         }
         else
         {
-            errorMessage.text = repsonse.errorMessage.ToLongDescription();
+            errorMessage.text = response.errorMessage.ToLongDescription();
         }
     }
 }

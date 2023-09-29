@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Networking;
+using TMPro;
 using UnityEngine;
 
 public class DashResetAccountManager : MonoBehaviour
@@ -14,8 +15,8 @@ public class DashResetAccountManager : MonoBehaviour
         }
         if (inputField.text == "RESET")
         {
-            PlayerData.Shared.ResetAccount();
-            await ApiManager.Instance.SaveGameData();
+            var response = await ApiManager.Instance.ResetSaveData();
+            PlayerData.Shared = response.savedData;
             GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
         }
         else

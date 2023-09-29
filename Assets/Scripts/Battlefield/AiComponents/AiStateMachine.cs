@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public enum GameState
@@ -62,6 +63,16 @@ public class AiStateMachine
                 SetNewState();
                 break;
 
+            case GameState.PlayShield:
+                await _aiTurn.PlayShield(_aiManager);
+                SetNewState();
+                break;
+            
+            case GameState.PlayWeapon:
+                await _aiTurn.PlayWeapon(_aiManager);
+                SetNewState();
+                break;
+            
             case GameState.ActivateCreatureAbilities:
                 await _aiTurn.ActivateCreature(_aiManager);
                 SetNewState();
@@ -77,7 +88,8 @@ public class AiStateMachine
                 break;
 
             case GameState.EndTurn:
-                _aiManager.StartCoroutine(DuelManager.Instance.EndTurn());
+                if(_aiManager.GetHandCards().Count > 7) { _aiDiscard.DiscardCard(_aiManager); }
+                DuelManager.Instance.EndTurn();
                 _currentState = GameState.Idle;
                 break;
         }
@@ -123,3 +135,92 @@ public class AiStateMachine
         }
     }
 }
+
+public class BasicAiTurnLogic : AiTurnBase
+{
+    public override async Task PlayPillar(PlayerManager aiManager)
+    {
+        var pillar = aiManager.playerHand.GetAllValidCardIds().Find(p => p.card.cardType == CardType.Pillar);
+        if (pillar is null)
+        {
+            return;
+        }
+
+        aiManager.PlayCardOnField(pillar.card);
+    }
+
+    public override Task PlayArtifact(PlayerManager aiManager)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Task PlayCreature(PlayerManager aiManager)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Task PlaySpell(PlayerManager aiManager)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Task ActivateCreature(PlayerManager aiManager)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Task ActivateArtifact(PlayerManager aiManager)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Task PlayShield(PlayerManager aiManager)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Task PlayWeapon(PlayerManager aiManager)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool HasPillarToPlay()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool HasCreatureToPlay()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool HasSpellToPlay()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool HasWeaponToPlay()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool HasArtifactToPlay()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool HasShieldToPlay()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool HasCreatureAbilityToUse()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool HasArtifactAbilityToUse()
+    {
+        throw new System.NotImplementedException();
+    }
+} 

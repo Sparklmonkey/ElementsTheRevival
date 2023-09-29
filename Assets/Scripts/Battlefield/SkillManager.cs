@@ -207,8 +207,11 @@ public class SkillManager
             else if (priority == TargetPriority.LowestHp)
             {
                 score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 50;
-                score += possibleTarget.card.DefNow * 5;
-                score += possibleTarget.card.AtkNow;
+                if (possibleTarget.card.cardType == CardType.Creature)
+                {
+                    score += possibleTarget.card.DefNow * 5;
+                    score += possibleTarget.card.AtkNow;
+                }
                 score += possibleTarget.card.skill != "" ? 15 : 5;
             }
             else if (priority == TargetPriority.HighestCost)

@@ -21,7 +21,7 @@ public class Paralleluniverse : AbilityEffect
             opponent.AddPlayerCounter(PlayerCounters.Poison, target.card.Poison);
         }
 
-        Owner.PlayCardOnFieldLogic(dupe);
+        Owner.PlayCardOnField(dupe);
         return;
     }
 

@@ -83,7 +83,7 @@ public static class CardHelperExtensions
             }
             if (cardPair.card.passiveSkills.Infest)
             {
-                owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("4t8"));
+                owner.PlayCardOnField(CardDatabase.Instance.GetCardFromId("4t8"));
             }
 
         }
@@ -173,7 +173,7 @@ public static class CardHelperExtensions
             default:
                 Card duplicate = new(cardPair.card);
                 AnimationManager.Instance.StartAnimation("ParallelUniverse", cardPair.transform);
-                DuelManager.Instance.GetIDOwner(cardPair.id).PlayCardOnFieldLogic(duplicate);
+                DuelManager.Instance.GetIDOwner(cardPair.id).PlayCardOnField(duplicate);
                 break;
         }
     }

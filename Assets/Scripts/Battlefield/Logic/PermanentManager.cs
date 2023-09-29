@@ -11,19 +11,19 @@ namespace Elements.Duel.Manager
         {
         }
 
-        public IDCardPair PlayPermanent(Card card)
+        public void PlayPermanent(Card card)
         {
             if (card.cardType.Equals(CardType.Pillar))
             {
-                IDCardPair stackedCard = PairList.FirstOrDefault(idCard => idCard.HasCard() && idCard.card.iD == card.iD);
-                if (stackedCard != null)
+                var stackedCard = PairList.FirstOrDefault(idCard => idCard.HasCard() && idCard.card.iD == card.iD);
+                if (stackedCard is not null)
                 {
                     stackedCard.PlayCard(card);
-                    return stackedCard;
+                    return;
                 }
             }
 
-            List<int> permanentCardOrder = new() { 1, 3, 5, 7, 0, 2, 4, 6, 9, 11, 13, 8, 10, 12, 14 };
+            List<int> permanentCardOrder = new() { 1, 3, 5, 7, 0, 2, 4, 6, 9, 11, 13, 8, 10, 12 };
 
             foreach (int orderIndex in permanentCardOrder)
             {
@@ -34,10 +34,9 @@ namespace Elements.Duel.Manager
                         StackCountList[orderIndex]++;
                     }
                     PairList[orderIndex].PlayCard(card);
-                    return PairList[orderIndex];
+                    break;
                 }
             }
-            return null;
         }
 
         public List<(QuantaObject, ID)> GetQuantaToGenerate()

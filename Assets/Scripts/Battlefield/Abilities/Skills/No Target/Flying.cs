@@ -9,7 +9,7 @@ public class Flying : AbilityEffect
         Card weapon = new(Owner.playerPassiveManager.GetWeapon().card);
         if (weapon.iD == "4t2") { return; }
         weapon.cardType = CardType.Creature;
-        Owner.PlayCardOnFieldLogic(weapon);
+        Owner.PlayCardOnField(weapon);
         Owner.playerPassiveManager.RemoveWeapon();
     }
 

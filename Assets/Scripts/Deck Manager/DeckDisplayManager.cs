@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using Networking;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DeckDisplayManager : MonoBehaviour
@@ -41,7 +41,7 @@ public class DeckDisplayManager : MonoBehaviour
         {
             menuBtnText.text = "Arena T50";
             playerDeck = PlayerData.Shared.arenaT50Deck.DeserializeCard();
-            playerInventory = arenaInventory = PlayerData.Shared.cardInventory.DeserializeCard();
+            playerInventory = arenaInventory = PlayerData.Shared.inventoryCards.DeserializeCard();
             playerInventory.AddRange(PlayerData.Shared.currentDeck.DeserializeCard());
             foreach (var item in playerDeck)
             {
@@ -54,7 +54,7 @@ public class DeckDisplayManager : MonoBehaviour
         {
             menuBtnText.text = "Main Menu";
             playerDeck = PlayerData.Shared.currentDeck.DeserializeCard();
-            playerInventory = PlayerData.Shared.cardInventory.DeserializeCard();
+            playerInventory = PlayerData.Shared.inventoryCards.DeserializeCard();
             markManager.SetupMarkCard((int)PlayerData.Shared.markElement);
         }
         playerDeck.Sort((x, y) => string.Compare(x.iD, y.iD));
@@ -296,13 +296,13 @@ public class DeckDisplayManager : MonoBehaviour
             {
                 PlayerData.Shared.arenaT50Deck = playerDeck.SerializeCard();
                 PlayerData.Shared.arenaT50Mark = markManager.GetMarkSelected();
-                PlayerData.Shared.cardInventory = arenaInventory.SerializeCard();
+                PlayerData.Shared.inventoryCards = arenaInventory.SerializeCard();
             }
             else
             {
                 PlayerData.Shared.currentDeck = playerDeck.SerializeCard();
                 PlayerData.Shared.markElement = markManager.GetMarkSelected();
-                PlayerData.Shared.cardInventory = playerInventory.SerializeCard();
+                PlayerData.Shared.inventoryCards = playerInventory.SerializeCard();
             }
 
             if (ApiManager.IsTrainer)
@@ -340,13 +340,13 @@ public class DeckDisplayManager : MonoBehaviour
             {
                 PlayerData.Shared.arenaT50Deck = playerDeck.SerializeCard();
                 PlayerData.Shared.arenaT50Mark = markManager.GetMarkSelected();
-                PlayerData.Shared.cardInventory = arenaInventory.SerializeCard();
+                PlayerData.Shared.inventoryCards = arenaInventory.SerializeCard();
             }
             else
             {
                 PlayerData.Shared.currentDeck = playerDeck.SerializeCard();
                 PlayerData.Shared.markElement = markManager.GetMarkSelected();
-                PlayerData.Shared.cardInventory = playerInventory.SerializeCard();
+                PlayerData.Shared.inventoryCards = playerInventory.SerializeCard();
             }
 
             if (ApiManager.IsTrainer)

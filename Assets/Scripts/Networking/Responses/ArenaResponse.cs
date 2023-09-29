@@ -1,0 +1,18 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine.Serialization;
+
+namespace Networking
+{
+    [Serializable]
+    public class ArenaResponse
+    {
+        public List<string> arenaT50Deck;
+        public int arenaT50Mark;
+        public string username;
+        public int playerScore;
+        public int arenaWins;
+        public int arenaLoses;
+        public int arenaRank;
+    }
+}

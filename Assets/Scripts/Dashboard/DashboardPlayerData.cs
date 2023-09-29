@@ -1,3 +1,4 @@
+using Networking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,9 +35,9 @@ public class DashboardPlayerData : MonoBehaviour
         Invoke(nameof(HideSaveStatus), 3f);
     }
 
-    public void LogoutUser()
+    public async void LogoutUser()
     {
-        ApiManager.Instance.LogoutUser();
+        await ApiManager.Instance.LogoutUser();
         SceneTransitionManager.Instance.LoadScene("LoginScreen");
     }
 

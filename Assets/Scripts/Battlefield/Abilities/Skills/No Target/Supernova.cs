@@ -13,7 +13,7 @@ public class Supernova : AbilityEffect
 
         if (BattleVars.Shared.IsSingularity > 0)
         {
-            Owner.PlayCardOnFieldLogic(CardDatabase.Instance.GetCardFromId("6ub"));
+            Owner.PlayCardOnField(CardDatabase.Instance.GetCardFromId("6ub"));
         }
 
         BattleVars.Shared.IsSingularity++;
