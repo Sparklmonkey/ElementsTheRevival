@@ -414,7 +414,7 @@ public class PlayerManager : MonoBehaviour
         if (cardToCheck.card.cardType is CardType.Shield or CardType.Pillar or CardType.Mark) { return false; }
         
         var canAfford = PlayerQuantaManager.HasEnoughQuanta(cardToCheck.card.skillElement, cardToCheck.card.skillCost);
-        if (canAfford && SkillManager.Instance.ShouldAskForTarget(cardToCheck)) { return true; }
+        if (canAfford && !SkillManager.Instance.ShouldAskForTarget(cardToCheck)) { return true; }
 
         if (!SkillManager.Instance.HasEnoughTargets(this, cardToCheck)) { return false; }
 

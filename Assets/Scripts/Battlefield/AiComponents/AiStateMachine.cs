@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 
 public enum GameState
@@ -23,62 +23,85 @@ public class AiStateMachine
     private readonly IAiDrawComponent _aiDraw;
     private readonly IAiDiscardComponent _aiDiscard;
     private readonly AiTurnBase _aiTurn;
-
-    public AiStateMachine(PlayerManager aiManager)
+    private readonly GameOverVisual _gameOverVisual;
+    private int _stateCount;
+    public AiStateMachine(PlayerManager aiManager, GameOverVisual gameOverVisual)
     {
+        _gameOverVisual = gameOverVisual;
         _aiManager = aiManager;
         _currentState = GameState.Idle;
+        _stateCount = 0;
         _aiDraw = BattleVars.Shared.EnemyAiData.drawComponent.GetScriptFromName<IAiDrawComponent>();
         _aiDiscard = BattleVars.Shared.EnemyAiData.discardComponent.GetScriptFromName<IAiDiscardComponent>();
-        _aiTurn = BattleVars.Shared.EnemyAiData.turnComponent.GetScriptFromName<AiTurnBase>();
+        _aiTurn = new BasicAiTurnLogic();
     }
 
-    public async void Update()
+    public IEnumerator Update(MonoBehaviour controller)
     {
+        if (_gameOverVisual.IsGameOver)
+        {
+            yield break;
+        }
+
+        _stateCount++;
+        if (_stateCount > 20 && _currentState != GameState.Idle)
+        {
+            _currentState = GameState.EndTurn;
+        }
         switch (_currentState)
         {
             case GameState.Idle:
                 if (!BattleVars.Shared.IsPlayerTurn)
                 {
-                    _currentState = GameState.DrawCard;
+                    _aiManager.TurnDownTick();
+
+                    if (_aiManager.playerCounters.silence > 0)
+                    {
+                        _currentState = GameState.EndTurn;
+                    }
+                    else
+                    {
+                        _stateCount = 0;
+                        _currentState = GameState.DrawCard;
+                    }
                 }
                 break;
             case GameState.PlayPillars:
-                await _aiTurn.PlayPillar(_aiManager);
+                _aiTurn.PlayCardFromHand(_aiManager, CardType.Pillar);
                 SetNewState();
                 break;
 
             case GameState.PlayCreatures:
-                await _aiTurn.PlayCreature(_aiManager);
+                _aiTurn.PlayCardFromHand(_aiManager, CardType.Creature);
                 SetNewState();
                 break;
 
             case GameState.PlayArtifacts:
-                await  _aiTurn.PlayArtifact(_aiManager);
+                _aiTurn.PlayCardFromHand(_aiManager, CardType.Artifact);
                 SetNewState();
                 break;
 
             case GameState.PlaySpells:
-                await _aiTurn.PlaySpell(_aiManager);
+                _aiTurn.PlaySpellFromHand(_aiManager);
                 SetNewState();
                 break;
 
             case GameState.PlayShield:
-                await _aiTurn.PlayShield(_aiManager);
+                _aiTurn.PlayCardFromHand(_aiManager, CardType.Shield);
                 SetNewState();
                 break;
             
             case GameState.PlayWeapon:
-                await _aiTurn.PlayWeapon(_aiManager);
+                _aiTurn.PlayCardFromHand(_aiManager, CardType.Weapon);
                 SetNewState();
                 break;
             
             case GameState.ActivateCreatureAbilities:
-                await _aiTurn.ActivateCreature(_aiManager);
+                _aiTurn.ActivateCreatureAbility(_aiManager);
                 SetNewState();
                 break;
             case GameState.ActivateArtifactAbilities:
-                await _aiTurn.ActivateArtifact(_aiManager);
+                _aiTurn.ActivateArtifactAbility(_aiManager);
                 SetNewState();
                 break;
 
@@ -89,43 +112,48 @@ public class AiStateMachine
 
             case GameState.EndTurn:
                 if(_aiManager.GetHandCards().Count > 7) { _aiDiscard.DiscardCard(_aiManager); }
+                _aiManager.EndTurnRoutine();
+                _aiManager.UpdateCounterAndEffects();
                 DuelManager.Instance.EndTurn();
                 _currentState = GameState.Idle;
                 break;
         }
+
+        yield return new WaitForSeconds(0.5f);
+        controller.StartCoroutine(Update(controller));
     }
 
     private void SetNewState()
     {
-        if (_aiManager.playerHand.GetAllValidCardIds().FindIndex(x => x.card.cardType == CardType.Pillar) >= 0)
+        if (_aiTurn.HasCardInHand(_aiManager, CardType.Pillar))
         {
             _currentState = GameState.PlayPillars;
         }
-        else if (_aiManager.playerHand.GetAllValidCardIds().FindIndex(x => x.card.cardType == CardType.Creature && _aiManager.IsCardPlayable(x.card)) >= 0)
+        else if (_aiTurn.HasCardInHand(_aiManager, CardType.Creature))
         {
             _currentState = GameState.PlayCreatures;
         }
-        else if (_aiManager.playerHand.GetAllValidCardIds().FindIndex(x => x.card.cardType == CardType.Artifact && _aiManager.IsCardPlayable(x.card)) >= 0)
+        else if (_aiTurn.HasCardInHand(_aiManager, CardType.Artifact))
         {
             _currentState = GameState.PlayArtifacts;
         }
-        else if (_aiManager.playerHand.GetAllValidCardIds().FindIndex(x => x.card.cardType == CardType.Shield && _aiManager.IsCardPlayable(x.card)) >= 0)
+        else if (_aiTurn.HasCardInHand(_aiManager, CardType.Shield))
         {
             _currentState = GameState.PlayShield;
         }
-        else if (_aiManager.playerHand.GetAllValidCardIds().FindIndex(x => x.card.cardType == CardType.Weapon && _aiManager.IsCardPlayable(x.card)) >= 0)
+        else if (_aiTurn.HasCardInHand(_aiManager, CardType.Weapon))
         {
             _currentState = GameState.PlayWeapon;
         }
-        else if (_aiManager.playerHand.GetAllValidCardIds().FindIndex(x => x.card.cardType == CardType.Spell && _aiManager.IsAbilityUsable(x)) >= 0)
+        else if (_aiTurn.HasSpellToUse(_aiManager))
         {
             _currentState = GameState.PlaySpells;
         }
-        else if (_aiManager.playerCreatureField.GetAllValidCardIds().FindIndex(x => _aiManager.IsAbilityUsable(x)) >= 0)
+        else if (_aiTurn.HasCreatureAbilityToUse(_aiManager))
         {
             _currentState = GameState.ActivateCreatureAbilities;
         }
-        else if (_aiManager.playerPermanentManager.GetAllValidCardIds().FindIndex(x => _aiManager.IsAbilityUsable(x)) >= 0)
+        else if (_aiTurn.HasArtifactAbilityToUse(_aiManager))
         {
             _currentState = GameState.ActivateArtifactAbilities;
         }
@@ -138,89 +166,124 @@ public class AiStateMachine
 
 public class BasicAiTurnLogic : AiTurnBase
 {
-    public override async Task PlayPillar(PlayerManager aiManager)
+    public override void PlayCardFromHand(PlayerManager aiManager, CardType cardType)
     {
-        var pillar = aiManager.playerHand.GetAllValidCardIds().Find(p => p.card.cardType == CardType.Pillar);
-        if (pillar is null)
+        var idCard = aiManager.playerHand.GetAllValidCardIds().Find(p => p.card.cardType == cardType && aiManager.IsCardPlayable(p.card));
+        if (idCard is not null)
+        {
+            if (aiManager.IsCardPlayable(idCard.card))
+            {
+                aiManager.PlayCardFromHandLogic(idCard);
+            }
+        }
+    }
+
+    public override void PlaySpellFromHand(PlayerManager aiManager)
+    {
+        var spell = aiManager.playerHand.GetAllValidCardIds().Find(s => s.card.cardType == CardType.Spell && aiManager.IsCardPlayable(s.card));
+        if (spell is null)
         {
             return;
         }
 
-        aiManager.PlayCardOnField(pillar.card);
+        if (SkillManager.Instance.ShouldAskForTarget(spell))
+        {
+            var target = SkillManager.Instance.GetRandomTarget(aiManager, spell);
+            if (target is null)
+            {
+                return;
+            }
+
+            BattleVars.Shared.AbilityOrigin = spell;
+            SkillManager.Instance.SkillRoutineWithTarget(aiManager, target);
+            aiManager.PlayCardFromHandLogic(spell);
+            return;
+        }
+
+        SkillManager.Instance.SkillRoutineNoTarget(aiManager, spell);
+        aiManager.PlayCardFromHandLogic(spell);
     }
 
-    public override Task PlayArtifact(PlayerManager aiManager)
+    public override void ActivateCreatureAbility(PlayerManager aiManager)
     {
-        throw new System.NotImplementedException();
+        var creature = aiManager.playerCreatureField.GetAllValidCardIds().Find(c => c.card.skill is not null or "" or " " && aiManager.IsAbilityUsable(c));
+        if (creature is null)
+        {
+            return;
+        }
+
+        if (SkillManager.Instance.ShouldAskForTarget(creature))
+        {
+            var target = SkillManager.Instance.GetRandomTarget(aiManager, creature);
+            if (target is null)
+            {
+                return;
+            }
+
+            BattleVars.Shared.AbilityOrigin = creature;
+            creature.card.AbilityUsed = true;
+            SkillManager.Instance.SkillRoutineWithTarget(aiManager, target);
+            return;
+        }
+        
+        creature.card.AbilityUsed = true;
+        SkillManager.Instance.SkillRoutineNoTarget(aiManager, creature);
     }
 
-    public override Task PlayCreature(PlayerManager aiManager)
+    public override void ActivateArtifactAbility(PlayerManager aiManager)
     {
-        throw new System.NotImplementedException();
+        var artifact = aiManager.playerPermanentManager.GetAllValidCardIds().Find(a => a.card.skill is not null or "" or " " && aiManager.IsAbilityUsable(a));
+        if (artifact is null)
+        {
+            return;
+        }
+
+        if (SkillManager.Instance.ShouldAskForTarget(artifact))
+        {
+            var target = SkillManager.Instance.GetRandomTarget(aiManager, artifact);
+            if (target is null)
+            {
+                return;
+            }
+
+            BattleVars.Shared.AbilityOrigin = artifact;
+            artifact.card.AbilityUsed = true;
+            SkillManager.Instance.SkillRoutineWithTarget(aiManager, target);
+            return;
+        }
+        
+        artifact.card.AbilityUsed = true;
+        SkillManager.Instance.SkillRoutineNoTarget(aiManager, artifact);
+    }
+    
+    public override bool HasCardInHand(PlayerManager aiManager, CardType cardToCheck)
+    {
+        return aiManager.playerHand.GetAllValidCardIds().FindIndex(x => x.card.cardType == cardToCheck && aiManager.IsCardPlayable(x.card)) >= 0;
     }
 
-    public override Task PlaySpell(PlayerManager aiManager)
+    public override bool HasCreatureAbilityToUse(PlayerManager aiManager)
     {
-        throw new System.NotImplementedException();
+        var creatureWithSkill = aiManager.playerCreatureField.GetAllValidCardIds().Find(x => x.card.skill is not null or "" or " ");
+        if (creatureWithSkill is null)
+        {
+            return false;
+        }
+        return aiManager.IsAbilityUsable(creatureWithSkill);
     }
 
-    public override Task ActivateCreature(PlayerManager aiManager)
+    public override bool HasArtifactAbilityToUse(PlayerManager aiManager)
     {
-        throw new System.NotImplementedException();
+        var artifactWithSkill = aiManager.playerPermanentManager.GetAllValidCardIds().Find(x => x.card.skill is not null or "" or " ");
+        if (artifactWithSkill is null)
+        {
+            return false;
+        }
+        return aiManager.IsAbilityUsable(artifactWithSkill);
     }
 
-    public override Task ActivateArtifact(PlayerManager aiManager)
+    public override bool HasSpellToUse(PlayerManager aiManager)
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override Task PlayShield(PlayerManager aiManager)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override Task PlayWeapon(PlayerManager aiManager)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override bool HasPillarToPlay()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override bool HasCreatureToPlay()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override bool HasSpellToPlay()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override bool HasWeaponToPlay()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override bool HasArtifactToPlay()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override bool HasShieldToPlay()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override bool HasCreatureAbilityToUse()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override bool HasArtifactAbilityToUse()
-    {
-        throw new System.NotImplementedException();
+        return aiManager.playerHand.GetAllValidCardIds()
+            .FindIndex(x => x.card.cardType == CardType.Spell && aiManager.IsCardPlayable(x.card)) >= 0;
     }
 } 

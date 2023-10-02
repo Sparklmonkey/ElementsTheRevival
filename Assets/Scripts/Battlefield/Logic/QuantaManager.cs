@@ -27,6 +27,14 @@ namespace Elements.Duel.Manager
             if (element.Equals(Element.Other))
             {
                 List<QuantaObject> quantaList = isAdd ? _quantaObjects : _quantaObjects.FindAll(x => x.Count > 0);
+                if (quantaList is null)
+                {
+                    return;
+                }
+                if (quantaList.Count == 0)
+                {
+                    return;
+                }
                 QuantaObject rndQuanta = quantaList[Random.Range(0, quantaList.Count)];
 
                 while (amount > 0)

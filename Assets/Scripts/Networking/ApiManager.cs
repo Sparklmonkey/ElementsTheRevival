@@ -105,7 +105,8 @@ namespace Networking
 
         public async Task<AppInfo> GetAppInfo()
         {
-            return await SendGetRequest<AppInfo>(Endpointbuilder.appInfo);
+            AppInfo = await SendGetRequest<AppInfo>(Endpointbuilder.appInfo);
+            return AppInfo;
         }
     
         public async Task<ArenaResponse> GetT50Opponent()

@@ -42,7 +42,7 @@ public class LoginScreenSetupManager : MonoBehaviour
         SoundManager.Instance.PlayBGM("LoginScreen");
         username.text = PlayerPrefs.HasKey("SavedUser") ? PlayerPrefs.GetString("SavedUser") : "";
         versionLabel.text = $"Version {Application.version}";
-        lastUpdateNote.text = ApiManager.Instance.AppInfo.UpdateNote;
+        // lastUpdateNote.text = ApiManager.Instance.AppInfo.UpdateNote;
     }
 
     public void PlayAsTrainer()

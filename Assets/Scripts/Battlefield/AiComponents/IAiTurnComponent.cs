@@ -9,21 +9,13 @@ public interface IAiTurnComponent
 
 public abstract class AiTurnBase
 {
-    public abstract Task PlayPillar(PlayerManager aiManager);
-    public abstract Task PlayArtifact(PlayerManager aiManager);
-    public abstract Task PlayCreature(PlayerManager aiManager);
-    public abstract Task PlaySpell(PlayerManager aiManager);
-    public abstract Task ActivateCreature(PlayerManager aiManager);
-    public abstract Task ActivateArtifact(PlayerManager aiManager);
-    public abstract Task PlayShield(PlayerManager aiManager);
-    public abstract Task PlayWeapon(PlayerManager aiManager);
+    public abstract void PlayCardFromHand(PlayerManager aiManager, CardType cardType);
+    public abstract void PlaySpellFromHand(PlayerManager aiManager);
+    public abstract void ActivateCreatureAbility(PlayerManager aiManager);
+    public abstract void ActivateArtifactAbility(PlayerManager aiManager);
 
-    public abstract bool HasPillarToPlay();
-    public abstract bool HasCreatureToPlay();
-    public abstract bool HasSpellToPlay();
-    public abstract bool HasWeaponToPlay();
-    public abstract bool HasArtifactToPlay();
-    public abstract bool HasShieldToPlay();
-    public abstract bool HasCreatureAbilityToUse();
-    public abstract bool HasArtifactAbilityToUse();
+    public abstract bool HasCardInHand(PlayerManager aiManager, CardType cardToCheck);
+    public abstract bool HasCreatureAbilityToUse(PlayerManager aiManager);
+    public abstract bool HasArtifactAbilityToUse(PlayerManager aiManager);
+    public abstract bool HasSpellToUse(PlayerManager aiManager);
 }

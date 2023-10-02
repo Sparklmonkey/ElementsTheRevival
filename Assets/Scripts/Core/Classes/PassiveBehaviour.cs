@@ -30,6 +30,15 @@ public class PassiveBehaviour : CardTypeBehaviour
         {
             Owner.AddPlayerCounter(PlayerCounters.Bone, -9999);
         }
+
+        if (cardPair.card.cardType == CardType.Weapon)
+        {
+            cardPair.PlayCard(CardDatabase.Instance.GetPlaceholderCard(1));
+        }
+        else if (cardPair.card.cardType == CardType.Shield)
+        {
+            cardPair.PlayCard(CardDatabase.Instance.GetPlaceholderCard(2));
+        }
     }
 
     public override void OnTurnStart()
@@ -39,20 +48,10 @@ public class PassiveBehaviour : CardTypeBehaviour
             case "7n8":
             case "5oo":
                 cardPair.card.TurnsInPlay--;
-                if (cardPair.card.TurnsInPlay <= 0)
-                {
-                    return;
-                }
                 break;
             case "61t":
             case "80d":
                 cardPair.card.TurnsInPlay--;
-                if (cardPair.card.TurnsInPlay <= 0)
-                {
-                    return;
-                }
-                break;
-            default:
                 break;
         }
     }

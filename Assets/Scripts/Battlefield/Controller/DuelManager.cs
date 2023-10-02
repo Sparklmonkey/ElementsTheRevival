@@ -61,13 +61,14 @@ public class DuelManager : MonoBehaviour
     public TMPro.TextMeshProUGUI discardText;
     private static List<IDCardPair> _validTargets;
 
-    private static EnemyController _botContoller;
+    // private static EnemyController _botContoller;
 
     public static int FloodCount;
 
     [SerializeField]
     private GameObject floodImagePlayer, floodImageEnemy;
 
+    [SerializeField] private EnemyController aiController;
     [SerializeField]
     private CoinFlip coinFlip;
     public GameObject targetingObject;
@@ -125,7 +126,7 @@ public class DuelManager : MonoBehaviour
         _validTargets = new();
         FloodCount = 0;
         BattleVars.Shared.GameStartInTicks = DateTime.Now.Ticks;
-        _botContoller = new EnemyController(enemy);
+        aiController.SetupController(enemy, gameOverVisual);
         enemyName.text = BattleVars.Shared.EnemyAiData.opponentName;
         StartCoroutine(SetupManagers());
     }
@@ -142,11 +143,6 @@ public class DuelManager : MonoBehaviour
             Instance.player.StartTurn();
             MessageManager.Shared.DisplayMessage("Your turn has started!");
             endTurnButton.interactable = true;
-        }
-        else
-        {
-            Instance.enemy.StartCoroutine(_botContoller.StartTurn());
-
         }
     }
 
@@ -181,17 +177,13 @@ public class DuelManager : MonoBehaviour
         if (BattleVars.Shared.IsPlayerTurn)
         {
             player.EndTurnRoutine();
-
             player.UpdateCounterAndEffects();
             if (gameOverVisual.IsGameOver) { return; }
             OpponentCardsTurn = 0;
-            Instance.enemy.StartCoroutine(_botContoller.StartTurn());
             BattleVars.Shared.TurnCount++;
         }
         else
         {
-            enemy.EndTurnRoutine();
-            enemy.UpdateCounterAndEffects();
             if (gameOverVisual.IsGameOver) { return; }
             PlayerCardsTurn = 0;
             player.StartTurn();

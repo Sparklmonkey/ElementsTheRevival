@@ -6697,6 +6697,7 @@ GameObject:
   - component: {fileID: 234577394}
   - component: {fileID: 234577393}
   - component: {fileID: 234577395}
+  - component: {fileID: 234577396}
   m_Layer: 5
   m_Name: EnemySide
   m_TagString: Untagged
@@ -6877,6 +6878,18 @@ MonoBehaviour:
   isPlayer: 0
   cloakIndex: []
   sacrificeCount: 0
+--- !u!114 &234577396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234577391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f16e49e157e2a43a6b8b4f59347e8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &235918386
 GameObject:
   m_ObjectHideFlags: 0
@@ -47105,6 +47118,7 @@ MonoBehaviour:
   discardText: {fileID: 2123487706}
   floodImagePlayer: {fileID: 1570362463}
   floodImageEnemy: {fileID: 1582502770}
+  aiController: {fileID: 234577396}
   coinFlip: {fileID: 1752137513}
   targetingObject: {fileID: 514993720}
   allPlayersSetup: 0

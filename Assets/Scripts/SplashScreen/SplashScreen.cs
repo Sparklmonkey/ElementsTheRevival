@@ -104,6 +104,11 @@ public class SplashScreen : MonoBehaviour
     private async void LoadNextScene()
     {
         var appInfo = await ApiManager.Instance.GetAppInfo();
+        if (appInfo is null)
+        {
+            maintenancePopUp.SetActive(true);
+        }
+
         if (appInfo.IsMaintenance)
         {
             maintenancePopUp.SetActive(true);
