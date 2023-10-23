@@ -307,7 +307,7 @@ public class DeckDisplayManager : MonoBehaviour
 
             if (ApiManager.IsTrainer)
             {
-                GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
+                SceneTransitionManager.Instance.LoadScene("Dashboard");
                 return;
             }
             menuBtn.gameObject.SetActive(false);

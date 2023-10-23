@@ -13,6 +13,7 @@ public class Endow : AbilityEffect
         BattleVars.Shared.AbilityOrigin.card.skillElement = target.card.skillElement;
         BattleVars.Shared.AbilityOrigin.card.AtkModify += target.card.AtkNow;
         BattleVars.Shared.AbilityOrigin.card.DefModify = target.card.DefNow;
+        BattleVars.Shared.AbilityOrigin.card.innateSkills = target.card.innateSkills;
         BattleVars.Shared.AbilityOrigin.UpdateCard();
     }
 

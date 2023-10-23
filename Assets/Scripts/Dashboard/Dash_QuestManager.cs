@@ -91,7 +91,7 @@ public class DashQuestManager : MonoBehaviour
     public void MoveToCardUpgradeScene()
     {
         gameObject.SetActive(false);
-        dashboardPlayerData.gameObject.GetComponent<DashboardSceneManager>().LoadNewScene("CardUpgrade");
+        SceneTransitionManager.Instance.LoadScene("CardUpgrade");
     }
 
     static private List<IQuest> _quests = new List<IQuest> { new WelcomeQuest(), new ImproveDeckQuest(), new BazaarQuest(), new ElementalOneQuest(), new ElementalTwoQuest(), new ScoreOneQuest(), new ScoreTwoQuest() };

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -12,6 +13,10 @@ public class DuelManager : MonoBehaviour
     
     [SerializeField]
     private GameOverVisual gameOverVisual;
+    [SerializeField]
+    private MessageManager messageManager;
+    [SerializeField]
+    private TextMeshProUGUI aiCounter;
 
     public void UpdateNightFallEclipse(bool isAdded, string skill)
     {
@@ -57,12 +62,10 @@ public class DuelManager : MonoBehaviour
     public PlayerManager enemy;
 
     public Button endTurnButton;
-    public TMPro.TextMeshProUGUI enemyName;
-    public TMPro.TextMeshProUGUI discardText;
+    public TextMeshProUGUI enemyName;
+    public TextMeshProUGUI discardText;
     private static List<IDCardPair> _validTargets;
-
-    // private static EnemyController _botContoller;
-
+    
     public static int FloodCount;
 
     [SerializeField]
@@ -107,7 +110,7 @@ public class DuelManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance != null)
+        if (_instance is not null)
         {
             Destroy(gameObject);
         }
@@ -141,7 +144,7 @@ public class DuelManager : MonoBehaviour
         if (coinFlip.playerStarts)
         {
             Instance.player.StartTurn();
-            MessageManager.Shared.DisplayMessage("Your turn has started!");
+            messageManager.DisplayMessage("Your turn has started!");
             endTurnButton.interactable = true;
         }
     }
@@ -162,29 +165,17 @@ public class DuelManager : MonoBehaviour
             }
         }
 
-        if (IsGameWinForPlayer())
-        {
-            gameOverVisual.ShowGameOverScreen(true);
-            return;
-        }
-
-        if (IsGameLossForPlayer())
-        {
-            gameOverVisual.ShowGameOverScreen(false);
-            return;
-        }
-
         if (BattleVars.Shared.IsPlayerTurn)
         {
             player.EndTurnRoutine();
             player.UpdateCounterAndEffects();
-            if (gameOverVisual.IsGameOver) { return; }
+            if (ShouldEndGame()) { return; }
             OpponentCardsTurn = 0;
             BattleVars.Shared.TurnCount++;
         }
         else
         {
-            if (gameOverVisual.IsGameOver) { return; }
+            if (ShouldEndGame()) { return; }
             PlayerCardsTurn = 0;
             player.StartTurn();
             endTurnButton.interactable = true;
@@ -193,14 +184,24 @@ public class DuelManager : MonoBehaviour
         BattleVars.Shared.IsPlayerTurn = !BattleVars.Shared.IsPlayerTurn;
     }
 
-    private bool IsGameWinForPlayer()
+    private bool ShouldEndGame()
     {
-        return enemy.HealthManager.GetCurrentHealth() <= 0 || enemy.DeckManager.GetDeckCount() == 0;
+        if (IsGameWinForPlayer())
+        {
+            gameOverVisual.ShowGameOverScreen(true);
+            return true;
+        }
+
+        if (IsGameLossForPlayer())
+        {
+            gameOverVisual.ShowGameOverScreen(false);
+            return true;
+        }
+
+        return false;
     }
-    private bool IsGameLossForPlayer()
-    {
-        return player.HealthManager.GetCurrentHealth() <= 0 || player.DeckManager.GetDeckCount() == 0;
-    }
+    private bool IsGameWinForPlayer() => enemy.HealthManager.GetCurrentHealth() <= 0 || enemy.DeckManager.GetDeckCount() == 0;
+    private bool IsGameLossForPlayer() => player.HealthManager.GetCurrentHealth() <= 0 || player.DeckManager.GetDeckCount() == 0;
 
     public void ResetTargeting()
     {
@@ -292,5 +293,10 @@ public class DuelManager : MonoBehaviour
     public void SetGameOver(bool isGameOver)
     {
         gameOverVisual.IsGameOver = isGameOver;
+    }
+
+    public void SetAiCounter(int stateCount)
+    {
+        aiCounter.text = $"{stateCount}";
     }
 }

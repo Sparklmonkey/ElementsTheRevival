@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="Description" content="Elements is a free fantasy online game. Hundreds of creatures, spells, magic and artifacts to play with">
+  <meta name="Keywords" content="fantasy, card, cards, elements, magic, spell, creature, entropy, fire, ice, earth, air, gravity, time, darkness, death, life, light, aether, deck, collectible, dragon, zanzarino">
+
+
+  <title>Elements | Free online fantasy card game</title>
+
+  <link rel="shortcut icon" href="../img/favicon.ico?v=2">
+  <link rel="stylesheet" href="../styles/leaderboards.css">
+  <link rel="stylesheet" href="../styles/font-faces.css">
+  <script src="../scripts/leaderboards.js"></script>
+</head>
+
+<body onload="getAllPlayerData()">
+  <div class="frame">
+    <div class="top-bar">
+      <h1 class="page-title">Elements the revival</h1>
+      <hr color="#665533" size="1">
+      <hr color="#665533" size="1">
+    </div>
+    <div class="game-container">
+      <center>
+        <table>
+          <tr>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="getAllPlayerData(1);">Electrum</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="getAllPlayerData(3);">Overall Wins</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="getAllPlayerData(4);">Overall Loses</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="getAllPlayerData(0);">Player Score</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="getAllPlayerData(2);">Total Cards</button>
+            </td>
+          </tr>
+        </table>
+        <!-- <table>
+          <tr>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('http://elementscommunity.org/forum/');">Ai 0 Stats</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('http://elementscommunity.org/forum/');">Ai 1 Stats</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('http://elementscommunity.org/forum/');">Ai 2 Stats</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('http://elementscommunity.org/forum/');">Ai 3 Stats</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('http://elementscommunity.org/forum/');">Ai 4 Stats</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('http://elementscommunity.org/forum/');">Ai 5 Stats</button>
+            </td>
+          </tr>
+        </table> -->
+        <div class="table-container" id="detail-table">
+          <table class="detail-table">
+            <tr>
+              <th class="detail-header">Username</th>
+              <th class="detail-header">Player Score</th>
+              <th class="detail-header">Overall Wins</th>
+              <th class="detail-header">Overall Loses</th>
+              <th class="detail-header">Total Cards</th>
+              <th class="detail-header">Electrum</th>
+            </tr>
+            <tr>
+              <td class="detail-cell">TheGreat</td>
+              <td class="detail-cell">9020</td>
+              <td class="detail-cell">12</td>
+              <td class="detail-cell">24</td>
+              <td class="detail-cell">302</td>
+              <td class="detail-cell">30045</td>
+            </tr>
+          </table>
+        </div>
+
+      </center>
+    </div>
+</body>
+
+</html>

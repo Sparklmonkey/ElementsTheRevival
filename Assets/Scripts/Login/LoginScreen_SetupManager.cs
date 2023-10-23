@@ -37,12 +37,12 @@ public class LoginScreenSetupManager : MonoBehaviour
 
     void Start()
     {
+        lastUpdateNote.text = ApiManager.Instance.AppInfo.UpdateNote;
         fields = new List<TMP_InputField> { username, password };
         ApiManager.IsTrainer = false;
         SoundManager.Instance.PlayBGM("LoginScreen");
         username.text = PlayerPrefs.HasKey("SavedUser") ? PlayerPrefs.GetString("SavedUser") : "";
         versionLabel.text = $"Version {Application.version}";
-        // lastUpdateNote.text = ApiManager.Instance.AppInfo.UpdateNote;
     }
 
     public void PlayAsTrainer()

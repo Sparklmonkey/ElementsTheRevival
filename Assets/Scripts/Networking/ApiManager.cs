@@ -11,7 +11,7 @@ namespace Networking
         public static bool IsTrainer;
         private string _jwtToken;
 
-        private readonly string _baseUrl = "http://localhost:5158/";//"https://www.sparklmonkeygames.com/";
+        private readonly string _baseUrl = "https://www.elementstherevival.com/api/";//"http://localhost:5158/";//"https://www.sparklmonkeygames.com/";
         private readonly string _apiKey = "ElementRevival-ApiKey";
 
         public AppInfo AppInfo;
@@ -72,6 +72,7 @@ namespace Networking
 
         public async Task SaveGameData()
         {
+            PlayerData.Shared.ClearIllegalCards();
             await SendPutRequest<SaveDataRequest, ErrorCases>(Endpointbuilder.updateSaveData,new SaveDataRequest(){ savedData = PlayerData.Shared});
         }
     
@@ -100,7 +101,7 @@ namespace Networking
         }
         public async Task GetRefreshJwtToken()
         {
-            _jwtToken = await SendGetRequest<string>(Endpointbuilder.refreshToken);
+            _jwtToken = await SendGetRequest<string>($"{Endpointbuilder.refreshToken}/{_jwtToken}");
         }
 
         public async Task<AppInfo> GetAppInfo()

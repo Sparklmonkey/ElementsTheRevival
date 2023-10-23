@@ -107,7 +107,7 @@ public class PlayerManager : MonoBehaviour
             value += item.card.AtkNow;
         }
         Card weapon = playerPassiveManager.GetWeapon().card;
-        if (weapon != null)
+        if (weapon is not null)
         {
             if (weapon.cardName != "Weapon") { value += weapon.AtkNow; }
         }

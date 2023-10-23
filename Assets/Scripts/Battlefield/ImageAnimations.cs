@@ -7,8 +7,6 @@ public class ImageAnimations : MonoBehaviour
 {
     public List<Sprite> sprites;
     public int spritePerFrame = 6;
-    public bool loop = true;
-    public bool destroyOnEnd = false;
 
     private int _index = 0;
     [SerializeField] private Image image;

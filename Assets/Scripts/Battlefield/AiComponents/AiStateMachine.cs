@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public enum GameState
@@ -16,38 +17,49 @@ public enum GameState
     Idle
 }
 
+public delegate Task DisplayCardPlayed(CardData card); 
+
 public class AiStateMachine 
 {
     private GameState _currentState;
-    private PlayerManager _aiManager;
+    private readonly PlayerManager _aiManager;
     private readonly IAiDrawComponent _aiDraw;
     private readonly IAiDiscardComponent _aiDiscard;
     private readonly AiTurnBase _aiTurn;
     private readonly GameOverVisual _gameOverVisual;
     private int _stateCount;
+
+    public DisplayCardPlayed DisplayCardPlayed;
     public AiStateMachine(PlayerManager aiManager, GameOverVisual gameOverVisual)
     {
         _gameOverVisual = gameOverVisual;
         _aiManager = aiManager;
         _currentState = GameState.Idle;
         _stateCount = 0;
+        DuelManager.Instance.SetAiCounter(_stateCount);
         _aiDraw = BattleVars.Shared.EnemyAiData.drawComponent.GetScriptFromName<IAiDrawComponent>();
         _aiDiscard = BattleVars.Shared.EnemyAiData.discardComponent.GetScriptFromName<IAiDiscardComponent>();
         _aiTurn = new BasicAiTurnLogic();
     }
 
-    public IEnumerator Update(MonoBehaviour controller)
+    public IEnumerator Update(MonoBehaviour owner)
     {
         if (_gameOverVisual.IsGameOver)
         {
             yield break;
         }
-
-        _stateCount++;
+        DuelManager.Instance.SetAiCounter(_stateCount);
         if (_stateCount > 20 && _currentState != GameState.Idle)
         {
             _currentState = GameState.EndTurn;
         }
+
+        if (_currentState != GameState.Idle)
+        {
+            _stateCount++;
+        }
+
+        CardData card = null;
         switch (_currentState)
         {
             case GameState.Idle:
@@ -62,37 +74,38 @@ public class AiStateMachine
                     else
                     {
                         _stateCount = 0;
+                        DuelManager.Instance.SetAiCounter(_stateCount);
                         _currentState = GameState.DrawCard;
                     }
                 }
                 break;
             case GameState.PlayPillars:
-                _aiTurn.PlayCardFromHand(_aiManager, CardType.Pillar);
+                card = _aiTurn.PlayCardFromHand(_aiManager, CardType.Pillar);
                 SetNewState();
                 break;
 
             case GameState.PlayCreatures:
-                _aiTurn.PlayCardFromHand(_aiManager, CardType.Creature);
+                card = _aiTurn.PlayCardFromHand(_aiManager, CardType.Creature);
                 SetNewState();
                 break;
 
             case GameState.PlayArtifacts:
-                _aiTurn.PlayCardFromHand(_aiManager, CardType.Artifact);
+                card = _aiTurn.PlayCardFromHand(_aiManager, CardType.Artifact);
                 SetNewState();
                 break;
 
             case GameState.PlaySpells:
-                _aiTurn.PlaySpellFromHand(_aiManager);
+                card = _aiTurn.PlaySpellFromHand(_aiManager);
                 SetNewState();
                 break;
 
             case GameState.PlayShield:
-                _aiTurn.PlayCardFromHand(_aiManager, CardType.Shield);
+                card = _aiTurn.PlayCardFromHand(_aiManager, CardType.Shield);
                 SetNewState();
                 break;
             
             case GameState.PlayWeapon:
-                _aiTurn.PlayCardFromHand(_aiManager, CardType.Weapon);
+                card = _aiTurn.PlayCardFromHand(_aiManager, CardType.Weapon);
                 SetNewState();
                 break;
             
@@ -119,8 +132,13 @@ public class AiStateMachine
                 break;
         }
 
+        if (card is not null)
+        {
+            var task = DisplayCardPlayed.Invoke(card);
+            yield return new WaitUntil(() => task.IsCompleted);
+        }
         yield return new WaitForSeconds(0.5f);
-        controller.StartCoroutine(Update(controller));
+        owner.StartCoroutine(Update(owner));
     }
 
     private void SetNewState()
@@ -164,26 +182,42 @@ public class AiStateMachine
     }
 }
 
+public class CardData
+{
+    public string imageId;
+    public string element;
+    public string cardName;
+}
+
 public class BasicAiTurnLogic : AiTurnBase
 {
-    public override void PlayCardFromHand(PlayerManager aiManager, CardType cardType)
+    public override CardData PlayCardFromHand(PlayerManager aiManager, CardType cardType)
     {
         var idCard = aiManager.playerHand.GetAllValidCardIds().Find(p => p.card.cardType == cardType && aiManager.IsCardPlayable(p.card));
         if (idCard is not null)
         {
             if (aiManager.IsCardPlayable(idCard.card))
             {
+                var cardData = new CardData()
+                {
+                    imageId = idCard.card.imageID,
+                    element = idCard.card.costElement.FastElementString(),
+                    cardName = idCard.card.cardName,
+                };
                 aiManager.PlayCardFromHandLogic(idCard);
+                return cardData;
             }
         }
+
+        return null;
     }
 
-    public override void PlaySpellFromHand(PlayerManager aiManager)
+    public override CardData PlaySpellFromHand(PlayerManager aiManager)
     {
         var spell = aiManager.playerHand.GetAllValidCardIds().Find(s => s.card.cardType == CardType.Spell && aiManager.IsCardPlayable(s.card));
         if (spell is null)
         {
-            return;
+            return null;
         }
 
         if (SkillManager.Instance.ShouldAskForTarget(spell))
@@ -191,17 +225,34 @@ public class BasicAiTurnLogic : AiTurnBase
             var target = SkillManager.Instance.GetRandomTarget(aiManager, spell);
             if (target is null)
             {
-                return;
+                return null;
             }
 
+            var cardData = new CardData()
+            {
+                imageId = spell.card.imageID,
+                element = spell.card.costElement.FastElementString(),
+                cardName = spell.card.cardName,
+            };
             BattleVars.Shared.AbilityOrigin = spell;
             SkillManager.Instance.SkillRoutineWithTarget(aiManager, target);
             aiManager.PlayCardFromHandLogic(spell);
-            return;
+            
+            return cardData;
+        }
+        else
+        {
+            var cardData = new CardData()
+            {
+                imageId = spell.card.imageID,
+                element = spell.card.costElement.FastElementString(),
+                cardName = spell.card.cardName,
+            };
+            SkillManager.Instance.SkillRoutineNoTarget(aiManager, spell);
+            aiManager.PlayCardFromHandLogic(spell);
+            return cardData;
         }
 
-        SkillManager.Instance.SkillRoutineNoTarget(aiManager, spell);
-        aiManager.PlayCardFromHandLogic(spell);
     }
 
     public override void ActivateCreatureAbility(PlayerManager aiManager)

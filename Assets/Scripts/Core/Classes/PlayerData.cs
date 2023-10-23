@@ -135,6 +135,21 @@ public class PlayerData
         arenaT50Mark = Element.Aether;
     }
 
+    public void ClearIllegalCards()
+    {
+        currentDeck.RemoveAll(x => x == "6ro");
+        currentDeck.RemoveAll(x => x == "4t8");
+        currentDeck.RemoveAll(x => x == "4vr");
+        currentDeck.RemoveAll(x => x == "6ub");
+        inventoryCards.RemoveAll(x => x == "6ro");
+        inventoryCards.RemoveAll(x => x == "4t8");
+        inventoryCards.RemoveAll(x => x == "4vr");
+        inventoryCards.RemoveAll(x => x == "6ub");
+        arenaT50Deck.RemoveAll(x => x == "6ro");
+        arenaT50Deck.RemoveAll(x => x == "4t8");
+        arenaT50Deck.RemoveAll(x => x == "4vr");
+        arenaT50Deck.RemoveAll(x => x == "6ub");
+    }
 }
 
 [Serializable]

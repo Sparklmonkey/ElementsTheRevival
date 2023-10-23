@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UpgradePlayerDataManager : MonoBehaviour
 {
-
     private UpgradeInvetoryViewManager _playerInventoryManager;
 
     [SerializeField]
@@ -16,16 +15,7 @@ public class UpgradePlayerDataManager : MonoBehaviour
     void Start()
     {
         _playerInventoryManager = GetComponent<UpgradeInvetoryViewManager>();
-        if (PlayerData.Shared == null)
-        {
-            _playerInventoryManager.SetupInitialCardView(playerInventory);
-            PlayerData.Shared = new PlayerData();
-            PlayerData.Shared.electrum = 965;
-        }
-        else
-        {
-            _playerInventoryManager.SetupInitialCardView(PlayerData.Shared.inventoryCards.DeserializeCard());
-        }
+        _playerInventoryManager.SetupInitialCardView(PlayerData.Shared.inventoryCards.DeserializeCard());
 
         deckCount.text = $"( {PlayerData.Shared.inventoryCards.Count} )";
         GetComponent<UpgradeTransactionManager>().SetupTransactionManager();
@@ -47,7 +37,7 @@ public class UpgradePlayerDataManager : MonoBehaviour
             return;
         }
 
-        this._cardToUpgrade = cardToUpgrade;
+        _cardToUpgrade = cardToUpgrade;
         confirmationPopUp.gameObject.SetActive(true);
         confirmationPopUp.SetupErrorMessage($"Are you sure you want to UPGRADE {cardToUpgrade.cardName}?");
     }

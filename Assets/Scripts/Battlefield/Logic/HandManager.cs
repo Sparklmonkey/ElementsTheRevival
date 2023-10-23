@@ -7,7 +7,7 @@ namespace Elements.Duel.Manager
     [Serializable]
     public class HandManager : FieldManager
     {
-        public bool ShouldDiscard() => PairList.FindAll(x => x.card != null).Count >= 8;
+        public bool ShouldDiscard() => PairList.FindAll(x => x.card is not null).Count >= 8;
 
         public void UpdateHandVisual(IDCardPair cardPair)
         {

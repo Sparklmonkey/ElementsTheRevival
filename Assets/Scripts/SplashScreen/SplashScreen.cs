@@ -4,6 +4,8 @@ using Networking;
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace SplashScreen
+{
 public class SplashScreen : MonoBehaviour
 {
     public Transform finalImagePositionsParent;
@@ -66,7 +68,7 @@ public class SplashScreen : MonoBehaviour
     {
         Application.OpenURL ("market://details?id=" + Application.productName);
     }
-    private async void Start()
+    private void Start()
     {
         if (PlayerPrefs.GetInt("HasKeysStored") != 1)
         {
@@ -107,6 +109,7 @@ public class SplashScreen : MonoBehaviour
         if (appInfo is null)
         {
             maintenancePopUp.SetActive(true);
+            return;
         }
 
         if (appInfo.IsMaintenance)
@@ -153,11 +156,11 @@ public class SplashScreen : MonoBehaviour
     
     private IEnumerator StartTitleAnimation()
     {
-        Material shader = titleImage.material;
+        var shader = titleImage.material;
         shader.SetTexture("_MainTex", titleSprite.texture);
         shader.SetFloat("_Fade", 0f);
         shader.SetFloat("_Scale", 150f);
-        float currentTime = 0f;
+        var currentTime = 0f;
         while (currentTime < 6f)
         {
             float value = currentTime / 6f;
@@ -168,4 +171,5 @@ public class SplashScreen : MonoBehaviour
         shader.SetFloat("_Fade", 1f);
         LoadNextScene();
     }
+}
 }

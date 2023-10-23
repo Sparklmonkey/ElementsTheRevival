@@ -17,7 +17,7 @@ public class DashResetAccountManager : MonoBehaviour
         {
             var response = await ApiManager.Instance.ResetSaveData();
             PlayerData.Shared = response.savedData;
-            GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
+            SceneTransitionManager.Instance.LoadScene("DeckSelector");
         }
         else
         {

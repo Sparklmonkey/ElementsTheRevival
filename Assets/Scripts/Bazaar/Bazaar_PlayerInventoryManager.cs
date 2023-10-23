@@ -77,7 +77,7 @@ public class BazaarPlayerInventoryManager : InventoryManager
     {
         if (ApiManager.IsTrainer)
         {
-            GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
+            SceneTransitionManager.Instance.LoadScene("Dashboard");
         }
 
 

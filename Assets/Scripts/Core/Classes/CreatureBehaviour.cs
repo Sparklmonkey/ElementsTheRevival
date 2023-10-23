@@ -65,9 +65,9 @@ public class CreatureBehaviour : CardTypeBehaviour
 
     private bool ShouldActivateDeathTriggers()
     {
-        if (BattleVars.Shared.AbilityOrigin != null)
+        if (BattleVars.Shared.AbilityOrigin is not null)
         {
-            return BattleVars.Shared.AbilityOrigin.card.skill != "reversetime";
+            return BattleVars.Shared.AbilityOrigin.card.skill is not "reversetime";
         }
         return cardPair.card.cardName.Contains("Skeleton");
     }

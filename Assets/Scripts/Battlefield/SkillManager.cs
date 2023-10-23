@@ -89,143 +89,161 @@ public class SkillManager
         foreach (var possibleTarget in targetList)
         {
             var score = 0;
-            if (priority == TargetPriority.SelfHighAtk)
+            switch (priority)
             {
-                score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 0;
-                score += possibleTarget.card.AtkNow * 5;
-                score += possibleTarget.card.DefNow;
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-                if (score < 75)
+                case TargetPriority.SelfHighAtk:
                 {
-                    score = 0;
-                }
-            }
-            else if (priority == TargetPriority.SelfLowAtk)
-            {
-                score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 0;
-                score -= possibleTarget.card.AtkNow;
-                score += possibleTarget.card.DefNow;
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-                if (score < 75)
-                {
-                    score = 0;
-                }
-            }
-            else if (priority == TargetPriority.OpHighAtk)
-            {
-                score += possibleTarget.id.owner == OwnerEnum.Player ? 75 : 0;
-                if (possibleTarget.id.field == FieldEnum.Player)
-                {
-                    score += 20;
-                }
-                else
-                {
+                    score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 0;
                     score += possibleTarget.card.AtkNow * 5;
                     score += possibleTarget.card.DefNow;
                     score += possibleTarget.card.skill != "" ? 15 : 5;
+                    if (score < 75)
+                    {
+                        score = 0;
+                    }
+                    break;
                 }
-                if (score < 75)
+                case TargetPriority.SelfLowAtk:
                 {
-                    score = 0;
+                    score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 0;
+                    score -= possibleTarget.card.AtkNow;
+                    score += possibleTarget.card.DefNow;
+                    score += possibleTarget.card.skill != "" ? 15 : 5;
+                    if (score < 75)
+                    {
+                        score = 0;
+                    }
+
+                    break;
                 }
-            }
-            else if (priority == TargetPriority.OpLowAtk)
-            {
-                score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 0;
-                score -= possibleTarget.card.AtkNow;
-                score += possibleTarget.card.DefNow;
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-                if (score < 75)
+                case TargetPriority.OpHighAtk:
                 {
-                    score = 0;
+                    score += possibleTarget.id.owner == OwnerEnum.Player ? 75 : 0;
+                    if (possibleTarget.id.field == FieldEnum.Player)
+                    {
+                        score += 20;
+                    }
+                    else
+                    {
+                        score += possibleTarget.card.AtkNow * 5;
+                        score += possibleTarget.card.DefNow;
+                        score += possibleTarget.card.skill != "" ? 15 : 5;
+                    }
+                    if (score < 75)
+                    {
+                        score = 0;
+                    }
+
+                    break;
                 }
-            }
-            else if (priority == TargetPriority.Pillar)
-            {
-                score += possibleTarget.id.owner == OwnerEnum.Player ? 75 : 0;
-                score += possibleTarget.card.cardType == CardType.Pillar ? 50 : 0;
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-                if (score < 75)
+                case TargetPriority.OpLowAtk:
                 {
-                    score = 0;
+                    score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 0;
+                    score -= possibleTarget.card.AtkNow;
+                    score += possibleTarget.card.DefNow;
+                    score += possibleTarget.card.skill != "" ? 15 : 5;
+                    if (score < 75)
+                    {
+                        score = 0;
+                    }
+
+                    break;
                 }
-            }
-            else if (priority == TargetPriority.OwnPillar)
-            {
-                score = 75;
-            }
-            else if (priority == TargetPriority.Permanent)
-            {
-                score += possibleTarget.card.cardType == CardType.Artifact ? 75 : 0;
-                score += possibleTarget.card.cardType == CardType.Weapon ? 75 : 0;
-                score += possibleTarget.card.cardType == CardType.Shield ? 75 : 0;
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-            }
-            else if (priority == TargetPriority.Any)
-            {
-                score += possibleTarget.card.AtkNow;
-                score += possibleTarget.card.DefNow;
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-            }
-            else if (priority == TargetPriority.AnyHighAtk)
-            {
-                score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 50;
-                score += possibleTarget.card.AtkNow * 5;
-                score += possibleTarget.card.DefNow;
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-            }
-            else if (priority == TargetPriority.IsPoisoned)
-            {
-                score += possibleTarget.id.owner == OwnerEnum.Opponent ? 100 : 0;
-                score += possibleTarget.card.IsAflatoxin ? 25 : 0;
-                score += possibleTarget.card.Poison > 0 ? 25 : 0;
-                score += possibleTarget.card.AtkNow;
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-                if (score < 100)
+                case TargetPriority.Pillar:
                 {
-                    score = 0;
+                    score += possibleTarget.id.owner == OwnerEnum.Player ? 75 : 0;
+                    score += possibleTarget.card.cardType == CardType.Pillar ? 50 : 0;
+                    score += possibleTarget.card.skill != "" ? 15 : 5;
+                    if (score < 75)
+                    {
+                        score = 0;
+                    }
+
+                    break;
                 }
-            }
-            else if (priority == TargetPriority.IsFrozen)
-            {
-                score += possibleTarget.id.owner == OwnerEnum.Player ? 75 : 0;
-                score += possibleTarget.card.Freeze > 0 ? 75 : 0;
-                score += possibleTarget.card.AtkNow;
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-                if (score < 75)
+                case TargetPriority.OwnPillar:
+                    score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 0;
+                    score += possibleTarget.card.cardType == CardType.Pillar ? 50 : 0;
+                    if (score < 125)
+                    {
+                        score = 0;
+                    }
+                    break;
+                case TargetPriority.Permanent:
+                    score += possibleTarget.card.cardType == CardType.Artifact ? 75 : 0;
+                    score += possibleTarget.card.cardType == CardType.Weapon ? 75 : 0;
+                    score += possibleTarget.card.cardType == CardType.Shield ? 75 : 0;
+                    score += possibleTarget.card.skill != "" ? 15 : 5;
+                    break;
+                case TargetPriority.Any:
+                    score += possibleTarget.card.AtkNow;
+                    score += possibleTarget.card.DefNow;
+                    score += possibleTarget.card.skill != "" ? 15 : 5;
+                    break;
+                case TargetPriority.AnyHighAtk:
+                    score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 50;
+                    score += possibleTarget.card.AtkNow * 5;
+                    score += possibleTarget.card.DefNow;
+                    score += possibleTarget.card.skill != "" ? 15 : 5;
+                    break;
+                case TargetPriority.IsPoisoned:
                 {
-                    score = 0;
+                    score += possibleTarget.id.owner == OwnerEnum.Opponent ? 100 : 0;
+                    if (possibleTarget.id.field == FieldEnum.Creature)
+                    {
+                        score += possibleTarget.card.IsAflatoxin ? 25 : 0;
+                        score += possibleTarget.card.Poison > 0 ? 25 : 0;
+                        score += possibleTarget.card.AtkNow;
+                        score += possibleTarget.card.skill != "" ? 15 : 5;
+                    }
+                    if (score < 100)
+                    {
+                        score = 0;
+                    }
+
+                    break;
                 }
-            }
-            else if (priority == TargetPriority.HighestHp)
-            {
-                score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 50;
-                score += possibleTarget.card.DefNow * 5;
-                score += possibleTarget.card.AtkNow;
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-            }
-            else if (priority == TargetPriority.LowestHp)
-            {
-                score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 50;
-                if (possibleTarget.card.cardType == CardType.Creature)
+                case TargetPriority.IsFrozen:
                 {
+                    score += possibleTarget.id.owner == OwnerEnum.Player ? 75 : 0;
+                    score += possibleTarget.card.Freeze > 0 ? 75 : 0;
+                    score += possibleTarget.card.AtkNow;
+                    score += possibleTarget.card.skill != "" ? 15 : 5;
+                    if (score < 75)
+                    {
+                        score = 0;
+                    }
+
+                    break;
+                }
+                case TargetPriority.HighestHp:
+                    score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 50;
                     score += possibleTarget.card.DefNow * 5;
                     score += possibleTarget.card.AtkNow;
+                    score += possibleTarget.card.skill != "" ? 15 : 5;
+                    break;
+                case TargetPriority.LowestHp:
+                {
+                    score += possibleTarget.id.owner == OwnerEnum.Opponent ? 75 : 50;
+                    if (possibleTarget.card.cardType == CardType.Creature)
+                    {
+                        score += possibleTarget.card.DefNow * 5;
+                        score += possibleTarget.card.AtkNow;
+                    }
+                    score += possibleTarget.card.skill != "" ? 15 : 5;
+                    break;
                 }
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-            }
-            else if (priority == TargetPriority.HighestCost)
-            {
-                score += possibleTarget.card.cost * 5;
-                score += possibleTarget.card.skill == "" ? 15 : 5;
-                score -= possibleTarget.card.AtkNow;
-                score -= possibleTarget.card.DefNow;
-            }
-            else if (priority == TargetPriority.HasSkill)
-            {
-                score += possibleTarget.card.skill != "" ? 15 : 5;
-                score += possibleTarget.card.AtkNow;
-                score += possibleTarget.card.DefNow;
+                case TargetPriority.HighestCost:
+                    score += possibleTarget.card.cost * 5;
+                    score += possibleTarget.card.skill == "" ? 15 : 5;
+                    score -= possibleTarget.card.AtkNow;
+                    score -= possibleTarget.card.DefNow;
+                    break;
+                case TargetPriority.HasSkill:
+                    score += possibleTarget.card.skill != "" ? 15 : 5;
+                    score += possibleTarget.card.AtkNow;
+                    score += possibleTarget.card.DefNow;
+                    break;
             }
 
             if (score <= currentScore) continue;

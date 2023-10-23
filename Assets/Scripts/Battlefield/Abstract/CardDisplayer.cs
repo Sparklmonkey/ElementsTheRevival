@@ -23,7 +23,7 @@ public abstract class CardDisplayer : MonoBehaviour
         List<Image> dirtyImageList = new(GetComponentsInChildren<Image>());
         foreach (Image item in dirtyImageList)
         {
-            if (item.sprite != null)
+            if (item.sprite is not null)
             {
                 _imageList.Add(item);
             }

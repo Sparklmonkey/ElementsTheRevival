@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="Description" content="Elements is a free fantasy online game. Hundreds of creatures, spells, magic and artifacts to play with">
+  <meta name="Keywords" content="fantasy, card, cards, elements, magic, spell, creature, entropy, fire, ice, earth, air, gravity, time, darkness, death, life, light, aether, deck, collectible, dragon, zanzarino">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://elementrevival.sparklmonkeygames.com/">
+  <meta property="og:title" content="Elements | Free online fantasy card game">
+  <meta property="og:description" content="Elements is a free fantasy online game. Hundreds of creatures, spells, magic and artifacts to play with">
+
+  <title>Elements | Free online fantasy card game</title>
+
+  <link rel="shortcut icon" href="img/favicon.ico?v=2">
+  <link rel="stylesheet" href="styles/index.css">
+  <link rel="stylesheet" href="styles/font-faces.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+  <div class="frame">
+    <div class="top-bar">
+      <h1 class="page-title">Elements the revival</h1>
+      <hr color="#665533" size="1">
+      <hr color="#665533" size="1">
+    </div>
+    <div class="game-container">
+      <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas" width=1248 height=576></canvas>
+        <div id="unity-loading-bar">
+          <div id="unity-logo"></div>
+          <div id="unity-progress-bar-empty">
+            <div id="unity-progress-bar-full"></div>
+          </div>
+        </div>
+        <div id="unity-warning"> </div>
+        <div id="unity-footer">
+          <div id="unity-fullscreen-button"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="scripts/unity.js" charset="utf-8"></script>
+
+  <div class="navigation-list">
+    <center>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('http://elementscommunity.org/forum/');">Forum</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('http://elementscommunity.org/wiki/Main_Page');">Wiki</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('mailto:sparklmonkeygames@gmail.com');">Email Me</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('https://etg.dek.im/');">Open EtG</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('https://discord.gg/qAmfB8T');">OEtG Discord</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('https://discord.gg/XQs6Muman3');">Dev Discord</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('./pages/game-rules.html');">Game Rules</button>
+            </td>
+            <td>
+              <button class="etg-button" type="button" name="button" onclick="window.open('./pages/leaderboards.html');">Leaderboards</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </center>
+  </div>
+<div class="game-tips-container">
+  <table>
+    <tr>
+      <td>
+        <p><b>Tip of the year:</b><br>
+           Your deck can have a minimum of 30 cards; manage your deck and customize it
+        as soon as possible, get rid of some of the cards you do not like/use and
+        sell them. This way you can instantly have a better deck and some coins.</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <hr>
+      </td>
+    </tr>
+      <tr>
+        <td>
+          <p>Elements is an online fantasy card game.<br>
+            You are an elemental, a spirit composed of one of 12 Elements; Elements are the fundamental building blocks of nature.<br>
+            Each Elemental creates a deck of cards based around their core element to fight against other Elementals in a duel.<br>
+            Most Elementals start a duel with 100HP, once that is reduced to 0, that Elemental loses. If the Elemental runs out of cards in their deck, they also lose.<br>
+            There are 3 types of cards:</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <ol>
+            <li>
+              <b>Creatures:</b><br> They are summoned to fight for the
+              elemental; creatures have Attack, Health and may have a special skill.
+            </li>
+              <li>
+                <b>Spells:</b><br> Spells have an immediate effect and are discarded afterwards.
+              </li>
+                <li>
+                  <b>Permanents:</b><br> Artifacts, weapons, shields and pillars. Card that stay in play until removed by an effect.
+                </li>
+          </ol>
+        </td>
+      </tr>
+    </table>
+</div>
+</body>
+
+</html>

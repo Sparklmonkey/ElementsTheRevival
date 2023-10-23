@@ -1,0 +1,11 @@
+
+
+@font-face {
+  font-family: title-font;
+  src: url(../fonts/evanescence-spaced.ttf);
+}
+
+@font-face {
+  font-family: button-font;
+  src: url(../fonts/dauphin.ttf);
+}

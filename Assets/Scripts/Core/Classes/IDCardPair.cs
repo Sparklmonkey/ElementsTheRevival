@@ -47,7 +47,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
                 id = new(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Hand, index);
             }
             var effectDisplay = GetComponent<EffectDisplayManager>();
-            if (effectDisplay != null)
+            if (effectDisplay is not null)
             {
                 OnCardChanged += effectDisplay.UpdateEffectDisplay;
             }
@@ -58,7 +58,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             OnBeingTargeted += cardDisplayer.ShouldShowTarget;
             OnBeingPlayable += cardDisplayer.ShouldShowUsableGlow;
         }
-        else if (parentName == "EnemySide" || parentName == "PlayerSide")
+        else if (parentName is "EnemySide" or "PlayerSide")
         {
             var cardDisplayer = GetComponent<PlayerDisplayer>();
             OnBeingTargeted += cardDisplayer.ShouldShowTarget;

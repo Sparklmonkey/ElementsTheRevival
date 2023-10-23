@@ -1,0 +1,140 @@
+body {
+  background-color: #331100;
+}
+
+.frame{
+ background-image: url('../img/tribal.jpg');
+  margin: auto;
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.etg-button {
+  width: 320px;
+  height: 64px;
+ background: url('../img/button.png');
+ background-size: cover;
+ border: 0;
+  margin-left: auto;
+  color: #FFF;
+  font-size: 30px;
+  font-family: button-font;
+}
+
+.page-title {
+  font-family: title-font;
+  color: #634930;
+  text-shadow: #C9BAAB 5px 5px 5px;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: center;
+  font-size: 6vw;
+}
+
+a:link {
+  color: #FFF;
+}
+
+.bullet-point {
+  width: 50px;
+  height: 50px;
+}
+
+.navigation-list {
+margin: 2% auto 0 auto;
+  /* width: 25vw; */
+}
+
+.game-tips-container {
+  width: 1248px;
+  margin: 0 auto 0 auto;
+  font-size: 32px;
+  color: #C9BAAB;
+}
+
+ol {
+  list-style-image: url('../img/bullet.jpg');
+}
+
+.game-container {
+  width: 1248px;
+  height: 576px;
+  margin: 5% auto 0 auto;
+}
+
+.top-bar {
+  padding-left: 7.5%;
+  padding-right: 7.5%;
+}
+
+#unity-container {
+  margin-top: 75px;
+  position: absolute
+}
+#unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%) }
+#unity-container.unity-mobile { width: 100%; height: 100% }
+#unity-canvas { background: #231F20 }
+.unity-mobile #unity-canvas { width: 100%; height: 100% }
+#unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
+
+#unity-logo {
+  width: 154px;
+  height: 130px;
+  background: url('../img/unity-logo-{{{ SPLASH_SCREEN_STYLE.toLowerCase() }}}.png') no-repeat center
+}
+
+#unity-progress-bar-empty {
+  width: 141px;
+  height: 18px;
+  margin-top: 10px;
+  margin-left: 6.5px;
+  background: url('../img/progress-bar-empty-{{{ SPLASH_SCREEN_STYLE.toLowerCase() }}}.png') no-repeat center
+}
+
+#unity-progress-bar-full {
+  width: 0;
+  height: 18px;
+  margin-top: 10px;
+  background: url('../img/progress-bar-full-{{{ SPLASH_SCREEN_STYLE.toLowerCase() }}}.png') no-repeat center
+}
+
+#unity-footer {
+  position: relative
+}
+
+.unity-mobile #unity-footer {
+  display: none
+}
+
+#unity-webgl-logo {
+  float: left;
+  width: 204px;
+  height: 38px;
+  background: url('../img/webgl-logo.png') no-repeat center
+}
+
+#unity-build-title {
+  float: right;
+  margin-right: 10px;
+  line-height: 38px;
+  font-family: arial;
+  font-size: 18px
+}
+
+#unity-fullscreen-button {
+  float: right;
+  width: 38px;
+  height: 38px;
+  background: url('../img/fullscreen-button.png') no-repeat center
+}
+
+#unity-warning {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%);
+  background: white;
+  padding: 10px;
+  display: none
+}

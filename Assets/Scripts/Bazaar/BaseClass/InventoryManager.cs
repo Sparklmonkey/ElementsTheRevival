@@ -74,7 +74,7 @@ public class InventoryManager : MonoBehaviour
         foreach (var card in cardList)
         {
             DmCardPrefabNoTt dMCard = _dMCards.Find(x => x.GetCard().cardName == card.cardName);
-            if (dMCard != null)
+            if (dMCard is not null)
             {
                 dMCard.AddCard();
             }

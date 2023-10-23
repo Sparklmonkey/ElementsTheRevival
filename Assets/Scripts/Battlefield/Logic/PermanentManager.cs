@@ -46,11 +46,11 @@ namespace Elements.Duel.Manager
             //List<ID> ids = new List<ID>();
             for (int i = 0; i < PairList.Count; i++)
             {
-                if (PairList[i].card != null)
+                if (PairList[i].card is not null)
                 {
-                    Card card = PairList[i].card;
+                    var card = PairList[i].card;
 
-                    Element elementnow = card.costElement;
+                    var elementnow = card.costElement;
                     Element mark;
                     bool isPlayer = PairList[i].id.owner.Equals(OwnerEnum.Player);
                     mark = isPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;

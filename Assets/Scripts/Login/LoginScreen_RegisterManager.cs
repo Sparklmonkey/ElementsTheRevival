@@ -102,7 +102,7 @@ public class LoginScreenRegisterManager : MonoBehaviour
             PlayerData.Shared = response.savedData;
             PlayerData.Shared.userName = username.text;
             
-            GetComponent<DashboardSceneManager>().LoadNewScene(PlayerData.Shared.currentDeck.Count > 0 ? "DeckSelector" : "Dashboard");
+            SceneTransitionManager.Instance.LoadScene(PlayerData.Shared.currentDeck.Count > 0 ? "DeckSelector" : "Dashboard");
         }
         else
         {

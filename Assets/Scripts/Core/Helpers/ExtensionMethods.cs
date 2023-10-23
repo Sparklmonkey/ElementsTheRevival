@@ -305,14 +305,6 @@ public static class ExtensionMethods
         return (regCard.rarity * regCard.rarity * 6) + regCard.cost;
     }
 
-    public static bool IsValidCard(this Card card)
-    {
-        if (card != null)
-        {
-            return card.cardName != "Shield_" && card.cardName != "Weapon" && card.cardType != CardType.Mark && !card.innateSkills.Immaterial && !card.passiveSkills.Burrow;
-        }
-        return false;
-    }
     public static bool IsBazaarLegal(this string cardID)
     {
         if (CardDatabase.Instance.MarkIds.Contains(cardID))

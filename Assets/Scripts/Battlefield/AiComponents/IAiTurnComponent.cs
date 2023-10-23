@@ -9,8 +9,8 @@ public interface IAiTurnComponent
 
 public abstract class AiTurnBase
 {
-    public abstract void PlayCardFromHand(PlayerManager aiManager, CardType cardType);
-    public abstract void PlaySpellFromHand(PlayerManager aiManager);
+    public abstract CardData PlayCardFromHand(PlayerManager aiManager, CardType cardType);
+    public abstract CardData PlaySpellFromHand(PlayerManager aiManager);
     public abstract void ActivateCreatureAbility(PlayerManager aiManager);
     public abstract void ActivateArtifactAbility(PlayerManager aiManager);
 
