@@ -22,30 +22,30 @@ public class DashCodeRedemption : MonoBehaviour
 
     private async void CodeRedepmtionHandler(CodeDetails response)
     {
-        if (response.codeName == "NotValid")
+        if (response.CodeName == "NotValid")
         {
             errorMessage.text = "Code has already been used, or is invalid.";
             return;
         }
 
-        if (response.electrumRewards > 0)
+        if (response.ElectrumRewards > 0)
         {
             electrumRewardDisplay.SetActive(true);
-            PlayerData.Shared.electrum += response.electrumRewards;
-            electrumRewardAmount.text = response.electrumRewards.ToString();
+            PlayerData.Shared.electrum += response.ElectrumRewards;
+            electrumRewardAmount.text = response.ElectrumRewards.ToString();
         }
 
-        var cardList = response.cardRewards.Split(" ").ToList();
+        var cardList = response.CardRewards.Split(" ").ToList();
         
         
         if (cardList.Count > 0)
         {
             if (cardList[0] != "")
             {
-                List<Card> cards = CardDatabase.Instance.GetCardListWithID(cardList);
+                var cards = CardDatabase.Instance.GetCardListWithID(cardList);
                 cardRewardLabel.text = "Cards Gained:";
 
-                if (response.isCardSelect)
+                if (response.IsCardSelect)
                 {
                     chooseCardButton.gameObject.SetActive(true);
                     cardRewardLabel.text = "Choose A Card:";
@@ -71,7 +71,7 @@ public class DashCodeRedemption : MonoBehaviour
         cardRewardObject.SetActive(true);
         foreach (var card in cardObjects)
         {
-            GameObject redeemCardObject = Instantiate(redeemCardPrefab, cardContentView.transform);
+            var redeemCardObject = Instantiate(redeemCardPrefab, cardContentView.transform);
             redeemCardObject.GetComponent<RedeemCardObject>().SetupObject(card, this);
         }
     }

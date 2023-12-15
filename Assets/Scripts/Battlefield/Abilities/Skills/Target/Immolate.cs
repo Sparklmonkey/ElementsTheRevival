@@ -8,13 +8,13 @@ public class Immolate : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.RemoveCard();
-        for (int i = 0; i < 12; i++)
+        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+        for (var i = 0; i < 12; i++)
         {
-            Owner.GenerateQuantaLogic((Element)i, 1);
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, (Element)i, Owner.isPlayer, true));
         }
 
-        Owner.GenerateQuantaLogic(Element.Fire, 5);
+        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(5, Element.Fire, Owner.isPlayer, true));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

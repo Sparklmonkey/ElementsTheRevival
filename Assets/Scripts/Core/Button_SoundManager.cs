@@ -5,11 +5,11 @@ public class ButtonSoundManager : MonoBehaviour, IPointerClickHandler, IPointerE
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        SoundManager.Instance.PlayAudioClip("TapButton");
+        EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("TapButton"));
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SoundManager.Instance.PlayAudioClip("HoverOverButton");
+        EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("HoverOverButton"));
     }
 }

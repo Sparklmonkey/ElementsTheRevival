@@ -12,7 +12,7 @@ public class UpgradePlayerDataManager : MonoBehaviour
     private TextMeshProUGUI deckCount;
     public ErrorMessageManager confirmationPopUp;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _playerInventoryManager = GetComponent<UpgradeInvetoryViewManager>();
         _playerInventoryManager.SetupInitialCardView(PlayerData.Shared.inventoryCards.DeserializeCard());
@@ -44,15 +44,13 @@ public class UpgradePlayerDataManager : MonoBehaviour
 
     public void ConfirmUpgrade()
     {
-        int cardIndex = 0;
+        var cardIndex = 0;
 
-        for (int i = 0; i < PlayerData.Shared.inventoryCards.Count; i++)
+        for (var i = 0; i < PlayerData.Shared.inventoryCards.Count; i++)
         {
-            if (PlayerData.Shared.inventoryCards[i] == _cardToUpgrade.iD)
-            {
-                cardIndex = i;
-                break;
-            }
+            if (PlayerData.Shared.inventoryCards[i] != _cardToUpgrade.iD) continue;
+            cardIndex = i;
+            break;
         }
         PlayerData.Shared.inventoryCards.RemoveAt(cardIndex);
         PlayerData.Shared.inventoryCards.Add(_cardToUpgrade.iD.GetUppedRegular());

@@ -1,14 +1,27 @@
 ﻿public class HandBehaviour : CardTypeBehaviour
 {
-    public override void OnCardPlay()
+    protected override void OnCardPlay(OnCardPlayEvent onCardPlayEvent)
     {
-        return;
+        if (!onCardPlayEvent.IdPlayed.Equals(cardPair.id))
+        {
+            return;
+        }
+        cardPair.card = onCardPlayEvent.CardPlayed;
+        cardPair.stackCount = 1;
+        StackCount = cardPair.stackCount;
+        EventBus<UpdateCardDisplayEvent>.Raise(new UpdateCardDisplayEvent(cardPair.id, cardPair.card, cardPair.stackCount, cardPair.isHidden));
     }
 
-    public override void OnCardRemove()
+    protected override void OnCardRemove(OnCardRemovedEvent cardRemovedEvent)
     {
+        if (!cardRemovedEvent.IdRemoved.Equals(cardPair.id))
+        {
+            return;
+        }
+        cardPair.isHidden = true;
+        cardPair.stackCount = 0;
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(cardPair.id, 0, cardPair.card));
         cardPair.card = null;
-        return;
     }
 
     public override void OnTurnStart()
@@ -16,12 +29,12 @@
         return;
     }
 
-    public override void DeathTrigger()
+    protected override void DeathTrigger(OnDeathDTriggerEvent onDeathDTriggerEvent)
     {
         return;
     }
 
-    public override void OnTurnEnd()
+    protected override void OnTurnEnd(OnTurnEndEvent onTurnEndEvent)
     {
         return;
     }

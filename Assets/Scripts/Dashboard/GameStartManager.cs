@@ -29,7 +29,7 @@ public class GameStartManager : MonoBehaviour
                 ai.opponentName = ai.mark.FastElementString();
                 break;
             case 2:
-                Element elementDeck = (Element)Random.Range(0, 12);
+                var elementDeck = (Element)Random.Range(0, 12);
                 if (elementDeck == Element.Entropy)
                 {
                     elementDeck = Element.Aether;

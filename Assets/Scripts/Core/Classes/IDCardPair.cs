@@ -1,5 +1,4 @@
 using System;
-using Elements.Duel.Visual;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -15,15 +14,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public bool IsActive() => transform.parent.gameObject.activeSelf;
 
-    public event Action<Card, int, bool> OnCardChanged;
-    public event Action<Card, int> OnCardRemoved;
-
-    public event Action<IDCardPair> OnClickObject;
-
-    public event Action<bool> OnBeingTargeted;
-    public event Action<bool> OnBeingPlayable;
-
-    void Start()
+    private void Start()
     {
         cardBehaviour = GetComponent<CardTypeBehaviour>();
         cardBehaviour.cardPair = this;
@@ -33,7 +24,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
         if (parentName != "EnemySide" && parentName != "PlayerSide")
         {
-            int index = int.Parse(parentName.Split("_")[1]) - 1;
+            var index = int.Parse(parentName.Split("_")[1]) - 1;
             if (parentName.Contains("Creature"))
             {
                 id = new(isPlayer ? OwnerEnum.Player : OwnerEnum.Opponent, FieldEnum.Creature, index);
@@ -49,26 +40,8 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             var effectDisplay = GetComponent<EffectDisplayManager>();
             if (effectDisplay is not null)
             {
-                OnCardChanged += effectDisplay.UpdateEffectDisplay;
+                // OnCardChanged += effectDisplay.UpdateEffectDisplay;
             }
-
-            var cardDisplayer = GetComponent<CardDisplayer>();
-            OnCardChanged += cardDisplayer.DisplayCard;
-            OnCardRemoved += cardDisplayer.HideCard;
-            OnBeingTargeted += cardDisplayer.ShouldShowTarget;
-            OnBeingPlayable += cardDisplayer.ShouldShowUsableGlow;
-        }
-        else if (parentName is "EnemySide" or "PlayerSide")
-        {
-            var cardDisplayer = GetComponent<PlayerDisplayer>();
-            OnBeingTargeted += cardDisplayer.ShouldShowTarget;
-        }
-
-        OnClickObject += DuelManager.Instance.IdCardTapped;
-
-        if (parentName != "EnemySide" && parentName != "PlayerSide" && !parentName.Contains("Passive"))
-        {
-            transform.parent.gameObject.SetActive(false);
         }
     }
 
@@ -88,22 +61,6 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         this.card = card;
     }
 
-    public void PlayCard(Card card)
-    {
-        this.card = card;
-        if (card.cardType == CardType.Pillar && id.field == FieldEnum.Permanent)
-        {
-            stackCount++;
-        }
-        else
-        {
-            stackCount = 1;
-        }
-        cardBehaviour.StackCount = stackCount;
-        cardBehaviour.OnCardPlay();
-        OnCardChanged?.Invoke(card, stackCount, isHidden);
-    }
-
     public void UpdateCard()
     {
         if (!HasCard()) { return; }
@@ -112,25 +69,11 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             if (card.DefDamage < 0) { card.DefDamage = 0; }
             if (card.DefNow <= 0)
             {
-                RemoveCard();
+                EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(id));
                 return;
             }
         }
-        OnCardChanged?.Invoke(card, stackCount, isHidden);
-    }
-
-    public void RemoveCard()
-    {
-        if (id.field != FieldEnum.Hand)
-        {
-            AnimationManager.Instance.StartAnimation("CardDeath", transform);
-            SoundManager.Instance.PlayAudioClip("RemoveCardFromField");
-        }
-        isHidden = true;
-        stackCount--;
-        if(stackCount < 0) { stackCount = 0; }
-        cardBehaviour.OnCardRemove();
-        OnCardRemoved?.Invoke(card, stackCount);
+        EventBus<UpdateCardDisplayEvent>.Raise(new UpdateCardDisplayEvent(id, card, stackCount, isHidden));
     }
 
     public Card GetCard() => card;
@@ -145,14 +88,14 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         ToolTipCanvas.Instance.HideToolTip();
         if (!HasCard() && id.field != FieldEnum.Player) { return; }
-        OnClickObject?.Invoke(this);
+        EventBus<CardTappedEvent>.Raise(new CardTappedEvent(this));
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!HasCard()) { return; }
         if (id.field == FieldEnum.Hand && id.owner == OwnerEnum.Opponent) { return; }
-        RectTransform rectTransform = GetComponent<RectTransform>();
+        var rectTransform = GetComponent<RectTransform>();
         Vector2 objectSize = new(rectTransform.rect.height, rectTransform.rect.width);
         ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, card, id.index + 1, id.field == FieldEnum.Creature);
     }
@@ -166,26 +109,4 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         return id.field.Equals(FieldEnum.Hand);
     }
-
-    public void HandCardUpdate(Card card)
-    {
-        if (card == null)
-        {
-            OnCardRemoved?.Invoke(card, 0);
-            return;
-        }
-        this.card = card;
-        OnCardChanged?.Invoke(card, stackCount, isHidden);
-    }
-
-    public void IsTargeted(bool shouldShowTarget)
-    {
-        OnBeingTargeted?.Invoke(shouldShowTarget);
-    }
-
-    public void IsPlayable(bool shouldShowGlow)
-    {
-        OnBeingPlayable?.Invoke(shouldShowGlow);
-    }
-
 }

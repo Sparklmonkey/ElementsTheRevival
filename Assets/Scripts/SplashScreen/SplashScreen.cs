@@ -40,9 +40,9 @@ public class SplashScreen : MonoBehaviour
             }
             yield break;
         }
-        for (int i = 0; i < finalPositions.Count; i++)
+        for (var i = 0; i < finalPositions.Count; i++)
         {
-            int whileLoopBreak = 0;
+            var whileLoopBreak = 0;
             while (imageToMove.transform.position != finalPositions[i].position && whileLoopBreak < 16)
             {
                 imageToMove.transform.position = Vector3.MoveTowards(imageToMove.transform.position, finalPositions[i].position, 1500f * Time.deltaTime);
@@ -91,22 +91,20 @@ public class SplashScreen : MonoBehaviour
 
     public async void SkipSplashAnimation()
     {
-        if (PlayerPrefs.GetFloat("HasSeenSplash") == 1f && !_isLoadingNextScene)
+        if (PlayerPrefs.GetFloat("HasSeenSplash") != 1f || _isLoadingNextScene) return;
+        StopAllCoroutines();
+        for (var i = 0; i < imageObjects.Count; i++)
         {
-            StopAllCoroutines();
-            for (int i = 0; i < imageObjects.Count; i++)
-            {
-                imageObjects[i].transform.position = finalPositions[i].position;
-            }
-            titleImage.material.SetFloat("_Fade", 1f);
-            LoadNextScene();
+            imageObjects[i].transform.position = finalPositions[i].position;
         }
+        titleImage.material.SetFloat("_Fade", 1f);
+        LoadNextScene();
     }
 
     private async void LoadNextScene()
     {
         var appInfo = await ApiManager.Instance.GetAppInfo();
-        if (appInfo is null)
+        if (appInfo == null)
         {
             maintenancePopUp.SetActive(true);
             return;
@@ -128,7 +126,7 @@ public class SplashScreen : MonoBehaviour
                 var response = await ApiManager.Instance.LoginController(new LoginRequest()
                 {
                     accessToken = token
-                }, Endpointbuilder.userTokenLogin);
+                }, Endpointbuilder.UserTokenLogin);
                 ManageResponse(response);
                 return;
             }
@@ -163,7 +161,7 @@ public class SplashScreen : MonoBehaviour
         var currentTime = 0f;
         while (currentTime < 6f)
         {
-            float value = currentTime / 6f;
+            var value = currentTime / 6f;
             currentTime += Time.deltaTime;
             shader.SetFloat("_Fade", value);
             yield return null;

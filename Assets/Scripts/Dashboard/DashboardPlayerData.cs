@@ -11,10 +11,10 @@ public class DashboardPlayerData : MonoBehaviour
     private Button oracleButton, falseGobButton;
     private static GameObject _touchBlocker;
 
-    void Start()
+    private void Start()
     {
         UpdateDashboard();
-        InvokeRepeating(nameof(PeriodicSave), 0f, 300f);
+        InvokeRepeating(nameof(PeriodicSave), 0f, 780f);
     }
 
     private void OnDisable()

@@ -47,9 +47,9 @@ public class BazaarPlayerInventoryManager : InventoryManager
             return;
         }
         _selectedElement = element;
-        Element filter = (Element)_selectedElement;
+        var filter = (Element)_selectedElement;
         List<Card> cardsToShow = new();
-        foreach (Card card in _cardList)
+        foreach (var card in _cardList)
         {
             if (card.cardName == "Animate Weapon")
             {
@@ -59,7 +59,7 @@ public class BazaarPlayerInventoryManager : InventoryManager
                 }
                 continue;
             }
-            if ((card.cardName == "Luciferin" || card.cardName == "Luciferase"))
+            if (card.cardName == "Luciferin" || card.cardName == "Luciferase")
             {
                 if (filter.Equals(Element.Light))
                 {

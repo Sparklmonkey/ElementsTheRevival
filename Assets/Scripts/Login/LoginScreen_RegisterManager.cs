@@ -15,22 +15,20 @@ public class LoginScreenRegisterManager : MonoBehaviour
     private GameObject _touchBlocker;
 
     public List<TMP_InputField> fields;
-    int _fieldIndexer;
+    private int _fieldIndexer;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (!Input.GetKeyDown(KeyCode.Tab)) return;
+        if (fields.Count <= _fieldIndexer)
         {
-            if (fields.Count <= _fieldIndexer)
-            {
-                _fieldIndexer = 0;
-            }
-            fields[_fieldIndexer].Select();
-            _fieldIndexer++;
+            _fieldIndexer = 0;
         }
+        fields[_fieldIndexer].Select();
+        _fieldIndexer++;
     }
 
-    void Start()
+    private void Start()
     {
         fields = new List<TMP_InputField> { username, password };
     }
@@ -47,7 +45,7 @@ public class LoginScreenRegisterManager : MonoBehaviour
             password = password.text,
             email = email.text,
             dataToLink = PlayerData.Shared
-        }, "link-data");
+        }, Endpointbuilder.RegisterLinkData);
 
         _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(_touchBlocker);
@@ -84,7 +82,7 @@ public class LoginScreenRegisterManager : MonoBehaviour
             username = username.text,
             password = password.text,
             email = email.text
-        }, "register");
+        }, Endpointbuilder.RegisterNewUser);
 
         _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(_touchBlocker);
@@ -102,7 +100,7 @@ public class LoginScreenRegisterManager : MonoBehaviour
             PlayerData.Shared = response.savedData;
             PlayerData.Shared.userName = username.text;
             
-            SceneTransitionManager.Instance.LoadScene(PlayerData.Shared.currentDeck.Count > 0 ? "DeckSelector" : "Dashboard");
+            SceneTransitionManager.Instance.LoadScene(PlayerData.Shared.currentDeck.Count == 0 ? "DeckSelector" : "Dashboard");
         }
         else
         {

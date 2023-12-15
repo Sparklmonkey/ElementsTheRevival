@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -30,7 +28,7 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
-        StartCoroutine(_aiStateMachine.Update(this));
         _hasStarted = true;
+        StartCoroutine(_aiStateMachine.Update(this));
     }
 }

@@ -13,7 +13,7 @@ public class Chaos : AbilityEffect
 
     private void ChaosSeed(PlayerManager targetOwner, IDCardPair iDCard)
     {
-        int effect = Random.Range(0, 12);
+        var effect = Random.Range(0, 12);
 
         switch (effect)
         {
@@ -24,9 +24,9 @@ public class Chaos : AbilityEffect
                 iDCard.card.DefDamage += 5;
                 break;
             case 2:
-                int waterQ = Owner.GetAllQuantaOfElement(Element.Water);
-                int damageToDeal = 2 + (Mathf.FloorToInt(waterQ / 10) * 2);
-                bool willFreeze = Random.Range(0, 100) > 30 + (damageToDeal * 5);
+                var waterQ = Owner.GetAllQuantaOfElement(Element.Water);
+                var damageToDeal = 2 + Mathf.FloorToInt(waterQ / 10) * 2;
+                var willFreeze = Random.Range(0, 100) > 30 + damageToDeal * 5;
 
                 iDCard.card.DefDamage += damageToDeal;
                 if (willFreeze)
@@ -36,7 +36,7 @@ public class Chaos : AbilityEffect
                 break;
             case 3:
                 waterQ = Owner.GetAllQuantaOfElement(Element.Fire);
-                damageToDeal = 2 + (Mathf.FloorToInt(waterQ / 10) * 2);
+                damageToDeal = 2 + Mathf.FloorToInt(waterQ / 10) * 2;
 
                 iDCard.card.DefDamage += damageToDeal;
                 break;
@@ -53,7 +53,7 @@ public class Chaos : AbilityEffect
                 Card cardToPlay = new(iDCard.card);
                 Owner.PlayCardOnField(cardToPlay);
                 AnimationManager.Instance.StartAnimation("Steal", iDCard.transform);
-                iDCard.RemoveCard();
+                EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(iDCard.id));
                 return;
             case 8:
                 iDCard.card.DefDamage += 3;
@@ -61,35 +61,30 @@ public class Chaos : AbilityEffect
             case 9:
                 if (iDCard.card.Freeze > 0)
                 {
-                    iDCard.RemoveCard();
+                    EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(iDCard.id));
                     return;
                 }
-                else
-                {
-                    iDCard.card.DefDamage += 4;
-                }
+                iDCard.card.DefDamage += 4;
                 break;
             case 10:
                 if (iDCard.card.innateSkills.Mummy)
                 {
-                    Card pharoah = CardDatabase.Instance.GetCardFromId(iDCard.card.iD.IsUpgraded() ? "7qc" : "5rs");
-                    iDCard.PlayCard(pharoah);
+                    var pharoah = CardDatabase.Instance.GetCardFromId(iDCard.card.iD.IsUpgraded() ? "7qc" : "5rs");
+                    EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(iDCard.id, pharoah));
                 }
                 else if (iDCard.card.innateSkills.Undead)
                 {
-                    iDCard.PlayCard(CardDatabase.Instance.GetRandomCard(CardType.Creature, iDCard.card.iD.IsUpgraded(), true));
+                    EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(iDCard.id, CardDatabase.Instance.GetRandomCard(CardType.Creature, iDCard.card.iD.IsUpgraded(), true)));
                 }
                 else
                 {
-                    Card baseCreature = CardDatabase.Instance.GetCardFromId(iDCard.card.iD);
+                    var baseCreature = CardDatabase.Instance.GetCardFromId(iDCard.card.iD);
                     targetOwner.AddCardToDeck(baseCreature);
-                    iDCard.RemoveCard();
+                    EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(iDCard.id));
                 }
                 break;
             case 11:
                 iDCard.card.passiveSkills.GravityPull = true;
-                break;
-            default:
                 break;
         }
         iDCard.UpdateCard();

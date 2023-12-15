@@ -15,7 +15,7 @@ public class Devour : AbilityEffect
             BattleVars.Shared.AbilityOrigin.card.Poison++;
         }
         BattleVars.Shared.AbilityOrigin.UpdateCard();
-        target.RemoveCard();
+        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

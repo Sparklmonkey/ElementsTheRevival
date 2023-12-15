@@ -6,7 +6,7 @@ public class Blitz : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Owner.SpendQuantaLogic(Element.Air, 75);
+        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, Element.Air, Owner.isPlayer, false));
         var idCardList = Owner.playerCreatureField.GetAllValidCardIds();
         foreach (var idCardi in idCardList)
         {

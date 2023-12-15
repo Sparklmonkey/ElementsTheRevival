@@ -6,9 +6,11 @@ public class Rebirth : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.PlayCard(target.card.iD.IsUpgraded()
+        var card = target.card.iD.IsUpgraded()
             ? CardDatabase.Instance.GetCardFromId("7ds")
-            : CardDatabase.Instance.GetCardFromId("5fc"));
+            : CardDatabase.Instance.GetCardFromId("5fc");
+        
+        EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(target.id, card));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

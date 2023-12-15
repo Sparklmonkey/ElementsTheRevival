@@ -6,7 +6,7 @@ namespace UnityAsyncAwaitUtil
     public static class SyncContextUtil
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void Install()
+        private static void Install()
         {
             UnitySynchronizationContext = SynchronizationContext.Current;
             UnityThreadId = Thread.CurrentThread.ManagedThreadId;

@@ -10,7 +10,7 @@ public class Shockwave : AbilityEffect
     {
         if (target.card.Freeze > 0)
         {
-            target.RemoveCard();
+            EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
             return;
         }
 

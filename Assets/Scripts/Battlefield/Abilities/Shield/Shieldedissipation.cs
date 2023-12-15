@@ -5,11 +5,11 @@ public class Shieldedissipation : ShieldAbility
     public override void ActivateShield(ref int atkNow, ref IDCardPair cardPair)
     {
         if (Owner.playerCounters.sanctuary > 0) { return; }
-        int quantaToUse = Mathf.CeilToInt(atkNow / 3);
-        int availableEQuanta = Owner.GetAllQuantaOfElement(Element.Entropy);
+        var quantaToUse = Mathf.CeilToInt(atkNow / 3);
+        var availableEQuanta = Owner.GetAllQuantaOfElement(Element.Entropy);
         if (availableEQuanta >= quantaToUse)
         {
-            Owner.SpendQuantaLogic(Element.Other, quantaToUse);
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(quantaToUse, Element.Other, Owner.isPlayer, false));
             atkNow = 0;
         }
         else

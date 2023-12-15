@@ -6,7 +6,7 @@ public class PermanentAbilities
     {
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
 
-        int cardIndex = idCardList.FindIndex(x => x.card.iD == "5rl" || x.card.cardName == "7q5");
+        var cardIndex = idCardList.FindIndex(x => x.card.iD == "5rl" || x.card.cardName == "7q5");
 
         if (cardIndex == -1) { yield break; }
         if (aiManager.PlayerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost))

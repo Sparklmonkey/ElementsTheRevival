@@ -15,9 +15,9 @@ public class ActionDisplayManager : MonoBehaviour
         if (ActionManager.ActionList.Count == 0) { return; }
 
         ClearView();
-        for (int i = ActionManager.ActionList.Count - 1; i >= 0; i--)
+        for (var i = ActionManager.ActionList.Count - 1; i >= 0; i--)
         {
-            GameObject actionCellObject = Instantiate(actionCellPrefab, actionContentView);
+            var actionCellObject = Instantiate(actionCellPrefab, actionContentView);
             actionCellObject.GetComponent<ActionCell>().SetupFromElementAction(ActionManager.ActionList[i]);
         }
     }

@@ -2,7 +2,7 @@
 
 public class PvpPlayerController
 {
-    PlayerManager _enemyManager;
+    private PlayerManager _enemyManager;
     public PvpPlayerController(PlayerManager enemyManager)
     {
         this._enemyManager = enemyManager;

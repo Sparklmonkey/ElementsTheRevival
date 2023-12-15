@@ -36,7 +36,7 @@ public class AiStateMachine
         _aiManager = aiManager;
         _currentState = GameState.Idle;
         _stateCount = 0;
-        DuelManager.Instance.SetAiCounter(_stateCount);
+        EventBus<ResetAiTurnCountEvent>.Raise(new ResetAiTurnCountEvent());
         _aiDraw = BattleVars.Shared.EnemyAiData.drawComponent.GetScriptFromName<IAiDrawComponent>();
         _aiDiscard = BattleVars.Shared.EnemyAiData.discardComponent.GetScriptFromName<IAiDiscardComponent>();
         _aiTurn = new BasicAiTurnLogic();
@@ -44,12 +44,11 @@ public class AiStateMachine
 
     public IEnumerator Update(MonoBehaviour owner)
     {
-        if (_gameOverVisual.IsGameOver)
+        if (_gameOverVisual.isGameOver)
         {
             yield break;
         }
-        DuelManager.Instance.SetAiCounter(_stateCount);
-        if (_stateCount > 20 && _currentState != GameState.Idle)
+        if (_stateCount >= 20 && _currentState != GameState.Idle)
         {
             _currentState = GameState.EndTurn;
         }
@@ -57,6 +56,7 @@ public class AiStateMachine
         if (_currentState != GameState.Idle)
         {
             _stateCount++;
+            EventBus<AddAiTurnCountEvent>.Raise(new AddAiTurnCountEvent());
         }
 
         CardData card = null;
@@ -74,7 +74,7 @@ public class AiStateMachine
                     else
                     {
                         _stateCount = 0;
-                        DuelManager.Instance.SetAiCounter(_stateCount);
+                        EventBus<ResetAiTurnCountEvent>.Raise(new ResetAiTurnCountEvent());
                         _currentState = GameState.DrawCard;
                     }
                 }
@@ -125,7 +125,8 @@ public class AiStateMachine
 
             case GameState.EndTurn:
                 if(_aiManager.GetHandCards().Count > 7) { _aiDiscard.DiscardCard(_aiManager); }
-                _aiManager.EndTurnRoutine();
+                
+                yield return _aiManager.StartCoroutine(_aiManager.EndTurnRoutine());
                 _aiManager.UpdateCounterAndEffects();
                 DuelManager.Instance.EndTurn();
                 _currentState = GameState.Idle;
@@ -184,9 +185,9 @@ public class AiStateMachine
 
 public class CardData
 {
-    public string imageId;
-    public string element;
-    public string cardName;
+    public string ImageId;
+    public string Element;
+    public string CardName;
 }
 
 public class BasicAiTurnLogic : AiTurnBase
@@ -194,19 +195,17 @@ public class BasicAiTurnLogic : AiTurnBase
     public override CardData PlayCardFromHand(PlayerManager aiManager, CardType cardType)
     {
         var idCard = aiManager.playerHand.GetAllValidCardIds().Find(p => p.card.cardType == cardType && aiManager.IsCardPlayable(p.card));
-        if (idCard is not null)
+        if (idCard == null) return null;
+        if (aiManager.IsCardPlayable(idCard.card))
         {
-            if (aiManager.IsCardPlayable(idCard.card))
+            var cardData = new CardData()
             {
-                var cardData = new CardData()
-                {
-                    imageId = idCard.card.imageID,
-                    element = idCard.card.costElement.FastElementString(),
-                    cardName = idCard.card.cardName,
-                };
-                aiManager.PlayCardFromHandLogic(idCard);
-                return cardData;
-            }
+                ImageId = idCard.card.imageID,
+                Element = idCard.card.costElement.FastElementString(),
+                CardName = idCard.card.cardName,
+            };
+            aiManager.PlayCardFromHandLogic(idCard);
+            return cardData;
         }
 
         return null;
@@ -215,7 +214,7 @@ public class BasicAiTurnLogic : AiTurnBase
     public override CardData PlaySpellFromHand(PlayerManager aiManager)
     {
         var spell = aiManager.playerHand.GetAllValidCardIds().Find(s => s.card.cardType == CardType.Spell && aiManager.IsCardPlayable(s.card));
-        if (spell is null)
+        if (spell == null)
         {
             return null;
         }
@@ -223,16 +222,16 @@ public class BasicAiTurnLogic : AiTurnBase
         if (SkillManager.Instance.ShouldAskForTarget(spell))
         {
             var target = SkillManager.Instance.GetRandomTarget(aiManager, spell);
-            if (target is null)
+            if (target == null)
             {
                 return null;
             }
 
             var cardData = new CardData()
             {
-                imageId = spell.card.imageID,
-                element = spell.card.costElement.FastElementString(),
-                cardName = spell.card.cardName,
+                ImageId = spell.card.imageID,
+                Element = spell.card.costElement.FastElementString(),
+                CardName = spell.card.cardName,
             };
             BattleVars.Shared.AbilityOrigin = spell;
             SkillManager.Instance.SkillRoutineWithTarget(aiManager, target);
@@ -244,9 +243,9 @@ public class BasicAiTurnLogic : AiTurnBase
         {
             var cardData = new CardData()
             {
-                imageId = spell.card.imageID,
-                element = spell.card.costElement.FastElementString(),
-                cardName = spell.card.cardName,
+                ImageId = spell.card.imageID,
+                Element = spell.card.costElement.FastElementString(),
+                CardName = spell.card.cardName,
             };
             SkillManager.Instance.SkillRoutineNoTarget(aiManager, spell);
             aiManager.PlayCardFromHandLogic(spell);
@@ -258,7 +257,7 @@ public class BasicAiTurnLogic : AiTurnBase
     public override void ActivateCreatureAbility(PlayerManager aiManager)
     {
         var creature = aiManager.playerCreatureField.GetAllValidCardIds().Find(c => c.card.skill is not null or "" or " " && aiManager.IsAbilityUsable(c));
-        if (creature is null)
+        if (creature == null)
         {
             return;
         }
@@ -266,7 +265,7 @@ public class BasicAiTurnLogic : AiTurnBase
         if (SkillManager.Instance.ShouldAskForTarget(creature))
         {
             var target = SkillManager.Instance.GetRandomTarget(aiManager, creature);
-            if (target is null)
+            if (target == null)
             {
                 return;
             }
@@ -284,7 +283,7 @@ public class BasicAiTurnLogic : AiTurnBase
     public override void ActivateArtifactAbility(PlayerManager aiManager)
     {
         var artifact = aiManager.playerPermanentManager.GetAllValidCardIds().Find(a => a.card.skill is not null or "" or " " && aiManager.IsAbilityUsable(a));
-        if (artifact is null)
+        if (artifact == null)
         {
             return;
         }
@@ -292,7 +291,7 @@ public class BasicAiTurnLogic : AiTurnBase
         if (SkillManager.Instance.ShouldAskForTarget(artifact))
         {
             var target = SkillManager.Instance.GetRandomTarget(aiManager, artifact);
-            if (target is null)
+            if (target == null)
             {
                 return;
             }
@@ -315,7 +314,7 @@ public class BasicAiTurnLogic : AiTurnBase
     public override bool HasCreatureAbilityToUse(PlayerManager aiManager)
     {
         var creatureWithSkill = aiManager.playerCreatureField.GetAllValidCardIds().Find(x => x.card.skill is not null or "" or " ");
-        if (creatureWithSkill is null)
+        if (creatureWithSkill == null)
         {
             return false;
         }
@@ -325,7 +324,7 @@ public class BasicAiTurnLogic : AiTurnBase
     public override bool HasArtifactAbilityToUse(PlayerManager aiManager)
     {
         var artifactWithSkill = aiManager.playerPermanentManager.GetAllValidCardIds().Find(x => x.card.skill is not null or "" or " ");
-        if (artifactWithSkill is null)
+        if (artifactWithSkill == null)
         {
             return false;
         }

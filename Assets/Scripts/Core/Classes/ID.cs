@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine.Serialization;
 
 [Serializable]
 public class PseudoID
@@ -11,11 +10,11 @@ public class PseudoID
 
 
 [Serializable]
-public class ID
+public class ID : IEquatable<ID>
 {
-    [FormerlySerializedAs("Owner")] public OwnerEnum owner;
-    [FormerlySerializedAs("Field")] public FieldEnum field;
-    [FormerlySerializedAs("Index")] public int index;
+    public OwnerEnum owner;
+    public FieldEnum field;
+    public int index;
     public ID(ID id)
     {
         owner = id.owner;
@@ -35,5 +34,25 @@ public class ID
         this.owner = owner;
         this.field = field;
         this.index = index;
+    }
+
+    public bool Equals(ID other)
+    {
+        if (ReferenceEquals(null, other)) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return owner == other.owner && field == other.field && index == other.index;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != this.GetType()) return false;
+        return Equals((ID)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine((int)owner, (int)field, index);
     }
 }

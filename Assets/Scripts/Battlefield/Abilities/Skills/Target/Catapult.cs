@@ -8,12 +8,11 @@ public class Catapult : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        int damage = 100 * target.card.DefNow / (100 + target.card.DefNow);
+        var damage = 100 * target.card.DefNow / (100 + target.card.DefNow);
         damage += target.card.Freeze > 0 ? Mathf.FloorToInt(damage * 0.5f) : 0;
-        target.RemoveCard();
-
+        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+        
         DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(damage, true, false);
-        return;
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

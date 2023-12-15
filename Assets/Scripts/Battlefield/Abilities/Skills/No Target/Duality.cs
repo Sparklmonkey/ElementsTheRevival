@@ -8,7 +8,7 @@ public class Duality : AbilityEffect
     {
         var cardToAdd = DuelManager.Instance.GetNotIDOwner(target.id).DeckManager.GetTopCard();
         if (cardToAdd == null) { return; }
-        Owner.playerHand.AddCardToHand(new(cardToAdd));
+        EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(Owner.isPlayer, new(cardToAdd)));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

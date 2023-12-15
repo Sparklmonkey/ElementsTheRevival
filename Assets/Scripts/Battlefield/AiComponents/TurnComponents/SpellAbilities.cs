@@ -8,7 +8,7 @@ public class SpellAbilities
         //Get Hand Cards
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
 
-        int cardIndex = idCardList.FindIndex(x => x.card.iD == "5li" || x.card.cardName == "7k2");
+        var cardIndex = idCardList.FindIndex(x => x.card.iD == "5li" || x.card.cardName == "7k2");
 
         if (cardIndex == -1) { yield break; }
         if (aiManager.PlayerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost))
@@ -23,11 +23,11 @@ public class SpellAbilities
     {
         //Get Hand Cards
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
-        int cardIndex = idCardList.FindIndex(x => x.card.iD == "5lf" || x.card.iD == "7jv");
+        var cardIndex = idCardList.FindIndex(x => x.card.iD == "5lf" || x.card.iD == "7jv");
 
         if (cardIndex == -1) { yield break; }
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1) { yield break; }
             if (!aiManager.PlayerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost)) { yield break; }
@@ -50,7 +50,7 @@ public class SpellAbilities
         if (aiManager.playerPassiveManager.GetWeapon().card.cardName == "Weapon") { yield break; }
         //Get Hand Cards
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
-        int cardIndex = idCardList.FindIndex(x => x.card.iD == "7n2" || x.card.iD == "5oi");
+        var cardIndex = idCardList.FindIndex(x => x.card.iD == "7n2" || x.card.iD == "5oi");
 
         if (cardIndex == -1) { yield break; }
         if (aiManager.PlayerQuantaManager.HasEnoughQuanta(idCardList[cardIndex].card.costElement, idCardList[cardIndex].card.cost))
@@ -66,11 +66,11 @@ public class SpellAbilities
 
         if (idCardList.Count == 0) { yield break; }
 
-        int cardIndex = idCardList.FindIndex(x => x.card.iD == "5rk" || x.card.iD == "7q4");
+        var cardIndex = idCardList.FindIndex(x => x.card.iD == "5rk" || x.card.iD == "7q4");
 
         if (cardIndex == -1) { yield break; }
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1) { yield break; }
             if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { yield break; }
@@ -92,11 +92,11 @@ public class SpellAbilities
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
 
         if (idCardList.Count == 0) { yield break; }
-        int cardIndex = idCardList.FindIndex(x => x.card.iD == "593" || x.card.iD == "77j");
+        var cardIndex = idCardList.FindIndex(x => x.card.iD == "593" || x.card.iD == "77j");
 
         if (cardIndex == -1) { yield break; }
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1) { yield break; }
             if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { yield break; }
@@ -117,11 +117,11 @@ public class SpellAbilities
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
 
         if (idCardList.Count == 0) { yield break; }
-        int cardIndex = idCardList.FindIndex(x => x.card.iD == "621" || x.card.iD == "80h");
+        var cardIndex = idCardList.FindIndex(x => x.card.iD == "621" || x.card.iD == "80h");
 
         if (cardIndex == -1) { yield break; }
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1) { yield break; }
             if (!aiManager.IsCardPlayable(idCardList[cardIndex].card)) { yield break; }

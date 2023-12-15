@@ -7,7 +7,7 @@ public class Photosynthesis : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         AnimationManager.Instance.StartAnimation("QuantaGenerate", target.transform, Element.Life);
-        Owner.GenerateQuantaLogic(Element.Life, 2);
+        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(2, Element.Life, Owner.isPlayer, true));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

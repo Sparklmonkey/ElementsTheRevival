@@ -4,43 +4,66 @@ public class ActionManager
 {
     public static List<ElementAction> ActionList = new();
 
-    public static void AddCardDrawAction(bool isPlayer, Card ownerCard)
+    private EventBinding<AddDrawCardActionEvent> _addCardDrawActionBinding;
+    private EventBinding<AddCardPlayedOnFieldActionEvent> _addCardPlayedOnFieldBinding;
+    private EventBinding<AddSpellActivatedActionEvent> _addSpellActivatedBinding;
+    private EventBinding<AddAbilityActivatedActionEvent> _addAbilityActivatedBinding;
+    
+    public ActionManager()
     {
-        ElementAction action;
+        _addCardDrawActionBinding = new EventBinding<AddDrawCardActionEvent>(AddCardDrawAction);
+        EventBus<AddDrawCardActionEvent>.Register(_addCardDrawActionBinding);
+        
+        _addCardPlayedOnFieldBinding = new EventBinding<AddCardPlayedOnFieldActionEvent>(AddCardPlayedOnFieldAction);
+        EventBus<AddCardPlayedOnFieldActionEvent>.Register(_addCardPlayedOnFieldBinding);
+        
+        _addSpellActivatedBinding = new EventBinding<AddSpellActivatedActionEvent>(AddSpellPlayedAction);
+        EventBus<AddSpellActivatedActionEvent>.Register(_addSpellActivatedBinding);
+        
+        _addAbilityActivatedBinding = new EventBinding<AddAbilityActivatedActionEvent>(AddAbilityActivatedAction);
+        EventBus<AddAbilityActivatedActionEvent>.Register(_addAbilityActivatedBinding);
+    }
+    
+    private static void AddCardDrawAction(AddDrawCardActionEvent addDrawCardActionEvent)
+    {
+        var isPlayer = addDrawCardActionEvent.IsPlayer;
+        ElementAction action = new(isPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName, 
+            "Draw", isPlayer ? addDrawCardActionEvent.CardDrawn.imageID : "", "", false);
+        ActionList.Add(action);
+    }
 
-        if (isPlayer)
+    private static void AddCardPlayedOnFieldAction(AddCardPlayedOnFieldActionEvent addCardPlayedOnFieldActionEvent)
+    {
+        ElementAction action = new($"{(addCardPlayedOnFieldActionEvent.IsPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName)}", "Played", addCardPlayedOnFieldActionEvent.CardToPlay.imageID, "", false);
+
+        ActionList.Add(action);
+    }
+    private static void AddSpellPlayedAction(AddSpellActivatedActionEvent addSpellActivatedActionEvent)
+    {
+        var owner = addSpellActivatedActionEvent.IsPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName;
+        var shouldShowArrow = false;
+        var targetId = "";
+        if (addSpellActivatedActionEvent.Target != null)
         {
-            action = new($"{PlayerData.Shared.userName}", "Draw", ownerCard.imageID, "", false);
+            shouldShowArrow = addSpellActivatedActionEvent.Target.HasCard() || addSpellActivatedActionEvent.Target.id.field.Equals(FieldEnum.Player);
+            targetId = addSpellActivatedActionEvent.Target.HasCard() ? addSpellActivatedActionEvent.Target.card.imageID : "";
         }
-        else
+        ElementAction action = new(owner, "Played Spell", addSpellActivatedActionEvent.Spell.imageID, targetId, shouldShowArrow);
+
+        ActionList.Add(action);
+    }
+
+    private static void AddAbilityActivatedAction(AddAbilityActivatedActionEvent addAbilityActivatedActionEvent)
+    {
+        var owner = addAbilityActivatedActionEvent.IsPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName;
+        var shouldShowArrow = false;
+        var targetId = "";
+        if (addAbilityActivatedActionEvent.Target != null)
         {
-            action = new($"{BattleVars.Shared.EnemyAiData.opponentName}", "Draw", "", "", false);
+            shouldShowArrow = addAbilityActivatedActionEvent.Target.HasCard() || addAbilityActivatedActionEvent.Target.id.field.Equals(FieldEnum.Player);
+            targetId = addAbilityActivatedActionEvent.Target.HasCard() ? addAbilityActivatedActionEvent.Target.card.imageID : "";
         }
-        ActionList.Add(action);
-    }
-
-    public static void AddCardPlayedOnFieldAction(bool isPlayer, Card ownerCard)
-    {
-        ElementAction action = new($"{(isPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName)}", "Played", ownerCard.imageID, "", false);
-
-        ActionList.Add(action);
-    }
-    public static void AddSpellPlayedAction(bool isPlayer, IDCardPair origin, IDCardPair target)
-    {
-        string owner = isPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName;
-        bool shouldShowArrow = target.HasCard();
-        string targetId = target.HasCard() ? target.card.imageID : "";
-        ElementAction action = new(owner, "Played Spell", origin.card.imageID, targetId, shouldShowArrow);
-
-        ActionList.Add(action);
-    }
-
-    public static void AddAbilityActivatedAction(bool isPlayer, IDCardPair origin, IDCardPair target)
-    {
-        string owner = isPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName;
-        bool shouldShowArrow = target.HasCard();
-        string targetId = target.HasCard() ? target.card.imageID : "";
-        ElementAction action = new(owner, "Activated Ability", origin.card.imageID, targetId, shouldShowArrow);
+        ElementAction action = new(owner, "Activated Ability", addAbilityActivatedActionEvent.AbilityOwner.imageID, targetId, shouldShowArrow);
 
         ActionList.Add(action);
     }
@@ -58,11 +81,11 @@ public class ElementAction
 
     public ElementAction(string owner, string action, string originImage, string targetImage, bool shouldShowArrow)
     {
-        this.Owner = owner;
-        this.Action = action;
-        this.OriginImage = originImage;
-        this.TargetImage = targetImage;
-        this.ShouldShowArrow = shouldShowArrow;
+        Owner = owner;
+        Action = action;
+        OriginImage = originImage;
+        TargetImage = targetImage;
+        ShouldShowArrow = shouldShowArrow;
     }
 
     public ElementAction()

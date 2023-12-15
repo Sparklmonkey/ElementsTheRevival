@@ -21,12 +21,12 @@ public class SupportView : MonoBehaviour
     public void EmailSparky()
     {
         //email Id to send the mail to
-        string email = "sparklmonkeygames@gmail.com";
+        var email = "sparklmonkeygames@gmail.com";
         //subject of the mail
-        string subject = MyEscapeURL("Feedback & Suggestions");
+        var subject = MyEscapeURL("Feedback & Suggestions");
         //body of the mail which consists of Device Model and its Operating System
 
-        string body = MyEscapeURL("Please Enter your message here\n\n\n\n");
+        var body = MyEscapeURL("Please Enter your message here\n\n\n\n");
 
         Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
 
@@ -50,7 +50,7 @@ public class SupportView : MonoBehaviour
 #endif
     }
 
-    string MyEscapeURL(string url)
+    private string MyEscapeURL(string url)
     {
         return UnityWebRequest.EscapeURL(url).Replace("+", "%20");
     }

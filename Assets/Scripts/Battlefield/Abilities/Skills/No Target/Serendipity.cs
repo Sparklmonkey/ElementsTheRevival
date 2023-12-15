@@ -7,13 +7,15 @@ public class Serendipity : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        CardType typeToAdd = ExtensionMethods.GetSerendipityWeighted();
-        Element elementToAdd = Element.Entropy;
+        var typeToAdd = ExtensionMethods.GetSerendipityWeighted();
+        var elementToAdd = Element.Entropy;
 
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
-            Owner.playerHand.AddCardToHand(CardDatabase.Instance.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd, target.card.iD.IsUpgraded()));
-
+            var cardToAdd =
+                CardDatabase.Instance.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd,
+                    target.card.iD.IsUpgraded());
+            EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(Owner.isPlayer, new(cardToAdd)));
             typeToAdd = ExtensionMethods.GetSerendipityWeighted();
             elementToAdd = (Element)Random.Range(0, 12);
 

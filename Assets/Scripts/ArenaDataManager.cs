@@ -1,4 +1,3 @@
-using System.Linq;
 using Networking;
 using TMPro;
 using UnityEngine;
@@ -16,7 +15,7 @@ public class ArenaDataManager : MonoBehaviour
     private static EnemyAi _enemyAi;
     private static ArenaResponse _arenaResponse;
     // Start is called before the first frame update
-    async void Start()
+    private async void Start()
     {
         playerScore.text = PlayerData.Shared.playerScore.ToString();
         playerWin.text = PlayerData.Shared.arenaWins.ToString();

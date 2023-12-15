@@ -15,40 +15,49 @@ namespace Elements.Duel.Visual
         private Slider hpSlider, damageSlider;
         [SerializeField]
         private GameObject upMovingText;
+        [SerializeField]
+        private bool isPlayer;
 
-        public void OnHealthChanged(int currentHp, bool isPlayer)
+        private EventBinding<ModifyPlayerHealthVisualEvent> _modifyPlayerHealthLogicBinding;
+    
+        private void OnDisable() {
+            EventBus<ModifyPlayerHealthVisualEvent>.Unregister(_modifyPlayerHealthLogicBinding);
+        }
+        
+        private void OnEnable()
         {
-            if (currentHp.ToString() == this.currentHp.text) { return; }
-            int current = int.Parse(this.currentHp.text);
-            int difference = current - currentHp;
-
-            string toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
-            this.currentHp.text = currentHp.ToString();
-
-            StartCoroutine(AnimateTextChange(toShow));
-            int temp = currentHp - DuelManager.Instance.GetPossibleDamage(isPlayer);
-            hpSlider.value = temp < 0 ? 0 : temp;
-
-            damageSlider.value = currentHp;
+            _modifyPlayerHealthLogicBinding = new EventBinding<ModifyPlayerHealthVisualEvent>(ModifyPlayerHealth);
+            EventBus<ModifyPlayerHealthVisualEvent>.Register(_modifyPlayerHealthLogicBinding);
         }
 
-        public void OnMaxHealthChanged(int newMaxHp, bool isPlayer)
+        private void ModifyPlayerHealth(ModifyPlayerHealthVisualEvent modifyPlayerHealthVisualEvent)
         {
-            if (newMaxHp.ToString() == maxHp.text) { return; }
-            int currentHp = int.Parse(this.currentHp.text);
-            int current = int.Parse(maxHp.text);
-            int difference = current - newMaxHp;
+            if (modifyPlayerHealthVisualEvent.IsPlayer != isPlayer)
+            {
+                return;
+            }
 
-            string toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
-            maxHp.text = newMaxHp.ToString();
+            var current = int.Parse(currentHp.text);
+            var difference = current - modifyPlayerHealthVisualEvent.CurrentHp;
+            var toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
+            currentHp.text = modifyPlayerHealthVisualEvent.CurrentHp.ToString();
 
-            StartCoroutine(AnimateTextChange(toShow));
-            int temp = currentHp - DuelManager.Instance.GetPossibleDamage(isPlayer);
+            if (modifyPlayerHealthVisualEvent.MaxHp != (int)hpSlider.maxValue)
+            {
+                difference = (int)hpSlider.maxValue - modifyPlayerHealthVisualEvent.MaxHp;
+                maxHp.text = modifyPlayerHealthVisualEvent.MaxHp.ToString();
+                toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
+                hpSlider.maxValue = modifyPlayerHealthVisualEvent.MaxHp;
+                damageSlider.maxValue = modifyPlayerHealthVisualEvent.MaxHp;
+            }
+                
+            var temp = modifyPlayerHealthVisualEvent.CurrentHp - DuelManager.Instance.GetPossibleDamage(isPlayer);
             hpSlider.value = temp < 0 ? 0 : temp;
 
-            damageSlider.value = currentHp;
+            damageSlider.value = modifyPlayerHealthVisualEvent.CurrentHp;
+            StartCoroutine(AnimateTextChange(toShow));
         }
-
+        
         public void SetHpStart(int hpToSet)
         {
             maxHp.text = currentHp.text = hpToSet.ToString();
@@ -61,15 +70,15 @@ namespace Elements.Duel.Visual
         public IEnumerator UpdateHpView(int currentHp, bool isPlayer)
         {
             if (currentHp.ToString() == this.currentHp.text) { yield break; }
-            int current = int.Parse(this.currentHp.text);
-            int difference = current - currentHp;
+            var current = int.Parse(this.currentHp.text);
+            var difference = current - currentHp;
 
-            string toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
+            var toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
             this.currentHp.text = currentHp.ToString();
 
 
             StartCoroutine(AnimateTextChange(toShow));
-            int temp = currentHp - DuelManager.Instance.GetPossibleDamage(isPlayer);
+            var temp = currentHp - DuelManager.Instance.GetPossibleDamage(isPlayer);
             hpSlider.value = temp < 0 ? 0 : temp;
 
             damageSlider.value = currentHp;
@@ -77,9 +86,9 @@ namespace Elements.Duel.Visual
 
         private IEnumerator AnimateTextChange(string difference)
         {
-            GameObject sText = Instantiate(upMovingText, transform);
-            Vector3 destination = sText.GetComponent<MovingText>().SetupObject(difference, TextDirection.Up);
-            for (int i = 0; i < 15; i++)
+            var sText = Instantiate(upMovingText, transform);
+            var destination = sText.GetComponent<MovingText>().SetupObject(difference, TextDirection.Up);
+            for (var i = 0; i < 15; i++)
             {
                 sText.transform.position = Vector3.MoveTowards(sText.transform.position, destination, Time.deltaTime * 50f);
                 yield return null;

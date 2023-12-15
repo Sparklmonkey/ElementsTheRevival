@@ -6,7 +6,7 @@ public class MessageManager : MonoBehaviour
     private GameObject messageAnimatedPrefab;
     public void DisplayMessage(string message)
     {
-        GameObject messageAnimatedObject = Instantiate(messageAnimatedPrefab, transform);
+        var messageAnimatedObject = Instantiate(messageAnimatedPrefab, transform);
         messageAnimatedObject.GetComponent<ErrorAnimatedBattlefield>().DisplayAnimatedError(message);
     }
 }

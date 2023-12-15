@@ -45,31 +45,31 @@ public static class CardHelperExtensions
             if (cardPair.card.passiveSkills.Air)
             {
                 AnimationManager.Instance.StartAnimation("QuantaGenerate", cardPair.transform, Element.Air);
-                owner.GenerateQuantaLogic(Element.Air, 1);
+                EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Air, owner.isPlayer, true));
             }
             if (cardPair.card.passiveSkills.Earth)
             {
                 AnimationManager.Instance.StartAnimation("QuantaGenerate", cardPair.transform, Element.Earth);
-                owner.GenerateQuantaLogic(Element.Earth, 1);
+                EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Earth, owner.isPlayer, true));
             }
             if (cardPair.card.passiveSkills.Fire)
             {
                 AnimationManager.Instance.StartAnimation("QuantaGenerate", cardPair.transform, Element.Fire);
-                owner.GenerateQuantaLogic(Element.Fire, 1);
+                EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Fire, owner.isPlayer, true));
             }
             if (cardPair.card.passiveSkills.Light)
             {
                 AnimationManager.Instance.StartAnimation("QuantaGenerate", cardPair.transform, Element.Light);
-                owner.GenerateQuantaLogic(Element.Light, 1);
+                EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Light, owner.isPlayer, true));
             }
             if (cardPair.card.innateSkills.Devourer)
             {
                 if (enemy.GetAllQuantaOfElement(Element.Other) > 0 && enemy.playerCounters.sanctuary == 0)
                 {
-                    enemy.SpendQuantaLogic(Element.Other, 1);
+                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Other, enemy.isPlayer, false));
                 }
                 AnimationManager.Instance.StartAnimation("QuantaGenerate", cardPair.transform, Element.Darkness);
-                enemy.GenerateQuantaLogic(Element.Darkness, 1);
+                EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Darkness, owner.isPlayer, true));
             }
             if (cardPair.card.passiveSkills.Overdrive)
             {
@@ -157,14 +157,14 @@ public static class CardHelperExtensions
                 cardPair.card.passiveSkills.Vampire = true;
                 break;
             case "Chaos":
-                int chaos = Random.Range(1, 6);
+                var chaos = Random.Range(1, 6);
                 cardPair.card.AtkModify += chaos;
                 cardPair.card.DefModify += chaos;
                 break;
             case "Nova":
-                for (int y = 0; y < 12; y++)
+                for (var y = 0; y < 12; y++)
                 {
-                    DuelManager.Instance.GetNotIDOwner(cardPair.id).GenerateQuantaLogic((Element)y, 1);
+                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, (Element)y, cardPair.id.owner == OwnerEnum.Player, true));
                 }
                 break;
             case "Adrenaline":

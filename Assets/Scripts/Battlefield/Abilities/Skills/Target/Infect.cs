@@ -15,7 +15,7 @@ public class Infect : AbilityEffect
             DuelManager.Instance.GetNotIDOwner(target.id).AddPlayerCounter(PlayerCounters.Poison, 1);
         }
 
-        BattleVars.Shared.AbilityOrigin.RemoveCard();
+        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(BattleVars.Shared.AbilityOrigin.id));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

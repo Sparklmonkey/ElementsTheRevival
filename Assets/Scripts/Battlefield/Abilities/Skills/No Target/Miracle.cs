@@ -6,13 +6,13 @@ public class Miracle : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        int maxHp = Owner.HealthManager.GetMaxHealth();
-        int currentHp = Owner.HealthManager.GetCurrentHealth();
+        var maxHp = Owner.HealthManager.GetMaxHealth();
+        var currentHp = Owner.HealthManager.GetCurrentHealth();
 
-        int hpToHeal = maxHp - currentHp - 1;
+        var hpToHeal = maxHp - currentHp - 1;
 
         Owner.ModifyHealthLogic(hpToHeal, false, true);
-        Owner.SpendQuantaLogic(Element.Light, 75);
+        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, Element.Light, Owner.isPlayer, false));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

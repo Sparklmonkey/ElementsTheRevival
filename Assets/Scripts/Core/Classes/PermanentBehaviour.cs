@@ -1,9 +1,26 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PermanentBehaviour : CardTypeBehaviour
 {
-    public override void OnCardPlay()
+    protected override void OnCardPlay(OnCardPlayEvent onCardPlayEvent)
     {
+        if (!onCardPlayEvent.IdPlayed.Equals(cardPair.id))
+        {
+            return;
+        }
+        
+        cardPair.card = onCardPlayEvent.CardPlayed;
+        if (cardPair.card.cardType == CardType.Pillar)
+        {
+            cardPair.stackCount++;
+        }
+        else
+        {
+            cardPair.stackCount = 1;
+        }
+        StackCount = cardPair.stackCount;
+        
         switch (cardPair.card.iD)
         {
             case "7q9":
@@ -34,24 +51,35 @@ public class PermanentBehaviour : CardTypeBehaviour
             case "7h1":
                 DuelManager.Instance.AddFloodCount(1);
                 break;
-            default:
-                break;
         }
 
         if (cardPair.card.innateSkills.Sanctuary)
         {
             Owner.AddPlayerCounter(PlayerCounters.Sanctuary, 1);
         }
+        EventBus<UpdateCardDisplayEvent>.Raise(new UpdateCardDisplayEvent(onCardPlayEvent.IdPlayed, cardPair.card, StackCount, cardPair.isHidden));
     }
 
-    public override void OnCardRemove()
+    protected override void OnCardRemove(OnCardRemovedEvent onCardRemovedEvent)
     {
+        if (!onCardRemovedEvent.IdRemoved.Equals(cardPair.id))
+        {
+            return;
+        }
+        
+        AnimationManager.Instance.StartAnimation("CardDeath", transform);
+        EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("RemoveCardFromField"));
+        
+        cardPair.isHidden = true;
+        cardPair.stackCount = 0;
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(cardPair.id, cardPair.stackCount, cardPair.card));
+        
         switch (cardPair.card.iD)
         {
             case "5v2":
             case "7ti":
                 Owner.ResetCloakPermParent(cardPair);
-                if (Owner.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD == "5v2" || x.card.iD == "7ti").Count == 1)
+                if (Owner.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.card.iD is "5v2" or "7ti").Count == 1)
                 {
                     Owner.DeactivateCloakEffect();
                     Owner.AddPlayerCounter(PlayerCounters.Invisibility, -3);
@@ -72,8 +100,6 @@ public class PermanentBehaviour : CardTypeBehaviour
             case "5ih":
             case "7h1":
                 DuelManager.Instance.AddFloodCount(-1);
-                break;
-            default:
                 break;
         }
 
@@ -97,18 +123,22 @@ public class PermanentBehaviour : CardTypeBehaviour
 
             if (cardPair.card.TurnsInPlay == 0)
             {
-                cardPair.RemoveCard();
+                EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(cardPair.id));
                 return;
             }
         }
         cardPair.UpdateCard();
     }
 
-    public override void DeathTrigger()
+    protected override void DeathTrigger(OnDeathDTriggerEvent onDeathTriggerEvent)
     {
+        if (!cardPair.HasCard())
+        {
+            return;
+        }
         if (cardPair.card.innateSkills.SoulCatch)
         {
-            Owner.GenerateQuantaLogic(Element.Death, cardPair.card.iD.IsUpgraded() ? 3 : 2);
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(cardPair.card.iD.IsUpgraded() ? 3 : 2, Element.Death, Owner.isPlayer, true));
         }
         if (cardPair.card.innateSkills.Boneyard)
         {
@@ -116,76 +146,95 @@ public class PermanentBehaviour : CardTypeBehaviour
         }
     }
 
-    public override void OnTurnEnd()
+    private void PillarEndTurnAction()
     {
-        if (cardPair.card.cardType == CardType.Artifact)
+        if (cardPair.card.cardName.Contains("Pendulum"))
         {
-            if (cardPair.card.innateSkills.Empathy)
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(StackCount, cardPair.card.skillElement, cardPair.id.owner == OwnerEnum.Player, true));
+            if (Owner.isPlayer || Owner.playerCounters.invisibility <= 0)
             {
-                int creatureCount = Owner.playerCreatureField.GetAllValidCardIds().Count;
-                Owner.ModifyHealthLogic(creatureCount, false, false);
-            }
-            if (cardPair.card.innateSkills.Gratitude)
-            {
-                int healthAmount = Owner.playerPassiveManager.GetMark().card.costElement == Element.Life ? 5 : 3;
-                Owner.ModifyHealthLogic(healthAmount, false, false);
+                AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, cardPair.card.costElement);
             }
 
-            List<int> floodList = new() { 11, 13, 9, 10, 12 };
-            switch (cardPair.card.iD)
+            cardPair.card.skillElement = cardPair.card.skillElement == cardPair.card.costElement ? DuelManager.Instance.GetIDOwner(cardPair.id).playerPassiveManager.GetMark().card.costElement : cardPair.card.costElement;
+        }
+        else
+        {
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(cardPair.card.costElement == Element.Other ? 3 * StackCount : 1 * StackCount, cardPair.card.costElement, cardPair.id.owner == OwnerEnum.Player, true));
+            
+            if (Owner.isPlayer || Owner.playerCounters.invisibility <= 0)
             {
-                case "5j2":
-                case "7hi":
-                    var creatureList = Owner.playerCreatureField.GetAllValidCardIds();
-                    foreach (var creature in creatureList)
-                    {
-                        int statModifier = DuelManager.Instance.GetCardCount(new() { "5ih", "7h1" }) > 0 && floodList.Contains(cardPair.id.index) ? 5 : 2;
-                        creature.card.AtkModify += statModifier;
-                        creature.card.AtkModify += statModifier;
-                        cardPair.UpdateCard();
-                    }
-                    break;
-                case "5ih":
-                case "7h1":
-                    DuelManager.Instance.enemy.ClearFloodedArea(floodList);
-                    DuelManager.Instance.player.ClearFloodedArea(floodList);
-                    break;
-                default:
-                    break;
-            }
-
-            if (cardPair.card.innateSkills.Sanctuary)
-            {
-                Owner.ModifyHealthLogic(4, false, false);
-            }
-
-            if (cardPair.card.innateSkills.Void)
-            {
-                int healthChange = Owner.playerPassiveManager.GetMark().card.costElement == Element.Darkness ? 3 : 2;
-                DuelManager.Instance.GetNotIDOwner(cardPair.id).ModifyMaxHealthLogic(healthChange, false);
+                AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, cardPair.card.costElement);
             }
         }
+    }
 
-        if (cardPair.card.cardType == CardType.Pillar)
+    private void ArtifactEndTurnAction()
+    {
+        if (cardPair.card.innateSkills.Empathy)
         {
-            if (cardPair.card.cardName.Contains("Pendulum"))
-            {
-                Owner.GenerateQuantaLogic(cardPair.card.skillElement, cardPair.card.costElement == Element.Other ? 3 * StackCount : 1 * StackCount);
-                if (Owner.isPlayer || Owner.playerCounters.invisibility <= 0)
-                {
-                    AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, cardPair.card.costElement);
-                }
+            var creatureCount = Owner.playerCreatureField.GetAllValidCardIds().Count;
+            Owner.ModifyHealthLogic(creatureCount, false, false);
+        }
+        if (cardPair.card.innateSkills.Gratitude)
+        {
+            var healthAmount = Owner.playerPassiveManager.GetMark().card.costElement == Element.Life ? 5 : 3;
+            Owner.ModifyHealthLogic(healthAmount, false, false);
+        }
 
-                cardPair.card.skillElement = cardPair.card.skillElement == cardPair.card.costElement ? DuelManager.Instance.GetIDOwner(cardPair.id).playerPassiveManager.GetMark().card.costElement : cardPair.card.costElement;
-            }
-            else
-            {
-                Owner.GenerateQuantaLogic(cardPair.card.costElement, cardPair.card.costElement == Element.Other ? 3 * StackCount : 1 * StackCount);
-                if (Owner.isPlayer || Owner.playerCounters.invisibility <= 0)
+        List<int> floodList = new() { 11, 13, 9, 10, 12 };
+        switch (cardPair.card.iD)
+        {
+            case "5j2":
+            case "7hi":
+                var creatureList = Owner.playerCreatureField.GetAllValidCardIds();
+                foreach (var creature in creatureList)
                 {
-                    AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, cardPair.card.costElement);
+                    var statModifier = DuelManager.Instance.GetCardCount(new() { "5ih", "7h1" }) > 0 && floodList.Contains(cardPair.id.index) ? 5 : 2;
+                    creature.card.AtkModify += statModifier;
+                    creature.card.AtkModify += statModifier;
+                    cardPair.UpdateCard();
                 }
-            }
+                break;
+            case "5ih":
+            case "7h1":
+                DuelManager.Instance.enemy.ClearFloodedArea(floodList);
+                DuelManager.Instance.player.ClearFloodedArea(floodList);
+                break;
+        }
+
+        if (cardPair.card.innateSkills.Sanctuary)
+        {
+            Owner.ModifyHealthLogic(4, false, false);
+        }
+
+        if (cardPair.card.innateSkills.Void)
+        {
+            var healthChange = Owner.playerPassiveManager.GetMark().card.costElement == Element.Darkness ? 3 : 2;
+            EventBus<ModifyPlayerHealthLogicEvent>.Raise(new ModifyPlayerHealthLogicEvent(-healthChange, !Owner.isPlayer, true));
+        }
+    }
+
+    protected override void OnTurnEnd(OnTurnEndEvent onTurnEndEvent)
+    {
+        if (!onTurnEndEvent.CardType.Equals(CardType.Artifact) && !onTurnEndEvent.CardType.Equals(CardType.Pillar))
+        {
+            return;
+        }
+        
+        if (!cardPair.HasCard() || onTurnEndEvent.IsPlayer != cardPair.isPlayer)
+        {
+            return;
+        }
+        
+        if (cardPair.card.cardType == onTurnEndEvent.CardType && onTurnEndEvent.CardType == CardType.Artifact)
+        {
+            ArtifactEndTurnAction();
+        }
+
+        if (cardPair.card.cardType == onTurnEndEvent.CardType && onTurnEndEvent.CardType == CardType.Pillar)
+        {
+            PillarEndTurnAction();
         }
 
     }

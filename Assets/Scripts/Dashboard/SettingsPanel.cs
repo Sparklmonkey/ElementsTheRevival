@@ -33,7 +33,7 @@ public class SettingsPanel : MonoBehaviour
         bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume");
         sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
         quickPlay.SetUpToggle(PlayerPrefs.GetInt("QuickPlay"));
-        float animSpeedInt = PlayerPrefs.GetFloat("AnimSpeed");
+        var animSpeedInt = PlayerPrefs.GetFloat("AnimSpeed");
         if (animSpeedInt == 0)
         {
             animSpeed.SetUpToggle(2);

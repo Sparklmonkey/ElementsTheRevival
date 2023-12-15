@@ -38,14 +38,14 @@ public class ErrorAnimated : MonoBehaviour
 
         errorMessage.text = _messageToDisplay;
 
-        foreach (GameObject item in frameOpacity)
+        foreach (var item in frameOpacity)
         {
             item.SetActive(true);
             yield return new WaitForFrames(spritePerFrame);
         }
 
         yield return new WaitForSeconds(0.3f);
-        foreach (GameObject item in frameOpacity)
+        foreach (var item in frameOpacity)
         {
             item.SetActive(false);
             yield return new WaitForFrames(spritePerFrame);
@@ -53,7 +53,7 @@ public class ErrorAnimated : MonoBehaviour
 
         errorMessage.text = "";
 
-        for (int i = animationSprites.Count - 1; i > 0; i--)
+        for (var i = animationSprites.Count - 1; i > 0; i--)
         {
             image.sprite = animationSprites[i];
             yield return new WaitForFrames(spritePerFrame);

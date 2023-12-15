@@ -8,17 +8,13 @@ public class Tsunami : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.RemoveCard();
+        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
 
-        if (target.HasCard())
-        {
-            target.RemoveCard();
+        if (!target.HasCard()) return;
+        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
 
-            if (target.HasCard())
-            {
-                target.RemoveCard();
-            }
-        }
+        if (!target.HasCard()) return;
+        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

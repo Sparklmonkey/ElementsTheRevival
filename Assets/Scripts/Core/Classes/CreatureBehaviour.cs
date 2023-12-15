@@ -1,10 +1,17 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CreatureBehaviour : CardTypeBehaviour
 {
-    public override void OnCardPlay()
+    protected override void OnCardPlay(OnCardPlayEvent onCardPlayEvent)
     {
+        if (!onCardPlayEvent.IdPlayed.Equals(cardPair.id))
+        {
+            return;
+        }
+        cardPair.card = onCardPlayEvent.CardPlayed;
+        cardPair.stackCount = 1;
+        StackCount = cardPair.stackCount;
+        
         if (cardPair.card.innateSkills.Swarm)
         {
             Owner.AddPlayerCounter(PlayerCounters.Scarab, 1);
@@ -19,38 +26,65 @@ public class CreatureBehaviour : CardTypeBehaviour
         if (cardPair.card.innateSkills.Chimera)
         {
             var creatureList = Owner.playerCreatureField.GetAllValidCardIds();
-            (int, int) chimeraPwrHp = (0, 0);
+            var chimeraPwrHp = (0, 0);
 
             if (creatureList.Count > 0)
             {
                 foreach (var creature in creatureList)
                 {
-                    if (creature.id != cardPair.id)
-                    {
-                        chimeraPwrHp.Item1 += creature.card.AtkNow;
-                        chimeraPwrHp.Item2 += creature.card.DefNow;
-                        creature.RemoveCard();
-                    }
+                    if (creature.id == cardPair.id) continue;
+                    chimeraPwrHp.Item1 += creature.card.AtkNow;
+                    chimeraPwrHp.Item2 += creature.card.DefNow;
+                    EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(creature.id));
                 }
             }
 
             cardPair.card.atk = chimeraPwrHp.Item1;
             cardPair.card.def = chimeraPwrHp.Item2;
-            cardPair.UpdateCard();
         }
+        if (cardPair.card.costElement.Equals(Element.Darkness) 
+            || cardPair.card.costElement.Equals(Element.Death))
+        {
+            if (DuelManager.Instance.GetCardCount(new() { "7ta" }) > 0)
+            {
+                cardPair.card.DefModify += 1;
+                cardPair.card.AtkModify += 2;
+            }
+            else if (DuelManager.Instance.GetCardCount(new() { "5uq" }) > 0)
+            {
+                cardPair.card.DefModify += 1;
+                cardPair.card.AtkModify += 1;
+            }
+        }
+        
+        EventBus<UpdateCardDisplayEvent>.Raise(new UpdateCardDisplayEvent(cardPair.id, cardPair.card, cardPair.stackCount, cardPair.isHidden));
     }
 
-    public override void OnCardRemove()
+    protected override void OnCardRemove(OnCardRemovedEvent onCardRemovedEvent)
     {
+        if (!onCardRemovedEvent.IdRemoved.Equals(cardPair.id))
+        {
+            return;
+        }
+        
+        AnimationManager.Instance.StartAnimation("CardDeath", transform);
+        EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("RemoveCardFromField"));
+        
+        cardPair.isHidden = true;
+        cardPair.stackCount = 0;
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(cardPair.id, cardPair.stackCount, cardPair.card));
+        
         Owner.AddPlayerCounter(PlayerCounters.Scarab, cardPair.card.innateSkills.Swarm ? -1 : 0);
         var shouldDeath = ShouldActivateDeathTriggers();
         if (cardPair.card.IsAflatoxin)
         {
-            cardPair.PlayCard(CardDatabase.Instance.GetCardFromId("6ro"));
+            var card = CardDatabase.Instance.GetCardFromId("6ro");
+            EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(cardPair.id, card));
         } 
         else if (cardPair.card.passiveSkills.Phoenix && !shouldDeath)
         {
-            cardPair.PlayCard(CardDatabase.Instance.GetCardFromId(cardPair.card.iD.IsUpgraded() ? "7dt" : "5fd"));
+            var card = CardDatabase.Instance.GetCardFromId(cardPair.card.iD.IsUpgraded() ? "7dt" : "5fd");
+            EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(cardPair.id, card));
         }
         else
         {
@@ -59,7 +93,7 @@ public class CreatureBehaviour : CardTypeBehaviour
         
         if (shouldDeath)
         {
-            DuelManager.Instance.ActivateDeathTriggers();
+            EventBus<OnDeathDTriggerEvent>.Raise(new OnDeathDTriggerEvent());
         }
     }
 
@@ -77,28 +111,30 @@ public class CreatureBehaviour : CardTypeBehaviour
         return;
     }
 
-    public override void DeathTrigger()
+    protected override void DeathTrigger(OnDeathDTriggerEvent onDeathTriggerEvent)
     {
-        if (cardPair.card.passiveSkills.Scavenger)
-        {
-            cardPair.card.AtkModify += 1;
-            cardPair.card.DefModify += 1;
-            cardPair.UpdateCard();
-        }
-
+        if (!cardPair.HasCard()) return;
+        if (!cardPair.card.passiveSkills.Scavenger) return;
+        cardPair.card.AtkModify += 1;
+        cardPair.card.DefModify += 1;
+        cardPair.UpdateCard();
     }
 
-    public override void OnTurnEnd()
+    protected override void OnTurnEnd(OnTurnEndEvent onTurnEndEvent)
     {
-        int adrenalineIndex = 0;
-        bool hasAdrenaline = cardPair.card.passiveSkills.Adrenaline;
-        bool isFirstAttack = true;
-        int atkNow = cardPair.card.AtkNow;
+        if (!onTurnEndEvent.CardType.Equals(CardType.Creature)) return;
+        if (onTurnEndEvent.IsPlayer != cardPair.isPlayer) return;
+        if (!cardPair.HasCard()) return;
+        
+        var adrenalineIndex = 0;
+        var hasAdrenaline = cardPair.card.passiveSkills.Adrenaline;
+        var isFirstAttack = true;
+        var atkNow = cardPair.card.AtkNow;
 
-        bool shouldSkip = DuelManager.Instance.GetCardCount(new() { "5rp", "7q9" }) > 0 || 
-                          Owner.playerCounters.patience > 0 || 
-                          cardPair.card.Freeze > 0 || 
-                          cardPair.card.innateSkills.Delay > 0;
+        var shouldSkip = DuelManager.Instance.GetCardCount(new() { "5rp", "7q9" }) > 0 || 
+                         Owner.playerCounters.patience > 0 || 
+                         cardPair.card.Freeze > 0 || 
+                         cardPair.card.innateSkills.Delay > 0;
         cardPair.card.AbilityUsed = false;
 
         while (isFirstAttack || hasAdrenaline)
@@ -107,9 +143,9 @@ public class CreatureBehaviour : CardTypeBehaviour
             if (!shouldSkip)
             {
                 cardPair.CardInnateEffects(ref atkNow);
-                var isFreedomEffect = Random.Range(0, 100) < (25 * Owner.playerCounters.freedom) && cardPair.card.costElement.Equals(Element.Air);
+                var isFreedomEffect = Random.Range(0, 100) < 25 * Owner.playerCounters.freedom && cardPair.card.costElement.Equals(Element.Air);
                 atkNow = Mathf.FloorToInt(isFreedomEffect ? atkNow * 1.5f : atkNow);
-                SoundManager.Instance.PlayAudioClip("CreatureDamage");
+                EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CreatureDamage"));
                 if (atkNow > 0)
                 {
                     if (Enemy.HasGravityCreatures())
@@ -123,7 +159,7 @@ public class CreatureBehaviour : CardTypeBehaviour
                         {
                             if (cardPair.card.DefNow <= 0)
                             {
-                                cardPair.RemoveCard();
+                                EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(cardPair.id));
                                 return;
                             }
                         }

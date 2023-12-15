@@ -11,10 +11,10 @@ public class RedeemCardObject : MonoBehaviour, IPointerClickHandler
 
     public DashCodeRedemption manager;
 
-    public void SetupObject(Card card, DashCodeRedemption manager)
+    public void SetupObject(Card card, DashCodeRedemption delegateManager)
     {
         _cardOnDisplay = card;
-        this.manager = manager;
+        manager = delegateManager;
         cardName.text = card.cardName;
         cardImage.sprite = ImageHelper.GetCardImage(card.imageID);
         cardHeadBackground.sprite = ImageHelper.GetCardHeadBackground(card.costElement.FastElementString());

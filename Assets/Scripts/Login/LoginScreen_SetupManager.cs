@@ -15,7 +15,7 @@ public class LoginScreenSetupManager : MonoBehaviour
     private GameObject _touchBlocker;
 
     public List<TMP_InputField> fields;
-    int _fieldIndexer;
+    private int _fieldIndexer;
 
 
     private void Update()
@@ -35,7 +35,7 @@ public class LoginScreenSetupManager : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         lastUpdateNote.text = ApiManager.Instance.AppInfo.UpdateNote;
         fields = new List<TMP_InputField> { username, password };
@@ -49,8 +49,8 @@ public class LoginScreenSetupManager : MonoBehaviour
     {
         ApiManager.IsTrainer = true;
         PlayerData.Shared = new PlayerData();
-        List<string> simpleList = CardDatabase.Instance.TrainerCardList;
-        List<string> fullList = new List<string>(simpleList);
+        var simpleList = CardDatabase.Instance.TrainerCardList;
+        var fullList = new List<string>(simpleList);
         fullList.AddRange(simpleList);
         fullList.AddRange(simpleList);
         fullList.AddRange(simpleList);
@@ -88,7 +88,7 @@ public class LoginScreenSetupManager : MonoBehaviour
         {
             username = username.text,
             password = password.text
-        }, Endpointbuilder.userCredentialLogin);
+        }, Endpointbuilder.UserCredentialLogin);
         
         Destroy(_touchBlocker);
         ManageResponse(response);
@@ -104,8 +104,15 @@ public class LoginScreenSetupManager : MonoBehaviour
             PlayerPrefs.SetString("AccessToken", response.accessToken);
             PlayerData.Shared = response.savedData;
             PlayerData.Shared.userName = username.text;
-            
-            SceneTransitionManager.Instance.LoadScene("Dashboard");
+
+            if (PlayerData.Shared.currentDeck.Count == 0)
+            {
+                SceneTransitionManager.Instance.LoadScene("DeckSelector");
+            }
+            else
+            {
+                SceneTransitionManager.Instance.LoadScene("Dashboard");
+            }
         }
         else
         {

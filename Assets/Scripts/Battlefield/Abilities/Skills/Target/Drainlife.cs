@@ -9,8 +9,8 @@ public class Drainlife : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        int quantaElement = Owner.GetAllQuantaOfElement(Element.Darkness);
-        int damageToDeal = 2 + (Mathf.FloorToInt(quantaElement / 10) * 2);
+        var quantaElement = Owner.GetAllQuantaOfElement(Element.Darkness);
+        var damageToDeal = 2 + Mathf.FloorToInt(quantaElement / 10) * 2;
 
         if (!target.HasCard())
         {
@@ -19,7 +19,7 @@ public class Drainlife : AbilityEffect
             return;
         }
 
-        int defPlaceHolder = target.card.DefNow;
+        var defPlaceHolder = target.card.DefNow;
         target.card.DefDamage += damageToDeal;
         var amountToHeal = target.card.DefNow > 0 ? damageToDeal : defPlaceHolder;
 

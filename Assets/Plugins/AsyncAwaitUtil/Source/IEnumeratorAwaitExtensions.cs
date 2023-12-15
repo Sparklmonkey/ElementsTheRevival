@@ -13,7 +13,7 @@ using UnityEngine;
 // We could just add a generic GetAwaiter to YieldInstruction and CustomYieldInstruction
 // but instead we add specific methods to each derived class to allow for return values
 // that make the most sense for the specific instruction type
-public static class IEnumeratorAwaitExtensions
+public static class EnumeratorAwaitExtensions
 {
     public static SimpleCoroutineAwaiter GetAwaiter(this WaitForSeconds instruction)
     {
@@ -101,7 +101,7 @@ public static class IEnumeratorAwaitExtensions
         return awaiter;
     }
 
-    static SimpleCoroutineAwaiter GetAwaiterReturnVoid(object instruction)
+    private static SimpleCoroutineAwaiter GetAwaiterReturnVoid(object instruction)
     {
         var awaiter = new SimpleCoroutineAwaiter();
         RunOnUnityScheduler(() => AsyncCoroutineRunner.Instance.StartCoroutine(
@@ -109,7 +109,7 @@ public static class IEnumeratorAwaitExtensions
         return awaiter;
     }
 
-    static SimpleCoroutineAwaiter<T> GetAwaiterReturnSelf<T>(T instruction)
+    private static SimpleCoroutineAwaiter<T> GetAwaiterReturnSelf<T>(T instruction)
     {
         var awaiter = new SimpleCoroutineAwaiter<T>();
         RunOnUnityScheduler(() => AsyncCoroutineRunner.Instance.StartCoroutine(
@@ -117,7 +117,7 @@ public static class IEnumeratorAwaitExtensions
         return awaiter;
     }
 
-    static void RunOnUnityScheduler(Action action)
+    private static void RunOnUnityScheduler(Action action)
     {
         if (SynchronizationContext.Current == SyncContextUtil.UnitySynchronizationContext)
         {
@@ -129,7 +129,7 @@ public static class IEnumeratorAwaitExtensions
         }
     }
 
-    static void Assert(bool condition)
+    private static void Assert(bool condition)
     {
         if (!condition)
         {
@@ -139,19 +139,15 @@ public static class IEnumeratorAwaitExtensions
 
     public class SimpleCoroutineAwaiter<T> : INotifyCompletion
     {
-        bool _isDone;
-        Exception _exception;
-        Action _continuation;
-        T _result;
+        private Exception _exception;
+        private Action _continuation;
+        private T _result;
 
-        public bool IsCompleted
-        {
-            get { return _isDone; }
-        }
+        public bool IsCompleted { get; private set; }
 
         public T GetResult()
         {
-            Assert(_isDone);
+            Assert(IsCompleted);
 
             if (_exception != null)
             {
@@ -163,9 +159,9 @@ public static class IEnumeratorAwaitExtensions
 
         public void Complete(T result, Exception e)
         {
-            Assert(!_isDone);
+            Assert(!IsCompleted);
 
-            _isDone = true;
+            IsCompleted = true;
             _exception = e;
             _result = result;
 
@@ -180,7 +176,7 @@ public static class IEnumeratorAwaitExtensions
         void INotifyCompletion.OnCompleted(Action continuation)
         {
             Assert(_continuation == null);
-            Assert(!_isDone);
+            Assert(!IsCompleted);
 
             _continuation = continuation;
         }
@@ -188,18 +184,14 @@ public static class IEnumeratorAwaitExtensions
 
     public class SimpleCoroutineAwaiter : INotifyCompletion
     {
-        bool _isDone;
-        Exception _exception;
-        Action _continuation;
+        private Exception _exception;
+        private Action _continuation;
 
-        public bool IsCompleted
-        {
-            get { return _isDone; }
-        }
+        public bool IsCompleted { get; private set; }
 
         public void GetResult()
         {
-            Assert(_isDone);
+            Assert(IsCompleted);
 
             if (_exception != null)
             {
@@ -209,9 +201,9 @@ public static class IEnumeratorAwaitExtensions
 
         public void Complete(Exception e)
         {
-            Assert(!_isDone);
+            Assert(!IsCompleted);
 
-            _isDone = true;
+            IsCompleted = true;
             _exception = e;
 
             // Always trigger the continuation on the unity thread when awaiting on unity yield
@@ -225,16 +217,16 @@ public static class IEnumeratorAwaitExtensions
         void INotifyCompletion.OnCompleted(Action continuation)
         {
             Assert(_continuation == null);
-            Assert(!_isDone);
+            Assert(!IsCompleted);
 
             _continuation = continuation;
         }
     }
 
-    class CoroutineWrapper<T>
+    private class CoroutineWrapper<T>
     {
-        readonly SimpleCoroutineAwaiter<T> _awaiter;
-        readonly Stack<IEnumerator> _processStack;
+        private readonly SimpleCoroutineAwaiter<T> _awaiter;
+        private readonly Stack<IEnumerator> _processStack;
 
         public CoroutineWrapper(
             IEnumerator coroutine, SimpleCoroutineAwaiter<T> awaiter)
@@ -305,7 +297,7 @@ public static class IEnumeratorAwaitExtensions
             }
         }
 
-        string GenerateObjectTraceMessage(List<Type> objTrace)
+        private string GenerateObjectTraceMessage(List<Type> objTrace)
         {
             var result = new StringBuilder();
 
@@ -323,7 +315,7 @@ public static class IEnumeratorAwaitExtensions
             return "Unity Coroutine Object Trace: " + result.ToString();
         }
 
-        static List<Type> GenerateObjectTrace(IEnumerable<IEnumerator> enumerators)
+        private static List<Type> GenerateObjectTrace(IEnumerable<IEnumerator> enumerators)
         {
             var objTrace = new List<Type>();
 
@@ -358,7 +350,7 @@ public static class IEnumeratorAwaitExtensions
         }
     }
 
-    static class InstructionWrappers
+    private static class InstructionWrappers
     {
         public static IEnumerator ReturnVoid(
             SimpleCoroutineAwaiter awaiter, object instruction)

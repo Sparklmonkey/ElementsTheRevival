@@ -11,7 +11,7 @@ public class OptionToggle : MonoBehaviour
 
     public void SetUpToggle(int index)
     {
-        for (int i = 0; i < toggleOptions.Count; i++)
+        for (var i = 0; i < toggleOptions.Count; i++)
         {
             toggleOptions[i].color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue / 2);
         }

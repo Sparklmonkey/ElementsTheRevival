@@ -12,21 +12,45 @@ namespace Elements.Duel.Visual
         private TextMeshProUGUI quantaCount;
         [SerializeField]
         private GameObject sideMovingText;
+        [SerializeField]
+        private Element element;
+        [SerializeField]
+        private bool isPlayer;
+        
+        private EventBinding<QuantaChangeVisualEvent> _quantaSpentVisualBinding;
+
+        private void OnEnable() {    
+            _quantaSpentVisualBinding = new EventBinding<QuantaChangeVisualEvent>(UpdateQuantaManager);
+            EventBus<QuantaChangeVisualEvent>.Register(_quantaSpentVisualBinding);
+        }
+
+        private void OnDisable() {
+            EventBus<QuantaChangeVisualEvent>.Unregister(_quantaSpentVisualBinding);
+        }
+
+        public void UpdateQuantaManager(QuantaChangeVisualEvent quantaChangeVisualEvent)
+        {
+            if (isPlayer != quantaChangeVisualEvent.IsPlayer || element != quantaChangeVisualEvent.Element)
+            {
+                return;
+            }
+            QuantaChanged(quantaChangeVisualEvent.Amount);
+        }
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             quantaCount.text = "0";
         }
 
-        public void QuantaChanged(int newValue)
+        private void QuantaChanged(int newValue)
         {
             if (newValue.ToString() != quantaCount.text)
             {
-                int current = int.Parse(quantaCount.text);
-                int newAmount = newValue;
-                int difference = current - newAmount;
-                string toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
+                var current = int.Parse(quantaCount.text);
+                var newAmount = newValue;
+                var difference = current - newAmount;
+                var toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
 
                 quantaCount.text = newValue.ToString();
                 StartCoroutine(AnimateTextChange(toShow));
@@ -35,9 +59,9 @@ namespace Elements.Duel.Visual
 
         private IEnumerator AnimateTextChange(string difference)
         {
-            GameObject sText = Instantiate(sideMovingText, transform);
-            Vector3 destination = sText.GetComponent<MovingText>().SetupObject(difference, TextDirection.Right);
-            for (int i = 0; i < 15; i++)
+            var sText = Instantiate(sideMovingText, transform);
+            var destination = sText.GetComponent<MovingText>().SetupObject(difference, TextDirection.Right);
+            for (var i = 0; i < 15; i++)
             {
                 sText.transform.position = Vector3.MoveTowards(sText.transform.position, destination, Time.deltaTime * 50f);
                 yield return null;

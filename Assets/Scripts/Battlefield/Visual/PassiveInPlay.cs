@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,24 +12,50 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private TextMeshProUGUI activeAName, activeACost;
         [SerializeField]
-        private GameObject upMovingText, activeAHolder, immaterialIndicator;
+        private GameObject activeAHolder, immaterialIndicator;
 
-        public override void DisplayCard(Card cardToDisplay, int stack = 0, bool isHidden = true)
+        private EventBinding<ClearCardDisplayEvent> _clearCardDisplayBinding;
+        private EventBinding<UpdateCardDisplayEvent> _updateCardDisplayBinding;
+        private EventBinding<ShouldShowTargetableEvent> _shouldShowTargetableBinding;
+        private EventBinding<ShouldShowUsableEvent> _shouldShowUsableBinding;
+    
+        private void OnDisable() {
+            EventBus<ClearCardDisplayEvent>.Unregister(_clearCardDisplayBinding);
+            EventBus<UpdateCardDisplayEvent>.Unregister(_updateCardDisplayBinding);
+            EventBus<ShouldShowTargetableEvent>.Unregister(_shouldShowTargetableBinding);
+            EventBus<ShouldShowUsableEvent>.Unregister(_shouldShowUsableBinding);
+        }
+        private void OnEnable()
         {
+            _clearCardDisplayBinding = new EventBinding<ClearCardDisplayEvent>(HideCard);
+            EventBus<ClearCardDisplayEvent>.Register(_clearCardDisplayBinding);
+            _updateCardDisplayBinding = new EventBinding<UpdateCardDisplayEvent>(DisplayCard);
+            EventBus<UpdateCardDisplayEvent>.Register(_updateCardDisplayBinding);
+        
+            _shouldShowTargetableBinding = new EventBinding<ShouldShowTargetableEvent>(ShouldShowTarget);
+            EventBus<ShouldShowTargetableEvent>.Register(_shouldShowTargetableBinding);
+            _shouldShowUsableBinding = new EventBinding<ShouldShowUsableEvent>(ShouldShowUsableGlow);
+            EventBus<ShouldShowUsableEvent>.Register(_shouldShowUsableBinding);
+        }
+        private void DisplayCard(UpdateCardDisplayEvent updateCardDisplayEvent)
+        {
+            if (!updateCardDisplayEvent.Id.Equals(displayerId))
+            {
+                return;
+            }
             cardImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
-            cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
-            PlayMaterializeAnimation(cardToDisplay.costElement);
+            cardImage.sprite = ImageHelper.GetCardImage(updateCardDisplayEvent.Card.imageID);
 
             activeAHolder.SetActive(false);
-            if (cardToDisplay.skill != "")
+            if (updateCardDisplayEvent.Card.skill != "")
             {
                 activeAHolder.SetActive(true);
-                activeAName.text = cardToDisplay.skill;
-                if (cardToDisplay.skillCost > 0)
+                activeAName.text = updateCardDisplayEvent.Card.skill;
+                if (updateCardDisplayEvent.Card.skillCost > 0)
                 {
-                    activeACost.text = cardToDisplay.skillCost.ToString();
+                    activeACost.text = updateCardDisplayEvent.Card.skillCost.ToString();
                     activeAElement.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
-                    activeAElement.sprite = ImageHelper.GetElementImage(cardToDisplay.skillElement.FastElementString());
+                    activeAElement.sprite = ImageHelper.GetElementImage(updateCardDisplayEvent.Card.skillElement.FastElementString());
                 }
                 else
                 {
@@ -42,25 +67,16 @@ namespace Elements.Duel.Visual
             {
                 activeAHolder.SetActive(false);
             }
-            immaterialIndicator.SetActive(cardToDisplay.innateSkills.Immaterial);
+            immaterialIndicator.SetActive(updateCardDisplayEvent.Card.innateSkills.Immaterial);
         }
 
-        public IEnumerator ShowDamage(int damage)
+        private void HideCard(ClearCardDisplayEvent clearCardDisplayEvent)
         {
-            if (damage == 0) { yield break; }
-            GameObject sText = Instantiate(upMovingText, transform);
-            Vector3 destination = sText.GetComponent<MovingText>().SetupObject(damage.ToString(), TextDirection.Up);
-            for (int i = 0; i < 15; i++)
+            if (!clearCardDisplayEvent.Id.Equals(displayerId))
             {
-                sText.transform.position = Vector3.MoveTowards(sText.transform.position, destination, Time.deltaTime * 50f);
-                yield return null;
+                return;
             }
-            Destroy(sText);
-        }
-
-        public override void HideCard(Card card, int stack)
-        {
-            PlayDissolveAnimation();
+            DisplayCard(new UpdateCardDisplayEvent(displayerId, CardDatabase.Instance.GetPlaceholderCard(displayerId.index)));
         }
     }
 }

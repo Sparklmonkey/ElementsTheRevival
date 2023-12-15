@@ -73,6 +73,7 @@
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shieldspines.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AiComponents\TurnComponents\OsirisAiTurnComponent.cs" />
      <Compile Include="Assets\Scripts\Core\Classes\ID.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\PlaySoundEffectEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Earthquake.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AiComponents\TurnComponents\AiBaseFunctions.cs" />
      <Compile Include="Assets\Scripts\Spinner\SpinManager.cs" />
@@ -85,6 +86,7 @@
      <Compile Include="Assets\Scripts\Networking\ApiManager.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Duality.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Steam.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\AddSpellActivatedActionEvent.cs" />
      <Compile Include="Assets\Scripts\Dashboard\DashboardSceneManager.cs" />
      <Compile Include="Assets\Scripts\Quests\QuestBazaar.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AiComponents\IAiTurnComponent.cs" />
@@ -92,6 +94,7 @@
      <Compile Include="Assets\Scripts\Battlefield\Visual\PermanentInPlay.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AiComponents\TurnComponents\ObliteratorAiTurnComponent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Blackhole.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ModifyPlayerHealthLogicEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shieldedissipation.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldshieldTwo.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Controller\PlayerManager.cs" />
@@ -111,8 +114,10 @@
      <Compile Include="Assets\Scripts\Core\Strings\ElementStrings.cs" />
      <Compile Include="Assets\Scripts\Dashboard\SettingsPanel.cs" />
      <Compile Include="Assets\Scripts\Oracle\Oracle_SpinManager.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\QuantaChangeVisualEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AiComponents\AiStateMachine.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Poison.cs" />
+     <Compile Include="Assets\Scripts\Events\EventBinding.cs" />
      <Compile Include="Assets\Scripts\DeckPresetHead.cs" />
      <Compile Include="Assets\Scripts\Dashboard\Dash_QuestManager.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Deadlypoison.cs" />
@@ -125,7 +130,10 @@
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Icebolt.cs" />
      <Compile Include="Assets\Scripts\Dashboard\Option_Toggle.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AnimationManager.cs" />
+     <Compile Include="Assets\Scripts\Events\IEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shielddissipation.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\DrawCardFromDeckEvent.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\AddDrawCardActionEvent.cs" />
      <Compile Include="Assets\Scripts\UpgradeCard\Upgrade_TransactionManager.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Devour.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Rebirth.cs" />
@@ -150,6 +158,7 @@
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Divineshield.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Mitosiss.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Reversetime.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ShouldShowTargetableEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Unstablegas.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Paradox.cs" />
      <Compile Include="Assets\Scripts\Core\Classes\PassiveBehaviour.cs" />
@@ -159,6 +168,7 @@
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Firebolt.cs" />
      <Compile Include="Assets\Scripts\Core\Classes\CardTypeBehaviour.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldshieldThree.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\PlayCardOnFieldEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Rage.cs" />
      <Compile Include="Assets\Scripts\Deck Manager\DMCardPrefab.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Queen.cs" />
@@ -184,10 +194,10 @@
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Drainlife.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Patience.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Mutation.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\QuantaChangeLogicEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Web.cs" />
      <Compile Include="Assets\Scripts\DeckSelector\DeckSelector.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Gravitypullc.cs" />
-     <Compile Include="Assets\Scripts\Core\Classes\QuantaObject.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Core\PassiveSkills.cs" />
      <Compile Include="Assets\Scripts\PvP\Game_PvpHubConnection.cs" />
      <Compile Include="Assets\Scripts\Core\ScriptableObjects\Card.cs" />
@@ -195,7 +205,7 @@
      <Compile Include="Assets\Scripts\Core\Classes\PermanentBehaviour.cs" />
      <Compile Include="Assets\Scripts\Networking\Responses\ArenaResponse.cs" />
      <Compile Include="Assets\Scripts\Dashboard\Dash_ResetAccountAnimator.cs" />
-     <Compile Include="Assets\Scripts\SpellTestScript.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ShouldShowUsableEvent.cs" />
      <Compile Include="Assets\Scripts\Dashboard\Dash_AchievementManager.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Shard.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Acceleration.cs" />
@@ -206,6 +216,8 @@
      <Compile Include="Assets\Scripts\Battlefield\CreatureDetailToolTip.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Immortality.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Endow.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\AddCardPlayedOnFieldActionEvent.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\CardTappedEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Petrify.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Nightmare.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shieldreflect.cs" />
@@ -216,6 +228,7 @@
      <Compile Include="Assets\Scripts\Core\PvpConnectionData.cs" />
      <Compile Include="Assets\Scripts\Networking\Requests\UpdateGameStatRequest.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Miracle.cs" />
+     <Compile Include="Assets\AiTurnCounter.cs" />
      <Compile Include="Assets\Scripts\ArenaLeagueOpponent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AiComponents\TurnComponents\JezebelAiTurnComponent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Visual\CreatureInPlay.cs" />
@@ -235,6 +248,7 @@
      <Compile Include="Assets\Scripts\Battlefield\Core\BattleVars.cs" />
      <Compile Include="Assets\Scripts\Bazaar\Bazaar_ShopInventoryManager.cs" />
      <Compile Include="Assets\Scripts\Dashboard\SupportView.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ClearCardDisplayEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AiComponents\TurnComponents\PermanentAbilities.cs" />
      <Compile Include="Assets\Scripts\Core\Classes\CardObject.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Nymph.cs" />
@@ -242,6 +256,7 @@
      <Compile Include="Assets\Scripts\Networking\Responses\AppInfoResponse.cs" />
      <Compile Include="Assets\Scripts\Core\Button_SoundManager.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Thunderstorm.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ModifyPlayerHealthVisualEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Adrenaline.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Destroy.cs" />
      <Compile Include="Assets\Scripts\Battlefield\CoinFlip.cs" />
@@ -251,6 +266,7 @@
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Liquidshadow.cs" />
      <Compile Include="Assets\Scripts\StarterDecks.cs" />
      <Compile Include="Assets\Scripts\Bazaar\Bazaar_PlayerDataManager.cs" />
+     <Compile Include="Assets\Scripts\Battlefield\Logic\QuantaPool.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Shockwave.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Sacrifice.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AiComponents\TurnComponents\CreatureAbilities.cs" />
@@ -258,7 +274,9 @@
      <Compile Include="Assets\Scripts\Dashboard\Dash_CodeRedemption.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Core\Enum\TextDirection.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Enchant.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\DeckCountChangeEvent.cs" />
      <Compile Include="Assets\Scripts\StarterDeckElementButton.cs" />
+     <Compile Include="Assets\Scripts\Events\IEventBinding.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AiComponents\TurnComponents\ParadoxAiTurnComponent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Hatch.cs" />
      <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
@@ -269,6 +287,8 @@
      <Compile Include="Assets\Scripts\Battlefield\CardHelperExtensions.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Catapult.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Antimatter.cs" />
+     <Compile Include="Assets\Scripts\Events\EventBusUtil.cs" />
+     <Compile Include="Assets\Scripts\Events\PredefinedAssemblyUtil.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Logic\CardDetailManager.cs" />
      <Compile Include="Assets\Scripts\Core\Enums\FieldEnum.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Stoneskin.cs" />
@@ -292,6 +312,7 @@
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shieldunholy.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Beserk.cs" />
      <Compile Include="Assets\Scripts\Networking\Requests\RegisterRequest.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\AddCardToHandEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Burrow.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Lobotomize.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Congeal.cs" />
@@ -314,6 +335,7 @@
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shieldice.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Aflatoxin.cs" />
      <Compile Include="Assets\Scripts\Core\Abilities\Skills.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\UpdateCardDisplayEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Healp.cs" />
      <Compile Include="Assets\Scripts\Dashboard\RareCardObject.cs" />
      <Compile Include="Assets\Scripts\Core\PvP_LobbyConnecteduser.cs" />
@@ -326,6 +348,7 @@
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Nova.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shieldsolar.cs" />
      <Compile Include="Assets\Scripts\Networking\Responses\UpdateSaveDataResponse.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\AddAbilityActivatedActionEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shieldbones.cs" />
      <Compile Include="Assets\Scripts\Quests\QuestElementalOne.cs" />
      <Compile Include="Assets\Scripts\Networking\Requests\UpdateUserDataRequest.cs" />
@@ -345,17 +368,20 @@
      <Compile Include="Assets\Scripts\Battlefield\AbilityAnimation.cs" />
      <Compile Include="Assets\Scripts\Core\Enums\OwnerEnum.cs" />
      <Compile Include="Assets\Scripts\Quests\QuestManager.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\OnTurnEndEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AiComponents\TurnComponents\AkebonoAiTurnComponent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Pandemonium.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Holylight.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Core\Enum\DetailButtonCase.cs" />
      <Compile Include="Assets\Scripts\Battlefield\AiComponents\IAiDiscardComponent.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\OnDeathDTriggerEvent.cs" />
      <Compile Include="Assets\Scripts\Test_LoginPanel.cs" />
      <Compile Include="Assets\Scripts\Quests\QuestImproveDeck.cs" />
      <Compile Include="Assets\Scripts\Dashboard\Dash_AccountManagement.cs" />
      <Compile Include="Assets\Scripts\UpgradeCard\Upgrade_InvetoryViewManager.cs" />
      <Compile Include="Assets\Scripts\Dashboard\Dash_ResetAccountManager.cs" />
      <Compile Include="Assets\Scripts\Battlefield\EffectDisplayManager.cs" />
+     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\RemoveCardFromHandEvent.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Sniper.cs" />
      <Compile Include="Assets\Scripts\Battlefield\CardDisplayDetail.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shieldweight.cs" />
@@ -365,6 +391,7 @@
      <Compile Include="Assets\Scripts\Dashboard\Error_Animated.cs" />
      <Compile Include="Assets\Scripts\Deck Manager\DeckDisplayManager.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Ignite.cs" />
+     <Compile Include="Assets\Scripts\Events\EventBus.cs" />
      <Compile Include="Assets\Scripts\Battlefield\Visual\PassiveInPlay.cs" />
      <Compile Include="Assets\Scripts\Core\Networking\Response\CodeDetails.cs" />
      <Compile Include="Assets\Scripts\Login\LoginScreen_RegisterManager.cs" />
@@ -517,6 +544,7 @@
      <Folder Include="Assets\Packages\Microsoft.AspNetCore.Hosting.Abstractions.2.2.0\lib" />
      <Folder Include="Assets\Packages\Microsoft.AspNetCore.Routing.2.2.0\lib" />
      <Folder Include="Assets\Resources\Sprites\Animations\Web" />
+     <Folder Include="Assets\Scripts\Events" />
      <Folder Include="Assets\Packages\System.Security.Principal.Windows.4.5.0" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
      <Folder Include="Assets\Sprites\ImageSets\android\drawable-xhdpi" />
@@ -660,6 +688,7 @@
      <None Include="Assets\Spritesheets\LightningAnim.json" />
      <Folder Include="Assets\Resources\Cards" />
      <Folder Include="Assets\Resources\Sprites\Animations\DrainLife" />
+     <Folder Include="Assets\Scripts\Events\BattlefieldEvents" />
      <Folder Include="Assets\Resources\Prefabs" />
      <Folder Include="Assets\Scripts\Battlefield\Core\Enum" />
      <Folder Include="Assets\Scripts\Core" />
@@ -1037,9 +1066,6 @@
      </Reference>
      <Reference Include="Microsoft.AspNetCore.WebSockets">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Packages\Microsoft.AspNetCore.WebSockets.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebSockets.dll</HintPath>
-     </Reference>
-     <Reference Include="Mono.Cecil">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\PackageCache\com.unity.nuget.mono-cecil@1.11.4\Mono.Cecil.dll</HintPath>
      </Reference>
      <Reference Include="Microsoft.AspNetCore.Routing">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Packages\Microsoft.AspNetCore.Routing.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Routing.dll</HintPath>
@@ -1443,11 +1469,17 @@
      <Reference Include="System.Xml.Serialization">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.5f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.Jobs">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Jobs.dll</HintPath>
      </Reference>
      <Reference Include="Unity.RenderPipelines.Core.Runtime">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
      </Reference>
      <Reference Include="Unity.AI.Navigation">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
@@ -1455,71 +1487,11 @@
      <Reference Include="Unity.Burst.Editor">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.Networking.Transport">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Networking.Transport.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Rider.Editor">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Sprite.Editor">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Core.Editor">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.Flow">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Netcode.Components">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Netcode.Components.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Mathematics.Editor">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Netcode.Editor">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Netcode.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Collections">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Collections.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Netcode.Runtime">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Netcode.Runtime.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Netcode.Editor.PackageChecker">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Netcode.Editor.PackageChecker.dll</HintPath>
-     </Reference>
-     <Reference Include="PPv2URPConverters">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.TextMeshPro">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
-     </Reference>
-     <Reference Include="Backtrace.Unity.Editor">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Backtrace.Unity.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VSCode.Editor">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Universal.Editor">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+     <Reference Include="Unity.Burst">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
      </Reference>
      <Reference Include="Unity.PlasticSCM.Editor">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Burst">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Jobs.Editor">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Jobs.Editor.dll</HintPath>
@@ -1545,11 +1517,26 @@
      <Reference Include="Unity.VisualScripting.Core.Editor">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.Rider.Editor">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="UnityEngine.UI">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.2D.Sprite.Editor">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.RenderPipelines.Core.Editor">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Flow">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VisualScripting.Flow.Editor">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Mathematics.Editor">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
@@ -1563,35 +1550,56 @@
      <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Collections">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Collections.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.AI.Navigation.Updater">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.State.Editor">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="PPv2URPConverters">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.Mathematics">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Networking.Editor">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Networking.Editor.dll</HintPath>
+     <Reference Include="Unity.TextMeshPro">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.Searcher.Editor">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.AI.Navigation.Editor">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.Searcher.Editor">
-     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
+     <Reference Include="Backtrace.Unity.Editor">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Backtrace.Unity.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VSCode.Editor">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="UIEffect">
      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\UIEffect.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.RenderPipelines.Universal.Editor">
+     <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

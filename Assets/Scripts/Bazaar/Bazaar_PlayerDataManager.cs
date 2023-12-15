@@ -15,7 +15,7 @@ public class BazaarPlayerDataManager : MonoBehaviour
     private bool _isAdd = false;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _playerInventoryManager = GetComponent<BazaarPlayerInventoryManager>();
         _shopInventoryManager = GetComponent<BazaarShopInventoryManager>();
@@ -27,7 +27,7 @@ public class BazaarPlayerDataManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
 
     }
@@ -56,8 +56,8 @@ public class BazaarPlayerDataManager : MonoBehaviour
         }
         else
         {
-            int index = 0;
-            for (int i = 0; i < PlayerData.Shared.inventoryCards.Count; i++)
+            var index = 0;
+            for (var i = 0; i < PlayerData.Shared.inventoryCards.Count; i++)
             {
                 if (PlayerData.Shared.inventoryCards[i] == _cardToChange.iD)
                 {

@@ -22,14 +22,15 @@ public class OracleSpinManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI cardName, fortuneHead, fortuneBody, electrumReward, nextFalseGod, petName, canKeepCard;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        (Card, int, Vector3) oracleResult = OracleHelper.GetOracleResults();
+        var oracleResult = OracleHelper.GetOracleResults();
         _cardToShow = oracleResult.Item1;
         _electrumToAdd = oracleResult.Item2;
         _finalRotation = oracleResult.Item3;
     }
-    Card _cardToShow = null;
+
+    private Card _cardToShow = null;
     public void StartRotation()
     {
         StartCoroutine(OracleRotatation());
@@ -71,7 +72,7 @@ public class OracleSpinManager : MonoBehaviour
 
     private IEnumerator OracleRotatation()
     {
-        int rotationCount = 0;
+        var rotationCount = 0;
         _oracleSpinStarted = true;
 
         float previousValue = 200;
@@ -80,7 +81,7 @@ public class OracleSpinManager : MonoBehaviour
         {
             transform.Rotate(new Vector3(0, 0, -150 * Time.deltaTime));
             yield return null;
-            float currentValue = transform.eulerAngles.z;
+            var currentValue = transform.eulerAngles.z;
             if (currentValue > previousValue) { rotationCount++; }
             previousValue = currentValue;
         }
@@ -95,7 +96,7 @@ public class OracleSpinManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (_oracleSpinStarted) { return; }
         transform.Rotate(new Vector3(0, 0, -20 * Time.deltaTime));
@@ -104,7 +105,7 @@ public class OracleSpinManager : MonoBehaviour
 
     private IEnumerator MaterializeAnimation()
     {
-        Material dissolveMat = new Material(dissolveMaterial);
+        var dissolveMat = new Material(dissolveMaterial);
         dissolveMat.SetTexture("_MainTex", cardHide.sprite.texture);
         cardHide.material = dissolveMat;
         cardHide.material.SetFloat("_Fade", 1f);
@@ -114,7 +115,7 @@ public class OracleSpinManager : MonoBehaviour
         float currentTime = 1;
         while (currentTime > 0f)
         {
-            float value = currentTime / 1;
+            var value = currentTime / 1;
             currentTime -= Time.deltaTime;
             cardHide.material.SetFloat("_Fade", value);
             yield return null;

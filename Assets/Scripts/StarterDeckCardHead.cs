@@ -17,7 +17,7 @@ public class StarterDeckCardHead : MonoBehaviour, IPointerEnterHandler, IPointer
     private CardDisplay _cardDisplay;
     public void SetupCardHead(Card card, CardDisplay cardDisplay)
     {
-        this._cardDisplay = cardDisplay;
+        _cardDisplay = cardDisplay;
         cardName.text = card.cardName;
         cardName.font = underlayBlack;
         cardName.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);

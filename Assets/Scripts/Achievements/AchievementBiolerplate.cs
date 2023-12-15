@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-public abstract class AchievementBiolerplate
+﻿public abstract class AchievementBiolerplate
 {
     public abstract int AchievementId { get; }
     public abstract string AchievementProperty { get; }
@@ -9,13 +7,13 @@ public abstract class AchievementBiolerplate
 
     public void RedeemAchievement(int aiDifficulty)
     {
-        PropertyInfo pinfo = typeof(int).GetProperty(AchievementProperty);
-        object value = pinfo.GetValue(AchievementManager.Instance.Achievements, null);
+        var pinfo = typeof(int).GetProperty(AchievementProperty);
+        var value = pinfo.GetValue(AchievementManager.Instance.Achievements, null);
 
         if (value is int castValue)
         {
             if (castValue >= aiDifficulty) { return; }
-            int coinsToAdd = (aiDifficulty - castValue) * 50;
+            var coinsToAdd = (aiDifficulty - castValue) * 50;
             pinfo.SetValue(AchievementManager.Instance.Achievements, aiDifficulty);
             PlayerData.Shared.electrum += coinsToAdd;
         }

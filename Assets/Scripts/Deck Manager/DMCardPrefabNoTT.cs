@@ -36,7 +36,7 @@ public class DmCardPrefabNoTt : MonoBehaviour, IPointerEnterHandler, IPointerExi
             cardName.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
         }
 
-        string backGroundString = card.cardName == "Animate Weapon" ? "Air" :
+        var backGroundString = card.cardName == "Animate Weapon" ? "Air" :
                                 card.cardName == "Luciferin" || card.cardName == "Luciferase" ? "Light" :
                                 card.costElement.ToString();
         cardElement.sprite = ImageHelper.GetCardBackGroundImage(backGroundString);

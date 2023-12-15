@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 public class Fractal : AbilityEffect
 {
@@ -9,8 +8,7 @@ public class Fractal : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         Owner.FillHandWith(CardDatabase.Instance.GetCardFromId(target.card.iD));
-        Owner.SpendQuantaLogic(Element.Aether, 75);
-        return;
+        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, Element.Aether, Owner.isPlayer, false));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
@@ -37,7 +35,7 @@ public class Fractal : AbilityEffect
 
         foreach (var target in possibleTargets)
         {
-            int currentScore = 100;
+            var currentScore = 100;
             currentScore -= target.card.AtkNow;
             currentScore -= target.card.DefNow;
 

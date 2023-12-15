@@ -39,9 +39,9 @@ public static class ExtensionMethods
 
     public static List<string> SerializeCard(this List<Card> cardList)
     {
-        List<string> listToReturn = new List<string>();
+        var listToReturn = new List<string>();
 
-        foreach (Card card in cardList)
+        foreach (var card in cardList)
         {
             listToReturn.Add(card.iD);
         }
@@ -56,7 +56,7 @@ public static class ExtensionMethods
 
     public static string AddDeckCard(this string deckCode, string codeToAdd)
     {
-        List<string> newDeck = deckCode.DecompressDeckCode();
+        var newDeck = deckCode.DecompressDeckCode();
         newDeck.Add(codeToAdd);
         return newDeck.CompressDeckCode();
     }
@@ -67,9 +67,9 @@ public static class ExtensionMethods
     }
     public static List<Card> DeserializeCard(this List<string> cardObjectList)
     {
-        List<Card> listToReturn = new List<Card>();
+        var listToReturn = new List<Card>();
 
-        foreach (string cardID in cardObjectList)
+        foreach (var cardID in cardObjectList)
         {
             if (cardID != "" && cardID != " ")
             {
@@ -81,17 +81,17 @@ public static class ExtensionMethods
 
     public static List<Card> SortDeck(this List<Card> listToSort)
     {
-        List<Card> sortedList = new List<Card>();
+        var sortedList = new List<Card>();
 
-        for (int elementCheck = 12; elementCheck >= 0; elementCheck--)
+        for (var elementCheck = 12; elementCheck >= 0; elementCheck--)
         {
-            Element element = (Element)elementCheck;
+            var element = (Element)elementCheck;
 
-            for (int cardTypeCheck = 0; cardTypeCheck < 6; cardTypeCheck++)
+            for (var cardTypeCheck = 0; cardTypeCheck < 6; cardTypeCheck++)
             {
-                CardType cardType = (CardType)cardTypeCheck;
+                var cardType = (CardType)cardTypeCheck;
 
-                foreach (Card card in listToSort)
+                foreach (var card in listToSort)
                 {
                     if (card.costElement.Equals(element) && card.cardType.Equals(cardType))
                     {
@@ -122,44 +122,17 @@ public static class ExtensionMethods
         return returnList;
     }
 
-
-    public static int GetFullQuantaCount(this List<QuantaObject> quantaObjects)
-    {
-        int count = 0;
-
-        foreach (QuantaObject item in quantaObjects)
-        {
-            count += item.Count;
-        }
-        return count;
-    }
-
-    public static int GetIntTotal(this List<int> list)
-    {
-        int count = 0;
-
-        foreach (int item in list)
-        {
-            count += item;
-        }
-
-        return count;
-    }
-
     [ThreadStatic] private static System.Random _local;
 
-    public static System.Random ThisThreadsRandom
-    {
-        get { return _local ??= new System.Random(unchecked((Environment.TickCount * 31) + Thread.CurrentThread.ManagedThreadId)); }
-    }
+    private static System.Random ThisThreadsRandom => _local ??= new System.Random(unchecked(Environment.TickCount * 31 + Thread.CurrentThread.ManagedThreadId));
 
     public static void OrderSprites(this List<Sprite> listToOrder)
     {
-        List<Sprite> orderedList = new List<Sprite>(listToOrder);
+        var orderedList = new List<Sprite>(listToOrder);
         listToOrder = new List<Sprite>();
-        for (int i = 0; i < orderedList.Count; i++)
+        for (var i = 0; i < orderedList.Count; i++)
         {
-            for (int x = 0; x < orderedList.Count; x++)
+            for (var x = 0; x < orderedList.Count; x++)
             {
                 if (orderedList[x].name == i.ToString("00"))
                 {
@@ -170,49 +143,47 @@ public static class ExtensionMethods
     }
     public static T GetScriptFromName<T>(this string scriptName)
     {
-        Type type = Type.GetType(scriptName);
+        var type = Type.GetType(scriptName);
         if (type == null)
         {
             return default;
         }
-        T obj = (T)Activator.CreateInstance(type);
+        var obj = (T)Activator.CreateInstance(type);
         return obj;
     }
 
     public static T GetSkillScript<T>(this string abilityName)
     {
         var nameToCheck = abilityName[0].ToString().ToUpper() + abilityName[1..];
-        Type type = Type.GetType(nameToCheck);
+        var type = Type.GetType(nameToCheck);
         if (type == null)
         {
             return default;
         }
-        T obj = (T)Activator.CreateInstance(type);
+        var obj = (T)Activator.CreateInstance(type);
         return obj;
     }
 
     public static T GetShieldScript<T>(this string abilityName)
     {
         var nameToCheck = $"Shield{abilityName}";
-        Type type = Type.GetType(nameToCheck);
+        var type = Type.GetType(nameToCheck);
         if (type == null)
         {
             return default;
         }
-        T obj = (T)Activator.CreateInstance(type);
+        var obj = (T)Activator.CreateInstance(type);
         return obj;
     }
 
     public static void Shuffle<T>(this IList<T> list)
     {
-        int n = list.Count;
+        var n = list.Count;
         while (n > 1)
         {
             n--;
-            int k = ThisThreadsRandom.Next(n + 1);
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
+            var k = ThisThreadsRandom.Next(n + 1);
+            (list[k], list[n]) = (list[n], list[k]);
         }
     }
 
@@ -237,29 +208,6 @@ public static class ExtensionMethods
         };
     }
 
-    public static string RemovePassivePrefix(this string input)
-    {
-        input = input.Replace("is", "");
-        input = input.Replace("will", "");
-        input = input.Replace("has", "");
-        return input;
-    }
-    public static int? ContainsElement(this List<QuantaObject> listToCheck, Element element)
-    {
-        if (listToCheck.Count == 0)
-        {
-            return null;
-        }
-        for (int i = 0; i < listToCheck.Count; i++)
-        {
-            if (listToCheck[i].Element.Equals(element))
-            {
-                return i;
-            }
-        }
-        return null;
-    }
-
     public static string FastCardTypeString(this CardType cardType)
     {
         return cardType switch
@@ -277,11 +225,11 @@ public static class ExtensionMethods
 
     public static CardType GetSerendipityWeighted()
     {
-        List<int> weights = new List<int> { 40, 30, 10, 10, 5, 5 }; // Creature > Spell > Pillar > Artifact > Weapon > Shield
-        List<CardType> cardTypes = new List<CardType> { CardType.Creature, CardType.Spell, CardType.Pillar, CardType.Artifact, CardType.Weapon, CardType.Shield };
-        int rndValue = UnityEngine.Random.Range(0, 100);
+        var weights = new List<int> { 40, 30, 10, 10, 5, 5 }; // Creature > Spell > Pillar > Artifact > Weapon > Shield
+        var cardTypes = new List<CardType> { CardType.Creature, CardType.Spell, CardType.Pillar, CardType.Artifact, CardType.Weapon, CardType.Shield };
+        var rndValue = UnityEngine.Random.Range(0, 100);
 
-        for (int i = 0; i < weights.Count; i++)
+        for (var i = 0; i < weights.Count; i++)
         {
             rndValue -= weights[i];
             if (rndValue <= 0) { return cardTypes[i]; }
@@ -291,7 +239,7 @@ public static class ExtensionMethods
 
     public static string GetUppedRegular(this string cardID)
     {
-        int cardValue = cardID.Base32ToInt();
+        var cardValue = cardID.Base32ToInt();
         if (cardValue > 7000)
         {
             return (cardValue - 2000).IntToBase32();
@@ -302,7 +250,7 @@ public static class ExtensionMethods
     public static int GetRegularBuyPrice(this string cardID)
     {
         var regCard = CardDatabase.Instance.GetCardFromId(cardID.GetUppedRegular());
-        return (regCard.rarity * regCard.rarity * 6) + regCard.cost;
+        return regCard.rarity * regCard.rarity * 6 + regCard.cost;
     }
 
     public static bool IsBazaarLegal(this string cardID)
@@ -351,7 +299,7 @@ public static class ExtensionMethods
                 cardDict.Add(item, 1);
             }
         }
-        foreach (KeyValuePair<string, int> item in cardDict)
+        foreach (var item in cardDict)
         {
             var countString = item.Value.IntToBase32();
             var cardId = (item.Key.Base32ToInt() - 4000).IntToBase32().ToString();
@@ -370,9 +318,9 @@ public static class ExtensionMethods
 
         foreach (var oCard in deckSeparated)
         {
-            int cardCount = oCard[0].ToString().Base32ToInt();
+            var cardCount = oCard[0].ToString().Base32ToInt();
             var legacyId = (oCard[1..].Base32ToInt() + 4000).IntToBase32();
-            for (int i = 0; i < cardCount; i++)
+            for (var i = 0; i < cardCount; i++)
             {
                 returnStr.Add(legacyId);
             }
@@ -382,10 +330,10 @@ public static class ExtensionMethods
         return string.Join(" ", returnStr);
     }
 
-    static List<string> ChunksUpto(string str, int maxChunkSize)
+    private static List<string> ChunksUpto(string str, int maxChunkSize)
     {
         var returnStr = new List<string>();
-        for (int i = 0; i < str.Length; i += maxChunkSize)
+        for (var i = 0; i < str.Length; i += maxChunkSize)
         {
             returnStr.Add(str.Substring(i, Math.Min(maxChunkSize, str.Length - i))[1..]);
         }
@@ -395,20 +343,20 @@ public static class ExtensionMethods
 
     public static bool IsUpgraded(this string cardID)
     {
-        int cardValue = cardID.Base32ToInt();
+        var cardValue = cardID.Base32ToInt();
         return cardValue > 7000;
     }
 
     public static bool IsRare(this Card card)
     {
-        return (card.rarity == 6 || card.rarity == 8 || card.rarity == 15 || card.rarity == 18 || card.rarity == 20);
+        return card.rarity is 6 or 8 or 15 or 18 or 20;
     }
 
     public const string AcceptedCharacters = "ybndrfg8ejkmcpqxot1uwisza345h769";
 
     public static string Encode(this int input)
     {
-        string result = "";
+        var result = "";
 
         if (input == 0)
         {
@@ -429,8 +377,8 @@ public static class ExtensionMethods
 
     public static string IntToBase32(this int value)
     {
-        char[] alphabet = "0123456789abcdefghijklmnopqrstuv".ToCharArray();
-        string result = "";
+        var alphabet = "0123456789abcdefghijklmnopqrstuv".ToCharArray();
+        var result = "";
 
         if (value < 32)
         {
@@ -444,14 +392,14 @@ public static class ExtensionMethods
             value = Mathf.FloorToInt(value / 32);
             result += alphabet[index].ToString();
         }
-        char[] charArray = result.ToCharArray();
+        var charArray = result.ToCharArray();
         Array.Reverse(charArray);
         return new string(charArray);
     }
 
     public static int Base32ToInt(this string base32Number)
     {
-        char[] base32 = new char[] {
+        var base32 = new char[] {
       '0','1','2','3','4','5','6','7',
       '8','9','a','b','c','d','e','f',
       'g','h','i','j','k','l','m','n',
@@ -459,10 +407,10 @@ public static class ExtensionMethods
 
         long n = 0;
 
-        foreach (char d in base32Number.ToLowerInvariant())
+        foreach (var d in base32Number.ToLowerInvariant())
         {
             n = n << 5;
-            int idx = Array.IndexOf(base32, d);
+            var idx = Array.IndexOf(base32, d);
 
             if (idx == -1)
                 throw new Exception("Provided number contains invalid characters");
@@ -482,7 +430,7 @@ public static class DeckCodeExtension
     public static string CompressDeckCode(this string deckList)
     {
         Dictionary<string, int> cardDict = new();
-        string intList = "";
+        var intList = "";
         List<string> cardList = new(deckList.Split(" "));
 
         foreach (var item in cardList)
@@ -497,7 +445,7 @@ public static class DeckCodeExtension
             }
         }
 
-        foreach (KeyValuePair<string, int> item in cardDict)
+        foreach (var item in cardDict)
         {
             string cardCount = item.Value.IntToBase32();
             if (cardCount.Length == 1)
@@ -511,7 +459,7 @@ public static class DeckCodeExtension
     public static string CompressDeckCode(this List<string> deckList)
     {
         Dictionary<string, int> cardDict = new();
-        string intList = "";
+        var intList = "";
 
         foreach (var item in deckList)
         {
@@ -525,7 +473,7 @@ public static class DeckCodeExtension
             }
         }
 
-        foreach (KeyValuePair<string, int> item in cardDict)
+        foreach (var item in cardDict)
         {
             string cardCount = item.Value.IntToBase32();
             if (cardCount.Length == 1)
@@ -541,11 +489,11 @@ public static class DeckCodeExtension
     {
         List<string> returnList = new();
         var list = new List<string>();
-        int i = 0;
+        var i = 0;
         while (i < compressedDeck.Length)
         {
-            int subLength = Math.Min(compressedDeck.Length - i, 5);
-            string item = compressedDeck.Substring(i, subLength);
+            var subLength = Math.Min(compressedDeck.Length - i, 5);
+            var item = compressedDeck.Substring(i, subLength);
             list.Add(item);
             i += 5;
         }
@@ -553,9 +501,9 @@ public static class DeckCodeExtension
         {
 
             if (item == "") { continue; }
-            string cardCode = item[^3..];
+            var cardCode = item[^3..];
             int cardCount = item.Replace(cardCode, "").Base32ToInt();
-            for (int c = 0; c < cardCount; c++)
+            for (var c = 0; c < cardCount; c++)
             {
                 returnList.Add(cardCode);
             }

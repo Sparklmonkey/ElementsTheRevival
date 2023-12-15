@@ -16,8 +16,8 @@ public class DeckPresetHead : MonoBehaviour, IPointerClickHandler
     private DeckDisplayManager _manager;
     public void SetupCardHead(string deckName, string markElement, string deckCode, DeckDisplayManager manager)
     {
-        this._manager = manager;
-        this._deckCode = deckCode;
+        _manager = manager;
+        _deckCode = deckCode;
         cardName.text = deckName;
         cardName.font = underlayBlack;
         cardName.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);

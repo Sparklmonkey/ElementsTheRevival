@@ -6,20 +6,43 @@ namespace Elements.Duel.Manager
     [Serializable]
     public class PassiveManager : FieldManager
     {
+        private bool _isPlayer;
+        
+        private EventBinding<PlayCardOnFieldEvent> _playCardOnFieldBinding;
+    
+        public void OnDisable() {
+            EventBus<PlayCardOnFieldEvent>.Unregister(_playCardOnFieldBinding);
+        }
 
-        public void PlayPassive(Card card)
+        public void SetupManager(bool isPlayer)
         {
-
-            switch (card.cardType)
+            _isPlayer = isPlayer;
+            _playCardOnFieldBinding = new EventBinding<PlayCardOnFieldEvent>(PlayPassive);
+            EventBus<PlayCardOnFieldEvent>.Register(_playCardOnFieldBinding);
+        }
+        
+        public void PlayPassive(PlayCardOnFieldEvent playCardOnFieldEvent)
+        {
+            if (!playCardOnFieldEvent.CardToPlay.cardType.Equals(CardType.Weapon) 
+                && !playCardOnFieldEvent.CardToPlay.cardType.Equals(CardType.Shield) 
+                && !playCardOnFieldEvent.CardToPlay.cardType.Equals(CardType.Mark))
+            {
+                return;
+            }
+            if (playCardOnFieldEvent.IsPlayer != _isPlayer)
+            {
+                return;
+            }
+            switch (playCardOnFieldEvent.CardToPlay.cardType)
             {
                 case CardType.Weapon:
-                    PairList[1].PlayCard(card);
+                    EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(PairList[1].id, playCardOnFieldEvent.CardToPlay));
                     break;
                 case CardType.Shield:
-                    PairList[2].PlayCard(card);
+                    EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(PairList[2].id, playCardOnFieldEvent.CardToPlay));
                     break;
                 case CardType.Mark:
-                    PairList[0].PlayCard(card);
+                    EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(PairList[0].id, playCardOnFieldEvent.CardToPlay));
                     break;
             }
         }
@@ -70,12 +93,14 @@ namespace Elements.Duel.Manager
 
         internal void RemoveWeapon()
         {
-            PairList[1].PlayCard(CardDatabase.Instance.GetPlaceholderCard(1));
+            var card = CardDatabase.Instance.GetPlaceholderCard(1);
+            EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(PairList[1].id, card));
         }
 
         internal void RemoveShield()
         {
-            PairList[2].PlayCard(CardDatabase.Instance.GetPlaceholderCard(0));
+            var card = CardDatabase.Instance.GetPlaceholderCard(0);
+            EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(PairList[2].id, card));
         }
     }
 }

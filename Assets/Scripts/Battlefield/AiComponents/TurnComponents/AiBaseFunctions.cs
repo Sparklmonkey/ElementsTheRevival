@@ -12,9 +12,9 @@ public abstract class AiBaseFunctions
     {
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
 
-        int cardIndex = idCardList.FindIndex(x => x.card.cardType == CardType.Pillar);
+        var cardIndex = idCardList.FindIndex(x => x.card.cardType == CardType.Pillar);
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1)
             {
@@ -34,9 +34,9 @@ public abstract class AiBaseFunctions
     {
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
 
-        int cardIndex = idCardList.FindIndex(x => x.card.cardName == name);
+        var cardIndex = idCardList.FindIndex(x => x.card.cardName == name);
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1)
             {
@@ -68,7 +68,7 @@ public abstract class AiBaseFunctions
             yield break;
         }
 
-        int cardIndex = idCardList.FindIndex(x => x.card.cardName == weaponName);
+        var cardIndex = idCardList.FindIndex(x => x.card.cardName == weaponName);
 
 
         if (cardIndex == -1)
@@ -93,7 +93,7 @@ public abstract class AiBaseFunctions
             yield break;
         }
 
-        int cardIndex = idCardList.FindIndex(x => x.card.cardName == shieldName);
+        var cardIndex = idCardList.FindIndex(x => x.card.cardName == shieldName);
 
 
         if (cardIndex == -1)
@@ -118,14 +118,14 @@ public abstract class AiBaseFunctions
             yield break;
         }
 
-        int cardIndex = idCardList.FindIndex(x =>
+        var cardIndex = idCardList.FindIndex(x =>
             (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsCardPlayable(x.card));
         if (cardIndex == -1)
         {
             yield break;
         }
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1)
             {
@@ -149,14 +149,14 @@ public abstract class AiBaseFunctions
             yield break;
         }
 
-        int cardIndex = idCardList.FindIndex(x =>
+        var cardIndex = idCardList.FindIndex(x =>
             (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsCardPlayable(x.card));
         if (cardIndex == -1)
         {
             yield break;
         }
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1)
             {
@@ -191,14 +191,14 @@ public abstract class AiBaseFunctions
             yield break;
         }
 
-        int cardIndex = idCardList.FindIndex(x =>
+        var cardIndex = idCardList.FindIndex(x =>
             (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x));
         if (cardIndex == -1)
         {
             yield break;
         }
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1)
             {
@@ -235,14 +235,14 @@ public abstract class AiBaseFunctions
             yield break;
         }
 
-        int cardIndex = idCardList.FindIndex(x =>
+        var cardIndex = idCardList.FindIndex(x =>
             (x.card.cardName == regularName || x.card.cardName == uppedName) && aiManager.IsAbilityUsable(x));
         if (cardIndex == -1)
         {
             yield break;
         }
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1)
             {
@@ -268,7 +268,7 @@ public abstract class AiBaseFunctions
             yield break;
         }
 
-        int cardIndex =
+        var cardIndex =
             idCardList.FindIndex(x => x.card.cardType.Equals(CardType.Spell) && aiManager.IsCardPlayable(x.card));
 
         if (cardIndex == -1)
@@ -276,14 +276,14 @@ public abstract class AiBaseFunctions
             yield break;
         }
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1)
             {
                 yield break;
             }
 
-            Card cardToCheck = idCardList[cardIndex].card;
+            var cardToCheck = idCardList[cardIndex].card;
             //Setup Spell
             BattleVars.Shared.AbilityOrigin = idCardList[cardIndex];
 
@@ -346,21 +346,21 @@ public abstract class AiBaseFunctions
                 break;
         }
 
-        int cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x));
+        var cardIndex = idCardList.FindIndex(x => aiManager.IsAbilityUsable(x));
 
         if (cardIndex == -1)
         {
             yield break;
         }
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1)
             {
                 yield break;
             }
 
-            Card cardToCheck = idCardList[cardIndex].card;
+            var cardToCheck = idCardList[cardIndex].card;
             //Setup Spell
             BattleVars.Shared.AbilityOrigin = idCardList[cardIndex];
 
@@ -390,7 +390,7 @@ public abstract class AiBaseFunctions
 
     public IDCardPair GetHighestPriority(AbilityEffect ability)
     {
-        List<IDCardPair> possibleTargets = ability.GetPossibleTargets(DuelManager.Instance.player);
+        var possibleTargets = ability.GetPossibleTargets(DuelManager.Instance.player);
         return possibleTargets[0];
     }
 }

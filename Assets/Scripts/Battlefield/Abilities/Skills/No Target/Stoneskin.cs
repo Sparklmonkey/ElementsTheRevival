@@ -6,8 +6,8 @@ public class Stoneskin : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        int maxHpBuff = Owner.GetAllQuantaOfElement(Element.Earth);
-        Owner.ModifyMaxHealthLogic(maxHpBuff, true);
+        var maxHpBuff = Owner.GetAllQuantaOfElement(Element.Earth);
+        EventBus<ModifyPlayerHealthLogicEvent>.Raise(new ModifyPlayerHealthLogicEvent(maxHpBuff, Owner.isPlayer, true));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

@@ -7,24 +7,24 @@ public class Blackhole : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         var victim = Owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
-        int hpToRestore = 0;
+        var hpToRestore = 0;
         if (victim.playerCounters.sanctuary == 0)
         {
-            for (int i = 0; i < 12; i++)
+            for (var i = 0; i < 12; i++)
             {
                 if (victim.HasSufficientQuanta((Element)i, 3))
                 {
-                    victim.SpendQuantaLogic((Element)i, 3);
+                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(3, (Element)i, Owner.isPlayer, false));
                     hpToRestore += 3;
                 }
                 else if (victim.HasSufficientQuanta((Element)i, 2))
                 {
-                    victim.SpendQuantaLogic((Element)i, 2);
+                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(2, (Element)i, Owner.isPlayer, false));
                     hpToRestore += 2;
                 }
                 else if (victim.HasSufficientQuanta((Element)i, 1))
                 {
-                    victim.SpendQuantaLogic((Element)i, 1);
+                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, (Element)i, Owner.isPlayer, false));
                     hpToRestore++;
                 }
             }

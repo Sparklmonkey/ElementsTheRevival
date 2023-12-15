@@ -7,42 +7,64 @@ namespace Elements.Duel.Manager
     [Serializable]
     public class HandManager : FieldManager
     {
+        private bool _isPlayer;
+        private EventBinding<AddCardToHandEvent> _addCardToHandBinding;
+        private EventBinding<RemoveCardFromHandEvent> _removeCardFromHandBinding;
+    
+        public void OnDisable() {
+            EventBus<AddCardToHandEvent>.Unregister(_addCardToHandBinding);
+            EventBus<RemoveCardFromHandEvent>.Unregister(_removeCardFromHandBinding);
+        }
+        public void SetIsPlayer(bool isPlayer)
+        {
+            _isPlayer = isPlayer;
+            _addCardToHandBinding = new EventBinding<AddCardToHandEvent>(AddCardToHand);
+            EventBus<AddCardToHandEvent>.Register(_addCardToHandBinding);
+            _removeCardFromHandBinding = new EventBinding<RemoveCardFromHandEvent>(RemoveCardFromHand);
+            EventBus<RemoveCardFromHandEvent>.Register(_removeCardFromHandBinding);
+        }
         public bool ShouldDiscard() => PairList.FindAll(x => x.card is not null).Count >= 8;
 
-        public void UpdateHandVisual(IDCardPair cardPair)
+        private void RemoveCardFromHand(RemoveCardFromHandEvent removeCardFromHandEvent)
         {
-            if (PairList.FindAll(x => x.HasCard()).Count == 0)
+            if (removeCardFromHandEvent.IsPlayer != _isPlayer)
             {
                 return;
             }
+
+            var index = PairList.FindIndex(x => x.id.Equals(removeCardFromHandEvent.CardToRemove));
+            EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(PairList[index].id));
 
             var cardList = new List<Card>();
             foreach (var item in PairList)
             {
                 if (!item.HasCard()) { continue; }
-                if (item.id.index == cardPair.id.index) { continue; }
                 cardList.Add(CardDatabase.Instance.GetCardFromId(item.card.iD));
             }
 
-            for (int i = 0; i < 8; i++)
+            for (var i = 0; i < 8; i++)
             {
                 if (i < cardList.Count)
                 {
-                    PairList[i].PlayCard(cardList[i]);
+                    EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(PairList[i].id, cardList[i]));
                     continue;
                 }
                 if (PairList[i].IsActive())
                 {
-                    PairList[i].RemoveCard();
+                    EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(PairList[i].id));
                 }
             }
         }
 
-        public void AddCardToHand(Card card)
+        private void AddCardToHand(AddCardToHandEvent addCardToHandEvent)
         {
-            int availableIndex = PairList.FindIndex(x => !x.HasCard());
+            if (addCardToHandEvent.IsPlayer != _isPlayer)
+            {
+                return;
+            }
+            var availableIndex = PairList.FindIndex(x => !x.HasCard());
             if (availableIndex < 0) { return; }
-            PairList[availableIndex].PlayCard(card);
+            EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(PairList[availableIndex].id, addCardToHandEvent.CardToAdd));
         }
 
         public void ShowCardsForPrecog()

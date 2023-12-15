@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using Networking;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [Serializable]
 public class PlayerData

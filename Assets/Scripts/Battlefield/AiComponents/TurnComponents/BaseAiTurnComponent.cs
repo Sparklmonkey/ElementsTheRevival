@@ -26,10 +26,10 @@ public class BaseAiTurnComponent : AiBaseFunctions, IAiTurnComponent
         var idCardList = aiManager.playerHand.GetAllValidCardIds();
 
         if (!idCardList.Exists(x => x.card.cardType.Equals(cardType))) { yield break; }
-        int cardIndex = idCardList.FindIndex(x => x.card.cardType.Equals(cardType) && aiManager.IsCardPlayable(x.card));
+        var cardIndex = idCardList.FindIndex(x => x.card.cardType.Equals(cardType) && aiManager.IsCardPlayable(x.card));
         if (cardIndex == -1) { yield break; }
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             if (cardIndex == -1) { yield break; }
             aiManager.PlayCardFromHandLogic(idCardList[cardIndex]);

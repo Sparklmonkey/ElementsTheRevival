@@ -6,8 +6,8 @@ public class Shard : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        int maxHpBuff = Owner.playerPassiveManager.GetMark().card.costElement.Equals(Element.Light) ? 24 : 16;
-        Owner.ModifyMaxHealthLogic(maxHpBuff, true);
+        var maxHpBuff = Owner.playerPassiveManager.GetMark().card.costElement.Equals(Element.Light) ? 24 : 16;
+        EventBus<ModifyPlayerHealthLogicEvent>.Raise(new ModifyPlayerHealthLogicEvent(maxHpBuff, Owner.isPlayer, true));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

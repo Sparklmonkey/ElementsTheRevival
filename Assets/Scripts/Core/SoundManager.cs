@@ -7,8 +7,19 @@ public class SoundManager : SingletonMono<SoundManager>
     private AudioSource soundFX;
     [SerializeField]
     private AudioSource backgroundMusic;
+    
+    private EventBinding<PlaySoundEffectEvent> _playSoundEffectBinding;
+    
+    private void OnDisable() {
+        EventBus<PlaySoundEffectEvent>.Unregister(_playSoundEffectBinding);
+    }
+    private void OnEnable()
+    {
+        _playSoundEffectBinding = new EventBinding<PlaySoundEffectEvent>(PlayAudioClip);
+        EventBus<PlaySoundEffectEvent>.Register(_playSoundEffectBinding);
+    }
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         UpdateVolume();
     }
@@ -21,10 +32,9 @@ public class SoundManager : SingletonMono<SoundManager>
 
     public List<AudioClip> audioClips;
 
-    public void PlayAudioClip(string audioName)
+    private void PlayAudioClip(PlaySoundEffectEvent playSoundEffectEvent)
     {
-        AudioClip clipToPlay = audioClips.Find(x => x.name == audioName);
-
+        var clipToPlay = audioClips.Find(x => x.name == playSoundEffectEvent.SoundClipName);
         soundFX.PlayOneShot(clipToPlay);
     }
 
@@ -35,7 +45,7 @@ public class SoundManager : SingletonMono<SoundManager>
 
     public void PlayBGM(string bgmName)
     {
-        AudioClip clipToPlay = audioClips.Find(x => x.name == bgmName);
+        var clipToPlay = audioClips.Find(x => x.name == bgmName);
 
         backgroundMusic.clip = clipToPlay;
         backgroundMusic.loop = true;

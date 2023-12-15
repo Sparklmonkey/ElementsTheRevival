@@ -21,30 +21,30 @@ public class SpinManager : MonoBehaviour
     private bool _shouldWinCoins = false, _shouldWinCard = false, _canSpin = true;
     public static int FinishSpinCount = 3;
 
-    private List<Card> _cardsWon = new List<Card>();
+    private List<Card> _cardsWon = new();
     private List<Card> _oppDeck;
     private int GetBonusGain()
     {
-        EnemyAi enemyAi = BattleVars.Shared.EnemyAiData;
+        var enemyAi = BattleVars.Shared.EnemyAiData;
         if (enemyAi.hpDivide == 0)
         {
             return 0;
         }
         else
         {
-            return enemyAi.coinAvg + (Mathf.FloorToInt(BattleVars.Shared.PlayerHp / enemyAi.hpDivide));
+            return enemyAi.coinAvg + Mathf.FloorToInt(BattleVars.Shared.PlayerHp / enemyAi.hpDivide);
         }
     }
 
     private void Start()
     {
-        int bonus = GetBonusGain();
-        int coinsWon = bonus;
-        PlayerData.Shared.playerScore += (BattleVars.Shared.EnemyAiData.scoreWin + bonus);
+        var bonus = GetBonusGain();
+        var coinsWon = bonus;
+        PlayerData.Shared.playerScore += BattleVars.Shared.EnemyAiData.scoreWin + bonus;
         if (BattleVars.Shared.ElementalMastery)
         {
             coinsWon *= 2;
-            SoundManager.Instance.PlayAudioClip("ElementalMastery");
+            EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("ElementalMastery"));
             elementalMasteryLabel.SetActive(true);
         }
 
@@ -60,7 +60,7 @@ public class SpinManager : MonoBehaviour
         SetupImageList(_oppDeck);
         buttonText.text = BattleVars.Shared.EnemyAiData.spins == 0 ? "Continue" : "Start Spin";
         spinAllButton.SetActive(BattleVars.Shared.EnemyAiData.spins > 0);
-        double gameTimeInSeconds = TimeSpan.FromTicks(DateTime.Now.Ticks - BattleVars.Shared.GameStartInTicks).TotalSeconds;
+        var gameTimeInSeconds = TimeSpan.FromTicks(DateTime.Now.Ticks - BattleVars.Shared.GameStartInTicks).TotalSeconds;
         gameTurns.text = $"{BattleVars.Shared.TurnCount}";
         gameTime.text = $"{(int)gameTimeInSeconds}";
         playerScore.text = $"{PlayerData.Shared.playerScore}";
@@ -85,7 +85,7 @@ public class SpinManager : MonoBehaviour
         }
         else if (_canSpin)
         {
-            int count = int.Parse(spinCount.text);
+            var count = int.Parse(spinCount.text);
             count--;
             spinCount.text = $"{count}";
             StartCoroutine(StartSpin());
@@ -101,8 +101,8 @@ public class SpinManager : MonoBehaviour
 
     private IEnumerator DoAllSpins()
     {
-        int count = int.Parse(spinCount.text);
-        for (int i = 0; i < count; i++)
+        var count = int.Parse(spinCount.text);
+        for (var i = 0; i < count; i++)
         {
             yield return StartCoroutine(StartSpin());
             spinCount.text = $"{count - (i + 1)}";
@@ -114,12 +114,12 @@ public class SpinManager : MonoBehaviour
         buttonText.transform.parent.GetComponent<Button>().interactable = true;
     }
 
-    private List<Sprite> _spriteList = new List<Sprite>();
+    private List<Sprite> _spriteList = new();
 
     private void SetupImageList(List<Card> deck)
     {
 
-        foreach (Card card in deck)
+        foreach (var card in deck)
         {
             _spriteList.Add(ImageHelper.GetCardImage(card.imageID));
         }
@@ -132,10 +132,10 @@ public class SpinManager : MonoBehaviour
         FinishSpinCount = 0;
         _canSpin = false;
 
-        List<Card> spinResult = GetSpinResults();
-        Card cardOne = spinResult[0];
-        Card cardTwo = spinResult[1];
-        Card cardThree = spinResult[2];
+        var spinResult = GetSpinResults();
+        var cardOne = spinResult[0];
+        var cardTwo = spinResult[1];
+        var cardThree = spinResult[2];
 
         if (cardOne.cardName == cardThree.cardName && cardOne.cardName == cardTwo.cardName)
         {
@@ -147,7 +147,7 @@ public class SpinManager : MonoBehaviour
             _shouldWinCoins = true;
         }
 
-        List<Sprite> tempList = new List<Sprite>(_spriteList) { ImageHelper.GetCardImage(cardOne.imageID) };
+        var tempList = new List<Sprite>(_spriteList) { ImageHelper.GetCardImage(cardOne.imageID) };
         spinOne.isUpgraded = cardOne.iD.IsUpgraded();
         StartCoroutine(spinOne.DissolveAnimation(tempList));
         yield return new WaitForSeconds(0.5f);
@@ -169,7 +169,7 @@ public class SpinManager : MonoBehaviour
             FinishSpinCount = 0;
             if (_shouldWinCoins)
             {
-                int newCoinCount = int.Parse(electrumValue.text);
+                var newCoinCount = int.Parse(electrumValue.text);
                 newCoinCount += 5;
                 electrumValue.text = newCoinCount.ToString();
             }
@@ -207,13 +207,13 @@ public class SpinManager : MonoBehaviour
         FinishSpinCount = 0;
         _canSpin = false;
 
-        int rewardType = Random.Range(0, 100);
-        System.Random rnd = new System.Random();
-        Card cardOne = _oppDeck.OrderBy(x => rnd.Next())
+        var rewardType = Random.Range(0, 100);
+        var rnd = new System.Random();
+        var cardOne = _oppDeck.OrderBy(_ => rnd.Next())
                       .First();
-        Card cardTwo = _oppDeck.Where(c => c.iD != cardOne.iD).OrderBy(x => rnd.Next())
+        var cardTwo = _oppDeck.Where(c => c.iD != cardOne.iD).OrderBy(_ => rnd.Next())
                       .First();
-        Card cardThree = _oppDeck.Where(c => c.iD != cardOne.iD && c.iD != cardTwo.iD).OrderBy(x => rnd.Next())
+        var cardThree = _oppDeck.Where(c => c.iD != cardOne.iD && c.iD != cardTwo.iD).OrderBy(_ => rnd.Next())
                       .First();
         //return new List<Card> { cardOne, cardOne, cardOne };
         if (rewardType < 15)

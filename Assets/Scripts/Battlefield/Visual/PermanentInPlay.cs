@@ -15,35 +15,54 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private GameObject activeAHolder, immaterialIndicator;
 
-        public override void HideCard(Card cardToDisplay, int stackCountValue) => ManagePermanent(cardToDisplay, stackCountValue);
 
-        public override void DisplayCard(Card cardToDisplay, int stackCountValue, bool isHidden = true) => ManagePermanent(cardToDisplay, stackCountValue);
-
-        private void ManagePermanent(Card cardToDisplay, int stackCountValue)
+        private EventBinding<ClearCardDisplayEvent> _clearCardDisplayBinding;
+        private EventBinding<UpdateCardDisplayEvent> _updateCardDisplayBinding;
+        private EventBinding<ShouldShowTargetableEvent> _shouldShowTargetableBinding;
+        private EventBinding<ShouldShowUsableEvent> _shouldShowUsableBinding;
+    
+        private void OnDisable() {
+            EventBus<ClearCardDisplayEvent>.Unregister(_clearCardDisplayBinding);
+            EventBus<UpdateCardDisplayEvent>.Unregister(_updateCardDisplayBinding);
+            EventBus<ShouldShowTargetableEvent>.Unregister(_shouldShowTargetableBinding);
+            EventBus<ShouldShowUsableEvent>.Unregister(_shouldShowUsableBinding);
+        }
+        private void OnEnable()
         {
-            if (stackCountValue == 0)
+            _clearCardDisplayBinding = new EventBinding<ClearCardDisplayEvent>(HideCard);
+            EventBus<ClearCardDisplayEvent>.Register(_clearCardDisplayBinding);
+            _updateCardDisplayBinding = new EventBinding<UpdateCardDisplayEvent>(DisplayCard);
+            EventBus<UpdateCardDisplayEvent>.Register(_updateCardDisplayBinding);
+        
+            _shouldShowTargetableBinding = new EventBinding<ShouldShowTargetableEvent>(ShouldShowTarget);
+            EventBus<ShouldShowTargetableEvent>.Register(_shouldShowTargetableBinding);
+            _shouldShowUsableBinding = new EventBinding<ShouldShowUsableEvent>(ShouldShowUsableGlow);
+            EventBus<ShouldShowUsableEvent>.Register(_shouldShowUsableBinding);
+        }
+        
+        public void DisplayCard(UpdateCardDisplayEvent updateCardDisplayEvent)
+        {
+            if (!updateCardDisplayEvent.Id.Equals(displayerId))
             {
-                PlayDissolveAnimation();
                 return;
             }
-
             List<string> permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
-            if (permanentsWithCountdown.Contains(cardToDisplay.iD))
+            if (permanentsWithCountdown.Contains(updateCardDisplayEvent.Card.iD))
             {
-                stackCount.text = $"{cardToDisplay.TurnsInPlay}";
+                stackCount.text = $"{updateCardDisplayEvent.Card.TurnsInPlay}";
             }
             else
             {
-                stackCount.text = stackCountValue > 1 ? $"{stackCountValue}X" : "";
+                stackCount.text = updateCardDisplayEvent.Stack > 1 ? $"{updateCardDisplayEvent.Stack}X" : "";
             }
-            transform.parent.gameObject.SetActive(true);
-            immaterialIndicator.SetActive(cardToDisplay.innateSkills.Immaterial);
-            bool isPlayer = true;// GetObjectID().Owner.Equals(OwnerEnum.Player);
-            if (cardToDisplay.cardName.Contains("Pendulum"))
+            maskImage.gameObject.SetActive(true);
+            immaterialIndicator.SetActive(updateCardDisplayEvent.Card.innateSkills.Immaterial);
+            var isPlayer = displayerId.owner.Equals(OwnerEnum.Player);
+            if (updateCardDisplayEvent.Card.cardName.Contains("Pendulum"))
             {
-                Element pendulumElement = cardToDisplay.costElement;
-                Element markElement = isPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
-                if (cardToDisplay.costElement == cardToDisplay.skillElement)
+                var pendulumElement = updateCardDisplayEvent.Card.costElement;
+                var markElement = isPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
+                if (updateCardDisplayEvent.Card.costElement == updateCardDisplayEvent.Card.skillElement)
                 {
                     cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
                 }
@@ -54,18 +73,17 @@ namespace Elements.Duel.Visual
             }
             else
             {
-                cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
+                cardImage.sprite = ImageHelper.GetCardImage(updateCardDisplayEvent.Card.imageID);
             }
-            PlayMaterializeAnimation(cardToDisplay.costElement);
             activeAHolder.SetActive(false);
-            if (cardToDisplay.skill != "")
+            if (updateCardDisplayEvent.Card.skill != "")
             {
                 activeAHolder.SetActive(true);
-                activeAName.text = cardToDisplay.skill;
-                if (cardToDisplay.skillCost > 0)
+                activeAName.text = updateCardDisplayEvent.Card.skill;
+                if (updateCardDisplayEvent.Card.skillCost > 0)
                 {
-                    activeACost.text = cardToDisplay.skillCost.ToString();
-                    activeAElement.sprite = ImageHelper.GetElementImage(cardToDisplay.skillElement.FastElementString());
+                    activeACost.text = updateCardDisplayEvent.Card.skillCost.ToString();
+                    activeAElement.sprite = ImageHelper.GetElementImage(updateCardDisplayEvent.Card.skillElement.FastElementString());
                 }
                 else
                 {
@@ -78,6 +96,29 @@ namespace Elements.Duel.Visual
                 activeAHolder.SetActive(false);
             }
             return;
+        }
+        
+        public void HideCard(ClearCardDisplayEvent clearCardDisplayEvent)
+        {
+            if (!clearCardDisplayEvent.Id.Equals(displayerId))
+            {
+                return;
+            }
+            if (clearCardDisplayEvent.Stack == 0)
+            {
+                ClearDisplay();
+                return;
+            }
+            
+            List<string> permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
+            if (permanentsWithCountdown.Contains(clearCardDisplayEvent.Card?.iD))
+            {
+                stackCount.text = $"{clearCardDisplayEvent.Card?.TurnsInPlay}";
+            }
+            else
+            {
+                stackCount.text = clearCardDisplayEvent.Stack > 1 ? $"{clearCardDisplayEvent.Stack}X" : "";
+            }
         }
     }
 }

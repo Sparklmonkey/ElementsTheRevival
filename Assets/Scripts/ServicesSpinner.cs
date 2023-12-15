@@ -10,12 +10,12 @@ public class ServicesSpinner : MonoBehaviour
     private List<Vector3> _elementPositions;
     private List<bool> _elementsIsMovingToCenter;
 
-    private bool _shouldMove = false;
+    private bool _shouldMove;
     private void OnEnable()
     {
         _elementPositions = new List<Vector3>();
         _elementsIsMovingToCenter = new List<bool>();
-        foreach (GameObject item in elementObjects)
+        foreach (var item in elementObjects)
         {
             _elementPositions.Add(item.transform.position);
             _elementsIsMovingToCenter.Add(true);
@@ -25,7 +25,7 @@ public class ServicesSpinner : MonoBehaviour
 
     private void OnDisable()
     {
-        for (int i = 0; i < _elementsIsMovingToCenter.Count; i++)
+        for (var i = 0; i < _elementsIsMovingToCenter.Count; i++)
         {
             _elementsIsMovingToCenter[i] = true;
             elementObjects[i].transform.position = _elementPositions[i];
@@ -33,7 +33,7 @@ public class ServicesSpinner : MonoBehaviour
         _shouldMove = false;
     }
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!_shouldMove) { return; }
         MoveElementIcon(0, _elementsIsMovingToCenter[0]);
@@ -50,7 +50,7 @@ public class ServicesSpinner : MonoBehaviour
         MoveElementIcon(11, _elementsIsMovingToCenter[11]);
     }
 
-    void MoveElementIcon(int imageIndex, bool isMovingToCenter)
+    private void MoveElementIcon(int imageIndex, bool isMovingToCenter)
     {
         if (isMovingToCenter)
         {

@@ -20,7 +20,7 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    void Awake()
+    private void Awake()
     {
         if (_instance != null)
         {

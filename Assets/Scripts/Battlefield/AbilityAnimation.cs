@@ -15,7 +15,7 @@ public class AbilityAnimation : MonoBehaviour
 
     private IEnumerator AnimateImage()
     {
-        int index = 0;
+        var index = 0;
         while (gameObject.activeInHierarchy)
         {
             if (index >= sprites.Count) { index = 0; }

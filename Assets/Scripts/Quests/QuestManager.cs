@@ -1,7 +1,5 @@
 public class QuestManager
 {
-    private static readonly QuestManager instance = new();
-
     static QuestManager()
     {
     }
@@ -10,14 +8,5 @@ public class QuestManager
     {
     }
 
-    public static QuestManager Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
-
-
+    public static QuestManager Instance { get; } = new();
 }

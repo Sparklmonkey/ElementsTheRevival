@@ -15,15 +15,42 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private GameObject upMovingText, activeAHolder;
 
-        public override void DisplayCard(Card cardToDisplay, int stackAmount, bool isHidden)
+        private EventBinding<ClearCardDisplayEvent> _clearCardDisplayBinding;
+        private EventBinding<UpdateCardDisplayEvent> _updateCardDisplayBinding;
+        private EventBinding<ShouldShowTargetableEvent> _shouldShowTargetableBinding;
+        private EventBinding<ShouldShowUsableEvent> _shouldShowUsableBinding;
+    
+        private void OnDisable() {
+            EventBus<ClearCardDisplayEvent>.Unregister(_clearCardDisplayBinding);
+            EventBus<UpdateCardDisplayEvent>.Unregister(_updateCardDisplayBinding);
+            EventBus<ShouldShowTargetableEvent>.Unregister(_shouldShowTargetableBinding);
+            EventBus<ShouldShowUsableEvent>.Unregister(_shouldShowUsableBinding);
+        }
+        private void OnEnable()
         {
-            transform.parent.gameObject.SetActive(true);
-            cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
-            var creatureAtk = cardToDisplay.passiveSkills.Antimatter ? -cardToDisplay.AtkNow : cardToDisplay.AtkNow;
-            creatureValue.text = $"{creatureAtk}|{cardToDisplay.DefNow}";
-            cardName.text = cardToDisplay.cardName;
-            cardHeadBack.sprite = ImageHelper.GetCardHeadBackground(cardToDisplay.costElement.FastElementString());
-            if (cardToDisplay.IsRare())
+            _clearCardDisplayBinding = new EventBinding<ClearCardDisplayEvent>(HideCard);
+            EventBus<ClearCardDisplayEvent>.Register(_clearCardDisplayBinding);
+            _updateCardDisplayBinding = new EventBinding<UpdateCardDisplayEvent>(DisplayCard);
+            EventBus<UpdateCardDisplayEvent>.Register(_updateCardDisplayBinding);
+        
+            _shouldShowTargetableBinding = new EventBinding<ShouldShowTargetableEvent>(ShouldShowTarget);
+            EventBus<ShouldShowTargetableEvent>.Register(_shouldShowTargetableBinding);
+            _shouldShowUsableBinding = new EventBinding<ShouldShowUsableEvent>(ShouldShowUsableGlow);
+            EventBus<ShouldShowUsableEvent>.Register(_shouldShowUsableBinding);
+        }
+        public void DisplayCard(UpdateCardDisplayEvent updateCardDisplayEvent)
+        {
+            if (!updateCardDisplayEvent.Id.Equals(displayerId))
+            {
+                return;
+            }
+            maskImage.gameObject.SetActive(true);
+            cardImage.sprite = ImageHelper.GetCardImage(updateCardDisplayEvent.Card.imageID);
+            var creatureAtk = updateCardDisplayEvent.Card.passiveSkills.Antimatter ? -updateCardDisplayEvent.Card.AtkNow : updateCardDisplayEvent.Card.AtkNow;
+            creatureValue.text = $"{creatureAtk}|{updateCardDisplayEvent.Card.DefNow}";
+            cardName.text = updateCardDisplayEvent.Card.cardName;
+            cardHeadBack.sprite = ImageHelper.GetCardHeadBackground(updateCardDisplayEvent.Card.costElement.FastElementString());
+            if (updateCardDisplayEvent.Card.IsRare())
             {
                 upgradeShine.gameObject.SetActive(true);
                 cardName.font = underlayWhite;
@@ -35,19 +62,19 @@ namespace Elements.Duel.Visual
                 cardName.font = underlayBlack;
                 cardName.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
             }
-            rareIndicator.gameObject.SetActive(cardToDisplay.IsRare());
+            rareIndicator.gameObject.SetActive(updateCardDisplayEvent.Card.IsRare());
 
-            PlayMaterializeAnimation(cardToDisplay.costElement);
+            // PlayMaterializeAnimation(cardToDisplay.costElement);
             activeAHolder.SetActive(false);
-            if (cardToDisplay.skill != "")
+            if (updateCardDisplayEvent.Card.skill != "")
             {
                 activeAHolder.SetActive(true);
-                activeAName.text = cardToDisplay.skill;
-                if (cardToDisplay.skillCost > 0)
+                activeAName.text = updateCardDisplayEvent.Card.skill;
+                if (updateCardDisplayEvent.Card.skillCost > 0)
                 {
-                    activeACost.text = cardToDisplay.skillCost.ToString();
+                    activeACost.text = updateCardDisplayEvent.Card.skillCost.ToString();
                     activeAElement.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
-                    activeAElement.sprite = ImageHelper.GetElementImage(cardToDisplay.skillElement.FastElementString());
+                    activeAElement.sprite = ImageHelper.GetElementImage(updateCardDisplayEvent.Card.skillElement.FastElementString());
                 }
                 else
                 {
@@ -57,7 +84,7 @@ namespace Elements.Duel.Visual
             }
             else
             {
-                if (cardToDisplay.passiveSkills.Vampire)
+                if (updateCardDisplayEvent.Card.passiveSkills.Vampire)
                 {
                     activeAName.text = "Vamprire";
                     activeAElement.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue);
@@ -73,9 +100,9 @@ namespace Elements.Duel.Visual
         public IEnumerator ShowDamage(int damage)
         {
             if (damage <= 0) { yield break; }
-            GameObject sText = Instantiate(upMovingText, transform);
-            Vector3 destination = sText.GetComponent<MovingText>().SetupObject(damage.ToString(), TextDirection.Up);
-            for (int i = 0; i < 15; i++)
+            var sText = Instantiate(upMovingText, transform);
+            var destination = sText.GetComponent<MovingText>().SetupObject(damage.ToString(), TextDirection.Up);
+            for (var i = 0; i < 15; i++)
             {
                 sText.transform.position = Vector3.MoveTowards(sText.transform.position, destination, Time.deltaTime * 50f);
                 yield return null;
@@ -83,10 +110,13 @@ namespace Elements.Duel.Visual
             Destroy(sText);
         }
 
-
-        public override void HideCard(Card card, int stack)
+        public void HideCard(ClearCardDisplayEvent clearCardDisplayEvent)
         {
-            PlayDissolveAnimation();
+            if (!clearCardDisplayEvent.Id.Equals(displayerId))
+            {
+                return;
+            }
+            ClearDisplay();
         }
 
     }

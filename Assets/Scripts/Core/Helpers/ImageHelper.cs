@@ -17,13 +17,13 @@ public static class ImageHelper
     }
     public static Sprite GetCardImage(string imageID)
     {
-        string path = "Sprites/CardImages/" + imageID;
+        var path = "Sprites/CardImages/" + imageID;
         return Resources.Load<Sprite>(path);
     }
 
     public static Sprite GetPendulumImage(string mainElement, string mElement)
     {
-        string path = "Sprites/CardImages/Pendulum/" + mainElement + "/" + mElement;
+        var path = "Sprites/CardImages/Pendulum/" + mainElement + "/" + mElement;
         return Resources.Load<Sprite>(path);
     }
 

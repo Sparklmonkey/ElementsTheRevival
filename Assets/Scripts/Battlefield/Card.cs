@@ -27,16 +27,17 @@ public class Card
     public int Charge { get; set; }
     public int Freeze { get; set; }
     public int TurnsInPlay { get; set; }
-    public int DefNow { get { return def + DefModify - DefDamage; } }
-    public int AtkNow { get { return atk + AtkModify; } }
+    public int DefNow => def + DefModify - DefDamage;
+    public int AtkNow => atk + AtkModify;
     public int DefModify { get; set; }
     public int DefDamage { get; set; }
     public int AtkModify { get; set; }
-    public int BuyPrice { get { return iD.IsUpgraded() ? iD.GetRegularBuyPrice() + 1500 : (rarity * rarity * 6) + cost; } }
-    public int SellPrice { get { return (rarity * rarity * 4) + cost; } }
+    public int BuyPrice => iD.IsUpgraded() ? iD.GetRegularBuyPrice() + 1500 : rarity * rarity * 6 + cost;
+    public int SellPrice => rarity * rarity * 4 + cost;
+
     public Card(Card cardToCopy)
     {
-        Card newBase = (Card)cardToCopy.MemberwiseClone();
+        var newBase = (Card)cardToCopy.MemberwiseClone();
         iD = newBase.iD;
         imageID = newBase.imageID;
         cardName = newBase.cardName;
@@ -84,7 +85,7 @@ public class Card
 
     public Card Clone()
     {
-        object clone = MemberwiseClone();
+        var clone = MemberwiseClone();
         if (clone is Card card)
         {
             return card;

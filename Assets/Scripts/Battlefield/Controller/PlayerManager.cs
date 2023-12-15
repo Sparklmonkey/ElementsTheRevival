@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     public event Action<Counters> OnPlayerCounterUpdate;
-    //Refactor Section
     public void AddPlayerCounter(PlayerCounters counter, int amount)
     {
         switch (counter)
@@ -72,21 +71,13 @@ public class PlayerManager : MonoBehaviour
             if (perm.card.iD == "5v2" || perm.card.iD == "7ti")
             {
                 ResetCloakPermParent(perm);
-                perm.RemoveCard();
+                EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(perm.id));
                 DeactivateCloakEffect();
             }
         }
     }
 
     public IDCardPair playerID;
-
-    [SerializeField]
-    private List<QuantaDisplayer> quantaDisplayers;
-
-    internal void ShowTargetHighlight(IDCardPair idCardPair)
-    {
-        idCardPair.IsTargeted(true);
-    }
 
     [SerializeField]
     private DeckDisplayer deckDisplayer;
@@ -99,14 +90,14 @@ public class PlayerManager : MonoBehaviour
 
     public int GetPossibleDamage()
     {
-        int value = 0;
+        var value = 0;
         var creatures = playerCreatureField.GetAllValidCardIds();
 
         foreach (var item in creatures)
         {
             value += item.card.AtkNow;
         }
-        Card weapon = playerPassiveManager.GetWeapon().card;
+        var weapon = playerPassiveManager.GetWeapon().card;
         if (weapon is not null)
         {
             if (weapon.cardName != "Weapon") { value += weapon.AtkNow; }
@@ -134,7 +125,7 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 atkNow -= creature.card.DefNow;
-                creature.RemoveCard();
+                EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(creature.id));
             }
         }
     }
@@ -144,7 +135,7 @@ public class PlayerManager : MonoBehaviour
 
     public bool ManageShield(ref int atkNow, ref IDCardPair cardPair)
     {
-        IDCardPair shield = playerPassiveManager.GetShield();
+        var shield = playerPassiveManager.GetShield();
         if (shield.card.skill == "") { return false; }
         var shieldSkill = shield.card.skill.GetShieldScript<ShieldAbility>();
         shieldSkill.Owner = this;
@@ -166,22 +157,20 @@ public class PlayerManager : MonoBehaviour
     public HealthManager HealthManager;
     public CardDetailManager CardDetailManager;
     public Counters playerCounters;
-
+    
     public bool isPlayer;
     public void ClearFloodedArea(List<int> safeZones)
     {
-        if (DuelManager.FloodCount > 0)
+        if (DuelManager.FloodCount <= 0) return;
+        var idList = playerCreatureField.GetAllValidCardIds();
+        foreach (var idCard in idList)
         {
-            var idList = playerCreatureField.GetAllValidCardIds();
-            foreach (var idCard in idList)
-            {
-                if (safeZones.Contains(idCard.id.index)) { continue; }
-                if (idCard.card.costElement.Equals(Element.Other)) { continue; }
-                if (idCard.card.costElement.Equals(Element.Water)) { continue; }
-                if (idCard.card.innateSkills.Immaterial) { continue; }
-                if (idCard.card.passiveSkills.Burrow) { continue; }
-                idCard.RemoveCard();
-            }
+            if (safeZones.Contains(idCard.id.index)) { continue; }
+            if (idCard.card.costElement.Equals(Element.Other)) { continue; }
+            if (idCard.card.costElement.Equals(Element.Water)) { continue; }
+            if (idCard.card.innateSkills.Immaterial) { continue; }
+            if (idCard.card.passiveSkills.Burrow) { continue; }
+            EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(idCard.id));
         }
     }
 
@@ -202,18 +191,17 @@ public class PlayerManager : MonoBehaviour
 
     public void ScrambleQuanta()
     {
-        int total = PlayerQuantaManager.GetQuantaForElement(Element.Other);
+        var total = PlayerQuantaManager.GetQuantaForElement(Element.Other);
 
         if (total <= 9)
         {
-            SpendQuantaLogic(Element.Other, total);
-            GenerateQuantaLogic(Element.Other, total);
-
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(total, Element.Other, isPlayer, false));
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(total, Element.Other, isPlayer, true));
             return;
         }
-
-        SpendQuantaLogic(Element.Other, 9);
-        GenerateQuantaLogic(Element.Other, 9);
+        
+        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(9, Element.Other, isPlayer, false)); 
+        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(9, Element.Other, isPlayer, true));
     }
 
     public void TurnDownTick()
@@ -228,7 +216,8 @@ public class PlayerManager : MonoBehaviour
     public void StartTurn()
     {
         TurnDownTick();
-        DrawCardFromDeckLogic();
+        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(isPlayer));
+        DisplayPlayableGlow();
     }
 
     public void UpdateCounterAndEffects()
@@ -263,7 +252,7 @@ public class PlayerManager : MonoBehaviour
     public int GetLightEmittingCreatures()
     {
         var allIds = playerCreatureField.GetAllValidCardIds();
-        int count = 0;
+        var count = 0;
         foreach (var id in allIds)
         {
             if (id.card.passiveSkills.Light)
@@ -283,35 +272,8 @@ public class PlayerManager : MonoBehaviour
     public void PlayCardOnField(Card card)
     {
         card.AbilityUsed = true;
-        ActionManager.AddCardPlayedOnFieldAction(isPlayer, card);
-        switch (card.cardType)
-        {
-            case CardType.Pillar:
-                if (card.iD.IsUpgraded())
-                {
-                    if (card.costElement.Equals(Element.Other))
-                    {
-                        GenerateQuantaLogic(card.costElement, 3);
-                    }
-                    else
-                    {
-                        GenerateQuantaLogic(card.costElement, 1);
-                    }
-                }
-                playerPermanentManager.PlayPermanent(card);
-                break;
-            case CardType.Creature:
-                playerCreatureField.PlayCreature(card);
-                break;
-            case CardType.Artifact:
-                playerPermanentManager.PlayPermanent(card);
-                break;
-            case CardType.Weapon:
-            case CardType.Shield:
-            case CardType.Mark:
-                playerPassiveManager.PlayPassive(card);
-                break;
-        }
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, isPlayer));
+        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(card, isPlayer));
     }
 
     internal void DisplayHand()
@@ -362,7 +324,7 @@ public class PlayerManager : MonoBehaviour
             {
                 BattleVars.Shared.AbilityOrigin.card.AbilityUsed = true;
             }
-            SpendQuantaLogic(BattleVars.Shared.AbilityOrigin.card.skillElement, BattleVars.Shared.AbilityOrigin.card.skillCost);
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(BattleVars.Shared.AbilityOrigin.card.skillCost, BattleVars.Shared.AbilityOrigin.card.skillElement, isPlayer, false));
 
             if (SkillManager.Instance.ShouldAskForTarget(BattleVars.Shared.AbilityOrigin))
             {
@@ -385,8 +347,8 @@ public class PlayerManager : MonoBehaviour
 
     public bool IsCardPlayable(Card cardToCheck)
     {
-        bool canAfford = PlayerQuantaManager.HasEnoughQuanta(cardToCheck.costElement, cardToCheck.cost);
-        bool hasSpace = true;
+        var canAfford = PlayerQuantaManager.HasEnoughQuanta(cardToCheck.costElement, cardToCheck.cost);
+        var hasSpace = true;
 
         switch (cardToCheck.cardType)
         {
@@ -425,11 +387,11 @@ public class PlayerManager : MonoBehaviour
     //Command Methods
     public void FillHandWith(Card newCard)
     {
-        int amountToAdd = 8 - playerHand.GetAllValidCardIds().Count;
-        for (int i = 0; i < amountToAdd; i++)
+        var amountToAdd = 8 - playerHand.GetAllValidCardIds().Count;
+        for (var i = 0; i < amountToAdd; i++)
         {
             DeckManager.AddCardToTop(CardDatabase.Instance.GetCardFromId(newCard.iD));
-            DrawCardFromDeckLogic();
+            EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(isPlayer));
         }
     }
 
@@ -437,7 +399,7 @@ public class PlayerManager : MonoBehaviour
     public void ModifyHealthLogic(int amount, bool isDamage, bool fromSpell)
     {
         if (sacrificeCount > 0) { isDamage = !isDamage; }
-        HealthManager.ModifyHealth(amount, isDamage);
+        EventBus<ModifyPlayerHealthLogicEvent>.Raise(new ModifyPlayerHealthLogicEvent(isDamage ? -amount : amount, isPlayer, false));
     }
 
     public List<ID> cloakIndex = new();
@@ -448,7 +410,7 @@ public class PlayerManager : MonoBehaviour
     {
         //Logic Side
         //Get Card SO In Hand
-        SoundManager.Instance.PlayAudioClip("CardPlay");
+        EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CardPlay"));
         if (playerCounters.neurotoxin > 0)
         {
             AddPlayerCounter(PlayerCounters.Neurotoxin, 1);
@@ -462,121 +424,72 @@ public class PlayerManager : MonoBehaviour
         //Spend Quanta
         if (cardID.card.cost > 0)
         {
-            SpendQuantaLogic(cardID.card.costElement, cardID.card.cost);
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(cardID.card.cost, cardID.card.costElement, isPlayer, false));
         }
         //Remove Card From Hand
-        playerHand.UpdateHandVisual(cardID);
+        EventBus<RemoveCardFromHandEvent>.Raise(new RemoveCardFromHandEvent(isPlayer, cardID.id));
         DisplayPlayableGlow();
     }
-
-    internal void ModifyMaxHealthLogic(int maxHpBuff, bool isIncrease)
-    {
-        HealthManager.ModifyMaxHealth(maxHpBuff, isIncrease);
-    }
-
-    //Draw Card From Deck Logic and Visual Command Pair
-    public void DrawCardFromDeckLogic(bool isInitialDraw = false)
-    {
-        if (playerHand == null) { return; }
-        if (playerHand.GetAllValidCardIds().Count == 8) { return; }
-        //Logic Side
-        //Get Card From Deck
-        Card newCard = DeckManager.DrawCard();
-        //Add Card To Hand
-        playerHand.AddCardToHand(newCard);
-        if (!isInitialDraw)
-        {
-            ActionManager.AddCardDrawAction(isPlayer, newCard);
-        }
-        DisplayPlayableGlow();
-    }
-
+    
     public void HideAllPlayableGlow()
     {
         if (playerHand.GetAllValidCardIds().Count > 0)
         {
-            foreach (IDCardPair displayer in playerHand.GetAllValidCardIds())
+            foreach (var displayer in playerHand.GetAllValidCardIds())
             {
-                displayer.IsPlayable(false);
+                EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(false, displayer.id));
             }
         }
 
         if (playerCreatureField.GetAllValidCardIds().Count > 0)
         {
-            foreach (IDCardPair displayer in playerCreatureField.GetAllValidCardIds())
+            foreach (var displayer in playerCreatureField.GetAllValidCardIds())
             {
-                displayer.IsPlayable(false);
+                EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(false, displayer.id));
             }
         }
 
         if (playerPermanentManager.GetAllValidCardIds().Count > 0)
         {
 
-            foreach (IDCardPair displayer in playerPermanentManager.GetAllValidCardIds())
+            foreach (var displayer in playerPermanentManager.GetAllValidCardIds())
             {
-                displayer.IsPlayable(false);
+                EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(false, displayer.id));
             }
         }
-        playerPassiveManager.GetWeapon().IsPlayable(false);
+        EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(false, playerPassiveManager.GetWeaponID()));
     }
 
-    void DisplayPlayableGlow()
+    private void DisplayPlayableGlow()
     {
         HideAllPlayableGlow();
         if (!isPlayer) { return; }
 
         if (playerHand.GetAllValidCardIds().Count > 0)
         {
-            foreach (IDCardPair displayer in playerHand.GetAllValidCardIds())
+            foreach (var displayer in playerHand.GetAllValidCardIds())
             {
-                displayer.IsPlayable(IsCardPlayable(displayer.card));
+                EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(IsCardPlayable(displayer.card), displayer.id));
             }
         }
 
         if (playerCreatureField.GetAllValidCardIds().Count > 0)
         {
-            foreach (IDCardPair displayer in playerCreatureField.GetAllValidCardIds())
+            foreach (var displayer in playerCreatureField.GetAllValidCardIds())
             {
-                displayer.IsPlayable(IsAbilityUsable(displayer));
+                EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(IsCardPlayable(displayer.card), displayer.id));
             }
         }
 
         if (playerPermanentManager.GetAllValidCardIds().Count > 0)
         {
 
-            foreach (IDCardPair displayer in playerPermanentManager.GetAllValidCardIds())
+            foreach (var displayer in playerPermanentManager.GetAllValidCardIds())
             {
-                displayer.IsPlayable(IsAbilityUsable(displayer));
+                EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(IsCardPlayable(displayer.card), displayer.id));
             }
         }
-        playerPassiveManager.GetWeapon().IsPlayable(IsAbilityUsable(playerPassiveManager.GetWeapon()));
-    }
-
-    public void ActivateDeathTriggers()
-    {
-        var cardsToCheck = playerCreatureField.GetAllValidCardIds();
-
-        if (cardsToCheck.Count > 0)
-        {
-            foreach (var creature in cardsToCheck)
-            {
-                creature.cardBehaviour.DeathTrigger();
-            }
-        }
-        cardsToCheck = playerPermanentManager.GetAllValidCardIds();
-
-        if (cardsToCheck.Count > 0)
-        {
-            foreach (var permanent in cardsToCheck)
-            {
-                permanent.cardBehaviour.DeathTrigger();
-            }
-        }
-
-        if (playerPassiveManager.GetShield().HasCard())
-        {
-            playerPassiveManager.GetShield().cardBehaviour.DeathTrigger();
-        }
+        EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(IsAbilityUsable(playerPassiveManager.GetWeapon()), playerPassiveManager.GetWeaponID()));
     }
 
     public void ActivateCloakEffect(IDCardPair cardPair)
@@ -601,13 +514,13 @@ public class PlayerManager : MonoBehaviour
 
     public void CheckEclipseNightfall(bool isAdded, string id)
     {
-        List<IDCardPair> creatures = playerCreatureField.GetAllValidCardIds();
+        var creatures = playerCreatureField.GetAllValidCardIds();
 
-        int eclipseCount = DuelManager.Instance.GetCardCount(new() { "7ta" });
-        int nightfallCount = DuelManager.Instance.GetCardCount(new() { "5uq" });
+        var eclipseCount = DuelManager.Instance.GetCardCount(new() { "7ta" });
+        var nightfallCount = DuelManager.Instance.GetCardCount(new() { "5uq" });
 
-        int atkMod = 0;
-        int defMod = 0;
+        var atkMod = 0;
+        var defMod = 0;
         if (isAdded)
         {
             switch (id)
@@ -663,12 +576,11 @@ public class PlayerManager : MonoBehaviour
 
         foreach (var creature in creatures)
         {
-            if (creature.card.costElement.Equals(Element.Darkness) || creature.card.costElement.Equals(Element.Death))
-            {
-                creature.card.DefModify += defMod;
-                creature.card.AtkModify += atkMod;
-                creature.UpdateCard();
-            }
+            if (!creature.card.costElement.Equals(Element.Darkness) &&
+                !creature.card.costElement.Equals(Element.Death)) continue;
+            creature.card.DefModify += defMod;
+            creature.card.AtkModify += atkMod;
+            creature.UpdateCard();
         }
     }
 
@@ -678,90 +590,57 @@ public class PlayerManager : MonoBehaviour
         {
             ModifyHealthLogic(cardToDiscard.card.iD.IsUpgraded() ? 13 : 10, true, false);
         }
-        playerHand.UpdateHandVisual(cardToDiscard);
+        EventBus<RemoveCardFromHandEvent>.Raise(new RemoveCardFromHandEvent(isPlayer, cardToDiscard.id));
         BattleVars.Shared.HasToDiscard = false;
     }
 
-    public void EndTurnRoutine()
+    public IEnumerator EndTurnRoutine()
     {
-        var permList = playerPermanentManager.GetAllValidCardIds();
-
-        var pillarList = permList.FindAll(x => x.card.cardType == CardType.Pillar);
-        if (pillarList.Count > 0)
+        if (playerPermanentManager.GetAllValidCardIds().Count > 0)
         {
-            foreach (var pillar in pillarList)
-            {
-                pillar.cardBehaviour.OnTurnEnd();
-            }
-        }
-        playerPassiveManager.GetMark().cardBehaviour.OnTurnEnd();
-
-        pillarList = permList.FindAll(x => x.card.cardType == CardType.Artifact);
-        if (pillarList.Count > 0)
-        {
-            foreach (var perm in pillarList)
-            {
-                perm.cardBehaviour.OnTurnEnd();
-            }
+            EventBus<OnTurnEndEvent>.Raise(new OnTurnEndEvent(CardType.Pillar, isPlayer));
+            yield return new WaitForSeconds(0.25f);
         }
 
+        EventBus<OnTurnEndEvent>.Raise(new OnTurnEndEvent(CardType.Mark, isPlayer));
+        yield return new WaitForSeconds(0.25f);
+        
+        if (playerPermanentManager.GetAllValidCardIds().Count > 0)
+        {
+            EventBus<OnTurnEndEvent>.Raise(new OnTurnEndEvent(CardType.Artifact, isPlayer));
+            yield return new WaitForSeconds(0.25f);
+        }
+        
         DuelManager.Instance.GetNotIDOwner(playerID.id).DealPoisonDamage();
-        var creaturelist = playerCreatureField.GetAllValidCardIds();
-        if (creaturelist.Count > 0)
+        
+        if (playerCreatureField.GetAllValidCardIds().Count > 0)
         {
-            foreach (var creature in creaturelist)
-            {
-                creature.cardBehaviour.OnTurnEnd();
-            }
+            EventBus<OnTurnEndEvent>.Raise(new OnTurnEndEvent(CardType.Creature, isPlayer));
+            yield return new WaitForSeconds(0.25f);
         }
+        EventBus<OnTurnEndEvent>.Raise(new OnTurnEndEvent(CardType.Weapon, isPlayer));
+        yield return new WaitForSeconds(0.25f);
+        EventBus<OnTurnEndEvent>.Raise(new OnTurnEndEvent(CardType.Shield, isPlayer));
+        yield return new WaitForSeconds(0.25f);
 
-        if (playerPassiveManager.GetWeapon().HasCard())
+        if (isPlayer)
         {
-            playerPassiveManager.GetWeapon().cardBehaviour.OnTurnEnd();
+            BattleVars.Shared.ChangePlayerTurn();
         }
-
-        if (playerPassiveManager.GetShield().HasCard())
-        {
-            playerPassiveManager.GetShield().cardBehaviour.OnTurnEnd();
-        }
-
     }
-
-    public void SpendQuantaLogic(Element element, int amount)
-    {
-
-        if ((isPlayer && !BattleVars.Shared.IsPlayerTurn) || (!isPlayer && BattleVars.Shared.IsPlayerTurn))
-        {
-            if (playerCounters.sanctuary > 0)
-            {
-                return;
-            }
-        }
-        PlayerQuantaManager.ChangeQuanta(element, amount, false);
-    }
-
-    public void GenerateQuantaLogic(Element element, int amount)
-    {
-
-        if ((isPlayer && !BattleVars.Shared.IsPlayerTurn) || (!isPlayer && BattleVars.Shared.IsPlayerTurn))
-        {
-            if (playerCounters.sanctuary > 0)
-            {
-                return;
-            }
-        }
-        PlayerQuantaManager.ChangeQuanta(element, amount, true);
-    }
-
+    
     private IEnumerator SetupPassiveDisplayers()
     {
+        playerPassiveManager.SetupManager(isPlayer);
+        playerCreatureField.SetupManager(isPlayer);
+        playerPermanentManager.SetupManager(isPlayer);
         Element markElement;
         markElement = isPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
 
-        Card mark = CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.MarkIds[(int)markElement]);
-        playerPassiveManager.PlayPassive(mark);
-        playerPassiveManager.PlayPassive(CardDatabase.Instance.GetPlaceholderCard(2));
-        playerPassiveManager.PlayPassive(CardDatabase.Instance.GetPlaceholderCard(1));
+        var mark = CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.MarkIds[(int)markElement]);
+        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(mark, isPlayer));
+        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(CardDatabase.Instance.GetPlaceholderCard(2), isPlayer));
+        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(CardDatabase.Instance.GetPlaceholderCard(1), isPlayer));
         yield return null;
     }
 
@@ -770,7 +649,7 @@ public class PlayerManager : MonoBehaviour
     {
         playerCreatureField.ClearField();
         playerPermanentManager.ClearField();
-        PlayerQuantaManager = new QuantaManager(quantaDisplayers, this);
+        PlayerQuantaManager = new QuantaManager(isPlayer);
         CardDetailManager = new CardDetailManager();
         CardDetailManager.OnDisplayNewCard += cardDetailView.SetupCardDisplay;
         CardDetailManager.OnRemoveCard += cardDetailView.CancelButtonAction;
@@ -787,18 +666,17 @@ public class PlayerManager : MonoBehaviour
 
         }
         deck.Shuffle();
-        DeckManager = new DeckManager(deck);
-        DeckManager.OnDeckCountChange += deckDisplayer.UpdateDeckCount;
-        for (int i = 0; i < 7; i++)
-        {
-            DrawCardFromDeckLogic(true);
-        }
+        DeckManager = new DeckManager(deck, isPlayer);
 
         HealthManager = new HealthManager(isPlayer ? 100 : BattleVars.Shared.EnemyAiData.maxHp, isPlayer);
         healthDisplayer.SetHpStart(HealthManager.GetCurrentHealth());
-        HealthManager.OnHealthChangedEvent += healthDisplayer.OnHealthChanged;
-        HealthManager.OnMaxHealthUpdatedEvent += healthDisplayer.OnMaxHealthChanged;
         playerID.card = null;
+        playerHand.SetIsPlayer(isPlayer);
+        
+        for (var i = 0; i < 7; i++)
+        {
+            EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(isPlayer));
+        }
         //if (isPlayer && PlayerData.shared.petName != "" && PlayerData.shared.petName != null)
         //{
         //    Card petCard = CardDatabase.Instance.GetCardFromId(PlayerData.shared.petName);
@@ -875,7 +753,7 @@ public class PlayerManager : MonoBehaviour
 
         if (!SkillManager.Instance.ShouldAskForTarget(iDCardPair))
         {
-            SpendQuantaLogic(iDCardPair.card.skillElement, iDCardPair.card.skillCost);
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(iDCardPair.card.skillCost, iDCardPair.card.skillElement, isPlayer, false));
             SkillManager.Instance.SkillRoutineNoTarget(this, iDCardPair);
             if (iDCardPair.card.skill != "photosynthesis")
             {

@@ -44,7 +44,7 @@ public class WebGLCopyAndPasteAPI
     [DllImport("__Internal")]
     private static extern void passCopyToBrowser(string str);
 
-    delegate void StringCallback(string content);
+    private delegate void StringCallback(string content);
 
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
@@ -58,8 +58,8 @@ public class WebGLCopyAndPasteAPI
 
     private static void SendKey(string baseKey)
     {
-        string appleKey = "%" + baseKey;
-        string naturalKey = "^" + baseKey;
+        var appleKey = "%" + baseKey;
+        var naturalKey = "^" + baseKey;
 
         var currentObj = EventSystem.current.currentSelectedGameObject;
         if (currentObj == null)
@@ -81,15 +81,13 @@ public class WebGLCopyAndPasteAPI
 #if WEBGL_COPY_AND_PASTE_SUPPORT_TEXTMESH_PRO
         {
             var input = currentObj.GetComponent<TMPro.TMP_InputField>();
-            if (input != null)
-            {
-                // I don't know what's going on here. The code in InputField
-                // is looking for ctrl-c but that fails on Mac Chrome/Firefox
-                // so let's hope one of these is basically a noop
-                input.ProcessEvent(Event.KeyboardEvent(naturalKey));
-                input.ProcessEvent(Event.KeyboardEvent(appleKey));
-                return;
-            }
+            if (input == null) return;
+            // I don't know what's going on here. The code in InputField
+            // is looking for ctrl-c but that fails on Mac Chrome/Firefox
+            // so let's hope one of these is basically a noop
+            input.ProcessEvent(Event.KeyboardEvent(naturalKey));
+            input.ProcessEvent(Event.KeyboardEvent(appleKey));
+            return;
         }
 #endif
     }

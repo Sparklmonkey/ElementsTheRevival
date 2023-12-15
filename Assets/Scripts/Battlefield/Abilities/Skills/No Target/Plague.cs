@@ -24,10 +24,10 @@ public class Plague : AbilityEffect
             idCardi.card.Poison += 1;
             idCardi.UpdateCard();
         }
-
-        if (BattleVars.Shared.AbilityOrigin.card.cardType == CardType.Creature)
+        
+        if (target.card.cardType == CardType.Creature)
         {
-            BattleVars.Shared.AbilityOrigin.RemoveCard();
+            EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
         }
     }
 

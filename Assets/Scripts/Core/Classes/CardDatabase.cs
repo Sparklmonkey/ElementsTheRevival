@@ -7,8 +7,6 @@ using UnityEngine;
 
 public class CardDatabase
 {
-
-    private static readonly CardDatabase instance = new();
     static CardDatabase()
     {
     }
@@ -18,13 +16,7 @@ public class CardDatabase
         FullCardList = SetupNewCardBase();
     }
 
-    public static CardDatabase Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
+    public static CardDatabase Instance { get; } = new();
 
     public Dictionary<string, string> CardNameToBackGroundString = new()
     {
@@ -106,13 +98,13 @@ public class CardDatabase
 
     public List<Card> SetupNewCardBase()
     {
-        TextAsset jsonString = Resources.Load<TextAsset>("Cards/CardDatabase");
-        CardDB newDc = JsonConvert.DeserializeObject<CardDB>(jsonString.text);
+        var jsonString = Resources.Load<TextAsset>("Cards/CardDatabase");
+        var newDc = JsonConvert.DeserializeObject<CardDB>(jsonString.text);
         return newDc.cardDb;
     }
     public Card GetCardFromId(string id)
     {
-        Card baseCard = FullCardList.Find(x => x.iD == id);
+        var baseCard = FullCardList.Find(x => x.iD == id);
 
         return baseCard.Clone();
     }
@@ -156,7 +148,7 @@ public class CardDatabase
         {
             list = list.FindAll(x => x.costElement.Equals(element));
         }
-        Card card = list[Random.Range(0, list.Count)];
+        var card = list[Random.Range(0, list.Count)];
         return card.Clone();
     }
 
@@ -164,17 +156,17 @@ public class CardDatabase
     {
         if (FullCardList == null) { SetupNewCardBase(); }
         List<string> deckToReturn = new();
-        for (int i = 0; i < 10; i++)
+        for (var i = 0; i < 10; i++)
         {
             deckToReturn.Add(GetRandomCard(CardType.Pillar, false, true).iD);
         }
 
-        for (int i = 0; i < 20; i++)
+        for (var i = 0; i < 20; i++)
         {
             deckToReturn.Add(GetRandomCard(CardType.Creature, false, true).iD);
         }
 
-        for (int i = 0; i < 10; i++)
+        for (var i = 0; i < 10; i++)
         {
             deckToReturn.Add(GetRandomCard(CardType.Spell, false, true).iD);
         }
@@ -184,15 +176,15 @@ public class CardDatabase
 
     public Card GetRandomCardOfTypeWithElement(CardType type, Element element, bool shouldBeUpgraded)
     {
-        List<Card> reducedList = FullCardList.FindAll(x => x.costElement.Equals(element)
-        && x.cardType.Equals(type)
-        && !x.cardName.Contains("Shard of")
-        && !x.cardName.Contains(" Nymph")
-        && x.iD.IsUpgraded() == shouldBeUpgraded);
+        var reducedList = FullCardList.FindAll(x => x.costElement.Equals(element)
+                                                    && x.cardType.Equals(type)
+                                                    && !x.cardName.Contains("Shard of")
+                                                    && !x.cardName.Contains(" Nymph")
+                                                    && x.iD.IsUpgraded() == shouldBeUpgraded);
         if (reducedList.Count > 0)
         {
-            Card card = reducedList[Random.Range(0, reducedList.Count)];
-            Card cardToReturn = card.Clone();
+            var card = reducedList[Random.Range(0, reducedList.Count)];
+            var cardToReturn = card.Clone();
             return cardToReturn;
         }
         return GetRandomCardOfTypeWithElement((CardType)Random.Range(0, 6), element, shouldBeUpgraded);
@@ -202,14 +194,14 @@ public class CardDatabase
 
     public Card GetMutant(bool isUpgraded, Card fromCard = null)
     {
-        Card card = fromCard == null ? GetRandomCard(CardType.Creature, isUpgraded, true) : fromCard;
+        var card = fromCard == null ? GetRandomCard(CardType.Creature, isUpgraded, true) : fromCard;
         card.atk += Random.Range(0, 4);
         card.def += Random.Range(0, 4);
         card.passiveSkills.Mutant = true;
         card.skillCost = Random.Range(1, 3);
         card.skillElement = card.costElement;
-        int index = Random.Range(0, _mutantActiveAList.Count);
-        string abilityName = _mutantActiveAList[index];
+        var index = Random.Range(0, _mutantActiveAList.Count);
+        var abilityName = _mutantActiveAList[index];
 
         switch (abilityName)
         {
@@ -226,7 +218,7 @@ public class CardDatabase
                 card.skill = abilityName;
                 break;
         }
-        string skillCost = card.skillCost == 0 ? "" : card.skillCost == 1 ? $"<sprite={(int)card.costElement}>" : $"<sprite={(int)card.costElement}><sprite={(int)card.costElement}>";
+        var skillCost = card.skillCost == 0 ? "" : card.skillCost == 1 ? $"<sprite={(int)card.costElement}>" : $"<sprite={(int)card.costElement}><sprite={(int)card.costElement}>";
         card.desc = $"{AddSpacesToSentence(abilityName)} {skillCost} : \n {_mutantActiveADescList[index]}";
 
         return card;
@@ -260,7 +252,7 @@ public class CardDatabase
 
     private string AddSpacesToSentence(string text)
     {
-        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+        var textInfo = new CultureInfo("en-US", false).TextInfo;
         return textInfo.ToTitleCase(text);
     }
 
@@ -314,7 +306,7 @@ public class CardDatabase
 
     public Card GetGolemAbility(List<IDCardPair> shardList)
     {
-        Card golem = GetCardFromId("597");
+        var golem = GetCardFromId("597");
         Dictionary<Element, int> elementCount = new()
         {
             { Element.Aether, 0 },
@@ -352,7 +344,7 @@ public class CardDatabase
                     golem.def += item.card.iD.IsUpgraded() ? 3 : 2;
                     break;
             }
-            item.RemoveCard();
+            EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(item.id));
         }
 
         if (elementCount[Element.Air] > 0)
@@ -708,14 +700,14 @@ public class AiDeckBuilder
         List<Card> deckToReturn = new();
         var intance = CardDatabase.Instance;
         //Get Quantum Pillars
-        for (int i = 0; i < 4; i++)
+        for (var i = 0; i < 4; i++)
         {
             deckToReturn.Add(intance.GetCardFromId("4sa"));
         }
 
-        bool shouldBeUpgraded = Random.Range(0, 100) < 30;
+        var shouldBeUpgraded = Random.Range(0, 100) < 30;
         //Get Major Element Pillars
-        for (int i = 0; i < 20; i++)
+        for (var i = 0; i < 20; i++)
         {
             deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Pillar, primary, shouldBeUpgraded));
             shouldBeUpgraded = Random.Range(0, 100) < 30;
@@ -723,28 +715,28 @@ public class AiDeckBuilder
         //Get Major Element Cards
 
         //Weapon
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
             deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Weapon, primary, shouldBeUpgraded));
             shouldBeUpgraded = Random.Range(0, 100) < 30;
         }
 
         //Shield
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
             deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Shield, primary, shouldBeUpgraded));
             shouldBeUpgraded = Random.Range(0, 100) < 30;
         }
 
         // Creatures
-        for (int i = 0; i < 10; i++)
+        for (var i = 0; i < 10; i++)
         {
             deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Creature, primary, shouldBeUpgraded));
             shouldBeUpgraded = Random.Range(0, 100) < 30;
         }
 
         //Spells
-        for (int i = 0; i < 10; i++)
+        for (var i = 0; i < 10; i++)
         {
             deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Spell, primary, shouldBeUpgraded));
             shouldBeUpgraded = Random.Range(0, 100) < 30;
@@ -753,7 +745,7 @@ public class AiDeckBuilder
         //Artifacts
         if (!primary.Equals(Element.Entropy) && !primary.Equals(Element.Fire) && !primary.Equals(Element.Other))
         {
-            for (int i = 0; i < 4; i++)
+            for (var i = 0; i < 4; i++)
             {
                 deckToReturn.Add(intance.GetRandomCardOfTypeWithElement(CardType.Artifact, primary, shouldBeUpgraded));
                 shouldBeUpgraded = Random.Range(0, 100) < 30;
@@ -762,14 +754,14 @@ public class AiDeckBuilder
 
         //Get Minor Element Cards
         // Creatures
-        for (int i = 0; i < 5; i++)
+        for (var i = 0; i < 5; i++)
         {
             deckToReturn.Add(intance.GetRandomCard(CardType.Creature, shouldBeUpgraded, true, secondary, true));
             shouldBeUpgraded = Random.Range(0, 100) < 30;
         }
 
         //Spells
-        for (int i = 0; i < 4; i++)
+        for (var i = 0; i < 4; i++)
         {
             deckToReturn.Add(intance.GetRandomCard(CardType.Spell, shouldBeUpgraded, true, secondary, true));
             shouldBeUpgraded = Random.Range(0, 100) < 30;
@@ -778,7 +770,7 @@ public class AiDeckBuilder
         //Artifacts
         if (!primary.Equals(Element.Entropy) && !primary.Equals(Element.Fire) && !primary.Equals(Element.Other))
         {
-            for (int i = 0; i < 1; i++)
+            for (var i = 0; i < 1; i++)
             {
                 deckToReturn.Add(intance.GetRandomCard(CardType.Artifact, shouldBeUpgraded, true, secondary, true));
                 shouldBeUpgraded = Random.Range(0, 100) < 30;

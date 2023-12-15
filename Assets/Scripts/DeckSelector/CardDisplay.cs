@@ -19,8 +19,8 @@ public class CardDisplay : MonoBehaviour
         _card = cardToDisplay;
         if (cardToDisplay.cardName.Contains("Pendulum") && SceneTransitionManager.Instance.GetActiveScene() == "Battlefield")
         {
-            Element pendulumElement = cardToDisplay.costElement;
-            Element markElement = BattleVars.Shared.IsPlayerTurn ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
+            var pendulumElement = cardToDisplay.costElement;
+            var markElement = BattleVars.Shared.IsPlayerTurn ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
             if (cardToDisplay.costElement == cardToDisplay.skillElement)
             {
                 cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
@@ -38,7 +38,7 @@ public class CardDisplay : MonoBehaviour
         cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
 
         cardName.text = cardToDisplay.cardName;
-        string backGroundString = cardToDisplay.cardName == "Animate Weapon" ? "Air" :
+        var backGroundString = cardToDisplay.cardName == "Animate Weapon" ? "Air" :
                                 cardToDisplay.cardName == "Luciferin" || cardToDisplay.cardName == "Luciferase" ? "Light" :
                                 cardToDisplay.costElement.ToString();
         cardBack.sprite = ImageHelper.GetCardBackGroundImage(backGroundString);

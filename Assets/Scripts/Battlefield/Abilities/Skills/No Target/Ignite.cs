@@ -6,7 +6,7 @@ public class Ignite : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.RemoveCard();
+        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
 
         DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(20, true, false);
 

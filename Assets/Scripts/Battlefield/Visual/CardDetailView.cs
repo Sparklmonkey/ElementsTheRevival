@@ -29,7 +29,7 @@ namespace Elements.Duel.Visual
             var cost = _idCard.id.field == FieldEnum.Hand ? _idCard.card.cost : _idCard.card.skillCost;
 
 
-            bool hasQuanta = DuelManager.Instance.player.HasSufficientQuanta(element, cost);
+            var hasQuanta = DuelManager.Instance.player.HasSufficientQuanta(element, cost);
             var isPlayerTurn = BattleVars.Shared.IsPlayerTurn;
             gameObject.SetActive(true);
             actionButton.gameObject.SetActive(true);

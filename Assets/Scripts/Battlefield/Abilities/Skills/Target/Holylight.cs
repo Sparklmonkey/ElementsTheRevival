@@ -14,7 +14,7 @@ public class Holylight : AbilityEffect
             return;
         }
 
-        int damage = target.card.costElement.Equals(Element.Death) || target.card.costElement.Equals(Element.Darkness)
+        var damage = target.card.costElement.Equals(Element.Death) || target.card.costElement.Equals(Element.Darkness)
             ? -10
             : 10;
         target.card.DefDamage -= damage;

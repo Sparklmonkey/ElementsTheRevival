@@ -23,12 +23,12 @@ public class AnimationManager : SingletonMono<AnimationManager>
         sprites.OrderSprites();
 
         //Get Parent Rect for size adjustment
-        RectTransform parentRect = animTransform.gameObject.GetComponent<RectTransform>();
+        var parentRect = animTransform.gameObject.GetComponent<RectTransform>();
 
         //Instantiate Animation Prefab 
-        GameObject anim = Instantiate(animationPrefab, transform);
+        var anim = Instantiate(animationPrefab, transform);
         //Get Animation Rect to ajdust
-        RectTransform rect = anim.GetComponent<RectTransform>();
+        var rect = anim.GetComponent<RectTransform>();
         anim.transform.position = animTransform.position;
         //Set anim anchors
         rect.anchorMin = new(0.5f, 0.5f);
@@ -102,8 +102,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(6.9f, 66.6f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -114,8 +114,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(8.5f, 0f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -126,8 +126,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(106, 106);
         Vector2 offset = new(0f, 0f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -137,8 +137,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(0f, 0f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -148,8 +148,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(561, 426);
         Vector2 offset = new(0f, 0f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -160,8 +160,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(0f, 0f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -172,8 +172,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(0f, 1.5f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -184,8 +184,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(0f, 17f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -196,8 +196,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(-51.5f, 148.5f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -208,8 +208,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(0f, 2.5f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -220,8 +220,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(0f, 0f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -232,8 +232,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(0f, 0f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -244,8 +244,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(118.5f, 0f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -256,8 +256,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 74);
         Vector2 offset = new(47.5f, 0f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -268,8 +268,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 73);
         Vector2 offset = new(30f, 9.6f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }
@@ -280,8 +280,8 @@ public class AnimationManager : SingletonMono<AnimationManager>
         Vector2 effectSize = new(73, 73);
         Vector2 offset = new(31.5f, 62.5f);
 
-        Vector2 newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
-        Vector2 newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
+        var newSize = GetAdjustedSize(parentSize, baseImageSize, effectSize);
+        var newOffset = GetAdjustedOffset(newSize, baseImageSize, offset);
 
         return (newSize, newOffset);
     }

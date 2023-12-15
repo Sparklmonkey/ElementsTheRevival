@@ -8,6 +8,27 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private TMPro.TextMeshProUGUI deckCount;
 
-        public void UpdateDeckCount(int count) => deckCount.text = count.ToString();
+        [SerializeField]
+        private bool isPlayer;
+        private EventBinding<DeckCountChangeEvent> _deckCountChangeBinding;
+        public void OnEnable()
+        {
+            _deckCountChangeBinding = new EventBinding<DeckCountChangeEvent>(UpdateDeckCount);
+            EventBus<DeckCountChangeEvent>.Register(_deckCountChangeBinding);
+        }
+        
+    
+        public void OnDisable() {
+            EventBus<DeckCountChangeEvent>.Unregister(_deckCountChangeBinding);
+        }
+
+        public void UpdateDeckCount(DeckCountChangeEvent deckCountChangeEvent)
+        {
+            if (isPlayer != deckCountChangeEvent.IsPlayer)
+            {
+                return;
+            }
+            deckCount.text = deckCountChangeEvent.DeckCount.ToString();
+        }
     }
 }

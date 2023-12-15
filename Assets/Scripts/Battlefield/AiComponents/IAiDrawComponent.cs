@@ -9,9 +9,9 @@ public class FalseGodDrawComponenet : IAiDrawComponent
     {
         if (aiManager.GetHandCards().Count < 8)
         {
-            aiManager.DrawCardFromDeckLogic();
+            EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(false));
         }
-        aiManager.DrawCardFromDeckLogic();
+        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(false));
     }
 }
 
@@ -21,9 +21,9 @@ public class HalfBloodDrawComponenet : IAiDrawComponent
     {
         if (aiManager.GetHandCards().Count < 3)
         {
-            aiManager.DrawCardFromDeckLogic();
+            EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(false));
         }
-        aiManager.DrawCardFromDeckLogic();
+        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(false));
     }
 }
 
@@ -32,6 +32,6 @@ public class BaseAiDrawComponent : IAiDrawComponent
 {
     public void StartTurnDrawCard(PlayerManager aiManager)
     {
-        aiManager.DrawCardFromDeckLogic();
+        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(false));
     }
 }

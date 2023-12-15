@@ -2,8 +2,8 @@ namespace Networking
 {
     public class AppInfoResponse
     {
-        public bool isMaintainence;
-        public bool shouldUpdate;
-        public string updateNote;
+        public bool IsMaintainence;
+        public bool ShouldUpdate;
+        public string UpdateNote;
     }
 }

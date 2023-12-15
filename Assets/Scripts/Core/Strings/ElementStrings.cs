@@ -52,7 +52,8 @@ public static class ElementStrings
         }
     }
 
-    private static List<string> _elementHeadString = new List<string> {"Today, the world will seem just out of reach.",
+    private static List<string> _elementHeadString = new()
+    {"Today, the world will seem just out of reach.",
 "Inspiration will come today, but don't hold your breath.",
 "Misdirection and secrets rule the day today.",
 "Today, the old must give way to the new.",
@@ -67,7 +68,7 @@ public static class ElementStrings
 "Today will be surprisingly mundane." };
 
 
-    private static List<string> _alchemyCardNames = new List<string> { "Black Hole", "Liquid Shadow", "Antimatter", "Luciferin", "Quintessence", "Nymph's Tears", "Aflatoxin", "Basilisk Blood", "Adrenaline", "Rage Potion", "Unstable Gas", "Precognition" };
+    private static List<string> _alchemyCardNames = new() { "Black Hole", "Liquid Shadow", "Antimatter", "Luciferin", "Quintessence", "Nymph's Tears", "Aflatoxin", "Basilisk Blood", "Adrenaline", "Rage Potion", "Unstable Gas", "Precognition" };
     public static string GetFortuneHeadString(CardType cardType, Element element, string cardName)
     {
         switch (cardType)
@@ -101,11 +102,11 @@ public static class ElementStrings
 
     public static string GetCardBodyString(string cardName)
     {
-        TextAsset json = Resources.Load<TextAsset>("JSON/OracleBodyStrings");
+        var json = Resources.Load<TextAsset>("JSON/OracleBodyStrings");
 
-        CardBodyStringArray cardBodyStringArray = JsonUtility.FromJson<CardBodyStringArray>(json.text);
+        var cardBodyStringArray = JsonUtility.FromJson<CardBodyStringArray>(json.text);
 
-        foreach (CardBodyString item in cardBodyStringArray.cardBodyStrings)
+        foreach (var item in cardBodyStringArray.cardBodyStrings)
         {
             if (item.cardName == cardName)
             {

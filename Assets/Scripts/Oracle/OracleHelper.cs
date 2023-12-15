@@ -92,10 +92,10 @@ public class OracleHelper
 
     public static (Card, int, Vector3) GetOracleResults()
     {
-        int finalRotation = Random.Range(0, 12);
+        var finalRotation = Random.Range(0, 12);
 
         (Card, int, Vector3) oracleResult = (null, 0, elementZRotations[finalRotation]);
-        int cardTypeToSpawn = Random.Range(0, 100);
+        var cardTypeToSpawn = Random.Range(0, 100);
         if (cardTypeToSpawn > 97)
         {
             oracleResult.Item1 = CardDatabase.Instance.GetRandomRegularNymph((Element)Random.Range(0, 12));

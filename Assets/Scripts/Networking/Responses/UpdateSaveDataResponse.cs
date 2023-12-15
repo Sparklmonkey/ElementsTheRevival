@@ -2,6 +2,6 @@ namespace Networking
 {
     public class UpdateSaveDataResponse
     {
-        public bool wasSuccess;
+        public bool WasSuccess;
     }
 }

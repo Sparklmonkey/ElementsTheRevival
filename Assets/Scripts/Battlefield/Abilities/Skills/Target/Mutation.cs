@@ -13,20 +13,20 @@ public class Mutation : AbilityEffect
         switch (GetMutationResult())
         {
             case MutationEnum.Kill:
-                target.RemoveCard();
+                EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
                 return;
             case MutationEnum.Mutate:
-                target.PlayCard(CardDatabase.Instance.GetMutant(target.card.iD.IsUpgraded()));
+                EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(target.id, CardDatabase.Instance.GetMutant(target.card.iD.IsUpgraded())));
                 break;
             default:
-                target.PlayCard(CardDatabase.Instance.GetCardFromId(target.card.iD.IsUpgraded() ? "6tu" : "4ve"));
+                EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(target.id, CardDatabase.Instance.GetCardFromId(target.card.iD.IsUpgraded() ? "6tu" : "4ve")));
                 break;
         }
     }
 
     private MutationEnum GetMutationResult()
     {
-        int num = Random.Range(0, 100);
+        var num = Random.Range(0, 100);
         if (num >= 90)
         {
             return MutationEnum.Kill;

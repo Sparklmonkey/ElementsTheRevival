@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 
 public class SkillManager
 {
-    private static readonly SkillManager _instance = new();
-
     static SkillManager()
     {
     }
@@ -13,7 +10,7 @@ public class SkillManager
     {
     }
 
-    public static SkillManager Instance => _instance;
+    public static SkillManager Instance { get; } = new();
 
     public bool ShouldAskForTarget(IDCardPair idCard)
     {
@@ -48,7 +45,14 @@ public class SkillManager
     public void SkillRoutineWithTarget(PlayerManager owner, IDCardPair target)
     {
         var ability = BattleVars.Shared.AbilityOrigin.card.skill.GetSkillScript<AbilityEffect>();
-        ActionManager.AddAbilityActivatedAction(owner.isPlayer, BattleVars.Shared.AbilityOrigin, target);
+        if (BattleVars.Shared.AbilityOrigin.card.cardType.Equals(CardType.Spell))
+        {
+            EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(owner.isPlayer, BattleVars.Shared.AbilityOrigin.card, target));
+        }
+        else
+        {
+            EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(owner.isPlayer, BattleVars.Shared.AbilityOrigin.card, target));
+        }
         ability.Owner = owner;
         ability.Origin = BattleVars.Shared.AbilityOrigin;
 
@@ -58,7 +62,14 @@ public class SkillManager
     public void SkillRoutineNoTarget(PlayerManager owner, IDCardPair idCard)
     {
         var ability = idCard.card.skill.GetSkillScript<AbilityEffect>();
-        ActionManager.AddAbilityActivatedAction(owner.isPlayer, idCard, owner.playerID);
+        if (idCard.card.cardType.Equals(CardType.Spell))
+        {
+            EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(owner.isPlayer, idCard.card, null));
+        }
+        else
+        {
+            EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(owner.isPlayer, idCard.card, null));
+        }
         ability.Owner = owner;
         ability.Activate(idCard);
     }

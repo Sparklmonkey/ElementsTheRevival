@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -14,9 +12,9 @@ public class CardPlayedDisplay : MonoBehaviour
     public async Task ShowCardPlayed(CardData card)
     {
         container.SetActive(true);
-        cardName.text = card.cardName;
-        cardImage.sprite = ImageHelper.GetCardImage(card.imageId);
-        headerBackground.sprite = ImageHelper.GetCardHeadBackground(card.element);
+        cardName.text = card.CardName;
+        cardImage.sprite = ImageHelper.GetCardImage(card.ImageId);
+        headerBackground.sprite = ImageHelper.GetCardHeadBackground(card.Element);
 
         await new WaitForSeconds(0.5f);
         container.SetActive(false);

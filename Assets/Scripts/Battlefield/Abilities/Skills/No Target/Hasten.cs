@@ -6,7 +6,7 @@ public class Hasten : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        Owner.DrawCardFromDeckLogic();
+        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(Owner.isPlayer));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

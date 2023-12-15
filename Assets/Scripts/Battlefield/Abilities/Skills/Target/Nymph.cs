@@ -12,7 +12,7 @@ public class Nymph : AbilityEffect
         Owner.PlayCardOnField(target.card.iD.IsUpgraded()
             ? CardDatabase.Instance.GetRandomEliteNymph(element)
             : CardDatabase.Instance.GetRandomRegularNymph(element));
-        target.RemoveCard();
+        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

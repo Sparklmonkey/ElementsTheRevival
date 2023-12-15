@@ -23,10 +23,10 @@ public class DashResetAccountAnimator : MonoBehaviour
 
     private IEnumerator AnimateShowFrame(float aValue, float aTime)
     {
-        float alpha = accountInfoFrame.color.a;
-        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        var alpha = accountInfoFrame.color.a;
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
         {
-            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
+            var newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
             accountInfoFrame.color = newColor;
             yield return null;
         }

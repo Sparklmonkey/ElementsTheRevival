@@ -10,8 +10,7 @@ public class Steal : AbilityEffect
     {
         Owner.PlayCardOnField(new(target.card));
         AnimationManager.Instance.StartAnimation("Steal", target.transform);
-        target.RemoveCard();
-        return;
+        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

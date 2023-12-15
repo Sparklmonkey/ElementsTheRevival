@@ -5,13 +5,13 @@ public class AchievementNexus : MonoBehaviour
 {
     public List<AchievementCell> achievementCells;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
 
     }

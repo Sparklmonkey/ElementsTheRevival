@@ -10,17 +10,19 @@ public class Reversetime : AbilityEffect
     {
         if (target.card.innateSkills.Mummy)
         {
-            target.PlayCard(CardDatabase.Instance.GetCardFromId(target.card.iD.IsUpgraded() ? "7qc" : "5rs"));
+            var card = CardDatabase.Instance.GetCardFromId(target.card.iD.IsUpgraded() ? "7qc" : "5rs");
+            EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(target.id, card));
         }
         else if (target.card.innateSkills.Undead)
         {
-            target.PlayCard(CardDatabase.Instance.GetRandomCard(CardType.Creature, target.card.iD.IsUpgraded(), true));
+            var card = CardDatabase.Instance.GetRandomCard(CardType.Creature, target.card.iD.IsUpgraded(), true);
+            EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(target.id, card));
         }
         else
         {
-            Card baseCreature = CardDatabase.Instance.GetCardFromId(target.card.iD);
+            var baseCreature = CardDatabase.Instance.GetCardFromId(target.card.iD);
             DuelManager.Instance.GetIDOwner(target.id).AddCardToDeck(baseCreature);
-            target.RemoveCard();
+            EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
         }
     }
 

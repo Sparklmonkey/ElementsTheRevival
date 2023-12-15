@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -11,27 +10,17 @@ namespace Networking
         public static bool IsTrainer;
         private string _jwtToken;
 
-        private readonly string _baseUrl = "https://www.elementstherevival.com/api/";//"http://localhost:5158/";//"https://www.sparklmonkeygames.com/";
+        private readonly string _baseUrl = "https://www.elementstherevival.com/api/";
         private readonly string _apiKey = "ElementRevival-ApiKey";
-
         public AppInfo AppInfo;
 
-        private async void Start()
+        private void Start()
         {
             DontDestroyOnLoad(gameObject);
-            _lastToken = DateTime.UtcNow;
         }
-        private DateTime _lastToken;
-        private async void Update()
-        {
-            if (!(DateTime.UtcNow.Subtract(_lastToken).TotalMinutes > 10)) return;
-            await GetRefreshJwtToken();
-            _lastToken = DateTime.UtcNow;
-        }
-    
         private UnityWebRequest CreateApiRequest(string url, string method, object body)
         {
-            string bodyString = (body is string s) ? s : JsonUtility.ToJson(body);
+            var bodyString = body is string s ? s : JsonUtility.ToJson(body);
             var request = new UnityWebRequest
             {
                 url = url,
@@ -42,6 +31,7 @@ namespace Networking
             request.SetRequestHeader("Accept", "application/test");
             request.SetRequestHeader("Access-Control-Allow-Origin", "*");
             request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("AppVersion", Application.version);
             request.SetRequestHeader("Authorization", $"Bearer {_jwtToken}");
             request.timeout = 60;
             return request;
@@ -52,28 +42,29 @@ namespace Networking
 
         public async Task<CodeRedemptionResponse> CheckCodeRedemption(string redeemCode)
         {
-            return await SendPutRequest<CodeRedemptionRequest, CodeRedemptionResponse>(Endpointbuilder.redeemCode, new CodeRedemptionRequest(){redeemCode = redeemCode});
+            return await SendPutRequest<CodeRedemptionRequest, CodeRedemptionResponse>(Endpointbuilder.RedeemCode, new CodeRedemptionRequest(){redeemCode = redeemCode});
         }
 
         public async Task<UpdateUserDataResponse> UpdateUserData(UpdateUserDataRequest updateUserDataRequest)
         {
-            return await SendPutRequest<UpdateUserDataRequest, UpdateUserDataResponse>(Endpointbuilder.updateUserData, updateUserDataRequest);
+            return await SendPutRequest<UpdateUserDataRequest, UpdateUserDataResponse>(Endpointbuilder.UpdateUserData, updateUserDataRequest);
         }
 
         public async Task SaveGameStats(UpdateGameStatRequest updateGameStatRequest)
         {
-            await SendPutRequest<UpdateGameStatRequest, UpdateGameStatResponse>(Endpointbuilder.updateGameStats, updateGameStatRequest);
+            await SendPutRequest<UpdateGameStatRequest, UpdateGameStatResponse>(Endpointbuilder.UpdateGameStats, updateGameStatRequest);
         }
 
         public async Task<SaveDataRequest> ResetSaveData()
         {
-            return await SendPutRequest<SaveDataRequest, SaveDataRequest>(Endpointbuilder.resetSaveData, new SaveDataRequest(){ savedData = PlayerData.Shared});
+            return await SendPutRequest<SaveDataRequest, SaveDataRequest>(Endpointbuilder.ResetSaveData, new SaveDataRequest(){ savedData = PlayerData.Shared});
         }
 
         public async Task SaveGameData()
         {
             PlayerData.Shared.ClearIllegalCards();
-            await SendPutRequest<SaveDataRequest, ErrorCases>(Endpointbuilder.updateSaveData,new SaveDataRequest(){ savedData = PlayerData.Shared});
+            var response = await SendPutRequest<SaveDataRequest, SaveDataResponse>(Endpointbuilder.UpdateSaveData,new SaveDataRequest(){ savedData = PlayerData.Shared});
+            _jwtToken = response.newToken;
         }
     
     
@@ -96,23 +87,20 @@ namespace Networking
         //GET Requests
         public async Task LogoutUser()
         {
+            var accessToken = PlayerPrefs.GetString("AccessToken");
             PlayerPrefs.DeleteKey("AccessToken");
-            await SendGetRequest<bool>(Endpointbuilder.logout + $"/{_jwtToken}");
-        }
-        public async Task GetRefreshJwtToken()
-        {
-            _jwtToken = await SendGetRequest<string>($"{Endpointbuilder.refreshToken}/{_jwtToken}");
+            await SendPostRequest<LogoutRequest, LogoutResponse>(Endpointbuilder.Logout, new LogoutRequest(accessToken));
         }
 
         public async Task<AppInfo> GetAppInfo()
         {
-            AppInfo = await SendGetRequest<AppInfo>(Endpointbuilder.appInfo);
+            AppInfo = await SendGetRequest<AppInfo>(Endpointbuilder.AppInfo);
             return AppInfo;
         }
     
         public async Task<ArenaResponse> GetT50Opponent()
         {
-            return await SendGetRequest<ArenaResponse>(Endpointbuilder.arenaT50);
+            return await SendGetRequest<ArenaResponse>(Endpointbuilder.ArenaT50);
         }
         
         private async Task<TResponse> SendPostRequest<TRequest, TResponse>(string actionUrl, TRequest requestBody)
@@ -142,5 +130,25 @@ namespace Networking
         public bool IsMaintenance;
         public bool ShouldUpdate;
         public string UpdateNote;
+    }
+
+    public class SaveDataResponse
+    {
+        public string newToken;
+        public bool wasSuccess;
+    }
+
+    public class LogoutRequest
+    {
+        public LogoutRequest(string accessToken)
+        {
+            AccessToken = accessToken;
+        }
+        public string AccessToken;
+    }
+
+    public class LogoutResponse
+    {
+        public bool WasSuccess;
     }
 }

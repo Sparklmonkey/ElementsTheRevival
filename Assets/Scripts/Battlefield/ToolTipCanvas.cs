@@ -15,7 +15,7 @@ public class ToolTipCanvas : MonoBehaviour
 
     private Card _cardOnDisplay;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 
     }
@@ -81,7 +81,7 @@ public class ToolTipCanvas : MonoBehaviour
         gameObject.SetActive(false);
     }
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!_isCreatureField) { return; }
         if (_toolTipStart > detailThreshold && !creatureDetailToollTip.activeSelf)
@@ -96,7 +96,7 @@ public class ToolTipCanvas : MonoBehaviour
 
     private void SetToolPosition()
     {
-        Vector2 anchoredPosition = _objectPosition;// / canvasRectTransform.localScale.x;
+        var anchoredPosition = _objectPosition;// / canvasRectTransform.localScale.x;
         if (bottomFieldToolTip.activeSelf)
         {
             //anchoredPosition.y += objectPosition.y;

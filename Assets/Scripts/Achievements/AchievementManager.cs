@@ -1,7 +1,5 @@
 public class AchievementManager
 {
-    private static readonly AchievementManager instance = new();
-
     public PlayerAchievements Achievements;
 
     static AchievementManager()
@@ -12,16 +10,7 @@ public class AchievementManager
     {
     }
 
-    public static AchievementManager Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
-
-
+    public static AchievementManager Instance { get; } = new();
 }
 
 

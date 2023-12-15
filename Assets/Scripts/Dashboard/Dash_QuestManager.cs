@@ -21,7 +21,7 @@ public class DashQuestManager : MonoBehaviour
     private List<RareCardObject> weaponObjects;
     private string _questCompleteDescription = "Great Job! \n Click the reward button to get your reward and move to your next quest.";
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 
     }
@@ -50,14 +50,14 @@ public class DashQuestManager : MonoBehaviour
             questObjective.text = "";
             questReward.text = "";
             claimRewardButton.gameObject.SetActive(false);
-            for (int i = 0; i < CardDatabase.Instance.RareWeaponRewards.Count; i++)
+            for (var i = 0; i < CardDatabase.Instance.RareWeaponRewards.Count; i++)
             {
                 weaponObjects[i].SetupSelection(CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.RareWeaponRewards[i]), this, cardDisplay);
             }
             return;
         }
 
-        IQuest questToDisplay = _quests[PlayerData.Shared.currentQuestIndex];
+        var questToDisplay = _quests[PlayerData.Shared.currentQuestIndex];
 
         if (questToDisplay.IsComplete)
         {
@@ -94,5 +94,5 @@ public class DashQuestManager : MonoBehaviour
         SceneTransitionManager.Instance.LoadScene("CardUpgrade");
     }
 
-    static private List<IQuest> _quests = new List<IQuest> { new WelcomeQuest(), new ImproveDeckQuest(), new BazaarQuest(), new ElementalOneQuest(), new ElementalTwoQuest(), new ScoreOneQuest(), new ScoreTwoQuest() };
+    private static List<IQuest> _quests = new() { new WelcomeQuest(), new ImproveDeckQuest(), new BazaarQuest(), new ElementalOneQuest(), new ElementalTwoQuest(), new ScoreOneQuest(), new ScoreTwoQuest() };
 }

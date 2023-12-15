@@ -22,7 +22,7 @@ public class BattleVars
         IsArena = false;
     }
 
-    public static BattleVars Shared = new BattleVars();
+    public static BattleVars Shared = new();
     public float AIPlaySpeed = 0.5f;
     public int AILevel = 0;
     public Element PrimaryElement = Element.Aether;
@@ -48,5 +48,18 @@ public class BattleVars
     public bool IsPvp;
     public int CoinFlip;
     public bool WillStart;
-    public List<QuantaObject> OpponentPvpQuanta;
+
+
+    public void ChangePlayerTurn()
+    {
+        if (IsPlayerTurn)
+        {
+            TurnCount++;
+        }
+        else
+        {
+            SpaceTapped = false;
+        }
+        IsPlayerTurn = !IsPlayerTurn;
+    }
 }

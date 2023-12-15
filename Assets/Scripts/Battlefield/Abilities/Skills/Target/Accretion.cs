@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 public class Accretion : AbilityEffect
 {
@@ -9,13 +8,15 @@ public class Accretion : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         BattleVars.Shared.AbilityOrigin.card.DefModify += 15;
-        target.RemoveCard();
+        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
         if (BattleVars.Shared.AbilityOrigin.card.DefNow >= 45)
         {
-            Owner.playerHand.AddCardToHand(BattleVars.Shared.AbilityOrigin.card.iD.IsUpgraded()
+            var cardToAdd = BattleVars.Shared.AbilityOrigin.card.iD.IsUpgraded()
                 ? CardDatabase.Instance.GetCardFromId("74f")
-                : CardDatabase.Instance.GetCardFromId("55v"));
-            BattleVars.Shared.AbilityOrigin.RemoveCard();
+                : CardDatabase.Instance.GetCardFromId("55v");
+            
+            EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(Owner.isPlayer, new(cardToAdd)));
+            EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(BattleVars.Shared.AbilityOrigin.id));
         }
         else
         {
@@ -67,7 +68,7 @@ public class Accretion : AbilityEffect
 
         foreach (var target in possibleTargets)
         {
-            int currentScore = target.id.owner == Owner.playerID.id.owner ? 0 : 100;
+            var currentScore = target.id.owner == Owner.playerID.id.owner ? 0 : 100;
             currentScore += target.card.AtkNow;
             currentScore += target.card.DefNow;
 

@@ -23,22 +23,22 @@ public class CardSpinAnimation : MonoBehaviour
     {
         this._imageList = imageList;
         nextImage.sprite = imageList[0];
-        int count = 0;
+        var count = 0;
         upgradedIndicator.SetActive(false);
 
         while (count < imageList.Count)
         {
-            Material dissolveMat = new Material(dissolveMaterial);
+            var dissolveMat = new Material(dissolveMaterial);
             dissolveMat.SetTexture("_MainTex", imageToDissolve.sprite.texture);
             imageToDissolve.material = dissolveMat;
             imageToDissolve.material.SetFloat("_Fade", 1f);
             imageToDissolve.material.SetFloat("_Scale", 25f);
             imageToDissolve.material.SetColor("_EdgeColour", ElementColours.GetElementColour((Element)Random.Range(0, 12)));
 
-            float currentTime = 0.05f;
+            var currentTime = 0.05f;
             while (currentTime > 0f)
             {
-                float value = currentTime / 0.05f;
+                var value = currentTime / 0.05f;
                 currentTime -= Time.deltaTime;
                 imageToDissolve.material.SetFloat("_Fade", value);
 
@@ -62,7 +62,7 @@ public class CardSpinAnimation : MonoBehaviour
         {
             upgradedIndicator.SetActive(true);
         }
-        SoundManager.Instance.PlayAudioClip("SpinCardStop");
+        EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("SpinCardStop"));
     }
 
 }

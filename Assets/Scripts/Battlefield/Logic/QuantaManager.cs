@@ -6,66 +6,78 @@ namespace Elements.Duel.Manager
 {
     public class QuantaManager
     {
-        private List<QuantaObject> _quantaObjects;
+        private QuantaPool _quantaPool;
         private List<QuantaDisplayer> _quantaDisplayers;
-        private PlayerManager _owner;
-
-        public QuantaManager(List<QuantaDisplayer> quantaDisplayers, PlayerManager owner)
+        private bool _isPlayer;
+        
+        public QuantaManager(bool isPlayer)
         {
-            _owner = owner;
-            _quantaDisplayers = quantaDisplayers;
-            _quantaObjects = new List<QuantaObject>();
-            for (int i = 0; i < 12; i++)
-            {
-                _quantaObjects.Add(new QuantaObject((Element)i, 0));
-                _quantaObjects[i].OnQuantaChange += _quantaDisplayers[i].QuantaChanged;
-            }
+            _isPlayer = isPlayer;
+            _quantaSpentLogicBinding = new EventBinding<QuantaChangeLogicEvent>(UpdateQuantaManager);
+            EventBus<QuantaChangeLogicEvent>.Register(_quantaSpentLogicBinding);
+        }
+        
+        private EventBinding<QuantaChangeLogicEvent> _quantaSpentLogicBinding;
+    
+        public void OnDisable() {
+            EventBus<QuantaChangeLogicEvent>.Unregister(_quantaSpentLogicBinding);
         }
 
-        public void ChangeQuanta(Element element, int amount, bool isAdd)
+        private void UpdateQuantaManager(QuantaChangeLogicEvent quantaChangeLogicEvent)
+        {
+            if (_isPlayer != quantaChangeLogicEvent.IsPlayer)
+            {
+                return;
+            }
+            ChangeQuanta(quantaChangeLogicEvent.Element, quantaChangeLogicEvent.Amount, quantaChangeLogicEvent.IsAdd);
+        }
+
+        private void ChangeQuanta(Element element, int amount, bool isAdd)
         {
             if (element.Equals(Element.Other))
             {
-                List<QuantaObject> quantaList = isAdd ? _quantaObjects : _quantaObjects.FindAll(x => x.Count > 0);
-                if (quantaList is null)
+                if (isAdd)
                 {
-                    return;
+                    while (amount > 0)
+                    {
+                        var rndElement = (Element)Random.Range(0, 12);
+                        var newAmount = _quantaPool.AddQuanta(rndElement, 1);
+                        EventBus<QuantaChangeVisualEvent>.Raise(new QuantaChangeVisualEvent(newAmount, rndElement, _isPlayer));
+                        amount--;
+                    }
                 }
-                if (quantaList.Count == 0)
+                else
                 {
-                    return;
-                }
-                QuantaObject rndQuanta = quantaList[Random.Range(0, quantaList.Count)];
-
-                while (amount > 0)
-                {
-                    rndQuanta.UpdateQuanta(1, isAdd);
-                    amount--;
-                    quantaList = isAdd ? _quantaObjects : _quantaObjects.FindAll(x => x.Count > 0);
-                    rndQuanta = quantaList[Random.Range(0, quantaList.Count)];
+                    var elementList = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+                    while (amount > 0)
+                    {
+                        var index = Random.Range(0, elementList.Count);
+                        var rndElement = (Element)elementList[index];
+                        if (_quantaPool.GetQuantaAmount(rndElement) == 0)
+                        {
+                            elementList.RemoveAt(index);
+                            continue;
+                        }
+                        var newAmount = _quantaPool.AddQuanta(rndElement, -1);
+                        EventBus<QuantaChangeVisualEvent>.Raise(new QuantaChangeVisualEvent(newAmount, rndElement, _isPlayer));
+                        amount--;
+                    }
                 }
             }
             else
             {
-                _quantaObjects.Find(x => x.Element == element).UpdateQuanta(amount, isAdd);
+                var newAmount = _quantaPool.AddQuanta(element, isAdd ? amount : -amount);
+                EventBus<QuantaChangeVisualEvent>.Raise(new QuantaChangeVisualEvent(newAmount, element, _isPlayer));
             }
 
 
         }
 
-        public int GetQuantaForElement(Element element) => element.Equals(Element.Other) ? _quantaObjects.GetFullQuantaCount() : _quantaObjects[(int)element].Count;
-
-        public List<int> GetCurrentQuanta()
-        {
-            List<int> listToReturn = new List<int>();
-            foreach (QuantaObject item in _quantaObjects)
-            {
-                listToReturn.Add(item.Count);
-            }
-            return listToReturn;
-        }
-
-        public bool HasEnoughQuanta(Element element, int amount) => element.Equals(Element.Other) ? _quantaObjects.GetFullQuantaCount() >= amount : _quantaObjects.Find(x => x.Element == element).Count >= amount;
+        public int GetQuantaForElement(Element element) => element.Equals(Element.Other)
+            ? _quantaPool.GetFullQuantaCount()
+            : _quantaPool.GetQuantaAmount(element);
+        
+        public bool HasEnoughQuanta(Element element, int amount) => GetQuantaForElement(element) >= amount;
 
     }
 }

@@ -7,10 +7,11 @@ public class Sacrifice : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         Owner.ModifyHealthLogic(40, true, false);
-        for (int i = 0; i < 12; i++)
+        for (var i = 0; i < 12; i++)
         {
             if ((Element)i == Element.Death) { continue; }
-            Owner.SpendQuantaLogic((Element)i, 75);
+            
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, (Element)i, Owner.isPlayer, false));
         }
         Owner.AddPlayerCounter(PlayerCounters.Sacrifice, 2);
     }

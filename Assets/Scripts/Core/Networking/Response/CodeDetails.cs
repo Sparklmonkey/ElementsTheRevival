@@ -4,19 +4,19 @@ namespace Core.Networking.Response
 {
     public class CodeDetails
     {
-        public string codeName;
-        public string cardRewards;
-        public int electrumRewards;
-        public bool isCardSelect;
-        public bool isSingleUse;
+        public string CodeName;
+        public string CardRewards;
+        public int ElectrumRewards;
+        public bool IsCardSelect;
+        public bool IsSingleUse;
 
         public CodeDetails(CodeRedemptionResponse codeRedemptionResponse)
         {
-            codeName = codeRedemptionResponse.codeName;
-            cardRewards = codeRedemptionResponse.cardRewards;
-            electrumRewards = codeRedemptionResponse.electrumRewards;
-            isSingleUse = codeRedemptionResponse.isSingleUse;
-            isCardSelect = codeRedemptionResponse.isCardSelect;
+            CodeName = codeRedemptionResponse.CodeName;
+            CardRewards = codeRedemptionResponse.CardRewards;
+            ElectrumRewards = codeRedemptionResponse.ElectrumRewards;
+            IsSingleUse = codeRedemptionResponse.IsSingleUse;
+            IsCardSelect = codeRedemptionResponse.IsCardSelect;
         }
     }
 }

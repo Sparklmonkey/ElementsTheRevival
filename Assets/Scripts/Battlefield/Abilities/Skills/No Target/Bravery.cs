@@ -6,11 +6,11 @@ public class Bravery : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        int cardToDraw = Owner.playerPassiveManager.GetMark().card.costElement.Equals(Element.Fire) ? 3 : 2;
-        for (int i = 0; i < cardToDraw; i++)
+        var cardToDraw = Owner.playerPassiveManager.GetMark().card.costElement.Equals(Element.Fire) ? 3 : 2;
+        for (var i = 0; i < cardToDraw; i++)
         {
-            DuelManager.Instance.player.DrawCardFromDeckLogic();
-            DuelManager.Instance.enemy.DrawCardFromDeckLogic();
+            EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(Owner.isPlayer));
+            EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(!Owner.isPlayer));
         }
     }
 

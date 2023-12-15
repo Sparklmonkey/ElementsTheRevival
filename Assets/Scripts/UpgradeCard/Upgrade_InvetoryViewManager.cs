@@ -30,9 +30,9 @@ public class UpgradeInvetoryViewManager : MonoBehaviour
             return;
         }
 
-        Element filter = (Element)_selectedElement;
-        List<Card> cardsToShow = new List<Card>();
-        foreach (Card card in _inventoryCardList)
+        var filter = (Element)_selectedElement;
+        var cardsToShow = new List<Card>();
+        foreach (var card in _inventoryCardList)
         {
             if (card.costElement != filter) { continue; }
             cardsToShow.Add(card);
@@ -43,7 +43,7 @@ public class UpgradeInvetoryViewManager : MonoBehaviour
 
     public void DisplayCardAndUp(Card card)
     {
-        Card upgradedCard = CardDatabase.Instance.GetCardFromId(card.iD.GetUppedRegular());
+        var upgradedCard = CardDatabase.Instance.GetCardFromId(card.iD.GetUppedRegular());
 
         currentCardDisplay.gameObject.SetActive(true);
         currentCardDisplay.SetupCardView(card);
@@ -67,16 +67,16 @@ public class UpgradeInvetoryViewManager : MonoBehaviour
         HideCardAndUp();
         ClearContentView();
         cardList.Sort((x, y) => string.Compare(x.iD, y.iD));
-        foreach (Card card in cardList)
+        foreach (var card in cardList)
         {
-            UCardHead dMCardPrefab = _cardHeads.Find(x => x.GetCard().cardName == card.cardName);
+            var dMCardPrefab = _cardHeads.Find(x => x.GetCard().cardName == card.cardName);
             if (dMCardPrefab != null)
             {
                 dMCardPrefab.AddCard();
             }
             else
             {
-                GameObject cardHeadObject = Instantiate(cardHeadPrefab, inventoryView);
+                var cardHeadObject = Instantiate(cardHeadPrefab, inventoryView);
                 cardHeadObject.GetComponent<UCardHead>().SetupCardHead(card, this);
                 _cardHeads.Add(cardHeadObject.GetComponent<UCardHead>());
             }
@@ -86,8 +86,8 @@ public class UpgradeInvetoryViewManager : MonoBehaviour
     public void ClearContentView()
     {
         _cardHeads = new List<UCardHead>();
-        List<UCardHead> children = new List<UCardHead>(inventoryView.GetComponentsInChildren<UCardHead>());
-        foreach (UCardHead child in children)
+        var children = new List<UCardHead>(inventoryView.GetComponentsInChildren<UCardHead>());
+        foreach (var child in children)
         {
             Destroy(child.gameObject);
         }

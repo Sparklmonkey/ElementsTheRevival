@@ -26,14 +26,14 @@ public class DeckSelector : MonoBehaviour
         _playerDeck = element;
         elementDescription.text = ElementStrings.GetElementDescription(_playerDeck);
         ClearGridView();
-        List<Card> starterDeck = StarterDecks.Instance.GetStarterDeck(_playerDeck).DeserializeCard();
+        var starterDeck = StarterDecks.Instance.GetStarterDeck(_playerDeck).DeserializeCard();
 
-        for (int i = 0; i < cardHeads.Count; i++)
+        for (var i = 0; i < cardHeads.Count; i++)
         {
             cardHeads[i].SetupCardHead(starterDeck[i], cardDisplayDetail);
         }
         cardDisplayDetail.gameObject.SetActive(false);
-        (string, string) displayCards = StarterDecks.Instance.GetDisplayCards(_playerDeck);
+        var displayCards = StarterDecks.Instance.GetDisplayCards(_playerDeck);
         cardOne.SetupCardView(CardDatabase.Instance.GetCardFromId(displayCards.Item1));
         cardTwo.SetupCardView(CardDatabase.Instance.GetCardFromId(displayCards.Item2));
     }

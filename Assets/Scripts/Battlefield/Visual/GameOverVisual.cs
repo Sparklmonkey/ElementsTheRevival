@@ -1,6 +1,7 @@
 using Networking;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -15,15 +16,14 @@ public class GameOverVisual : MonoBehaviour
     private bool _didPlayerWin = false;
 
     private GameObject _touchBlocker;
-    public bool IsGameOver = false;
+    public bool isGameOver = false;
 
     public async void ShowGameOverScreen(bool didWin)
     {
-        DuelManager.Instance.enemy.StopAllCoroutines();
-        DuelManager.Instance.player.StopAllCoroutines();
+        DuelManager.Instance.StopAllRunningRoutines();
 
         BattleVars.Shared.PlayerHp = DuelManager.Instance.player.HealthManager.GetCurrentHealth();
-        IsGameOver = true;
+        isGameOver = true;
         gameOverText.gameObject.SetActive(true);
         rayBlocker.gameObject.SetActive(true);
         gameOverText.text = didWin ? "You Won!" : "You Lost";
@@ -79,6 +79,7 @@ public class GameOverVisual : MonoBehaviour
 
     public void MoveToSpinnerScreen()
     {
+        EventBusUtil.ClearAllBuses();
         PlayerData.SaveData();
         if (_didPlayerWin && !BattleVars.Shared.IsTest)
         {

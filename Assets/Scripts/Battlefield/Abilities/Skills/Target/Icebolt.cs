@@ -9,9 +9,9 @@ public class Icebolt : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        int quantaElement = Owner.GetAllQuantaOfElement(Element.Water);
-        int damageToDeal = 2 + (Mathf.FloorToInt(quantaElement / 10) * 2);
-        bool willFreeze = Random.Range(0, 100) > 30 + (damageToDeal * 5);
+        var quantaElement = Owner.GetAllQuantaOfElement(Element.Water);
+        var damageToDeal = 2 + Mathf.FloorToInt(quantaElement / 10) * 2;
+        var willFreeze = Random.Range(0, 100) > 30 + damageToDeal * 5;
 
         if (!target.HasCard())
         {

@@ -6,9 +6,10 @@ public class Evolve : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        target.PlayCard(target.card.iD.IsUpgraded()
+        var card = target.card.iD.IsUpgraded()
             ? CardDatabase.Instance.GetCardFromId("77h")
-            : CardDatabase.Instance.GetCardFromId("591"));
+            : CardDatabase.Instance.GetCardFromId("591");
+        EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(target.id, card));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

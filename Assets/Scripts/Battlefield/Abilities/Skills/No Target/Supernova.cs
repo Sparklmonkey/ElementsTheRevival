@@ -6,9 +6,9 @@ public class Supernova : AbilityEffect
 
     public override void Activate(IDCardPair target)
     {
-        for (int i = 0; i < 12; i++)
+        for (var i = 0; i < 12; i++)
         {
-            Owner.GenerateQuantaLogic((Element)i, 2);
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(2, (Element)i, Owner.isPlayer, true));
         }
 
         if (BattleVars.Shared.IsSingularity > 0)

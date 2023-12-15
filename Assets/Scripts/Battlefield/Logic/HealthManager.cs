@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UnityEngine;
 
 namespace Elements.Duel.Manager
 {
@@ -7,37 +7,41 @@ namespace Elements.Duel.Manager
         private int _maxHealth;
         private int _currentHealth;
         private bool _isPlayer;
-        public event Action<int, bool> OnHealthChangedEvent;
-        public event Action<int, bool> OnMaxHealthUpdatedEvent;
 
+        private EventBinding<ModifyPlayerHealthLogicEvent> _modifyPlayerHealthLogicBinding;
+    
+        public void OnDisable() {
+            EventBus<ModifyPlayerHealthLogicEvent>.Unregister(_modifyPlayerHealthLogicBinding);
+        }
+        
         public HealthManager(int maxHealth, bool isPlayer)
         {
             _maxHealth = _currentHealth = maxHealth;
             _isPlayer = isPlayer;
+            _modifyPlayerHealthLogicBinding = new EventBinding<ModifyPlayerHealthLogicEvent>(ModifyPlayerHealth);
+            EventBus<ModifyPlayerHealthLogicEvent>.Register(_modifyPlayerHealthLogicBinding);
         }
 
-        public void ModifyHealth(int amount, bool isDamage = true)
+        private void ModifyPlayerHealth(ModifyPlayerHealthLogicEvent modifyPlayerHealthLogicEvent)
         {
-            _currentHealth += isDamage ? -amount : amount;
-
-            _currentHealth = _currentHealth > _maxHealth ? _maxHealth : _currentHealth;
-            OnHealthChangedEvent?.Invoke(_currentHealth, _isPlayer);
-        }
-
-
-        public void ModifyMaxHealth(int maxHpBuff, bool isIncrease)
-        {
-            if (isIncrease)
+            if (modifyPlayerHealthLogicEvent.IsPlayer != _isPlayer)
             {
-                _maxHealth += maxHpBuff;
+                return;
+            }
+            if (modifyPlayerHealthLogicEvent.IsMaxChange)
+            {
+                _maxHealth += modifyPlayerHealthLogicEvent.Amount;
+                _currentHealth += modifyPlayerHealthLogicEvent.Amount;
             }
             else
             {
-                _maxHealth -= maxHpBuff;
+                _currentHealth += modifyPlayerHealthLogicEvent.Amount;
+                _currentHealth = _currentHealth > _maxHealth ? _maxHealth : _currentHealth;
             }
-            OnMaxHealthUpdatedEvent?.Invoke(_maxHealth, _isPlayer);
+            
+            EventBus<ModifyPlayerHealthVisualEvent>.Raise(new ModifyPlayerHealthVisualEvent(_currentHealth, _isPlayer, _maxHealth));
         }
-
+        
         public int GetMaxHealth() => _maxHealth;
 
         internal bool IsMaxHealth() => _maxHealth == _currentHealth;

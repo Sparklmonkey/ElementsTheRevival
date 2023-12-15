@@ -9,11 +9,5 @@ public class WaitForFrames : CustomYieldInstruction
         _targetFrameCount = Time.frameCount + numberOfFrames;
     }
 
-    public override bool keepWaiting
-    {
-        get
-        {
-            return Time.frameCount < _targetFrameCount;
-        }
-    }
+    public override bool keepWaiting => Time.frameCount < _targetFrameCount;
 }

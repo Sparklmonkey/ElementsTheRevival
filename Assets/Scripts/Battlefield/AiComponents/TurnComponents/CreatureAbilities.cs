@@ -31,7 +31,7 @@ public class CreatureAbilities
     public IEnumerator ActivatePegasus(PlayerManager aiManager)
     {
         List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
-        List<IDCardPair> pegasusList = cardList.GetIDCardPairsWithCardId(new() { "5lb", "7jr" });
+        var pegasusList = cardList.GetIDCardPairsWithCardId(new() { "5lb", "7jr" });
 
         if (pegasusList.Count == 0) { yield break; }
 
@@ -49,7 +49,7 @@ public class CreatureAbilities
         if (possibleTargets.Count < 2) { yield break; }
 
         List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
-        List<IDCardPair> virusList = cardList.GetIDCardPairsWithCardId(new() { "52i", "712" });
+        var virusList = cardList.GetIDCardPairsWithCardId(new() { "52i", "712" });
 
         if (virusList.Count == 0) { yield break; }
 
@@ -66,7 +66,7 @@ public class CreatureAbilities
     public IEnumerator ActivateGraboid(PlayerManager aiManager)
     {
         List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
-        List<IDCardPair> graboidList = cardList.GetIDCardPairsWithCardId(new() { "590", "77g" });
+        var graboidList = cardList.GetIDCardPairsWithCardId(new() { "590", "77g" });
 
         if (graboidList.Count == 0) { yield break; }
 
@@ -81,7 +81,7 @@ public class CreatureAbilities
     public IEnumerator ActivateFleshRecluse(PlayerManager aiManager)
     {
         List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
-        List<IDCardPair> fleshSpider = cardList.GetIDCardPairsWithCardId(new() { "52j", "713" });
+        var fleshSpider = cardList.GetIDCardPairsWithCardId(new() { "52j", "713" });
 
         if (fleshSpider.Count == 0) { yield break; }
 
@@ -101,7 +101,7 @@ public class CreatureAbilities
         if (possibleTargets.Count < 1) { yield break; }
 
         List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
-        List<IDCardPair> bloodsuckerList = cardList.GetIDCardPairsWithCardId(new() { "5un", "7t7" });
+        var bloodsuckerList = cardList.GetIDCardPairsWithCardId(new() { "5un", "7t7" });
 
         if (bloodsuckerList.Count == 0) { yield break; }
 
@@ -117,7 +117,7 @@ public class CreatureAbilities
     public IEnumerator ActivateCrusaders(PlayerManager aiManager)
     {
         List<IDCardPair> cardList = new(aiManager.playerCreatureField.GetAllValidCardIds());
-        List<IDCardPair> creatureList = cardList.GetIDCardPairsWithCardId(new() { "5un", "5ll" });
+        var creatureList = cardList.GetIDCardPairsWithCardId(new() { "5un", "5ll" });
 
         if (creatureList.Count == 0) { yield break; }
 
@@ -127,7 +127,7 @@ public class CreatureAbilities
 
         }
 
-        for (int i = 0; i < creatureList.Count; i++)
+        for (var i = 0; i < creatureList.Count; i++)
         {
             if (!aiManager.IsAbilityUsable(creatureList[i])) { continue; }
             if (creatureList[i].card.skill == "endow")

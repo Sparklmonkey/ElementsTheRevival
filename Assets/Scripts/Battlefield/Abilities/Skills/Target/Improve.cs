@@ -9,8 +9,7 @@ public class Improve : AbilityEffect
     public override void Activate(IDCardPair target)
     {
         AnimationManager.Instance.StartAnimation("Mutation", target.transform);
-        target.PlayCard(CardDatabase.Instance.GetMutant(target.card.iD.IsUpgraded()));
-        return;
+        EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(target.id, CardDatabase.Instance.GetMutant(target.card.iD.IsUpgraded())));
     }
 
     public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)

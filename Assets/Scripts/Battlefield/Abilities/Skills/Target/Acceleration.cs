@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 public class Acceleration : AbilityEffect
 {
@@ -38,7 +37,7 @@ public class Acceleration : AbilityEffect
 
         foreach (var target in possibleTargets)
         {
-            int currentScore = target.id.owner == Owner.playerID.id.owner ? 75 : 50;
+            var currentScore = target.id.owner == Owner.playerID.id.owner ? 75 : 50;
             currentScore += target.card.AtkNow;
             currentScore += target.card.DefNow;
 

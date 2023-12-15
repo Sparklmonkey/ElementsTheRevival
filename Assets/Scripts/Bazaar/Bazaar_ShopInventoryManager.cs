@@ -18,9 +18,9 @@ public class BazaarShopInventoryManager : InventoryManager
 
 
         _selectedElement = element;
-        Element filter = (Element)_selectedElement;
-        List<Card> cardsToShow = new List<Card>();
-        foreach (Card card in _inventoryCardList)
+        var filter = (Element)_selectedElement;
+        var cardsToShow = new List<Card>();
+        foreach (var card in _inventoryCardList)
         {
             if (card.cardName == "Animate Weapon")
             {
@@ -30,7 +30,7 @@ public class BazaarShopInventoryManager : InventoryManager
                 }
                 continue;
             }
-            if ((card.cardName == "Luciferin" || card.cardName == "Luciferase"))
+            if (card.cardName == "Luciferin" || card.cardName == "Luciferase")
             {
                 if (filter.Equals(Element.Light))
                 {

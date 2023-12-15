@@ -2,10 +2,6 @@ using System.Collections.Generic;
 
 public class StarterDecks
 {
-    private static readonly StarterDecks instance = new();
-
-    // Explicit static constructor to tell C# compiler
-    // not to mark type as beforefieldinit
     static StarterDecks()
     {
     }
@@ -14,13 +10,7 @@ public class StarterDecks
     {
     }
 
-    public static StarterDecks Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
+    public static StarterDecks Instance { get; } = new();
 
     public List<string> GetStarterDeck(Element element)
     {
