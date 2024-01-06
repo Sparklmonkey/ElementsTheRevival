@@ -15,7 +15,7 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private Element element;
         [SerializeField]
-        private bool isPlayer;
+        private OwnerEnum owner;
         
         private EventBinding<QuantaChangeVisualEvent> _quantaSpentVisualBinding;
 
@@ -28,9 +28,9 @@ namespace Elements.Duel.Visual
             EventBus<QuantaChangeVisualEvent>.Unregister(_quantaSpentVisualBinding);
         }
 
-        public void UpdateQuantaManager(QuantaChangeVisualEvent quantaChangeVisualEvent)
+        private void UpdateQuantaManager(QuantaChangeVisualEvent quantaChangeVisualEvent)
         {
-            if (isPlayer != quantaChangeVisualEvent.IsPlayer || element != quantaChangeVisualEvent.Element)
+            if (!owner.Equals(quantaChangeVisualEvent.Owner) || element != quantaChangeVisualEvent.Element)
             {
                 return;
             }

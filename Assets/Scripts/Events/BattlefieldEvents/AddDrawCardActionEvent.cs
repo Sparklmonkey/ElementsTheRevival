@@ -1,38 +1,20 @@
 ﻿public struct AddDrawCardActionEvent : IEvent
 {
     public Card CardDrawn;
-    public bool IsPlayer;
+    public OwnerEnum Owner;
     
-    public AddDrawCardActionEvent(Card cardDrawn, bool isPlayer)
+    public AddDrawCardActionEvent(Card cardDrawn, OwnerEnum owner)
     {
         CardDrawn = cardDrawn;
-        IsPlayer = isPlayer;
+        Owner = owner;
     }
 }
 
 public struct OnTurnStartEvent : IEvent
 {
-    public bool IsPlayerTurn;
-    public OnTurnStartEvent(bool isPlayerTurn)
+    public OwnerEnum Owner;
+    public OnTurnStartEvent(OwnerEnum owner)
     {
-        IsPlayerTurn = isPlayerTurn;
-    }
-}
-public struct OnCardPlayEvent : IEvent
-{
-    public ID IdPlayed;
-    public Card CardPlayed;
-    public OnCardPlayEvent(ID idPlayed, Card cardPlayed)
-    {
-        IdPlayed = idPlayed;
-        CardPlayed = cardPlayed;
-    }
-}
-public struct OnCardRemovedEvent : IEvent
-{
-    public ID IdRemoved;
-    public OnCardRemovedEvent(ID idRemoved)
-    {
-        IdRemoved = idRemoved;
+        Owner = owner;
     }
 }

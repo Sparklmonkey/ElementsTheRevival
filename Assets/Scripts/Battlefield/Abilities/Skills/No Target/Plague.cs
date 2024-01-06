@@ -1,45 +1,30 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class Plague : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        var targetPlayer = DuelManager.Instance.GetNotIDOwner(target.id);
+        var targetPlayer = DuelManager.Instance.GetNotIDOwner(targetId);
         var idList = targetPlayer.playerCreatureField.GetAllValidCardIds();
 
-        foreach (var idCardi in idList)
+        foreach (var pair in idList.Where(pair => !pair.Item2.innateSkills.Immaterial).Where(pair => !pair.Item2.passiveSkills.Burrow))
         {
-            if (idCardi.card.innateSkills.Immaterial)
-            {
-                continue;
-            }
-
-            if (idCardi.card.passiveSkills.Burrow)
-            {
-                continue;
-            }
-
-            idCardi.card.Poison += 1;
-            idCardi.UpdateCard();
+            pair.Item2.Poison += 1;
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
         }
         
-        if (target.card.cardType == CardType.Creature)
+        if (targetCard.cardType.Equals(CardType.Creature))
         {
-            EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+            EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
         }
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
 
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

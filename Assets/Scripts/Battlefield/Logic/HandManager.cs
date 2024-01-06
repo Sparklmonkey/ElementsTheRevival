@@ -1,80 +1,121 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Elements.Duel.Manager
 {
+    public delegate bool QuantaCheck(Element element, int amount);
 
     [Serializable]
-    public class HandManager : FieldManager
+    public class HandManager : MonoBehaviour
     {
-        private bool _isPlayer;
-        private EventBinding<AddCardToHandEvent> _addCardToHandBinding;
-        private EventBinding<RemoveCardFromHandEvent> _removeCardFromHandBinding;
-    
-        public void OnDisable() {
-            EventBus<AddCardToHandEvent>.Unregister(_addCardToHandBinding);
-            EventBus<RemoveCardFromHandEvent>.Unregister(_removeCardFromHandBinding);
-        }
-        public void SetIsPlayer(bool isPlayer)
-        {
-            _isPlayer = isPlayer;
-            _addCardToHandBinding = new EventBinding<AddCardToHandEvent>(AddCardToHand);
-            EventBus<AddCardToHandEvent>.Register(_addCardToHandBinding);
-            _removeCardFromHandBinding = new EventBinding<RemoveCardFromHandEvent>(RemoveCardFromHand);
-            EventBus<RemoveCardFromHandEvent>.Register(_removeCardFromHandBinding);
-        }
-        public bool ShouldDiscard() => PairList.FindAll(x => x.card is not null).Count >= 8;
+        [SerializeField] private GameObject handPrefab;
+        [SerializeField] private List<Transform> handPositions;
+        private OwnerEnum _owner;
+        
+        private EventBinding<UpdateHandDisplayEvent> _updateHandDisplayBinding;
+        private EventBinding<AddCardToHandEvent> _playHandCardBinding;
 
-        private void RemoveCardFromHand(RemoveCardFromHandEvent removeCardFromHandEvent)
+        private void OnDisable()
         {
-            if (removeCardFromHandEvent.IsPlayer != _isPlayer)
+            EventBus<UpdateHandDisplayEvent>.Unregister(_updateHandDisplayBinding);
+            EventBus<AddCardToHandEvent>.Unregister(_playHandCardBinding);
+        }
+
+        private void OnEnable()
+        {
+            _updateHandDisplayBinding = new EventBinding<UpdateHandDisplayEvent>(UpdateHandCards);
+            EventBus<UpdateHandDisplayEvent>.Register(_updateHandDisplayBinding);
+            
+            _playHandCardBinding = new EventBinding<AddCardToHandEvent>(AddCardToHand);
+            EventBus<AddCardToHandEvent>.Register(_playHandCardBinding);
+        }
+        
+        public void SetOwner(OwnerEnum owner) => _owner = owner;
+        public bool ShouldDiscard()
+        {
+            var cardCount = handPositions.FindAll(x => x.childCount > 0).Count;
+            return cardCount == 8;
+        }
+
+        public int GetHandCount()
+        {
+            var cardCount = handPositions.FindAll(x => x.childCount > 0).Count;
+            return cardCount;
+        }
+
+        public List<(ID, Card)> GetPlayableCards(QuantaCheck quantaCheck)
+        {
+            var handList = handPositions.FindAll(x => x.childCount > 0);
+
+            var returnList = handList.Select(hand => hand.GetComponentInChildren<HandCardDisplay>()).Select(component => (component.GetId(), component.GetCard())).ToList();
+
+            return returnList.Where(x => quantaCheck(x.Item2.costElement, x.Item2.cost)).ToList();
+        }
+
+        public List<(ID id, Card card)> GetAllCards()
+        {
+            var handList = handPositions.FindAll(x => x.childCount > 0);
+
+            var returnList = handList.Select(hand => hand.GetComponentInChildren<HandCardDisplay>()).Select(component => (component.GetId(), component.GetCard())).ToList();
+
+            return returnList;
+        }
+
+        private IEnumerator MoveCardPosition()
+        {
+            yield return null;
+            for (var j = 0; j < handPositions.Count; j++)
+            {
+                if (handPositions[j].childCount != 0) continue;
+                for (var i = j + 1; i < handPositions.Count; i++)
+                {
+                    if (handPositions[i].childCount == 0) continue;
+                    handPositions[i].GetChild(0).parent = handPositions[j];
+                    handPositions[j].GetChild(0).position = handPositions[j].position;
+                    handPositions[j].GetChild(0).GetComponent<HandCardDisplay>().SetupId(new ID(_owner, FieldEnum.Hand, j));
+                    break;
+                }
+            }
+        }
+        
+        private void UpdateHandCards(UpdateHandDisplayEvent updateHandDisplayEvent)
+        {
+            if (!updateHandDisplayEvent.Owner.Equals(_owner))
             {
                 return;
             }
-
-            var index = PairList.FindIndex(x => x.id.Equals(removeCardFromHandEvent.CardToRemove));
-            EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(PairList[index].id));
-
-            var cardList = new List<Card>();
-            foreach (var item in PairList)
-            {
-                if (!item.HasCard()) { continue; }
-                cardList.Add(CardDatabase.Instance.GetCardFromId(item.card.iD));
-            }
-
-            for (var i = 0; i < 8; i++)
-            {
-                if (i < cardList.Count)
-                {
-                    EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(PairList[i].id, cardList[i]));
-                    continue;
-                }
-                if (PairList[i].IsActive())
-                {
-                    EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(PairList[i].id));
-                }
-            }
+            StartCoroutine(MoveCardPosition());
         }
 
         private void AddCardToHand(AddCardToHandEvent addCardToHandEvent)
         {
-            if (addCardToHandEvent.IsPlayer != _isPlayer)
-            {
-                return;
-            }
-            var availableIndex = PairList.FindIndex(x => !x.HasCard());
-            if (availableIndex < 0) { return; }
-            EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(PairList[availableIndex].id, addCardToHandEvent.CardToAdd));
+            if (!addCardToHandEvent.Owner.Equals(_owner)) return;
+
+            var index = GetNextAvailablePosition();
+            var id = new ID(_owner, FieldEnum.Hand, index);
+            
+            var handCardObject = Instantiate(handPrefab, handPositions[index]);
+            handCardObject.GetComponent<HandCardDisplay>().SetupId(id);
+
+            EventBus<UpdateCardDisplayEvent>.Raise(new UpdateCardDisplayEvent(id, addCardToHandEvent.CardToAdd, 0,
+                false));
         }
 
+        private int GetNextAvailablePosition()
+        {
+            return handPositions.FindIndex(x => x.childCount == 0);
+        }
         public void ShowCardsForPrecog()
         {
-            foreach (var item in PairList)
-            {
-                if (!item.HasCard()) { continue; }
-                item.isHidden = false;
-                item.UpdateCard();
-            }
+            // foreach (var item in PairList)
+            // {
+            //     if (!item.HasCard()) { continue; }
+            //     item.isHidden = false;
+            //     item.UpdateCard();
+            // }
         }
     }
 }

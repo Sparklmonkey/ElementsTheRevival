@@ -1,21 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 public class Rainoffire : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        var victim = DuelManager.Instance.GetNotIDOwner(target.id);
+        var victim = DuelManager.Instance.GetNotIDOwner(targetId);
         var idList = victim.playerCreatureField.GetAllValidCardIds();
     
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("Lightning"));
-        foreach (var idCardi in idList)
+        foreach (var pair in idList.Where(pair => !pair.Item2.innateSkills.Immaterial).Where(pair => !pair.Item2.passiveSkills.Burrow))
         {
-            if (idCardi.card.innateSkills.Immaterial) { continue; }
-            if (idCardi.card.passiveSkills.Burrow) { continue; }
-            idCardi.card.DefDamage += 3;
-            idCardi.UpdateCard();
+            pair.Item2.DefDamage += 3;
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
         }
 
         if (victim.playerCounters.invisibility > 0)
@@ -24,14 +23,8 @@ public class Rainoffire : AbilityEffect
         }
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

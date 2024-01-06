@@ -1,19 +1,11 @@
 ﻿public struct DeckCountChangeEvent : IEvent
 {
     public int DeckCount;
-    public bool IsPlayer;
+    public OwnerEnum Owner;
     
-    public DeckCountChangeEvent(int deckCount,bool isPlayer)
+    public DeckCountChangeEvent(int deckCount, OwnerEnum owner)
     {
         DeckCount = deckCount;
-        IsPlayer = isPlayer;
-    }
-}public struct GameEndEvent : IEvent
-{
-    public bool IsPlayer;
-    
-    public GameEndEvent(bool isPlayer)
-    {
-        IsPlayer = isPlayer;
+        Owner = owner;
     }
 }

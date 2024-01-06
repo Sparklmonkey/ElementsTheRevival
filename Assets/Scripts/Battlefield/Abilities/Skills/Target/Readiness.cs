@@ -6,14 +6,14 @@ public class Readiness : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.HasSkill;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        target.card.skillCost = 0;
-        target.card.passiveSkills.Readiness = true;
-        target.UpdateCard();
+        targetCard.skillCost = 0;
+        targetCard.passiveSkills.Readiness = true;
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
@@ -25,7 +25,7 @@ public class Readiness : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         return possibleTargets[Random.Range(0, possibleTargets.Count)];
     }

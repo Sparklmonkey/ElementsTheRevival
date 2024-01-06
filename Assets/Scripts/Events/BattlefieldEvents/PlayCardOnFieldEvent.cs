@@ -1,11 +1,11 @@
 ﻿public struct PlayCardOnFieldEvent : IEvent
 {
     public Card CardToPlay;
-    public bool IsPlayer;
+    public OwnerEnum Owner;
     
-    public PlayCardOnFieldEvent(Card cardToPlay, bool isPlayer)
+    public PlayCardOnFieldEvent(Card cardToPlay, OwnerEnum owner)
     {
         CardToPlay = cardToPlay;
-        IsPlayer = isPlayer;
+        Owner = owner;
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -124,7 +125,7 @@ public class AiStateMachine
                 break;
 
             case GameState.EndTurn:
-                if(_aiManager.GetHandCards().Count > 7) { _aiDiscard.DiscardCard(_aiManager); }
+                if(_aiManager.playerHand.ShouldDiscard()) { _aiDiscard.DiscardCard(_aiManager); }
                 
                 yield return _aiManager.StartCoroutine(_aiManager.EndTurnRoutine());
                 _aiManager.UpdateCounterAndEffects();
@@ -192,50 +193,71 @@ public class CardData
 
 public class BasicAiTurnLogic : AiTurnBase
 {
+    private void PlayCardOnField(PlayerManager aiManager, Card card, ID id)
+    {
+        EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CardPlay"));
+        if (aiManager.playerCounters.neurotoxin > 0)
+        {
+            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Neurotoxin, OwnerEnum.Opponent, 1));
+        }
+        
+        if (!card.cardType.Equals(CardType.Spell))
+        {
+            EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, false));
+            if (card.cardType is CardType.Artifact or CardType.Pillar)
+            {
+                EventBus<PlayPermanentOnFieldEvent>.Raise(new PlayPermanentOnFieldEvent(OwnerEnum.Opponent, card));
+            }
+            else
+            {
+                EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(card, id.owner));
+            }
+        }
+        if (card.cost > 0)
+        {
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(card.cost, card.costElement, OwnerEnum.Opponent, false));
+        }
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(id));
+    }
     public override CardData PlayCardFromHand(PlayerManager aiManager, CardType cardType)
     {
-        var idCard = aiManager.playerHand.GetAllValidCardIds().Find(p => p.card.cardType == cardType && aiManager.IsCardPlayable(p.card));
-        if (idCard == null) return null;
-        if (aiManager.IsCardPlayable(idCard.card))
+        var card = aiManager.playerHand.GetPlayableCards(aiManager.HasSufficientQuanta).FirstOrDefault(c => c.Item2.cardType.Equals(cardType));
+        if (card.Equals(default)) return null;
+        var cardData = new CardData()
         {
-            var cardData = new CardData()
-            {
-                ImageId = idCard.card.imageID,
-                Element = idCard.card.costElement.FastElementString(),
-                CardName = idCard.card.cardName,
-            };
-            aiManager.PlayCardFromHandLogic(idCard);
-            return cardData;
-        }
+            ImageId = card.Item2.imageID,
+            Element = card.Item2.costElement.FastElementString(),
+            CardName = card.Item2.cardName,
+        };
+        PlayCardOnField(aiManager, card.Item2, card.Item1);
+        return cardData;
 
-        return null;
     }
 
     public override CardData PlaySpellFromHand(PlayerManager aiManager)
     {
-        var spell = aiManager.playerHand.GetAllValidCardIds().Find(s => s.card.cardType == CardType.Spell && aiManager.IsCardPlayable(s.card));
-        if (spell == null)
+        var cardList = aiManager.playerHand.GetPlayableCards(aiManager.HasSufficientQuanta);
+        var spell = cardList.FirstOrDefault(s => s.Item2.cardType == CardType.Spell && aiManager.IsCardPlayable(s.Item2));
+        if (spell.Equals(default))
         {
             return null;
         }
 
-        if (SkillManager.Instance.ShouldAskForTarget(spell))
+        if (SkillManager.Instance.ShouldAskForTarget(spell.Item2))
         {
-            var target = SkillManager.Instance.GetRandomTarget(aiManager, spell);
-            if (target == null)
-            {
-                return null;
-            }
+            var target = SkillManager.Instance.GetRandomTarget(aiManager, spell.Item2);
+            if (target.Equals(default)) return null;
 
             var cardData = new CardData()
             {
-                ImageId = spell.card.imageID,
-                Element = spell.card.costElement.FastElementString(),
-                CardName = spell.card.cardName,
+                ImageId = spell.Item2.imageID,
+                Element = spell.Item2.costElement.FastElementString(),
+                CardName = spell.Item2.cardName,
             };
-            BattleVars.Shared.AbilityOrigin = spell;
-            SkillManager.Instance.SkillRoutineWithTarget(aiManager, target);
-            aiManager.PlayCardFromHandLogic(spell);
+            BattleVars.Shared.AbilityCardOrigin = spell.Item2;
+            BattleVars.Shared.AbilityIDOrigin = spell.Item1;
+            SkillManager.Instance.SkillRoutineWithTarget(aiManager, target.Item1, target.Item2);
+            PlayCardOnField(aiManager, spell.Item2, spell.Item1);
             
             return cardData;
         }
@@ -243,12 +265,12 @@ public class BasicAiTurnLogic : AiTurnBase
         {
             var cardData = new CardData()
             {
-                ImageId = spell.card.imageID,
-                Element = spell.card.costElement.FastElementString(),
-                CardName = spell.card.cardName,
+                ImageId = spell.Item2.imageID,
+                Element = spell.Item2.costElement.FastElementString(),
+                CardName = spell.Item2.cardName,
             };
-            SkillManager.Instance.SkillRoutineNoTarget(aiManager, spell);
-            aiManager.PlayCardFromHandLogic(spell);
+            SkillManager.Instance.SkillRoutineNoTarget(aiManager, spell.Item1, spell.Item2);
+            PlayCardOnField(aiManager, spell.Item2, spell.Item1);
             return cardData;
         }
 
@@ -256,84 +278,65 @@ public class BasicAiTurnLogic : AiTurnBase
 
     public override void ActivateCreatureAbility(PlayerManager aiManager)
     {
-        var creature = aiManager.playerCreatureField.GetAllValidCardIds().Find(c => c.card.skill is not null or "" or " " && aiManager.IsAbilityUsable(c));
-        if (creature == null)
-        {
-            return;
-        }
+        var creature = aiManager.playerCreatureField.GetAllValidCardIds().Find(c => c.Item2.skill is not null or "" or " " && aiManager.IsAbilityUsable(c.Item2));
+        if (creature.Equals(default)) return;
 
-        if (SkillManager.Instance.ShouldAskForTarget(creature))
+        if (SkillManager.Instance.ShouldAskForTarget(creature.Item2))
         {
-            var target = SkillManager.Instance.GetRandomTarget(aiManager, creature);
-            if (target == null)
-            {
-                return;
-            }
+            var target = SkillManager.Instance.GetRandomTarget(aiManager, creature.Item2);
+            if (target.Equals(default)) return;
 
-            BattleVars.Shared.AbilityOrigin = creature;
-            creature.card.AbilityUsed = true;
-            SkillManager.Instance.SkillRoutineWithTarget(aiManager, target);
+            BattleVars.Shared.AbilityIDOrigin = creature.Item1;
+            BattleVars.Shared.AbilityCardOrigin = creature.Item2;
+            creature.Item2.AbilityUsed = true;
+            SkillManager.Instance.SkillRoutineWithTarget(aiManager, target.Item1, target.Item2);
             return;
         }
         
-        creature.card.AbilityUsed = true;
-        SkillManager.Instance.SkillRoutineNoTarget(aiManager, creature);
+        creature.Item2.AbilityUsed = true;
+        SkillManager.Instance.SkillRoutineNoTarget(aiManager, creature.Item1, creature.Item2);
     }
 
     public override void ActivateArtifactAbility(PlayerManager aiManager)
     {
-        var artifact = aiManager.playerPermanentManager.GetAllValidCardIds().Find(a => a.card.skill is not null or "" or " " && aiManager.IsAbilityUsable(a));
-        if (artifact == null)
-        {
-            return;
-        }
+        var artifact = aiManager.playerPermanentManager.GetAllValidCardIds().Find(a => a.card.skill is not null or "" or " " && aiManager.IsAbilityUsable(a.card));
+        if (artifact.Equals(default)) return;
 
-        if (SkillManager.Instance.ShouldAskForTarget(artifact))
+        if (SkillManager.Instance.ShouldAskForTarget(artifact.card))
         {
-            var target = SkillManager.Instance.GetRandomTarget(aiManager, artifact);
-            if (target == null)
-            {
-                return;
-            }
+            var target = SkillManager.Instance.GetRandomTarget(aiManager, artifact.card);
+            if (target.Equals(default)) return;
 
-            BattleVars.Shared.AbilityOrigin = artifact;
-            artifact.card.AbilityUsed = true;
-            SkillManager.Instance.SkillRoutineWithTarget(aiManager, target);
+            BattleVars.Shared.AbilityIDOrigin = artifact.id;
+            BattleVars.Shared.AbilityCardOrigin = artifact.card;
+            artifact.Item2.AbilityUsed = true;
+            SkillManager.Instance.SkillRoutineWithTarget(aiManager, target.Item1, target.Item2);
             return;
         }
         
         artifact.card.AbilityUsed = true;
-        SkillManager.Instance.SkillRoutineNoTarget(aiManager, artifact);
+        SkillManager.Instance.SkillRoutineNoTarget(aiManager, artifact.id, artifact.card);
     }
     
     public override bool HasCardInHand(PlayerManager aiManager, CardType cardToCheck)
     {
-        return aiManager.playerHand.GetAllValidCardIds().FindIndex(x => x.card.cardType == cardToCheck && aiManager.IsCardPlayable(x.card)) >= 0;
+        return aiManager.playerHand.GetPlayableCards(aiManager.HasSufficientQuanta).Count > 0; 
     }
 
     public override bool HasCreatureAbilityToUse(PlayerManager aiManager)
     {
-        var creatureWithSkill = aiManager.playerCreatureField.GetAllValidCardIds().Find(x => x.card.skill is not null or "" or " ");
-        if (creatureWithSkill == null)
-        {
-            return false;
-        }
-        return aiManager.IsAbilityUsable(creatureWithSkill);
+        var creatureWithSkill = aiManager.playerCreatureField.GetAllValidCardIds().Find(x => x.Item2.skill is not null or "" or " ");
+        return !creatureWithSkill.Equals(default) && aiManager.IsAbilityUsable(creatureWithSkill.Item2);
     }
 
     public override bool HasArtifactAbilityToUse(PlayerManager aiManager)
     {
-        var artifactWithSkill = aiManager.playerPermanentManager.GetAllValidCardIds().Find(x => x.card.skill is not null or "" or " ");
-        if (artifactWithSkill == null)
-        {
-            return false;
-        }
-        return aiManager.IsAbilityUsable(artifactWithSkill);
+        var artifactWithSkill = aiManager.playerPermanentManager.GetAllValidCardIds().Find(x => x.Item2.skill is not null or "" or " ");
+        return !artifactWithSkill.Equals(default) && aiManager.IsAbilityUsable(artifactWithSkill.Item2);
     }
 
     public override bool HasSpellToUse(PlayerManager aiManager)
     {
-        return aiManager.playerHand.GetAllValidCardIds()
-            .FindIndex(x => x.card.cardType == CardType.Spell && aiManager.IsCardPlayable(x.card)) >= 0;
+        return aiManager.playerHand.GetPlayableCards(aiManager.HasSufficientQuanta).Where(x => x.Item2.cardType.Equals(CardType.Spell)).ToList().Count > 0; 
     }
 } 

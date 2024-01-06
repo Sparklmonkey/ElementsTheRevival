@@ -6,36 +6,31 @@ public class Adrenaline : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.SelfLowAtk;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        target.card.passiveSkills.Adrenaline = true;
-        target.UpdateCard();
+        targetCard.passiveSkills.Adrenaline = true;
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0)
-        {
-            return new();
-        }
-
-        return possibleTargets.FindAll(x => x.IsTargetable());
+        return possibleTargets.Count == 0 ? new() : possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return default;
         }
 
-        var opCreatures = possibleTargets.FindAll(x => x.id.owner == OwnerEnum.Opponent && x.HasCard());
+        var opCreatures = possibleTargets.FindAll(x => x.Item1.owner == OwnerEnum.Opponent && x.HasCard());
 
         if (opCreatures.Count == 0)
         {
-            return null;
+            return default;
         }
         else
         {

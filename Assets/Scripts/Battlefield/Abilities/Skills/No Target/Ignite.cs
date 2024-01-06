@@ -1,44 +1,35 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class Ignite : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
 
-        DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(20, true, false);
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(20, true, false, targetId.owner.Not()));
 
-        var idList = DuelManager.Instance.GetNotIDOwner(target.id).playerCreatureField.GetAllValidCardIds();
+        var cardList = DuelManager.Instance.GetNotIDOwner(targetId).playerCreatureField.GetAllValidCardIds();
 
-        foreach (var idCardi in idList)
+        foreach (var pair in cardList.Where(pair => !pair.Item2.innateSkills.Immaterial).Where(pair => !pair.Item2.passiveSkills.Burrow))
         {
-            if (idCardi.card.innateSkills.Immaterial) { continue; }
-            if (idCardi.card.passiveSkills.Burrow) { continue; }
-            idCardi.card.DefDamage += 1;
-            idCardi.UpdateCard();
+            pair.Item2.DefDamage += 1;
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2));
         }
 
-        idList = Owner.playerCreatureField.GetAllValidCardIds();
+        cardList = Owner.playerCreatureField.GetAllValidCardIds();
 
-        foreach (var idCardi in idList)
+        foreach (var pair in cardList.Where(pair => !pair.Item2.innateSkills.Immaterial).Where(pair => !pair.Item2.passiveSkills.Burrow))
         {
-            if (idCardi.card.innateSkills.Immaterial) { continue; }
-            if (idCardi.card.passiveSkills.Burrow) { continue; }
-            idCardi.card.DefDamage += 1;
-            idCardi.UpdateCard();
+            pair.Item2.DefDamage += 1;
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2));
         }
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

@@ -16,7 +16,7 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private GameObject upMovingText;
         [SerializeField]
-        private bool isPlayer;
+        private OwnerEnum owner;
 
         private EventBinding<ModifyPlayerHealthVisualEvent> _modifyPlayerHealthLogicBinding;
     
@@ -32,10 +32,7 @@ namespace Elements.Duel.Visual
 
         private void ModifyPlayerHealth(ModifyPlayerHealthVisualEvent modifyPlayerHealthVisualEvent)
         {
-            if (modifyPlayerHealthVisualEvent.IsPlayer != isPlayer)
-            {
-                return;
-            }
+            if (!modifyPlayerHealthVisualEvent.Owner.Equals(owner)) return;
 
             var current = int.Parse(currentHp.text);
             var difference = current - modifyPlayerHealthVisualEvent.CurrentHp;
@@ -51,7 +48,7 @@ namespace Elements.Duel.Visual
                 damageSlider.maxValue = modifyPlayerHealthVisualEvent.MaxHp;
             }
                 
-            var temp = modifyPlayerHealthVisualEvent.CurrentHp - DuelManager.Instance.GetPossibleDamage(isPlayer);
+            var temp = modifyPlayerHealthVisualEvent.CurrentHp - DuelManager.Instance.GetPossibleDamage(owner.Equals(OwnerEnum.Player));
             hpSlider.value = temp < 0 ? 0 : temp;
 
             damageSlider.value = modifyPlayerHealthVisualEvent.CurrentHp;
@@ -67,23 +64,6 @@ namespace Elements.Duel.Visual
             damageSlider.value = hpToSet;
         }
 
-        public IEnumerator UpdateHpView(int currentHp, bool isPlayer)
-        {
-            if (currentHp.ToString() == this.currentHp.text) { yield break; }
-            var current = int.Parse(this.currentHp.text);
-            var difference = current - currentHp;
-
-            var toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
-            this.currentHp.text = currentHp.ToString();
-
-
-            StartCoroutine(AnimateTextChange(toShow));
-            var temp = currentHp - DuelManager.Instance.GetPossibleDamage(isPlayer);
-            hpSlider.value = temp < 0 ? 0 : temp;
-
-            damageSlider.value = currentHp;
-        }
-
         private IEnumerator AnimateTextChange(string difference)
         {
             var sText = Instantiate(upMovingText, transform);
@@ -94,12 +74,6 @@ namespace Elements.Duel.Visual
                 yield return null;
             }
             Destroy(sText);
-        }
-
-        public void UpdateMaxHpView(int newMax)
-        {
-            maxHp.text = $"{newMax}";
-            hpSlider.maxValue = newMax;
         }
     }
 }

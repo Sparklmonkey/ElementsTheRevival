@@ -6,16 +6,19 @@ public class Nymph : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.OwnPillar;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        var element = target.card.costElement;
-        Owner.PlayCardOnField(target.card.iD.IsUpgraded()
+        var element = targetCard.costElement;
+        var card = targetCard.iD.IsUpgraded()
             ? CardDatabase.Instance.GetRandomEliteNymph(element)
-            : CardDatabase.Instance.GetRandomRegularNymph(element));
-        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+            : CardDatabase.Instance.GetRandomRegularNymph(element);
+        
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.owner.Equals(OwnerEnum.Player)));
+        EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, card));
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerPermanentManager.GetAllValidCardIds();
         if (possibleTargets.Count == 0)
@@ -23,14 +26,14 @@ public class Nymph : AbilityEffect
             return new();
         }
 
-        return possibleTargets.FindAll(x => x.card.cardType.Equals(CardType.Pillar));
+        return possibleTargets.FindAll(x => x.Item2.cardType.Equals(CardType.Pillar));
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return default;
         }
 
         return possibleTargets[Random.Range(0, possibleTargets.Count)];

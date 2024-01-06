@@ -6,25 +6,24 @@ public class Catapult : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.HighestHp;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        var damage = 100 * target.card.DefNow / (100 + target.card.DefNow);
-        damage += target.card.Freeze > 0 ? Mathf.FloorToInt(damage * 0.5f) : 0;
-        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+        var damage = 100 * targetCard.DefNow / (100 + targetCard.DefNow);
+        damage += targetCard.Freeze > 0 ? Mathf.FloorToInt(damage * 0.5f) : 0;
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
         
-        DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(damage, true, false);
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damage, true, false, targetId.owner.Not()));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
-        if (possibleTargets.Count == 0) { return null; }
-        return possibleTargets[Random.Range(0, possibleTargets.Count)];
+        return possibleTargets.Count == 0 ? default : possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

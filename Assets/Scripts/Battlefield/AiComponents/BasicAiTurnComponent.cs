@@ -1,6 +1,6 @@
 using System.Collections;
 
-public class BasicAiTurnComponent : AiBaseFunctions, IAiTurnComponent
+public class BasicAiTurnComponent : IAiTurnComponent
 {
     public IEnumerator PlayPillars(PlayerManager aiManager)
     {

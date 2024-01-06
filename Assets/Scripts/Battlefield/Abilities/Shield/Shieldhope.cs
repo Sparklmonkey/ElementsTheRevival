@@ -1,10 +1,12 @@
 public class Shieldhope : ShieldAbility
 {
-    public override void ActivateShield(ref int atkNow, ref IDCardPair cardPair)
+    public override int ActivateShield(int atkNow, (ID id, Card card) cardPair)
     {
         var damageReduction = Owner.GetLightEmittingCreatures();
 
         atkNow -= damageReduction;
         if (atkNow < 0) { atkNow = 0; }
+
+        return atkNow;
     }
 }

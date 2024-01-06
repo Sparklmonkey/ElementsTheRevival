@@ -10,16 +10,11 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public int stackCount = 0;
     public bool isPlayer;
     public bool isHidden = true;
-    public CardTypeBehaviour cardBehaviour;
 
     public bool IsActive() => transform.parent.gameObject.activeSelf;
 
     private void Start()
     {
-        cardBehaviour = GetComponent<CardTypeBehaviour>();
-        cardBehaviour.cardPair = this;
-        cardBehaviour.Owner = isPlayer ? DuelManager.Instance.player : DuelManager.Instance.enemy;
-        cardBehaviour.Enemy = isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
         var parentName = transform.parent.gameObject.name;
 
         if (parentName != "EnemySide" && parentName != "PlayerSide")
@@ -69,7 +64,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             if (card.DefDamage < 0) { card.DefDamage = 0; }
             if (card.DefNow <= 0)
             {
-                EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(id));
+                EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(id));
                 return;
             }
         }
@@ -88,7 +83,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         ToolTipCanvas.Instance.HideToolTip();
         if (!HasCard() && id.field != FieldEnum.Player) { return; }
-        EventBus<CardTappedEvent>.Raise(new CardTappedEvent(this));
+        // EventBus<CardTappedEvent>.Raise(new CardTappedEvent(this));
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -105,8 +100,4 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         ToolTipCanvas.Instance.HideToolTip();
     }
 
-    public bool IsFromHand()
-    {
-        return id.field.Equals(FieldEnum.Hand);
-    }
 }

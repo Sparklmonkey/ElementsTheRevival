@@ -1,9 +1,9 @@
 ﻿public struct DrawCardFromDeckEvent : IEvent
 {
-    public bool IsPlayer;
+    public OwnerEnum Owner;
     
-    public DrawCardFromDeckEvent(bool isPlayer)
+    public DrawCardFromDeckEvent(OwnerEnum owner)
     {
-        IsPlayer = isPlayer;
+        Owner = owner;
     }
 }

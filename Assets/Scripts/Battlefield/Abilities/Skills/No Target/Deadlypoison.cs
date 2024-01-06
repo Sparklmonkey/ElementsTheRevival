@@ -4,19 +4,13 @@ public class Deadlypoison : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        DuelManager.Instance.GetNotIDOwner(target.id).AddPlayerCounter(PlayerCounters.Poison, 3);
+        EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, targetId.owner.Not(), 3));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

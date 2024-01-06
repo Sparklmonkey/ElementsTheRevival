@@ -4,23 +4,17 @@ public class Evolve : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        var card = target.card.iD.IsUpgraded()
+        var card = targetCard.iD.IsUpgraded()
             ? CardDatabase.Instance.GetCardFromId("77h")
             : CardDatabase.Instance.GetCardFromId("591");
-        EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(target.id, card));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, card));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
 
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

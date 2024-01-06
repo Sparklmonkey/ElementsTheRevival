@@ -1,13 +1,13 @@
 ﻿public struct ModifyPlayerHealthLogicEvent : IEvent
 {
     public int Amount;
-    public bool IsPlayer;
+    public OwnerEnum Owner;
     public bool IsMaxChange;
     
-    public ModifyPlayerHealthLogicEvent(int amount, bool isPlayer, bool isMaxChange)
+    public ModifyPlayerHealthLogicEvent(int amount, OwnerEnum owner, bool isMaxChange)
     {
         Amount = amount;
-        IsPlayer = isPlayer;
+        Owner = owner;
         IsMaxChange = isMaxChange;
     }
 }

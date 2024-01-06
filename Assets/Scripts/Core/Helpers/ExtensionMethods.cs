@@ -12,6 +12,11 @@ public static class ExtensionMethods
     public static bool UsernameCheck(this string username) => Regex.IsMatch(username, usernameCriteria, RegexOptions.None);
     public static bool PasswordCheck(this string password) => Regex.IsMatch(password, passwordCriteria, RegexOptions.None);
 
+    public static bool Toggle(this bool boolean) => !boolean;
+    public static OwnerEnum Not(this OwnerEnum owner)
+    {
+        return owner.Equals(OwnerEnum.Player) ? OwnerEnum.Opponent : OwnerEnum.Player;
+    }
 
     public static string ToLongDescription(this ErrorCases error)
     {
@@ -98,28 +103,14 @@ public static class ExtensionMethods
                         sortedList.Add(card);
                     }
                 }
-
-
             }
-
         }
-
         return sortedList;
     }
-
-    public static List<IDCardPair> GetIDCardPairsWithCardId(this List<IDCardPair> originalList, List<string> cardIds)
+    
+    public static bool IsFromHand(this ID id)
     {
-        List<IDCardPair> returnList = new();
-
-        foreach (var iDCardPair in originalList)
-        {
-            if (cardIds.Contains(iDCardPair.card.iD))
-            {
-                returnList.Add(iDCardPair);
-            }
-        }
-
-        return returnList;
+        return id.field.Equals(FieldEnum.Hand);
     }
 
     [ThreadStatic] private static System.Random _local;

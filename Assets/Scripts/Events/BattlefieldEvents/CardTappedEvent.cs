@@ -1,9 +1,21 @@
 ﻿public struct CardTappedEvent : IEvent
 {
-    public IDCardPair TappedPair;
+    public ID TappedId;
+    public Card TappedCard;
     
-    public CardTappedEvent(IDCardPair tappedPair)
+    public CardTappedEvent(ID tappedId, Card tappedCard)
     {
-        TappedPair = tappedPair;
+        TappedId = tappedId;
+        TappedCard = tappedCard;
+    }
+}
+
+public struct UpdateHandDisplayEvent : IEvent
+{
+    public OwnerEnum Owner;
+
+    public UpdateHandDisplayEvent(OwnerEnum owner)
+    {
+        Owner = owner;
     }
 }

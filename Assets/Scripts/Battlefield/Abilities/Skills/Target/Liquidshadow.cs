@@ -6,17 +6,17 @@ public class Liquidshadow : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.HighestHp;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        target.card.skill = "";
-        target.card.desc = "";
-        target.card.passiveSkills = new();
-        target.card.passiveSkills.Vampire = true;
-        target.card.Poison++;
-        target.UpdateCard();
+        targetCard.skill = "";
+        targetCard.desc = "";
+        targetCard.passiveSkills = new();
+        targetCard.passiveSkills.Vampire = true;
+        targetCard.Poison++;
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
@@ -28,11 +28,11 @@ public class Liquidshadow : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return default;
         }
 
         return possibleTargets[Random.Range(0, possibleTargets.Count)];

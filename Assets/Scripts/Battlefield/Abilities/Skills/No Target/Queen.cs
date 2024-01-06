@@ -4,22 +4,19 @@ public class Queen : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        Owner.PlayCardOnField(target.card.iD.IsUpgraded()
+        var card = targetCard.iD.IsUpgraded()
             ? CardDatabase.Instance.GetCardFromId("7n4")
-            : CardDatabase.Instance.GetCardFromId("5ok"));
+            : CardDatabase.Instance.GetCardFromId("5ok");
+        
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.owner.Equals(OwnerEnum.Player)));
+        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(card, targetId.owner));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
 
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

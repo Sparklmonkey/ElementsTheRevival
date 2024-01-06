@@ -6,12 +6,12 @@ public class Destroy : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.Permanent;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = enemy.playerPermanentManager.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerPermanentManager.GetAllValidCardIds());
@@ -36,19 +36,12 @@ public class Destroy : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
-        if (possibleTargets.Count == 0) { return null; }
+        if (possibleTargets.Count == 0) { return default; }
 
-        var opCreatures = possibleTargets.FindAll(x => x.id.owner == OwnerEnum.Player && x.HasCard());
+        var opCreatures = possibleTargets.FindAll(x => x.Item1.owner == OwnerEnum.Player && x.HasCard());
 
-        if (opCreatures.Count == 0)
-        {
-            return null;
-        }
-        else
-        {
-            return opCreatures[Random.Range(0, possibleTargets.Count)];
-        }
+        return opCreatures.Count == 0 ? default : opCreatures[Random.Range(0, possibleTargets.Count)];
     }
 }

@@ -1,10 +1,10 @@
 ﻿public struct OnTurnEndEvent : IEvent
 {
     public CardType CardType;
-    public bool IsPlayer;
-    public OnTurnEndEvent(CardType cardType, bool isPlayer)
+    public OwnerEnum Owner;
+    public OnTurnEndEvent(CardType cardType, OwnerEnum owner)
     {
         CardType = cardType;
-        IsPlayer = isPlayer;
+        Owner = owner;
     }
 }

@@ -6,27 +6,27 @@ public class Cremation : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.SelfLowAtk;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
         for (var i = 0; i < 12; i++)
         {
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, (Element)i, Owner.isPlayer, true));
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, (Element)i, Owner.Owner, true));
         }
 
-        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(7, Element.Fire, Owner.isPlayer, true));
+        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(7, Element.Fire, Owner.Owner, true));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         if (possibleTargets.Count == 0) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
-        if (possibleTargets.Count == 0) { return null; }
+        if (possibleTargets.Count == 0) { return default; }
         return possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

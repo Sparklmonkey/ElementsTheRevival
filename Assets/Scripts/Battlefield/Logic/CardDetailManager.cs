@@ -4,19 +4,22 @@ namespace Elements.Duel.Manager
 
     public class CardDetailManager
     {
-        private IDCardPair _cardOnDisplay;
+        private Card _cardOnDisplay;
+        private ID _idOnDisplay;
 
 
-        public event Action<IDCardPair> OnDisplayNewCard;
+        public event Action<ID, Card> OnDisplayNewCard;
         public event Action OnRemoveCard;
 
-        public void SetCardOnDisplay(IDCardPair idCard)
+        public void SetCardOnDisplay(ID id, Card card)
         {
-            _cardOnDisplay = idCard;
-            OnDisplayNewCard?.Invoke(idCard);
+            _cardOnDisplay = card;
+            _idOnDisplay = id;
+            OnDisplayNewCard?.Invoke(_idOnDisplay, _cardOnDisplay);
         }
 
-        public IDCardPair GetCardID() => _cardOnDisplay;
+        public ID GetID() => _idOnDisplay;
+        public Card GetCard() => _cardOnDisplay;
         public void ClearID()
         {
             _cardOnDisplay = null;

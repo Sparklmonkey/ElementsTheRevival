@@ -6,15 +6,15 @@ public class Momentum : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.SelfHighAtk;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        target.card.AtkModify++;
-        target.card.DefModify++;
-        target.card.passiveSkills.Momentum = true;
-        target.UpdateCard();
+        targetCard.AtkModify++;
+        targetCard.DefModify++;
+        targetCard.passiveSkills.Momentum = true;
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
@@ -26,11 +26,11 @@ public class Momentum : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return default;
         }
 
         return possibleTargets[Random.Range(0, possibleTargets.Count)];

@@ -1,11 +1,11 @@
 ﻿public struct AddCardToHandEvent : IEvent
 {
-    public bool IsPlayer;
-    public Card CardToAdd;
+    public OwnerEnum Owner;
+    public readonly Card CardToAdd;
     
-    public AddCardToHandEvent(bool isPlayer, Card cardToAdd)
+    public AddCardToHandEvent(OwnerEnum owner, Card cardToAdd)
     {
-        IsPlayer = isPlayer;
+        Owner = owner;
         CardToAdd = cardToAdd;
     }
 }

@@ -2,5 +2,9 @@ public abstract class ShieldAbility
 {
     public PlayerManager Owner;
     public PlayerManager Enemy;
-    public abstract void ActivateShield(ref int atkNow, ref IDCardPair cardPair);
+
+    public virtual int ActivateShield(int atkNow, (ID id, Card card) cardPair)
+    {
+        return atkNow;
+    }
 }

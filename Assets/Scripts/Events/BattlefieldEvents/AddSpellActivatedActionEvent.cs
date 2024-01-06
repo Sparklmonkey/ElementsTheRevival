@@ -2,12 +2,14 @@
 {
     public Card Spell;
     public bool IsPlayer;
-    public IDCardPair Target;
+    public ID TargetId;
+    public Card TargetCard;
     
-    public AddSpellActivatedActionEvent(bool isPlayer, Card spell, IDCardPair target)
+    public AddSpellActivatedActionEvent(bool isPlayer, Card spell,  ID targetId, Card targetCard)
     {
         Spell = spell;
         IsPlayer = isPlayer;
-        Target = target;
+        TargetId = targetId;
+        TargetCard = targetCard;
     }
 }

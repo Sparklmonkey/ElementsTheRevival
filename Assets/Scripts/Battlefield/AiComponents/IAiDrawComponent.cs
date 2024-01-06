@@ -7,11 +7,11 @@ public class FalseGodDrawComponenet : IAiDrawComponent
 {
     public void StartTurnDrawCard(PlayerManager aiManager)
     {
-        if (aiManager.GetHandCards().Count < 8)
+        if (aiManager.playerHand.GetHandCount() < 8)
         {
-            EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(false));
+            EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(OwnerEnum.Opponent));
         }
-        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(false));
+        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(OwnerEnum.Opponent));
     }
 }
 
@@ -19,11 +19,11 @@ public class HalfBloodDrawComponenet : IAiDrawComponent
 {
     public void StartTurnDrawCard(PlayerManager aiManager)
     {
-        if (aiManager.GetHandCards().Count < 3)
+        if (aiManager.playerHand.GetHandCount() < 3)
         {
-            EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(false));
+            EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(OwnerEnum.Opponent));
         }
-        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(false));
+        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(OwnerEnum.Opponent));
     }
 }
 
@@ -32,6 +32,6 @@ public class BaseAiDrawComponent : IAiDrawComponent
 {
     public void StartTurnDrawCard(PlayerManager aiManager)
     {
-        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(false));
+        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(OwnerEnum.Opponent));
     }
 }

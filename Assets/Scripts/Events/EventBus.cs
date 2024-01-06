@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public static class EventBus<T> where T : IEvent
 {
@@ -10,7 +11,7 @@ public static class EventBus<T> where T : IEvent
 
     public static void Raise(T @event)
     {
-        foreach (var binding in bindings)
+        foreach (var binding in bindings.ToList())
         {
             binding.Event.Invoke(@event);
             binding.EventNoArgs.Invoke();

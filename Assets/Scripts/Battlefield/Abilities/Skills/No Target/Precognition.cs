@@ -4,20 +4,14 @@ public class Precognition : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(Owner.isPlayer));
-        DuelManager.Instance.GetNotIDOwner(Owner.playerID.id).DisplayHand();
+        EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(Owner.Owner));
+        DuelManager.Instance.GetNotIDOwner(Owner.playerID).DisplayHand();
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

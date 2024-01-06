@@ -21,7 +21,7 @@ public class DuelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _cardTappedBinding = new EventBinding<CardTappedEvent>(IdCardTapped);
+        _cardTappedBinding = new EventBinding<CardTappedEvent>(CardTapped);
         EventBus<CardTappedEvent>.Register(_cardTappedBinding);
     }
     public void UpdateNightFallEclipse(bool isAdded, string skill)
@@ -39,23 +39,19 @@ public class DuelManager : MonoBehaviour
         enemy.StopAllCoroutines();
         aiController.StopAllCoroutines();
     }
-    public void SetupHighlights(List<IDCardPair> targets)
+    public void SetupHighlights(List<(ID, Card)> targets)
     {
         _validTargets = new();
         foreach (var target in targets)
         {
-            _validTargets.Add(target);
-            EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(true, target.id));
+            _validTargets.Add(target.Item1, target.Item2);
+            EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(true, target.Item1));
         }
     }
 
     public int GetPossibleDamage(bool isPlayer)
     {
-        if (isPlayer)
-        {
-            return Instance.enemy.GetPossibleDamage();
-        }
-        return Instance.player.GetPossibleDamage();
+        return isPlayer ? Instance.enemy.GetPossibleDamage() : Instance.player.GetPossibleDamage();
     }
 
     public PlayerManager player;
@@ -64,7 +60,7 @@ public class DuelManager : MonoBehaviour
     public Button endTurnButton;
     public TextMeshProUGUI enemyName;
     public TextMeshProUGUI discardText;
-    private static List<IDCardPair> _validTargets;
+    private static Dictionary<ID,Card> _validTargets;
     
     public static int FloodCount;
 
@@ -94,7 +90,6 @@ public class DuelManager : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Space) || !endTurnButton.interactable) return;
         BattleVars.Shared.SpaceTapped = true;
         EndTurn();
-        Debug.Log("EndTurn Called");
     }
 
     public PlayerManager GetIDOwner(ID iD)
@@ -132,8 +127,8 @@ public class DuelManager : MonoBehaviour
     private IEnumerator SetupManagers()
     {
         yield return coinFlip.StartCoroutine(coinFlip.WaitPlease(0.0001f, 1.0f));
-        yield return Instance.enemy.StartCoroutine(enemy.SetupPlayerManager(false));
-        yield return Instance.player.StartCoroutine(player.SetupPlayerManager(true));
+        yield return Instance.enemy.StartCoroutine(enemy.SetupPlayerManager(OwnerEnum.Opponent));
+        yield return Instance.player.StartCoroutine(player.SetupPlayerManager(OwnerEnum.Player));
 
         BattleVars.Shared.IsPlayerTurn = coinFlip.playerStarts;
         if (coinFlip.playerStarts)
@@ -149,10 +144,10 @@ public class DuelManager : MonoBehaviour
         endTurnButton.interactable = false;
         ResetTargeting();
         BattleVars.Shared.IsSingularity = 0;
-        Instance.player.HideAllPlayableGlow();
+        EventBus<HideUsableDisplayEvent>.Raise(new HideUsableDisplayEvent());
         if (BattleVars.Shared.IsPlayerTurn)
         {
-            if (Instance.player.GetHandCards().Count == 8)
+            if (Instance.player.playerHand.ShouldDiscard())
             {
                 discardText.gameObject.SetActive(true);
                 BattleVars.Shared.HasToDiscard = true;
@@ -201,12 +196,13 @@ public class DuelManager : MonoBehaviour
         targetingObject.SetActive(false);
         foreach (var item in _validTargets)
         {
-            EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(false, item.id));
+            EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(false, item.Key));
         }
-        Instance.enemy.playerDisplayer.ShouldShowTarget(false);
-        Instance.player.playerDisplayer.ShouldShowTarget(false);
+        EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(false, new ID(OwnerEnum.Player, FieldEnum.Player, 0)));
+        EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(false, new ID(OwnerEnum.Opponent, FieldEnum.Player, 0)));
         _validTargets.Clear();
-        BattleVars.Shared.AbilityOrigin = null;
+        BattleVars.Shared.AbilityCardOrigin = null;
+        BattleVars.Shared.AbilityIDOrigin = null;
         BattleVars.Shared.IsSelectingTarget = false;
     }
 
@@ -229,20 +225,20 @@ public class DuelManager : MonoBehaviour
     public int GetCardCount(List<string> cardIds)
     {
         var cardCount = 0;
-        cardCount += Instance.player.playerPermanentManager.GetAllValidCardIds().FindAll(x => cardIds.Contains(x.card.iD)).Count;
-        cardCount += Instance.enemy.playerPermanentManager.GetAllValidCardIds().FindAll(x => cardIds.Contains(x.card.iD)).Count;
+        cardCount += Instance.player.playerPermanentManager.GetAllValidCards().FindAll(x => cardIds.Contains(x.iD)).Count;
+        cardCount += Instance.enemy.playerPermanentManager.GetAllValidCards().FindAll(x => cardIds.Contains(x.iD)).Count;
         return cardCount;
     }
 
-    public void IdCardTapped(CardTappedEvent cardTappedEvent)
+    private void CardTapped(CardTappedEvent cardTappedEvent)
     {
         if (!BattleVars.Shared.IsPlayerTurn) { return; }
 
         if (_validTargets.Count > 0)
         {
-            if (BattleVars.Shared.IsSelectingTarget && _validTargets.Contains(cardTappedEvent.TappedPair))
+            if (BattleVars.Shared.IsSelectingTarget && _validTargets.TryGetValue(cardTappedEvent.TappedId, out var target))
             {
-                player.ActivateAbility(cardTappedEvent.TappedPair);
+                player.ActivateAbility(cardTappedEvent.TappedId, target);
             }
             else
             {
@@ -252,22 +248,20 @@ public class DuelManager : MonoBehaviour
             return;
         }
 
-        if (!cardTappedEvent.TappedPair.HasCard()) { return; }
-
-        if (cardTappedEvent.TappedPair.id.owner.Equals(OwnerEnum.Opponent))
+        if (cardTappedEvent.TappedId.owner.Equals(OwnerEnum.Opponent))
         {
-            if (cardTappedEvent.TappedPair.id.field.Equals(FieldEnum.Hand)) { return; }
+            if (cardTappedEvent.TappedId.field.Equals(FieldEnum.Hand)) { return; }
 
-            if (enemy.playerCounters.invisibility > 0 && !enemy.cloakIndex.Contains(cardTappedEvent.TappedPair.id)) { return; }
-            player.SetupCardDisplay(cardTappedEvent.TappedPair);
+            if (enemy.playerCounters.invisibility > 0 && !enemy.cloakIndex.Contains(cardTappedEvent.TappedId)) { return; }
+            player.SetupCardDisplay(cardTappedEvent.TappedId, cardTappedEvent.TappedCard);
             return;
         }
 
         if (BattleVars.Shared.HasToDiscard)
         {
-            if (cardTappedEvent.TappedPair.id.field.Equals(FieldEnum.Hand))
+            if (cardTappedEvent.TappedId.field.Equals(FieldEnum.Hand))
             {
-                player.DiscardCard(cardTappedEvent.TappedPair);
+                player.DiscardCard(cardTappedEvent.TappedId, cardTappedEvent.TappedCard);
                 BattleVars.Shared.HasToDiscard = false;
                 discardText.gameObject.SetActive(false);
                 EndTurn();
@@ -277,10 +271,10 @@ public class DuelManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("QuickPlay") == 0)
         {
-            player.QuickPlay(cardTappedEvent.TappedPair);
+            player.QuickPlay(cardTappedEvent.TappedId, cardTappedEvent.TappedCard);
             return;
         }
-        player.SetupCardDisplay(cardTappedEvent.TappedPair);
+        player.SetupCardDisplay(cardTappedEvent.TappedId, cardTappedEvent.TappedCard);
     }
 
     public void SetGameOver(bool isGameOver)

@@ -6,42 +6,32 @@ public class Holylight : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.LowestHp;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        if (!target.HasCard())
+        if (targetCard is not null)
         {
-            DuelManager.Instance.GetIDOwner(target.id).ModifyHealthLogic(10, false, false);
+            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(10, false, false, targetId.owner));
             return;
         }
 
-        var damage = target.card.costElement.Equals(Element.Death) || target.card.costElement.Equals(Element.Darkness)
+        var damage = targetCard.costElement.Equals(Element.Death) || targetCard.costElement.Equals(Element.Darkness)
             ? -10
             : 10;
-        target.card.DefDamage -= damage;
-        target.UpdateCard();
+        targetCard.DefDamage -= damage;
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        possibleTargets.Add(enemy.playerID);
-        possibleTargets.Add(Owner.playerID);
-        if (possibleTargets.Count == 0)
-        {
-            return new();
-        }
-
-        return possibleTargets.FindAll(x => x.IsTargetable());
+        possibleTargets.Add((enemy.playerID, null));
+        possibleTargets.Add((Owner.playerID, null));
+        return possibleTargets.Count == 0 ? new() : possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
-        if (possibleTargets.Count == 0)
-        {
-            return null;
-        }
-
-        return possibleTargets[Random.Range(0, possibleTargets.Count)];
+        return possibleTargets.Count == 0 ? default : possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

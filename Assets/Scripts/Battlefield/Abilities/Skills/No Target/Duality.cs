@@ -4,21 +4,15 @@ public class Duality : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        var cardToAdd = DuelManager.Instance.GetNotIDOwner(target.id).DeckManager.GetTopCard();
+        var cardToAdd = DuelManager.Instance.GetNotIDOwner(targetId).DeckManager.GetTopCard();
         if (cardToAdd == null) { return; }
-        EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(Owner.isPlayer, new(cardToAdd)));
+        EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(Owner.Owner, new(cardToAdd)));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

@@ -6,28 +6,28 @@ public class Purify : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.IsPoisoned;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        if (!target.HasCard())
+        if (targetCard is null)
         {
-            DuelManager.Instance.GetIDOwner(target.id).sacrificeCount = 0;
-            DuelManager.Instance.GetIDOwner(target.id).AddPlayerCounter(PlayerCounters.Purify, 2);
+            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Purify, targetId.owner, 2));
+            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Sacrifice, targetId.owner, -9999));
             return;
         }
 
-        target.card.IsAflatoxin = false;
-        target.card.Poison = target.card.Poison > 0 ? 0 : target.card.Poison;
+        targetCard.IsAflatoxin = false;
+        targetCard.Poison = targetCard.Poison > 0 ? 0 : targetCard.Poison;
 
-        target.card.Poison -= 2;
-        target.UpdateCard();
+        targetCard.Poison -= 2;
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        possibleTargets.Add(enemy.playerID);
-        possibleTargets.Add(Owner.playerID);
+        possibleTargets.Add((enemy.playerID, null));
+        possibleTargets.Add((Owner.playerID, null));
         if (possibleTargets.Count == 0)
         {
             return new();
@@ -36,11 +36,11 @@ public class Purify : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return default;
         }
 
         return possibleTargets[Random.Range(0, possibleTargets.Count)];

@@ -1,10 +1,13 @@
 public class Shieldspines : ShieldAbility
 {
-    public override void ActivateShield(ref int atkNow, ref IDCardPair cardPair)
+    public override int ActivateShield(int atkNow, (ID id, Card card) cardPair)
     {
         if (UnityEngine.Random.Range(0f, 1f) <= 0.75f)
         {
             cardPair.card.Poison++;
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(cardPair.id, cardPair.card));
         }
+        
+        return atkNow;
     }
 }

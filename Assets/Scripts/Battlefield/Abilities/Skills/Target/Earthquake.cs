@@ -6,22 +6,19 @@ public class Earthquake : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.Pillar;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
-
-        if (!target.HasCard()) return;
-        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
-
-        if (!target.HasCard()) return;
-        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+        for (var i = 0; i < 3; i++)
+        {
+            EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
+        }
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerPermanentManager.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerPermanentManager.GetAllValidCardIds()
-            .FindAll(x => x.card.cardType == CardType.Pillar));
+            .FindAll(x => x.Item2.cardType == CardType.Pillar));
         if (possibleTargets.Count == 0)
         {
             return new();
@@ -30,22 +27,12 @@ public class Earthquake : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
-        if (possibleTargets.Count == 0)
-        {
-            return null;
-        }
+        if (possibleTargets.Count == 0) { return default; }
 
-        var opCreatures = possibleTargets.FindAll(x => x.id.owner == OwnerEnum.Player && x.HasCard());
+        var opCreatures = possibleTargets.FindAll(x => x.Item1.owner == OwnerEnum.Player && x.HasCard());
 
-        if (opCreatures.Count == 0)
-        {
-            return null;
-        }
-        else
-        {
-            return opCreatures[Random.Range(0, possibleTargets.Count)];
-        }
+        return opCreatures.Count == 0 ? default : opCreatures[Random.Range(0, possibleTargets.Count)];
     }
 }

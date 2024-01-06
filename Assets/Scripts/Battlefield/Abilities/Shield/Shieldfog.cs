@@ -1,7 +1,7 @@
 public class Shieldfog : ShieldAbility
 {
-    public override void ActivateShield(ref int atkNow, ref IDCardPair cardPair)
+    public override int ActivateShield(int atkNow, (ID id, Card card) cardPair)
     {
-        atkNow = UnityEngine.Random.Range(0f, 1f) <= 0.4f ? 0 : atkNow;
+        return UnityEngine.Random.Range(0f, 1f) <= 0.4f ? 0 : atkNow;
     }
 }

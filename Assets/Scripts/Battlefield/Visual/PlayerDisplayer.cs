@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Elements.Duel.Visual
@@ -8,7 +9,7 @@ namespace Elements.Duel.Visual
     {
         [SerializeField]
         private Image validTargetGlow;
-        public bool isPlayer;
+        public ID playerID;
         [SerializeField]
         private Sprite poisonSprite, puritySprite, neurotoxinSprite;
         public Image poisonImg, sanctImage, silenceImage;
@@ -16,9 +17,25 @@ namespace Elements.Duel.Visual
         [SerializeField]
         private GameObject cloakVisual;
 
-        public void ShouldShowTarget(bool shouldShow)
+        private EventBinding<ShouldShowTargetableEvent> _shouldShowTargetableBinding;
+        
+        private void OnDisable()
         {
-            validTargetGlow.color = shouldShow ? new Color(255, 255, 255, 255) : new Color(0, 0, 0, 0);
+            EventBus<ShouldShowTargetableEvent>.Unregister(_shouldShowTargetableBinding);
+        }
+        
+        private void OnEnable()
+        {
+            _shouldShowTargetableBinding = new EventBinding<ShouldShowTargetableEvent>(ShouldShowTarget);
+            EventBus<ShouldShowTargetableEvent>.Register(_shouldShowTargetableBinding);
+        }
+        private void ShouldShowTarget(ShouldShowTargetableEvent shouldShowTargetableEvent)
+        {
+            if (!shouldShowTargetableEvent.DisplayerId.Equals(playerID))
+            {
+                return;
+            }
+            validTargetGlow.color = shouldShowTargetableEvent.ShouldShow ? new Color(15, 255, 0, 255) : new Color(0, 0, 0, 0);
         }
 
         public void UpdatePlayerIndicators(Counters playerCounters)
@@ -46,17 +63,17 @@ namespace Elements.Duel.Visual
                     poisonLabel.text = playerCounters.poison.ToString();
                 }
             }
-
+            
             if (playerCounters.invisibility != 0)
             {
-                if (!isPlayer && playerCounters.invisibility > 0)
+                if (playerID.owner.Equals(OwnerEnum.Opponent) && playerCounters.invisibility > 0)
                 {
                     cloakVisual.SetActive(true);
                 }
                 if (playerCounters.invisibility <= 0)
                 {
                     playerCounters.invisibility = 0;
-                    if (!isPlayer)
+                    if (playerID.owner.Equals(OwnerEnum.Opponent))
                     {
                         cloakVisual.SetActive(false);
                     }
@@ -64,15 +81,6 @@ namespace Elements.Duel.Visual
             }
             silenceImage.gameObject.SetActive(playerCounters.silence > 0);
             sanctImage.gameObject.SetActive(playerCounters.sanctuary > 0);
-
-            if (playerCounters.bone > 0)
-            {
-                boneShieldLabel.text = $"{playerCounters.bone}";
-            }
-            else
-            {
-                boneShieldLabel.text = "";
-            }
         }
     }
 }

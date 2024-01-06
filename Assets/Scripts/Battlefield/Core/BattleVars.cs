@@ -14,7 +14,8 @@ public class BattleVars
         IsAnimationPlaying = false;
         IsPlayerTurn = true;
         ElementalMastery = false;
-        AbilityOrigin = null;
+        AbilityIDOrigin = null;
+        AbilityCardOrigin = null;
         IsPvp = false;
         CoinFlip = 0;
         WillStart = false;
@@ -43,7 +44,8 @@ public class BattleVars
     public bool HasToDiscard = false;
 
     //Spell, Abilities Targeting
-    public IDCardPair AbilityOrigin;
+    public Card AbilityCardOrigin;
+    public ID AbilityIDOrigin;
 
     public bool IsPvp;
     public int CoinFlip;

@@ -4,23 +4,18 @@ public class Flying : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        Card weapon = new(Owner.playerPassiveManager.GetWeapon().card);
+        Card weapon = new(Owner.playerPassiveManager.GetWeapon().Item2);
         if (weapon.iD == "4t2") { return; }
         weapon.cardType = CardType.Creature;
-        Owner.PlayCardOnField(weapon);
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(weapon, targetId.owner.Equals(OwnerEnum.Player)));
+        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(weapon, targetId.owner));
         Owner.playerPassiveManager.RemoveWeapon();
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

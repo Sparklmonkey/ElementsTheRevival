@@ -6,14 +6,15 @@ public class Steal : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.Permanent;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        Owner.PlayCardOnField(new(target.card));
-        AnimationManager.Instance.StartAnimation("Steal", target.transform);
-        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(new(targetCard), targetId.owner.Equals(OwnerEnum.Player)));
+        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(new(targetCard), targetId.owner));
+        // AnimationManager.Instance.StartAnimation("Steal", target.transform);
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = enemy.playerPermanentManager.GetAllValidCardIds();
         if (enemy.playerPassiveManager.GetWeapon().HasCard())
@@ -34,11 +35,11 @@ public class Steal : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return default;
         }
 
         return possibleTargets[Random.Range(0, possibleTargets.Count)];

@@ -1,7 +1,8 @@
 public class Shieldsolar : ShieldAbility
 {
-    public override void ActivateShield(ref int atkNow, ref IDCardPair cardPair)
+    public override int ActivateShield(int atkNow, (ID id, Card card) cardPair)
     {
-        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Light, Owner.isPlayer, true));
+        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Light, Owner.Owner, true));
+        return atkNow;
     }
 }

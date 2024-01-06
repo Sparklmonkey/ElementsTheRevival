@@ -1,12 +1,8 @@
 public class Shieldbones : ShieldAbility
 {
-    public override void ActivateShield(ref int atkNow, ref IDCardPair cardPair)
+    public override int ActivateShield(int atkNow, (ID id, Card card) cardPair)
     {
-        atkNow = 0;
-        Owner.AddPlayerCounter(PlayerCounters.Bone, -1);
-        if (Owner.playerCounters.bone <= 0)
-        {
-            Owner.playerPassiveManager.RemoveShield();
-        }
+        EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Bone, Owner.Owner, -1));
+        return 0;
     }
 }

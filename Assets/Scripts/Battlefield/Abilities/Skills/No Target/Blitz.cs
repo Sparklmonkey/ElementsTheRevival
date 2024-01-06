@@ -1,34 +1,26 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 public class Blitz : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, Element.Air, Owner.isPlayer, false));
-        var idCardList = Owner.playerCreatureField.GetAllValidCardIds();
-        foreach (var idCardi in idCardList)
+        EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, Element.Air, Owner.Owner, false));
+        var validCardList = Owner.playerCreatureField.GetAllValidCardIds();
+        foreach (var pair in validCardList.Where(idCardPair => idCardPair.Item2.innateSkills.Airborne))
         {
-            if (idCardi.card.innateSkills.Airborne)
-            {
-                AnimationManager.Instance.StartAnimation("Dive", target.transform);
-                idCardi.card.passiveSkills.Dive = true;
-                target.card.AtkModify *= 2;
-                target.card.atk *= 2;
-                idCardi.UpdateCard();
-            }
+            // AnimationManager.Instance.StartAnimation("Dive", target.transform);
+            pair.Item2.passiveSkills.Dive = true;
+            targetCard.AtkModify *= 2;
+            targetCard.atk *= 2;
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2));
         }
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

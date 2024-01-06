@@ -4,26 +4,20 @@ public class Sacrifice : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        Owner.ModifyHealthLogic(40, true, false);
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(40, true, false, Owner.Owner));
         for (var i = 0; i < 12; i++)
         {
             if ((Element)i == Element.Death) { continue; }
             
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, (Element)i, Owner.isPlayer, false));
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, (Element)i, Owner.Owner, false));
         }
-        Owner.AddPlayerCounter(PlayerCounters.Sacrifice, 2);
+        EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Sacrifice, Owner.Owner, 2));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

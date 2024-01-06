@@ -6,14 +6,14 @@ public class Beserk : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.LowestHp;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        target.card.AtkModify += 6;
-        target.card.DefModify -= 6;
-        target.UpdateCard();
+        targetCard.AtkModify += 6;
+        targetCard.DefModify -= 6;
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
@@ -21,19 +21,13 @@ public class Beserk : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
-        if (possibleTargets.Count == 0) { return null; }
+        if (possibleTargets.Count == 0) { return default; }
 
-        var opCreatures = possibleTargets.FindAll(x => x.id.owner == OwnerEnum.Opponent && x.HasCard());
+        var opCreatures = possibleTargets.FindAll(x => x.Item1.owner == OwnerEnum.Opponent && x.HasCard());
 
-        if (opCreatures.Count == 0)
-        {
-            return null;
-        }
-        else
-        {
-            return opCreatures[Random.Range(0, possibleTargets.Count)];
-        }
+        
+        return opCreatures.Count == 0 ? default : opCreatures[Random.Range(0, possibleTargets.Count)];
     }
 }

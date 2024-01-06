@@ -7,19 +7,19 @@ public class Mutation : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.OpHighAtk;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        AnimationManager.Instance.StartAnimation("Mutation", target.transform);
+        // AnimationManager.Instance.StartAnimation("Mutation", target.transform);
         switch (GetMutationResult())
         {
             case MutationEnum.Kill:
-                EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+                EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
                 return;
             case MutationEnum.Mutate:
-                EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(target.id, CardDatabase.Instance.GetMutant(target.card.iD.IsUpgraded())));
+                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetMutant(targetCard.iD.IsUpgraded())));
                 break;
             default:
-                EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(target.id, CardDatabase.Instance.GetCardFromId(target.card.iD.IsUpgraded() ? "6tu" : "4ve")));
+                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetCardFromId(targetCard.iD.IsUpgraded() ? "6tu" : "4ve")));
                 break;
         }
     }
@@ -27,21 +27,15 @@ public class Mutation : AbilityEffect
     private MutationEnum GetMutationResult()
     {
         var num = Random.Range(0, 100);
-        if (num >= 90)
+        return num switch
         {
-            return MutationEnum.Kill;
-        }
-        else if (num >= 50)
-        {
-            return MutationEnum.Mutate;
-        }
-        else
-        {
-            return MutationEnum.Abomination;
-        }
+            >= 90 => MutationEnum.Kill,
+            >= 50 => MutationEnum.Mutate,
+            _ => MutationEnum.Abomination
+        };
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
@@ -53,22 +47,22 @@ public class Mutation : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return default;
         }
 
-        var opCreatures = possibleTargets.FindAll(x => x.id.owner == OwnerEnum.Player && x.HasCard());
+        var opCreatures = possibleTargets.FindAll(x => x.Item1.owner == OwnerEnum.Player && x.HasCard());
 
         if (opCreatures.Count == 0)
         {
-            return possibleTargets.Find(x => x.id.owner == OwnerEnum.Player);
+            return possibleTargets.Find(x => x.Item1.owner == OwnerEnum.Player);
         }
         else
         {
-            return opCreatures.Aggregate((i1, i2) => i1.card.AtkNow >= i2.card.AtkNow ? i1 : i2);
+            return opCreatures.Aggregate((i1, i2) => i1.Item2.AtkNow >= i2.Item2.AtkNow ? i1 : i2);
         }
     }
 }

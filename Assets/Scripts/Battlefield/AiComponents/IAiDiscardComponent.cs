@@ -10,11 +10,8 @@ public class BaseAiDiscardComponent : IAiDiscardComponent
 {
     public void DiscardCard(PlayerManager aiManager)
     {
-        if (aiManager.playerHand.ShouldDiscard())
-        {
-            var rndCard = Random.Range(0, 8);
-            var cardToDiscard = aiManager.playerHand.GetAllValidCardIds()[rndCard];
-            aiManager.DiscardCard(cardToDiscard);
-        }
+        if (!aiManager.playerHand.ShouldDiscard()) return;
+        var index = Random.Range(0, 8);
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(new ID(OwnerEnum.Opponent, FieldEnum.Hand, index)));
     }
 }

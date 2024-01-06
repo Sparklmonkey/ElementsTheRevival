@@ -4,30 +4,22 @@ public class Luciferin : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        var idList = Owner.playerCreatureField.GetAllValidCardIds();
+        var cardList = Owner.playerCreatureField.GetAllValidCardIds();
 
-        foreach (var idCardi in idList)
+        foreach (var pair in cardList)
         {
-            if (idCardi.card.skill == "")
-            {
-                idCardi.card.passiveSkills.Light = true;
-                idCardi.card.desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
-                idCardi.UpdateCard();
-            }
+            if (pair.Item2.skill != "") continue;
+            pair.Item2.passiveSkills.Light = true;
+            pair.Item2.desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2));
         }
-        Owner.ModifyHealthLogic(10, false, false);
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(10, false, true, Owner.Owner));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

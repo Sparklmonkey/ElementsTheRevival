@@ -5,81 +5,74 @@ public class Accretion : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.Permanent;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        BattleVars.Shared.AbilityOrigin.card.DefModify += 15;
-        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
-        if (BattleVars.Shared.AbilityOrigin.card.DefNow >= 45)
+        BattleVars.Shared.AbilityCardOrigin.DefModify += 15;
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
+        if (BattleVars.Shared.AbilityCardOrigin.DefNow >= 45)
         {
-            var cardToAdd = BattleVars.Shared.AbilityOrigin.card.iD.IsUpgraded()
+            var cardToAdd = BattleVars.Shared.AbilityCardOrigin.iD.IsUpgraded()
                 ? CardDatabase.Instance.GetCardFromId("74f")
                 : CardDatabase.Instance.GetCardFromId("55v");
             
-            EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(Owner.isPlayer, new(cardToAdd)));
-            EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(BattleVars.Shared.AbilityOrigin.id));
+            EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(Owner.Owner, new(cardToAdd)));
+            EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(BattleVars.Shared.AbilityIDOrigin));
         }
         else
         {
-            BattleVars.Shared.AbilityOrigin.UpdateCard();
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin));
         }
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = enemy.playerPermanentManager.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerPermanentManager.GetAllValidCardIds());
-        if (enemy.playerPassiveManager.GetWeapon().HasCard())
+        if (enemy.playerPassiveManager.GetWeapon().Item2.iD != "4t2")
         {
             possibleTargets.Add(enemy.playerPassiveManager.GetWeapon());
         }
 
-        if (Owner.playerPassiveManager.GetWeapon().HasCard())
+        if (Owner.playerPassiveManager.GetWeapon().Item2.iD != "4t2")
         {
             possibleTargets.Add(Owner.playerPassiveManager.GetWeapon());
         }
 
-        if (enemy.playerPassiveManager.GetShield().HasCard())
+        if (enemy.playerPassiveManager.GetShield().Item2.iD != "4t1")
         {
             possibleTargets.Add(enemy.playerPassiveManager.GetShield());
         }
 
-        if (Owner.playerPassiveManager.GetShield().HasCard())
+        if (Owner.playerPassiveManager.GetShield().Item2.iD != "4t1")
         {
             possibleTargets.Add(Owner.playerPassiveManager.GetShield());
         }
 
-        if (possibleTargets.Count == 0)
-        {
-            return new();
-        }
-
-        return possibleTargets.FindAll(x => x.IsTargetable());
+        return possibleTargets.Count == 0 ? new() : possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return default;
         }
 
-        IDCardPair currentTarget = null;
+        (ID, Card) currentTarget = default;
         var score = 0;
 
         foreach (var target in possibleTargets)
         {
-            var currentScore = target.id.owner == Owner.playerID.id.owner ? 0 : 100;
-            currentScore += target.card.AtkNow;
-            currentScore += target.card.DefNow;
+            var currentScore = target.Item1.owner == Owner.playerID.owner ? 0 : 100;
+            currentScore += target.Item2.AtkNow;
+            currentScore += target.Item2.DefNow;
 
-            currentScore += target.card.skill == "" ? 30 : 0;
-            currentScore += (int)target.card.cardType * 20;
+            currentScore += target.Item2.skill == "" ? 30 : 0;
+            currentScore += (int)target.Item2.cardType * 20;
 
-            if (currentScore > score)
-            {
-                score = currentScore;
-                currentTarget = target;
-            }
+            if (currentScore <= score) continue;
+            score = currentScore;
+            currentTarget = target;
         }
 
         return currentTarget;

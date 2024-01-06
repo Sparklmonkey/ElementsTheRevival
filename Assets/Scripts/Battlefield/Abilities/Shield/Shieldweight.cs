@@ -1,10 +1,12 @@
 public class Shieldweight : ShieldAbility
 {
-    public override void ActivateShield(ref int atkNow, ref IDCardPair cardPair)
+    public override int ActivateShield(int atkNow, (ID id, Card card) cardPair)
     {
         if (cardPair.card.cardType == CardType.Creature && cardPair.card.DefNow > 5)
         {
-            atkNow = 0;
+            return 0;
         }
+
+        return atkNow;
     }
 }

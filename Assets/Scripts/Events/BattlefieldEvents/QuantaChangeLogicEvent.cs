@@ -2,14 +2,14 @@
 {
     public int Amount;
     public Element Element;
-    public bool IsPlayer;
+    public OwnerEnum Owner;
     public bool IsAdd;
     
-    public QuantaChangeLogicEvent(int amount, Element element, bool isPlayer, bool isAdd)
+    public QuantaChangeLogicEvent(int amount, Element element, OwnerEnum owner, bool isAdd)
     {
         Amount = amount;
         Element = element;
-        IsPlayer = isPlayer;
+        Owner = owner;
         IsAdd = isAdd;
     }
 }

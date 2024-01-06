@@ -6,18 +6,18 @@ public class Nightmare : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.HighestCost;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        var opponent = DuelManager.Instance.GetNotIDOwner(Owner.playerID.id);
-        var creature = CardDatabase.Instance.GetCardFromId(target.card.iD);
+        var opponent = DuelManager.Instance.GetNotIDOwner(Owner.playerID);
+        var creature = CardDatabase.Instance.GetCardFromId(targetCard.iD);
 
-        var damage = 7 - opponent.GetHandCards().Count;
+        var damage = 7 - opponent.playerHand.GetHandCount();
         opponent.FillHandWith(creature);
-        opponent.ModifyHealthLogic(damage * 2, true, true);
-        Owner.ModifyHealthLogic(damage * 2, false, true);
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damage * 2, true, true, opponent.Owner));
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damage * 2, false, true, Owner.Owner));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
@@ -29,11 +29,11 @@ public class Nightmare : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return default;
         }
 
         return possibleTargets[Random.Range(0, possibleTargets.Count)];

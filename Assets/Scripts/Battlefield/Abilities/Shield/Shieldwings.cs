@@ -1,10 +1,7 @@
 public class Shieldwings : ShieldAbility
 {
-    public override void ActivateShield(ref int atkNow, ref IDCardPair cardPair)
+    public override int ActivateShield(int atkNow, (ID id, Card card) cardPair)
     {
-        if (!cardPair.card.innateSkills.Ranged && !cardPair.card.innateSkills.Airborne)
-        {
-            atkNow = 0;
-        }
+        return cardPair.card.innateSkills is { Ranged: false, Airborne: false } ? 0 : atkNow;
     }
 }

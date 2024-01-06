@@ -9,7 +9,7 @@ namespace Elements.Duel.Visual
         private TMPro.TextMeshProUGUI deckCount;
 
         [SerializeField]
-        private bool isPlayer;
+        private OwnerEnum owner;
         private EventBinding<DeckCountChangeEvent> _deckCountChangeBinding;
         public void OnEnable()
         {
@@ -24,10 +24,7 @@ namespace Elements.Duel.Visual
 
         public void UpdateDeckCount(DeckCountChangeEvent deckCountChangeEvent)
         {
-            if (isPlayer != deckCountChangeEvent.IsPlayer)
-            {
-                return;
-            }
+            if (deckCountChangeEvent.Owner.Equals(owner)) return;
             deckCount.text = deckCountChangeEvent.DeckCount.ToString();
         }
     }

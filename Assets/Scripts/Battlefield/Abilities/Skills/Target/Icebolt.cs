@@ -7,59 +7,47 @@ public class Icebolt : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.OpHighAtk;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
         var quantaElement = Owner.GetAllQuantaOfElement(Element.Water);
         var damageToDeal = 2 + Mathf.FloorToInt(quantaElement / 10) * 2;
         var willFreeze = Random.Range(0, 100) > 30 + damageToDeal * 5;
 
-        if (!target.HasCard())
+        if (targetCard is null)
         {
-            DuelManager.Instance.GetIDOwner(target.id).ModifyHealthLogic(damageToDeal, true, true);
-            DuelManager.Instance.GetIDOwner(target.id).AddPlayerCounter(PlayerCounters.Freeze, willFreeze ? 3 : 0);
+            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damageToDeal, true, true, targetId.owner));
+            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Freeze,  targetId.owner.Not(), willFreeze ? 3 : 0));
             return;
         }
 
-        target.card.DefDamage += damageToDeal;
-        target.card.Freeze += willFreeze ? 3 : 0;
-        if (target.card.DefNow > 0 && target.card.innateSkills.Voodoo)
+        targetCard.DefDamage += damageToDeal;
+        targetCard.Freeze += willFreeze ? 3 : 0;
+        if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
         {
-            DuelManager.Instance.GetNotIDOwner(target.id).ModifyHealthLogic(target.card.DefNow < damageToDeal ? target.card.DefNow : damageToDeal, true, false);
-            DuelManager.Instance.GetNotIDOwner(target.id).AddPlayerCounter(PlayerCounters.Freeze, target.card.Freeze += willFreeze ? 3 : 0);
+            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(targetCard.DefNow < damageToDeal ? targetCard.DefNow : damageToDeal, true, false, targetId.owner.Not()));
+            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Freeze, targetId.owner.Not(), willFreeze ? 3 : 0));
         }
 
-        target.UpdateCard();
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        possibleTargets.Add(enemy.playerID);
-        possibleTargets.Add(Owner.playerID);
-        if (possibleTargets.Count == 0)
-        {
-            return new();
-        }
-
-        return possibleTargets.FindAll(x => x.IsTargetable());
+        possibleTargets.Add((enemy.playerID, null));
+        possibleTargets.Add((Owner.playerID, null));
+        return possibleTargets.Count == 0 ? new() : possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return default;
         }
 
-        var opCreatures = possibleTargets.FindAll(x => x.id.owner == OwnerEnum.Player && x.HasCard());
-        if (opCreatures.Count == 0)
-        {
-            return possibleTargets.Find(x => x.id.owner == OwnerEnum.Player);
-        }
-        else
-        {
-            return opCreatures.Aggregate((i1, i2) => i1.card.AtkNow >= i2.card.AtkNow ? i1 : i2);
-        }
+        var opCreatures = possibleTargets.FindAll(x => x.Item1.owner == OwnerEnum.Player && x.HasCard());
+        return opCreatures.Count == 0 ? possibleTargets.Find(x => x.Item1.owner == OwnerEnum.Player) : opCreatures.Aggregate((i1, i2) => i1.Item2.AtkNow >= i2.Item2.AtkNow ? i1 : i2);
     }
 }

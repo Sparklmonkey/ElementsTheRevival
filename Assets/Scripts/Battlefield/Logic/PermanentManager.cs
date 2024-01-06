@@ -1,90 +1,107 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Elements.Duel.Manager
 {
     [Serializable]
-    public class PermanentManager : FieldManager
+    public class PermanentManager : MonoBehaviour
     {
-        private bool _isPlayer;
-        
-        private EventBinding<PlayCardOnFieldEvent> _playCardOnFieldBinding;
-    
-        public void OnDisable() {
-            EventBus<PlayCardOnFieldEvent>.Unregister(_playCardOnFieldBinding);
+        [SerializeField] private GameObject permanentPrefab;
+        [SerializeField] private List<Transform> permanentPositions;
+
+        private readonly List<int> _permanentCardOrder = new() { 1, 3, 5, 7, 0, 2, 4, 6, 9, 11, 13, 8, 10, 12 };
+        private OwnerEnum _owner;
+
+        private EventBinding<PlayPermanentOnFieldEvent> _playPermanentBinding;
+
+        private void OnDisable()
+        {
+            EventBus<PlayPermanentOnFieldEvent>.Unregister(_playPermanentBinding);
         }
 
-        public void SetupManager(bool isPlayer)
+        private void OnEnable()
         {
-            _isPlayer = isPlayer;
-            _playCardOnFieldBinding = new EventBinding<PlayCardOnFieldEvent>(PlayPermanent);
-            EventBus<PlayCardOnFieldEvent>.Register(_playCardOnFieldBinding);
+            _playPermanentBinding = new EventBinding<PlayPermanentOnFieldEvent>(PlayPermanent);
+            EventBus<PlayPermanentOnFieldEvent>.Register(_playPermanentBinding);
         }
 
-        public void PlayPermanent(PlayCardOnFieldEvent playCardOnFieldEvent)
+        public void SetOwner(OwnerEnum owner) => _owner = owner;
+
+        public List<Card> GetAllValidCards()
         {
-            if (!playCardOnFieldEvent.CardToPlay.cardType.Equals(CardType.Pillar) &&
-                !playCardOnFieldEvent.CardToPlay.cardType.Equals(CardType.Artifact))
-            {
-                return;
-            }
+            var firstList = permanentPositions.FindAll(p => p.childCount > 0);
+            return firstList.Select(permanent => permanent.GetComponentInChildren<PermanentCardDisplay>().Card)
+                .ToList();
+        }
 
-            if (playCardOnFieldEvent.IsPlayer != _isPlayer)
-            {
-                return;
-            }
-            if (playCardOnFieldEvent.CardToPlay.cardType.Equals(CardType.Pillar))
-            {
-                if (playCardOnFieldEvent.CardToPlay.iD.IsUpgraded())
-                {
-                    EventBus<QuantaChangeLogicEvent>.Raise(
-                        playCardOnFieldEvent.CardToPlay.costElement.Equals(Element.Other)
-                            ? new QuantaChangeLogicEvent(3, playCardOnFieldEvent.CardToPlay.costElement, _isPlayer,
-                                true)
-                            : new QuantaChangeLogicEvent(1, playCardOnFieldEvent.CardToPlay.costElement, _isPlayer,
-                                true));
-                }
-                var stackedCard = PairList.FirstOrDefault(idCard => idCard.HasCard() && idCard.card.iD == playCardOnFieldEvent.CardToPlay.iD);
-                if (stackedCard is not null)
-                {
-                    EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(stackedCard.id, playCardOnFieldEvent.CardToPlay));
-                    return;
-                }
-            }
+        public List<(ID id, Card card)> GetAllValidCardIds()
+        {
+            var firstList = permanentPositions.FindAll(p => p.childCount > 0);
+            var list = firstList.Select(permanent => permanent.GetComponentInChildren<PermanentCardDisplay>()).ToList();
 
-            List<int> permanentCardOrder = new() { 1, 3, 5, 7, 0, 2, 4, 6, 9, 11, 13, 8, 10, 12 };
+            return list.Select(item => (item.Id, item.Card)).ToList();
+        }
 
-            foreach (var orderIndex in permanentCardOrder)
+        private void TowerCheck(Card card)
+        {
+            if (card.iD.IsUpgraded())
             {
-                if (!PairList[orderIndex].HasCard())
-                {
-                    if (StackCountList.Count > 0)
-                    {
-                        StackCountList[orderIndex]++;
-                    }
-                    EventBus<OnCardPlayEvent>.Raise(new OnCardPlayEvent(PairList[orderIndex].id, playCardOnFieldEvent.CardToPlay));
-                    break;
-                }
+                EventBus<QuantaChangeLogicEvent>.Raise(
+                    card.costElement.Equals(Element.Other)
+                        ? new QuantaChangeLogicEvent(3, card.costElement, _owner,
+                            true)
+                        : new QuantaChangeLogicEvent(1, card.costElement, _owner,
+                            true));
             }
         }
 
-        public void PermanentTurnDown()
+        public void PlayPermanent(PlayPermanentOnFieldEvent playCardOnFieldEvent)
         {
-            foreach (var idCard in PairList)
+            if (!playCardOnFieldEvent.Owner.Equals(_owner)) return;
+
+            if (IsStacked(playCardOnFieldEvent.CardToPlay)) return;
+            
+            foreach (var orderIndex in _permanentCardOrder)
             {
-                if (!idCard.HasCard()) { continue; }
-                idCard.cardBehaviour.OnTurnStart();
+                if (permanentPositions[orderIndex].childCount != 0) continue;
+                var id = new ID(_owner, FieldEnum.Permanent, orderIndex);
+                var permanentCardObject = Instantiate(permanentPrefab, permanentPositions[orderIndex]);
+                permanentCardObject.GetComponent<PermanentCardDisplay>().SetupId(id);
+
+                EventBus<UpdatePermanentCardEvent>.Raise(new UpdatePermanentCardEvent(id, playCardOnFieldEvent.CardToPlay));
+                break;
             }
         }
 
-        internal void ClearField()
+        private bool IsStacked(Card card)
         {
-            foreach (var pair in PairList)
-            {
-                pair.card = null;
-            }
+            if (!card.cardType.Equals(CardType.Pillar)) return false;
+            TowerCheck(card);
+            
+            if (!permanentPositions.Exists(t => t.childCount > 0)) return false;
+            
+            var filteredList = permanentPositions.FindAll(t => t.childCount > 0);
+            if (filteredList.Count <= 0) return false;
+            
+            var stackedCard = filteredList.FirstOrDefault(t =>
+                    t.GetComponentInChildren<PermanentCardDisplay>().Card.iD ==
+                    card.iD);
+            if (stackedCard is null) return false;
+            EventBus<UpdatePermanentCardEvent>.Raise(new UpdatePermanentCardEvent(
+                    stackedCard.GetComponentInChildren<PermanentCardDisplay>().Id,
+                    card));
+            return true;
+        }
+
+    public void PermanentTurnDown()
+        {
+            // foreach (var idCard in PairList)
+            // {
+            //     if (!idCard.HasCard()) { continue; }
+            //     idCard.cardBehaviour.OnTurnStart();
+            // }
         }
     }
-
 }

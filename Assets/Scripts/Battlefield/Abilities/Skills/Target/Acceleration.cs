@@ -6,14 +6,14 @@ public class Acceleration : AbilityEffect
 
     public override TargetPriority GetPriority() => TargetPriority.HighestHp;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        target.card.desc = "Acceleration: \n Gain +2 /-1 per turn";
-        target.card.skill = "";
-        target.card.passiveSkills.Acceleration = true;
+        targetCard.desc = "Acceleration: \n Gain +2 /-1 per turn";
+        targetCard.skill = "";
+        targetCard.passiveSkills.Acceleration = true;
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
@@ -25,23 +25,23 @@ public class Acceleration : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return default;
         }
 
-        IDCardPair currentTarget = null;
+        (ID, Card) currentTarget = default;
         var score = 0;
 
         foreach (var target in possibleTargets)
         {
-            var currentScore = target.id.owner == Owner.playerID.id.owner ? 75 : 50;
-            currentScore += target.card.AtkNow;
-            currentScore += target.card.DefNow;
+            var currentScore = target.Item1.owner == Owner.playerID.owner ? 75 : 50;
+            currentScore += target.Item2.AtkNow;
+            currentScore += target.Item2.DefNow;
 
-            currentScore += target.card.skill == "" ? 15 : 0;
+            currentScore += target.Item2.skill == "" ? 15 : 0;
 
             if (currentScore > score)
             {

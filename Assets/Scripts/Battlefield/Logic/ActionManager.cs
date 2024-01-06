@@ -26,7 +26,7 @@ public class ActionManager
     
     private static void AddCardDrawAction(AddDrawCardActionEvent addDrawCardActionEvent)
     {
-        var isPlayer = addDrawCardActionEvent.IsPlayer;
+        var isPlayer = addDrawCardActionEvent.Owner.Equals(OwnerEnum.Player);
         ElementAction action = new(isPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName, 
             "Draw", isPlayer ? addDrawCardActionEvent.CardDrawn.imageID : "", "", false);
         ActionList.Add(action);
@@ -43,10 +43,10 @@ public class ActionManager
         var owner = addSpellActivatedActionEvent.IsPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName;
         var shouldShowArrow = false;
         var targetId = "";
-        if (addSpellActivatedActionEvent.Target != null)
+        if (addSpellActivatedActionEvent.TargetId != null)
         {
-            shouldShowArrow = addSpellActivatedActionEvent.Target.HasCard() || addSpellActivatedActionEvent.Target.id.field.Equals(FieldEnum.Player);
-            targetId = addSpellActivatedActionEvent.Target.HasCard() ? addSpellActivatedActionEvent.Target.card.imageID : "";
+            shouldShowArrow = addSpellActivatedActionEvent.TargetCard is not null || addSpellActivatedActionEvent.TargetId.field.Equals(FieldEnum.Player);
+            targetId = addSpellActivatedActionEvent.TargetCard is not null ? addSpellActivatedActionEvent.TargetCard.imageID : "";
         }
         ElementAction action = new(owner, "Played Spell", addSpellActivatedActionEvent.Spell.imageID, targetId, shouldShowArrow);
 
@@ -58,10 +58,10 @@ public class ActionManager
         var owner = addAbilityActivatedActionEvent.IsPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName;
         var shouldShowArrow = false;
         var targetId = "";
-        if (addAbilityActivatedActionEvent.Target != null)
+        if (addAbilityActivatedActionEvent.TargetId is null)
         {
-            shouldShowArrow = addAbilityActivatedActionEvent.Target.HasCard() || addAbilityActivatedActionEvent.Target.id.field.Equals(FieldEnum.Player);
-            targetId = addAbilityActivatedActionEvent.Target.HasCard() ? addAbilityActivatedActionEvent.Target.card.imageID : "";
+            shouldShowArrow = addAbilityActivatedActionEvent.TargetCard is not null || addAbilityActivatedActionEvent.TargetId.field.Equals(FieldEnum.Player);
+            targetId = addAbilityActivatedActionEvent.TargetCard is not null ? addAbilityActivatedActionEvent.TargetCard.imageID : "";
         }
         ElementAction action = new(owner, "Activated Ability", addAbilityActivatedActionEvent.AbilityOwner.imageID, targetId, shouldShowArrow);
 

@@ -1,12 +1,9 @@
 public class Shieldreflect : ShieldAbility
 {
-    public override void ActivateShield(ref int atkNow, ref IDCardPair cardPair)
+    public override int ActivateShield(int atkNow, (ID id, Card card) cardPair)
     {
-        if (cardPair.card.passiveSkills.Psion)
-        {
-            Enemy.ModifyHealthLogic(atkNow, true, false);
-            atkNow = 0;
-        }
-
+        if (!cardPair.card.passiveSkills.Psion) return atkNow;
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(atkNow, true, false, Enemy.Owner));
+        return 0;
     }
 }

@@ -8,11 +8,11 @@ namespace Elements.Duel.Manager
     {
         private QuantaPool _quantaPool;
         private List<QuantaDisplayer> _quantaDisplayers;
-        private bool _isPlayer;
+        private OwnerEnum _owner;
         
-        public QuantaManager(bool isPlayer)
+        public QuantaManager(OwnerEnum owner)
         {
-            _isPlayer = isPlayer;
+            _owner = owner;
             _quantaSpentLogicBinding = new EventBinding<QuantaChangeLogicEvent>(UpdateQuantaManager);
             EventBus<QuantaChangeLogicEvent>.Register(_quantaSpentLogicBinding);
         }
@@ -25,10 +25,7 @@ namespace Elements.Duel.Manager
 
         private void UpdateQuantaManager(QuantaChangeLogicEvent quantaChangeLogicEvent)
         {
-            if (_isPlayer != quantaChangeLogicEvent.IsPlayer)
-            {
-                return;
-            }
+            if (!quantaChangeLogicEvent.Owner.Equals(_owner)) return;
             ChangeQuanta(quantaChangeLogicEvent.Element, quantaChangeLogicEvent.Amount, quantaChangeLogicEvent.IsAdd);
         }
 
@@ -42,7 +39,7 @@ namespace Elements.Duel.Manager
                     {
                         var rndElement = (Element)Random.Range(0, 12);
                         var newAmount = _quantaPool.AddQuanta(rndElement, 1);
-                        EventBus<QuantaChangeVisualEvent>.Raise(new QuantaChangeVisualEvent(newAmount, rndElement, _isPlayer));
+                        EventBus<QuantaChangeVisualEvent>.Raise(new QuantaChangeVisualEvent(newAmount, rndElement, _owner));
                         amount--;
                     }
                 }
@@ -59,7 +56,7 @@ namespace Elements.Duel.Manager
                             continue;
                         }
                         var newAmount = _quantaPool.AddQuanta(rndElement, -1);
-                        EventBus<QuantaChangeVisualEvent>.Raise(new QuantaChangeVisualEvent(newAmount, rndElement, _isPlayer));
+                        EventBus<QuantaChangeVisualEvent>.Raise(new QuantaChangeVisualEvent(newAmount, rndElement, _owner));
                         amount--;
                     }
                 }
@@ -67,7 +64,7 @@ namespace Elements.Duel.Manager
             else
             {
                 var newAmount = _quantaPool.AddQuanta(element, isAdd ? amount : -amount);
-                EventBus<QuantaChangeVisualEvent>.Raise(new QuantaChangeVisualEvent(newAmount, element, _isPlayer));
+                EventBus<QuantaChangeVisualEvent>.Raise(new QuantaChangeVisualEvent(newAmount, element, _owner));
             }
 
 

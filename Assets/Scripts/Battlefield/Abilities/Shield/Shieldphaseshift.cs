@@ -1,7 +1,7 @@
 public class Shieldphaseshift : ShieldAbility
 {
-    public override void ActivateShield(ref int atkNow, ref IDCardPair cardPair)
+    public override int ActivateShield(int atkNow, (ID id, Card card) cardPair)
     {
-        atkNow = 0;
+        return 0;
     }
 }

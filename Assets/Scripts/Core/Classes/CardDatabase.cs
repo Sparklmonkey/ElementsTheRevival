@@ -304,7 +304,7 @@ public class CardDatabase
         return GetCardFromId(_eliteNymphNames[element]);
     }
 
-    public Card GetGolemAbility(List<IDCardPair> shardList)
+    public Card GetGolemAbility(List<(ID id, Card card)> shardList)
     {
         var golem = GetCardFromId("597");
         Dictionary<Element, int> elementCount = new()
@@ -344,7 +344,7 @@ public class CardDatabase
                     golem.def += item.card.iD.IsUpgraded() ? 3 : 2;
                     break;
             }
-            EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(item.id));
+            EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(item.id));
         }
 
         if (elementCount[Element.Air] > 0)

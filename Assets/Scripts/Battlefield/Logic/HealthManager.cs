@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-
-namespace Elements.Duel.Manager
+﻿namespace Elements.Duel.Manager
 {
     public class HealthManager
     {
         private int _maxHealth;
         private int _currentHealth;
-        private bool _isPlayer;
+        private OwnerEnum _owner;
 
         private EventBinding<ModifyPlayerHealthLogicEvent> _modifyPlayerHealthLogicBinding;
     
@@ -14,17 +12,17 @@ namespace Elements.Duel.Manager
             EventBus<ModifyPlayerHealthLogicEvent>.Unregister(_modifyPlayerHealthLogicBinding);
         }
         
-        public HealthManager(int maxHealth, bool isPlayer)
+        public HealthManager(int maxHealth, OwnerEnum owner)
         {
             _maxHealth = _currentHealth = maxHealth;
-            _isPlayer = isPlayer;
+            _owner = owner;
             _modifyPlayerHealthLogicBinding = new EventBinding<ModifyPlayerHealthLogicEvent>(ModifyPlayerHealth);
             EventBus<ModifyPlayerHealthLogicEvent>.Register(_modifyPlayerHealthLogicBinding);
         }
 
         private void ModifyPlayerHealth(ModifyPlayerHealthLogicEvent modifyPlayerHealthLogicEvent)
         {
-            if (modifyPlayerHealthLogicEvent.IsPlayer != _isPlayer)
+            if (!modifyPlayerHealthLogicEvent.Owner.Equals(_owner))
             {
                 return;
             }
@@ -38,8 +36,13 @@ namespace Elements.Duel.Manager
                 _currentHealth += modifyPlayerHealthLogicEvent.Amount;
                 _currentHealth = _currentHealth > _maxHealth ? _maxHealth : _currentHealth;
             }
+
+            if (_currentHealth <= 0)
+            {
+                EventBus<GameEndEvent>.Raise(new GameEndEvent(_owner));
+            }
             
-            EventBus<ModifyPlayerHealthVisualEvent>.Raise(new ModifyPlayerHealthVisualEvent(_currentHealth, _isPlayer, _maxHealth));
+            EventBus<ModifyPlayerHealthVisualEvent>.Raise(new ModifyPlayerHealthVisualEvent(_currentHealth, _owner, _maxHealth));
         }
         
         public int GetMaxHealth() => _maxHealth;

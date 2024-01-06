@@ -2,12 +2,14 @@
 {
     public Card AbilityOwner;
     public bool IsPlayer;
-    public IDCardPair Target;
+    public ID TargetId;
+    public Card TargetCard;
     
-    public AddAbilityActivatedActionEvent(bool isPlayer, Card abilityOwner, IDCardPair target)
+    public AddAbilityActivatedActionEvent(bool isPlayer, Card abilityOwner, ID targetId, Card targetCard)
     {
         AbilityOwner = abilityOwner;
         IsPlayer = isPlayer;
-        Target = target;
+        TargetId = targetId;
+        TargetCard = targetCard;
     }
 }

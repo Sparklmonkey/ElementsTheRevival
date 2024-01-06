@@ -2,12 +2,12 @@
 {
     public int Amount;
     public Element Element;
-    public bool IsPlayer;
+    public OwnerEnum Owner;
     
-    public QuantaChangeVisualEvent(int amount, Element element, bool isPlayer)
+    public QuantaChangeVisualEvent(int amount, Element element, OwnerEnum owner)
     {
         Amount = amount;
         Element = element;
-        IsPlayer = isPlayer;
+        Owner = owner;
     }
 }

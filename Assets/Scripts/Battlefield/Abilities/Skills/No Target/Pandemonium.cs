@@ -1,40 +1,33 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class Pandemonium : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        var idList = DuelManager.Instance.player.playerCreatureField.GetAllValidCardIds();
+        var cardList = DuelManager.Instance.player.playerCreatureField.GetAllValidCardIds();
 
-        foreach (var idCardi in idList)
+        foreach (var pair in cardList.Where(pair => !pair.Item2.innateSkills.Immaterial).Where(pair => !pair.Item2.passiveSkills.Burrow))
         {
-            if (idCardi.card.innateSkills.Immaterial) { continue; }
-            if (idCardi.card.passiveSkills.Burrow) { continue; }
             var chaos = new Chaos { Owner = Owner };
-            chaos.Activate(idCardi);
+            chaos.Activate(pair.Item1, pair.Item2);
         }
 
-        idList = DuelManager.Instance.enemy.playerCreatureField.GetAllValidCardIds();
+        cardList = DuelManager.Instance.enemy.playerCreatureField.GetAllValidCardIds();
 
-        foreach (var idCardi in idList)
+        foreach (var pair in cardList.Where(pair => !pair.Item2.innateSkills.Immaterial).Where(pair => !pair.Item2.passiveSkills.Burrow))
         {
-            if (idCardi.card.innateSkills.Immaterial) { continue; }
-            if (idCardi.card.passiveSkills.Burrow) { continue; }
+            if (pair.Item2.innateSkills.Immaterial) { continue; }
+            if (pair.Item2.passiveSkills.Burrow) { continue; }
             var chaos = new Chaos { Owner = Owner };
-            chaos.Activate(idCardi);
+            chaos.Activate(pair.Item1, pair.Item2);
         }
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

@@ -6,40 +6,33 @@ public class Devour : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.OpHighAtk;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        BattleVars.Shared.AbilityOrigin.card.AtkModify++;
-        BattleVars.Shared.AbilityOrigin.card.DefModify++;
-        if (target.card.innateSkills.Poisonous)
+        BattleVars.Shared.AbilityCardOrigin.AtkModify++;
+        BattleVars.Shared.AbilityCardOrigin.DefModify++;
+        if (targetCard.innateSkills.Poisonous)
         {
-            BattleVars.Shared.AbilityOrigin.card.Poison++;
+            BattleVars.Shared.AbilityCardOrigin.Poison++;
         }
-        BattleVars.Shared.AbilityOrigin.UpdateCard();
-        EventBus<OnCardRemovedEvent>.Raise(new OnCardRemovedEvent(target.id));
+        EventBus<UpdateCreatureCardEvent>.Raise( new UpdateCreatureCardEvent(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin));
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
         if (possibleTargets.Count == 0) { return new(); }
-        if (!possibleTargets.Exists(x => x.IsTargetable() && x.card.DefNow <= Origin.card.DefNow)) { return new(); }
-        return possibleTargets.FindAll(x => x.IsTargetable() && x.card.DefNow < Origin.card.DefNow);
+        if (!possibleTargets.Exists(x => x.IsTargetable() && x.Item2.DefNow <= Origin.DefNow)) { return new(); }
+        return possibleTargets.FindAll(x => x.IsTargetable() && x.Item2.DefNow < Origin.DefNow);
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
-        if (possibleTargets.Count == 0) { return null; }
+        if (possibleTargets.Count == 0) { return default; }
 
-        var opCreatures = possibleTargets.FindAll(x => x.id.owner == OwnerEnum.Player && x.HasCard());
+        var opCreatures = possibleTargets.FindAll(x => x.Item1.owner == OwnerEnum.Player && x.HasCard());
 
-        if (opCreatures.Count == 0)
-        {
-            return null;
-        }
-        else
-        {
-            return opCreatures[Random.Range(0, possibleTargets.Count)];
-        }
+        return opCreatures.Count == 0 ? default : opCreatures[Random.Range(0, possibleTargets.Count)];
     }
 }

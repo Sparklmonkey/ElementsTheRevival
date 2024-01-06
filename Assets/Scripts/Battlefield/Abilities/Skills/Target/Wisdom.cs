@@ -6,14 +6,14 @@ public class Wisdom : AbilityEffect
     public override bool NeedsTarget() => true;
     public override TargetPriority GetPriority() => TargetPriority.SelfHighAtk;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        target.card.AtkModify += 4;
-        target.card.passiveSkills.Psion = true;
-        target.card.desc = $"{target.card.cardName}'s attacks deal spell damage.";
+        targetCard.AtkModify += 4;
+        targetCard.passiveSkills.Psion = true;
+        targetCard.desc = $"{targetCard.cardName}'s attacks deal spell damage.";
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
@@ -22,16 +22,11 @@ public class Wisdom : AbilityEffect
             return new();
         }
 
-        return possibleTargets.FindAll(x => x.card.innateSkills.Immaterial);
+        return possibleTargets.FindAll(x => x.Item2.innateSkills.Immaterial);
     }
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
-        if (possibleTargets.Count == 0)
-        {
-            return null;
-        }
-
-        return possibleTargets[Random.Range(0, possibleTargets.Count)];
+        return possibleTargets.Count == 0 ? default : possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

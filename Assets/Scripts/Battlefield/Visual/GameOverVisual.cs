@@ -1,3 +1,4 @@
+using System;
 using Networking;
 using TMPro;
 using UnityEngine;
@@ -18,6 +19,23 @@ public class GameOverVisual : MonoBehaviour
     private GameObject _touchBlocker;
     public bool isGameOver = false;
 
+    private EventBinding<GameEndEvent> _gameEndBinding;
+    
+    private void OnDisable() {
+        EventBus<GameEndEvent>.Unregister(_gameEndBinding);
+    }
+
+    private void OnEnable()
+    {
+        _gameEndBinding = new EventBinding<GameEndEvent>(EndGame);
+        EventBus<GameEndEvent>.Register(_gameEndBinding);
+    }
+
+    private void EndGame(GameEndEvent gameEndEvent)
+    {
+        ShowGameOverScreen(gameEndEvent.Owner.Equals(OwnerEnum.Opponent));
+    }
+    
     public async void ShowGameOverScreen(bool didWin)
     {
         DuelManager.Instance.StopAllRunningRoutines();

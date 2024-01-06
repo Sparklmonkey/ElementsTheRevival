@@ -4,9 +4,9 @@ public class Blackhole : AbilityEffect
 {
     public override bool NeedsTarget() => false;
 
-    public override void Activate(IDCardPair target)
+    public override void Activate(ID targetId, Card targetCard)
     {
-        var victim = Owner.isPlayer ? DuelManager.Instance.enemy : DuelManager.Instance.player;
+        var victim = DuelManager.Instance.GetNotIDOwner(Owner.playerID);
         var hpToRestore = 0;
         if (victim.playerCounters.sanctuary == 0)
         {
@@ -14,34 +14,27 @@ public class Blackhole : AbilityEffect
             {
                 if (victim.HasSufficientQuanta((Element)i, 3))
                 {
-                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(3, (Element)i, Owner.isPlayer, false));
+                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(3, (Element)i, Owner.Owner, false));
                     hpToRestore += 3;
                 }
                 else if (victim.HasSufficientQuanta((Element)i, 2))
                 {
-                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(2, (Element)i, Owner.isPlayer, false));
+                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(2, (Element)i, Owner.Owner, false));
                     hpToRestore += 2;
                 }
                 else if (victim.HasSufficientQuanta((Element)i, 1))
                 {
-                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, (Element)i, Owner.isPlayer, false));
+                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, (Element)i, Owner.Owner, false));
                     hpToRestore++;
                 }
             }
         }
-
-        Owner.ModifyHealthLogic(hpToRestore, false, false);
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(hpToRestore, false, false, Owner.Owner));
     }
 
-    public override List<IDCardPair> GetPossibleTargets(PlayerManager enemy)
-    {
-        return new();
-    }
+    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
 
-    public override IDCardPair SelectRandomTarget(List<IDCardPair> possibleTargets)
-    {
-        return null;
-    }
+    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
 
     public override TargetPriority GetPriority() => TargetPriority.Any;
 }

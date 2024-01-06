@@ -1,11 +1,17 @@
-﻿public struct ShouldShowUsableEvent : IEvent
+﻿using Elements.Duel.Manager;
+
+public struct ShouldShowUsableEvent : IEvent
 {
-    public bool ShouldShow;
-    public ID DisplayerId;
+    public QuantaCheck QuantaCheck;
+    public OwnerEnum Owner;
     
-    public ShouldShowUsableEvent(bool shouldShow, ID displayerId)
+    public ShouldShowUsableEvent(QuantaCheck quantaCheck, OwnerEnum owner)
     {
-        ShouldShow = shouldShow;
-        DisplayerId = displayerId;
+        QuantaCheck = quantaCheck;
+        Owner = owner;
     }
+}
+
+public struct HideUsableDisplayEvent : IEvent
+{
 }
