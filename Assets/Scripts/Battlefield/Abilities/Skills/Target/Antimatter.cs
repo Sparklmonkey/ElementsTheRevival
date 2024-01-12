@@ -9,7 +9,7 @@ public class Antimatter : AbilityEffect
     public override void Activate(ID targetId, Card targetCard)
     {
         targetCard.passiveSkills.Antimatter = true;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

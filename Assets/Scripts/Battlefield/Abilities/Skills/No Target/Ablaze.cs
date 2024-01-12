@@ -7,7 +7,7 @@ public class Ablaze : AbilityEffect
     public override void Activate(ID targetId, Card targetCard)
     {
         targetCard.AtkModify += 2;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();

@@ -7,7 +7,7 @@ public class Hatch : AbilityEffect
     public override void Activate(ID targetId, Card targetCard)
     {
         var cardToPlay = CardDatabase.Instance.GetRandomCard(CardType.Creature, targetCard.iD.IsUpgraded(), true);
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, cardToPlay));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, cardToPlay, false));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();

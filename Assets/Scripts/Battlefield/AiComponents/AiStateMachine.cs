@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
@@ -165,7 +166,7 @@ public class AiStateMachine
         {
             _currentState = GameState.PlayWeapon;
         }
-        else if (_aiTurn.HasSpellToUse(_aiManager))
+        else if (_aiTurn.HasCardInHand(_aiManager, CardType.Spell))
         {
             _currentState = GameState.PlaySpells;
         }
@@ -193,32 +194,6 @@ public class CardData
 
 public class BasicAiTurnLogic : AiTurnBase
 {
-    private void PlayCardOnField(PlayerManager aiManager, Card card, ID id)
-    {
-        EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CardPlay"));
-        if (aiManager.playerCounters.neurotoxin > 0)
-        {
-            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Neurotoxin, OwnerEnum.Opponent, 1));
-        }
-        
-        if (!card.cardType.Equals(CardType.Spell))
-        {
-            EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, false));
-            if (card.cardType is CardType.Artifact or CardType.Pillar)
-            {
-                EventBus<PlayPermanentOnFieldEvent>.Raise(new PlayPermanentOnFieldEvent(OwnerEnum.Opponent, card));
-            }
-            else
-            {
-                EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(card, id.owner));
-            }
-        }
-        if (card.cost > 0)
-        {
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(card.cost, card.costElement, OwnerEnum.Opponent, false));
-        }
-        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(id));
-    }
     public override CardData PlayCardFromHand(PlayerManager aiManager, CardType cardType)
     {
         var card = aiManager.playerHand.GetPlayableCards(aiManager.HasSufficientQuanta).FirstOrDefault(c => c.Item2.cardType.Equals(cardType));
@@ -229,15 +204,15 @@ public class BasicAiTurnLogic : AiTurnBase
             Element = card.Item2.costElement.FastElementString(),
             CardName = card.Item2.cardName,
         };
-        PlayCardOnField(aiManager, card.Item2, card.Item1);
+        EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(card.card, card.id));
         return cardData;
 
     }
 
     public override CardData PlaySpellFromHand(PlayerManager aiManager)
     {
-        var cardList = aiManager.playerHand.GetPlayableCards(aiManager.HasSufficientQuanta);
-        var spell = cardList.FirstOrDefault(s => s.Item2.cardType == CardType.Spell && aiManager.IsCardPlayable(s.Item2));
+        var cardList = aiManager.playerHand.GetPlayableCardsOfType(aiManager.HasSufficientQuanta, CardType.Spell);
+        var spell = cardList.FirstOrDefault();
         if (spell.Equals(default))
         {
             return null;
@@ -257,7 +232,7 @@ public class BasicAiTurnLogic : AiTurnBase
             BattleVars.Shared.AbilityCardOrigin = spell.Item2;
             BattleVars.Shared.AbilityIDOrigin = spell.Item1;
             SkillManager.Instance.SkillRoutineWithTarget(aiManager, target.Item1, target.Item2);
-            PlayCardOnField(aiManager, spell.Item2, spell.Item1);
+            EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(spell.card, spell.id));
             
             return cardData;
         }
@@ -270,7 +245,7 @@ public class BasicAiTurnLogic : AiTurnBase
                 CardName = spell.Item2.cardName,
             };
             SkillManager.Instance.SkillRoutineNoTarget(aiManager, spell.Item1, spell.Item2);
-            PlayCardOnField(aiManager, spell.Item2, spell.Item1);
+            EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(spell.card, spell.id));
             return cardData;
         }
 
@@ -320,7 +295,7 @@ public class BasicAiTurnLogic : AiTurnBase
     
     public override bool HasCardInHand(PlayerManager aiManager, CardType cardToCheck)
     {
-        return aiManager.playerHand.GetPlayableCards(aiManager.HasSufficientQuanta).Count > 0; 
+        return aiManager.playerHand.GetPlayableCardsOfType(aiManager.HasSufficientQuanta, cardToCheck).Count > 0; 
     }
 
     public override bool HasCreatureAbilityToUse(PlayerManager aiManager)
@@ -333,10 +308,5 @@ public class BasicAiTurnLogic : AiTurnBase
     {
         var artifactWithSkill = aiManager.playerPermanentManager.GetAllValidCardIds().Find(x => x.Item2.skill is not null or "" or " ");
         return !artifactWithSkill.Equals(default) && aiManager.IsAbilityUsable(artifactWithSkill.Item2);
-    }
-
-    public override bool HasSpellToUse(PlayerManager aiManager)
-    {
-        return aiManager.playerHand.GetPlayableCards(aiManager.HasSufficientQuanta).Where(x => x.Item2.cardType.Equals(CardType.Spell)).ToList().Count > 0; 
     }
 } 

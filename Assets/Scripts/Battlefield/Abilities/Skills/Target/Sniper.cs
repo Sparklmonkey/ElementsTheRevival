@@ -14,19 +14,14 @@ public class Sniper : AbilityEffect
             EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(3, true, false, targetId.owner.Not()));
         }
 
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0)
-        {
-            return new();
-        }
-
-        return possibleTargets.FindAll(x => x.IsTargetable());
+        return possibleTargets.Count == 0 ? new List<(ID id, Card card)>() : possibleTargets.FindAll(x => x.IsTargetable());
     }
 
     public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)

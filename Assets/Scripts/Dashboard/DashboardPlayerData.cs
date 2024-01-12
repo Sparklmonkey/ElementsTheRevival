@@ -24,10 +24,7 @@ public class DashboardPlayerData : MonoBehaviour
 
     public async void PeriodicSave()
     {
-        if (ApiManager.IsTrainer)
-        {
-            return;
-        }
+        if (ApiManager.IsTrainer) return;
         await ApiManager.Instance.SaveGameData();
 
         saveStatus.transform.parent.gameObject.SetActive(true);

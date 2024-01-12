@@ -11,7 +11,7 @@ public class Aflatoxin : AbilityEffect
     {
         targetCard.IsAflatoxin = true;
         targetCard.Poison += 2;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
         {
             EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, targetId.owner.Not(), 2));

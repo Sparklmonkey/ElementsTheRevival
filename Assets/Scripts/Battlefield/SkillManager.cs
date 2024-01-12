@@ -84,12 +84,7 @@ public class SkillManager
         ability.Owner = owner;
         ability.Origin = card;
         var targets = ability.GetPossibleTargets(DuelManager.Instance.GetNotIDOwner(owner.playerID));
-        if (targets.Count == 0)
-        {
-            return default;
-        }
-
-        return GetHighestPriorityTarget(targets, ability.GetPriority());
+        return targets.Count == 0 ? default : GetHighestPriorityTarget(targets, ability.GetPriority());
     }
 
     public (ID, Card) GetHighestPriorityTarget(List<(ID, Card)> targetList, TargetPriority priority)

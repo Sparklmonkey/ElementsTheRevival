@@ -11,7 +11,7 @@ public class Lobotomize : AbilityEffect
         targetCard.skill = "";
         targetCard.desc = "";
         targetCard.passiveSkills = new();
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

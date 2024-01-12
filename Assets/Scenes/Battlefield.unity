@@ -4299,8 +4299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de57ff45dc5f843cc8377a7614cacb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  permanentPrefab: {fileID: 8940418288786595355, guid: 3962c42f73b5a1545bbf0dcda2b89b7e, type: 3}
-  permanentPositions:
+  cardPrefab: {fileID: 8940418288786595355, guid: 3962c42f73b5a1545bbf0dcda2b89b7e, type: 3}
+  cardPositions:
   - {fileID: 1514904646}
   - {fileID: 713181075}
   - {fileID: 1609184001}
@@ -4315,6 +4315,8 @@ MonoBehaviour:
   - {fileID: 1270108887}
   - {fileID: 786354735}
   - {fileID: 188306128}
+  field: 3
+  owner: 1
 --- !u!1 &227297134
 GameObject:
   m_ObjectHideFlags: 0
@@ -4622,8 +4624,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID:
-    owner: 0
-    field: 0
+    owner: 1
+    field: 4
     index: 0
   deckDisplayer: {fileID: 1161888806}
   healthDisplayer: {fileID: 4619177}
@@ -6397,8 +6399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195ba5b30b46a46f38086283db2416d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handPrefab: {fileID: 4458880129256953598, guid: 178f1e2808672524b9bf9409476bb7c8, type: 3}
-  handPositions:
+  cardPrefab: {fileID: 4458880129256953598, guid: 178f1e2808672524b9bf9409476bb7c8, type: 3}
+  cardPositions:
   - {fileID: 1897282152229009938}
   - {fileID: 55914135}
   - {fileID: 35534617}
@@ -6407,6 +6409,8 @@ MonoBehaviour:
   - {fileID: 1817223840}
   - {fileID: 1376916726}
   - {fileID: 1313217636}
+  field: 0
+  owner: 0
 --- !u!1 &369980915
 GameObject:
   m_ObjectHideFlags: 0
@@ -7391,11 +7395,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c11f0b1de73a4e05a6aecb8d90a45b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passivePrefab: {fileID: 8736967264933499025, guid: 3a50b41e3aa9178429ed73e048e1431a, type: 3}
-  passivePositions:
+  cardPrefab: {fileID: 8736967264933499025, guid: 3a50b41e3aa9178429ed73e048e1431a, type: 3}
+  cardPositions:
   - {fileID: 125756099}
   - {fileID: 1966028806}
   - {fileID: 685659583}
+  field: 2
+  owner: 0
 --- !u!1 &433264853
 GameObject:
   m_ObjectHideFlags: 0
@@ -9730,8 +9736,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9465bf44efe8f48c485cc2fdca123afa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creaturePrefab: {fileID: 8942002425704931839, guid: 0032dc652283dbb418d20c27fb21789f, type: 3}
-  creaturePositions:
+  cardPrefab: {fileID: 8942002425704931839, guid: 0032dc652283dbb418d20c27fb21789f, type: 3}
+  cardPositions:
   - {fileID: 740859277}
   - {fileID: 1435117734}
   - {fileID: 411539616}
@@ -9755,6 +9761,8 @@ MonoBehaviour:
   - {fileID: 1690628026}
   - {fileID: 848366056}
   - {fileID: 684929132}
+  field: 1
+  owner: 1
 --- !u!1 &572617490
 GameObject:
   m_ObjectHideFlags: 0
@@ -12973,7 +12981,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   validTargetGlow: {fileID: 753189426}
-  isPlayer: 1
+  playerID:
+    owner: 0
+    field: 0
+    index: 0
   poisonSprite: {fileID: 21300000, guid: 8ab5b7e76d8944a4eb6f40f93bff8b79, type: 3}
   puritySprite: {fileID: 21300000, guid: 5435329ed2059494bbc4754c9d78252a, type: 3}
   neurotoxinSprite: {fileID: 21300000, guid: 766de1b52d06e6347982dd67ab5fb07c, type: 3}
@@ -17445,8 +17456,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9465bf44efe8f48c485cc2fdca123afa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creaturePrefab: {fileID: 8942002425704931839, guid: 0032dc652283dbb418d20c27fb21789f, type: 3}
-  creaturePositions:
+  cardPrefab: {fileID: 8942002425704931839, guid: 0032dc652283dbb418d20c27fb21789f, type: 3}
+  cardPositions:
   - {fileID: 1943860768}
   - {fileID: 1308887482}
   - {fileID: 97699767}
@@ -17470,6 +17481,8 @@ MonoBehaviour:
   - {fileID: 768063379}
   - {fileID: 1035263990}
   - {fileID: 14985932}
+  field: 1
+  owner: 0
 --- !u!1 &1094015513
 GameObject:
   m_ObjectHideFlags: 0
@@ -19423,7 +19436,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   validTargetGlow: {fileID: 1212562476}
-  isPlayer: 0
+  playerID:
+    owner: 0
+    field: 0
+    index: 0
   poisonSprite: {fileID: 21300000, guid: 8ab5b7e76d8944a4eb6f40f93bff8b79, type: 3}
   puritySprite: {fileID: 21300000, guid: 5435329ed2059494bbc4754c9d78252a, type: 3}
   neurotoxinSprite: {fileID: 21300000, guid: 766de1b52d06e6347982dd67ab5fb07c, type: 3}
@@ -19687,8 +19703,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de57ff45dc5f843cc8377a7614cacb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  permanentPrefab: {fileID: 8940418288786595355, guid: 3962c42f73b5a1545bbf0dcda2b89b7e, type: 3}
-  permanentPositions:
+  cardPrefab: {fileID: 8940418288786595355, guid: 3962c42f73b5a1545bbf0dcda2b89b7e, type: 3}
+  cardPositions:
   - {fileID: 739156327}
   - {fileID: 289996040}
   - {fileID: 448198027}
@@ -19703,6 +19719,8 @@ MonoBehaviour:
   - {fileID: 1904545186}
   - {fileID: 706093708}
   - {fileID: 504794946}
+  field: 3
+  owner: 0
 --- !u!1 &1217037619
 GameObject:
   m_ObjectHideFlags: 0
@@ -22504,8 +22522,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195ba5b30b46a46f38086283db2416d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handPrefab: {fileID: 4458880129256953598, guid: 178f1e2808672524b9bf9409476bb7c8, type: 3}
-  handPositions:
+  cardPrefab: {fileID: 4458880129256953598, guid: 178f1e2808672524b9bf9409476bb7c8, type: 3}
+  cardPositions:
   - {fileID: 574217406}
   - {fileID: 1828768677}
   - {fileID: 423619245}
@@ -22514,6 +22532,8 @@ MonoBehaviour:
   - {fileID: 152370732}
   - {fileID: 105617386}
   - {fileID: 1442212806}
+  field: 0
+  owner: 1
 --- !u!1 &1395781870
 GameObject:
   m_ObjectHideFlags: 0
@@ -33080,11 +33100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c11f0b1de73a4e05a6aecb8d90a45b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passivePrefab: {fileID: 8736967264933499025, guid: 3a50b41e3aa9178429ed73e048e1431a, type: 3}
-  passivePositions:
+  cardPrefab: {fileID: 8736967264933499025, guid: 3a50b41e3aa9178429ed73e048e1431a, type: 3}
+  cardPositions:
   - {fileID: 8471162991474619777}
-  - {fileID: 1701195078}
   - {fileID: 1824665470}
+  - {fileID: 1701195078}
+  field: 2
+  owner: 1
 --- !u!1 &2077592306
 GameObject:
   m_ObjectHideFlags: 0

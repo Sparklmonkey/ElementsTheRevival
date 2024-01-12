@@ -1327,10 +1327,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb8696b88dbc1647b77b1879bf14c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  validTargetGlow: {fileID: 2566016522262038100}
+  isUsableGlow: {fileID: 8799373779065620814}
   cardImage: {fileID: 7565115892816239052}
   activeAElement: {fileID: 786516277492023653}
-  isUsableGlow: {fileID: 7282335636975272596}
-  validTargetGlow: {fileID: 5367056009494449471}
   stackCount: {fileID: 4002835508841948992}
   activeAName: {fileID: 4178844177908536363}
   activeACost: {fileID: 5808775736999233318}

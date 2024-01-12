@@ -89,7 +89,5 @@ public class CardDisplay : MonoBehaviour
 
         rareIndicator.color = !cardToDisplay.IsRare() ? new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue) : new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
     }
-
-
 }
 

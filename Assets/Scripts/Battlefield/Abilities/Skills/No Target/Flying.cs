@@ -7,11 +7,11 @@ public class Flying : AbilityEffect
     public override void Activate(ID targetId, Card targetCard)
     {
         Card weapon = new(Owner.playerPassiveManager.GetWeapon().Item2);
-        if (weapon.iD == "4t2") { return; }
+        if (weapon.iD == "4t2") return;
         weapon.cardType = CardType.Creature;
         EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(weapon, targetId.owner.Equals(OwnerEnum.Player)));
-        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(weapon, targetId.owner));
-        Owner.playerPassiveManager.RemoveWeapon();
+        EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, weapon));
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(new ID(targetId.owner, FieldEnum.Passive, 1)));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();

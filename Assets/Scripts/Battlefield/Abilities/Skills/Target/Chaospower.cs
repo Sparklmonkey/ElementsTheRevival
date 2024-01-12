@@ -10,7 +10,7 @@ public class Chaospower : AbilityEffect
     {
         targetCard.AtkModify += Random.Range(1, 6);
         targetCard.DefModify += Random.Range(1, 6);
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

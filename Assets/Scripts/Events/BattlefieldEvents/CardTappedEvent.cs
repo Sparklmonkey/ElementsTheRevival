@@ -9,13 +9,3 @@
         TappedCard = tappedCard;
     }
 }
-
-public struct UpdateHandDisplayEvent : IEvent
-{
-    public OwnerEnum Owner;
-
-    public UpdateHandDisplayEvent(OwnerEnum owner)
-    {
-        Owner = owner;
-    }
-}

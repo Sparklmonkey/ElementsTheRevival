@@ -21,7 +21,7 @@ public class Paralleluniverse : AbilityEffect
         }
 
         EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(dupe, targetId.owner.Equals(OwnerEnum.Player)));
-        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(dupe, targetId.owner));
+        EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, dupe));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

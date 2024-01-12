@@ -107,7 +107,7 @@ public static class IdCardTupleExtensions
 
         if (!cardPair.card.innateSkills.Swarm) return;
         cardPair.card.def = owner.playerCounters.scarab;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(cardPair.id, cardPair.card));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(cardPair.id, cardPair.card, true));
     }
     
     public static void CreatureTurnDownTick(this (ID id, Card card) cardPair)
@@ -189,7 +189,7 @@ public static class IdCardTupleExtensions
                 Card duplicate = new(cardPair.card);
                 // AnimationManager.Instance.StartAnimation("ParallelUniverse", cardPair.transform);
                 EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(duplicate, cardPair.id.owner.Equals(OwnerEnum.Player)));
-                EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(duplicate, cardPair.id.owner));
+                EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(cardPair.id.owner, duplicate));
                 break;
         }
     }

@@ -20,7 +20,7 @@ public class Shockwave : AbilityEffect
             EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(4, true, false, targetId.owner.Not()));
         }
 
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

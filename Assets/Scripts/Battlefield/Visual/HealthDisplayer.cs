@@ -52,6 +52,7 @@ namespace Elements.Duel.Visual
             hpSlider.value = temp < 0 ? 0 : temp;
 
             damageSlider.value = modifyPlayerHealthVisualEvent.CurrentHp;
+            if (difference == 0) return;
             StartCoroutine(AnimateTextChange(toShow));
         }
         

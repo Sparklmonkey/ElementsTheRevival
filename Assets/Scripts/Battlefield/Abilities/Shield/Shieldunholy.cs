@@ -8,7 +8,7 @@ public class Shieldunholy : ShieldAbility
             var isUpgraded = cardPair.card.iD.IsUpgraded();
             EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(cardPair.id));
             var card = CardDatabase.Instance.GetCardFromId(isUpgraded ? "716" : "52m");
-            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(cardPair.id, card));
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(cardPair.id, card, false));
         }
 
         return atkNow;

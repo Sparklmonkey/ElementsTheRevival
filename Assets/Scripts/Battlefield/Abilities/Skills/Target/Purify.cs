@@ -19,7 +19,7 @@ public class Purify : AbilityEffect
         targetCard.Poison = targetCard.Poison > 0 ? 0 : targetCard.Poison;
 
         targetCard.Poison -= 2;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

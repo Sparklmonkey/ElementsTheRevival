@@ -19,15 +19,9 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        if (!_isSetup)
-        {
-            return;
-        }
+        if (!_isSetup) return;
 
-        if (_hasStarted)
-        {
-            return;
-        }
+        if (_hasStarted) return;
         _hasStarted = true;
         StartCoroutine(_aiStateMachine.Update(this));
     }

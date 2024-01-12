@@ -15,7 +15,7 @@ public class Blitz : AbilityEffect
             pair.Item2.passiveSkills.Dive = true;
             targetCard.AtkModify *= 2;
             targetCard.atk *= 2;
-            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2));
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2, true));
         }
     }
 

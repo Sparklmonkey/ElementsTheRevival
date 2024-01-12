@@ -9,7 +9,7 @@ public class Heavyarmor : AbilityEffect
     public override void Activate(ID targetId, Card targetCard)
     {
         targetCard.DefModify += 6;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

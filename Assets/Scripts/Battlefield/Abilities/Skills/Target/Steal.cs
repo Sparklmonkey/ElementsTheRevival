@@ -9,7 +9,19 @@ public class Steal : AbilityEffect
     public override void Activate(ID targetId, Card targetCard)
     {
         EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(new(targetCard), targetId.owner.Equals(OwnerEnum.Player)));
-        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(new(targetCard), targetId.owner));
+        
+        switch (targetCard.cardType)
+        {
+            case CardType.Artifact:
+            case CardType.Pillar:
+                EventBus<PlayPermanentOnFieldEvent>.Raise(new PlayPermanentOnFieldEvent(Owner.Owner, new(targetCard)));
+                break;
+            case CardType.Weapon:
+            case CardType.Shield:
+            case CardType.Mark:
+                EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(Owner.Owner, new(targetCard)));
+                break;
+        }
         // AnimationManager.Instance.StartAnimation("Steal", target.transform);
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
     }

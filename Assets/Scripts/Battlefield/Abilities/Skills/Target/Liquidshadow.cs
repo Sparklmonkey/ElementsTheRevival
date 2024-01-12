@@ -13,7 +13,7 @@ public class Liquidshadow : AbilityEffect
         targetCard.passiveSkills = new();
         targetCard.passiveSkills.Vampire = true;
         targetCard.Poison++;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

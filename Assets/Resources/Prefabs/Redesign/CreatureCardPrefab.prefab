@@ -2297,13 +2297,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67efc569de8d04b4faaa02bcf492bcdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  validTargetGlow: {fileID: 5126249417228915678}
+  isUsableGlow: {fileID: 439694883188060150}
   cardImage: {fileID: 8942002424463688009}
   upgradeShine: {fileID: 8282028701692443593}
   rareIndicator: {fileID: 875467801983031257}
   cardHeadBack: {fileID: 8366457247206475172}
   activeAElement: {fileID: 9173858084557918021}
-  validTargetGlow: {fileID: 227807849610547199}
-  isUsableGlow: {fileID: 4822350365567829634}
   creatureValue: {fileID: 6435766100061775614}
   cardName: {fileID: 3567943042067432622}
   activeAName: {fileID: 3574201528895647798}

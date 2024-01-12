@@ -11,7 +11,7 @@ public class Shielddissipation : ShieldAbility
         }
         else
         {
-            Owner.playerPassiveManager.RemoveShield();
+            EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(new ID(Owner.Owner, FieldEnum.Passive, 2)));
         }
 
         return atkNow;

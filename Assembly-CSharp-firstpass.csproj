@@ -902,9 +902,6 @@
     <Reference Include="Unity.InputSystem.ForUI">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.InputSystem.ForUI.dll</HintPath>
     </Reference>
-    <Reference Include="Backtrace.Unity">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Backtrace.Unity.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
     </Reference>
@@ -940,9 +937,6 @@
     </Reference>
     <Reference Include="Unity.AI.Navigation.Editor">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Backtrace.Unity.Editor">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Backtrace.Unity.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>

@@ -10,7 +10,7 @@ public class Blessing : AbilityEffect
     {
         targetCard.AtkModify += 3;
         targetCard.DefModify += 3;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

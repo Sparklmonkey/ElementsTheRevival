@@ -859,10 +859,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb3d69b4f747bc4490d7c9dbea49d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  validTargetGlow: {fileID: 7672850064623653158}
+  isUsableGlow: {fileID: 6537847832549191015}
   cardImage: {fileID: 775227472863259466}
   activeAElement: {fileID: 2439888854587038993}
-  validTargetGlow: {fileID: 7982032239457123480}
-  isUsableGlow: {fileID: 1080604763705199168}
   activeAName: {fileID: 6440345132504573260}
   activeACost: {fileID: 1434853134646735879}
   turnsInPlay: {fileID: 7124204886067250492}

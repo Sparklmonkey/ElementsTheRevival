@@ -13,7 +13,7 @@ public class Luciferin : AbilityEffect
             if (pair.Item2.skill != "") continue;
             pair.Item2.passiveSkills.Light = true;
             pair.Item2.desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
-            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2));
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2, true));
         }
         EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(10, false, true, Owner.Owner));
     }

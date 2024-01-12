@@ -82,10 +82,7 @@ public class DuelManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!allPlayersSetup)
-        {
-            return;
-        }
+        if (!allPlayersSetup) return;
 
         if (!Input.GetKeyDown(KeyCode.Space) || !endTurnButton.interactable) return;
         BattleVars.Shared.SpaceTapped = true;
@@ -232,49 +229,59 @@ public class DuelManager : MonoBehaviour
 
     private void CardTapped(CardTappedEvent cardTappedEvent)
     {
-        if (!BattleVars.Shared.IsPlayerTurn) { return; }
+        if (!BattleVars.Shared.IsPlayerTurn) return;
 
         if (_validTargets.Count > 0)
         {
-            if (BattleVars.Shared.IsSelectingTarget && _validTargets.TryGetValue(cardTappedEvent.TappedId, out var target))
-            {
-                player.ActivateAbility(cardTappedEvent.TappedId, target);
-            }
-            else
-            {
-                ResetTargeting();
-            }
-
+            HandleValidTargets(cardTappedEvent);
             return;
         }
 
-        if (cardTappedEvent.TappedId.owner.Equals(OwnerEnum.Opponent))
-        {
-            if (cardTappedEvent.TappedId.field.Equals(FieldEnum.Hand)) { return; }
+        if (HandleOpponentCardTapped(cardTappedEvent)) return;
 
-            if (enemy.playerCounters.invisibility > 0 && !enemy.cloakIndex.Contains(cardTappedEvent.TappedId)) { return; }
-            player.SetupCardDisplay(cardTappedEvent.TappedId, cardTappedEvent.TappedCard);
-            return;
-        }
-
-        if (BattleVars.Shared.HasToDiscard)
-        {
-            if (cardTappedEvent.TappedId.field.Equals(FieldEnum.Hand))
-            {
-                player.DiscardCard(cardTappedEvent.TappedId, cardTappedEvent.TappedCard);
-                BattleVars.Shared.HasToDiscard = false;
-                discardText.gameObject.SetActive(false);
-                EndTurn();
-                return;
-            }
-        }
+        if (HandleDiscard(cardTappedEvent)) return;
 
         if (PlayerPrefs.GetInt("QuickPlay") == 0)
         {
             player.QuickPlay(cardTappedEvent.TappedId, cardTappedEvent.TappedCard);
             return;
         }
-        player.SetupCardDisplay(cardTappedEvent.TappedId, cardTappedEvent.TappedCard);
+
+        EventBus<SetupCardDisplayEvent>.Raise(new SetupCardDisplayEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard, player.IsCardPlayable(cardTappedEvent.TappedCard)));
+    }
+
+    private void HandleValidTargets(CardTappedEvent cardTappedEvent)
+    {
+        if (BattleVars.Shared.IsSelectingTarget && _validTargets.TryGetValue(cardTappedEvent.TappedId, out var target))
+        {
+            player.ActivateAbility(cardTappedEvent.TappedId, target);
+        }
+        else
+        {
+            ResetTargeting();
+        }
+    }
+
+    private bool HandleOpponentCardTapped(CardTappedEvent cardTappedEvent)
+    {
+        if (!cardTappedEvent.TappedId.owner.Equals(OwnerEnum.Opponent)) return false;
+        if (cardTappedEvent.TappedId.field.Equals(FieldEnum.Hand)) return true; 
+
+        if (enemy.playerCounters.invisibility > 0 && !enemy.cloakIndex.Contains(cardTappedEvent.TappedId)) return true;
+        EventBus<SetupCardDisplayEvent>.Raise(new SetupCardDisplayEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard, false));
+        return true;
+
+    }
+
+    private bool HandleDiscard(CardTappedEvent cardTappedEvent)
+    {
+        if (!BattleVars.Shared.HasToDiscard || !cardTappedEvent.TappedId.field.Equals(FieldEnum.Hand)) return false;
+        player.DiscardCard(cardTappedEvent.TappedId, cardTappedEvent.TappedCard);
+        BattleVars.Shared.HasToDiscard = false;
+        discardText.gameObject.SetActive(false);
+        EndTurn();
+        return true;
+
     }
 
     public void SetGameOver(bool isGameOver)

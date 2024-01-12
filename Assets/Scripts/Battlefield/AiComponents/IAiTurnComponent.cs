@@ -16,5 +16,4 @@ public abstract class AiTurnBase
     public abstract bool HasCardInHand(PlayerManager aiManager, CardType cardToCheck);
     public abstract bool HasCreatureAbilityToUse(PlayerManager aiManager);
     public abstract bool HasArtifactAbilityToUse(PlayerManager aiManager);
-    public abstract bool HasSpellToUse(PlayerManager aiManager);
 }

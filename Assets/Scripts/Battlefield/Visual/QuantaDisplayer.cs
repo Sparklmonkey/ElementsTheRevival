@@ -30,10 +30,7 @@ namespace Elements.Duel.Visual
 
         private void UpdateQuantaManager(QuantaChangeVisualEvent quantaChangeVisualEvent)
         {
-            if (!owner.Equals(quantaChangeVisualEvent.Owner) || element != quantaChangeVisualEvent.Element)
-            {
-                return;
-            }
+            if (!owner.Equals(quantaChangeVisualEvent.Owner) || element != quantaChangeVisualEvent.Element) return;
             QuantaChanged(quantaChangeVisualEvent.Amount);
         }
 

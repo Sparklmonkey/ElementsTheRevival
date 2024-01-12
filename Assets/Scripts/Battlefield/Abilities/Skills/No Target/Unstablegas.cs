@@ -9,7 +9,7 @@ public class Unstablegas : AbilityEffect
         var card = targetCard.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n6") : CardDatabase.Instance.GetCardFromId("5om");
         
         EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.owner.Equals(OwnerEnum.Player)));
-        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(card, targetId.owner));
+        EventBus<PlayPermanentOnFieldEvent>.Raise(new PlayPermanentOnFieldEvent(targetId.owner, card));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();

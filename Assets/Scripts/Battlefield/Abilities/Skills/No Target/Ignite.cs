@@ -16,7 +16,7 @@ public class Ignite : AbilityEffect
         foreach (var pair in cardList.Where(pair => !pair.Item2.innateSkills.Immaterial).Where(pair => !pair.Item2.passiveSkills.Burrow))
         {
             pair.Item2.DefDamage += 1;
-            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2));
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2, true));
         }
 
         cardList = Owner.playerCreatureField.GetAllValidCardIds();
@@ -24,7 +24,7 @@ public class Ignite : AbilityEffect
         foreach (var pair in cardList.Where(pair => !pair.Item2.innateSkills.Immaterial).Where(pair => !pair.Item2.passiveSkills.Burrow))
         {
             pair.Item2.DefDamage += 1;
-            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2));
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(pair.Item1, pair.Item2, true));
         }
     }
 

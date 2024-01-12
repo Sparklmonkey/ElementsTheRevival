@@ -12,7 +12,7 @@ public class Butterfly : AbilityEffect
         targetCard.skillCost = 3;
         targetCard.skillElement = Element.Entropy;
         targetCard.desc = "<sprite=6><sprite=6><sprite=6>: Destroy: \n Destroy the targeted permanent";
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         return;
     }
 

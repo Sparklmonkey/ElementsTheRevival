@@ -11,12 +11,12 @@ public class Reversetime : AbilityEffect
         if (targetCard.innateSkills.Mummy)
         {
             var card = CardDatabase.Instance.GetCardFromId(targetCard.iD.IsUpgraded() ? "7qc" : "5rs");
-            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, card));
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, card, true));
         }
         else if (targetCard.innateSkills.Undead)
         {
             var card = CardDatabase.Instance.GetRandomCard(CardType.Creature, targetCard.iD.IsUpgraded(), true);
-            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, card));
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, card, true));
         }
         else
         {

@@ -13,11 +13,13 @@ public class PlayerManager : MonoBehaviour
     
     
     private EventBinding<ModifyPlayerCounterEvent> _modifyPlayerCounterBinding;
-    private EventBinding<ModifyPlayerHealthEvent> _modifyPlayerHealthinding;
+    private EventBinding<ModifyPlayerHealthEvent> _modifyPlayerHealthBinding;
+    private EventBinding<PlayCardFromHandEvent> _playCardOnFieldBinding;
     
     private void OnDisable() {
         EventBus<ModifyPlayerCounterEvent>.Unregister(_modifyPlayerCounterBinding);
-        EventBus<ModifyPlayerHealthEvent>.Unregister(_modifyPlayerHealthinding);
+        EventBus<ModifyPlayerHealthEvent>.Unregister(_modifyPlayerHealthBinding);
+        EventBus<PlayCardFromHandEvent>.Unregister(_playCardOnFieldBinding);
     }
         
     private void OnEnable()
@@ -25,8 +27,11 @@ public class PlayerManager : MonoBehaviour
         _modifyPlayerCounterBinding = new EventBinding<ModifyPlayerCounterEvent>(ModifyCounters);
         EventBus<ModifyPlayerCounterEvent>.Register(_modifyPlayerCounterBinding);
         
-        _modifyPlayerHealthinding = new EventBinding<ModifyPlayerHealthEvent>(ModifyHealthLogic);
-        EventBus<ModifyPlayerHealthEvent>.Register(_modifyPlayerHealthinding);
+        _modifyPlayerHealthBinding = new EventBinding<ModifyPlayerHealthEvent>(ModifyHealthLogic);
+        EventBus<ModifyPlayerHealthEvent>.Register(_modifyPlayerHealthBinding);
+        
+        _playCardOnFieldBinding = new EventBinding<PlayCardFromHandEvent>(PlayCardFromHand);
+        EventBus<PlayCardFromHandEvent>.Register(_playCardOnFieldBinding);
     }
     
     private void ModifyHealthLogic(ModifyPlayerHealthEvent modifyPlayerHealthEvent)
@@ -139,17 +144,14 @@ public class PlayerManager : MonoBehaviour
     public void ManageGravityCreatures(ref int atkNow)
     {
         var gravityCreatures = playerCreatureField.GetCreaturesWithGravity();
-        if (gravityCreatures.Count == 0)
-        {
-            return;
-        }
+        if (gravityCreatures.Count == 0) return;
    
         foreach (var creature in gravityCreatures)
         {
             if (creature.Item2.DefNow >= atkNow)
             {
                 creature.Item2.DefModify -= atkNow;
-                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(creature.Item1, creature.Item2));
+                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(creature.Item1, creature.Item2, true));
                 atkNow = 0;
                 return;
             }
@@ -404,6 +406,49 @@ public class PlayerManager : MonoBehaviour
     public int sacrificeCount;
 
     //Play Card From Hand Logic and Visual Command Pair
+    
+    private void PlayCardFromHand(PlayCardFromHandEvent playCardFromHandEvent)
+    {
+        if (!playCardFromHandEvent.Id.owner.Equals(Owner)) return;
+        
+        EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CardPlay"));
+        if (playerCounters.neurotoxin > 0)
+        {
+            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Neurotoxin, Owner, 1));
+        }
+        
+        if (!playCardFromHandEvent.CardToPlay.cardType.Equals(CardType.Spell))
+        {
+            EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(playCardFromHandEvent.CardToPlay, playCardFromHandEvent.Id.owner.Equals(OwnerEnum.Player)));
+            
+            
+            switch (playCardFromHandEvent.CardToPlay.cardType)
+            {
+                case CardType.Artifact:
+                case CardType.Pillar:
+                    EventBus<PlayPermanentOnFieldEvent>.Raise(new PlayPermanentOnFieldEvent(Owner, playCardFromHandEvent.CardToPlay));
+                    break;
+                case CardType.Creature:
+                    EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(Owner, playCardFromHandEvent.CardToPlay));
+                    break;
+                case CardType.Weapon:
+                case CardType.Shield:
+                case CardType.Mark:
+                    EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(Owner, playCardFromHandEvent.CardToPlay));
+                    break;
+            }
+        }
+
+        //Spend Quanta
+        if (playCardFromHandEvent.CardToPlay.cost > 0)
+        {
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(playCardFromHandEvent.CardToPlay.cost, playCardFromHandEvent.CardToPlay.costElement, Owner, false));
+        }
+        //Remove Card From Hand
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(playCardFromHandEvent.Id));
+        DisplayPlayableGlow();
+    }
+    
     private void PlayCardFromHandLogic(ID id, Card card)
     {
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CardPlay"));
@@ -415,17 +460,22 @@ public class PlayerManager : MonoBehaviour
         if (!card.cardType.Equals(CardType.Spell))
         {
             EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, id.owner.Equals(OwnerEnum.Player)));
-            if (card.cardType is CardType.Artifact or CardType.Pillar)
+            
+            
+            switch (card.cardType)
             {
-                EventBus<PlayPermanentOnFieldEvent>.Raise(new PlayPermanentOnFieldEvent(Owner, card));
-            }
-            else if (card.cardType.Equals(CardType.Creature))
-            {
-                EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(Owner, card));
-            } 
-            else
-            {
-                EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(card, id.owner));
+                case CardType.Artifact:
+                case CardType.Pillar:
+                    EventBus<PlayPermanentOnFieldEvent>.Raise(new PlayPermanentOnFieldEvent(Owner, card));
+                    break;
+                case CardType.Creature:
+                    EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(Owner, card));
+                    break;
+                case CardType.Weapon:
+                case CardType.Shield:
+                case CardType.Mark:
+                    EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(Owner, card));
+                    break;
             }
         }
 
@@ -442,7 +492,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (Owner.Equals(OwnerEnum.Opponent)) { return; }
         EventBus<HideUsableDisplayEvent>.Raise(new HideUsableDisplayEvent());
-        EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(HasSufficientQuanta, Owner.Equals(OwnerEnum.Player) ? OwnerEnum.Player : OwnerEnum.Opponent));
+        EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(HasSufficientQuanta, Owner));
     }
 
     public void ActivateCloakEffect(Transform objectTransform)
@@ -533,7 +583,7 @@ public class PlayerManager : MonoBehaviour
                 !creature.Item2.costElement.Equals(Element.Death)) continue;
             creature.Item2.DefModify += defMod;
             creature.Item2.AtkModify += atkMod;
-            // creature.UpdateCard();
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(creature.Item1, creature.Item2, true));
         }
     }
 
@@ -586,9 +636,9 @@ public class PlayerManager : MonoBehaviour
         var markElement = Owner.Equals(OwnerEnum.Player) ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
 
         var mark = CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.MarkIds[(int)markElement]);
-        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(mark, Owner));
-        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(CardDatabase.Instance.GetPlaceholderCard(2), Owner));
-        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(CardDatabase.Instance.GetPlaceholderCard(1), Owner));
+        EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(Owner, mark));
+        EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(Owner, CardDatabase.Instance.GetPlaceholderCard(2)));
+        EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(Owner, CardDatabase.Instance.GetPlaceholderCard(1)));
         yield return null;
     }
 
@@ -598,7 +648,6 @@ public class PlayerManager : MonoBehaviour
         PlayerQuantaManager = new QuantaManager(Owner);
         playerHand.SetOwner(Owner);
         CardDetailManager = new CardDetailManager();
-        CardDetailManager.OnDisplayNewCard += cardDetailView.SetupCardDisplay;
         CardDetailManager.OnRemoveCard += cardDetailView.CancelButtonAction;
         playerCounters = new Counters();
         playerID = new(Owner, FieldEnum.Player, 0);
@@ -613,7 +662,6 @@ public class PlayerManager : MonoBehaviour
 
         }
         deck.Shuffle();
-        Debug.Log($"Player Manager Owner: {Owner}");
         DeckManager = new DeckManager(deck, Owner);
 
         HealthManager = new HealthManager(Owner.Equals(OwnerEnum.Player) ? 100 : BattleVars.Shared.EnemyAiData.maxHp, Owner);
@@ -649,11 +697,6 @@ public class PlayerManager : MonoBehaviour
         yield return StartCoroutine(SetupOtherDisplayers());
     }
 
-    public void SetupCardDisplay(ID targetId, Card targetCard)
-    {
-        CardDetailManager.SetCardOnDisplay(targetId, targetCard);
-    }
-
     public void QuickPlay(ID targetId, Card targetCard)
     {
         if (targetId.IsFromHand())
@@ -661,7 +704,7 @@ public class PlayerManager : MonoBehaviour
             if (playerCounters.silence > 0 && playerCounters.sanctuary == 0) { return; }
             if (!IsCardPlayable(targetCard))
             {
-                SetupCardDisplay(targetId, targetCard);
+                EventBus<SetupCardDisplayEvent>.Raise(new SetupCardDisplayEvent(targetId, targetCard, IsCardPlayable(targetCard)));
                 return;
             }
 
@@ -678,7 +721,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (!IsAbilityUsable(targetCard))
             {
-                SetupCardDisplay(targetId, targetCard);
+                EventBus<SetupCardDisplayEvent>.Raise(new SetupCardDisplayEvent(targetId, targetCard, IsCardPlayable(targetCard)));
                 return;
             }
 

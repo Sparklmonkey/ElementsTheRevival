@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public static class EventBus<T> where T : IEvent
 {
@@ -26,5 +27,11 @@ public static class EventBus<T> where T : IEvent
             binding.EventNoArgs.Invoke();
             yield return new WaitForFrames(1);
         }
+    }
+
+    private static void Clear()
+    {
+        Debug.Log($"Clearing {typeof(T).Name} bindings");
+        bindings.Clear();
     }
 }

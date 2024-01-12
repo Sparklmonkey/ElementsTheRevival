@@ -16,7 +16,7 @@ public class Supernova : AbilityEffect
             var card = CardDatabase.Instance.GetCardFromId("6ub");
             
             EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.owner.Equals(OwnerEnum.Player)));
-            EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(card, targetId.owner));
+            EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, card));
         }
 
         BattleVars.Shared.IsSingularity++;

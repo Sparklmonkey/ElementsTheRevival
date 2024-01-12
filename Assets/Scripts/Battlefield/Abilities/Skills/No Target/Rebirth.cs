@@ -10,7 +10,7 @@ public class Rebirth : AbilityEffect
             ? CardDatabase.Instance.GetCardFromId("7ds")
             : CardDatabase.Instance.GetCardFromId("5fc");
         
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, card));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, card, false));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();

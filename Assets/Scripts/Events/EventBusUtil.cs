@@ -45,7 +45,7 @@ public static class EventBusUtil {
     }
     
     public static void ClearAllBuses() {
-        //Debug.Log("Clearing all buses...");
+        Debug.Log("Clearing all buses...");
         for (var i = 0; i < EventBusTypes.Count; i++) {
             var busType = EventBusTypes[i];
             var clearMethod = busType.GetMethod("Clear", BindingFlags.Static | BindingFlags.NonPublic);

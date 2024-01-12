@@ -62,10 +62,7 @@ public class WebGLCopyAndPasteAPI
         var naturalKey = "^" + baseKey;
 
         var currentObj = EventSystem.current.currentSelectedGameObject;
-        if (currentObj == null)
-        {
-            return;
-        }
+        if (currentObj == null) return;
         {
             var input = currentObj.GetComponent<UnityEngine.UI.InputField>();
             if (input != null)

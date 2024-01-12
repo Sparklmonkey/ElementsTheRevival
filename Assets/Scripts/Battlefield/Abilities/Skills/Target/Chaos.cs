@@ -43,7 +43,7 @@ public class Chaos : AbilityEffect
             case 4:
             case 5:
                 EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(new(targetCard), targetId.owner.Equals(OwnerEnum.Player)));
-                EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(new(targetCard), targetId.owner));
+                EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, new(targetCard)));
                 break;
             case 6:
                 targetCard.skill = "";
@@ -53,7 +53,7 @@ public class Chaos : AbilityEffect
             case 7:
                 Card cardToPlay = new(targetCard);
                 EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(cardToPlay, targetId.owner.Equals(OwnerEnum.Player)));
-                EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(cardToPlay, targetId.owner));
+                EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, cardToPlay));
                 // AnimationManager.Instance.StartAnimation("Steal", iDCard.transform);
                 EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
                 return;
@@ -72,11 +72,11 @@ public class Chaos : AbilityEffect
                 if (targetCard.innateSkills.Mummy)
                 {
                     var pharoah = CardDatabase.Instance.GetCardFromId(targetCard.iD.IsUpgraded() ? "7qc" : "5rs");
-                    EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, pharoah));
+                    EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, pharoah, false));
                 }
                 else if (targetCard.innateSkills.Undead)
                 {
-                    EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetRandomCard(CardType.Creature, targetCard.iD.IsUpgraded(), true)));
+                    EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetRandomCard(CardType.Creature, targetCard.iD.IsUpgraded(), true), false));
                 }
                 else
                 {
@@ -89,7 +89,7 @@ public class Chaos : AbilityEffect
                 targetCard.passiveSkills.GravityPull = true;
                 break;
         }
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

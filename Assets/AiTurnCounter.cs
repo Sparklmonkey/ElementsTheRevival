@@ -17,7 +17,7 @@ public class AiTurnCounter : MonoBehaviour
         EventBus<ResetAiTurnCountEvent>.Unregister(_resetAiTurnCountBinding);
     }
 
-    private void OnEnable()
+    private void Awake()
     {
         _addAiTurnCountBinding = new EventBinding<AddAiTurnCountEvent>(AddTurnCount);
         EventBus<AddAiTurnCountEvent>.Register(_addAiTurnCountBinding);

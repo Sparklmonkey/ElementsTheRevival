@@ -10,7 +10,7 @@ public class Readiness : AbilityEffect
     {
         targetCard.skillCost = 0;
         targetCard.passiveSkills.Readiness = true;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

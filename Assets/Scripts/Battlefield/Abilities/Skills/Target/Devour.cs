@@ -14,7 +14,7 @@ public class Devour : AbilityEffect
         {
             BattleVars.Shared.AbilityCardOrigin.Poison++;
         }
-        EventBus<UpdateCreatureCardEvent>.Raise( new UpdateCreatureCardEvent(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin));
+        EventBus<UpdateCreatureCardEvent>.Raise( new UpdateCreatureCardEvent(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin, true));
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
     }
 

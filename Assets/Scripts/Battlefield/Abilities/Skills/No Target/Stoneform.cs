@@ -9,7 +9,7 @@ public class Stoneform : AbilityEffect
         targetCard.DefModify += 20;
         targetCard.skill = "";
         targetCard.desc = "";
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();

@@ -9,7 +9,7 @@ public class Mitosis : AbilityEffect
         var card = CardDatabase.Instance.GetCardFromId(targetCard.iD);
         
         EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.owner.Equals(OwnerEnum.Player)));
-        EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(card, targetId.owner));
+        EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, card));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();

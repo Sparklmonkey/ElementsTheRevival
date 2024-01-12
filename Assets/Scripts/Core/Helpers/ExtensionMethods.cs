@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Battlefield.Abstract;
 using UnityEngine;
 
 public static class ExtensionMethods
@@ -18,6 +19,11 @@ public static class ExtensionMethods
         return owner.Equals(OwnerEnum.Player) ? OwnerEnum.Opponent : OwnerEnum.Player;
     }
 
+    public static List<(ID id, Card card)> MapDictToTupleList(this Dictionary<ID, CardFieldDisplay> dict)
+    {
+        return dict.Select(pair => (pair.Key, pair.Value.Card)).ToList();
+    }
+    
     public static string ToLongDescription(this ErrorCases error)
     {
         return error switch

@@ -13,7 +13,7 @@ public class Plague : AbilityEffect
         foreach (var pair in idList.Where(pair => !pair.Item2.innateSkills.Immaterial).Where(pair => !pair.Item2.passiveSkills.Burrow))
         {
             pair.Item2.Poison += 1;
-            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         }
         
         if (targetCard.cardType.Equals(CardType.Creature))

@@ -16,10 +16,10 @@ public class Mutation : AbilityEffect
                 EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
                 return;
             case MutationEnum.Mutate:
-                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetMutant(targetCard.iD.IsUpgraded())));
+                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetMutant(targetCard.iD.IsUpgraded()), false));
                 break;
             default:
-                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetCardFromId(targetCard.iD.IsUpgraded() ? "6tu" : "4ve")));
+                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetCardFromId(targetCard.iD.IsUpgraded() ? "6tu" : "4ve"), false));
                 break;
         }
     }

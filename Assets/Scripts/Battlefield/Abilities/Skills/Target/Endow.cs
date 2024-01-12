@@ -14,7 +14,7 @@ public class Endow : AbilityEffect
         BattleVars.Shared.AbilityCardOrigin.AtkModify += targetCard.AtkNow;
         BattleVars.Shared.AbilityCardOrigin.DefModify = targetCard.DefNow;
         BattleVars.Shared.AbilityCardOrigin.innateSkills = targetCard.innateSkills;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

@@ -1,11 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Elements.Duel.Visual
 {
-    public class PlayerDisplayer : MonoBehaviour
+    public class PlayerDisplayer : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField]
         private Image validTargetGlow;
@@ -18,7 +19,7 @@ namespace Elements.Duel.Visual
         private GameObject cloakVisual;
 
         private EventBinding<ShouldShowTargetableEvent> _shouldShowTargetableBinding;
-        
+
         private void OnDisable()
         {
             EventBus<ShouldShowTargetableEvent>.Unregister(_shouldShowTargetableBinding);
@@ -31,10 +32,7 @@ namespace Elements.Duel.Visual
         }
         private void ShouldShowTarget(ShouldShowTargetableEvent shouldShowTargetableEvent)
         {
-            if (!shouldShowTargetableEvent.DisplayerId.Equals(playerID))
-            {
-                return;
-            }
+            if (!shouldShowTargetableEvent.DisplayerId.Equals(playerID)) return;
             validTargetGlow.color = shouldShowTargetableEvent.ShouldShow ? new Color(15, 255, 0, 255) : new Color(0, 0, 0, 0);
         }
 
@@ -81,6 +79,11 @@ namespace Elements.Duel.Visual
             }
             silenceImage.gameObject.SetActive(playerCounters.silence > 0);
             sanctImage.gameObject.SetActive(playerCounters.sanctuary > 0);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            EventBus<CardTappedEvent>.Raise(new CardTappedEvent(playerID, null));
         }
     }
 }

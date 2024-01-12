@@ -14,8 +14,8 @@ public class Guard : AbilityEffect
         {
             targetCard.DefDamage += BattleVars.Shared.AbilityCardOrigin.AtkNow;
         }
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

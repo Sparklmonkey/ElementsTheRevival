@@ -6,122 +6,113 @@ namespace Elements.Duel.Visual
 {
     public class CardDetailView : MonoBehaviour
     {
-        [SerializeField]
-        private CardDisplay cardDisplay;
-        [SerializeField]
-        private TextMeshProUGUI buttonText;
-
-
-        [SerializeField]
-        private Button actionButton;
+        [SerializeField] private CardDisplay cardDisplay;
+        [SerializeField] private TextMeshProUGUI buttonText;
+        [SerializeField] private Button actionButton;
         private ID _id;
         private Card _card;
-        public void SetupCardDisplay(ID id, Card card)
+
+        private EventBinding<SetupCardDisplayEvent> _modifyPlayerCounterBinding;
+
+        private void OnDisable()
         {
-            _card = card;
-            _id = id;
-            SetupButton();
-            cardDisplay.SetupCardView(_card);
+            EventBus<SetupCardDisplayEvent>.Unregister(_modifyPlayerCounterBinding);
         }
 
-        private void SetupButton()
+        private void OnEnable()
         {
-            var element = _id.field == FieldEnum.Hand ? _card.costElement : _card.skillElement;
-            var cost = _id.field == FieldEnum.Hand ? _card.cost : _card.skillCost;
+            _modifyPlayerCounterBinding = new EventBinding<SetupCardDisplayEvent>(SetupCardDisplay);
+            EventBus<SetupCardDisplayEvent>.Register(_modifyPlayerCounterBinding);
+        }
 
-
-            var hasQuanta = DuelManager.Instance.player.HasSufficientQuanta(element, cost);
+        private void SetupCardDisplay(SetupCardDisplayEvent setupCardDisplayEvent)
+        {
+            _card = setupCardDisplayEvent.Card;
+            _id = setupCardDisplayEvent.Id;
+            SetupButton(setupCardDisplayEvent.IsPlayable);
+            cardDisplay.SetupCardView(_card);
+        }
+        
+        private void SetupButton(bool isPlayable)
+        {
             var isPlayerTurn = BattleVars.Shared.IsPlayerTurn;
+
             gameObject.SetActive(true);
             actionButton.gameObject.SetActive(true);
 
             if (_id.owner == OwnerEnum.Opponent || !isPlayerTurn)
             {
-                buttonText.text = "";
-                actionButton.name = "";
+                SetButtonProperties("");
                 actionButton.gameObject.SetActive(false);
                 return;
             }
 
             if (_card.cardType == CardType.Spell)
             {
-                if (!SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta && isPlayerTurn)
-                {
-                    buttonText.text = "Activate";
-                    actionButton.name = "Activate";
-                    BattleVars.Shared.AbilityIDOrigin = _id;
-                    BattleVars.Shared.AbilityCardOrigin = _card;
-                    return;
-                }
-                
-                if (SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta && isPlayerTurn)
-                {
-                    buttonText.text = "Select Target";
-                    actionButton.name = "Select Target";
-                    BattleVars.Shared.AbilityIDOrigin = _id;
-                    BattleVars.Shared.AbilityCardOrigin = _card;
-                    return;
-                }
-                
-                if (!hasQuanta)
-                {
-                    buttonText.text = "Insufficient Quanta";
-                    actionButton.name = "Insufficient Quanta";
-                    return;
-                }
+                if (SetButtonForSpell(isPlayable, isPlayerTurn)) return;
             }
 
             if (_id.IsFromHand())
             {
-                if (hasQuanta)
-                {
-                    buttonText.text = "Play";
-                    actionButton.name = "Play";
-                    return;
-                }
-
-                buttonText.text = "";
-                actionButton.name = "";
-                actionButton.gameObject.SetActive(false);
+                SetButtonForHand(isPlayable);
                 return;
             }
 
-            if (_card.skill != "")
+            if (!string.IsNullOrEmpty(_card.skill))
             {
                 if (_card.AbilityUsed)
                 {
-                    buttonText.text = "Already Used";
-                    actionButton.name = "Insufficient Quanta";
+                    SetButtonProperties("Insufficient Quanta");
                     return;
                 }
-                if (!SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta && isPlayerTurn)
-                {
-                    buttonText.text = "Activate";
-                    actionButton.name = "Activate";
-                    BattleVars.Shared.AbilityIDOrigin = _id;
-                    BattleVars.Shared.AbilityCardOrigin = _card;
-                    return;
-                }
-                
-                if (SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta && isPlayerTurn)
-                {
-                    buttonText.text = "Select Target";
-                    actionButton.name = "Select Target";
-                    BattleVars.Shared.AbilityIDOrigin = _id;
-                    BattleVars.Shared.AbilityCardOrigin = _card;
-                    return;
-                }
-                
-                if (!hasQuanta)
-                {
-                    buttonText.text = "Insufficient Quanta";
-                    actionButton.name = "Insufficient Quanta";
-                    return;
-                }
+
+                if (SetButtonForSpell(isPlayable, isPlayerTurn)) return;
             }
 
-            buttonText.text = "";
-            actionButton.name = "";
+            SetButtonProperties("");
+            actionButton.gameObject.SetActive(false);
+        }
+        
+        private void SetButtonProperties(string buttonName)
+        {
+            buttonText.text = buttonName;
+            actionButton.name = buttonName;
+            BattleVars.Shared.AbilityIDOrigin = _id;
+            BattleVars.Shared.AbilityCardOrigin = _card;
+        }
+
+        private bool SetButtonForSpell(bool hasQuanta, bool isPlayerTurn)
+        {
+            if (!SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta && isPlayerTurn)
+            {
+                SetButtonProperties("Activate");
+                return true;
+            }
+
+            if (SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta && isPlayerTurn)
+            {
+                SetButtonProperties("Select Target");
+                return true;
+            }
+
+            if (!hasQuanta)
+            {
+                SetButtonProperties("Insufficient Quanta");
+                return true;
+            }
+
+            return false;
+        }
+
+        private void SetButtonForHand(bool hasQuanta)
+        {
+            if (hasQuanta)
+            {
+                SetButtonProperties("Play");
+                return;
+            }
+
+            SetButtonProperties("");
             actionButton.gameObject.SetActive(false);
         }
 
@@ -133,5 +124,27 @@ namespace Elements.Duel.Visual
         }
 
 
+        // public void CardDetailButton(Button buttonCase)
+        // {
+        //     switch (buttonCase.name)
+        //     {
+        //         case "Play":
+        //             if (playerCounters.silence > 0) { return; }
+        //             PlayCardFromHandLogic(CardDetailManager.GetID(), CardDetailManager.GetCard());
+        //             CardDetailManager.ClearID();
+        //             break;
+        //         case "Activate":
+        //             ActivateAbility(CardDetailManager.GetID(), CardDetailManager.GetCard());
+        //             CardDetailManager.ClearID();
+        //             break;
+        //         case "Select Target":
+        //             BattleVars.Shared.IsSelectingTarget = true;
+        //             SkillManager.Instance.SetupTargetHighlights(this, BattleVars.Shared.AbilityCardOrigin);
+        //             break;
+        //         default:
+        //             CardDetailManager.ClearID();
+        //             break;
+        //     }
+        // }
     }
 }

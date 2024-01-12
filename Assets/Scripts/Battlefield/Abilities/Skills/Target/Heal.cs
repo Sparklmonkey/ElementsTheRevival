@@ -9,7 +9,7 @@ public class Heal : AbilityEffect
     public override void Activate(ID targetId, Card targetCard)
     {
         targetCard.DefDamage -= 5;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

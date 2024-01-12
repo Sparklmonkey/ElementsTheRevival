@@ -15,7 +15,7 @@ public class Nova : AbilityEffect
             var card = CardDatabase.Instance.GetCardFromId("4vr");
             
             EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.owner.Equals(OwnerEnum.Player)));
-            EventBus<PlayCardOnFieldEvent>.Raise(new PlayCardOnFieldEvent(card, targetId.owner));
+            EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, card));
         }
         BattleVars.Shared.IsSingularity++;
     }

@@ -10,7 +10,7 @@ public class Web : AbilityEffect
     {
         // AnimationManager.Instance.StartAnimation("Web", target.transform);
         targetCard.innateSkills.Airborne = false;
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         return;
     }
 

@@ -84,10 +84,7 @@ public class DashCodeRedemption : MonoBehaviour
 
     public async void ChooseCard()
     {
-        if (ApiManager.IsTrainer)
-        {
-            return;
-        }
+        if (ApiManager.IsTrainer) return;
         PlayerData.Shared.inventoryCards.Add(cardDisplayDetail.card.iD);
 
         await ApiManager.Instance.SaveGameData();

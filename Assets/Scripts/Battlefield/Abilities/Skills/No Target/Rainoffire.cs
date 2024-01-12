@@ -14,7 +14,7 @@ public class Rainoffire : AbilityEffect
         foreach (var pair in idList.Where(pair => !pair.Item2.innateSkills.Immaterial).Where(pair => !pair.Item2.passiveSkills.Burrow))
         {
             pair.Item2.DefDamage += 3;
-            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard));
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         }
 
         if (victim.playerCounters.invisibility > 0)
