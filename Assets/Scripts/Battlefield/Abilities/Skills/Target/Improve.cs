@@ -8,7 +8,7 @@ public class Improve : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
-        // AnimationManager.Instance.StartAnimation("Mutation", target.transform);
+        EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "Mutation", Element.Other));
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetMutant(targetCard.iD.IsUpgraded()), true));
     }
 

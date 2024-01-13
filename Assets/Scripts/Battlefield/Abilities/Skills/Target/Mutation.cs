@@ -9,7 +9,7 @@ public class Mutation : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
-        // AnimationManager.Instance.StartAnimation("Mutation", target.transform);
+        EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "Mutation", Element.Other));
         switch (GetMutationResult())
         {
             case MutationEnum.Kill:

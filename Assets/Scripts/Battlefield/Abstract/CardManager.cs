@@ -32,7 +32,7 @@ namespace Battlefield.Abstract
             _cardFieldDisplays.Remove(removeCardFromManagerEvent.Id);
         }
 
-        public void ResetCardFieldDisplays()
+        protected void ResetCardFieldDisplays()
         {
             _cardFieldDisplays.Clear();
             foreach (var cardPosition in cardPositions)

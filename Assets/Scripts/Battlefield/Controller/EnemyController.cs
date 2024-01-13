@@ -13,7 +13,6 @@ public class EnemyController : MonoBehaviour
     {
         _aiStateMachine = new AiStateMachine(enemyManager, gameOverVisual);
         _self = enemyManager;
-        _aiStateMachine.DisplayCardPlayed += cardPlayedDisplay.ShowCardPlayed;
         _isSetup = true;
     }
 

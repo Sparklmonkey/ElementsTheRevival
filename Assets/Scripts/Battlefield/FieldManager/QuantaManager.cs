@@ -66,8 +66,6 @@ namespace Elements.Duel.Manager
                 var newAmount = _quantaPool.AddQuanta(element, isAdd ? amount : -amount);
                 EventBus<QuantaChangeVisualEvent>.Raise(new QuantaChangeVisualEvent(newAmount, element, _owner));
             }
-
-
         }
 
         public int GetQuantaForElement(Element element) => element.Equals(Element.Other)

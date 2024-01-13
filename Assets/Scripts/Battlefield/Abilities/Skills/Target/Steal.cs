@@ -22,7 +22,7 @@ public class Steal : AbilityEffect
                 EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(Owner.Owner, new(targetCard)));
                 break;
         }
-        // AnimationManager.Instance.StartAnimation("Steal", target.transform);
+        EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "Steal", Element.Other));
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
     }
 

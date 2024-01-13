@@ -7,9 +7,16 @@ namespace Battlefield.Abstract
     public class CardFieldDisplay : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private GameObject validTargetGlow, isUsableGlow;
+        [SerializeField] private FieldObjectAnimation fieldObjectAnimation;
         public Card Card { get; private set; }
         public ID Id { get; private set; }
-        public void SetupId(ID newId) => Id = newId;
+
+        public void SetupId(ID newId)
+        {
+            Id = newId;
+            fieldObjectAnimation.SetupId(newId);
+        }
+
         protected void SetCard(Card card) => Card = card;
     
         private EventBinding<ShouldShowTargetableEvent> _shouldShowTargetableBinding;

@@ -127,7 +127,7 @@ public class CreatureCardDisplay : CardFieldDisplay, IPointerEnterHandler, IPoin
     {
         if (!clearCardDisplayEvent.Id.Equals(Id)) return;
 
-        AnimationManager.Instance.StartAnimation("CardDeath", transform);
+        EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "CardDeath", Element.Other));
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("RemoveCardFromField"));
         
         EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Scarab, Id.owner, Card.innateSkills.Swarm ? -1 : 0));

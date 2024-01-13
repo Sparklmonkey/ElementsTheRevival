@@ -6,7 +6,7 @@ public class Deadalive : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
-        // AnimationManager.Instance.StartAnimation("DeadAndAlive", target.transform);
+        EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "DeadAndAlive", Element.Other));
         EventBus<OnDeathTriggerEvent>.Raise(new OnDeathTriggerEvent());
     }
 

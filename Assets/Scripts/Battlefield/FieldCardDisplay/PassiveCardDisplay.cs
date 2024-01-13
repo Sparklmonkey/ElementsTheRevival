@@ -117,7 +117,7 @@ public class PassiveCardDisplay : CardFieldDisplay
         if (!clearCardDisplayEvent.Id.Equals(Id)) return;
         DisplayCard(new UpdatePassiveDisplayEvent(Id, CardDatabase.Instance.GetPlaceholderCard(Id.index), false));
         
-        AnimationManager.Instance.StartAnimation("CardDeath", transform);
+        EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "CardDeath", Element.Other));
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("RemoveCardFromField"));
         
         if (Card.innateSkills.Bones)
@@ -160,7 +160,7 @@ public class PassiveCardDisplay : CardFieldDisplay
         
         if (onTurnEndEvent.CardType == CardType.Mark && Card.cardType.Equals(CardType.Mark))
         {
-            AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Card.costElement);
+            EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "QuantaGenerate", Card.costElement));
             if (BattleVars.Shared.EnemyAiData.maxHp >= 150 && Id.owner == OwnerEnum.Opponent)
             {
                 EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(3, Card.costElement, Id.owner, true));

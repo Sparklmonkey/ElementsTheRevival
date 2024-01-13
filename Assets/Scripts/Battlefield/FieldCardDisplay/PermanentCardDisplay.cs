@@ -110,7 +110,7 @@ public class PermanentCardDisplay : CardFieldDisplay
 
         stackCount.text = clearCardDisplayEvent.Stack > 1 ? $"{clearCardDisplayEvent.Stack}X" : "";
         
-        AnimationManager.Instance.StartAnimation("CardDeath", transform);
+        EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "CardDeath", Element.Air));
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("RemoveCardFromField"));
     }
     
@@ -242,7 +242,7 @@ public class PermanentCardDisplay : CardFieldDisplay
             EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(_stackCountValue, Card.skillElement, Id.owner, true));
             if (Id.owner.Equals(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
             {
-                AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Card.costElement);
+                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "QuantaGenerate", Card.costElement));
             }
     
             Card.skillElement = Card.skillElement == Card.costElement ? DuelManager.Instance.GetIDOwner(Id).playerPassiveManager.GetMark().Item2.costElement : Card.costElement;
@@ -253,7 +253,7 @@ public class PermanentCardDisplay : CardFieldDisplay
             
             if (Id.owner.Equals(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
             {
-                AnimationManager.Instance.StartAnimation("QuantaGenerate", transform, Card.costElement);
+                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "QuantaGenerate", Card.costElement));
             }
         }
     }

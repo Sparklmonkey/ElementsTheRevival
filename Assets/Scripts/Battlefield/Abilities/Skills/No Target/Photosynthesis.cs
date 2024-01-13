@@ -6,7 +6,7 @@ public class Photosynthesis : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
-        // AnimationManager.Instance.StartAnimation("QuantaGenerate", target.transform, Element.Life);
+        EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "QuantaGenerate", Element.Life));
         EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(2, Element.Life, Owner.Owner, true));
     }
 

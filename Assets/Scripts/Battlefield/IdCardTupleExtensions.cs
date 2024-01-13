@@ -57,23 +57,23 @@ public static class IdCardTupleExtensions
         if (cardPair.card.innateSkills.Delay == 0)
         {
             if (cardPair.card.passiveSkills.Air)
-            {
-                // AnimationManager.Instance.StartAnimation("QuantaGenerate", cardPair.transform, Element.Air);
+            {;
+                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(cardPair.id, "QuantaGenerate", Element.Air));
                 EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Air, owner.Owner, true));
             }
             if (cardPair.card.passiveSkills.Earth)
             {
-                // AnimationManager.Instance.StartAnimation("QuantaGenerate", cardPair.transform, Element.Earth);
+                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(cardPair.id, "QuantaGenerate", Element.Earth));
                 EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Earth, owner.Owner, true));
             }
             if (cardPair.card.passiveSkills.Fire)
             {
-                // AnimationManager.Instance.StartAnimation("QuantaGenerate", cardPair.transform, Element.Fire);
+                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(cardPair.id, "QuantaGenerate", Element.Fire));
                 EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Fire, owner.Owner, true));
             }
             if (cardPair.card.passiveSkills.Light)
             {
-                // AnimationManager.Instance.StartAnimation("QuantaGenerate", cardPair.transform, Element.Light);
+                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(cardPair.id, "QuantaGenerate", Element.Light));
                 EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Light, owner.Owner, true));
             }
             if (cardPair.card.innateSkills.Devourer)
@@ -82,7 +82,7 @@ public static class IdCardTupleExtensions
                 {
                     EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Other, enemy.Owner, false));
                 }
-                // AnimationManager.Instance.StartAnimation("QuantaGenerate", cardPair.transform, Element.Darkness);
+                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(cardPair.id, "QuantaGenerate", Element.Darkness));
                 EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Darkness, owner.Owner, true));
             }
             if (cardPair.card.passiveSkills.Overdrive)
@@ -187,7 +187,7 @@ public static class IdCardTupleExtensions
                 break;
             default:
                 Card duplicate = new(cardPair.card);
-                // AnimationManager.Instance.StartAnimation("ParallelUniverse", cardPair.transform);
+                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(cardPair.id, "ParallelUniverse", Element.Air));
                 EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(duplicate, cardPair.id.owner.Equals(OwnerEnum.Player)));
                 EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(cardPair.id.owner, duplicate));
                 break;

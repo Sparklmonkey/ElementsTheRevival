@@ -88,7 +88,6 @@
     <Compile Include="Assets\Scripts\Dashboard\DashboardSceneManager.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\AddSpellActivatedActionEvent.cs" />
     <Compile Include="Assets\Scripts\Quests\QuestBazaar.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\AiComponents\IAiTurnComponent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Dive.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Blackhole.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ModifyPlayerHealthLogicEvent.cs" />
@@ -146,7 +145,6 @@
     <Compile Include="Assets\Scripts\Quests\QuestBiolerplate.cs" />
     <Compile Include="Assets\Scripts\Bazaar\Bazaar_CardDisplayManager.cs" />
     <Compile Include="Assets\Scripts\Networking\Responses\LoginResponse.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\AiComponents\BasicAiTurnComponent.cs" />
     <Compile Include="Assets\Scripts\ErrorMessageManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Divineshield.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Mitosiss.cs" />
@@ -201,6 +199,7 @@
     <Compile Include="Assets\Scripts\Dashboard\Dash_ResetAccountAnimator.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Enum\MutationEnum.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ShouldShowUsableEvent.cs" />
+    <Compile Include="Assets\FieldObjectAnimation.cs" />
     <Compile Include="Assets\Scripts\Dashboard\Dash_AchievementManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Shard.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Acceleration.cs" />
@@ -295,6 +294,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Evolve.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Visual\PlayerCardInHand.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\Counters.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\AiComponents\BasicAiTurnLogic.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Core\InnateSkills.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Scarab.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Visual\DisplayCreatureAttackEvent.cs" />
@@ -376,6 +376,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Blessing.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Freeze.cs" />
     <Compile Include="Assets\Scripts\UpgradeCard\Upgrade_PlayerDataManager.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\AiComponents\AiTurnBase.cs" />
     <Compile Include="Assets\Scripts\Dashboard\Error_Animated.cs" />
     <Compile Include="Assets\Scripts\Deck Manager\DeckDisplayManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Ignite.cs" />

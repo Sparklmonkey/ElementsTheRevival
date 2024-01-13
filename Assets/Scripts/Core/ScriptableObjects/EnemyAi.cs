@@ -23,5 +23,3 @@ public class EnemyAi : ScriptableObject
     public string turnComponent;
 
 }
-
-

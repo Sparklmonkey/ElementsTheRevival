@@ -87,8 +87,6 @@ public class AnimationManager : SingletonMono<AnimationManager>
                 adjustedSizeAndOffset = GetElementGenerateAnimModification(parentSize);
                 color = ElementColours.GetElementColour(element);
                 break;
-            default:
-                break;
         }
 
         rect.sizeDelta = adjustedSizeAndOffset.Item1;
@@ -96,7 +94,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         yield return StartCoroutine(anim.GetComponent<ImageAnimations>().AnimateImage(sprites, color));
     }
 
-    private (Vector2, Vector2) GetLightningAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetLightningAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(123, 207);
         Vector2 effectSize = new(73, 74);
@@ -108,7 +106,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetCardDeathAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetCardDeathAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(520, 101);
         Vector2 effectSize = new(73, 74);
@@ -120,7 +118,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetMutationAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetMutationAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(106, 106);
         Vector2 effectSize = new(106, 106);
@@ -131,7 +129,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
 
         return (newSize, newOffset);
     }
-    private (Vector2, Vector2) GetBlessingAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetBlessingAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(217, 166);
         Vector2 effectSize = new(73, 74);
@@ -142,7 +140,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
 
         return (newSize, newOffset);
     }
-    private (Vector2, Vector2) GetMitosisAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetMitosisAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(561, 426);
         Vector2 effectSize = new(561, 426);
@@ -154,7 +152,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetPurifyAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetPurifyAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(106, 106);
         Vector2 effectSize = new(73, 74);
@@ -166,7 +164,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetElementGenerateAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetElementGenerateAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(153, 78);
         Vector2 effectSize = new(73, 74);
@@ -178,7 +176,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetDiveAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetDiveAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(149, 112);
         Vector2 effectSize = new(73, 74);
@@ -190,7 +188,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetSniperAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetSniperAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(123, 317);
         Vector2 effectSize = new(73, 74);
@@ -202,7 +200,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetRagePotionAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetRagePotionAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(73, 78);
         Vector2 effectSize = new(73, 74);
@@ -214,7 +212,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetParallelUniverseAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetParallelUniverseAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(105, 106);
         Vector2 effectSize = new(73, 74);
@@ -226,7 +224,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetStealAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetStealAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(106, 106);
         Vector2 effectSize = new(73, 74);
@@ -238,7 +236,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetWebAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetWebAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(383, 117);
         Vector2 effectSize = new(73, 74);
@@ -250,7 +248,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetDeadAndAliveAnimModifiers(Vector2 parentSize)
+    public (Vector2, Vector2) GetDeadAndAliveAnimModifiers(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(521, 102);
         Vector2 effectSize = new(73, 74);
@@ -262,7 +260,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetDrainLifeAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetDrainLifeAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(144, 161);
         Vector2 effectSize = new(73, 73);
@@ -274,7 +272,7 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private (Vector2, Vector2) GetIceBoltAnimModification(Vector2 parentSize)
+    public (Vector2, Vector2) GetIceBoltAnimModification(Vector2 parentSize)
     {
         Vector2 baseImageSize = new(172, 255);
         Vector2 effectSize = new(73, 73);
@@ -286,13 +284,13 @@ public class AnimationManager : SingletonMono<AnimationManager>
         return (newSize, newOffset);
     }
 
-    private Vector2 GetAdjustedOffset(Vector2 neededSize, Vector2 baseImageSize, Vector2 offset)
+    public Vector2 GetAdjustedOffset(Vector2 neededSize, Vector2 baseImageSize, Vector2 offset)
     {
         Vector2 result = new(offset.x / baseImageSize.x * neededSize.x, offset.y / baseImageSize.y * neededSize.y);
         return result;
     }
 
-    private Vector2 GetAdjustedSize(Vector2 neededSize, Vector2 baseImageSize, Vector2 effectSize)
+    public Vector2 GetAdjustedSize(Vector2 neededSize, Vector2 baseImageSize, Vector2 effectSize)
     {
         Vector2 result = new(neededSize.x * baseImageSize.x / effectSize.x, neededSize.y * baseImageSize.y / effectSize.y);
         return result;

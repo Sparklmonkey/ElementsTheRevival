@@ -30,7 +30,7 @@ namespace Elements.Duel.Manager
             EventBus<AddCardToHandEvent>.Register(_playHandCardBinding);
         }
         
-        public bool ShouldDiscard() => GetAllValidCards().Count == 8;
+        public bool ShouldDiscard() => GetAllValidCards().Count > 7;
         
         public int GetHandCount() => GetAllValidCards().Count;
 
@@ -38,6 +38,12 @@ namespace Elements.Duel.Manager
         {
             var returnList = GetAllValidCardIds();
             return returnList.Where(x => quantaCheck(x.card.costElement, x.card.cost)).ToList();
+        }
+        
+        public bool HasCardOfType(CardType cardType)
+        {
+            var returnList = GetAllValidCardIds();
+            return returnList.Exists(x => x.card.cardType == cardType);
         }
 
         public List<(ID id, Card card)> GetPlayableCardsOfType(QuantaCheck quantaCheck, CardType cardType)

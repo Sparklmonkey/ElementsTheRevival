@@ -54,7 +54,7 @@ public class Chaos : AbilityEffect
                 Card cardToPlay = new(targetCard);
                 EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(cardToPlay, targetId.owner.Equals(OwnerEnum.Player)));
                 EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, cardToPlay));
-                // AnimationManager.Instance.StartAnimation("Steal", iDCard.transform);
+                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "Steal", Element.Other));
                 EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
                 return;
             case 8:
