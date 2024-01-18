@@ -157,6 +157,8 @@ public class PassiveCardDisplay : CardFieldDisplay
     private void TurnEnd(OnPassiveTurnEndEvent onTurnEndEvent)
     {
         if (!onTurnEndEvent.Owner.Equals(Id.owner)) return;
+
+        if (onTurnEndEvent.CardType.Equals(CardType.Shield)) return;
         
         if (onTurnEndEvent.CardType == CardType.Mark && Card.cardType.Equals(CardType.Mark))
         {
@@ -169,6 +171,8 @@ public class PassiveCardDisplay : CardFieldDisplay
             {
                 EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Card.costElement, Id.owner, true));
             }
+
+            return;
         }
 
         if (onTurnEndEvent.CardType != CardType.Weapon || !Card.cardType.Equals(CardType.Weapon)) return;
