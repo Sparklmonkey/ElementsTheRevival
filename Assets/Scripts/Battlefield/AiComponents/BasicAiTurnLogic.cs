@@ -29,11 +29,14 @@ public class BasicAiTurnLogic : AiTurnBase
         {
             var target = SkillManager.Instance.GetRandomTarget(aiManager, spell.Item2);
             if (target.Equals(default)) return;
-
+            
             BattleVars.Shared.AbilityCardOrigin = spell.Item2;
             BattleVars.Shared.AbilityIDOrigin = spell.Item1;
-            SkillManager.Instance.SkillRoutineWithTarget(aiManager, target.Item1, target.Item2);
-            EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(spell.card, spell.id));
+            
+            EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
+
+            // SkillManager.Instance.SkillRoutineWithTarget(aiManager, target.Item1, target.Item2);
+            // EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(spell.card, spell.id));
             EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(spell.Item2.imageID, spell.Item2.costElement.FastElementString(), spell.Item2.cardName));
         }
         else
@@ -58,6 +61,8 @@ public class BasicAiTurnLogic : AiTurnBase
             BattleVars.Shared.AbilityIDOrigin = creature.Item1;
             BattleVars.Shared.AbilityCardOrigin = creature.Item2;
             creature.Item2.AbilityUsed = true;
+            
+            EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
             SkillManager.Instance.SkillRoutineWithTarget(aiManager, target.Item1, target.Item2);
             return;
         }

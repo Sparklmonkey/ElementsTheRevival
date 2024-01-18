@@ -374,6 +374,7 @@
     <Compile Include="Assets\Scripts\Battlefield\CardDisplayDetail.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shieldweight.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Blessing.cs" />
+    <Compile Include="Assets\Scripts\Events\BattlefieldEvents\UpdatePlayerCountersVisualEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Freeze.cs" />
     <Compile Include="Assets\Scripts\UpgradeCard\Upgrade_PlayerDataManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\AiComponents\AiTurnBase.cs" />

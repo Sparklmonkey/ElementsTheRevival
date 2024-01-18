@@ -37,7 +37,7 @@ namespace Battlefield.Abstract
             _cardFieldDisplays.Clear();
             foreach (var cardPosition in cardPositions)
             {
-                var fieldObject = cardPosition.GetComponent<CardFieldDisplay>();
+                var fieldObject = cardPosition.GetComponentInChildren<CardFieldDisplay>();
                 if (fieldObject is null) continue;
                 _cardFieldDisplays.Add(fieldObject.Id, fieldObject);    
             }

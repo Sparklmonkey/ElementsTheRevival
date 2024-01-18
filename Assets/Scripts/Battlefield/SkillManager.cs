@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+public delegate bool IsCardValidTarget(ID id, Card card);
+public delegate void ActivateAbilityEffect(ID id, Card card);
 public class SkillManager
 {
     static SkillManager()
@@ -8,7 +10,16 @@ public class SkillManager
 
     private SkillManager()
     {
+        _setupAbilityTargetsEventBinding = new EventBinding<SetupAbilityTargetsEvent>(SetupTargetHighlights);
+        EventBus<SetupAbilityTargetsEvent>.Register(_setupAbilityTargetsEventBinding);
     }
+    
+    ~SkillManager()
+    {
+        EventBus<SetupAbilityTargetsEvent>.Unregister(_setupAbilityTargetsEventBinding);
+    }
+    
+    private EventBinding<SetupAbilityTargetsEvent> _setupAbilityTargetsEventBinding;
 
     public static SkillManager Instance { get; } = new();
 
@@ -33,13 +44,12 @@ public class SkillManager
         return true;
     }
 
-    public void SetupTargetHighlights(PlayerManager owner, Card card)
+    private void SetupTargetHighlights(SetupAbilityTargetsEvent setupAbilityTargetsEvent)
     {
-        var ability = card.skill.GetSkillScript<AbilityEffect>();
-        ability.Owner = owner;
-        ability.Origin = card;
-        var enemy = DuelManager.Instance.GetNotIDOwner(owner.playerID);
-        DuelManager.Instance.SetupHighlights(ability.GetPossibleTargets(enemy));
+        var ability = setupAbilityTargetsEvent.AbilityCard.skill.GetSkillScript<AbilityEffect>();
+        ability.Owner = setupAbilityTargetsEvent.AbilityOwner;
+        ability.Origin = setupAbilityTargetsEvent.AbilityCard;
+        EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(ability.IsCardValid));
     }
 
     public void SkillRoutineWithTarget(PlayerManager owner, ID targetId, Card targetCard)
@@ -74,7 +84,7 @@ public class SkillManager
         ability.Activate(id, card);
     }
 
-    public (ID, Card) GetRandomTarget(PlayerManager owner, Card card)
+    public (ID id, Card card) GetRandomTarget(PlayerManager owner, Card card)
     {
         var ability = card.skill.GetSkillScript<AbilityEffect>();
         if (ability == null)

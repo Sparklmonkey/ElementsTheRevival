@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public class Stoneskin : AbilityEffect
 {
     public override bool NeedsTarget() => false;
+    public override bool IsCardValid(ID id, Card card) => false;
 
     public override void Activate(ID targetId, Card targetCard)
     {

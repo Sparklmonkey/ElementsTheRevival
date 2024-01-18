@@ -11,7 +11,7 @@ namespace Elements.Duel.Visual
         [SerializeField] private Button actionButton;
         private ID _id;
         private Card _card;
-
+        private ButtonCase _buttonCase;
         private EventBinding<SetupCardDisplayEvent> _modifyPlayerCounterBinding;
 
         private void OnDisable()
@@ -42,6 +42,7 @@ namespace Elements.Duel.Visual
 
             if (_id.owner == OwnerEnum.Opponent || !isPlayerTurn)
             {
+                _buttonCase = ButtonCase.None;
                 SetButtonProperties("");
                 actionButton.gameObject.SetActive(false);
                 return;
@@ -62,6 +63,7 @@ namespace Elements.Duel.Visual
             {
                 if (_card.AbilityUsed)
                 {
+                    _buttonCase = ButtonCase.None;
                     SetButtonProperties("Insufficient Quanta");
                     return;
                 }
@@ -69,6 +71,7 @@ namespace Elements.Duel.Visual
                 if (SetButtonForSpell(isPlayable, isPlayerTurn)) return;
             }
 
+            _buttonCase = ButtonCase.None;
             SetButtonProperties("");
             actionButton.gameObject.SetActive(false);
         }
@@ -85,33 +88,35 @@ namespace Elements.Duel.Visual
         {
             if (!SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta && isPlayerTurn)
             {
+                _buttonCase = ButtonCase.Activate;
                 SetButtonProperties("Activate");
                 return true;
             }
 
             if (SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta && isPlayerTurn)
             {
+                _buttonCase = ButtonCase.SelectTarget;
                 SetButtonProperties("Select Target");
                 return true;
             }
 
-            if (!hasQuanta)
-            {
-                SetButtonProperties("Insufficient Quanta");
-                return true;
-            }
+            if (hasQuanta) return false;
+            _buttonCase = ButtonCase.None;
+            SetButtonProperties("Insufficient Quanta");
+            return true;
 
-            return false;
         }
 
         private void SetButtonForHand(bool hasQuanta)
         {
             if (hasQuanta)
             {
+                _buttonCase = ButtonCase.Play;
                 SetButtonProperties("Play");
                 return;
             }
 
+            _buttonCase = ButtonCase.None;
             SetButtonProperties("");
             actionButton.gameObject.SetActive(false);
         }
@@ -123,28 +128,64 @@ namespace Elements.Duel.Visual
             gameObject.SetActive(false);
         }
 
+        private void ClearCard()
+        {
+            _card = null;
+            _id = null;
+        }
 
-        // public void CardDetailButton(Button buttonCase)
-        // {
-        //     switch (buttonCase.name)
-        //     {
-        //         case "Play":
-        //             if (playerCounters.silence > 0) { return; }
-        //             PlayCardFromHandLogic(CardDetailManager.GetID(), CardDetailManager.GetCard());
-        //             CardDetailManager.ClearID();
-        //             break;
-        //         case "Activate":
-        //             ActivateAbility(CardDetailManager.GetID(), CardDetailManager.GetCard());
-        //             CardDetailManager.ClearID();
-        //             break;
-        //         case "Select Target":
-        //             BattleVars.Shared.IsSelectingTarget = true;
-        //             SkillManager.Instance.SetupTargetHighlights(this, BattleVars.Shared.AbilityCardOrigin);
-        //             break;
-        //         default:
-        //             CardDetailManager.ClearID();
-        //             break;
-        //     }
-        // }
+        public void ActionButton()
+        {
+            switch (_buttonCase)
+            {
+                case ButtonCase.Play:
+                    EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(_card, _id));
+                    ClearCard();
+                    break;
+                case ButtonCase.Activate:
+                    EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(_id, _card));
+                    ClearCard();
+                    break;
+                case ButtonCase.SelectTarget:
+                    BattleVars.Shared.IsSelectingTarget = true;
+                    EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(DuelManager.Instance.player, _card));
+                    break;
+                case ButtonCase.None:
+                    ClearCard();
+                    break;
+            }
+        }
     }
+}
+
+public struct ActivateSpellOrAbilityEvent : IEvent
+{
+    public ID TargetId;
+    public Card TargetCard;
+
+    public ActivateSpellOrAbilityEvent(ID targetId, Card targetCard)
+    {
+        TargetId = targetId;
+        TargetCard = targetCard;
+    }
+}
+
+public struct SetupAbilityTargetsEvent : IEvent
+{
+    public PlayerManager AbilityOwner;
+    public Card AbilityCard;
+
+    public SetupAbilityTargetsEvent(PlayerManager abilityOwner, Card abilityCard)
+    {
+        AbilityOwner = abilityOwner;
+        AbilityCard = abilityCard;
+    }
+}
+
+public enum ButtonCase
+{
+    Play,
+    Activate,
+    SelectTarget,
+    None
 }

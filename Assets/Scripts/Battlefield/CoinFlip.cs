@@ -17,9 +17,6 @@ public class CoinFlip : MonoBehaviour
     private int _flipTimes = 4;
 
     public bool playerStarts = false;
-    private void Start()
-    {
-    }
 
     public void FlipCoinRandom()
     {

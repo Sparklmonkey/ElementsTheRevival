@@ -23,6 +23,12 @@ public class Paradox : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable() && x.Item2.AtkNow > x.Item2.DefNow);
     }
 
+    public override bool IsCardValid(ID id, Card card)
+    {
+        if (card is null) return false;
+        return card.cardType.Equals(CardType.Creature) && card.IsTargetable() && card.AtkNow > card.DefNow;
+    }
+
     public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         return possibleTargets.Count == 0 ? default : possibleTargets.Aggregate((i1, i2) => i1.Item2.AtkNow >= i2.Item2.AtkNow ? i1 : i2);

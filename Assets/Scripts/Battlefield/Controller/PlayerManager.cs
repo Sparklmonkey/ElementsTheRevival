@@ -9,17 +9,16 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-    public event Action<Counters> OnPlayerCounterUpdate;
-    
-    
     private EventBinding<ModifyPlayerCounterEvent> _modifyPlayerCounterBinding;
     private EventBinding<ModifyPlayerHealthEvent> _modifyPlayerHealthBinding;
     private EventBinding<PlayCardFromHandEvent> _playCardOnFieldBinding;
+    private EventBinding<ActivateSpellOrAbilityEvent> _activateSpellOrAbilityBinding;
     
     private void OnDisable() {
         EventBus<ModifyPlayerCounterEvent>.Unregister(_modifyPlayerCounterBinding);
         EventBus<ModifyPlayerHealthEvent>.Unregister(_modifyPlayerHealthBinding);
         EventBus<PlayCardFromHandEvent>.Unregister(_playCardOnFieldBinding);
+        EventBus<ActivateSpellOrAbilityEvent>.Unregister(_activateSpellOrAbilityBinding);
     }
         
     private void OnEnable()
@@ -32,6 +31,9 @@ public class PlayerManager : MonoBehaviour
         
         _playCardOnFieldBinding = new EventBinding<PlayCardFromHandEvent>(PlayCardFromHand);
         EventBus<PlayCardFromHandEvent>.Register(_playCardOnFieldBinding);
+        
+        _activateSpellOrAbilityBinding = new EventBinding<ActivateSpellOrAbilityEvent>(ActivateAbility);
+        EventBus<ActivateSpellOrAbilityEvent>.Register(_activateSpellOrAbilityBinding);
     }
     
     private void ModifyHealthLogic(ModifyPlayerHealthEvent modifyPlayerHealthEvent)
@@ -107,7 +109,7 @@ public class PlayerManager : MonoBehaviour
                 playerCounters.poison -= amount;
                 break;
         }
-        OnPlayerCounterUpdate?.Invoke(playerCounters);
+        EventBus<UpdatePlayerCountersVisualEvent>.Raise(new UpdatePlayerCountersVisualEvent(playerID, playerCounters));
     }
 
     public void RemoveAllCloaks()
@@ -269,7 +271,7 @@ public class PlayerManager : MonoBehaviour
         {
             playerCounters.invisibility--;
         }
-        OnPlayerCounterUpdate?.Invoke(playerCounters);
+        EventBus<UpdatePlayerCountersVisualEvent>.Raise(new UpdatePlayerCountersVisualEvent(playerID, playerCounters));
     }
 
     public int GetLightEmittingCreatures()
@@ -295,42 +297,37 @@ public class PlayerManager : MonoBehaviour
         playerHand.ShowCardsForPrecog();
     }
 
-    public void CardDetailButton(Button buttonCase)
+    private void ActivateAbility(ActivateSpellOrAbilityEvent activateSpellOrAbilityEvent)
     {
-        switch (buttonCase.name)
+        var abilityCard = BattleVars.Shared.AbilityCardOrigin;
+        if (abilityCard is null) return;
+        if (!BattleVars.Shared.AbilityIDOrigin.owner.Equals(Owner)) return;
+        var ability = abilityCard.skill.GetSkillScript<AbilityEffect>();
+        
+        if (abilityCard.cardType.Equals(CardType.Spell))
         {
-            case "Play":
-                if (playerCounters.silence > 0) { return; }
-                PlayCardFromHandLogic(CardDetailManager.GetID(), CardDetailManager.GetCard());
-                CardDetailManager.ClearID();
-                break;
-            case "Activate":
-                ActivateAbility(CardDetailManager.GetID(), CardDetailManager.GetCard());
-                CardDetailManager.ClearID();
-                break;
-            case "Select Target":
-                BattleVars.Shared.IsSelectingTarget = true;
-                SkillManager.Instance.SetupTargetHighlights(this, BattleVars.Shared.AbilityCardOrigin);
-                break;
-            default:
-                CardDetailManager.ClearID();
-                break;
+            EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, null, null));
         }
-    }
-
-    public void ActivateAbility(ID targetId, Card targetCard)
-    {
-        if (BattleVars.Shared.AbilityCardOrigin.cardType.Equals(CardType.Spell))
+        else
         {
-            if (SkillManager.Instance.ShouldAskForTarget(BattleVars.Shared.AbilityCardOrigin))
+            EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, null, null));
+        }
+        
+        if (abilityCard.cardType.Equals(CardType.Spell))
+        {
+            if (SkillManager.Instance.ShouldAskForTarget(abilityCard))
             {
-                SkillManager.Instance.SkillRoutineWithTarget(this, targetId, targetCard);
+                ability.Owner = this;
+                ability.Origin = BattleVars.Shared.AbilityCardOrigin;
+                EventBus<ActivateAbilityEffectEvent>.Raise(new ActivateAbilityEffectEvent(ability.Activate, activateSpellOrAbilityEvent.TargetId));
             }
             else
             {
-                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin);
+                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.Shared.AbilityIDOrigin, abilityCard);
+                ability.Owner = this;
+                ability.Activate(BattleVars.Shared.AbilityIDOrigin, abilityCard);
             }
-            PlayCardFromHandLogic(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin);
+            EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(abilityCard, BattleVars.Shared.AbilityIDOrigin));
         }
         else
         {
@@ -342,7 +339,9 @@ public class PlayerManager : MonoBehaviour
 
             if (SkillManager.Instance.ShouldAskForTarget(BattleVars.Shared.AbilityCardOrigin))
             {
-                SkillManager.Instance.SkillRoutineWithTarget(this, targetId, targetCard);
+                ability.Owner = this;
+                ability.Origin = BattleVars.Shared.AbilityCardOrigin;
+                EventBus<ActivateAbilityEffectEvent>.Raise(new ActivateAbilityEffectEvent(ability.Activate, activateSpellOrAbilityEvent.TargetId));
             }
             else
             {
@@ -354,7 +353,7 @@ public class PlayerManager : MonoBehaviour
         DisplayPlayableGlow();
     }
 
-    public void DealPoisonDamage()
+    private void DealPoisonDamage()
     {
         EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(playerCounters.poison, true, false, Owner));
     }
@@ -449,45 +448,6 @@ public class PlayerManager : MonoBehaviour
         DisplayPlayableGlow();
     }
     
-    private void PlayCardFromHandLogic(ID id, Card card)
-    {
-        EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CardPlay"));
-        if (playerCounters.neurotoxin > 0)
-        {
-            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Neurotoxin, Owner, 1));
-        }
-        
-        if (!card.cardType.Equals(CardType.Spell))
-        {
-            EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, id.owner.Equals(OwnerEnum.Player)));
-            
-            
-            switch (card.cardType)
-            {
-                case CardType.Artifact:
-                case CardType.Pillar:
-                    EventBus<PlayPermanentOnFieldEvent>.Raise(new PlayPermanentOnFieldEvent(Owner, card));
-                    break;
-                case CardType.Creature:
-                    EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(Owner, card));
-                    break;
-                case CardType.Weapon:
-                case CardType.Shield:
-                case CardType.Mark:
-                    EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(Owner, card));
-                    break;
-            }
-        }
-
-        //Spend Quanta
-        if (card.cost > 0)
-        {
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(card.cost, card.costElement, Owner, false));
-        }
-        //Remove Card From Hand
-        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(id));
-        DisplayPlayableGlow();
-    }
     private void DisplayPlayableGlow()
     {
         if (Owner.Equals(OwnerEnum.Opponent)) { return; }
@@ -682,7 +642,6 @@ public class PlayerManager : MonoBehaviour
         //    PlayCardOnFieldLogic(petCard);
         //}
         playerDisplayer.playerID = playerID;
-        OnPlayerCounterUpdate += playerDisplayer.UpdatePlayerIndicators;
         if (!Owner.Equals(OwnerEnum.Player))
         {
             DuelManager.Instance.allPlayersSetup = true;
@@ -710,7 +669,7 @@ public class PlayerManager : MonoBehaviour
 
             if (!targetCard.cardType.Equals(CardType.Spell))
             {
-                PlayCardFromHandLogic(targetId, targetCard);
+                EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(targetCard, targetId));
             }
             else
             {
@@ -746,7 +705,7 @@ public class PlayerManager : MonoBehaviour
         else
         {
             BattleVars.Shared.IsSelectingTarget = true;
-            SkillManager.Instance.SetupTargetHighlights(this, card);
+            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(this, card));
         }
     }
 
@@ -757,12 +716,12 @@ public class PlayerManager : MonoBehaviour
         if (!SkillManager.Instance.ShouldAskForTarget(card))
         {
             SkillManager.Instance.SkillRoutineNoTarget(this, id, card);
-            PlayCardFromHandLogic(id, card);
+            EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(card, id));
         }
         else
         {
             BattleVars.Shared.IsSelectingTarget = true;
-            SkillManager.Instance.SetupTargetHighlights(this, card);
+            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(this, card));
         }
     }
 

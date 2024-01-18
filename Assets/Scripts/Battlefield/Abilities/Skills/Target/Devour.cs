@@ -26,7 +26,13 @@ public class Devour : AbilityEffect
         if (!possibleTargets.Exists(x => x.IsTargetable() && x.Item2.DefNow <= Origin.DefNow)) { return new(); }
         return possibleTargets.FindAll(x => x.IsTargetable() && x.Item2.DefNow < Origin.DefNow);
     }
-
+    
+    public override bool IsCardValid(ID id, Card card)
+    {
+        if (card is null) return false;
+        return card.cardType.Equals(CardType.Creature) && card.DefNow <= Origin.DefNow && card.IsTargetable();
+    }
+    
     public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0) { return default; }

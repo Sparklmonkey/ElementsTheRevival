@@ -12,7 +12,14 @@ public class Blessing : AbilityEffect
         targetCard.DefModify += 3;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
+    
 
+    public override bool IsCardValid(ID id, Card card)
+    {
+        if (card is null) return false;
+        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();

@@ -33,6 +33,12 @@ public class Endow : AbilityEffect
 
         return possibleTargets.Count == 0 ? new() : possibleTargets.FindAll(x => x.IsTargetable() && CardDatabase.Instance.WeaponIdList.Contains(x.Item2.iD));
     }
+    
+    public override bool IsCardValid(ID id, Card card)
+    {
+        if (card is null) return false;
+        return CardDatabase.Instance.WeaponIdList.Contains(card.iD) && card.IsTargetable();
+    }
 
     public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {

@@ -26,6 +26,11 @@ public class Momentum : AbilityEffect
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
 
+    public override bool IsCardValid(ID id, Card card)
+    {
+        if (card is null) return false;
+        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+    }
     public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)

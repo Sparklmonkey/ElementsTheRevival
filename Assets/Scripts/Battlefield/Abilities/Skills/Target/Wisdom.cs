@@ -25,6 +25,12 @@ public class Wisdom : AbilityEffect
         return possibleTargets.FindAll(x => x.Item2.innateSkills.Immaterial);
     }
 
+    public override bool IsCardValid(ID id, Card card)
+    {
+        if (card is null) return false;
+        return card.cardType.Equals(CardType.Creature) && card.innateSkills.Immaterial;
+    }
+
     public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         return possibleTargets.Count == 0 ? default : possibleTargets[Random.Range(0, possibleTargets.Count)];

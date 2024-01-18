@@ -23,6 +23,17 @@ public class Accretion : AbilityEffect
             EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin, true));
         }
     }
+    
+    public override bool IsCardValid(ID id, Card card)
+    {
+        if (card is null) return false;
+        if (id.field.Equals(FieldEnum.Permanent) && card.IsTargetable())
+        {
+            return true;
+        }
+        
+        return id.field.Equals(FieldEnum.Passive) && card.cardType is CardType.Shield or CardType.Weapon && card.IsTargetable();
+    }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {

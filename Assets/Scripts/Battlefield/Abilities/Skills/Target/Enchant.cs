@@ -43,6 +43,17 @@ public class Enchant : AbilityEffect
 
         return possibleTargets.FindAll(x => x.IsTargetable());
     }
+    
+    public override bool IsCardValid(ID id, Card card)
+    {
+        if (card is null) return false;
+        if (id.field.Equals(FieldEnum.Permanent))
+        {
+            return true;
+        }
+        
+        return id.field.Equals(FieldEnum.Passive) && card.cardType is CardType.Shield or CardType.Weapon && card.IsTargetable();
+    }
 
     public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {

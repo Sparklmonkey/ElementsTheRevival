@@ -1,11 +1,11 @@
-﻿public struct ShouldShowTargetableEvent : IEvent
+﻿using JetBrains.Annotations;
+
+public struct ShouldShowTargetableEvent : IEvent
 {
-    public bool ShouldShow;
-    public ID DisplayerId;
+    [CanBeNull] public IsCardValidTarget IsCardValidTarget;
     
-    public ShouldShowTargetableEvent(bool shouldShow, ID displayerId)
+    public ShouldShowTargetableEvent(IsCardValidTarget isCardValidTarget)
     {
-        ShouldShow = shouldShow;
-        DisplayerId = displayerId;
+        IsCardValidTarget = isCardValidTarget;
     }
 }

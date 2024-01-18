@@ -11,18 +11,20 @@ public class Acceleration : AbilityEffect
         targetCard.desc = "Acceleration: \n Gain +2 /-1 per turn";
         targetCard.skill = "";
         targetCard.passiveSkills.Acceleration = true;
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
+    public override bool IsCardValid(ID id, Card card)
+    {
+        if (card is null) return false;
+        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
         possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0)
-        {
-            return new();
-        }
-
-        return possibleTargets.FindAll(x => x.IsTargetable());
+        return possibleTargets.Count == 0 ? new() : possibleTargets.FindAll(x => x.IsTargetable());
     }
 
     public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)

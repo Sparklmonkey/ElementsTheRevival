@@ -15,7 +15,12 @@ public class Butterfly : AbilityEffect
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         return;
     }
-
+    
+    public override bool IsCardValid(ID id, Card card)
+    {
+        if (card is null) return false;
+        return card.cardType.Equals(CardType.Creature) && card.AtkNow < 4 && card.IsTargetable();
+    }
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
     {
         var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();

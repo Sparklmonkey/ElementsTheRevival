@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,15 +15,19 @@ public class DuelManager : MonoBehaviour
     [SerializeField]
     private MessageManager messageManager;
     private EventBinding<CardTappedEvent> _cardTappedBinding;
+    private EventBinding<AddTargetToListEvent> _addTargetToListBinding;
     
     private void OnDisable() {
         EventBus<CardTappedEvent>.Unregister(_cardTappedBinding);
+        EventBus<AddTargetToListEvent>.Unregister(_addTargetToListBinding);
     }
 
     private void OnEnable()
     {
         _cardTappedBinding = new EventBinding<CardTappedEvent>(CardTapped);
         EventBus<CardTappedEvent>.Register(_cardTappedBinding);
+        _addTargetToListBinding = new EventBinding<AddTargetToListEvent>(AddTargetToList);
+        EventBus<AddTargetToListEvent>.Register(_addTargetToListBinding);
     }
     public void UpdateNightFallEclipse(bool isAdded, string skill)
     {
@@ -39,16 +44,6 @@ public class DuelManager : MonoBehaviour
         enemy.StopAllCoroutines();
         aiController.StopAllCoroutines();
     }
-    public void SetupHighlights(List<(ID, Card)> targets)
-    {
-        _validTargets = new();
-        foreach (var target in targets)
-        {
-            _validTargets.Add(target.Item1, target.Item2);
-            EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(true, target.Item1));
-        }
-    }
-
     public int GetPossibleDamage(bool isPlayer)
     {
         return isPlayer ? Instance.enemy.GetPossibleDamage() : Instance.player.GetPossibleDamage();
@@ -60,7 +55,7 @@ public class DuelManager : MonoBehaviour
     public Button endTurnButton;
     public TextMeshProUGUI enemyName;
     public TextMeshProUGUI discardText;
-    private static Dictionary<ID,Card> _validTargets;
+    private Dictionary<ID,Card> _validTargets;
     
     public static int FloodCount;
 
@@ -191,12 +186,7 @@ public class DuelManager : MonoBehaviour
     public void ResetTargeting()
     {
         targetingObject.SetActive(false);
-        foreach (var item in _validTargets)
-        {
-            EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(false, item.Key));
-        }
-        EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(false, new ID(OwnerEnum.Player, FieldEnum.Player, 0)));
-        EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(false, new ID(OwnerEnum.Opponent, FieldEnum.Player, 0)));
+        EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(null));
         _validTargets.Clear();
         BattleVars.Shared.AbilityCardOrigin = null;
         BattleVars.Shared.AbilityIDOrigin = null;
@@ -227,6 +217,11 @@ public class DuelManager : MonoBehaviour
         return cardCount;
     }
 
+    private void AddTargetToList(AddTargetToListEvent addTargetToListEvent)
+    {
+        _validTargets.Add(addTargetToListEvent.TargetId, addTargetToListEvent.TargetCard);
+    }
+
     private void CardTapped(CardTappedEvent cardTappedEvent)
     {
         if (!BattleVars.Shared.IsPlayerTurn) return;
@@ -254,7 +249,7 @@ public class DuelManager : MonoBehaviour
     {
         if (BattleVars.Shared.IsSelectingTarget && _validTargets.TryGetValue(cardTappedEvent.TappedId, out var target))
         {
-            player.ActivateAbility(cardTappedEvent.TappedId, target);
+            EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(cardTappedEvent.TappedId, target));
         }
         else
         {

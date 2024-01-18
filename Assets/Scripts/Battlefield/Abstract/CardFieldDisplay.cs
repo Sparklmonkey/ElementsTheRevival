@@ -22,12 +22,14 @@ namespace Battlefield.Abstract
         private EventBinding<ShouldShowTargetableEvent> _shouldShowTargetableBinding;
         private EventBinding<ShouldShowUsableEvent> _shouldShowUsableBinding;
         private EventBinding<HideUsableDisplayEvent> _hideUsableDisplayBinding;
+        private EventBinding<ActivateAbilityEffectEvent> _activateAbilityEffectBinding;
 
         private void OnDisable()
         {
             EventBus<ShouldShowTargetableEvent>.Unregister(_shouldShowTargetableBinding);
             EventBus<ShouldShowUsableEvent>.Unregister(_shouldShowUsableBinding);
             EventBus<HideUsableDisplayEvent>.Unregister(_hideUsableDisplayBinding);
+            EventBus<ActivateAbilityEffectEvent>.Unregister(_activateAbilityEffectBinding);
         }
 
         private void Awake()
@@ -38,6 +40,8 @@ namespace Battlefield.Abstract
             EventBus<ShouldShowUsableEvent>.Register(_shouldShowUsableBinding);
             _hideUsableDisplayBinding = new EventBinding<HideUsableDisplayEvent>(HideUsableGlow);
             EventBus<HideUsableDisplayEvent>.Register(_hideUsableDisplayBinding);
+            _activateAbilityEffectBinding = new EventBinding<ActivateAbilityEffectEvent>(ActivateAbilityEffect);
+            EventBus<ActivateAbilityEffectEvent>.Register(_activateAbilityEffectBinding);
             
             isUsableGlow.SetActive(false);
             validTargetGlow.SetActive(false);
@@ -46,8 +50,12 @@ namespace Battlefield.Abstract
         private void ShouldShowTarget(ShouldShowTargetableEvent shouldShowTargetableEvent)
         {
             if (this == null) return;
-            if (!shouldShowTargetableEvent.DisplayerId.Equals(Id)) return;
-            validTargetGlow.SetActive(shouldShowTargetableEvent.ShouldShow);
+            validTargetGlow.SetActive(false);
+            if (shouldShowTargetableEvent.IsCardValidTarget is null) return;
+            var isValid = shouldShowTargetableEvent.IsCardValidTarget(Id, Card);
+            if (!isValid) return;
+            validTargetGlow.SetActive(true);
+            EventBus<AddTargetToListEvent>.Raise(new AddTargetToListEvent(Id, Card));
         }
 
         private void ShouldShowUsableGlow(ShouldShowUsableEvent shouldShowUsableEvent)
@@ -69,6 +77,13 @@ namespace Battlefield.Abstract
         {
             if (this == null) return;
             validTargetGlow.SetActive(false);
+        }
+        
+        private void ActivateAbilityEffect(ActivateAbilityEffectEvent activateAbilityEffectEvent)
+        {
+            if (this == null) return;
+            if (!activateAbilityEffectEvent.TargetId.Equals(Id)) return;
+            activateAbilityEffectEvent.ActivateAbilityEffect(Id, Card);
         }
         
         public void OnPointerClick(PointerEventData eventData)

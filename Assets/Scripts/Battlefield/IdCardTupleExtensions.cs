@@ -36,6 +36,11 @@ public static class IdCardTupleExtensions
         }
     }
 
+    public static bool IsTargetable(this Card card)
+    {
+        return !card.innateSkills.Immaterial && !card.passiveSkills.Burrow;
+    }
+    
     public static bool IsTargetable(this (ID, Card) tuple)
     {
         if (tuple.Item1.field.Equals(FieldEnum.Player))

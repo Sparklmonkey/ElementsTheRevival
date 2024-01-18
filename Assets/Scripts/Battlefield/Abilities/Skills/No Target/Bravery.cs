@@ -4,6 +4,7 @@ using UnityEngine.Assertions.Must;
 public class Bravery : AbilityEffect
 {
     public override bool NeedsTarget() => false;
+    public override bool IsCardValid(ID id, Card card) => false;
 
     public override void Activate(ID targetId, Card targetCard)
     {

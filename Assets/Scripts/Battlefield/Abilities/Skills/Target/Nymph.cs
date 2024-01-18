@@ -29,6 +29,11 @@ public class Nymph : AbilityEffect
         return possibleTargets.FindAll(x => x.Item2.cardType.Equals(CardType.Pillar));
     }
 
+    public override bool IsCardValid(ID id, Card card)
+    {
+        if (card is null) return false;
+        return card.cardType.Equals(CardType.Pillar) && id.owner.Equals(Owner.Owner) && card.IsTargetable();
+    }
     public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
     {
         if (possibleTargets.Count == 0)

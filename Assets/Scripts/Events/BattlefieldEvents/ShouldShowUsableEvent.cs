@@ -15,3 +15,14 @@ public struct ShouldShowUsableEvent : IEvent
 public struct HideUsableDisplayEvent : IEvent
 {
 }
+
+public struct ActivateAbilityEffectEvent : IEvent
+{
+    public ActivateAbilityEffect ActivateAbilityEffect;
+    public ID TargetId;
+    public ActivateAbilityEffectEvent(ActivateAbilityEffect activateAbilityEffect, ID targetId)
+    {
+        ActivateAbilityEffect = activateAbilityEffect;
+        TargetId = targetId;
+    }
+}
