@@ -55,8 +55,7 @@ public class DuelManager : MonoBehaviour
     public Button endTurnButton;
     public TextMeshProUGUI enemyName;
     public TextMeshProUGUI discardText;
-    private Dictionary<ID,Card> _validTargets;
-    
+    public Dictionary<ID, Card> ValidTargets { get; private set; }
     public static int FloodCount;
 
     [SerializeField]
@@ -108,7 +107,7 @@ public class DuelManager : MonoBehaviour
 
     private void Start()
     {
-        _validTargets = new();
+        ValidTargets = new();
         FloodCount = 0;
         BattleVars.Shared.GameStartInTicks = DateTime.Now.Ticks;
         aiController.SetupController(enemy, gameOverVisual);
@@ -187,7 +186,7 @@ public class DuelManager : MonoBehaviour
     {
         targetingObject.SetActive(false);
         EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(null));
-        _validTargets.Clear();
+        ValidTargets.Clear();
         BattleVars.Shared.AbilityCardOrigin = null;
         BattleVars.Shared.AbilityIDOrigin = null;
         BattleVars.Shared.IsSelectingTarget = false;
@@ -219,15 +218,15 @@ public class DuelManager : MonoBehaviour
 
     private void AddTargetToList(AddTargetToListEvent addTargetToListEvent)
     {
-        if (_validTargets.ContainsKey(addTargetToListEvent.TargetId)) return;
-        _validTargets.Add(addTargetToListEvent.TargetId, addTargetToListEvent.TargetCard);
+        if (ValidTargets.ContainsKey(addTargetToListEvent.TargetId)) return;
+        ValidTargets.Add(addTargetToListEvent.TargetId, addTargetToListEvent.TargetCard);
     }
 
     private void CardTapped(CardTappedEvent cardTappedEvent)
     {
         if (!BattleVars.Shared.IsPlayerTurn) return;
 
-        if (_validTargets.Count > 0)
+        if (ValidTargets.Count > 0)
         {
             HandleValidTargets(cardTappedEvent);
             return;
@@ -248,7 +247,7 @@ public class DuelManager : MonoBehaviour
 
     private void HandleValidTargets(CardTappedEvent cardTappedEvent)
     {
-        if (BattleVars.Shared.IsSelectingTarget && _validTargets.TryGetValue(cardTappedEvent.TappedId, out var target))
+        if (BattleVars.Shared.IsSelectingTarget && ValidTargets.TryGetValue(cardTappedEvent.TappedId, out var target))
         {
             EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(cardTappedEvent.TappedId, target));
         }

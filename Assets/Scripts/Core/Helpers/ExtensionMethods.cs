@@ -13,6 +13,10 @@ public static class ExtensionMethods
     public static bool UsernameCheck(this string username) => Regex.IsMatch(username, usernameCriteria, RegexOptions.None);
     public static bool PasswordCheck(this string password) => Regex.IsMatch(password, passwordCriteria, RegexOptions.None);
 
+    public static List<(ID id, Card card)> ConvertToTuple(this Dictionary<ID, Card> dictionary)
+    {
+        return dictionary.Select(keyValueItem => (keyValueItem.Key, keyValueItem.Value)).ToList();
+    }
     public static bool Toggle(this bool boolean) => !boolean;
     public static OwnerEnum Not(this OwnerEnum owner)
     {

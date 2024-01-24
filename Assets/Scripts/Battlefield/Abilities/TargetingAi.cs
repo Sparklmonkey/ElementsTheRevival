@@ -6,7 +6,211 @@ using Random = UnityEngine.Random;
 
 public class TargetingAi
 {
-    
+    public (ID, Card) BestTarget(AiTargetType aiTargetType)
+    {
+        var possibleTargets = DuelManager.Instance.ValidTargets.ConvertToTuple();
+        (ID id, Card card) bestTarget = default;
+        var topScore = 0;
+
+
+        foreach (var target in possibleTargets)
+        {
+            var score = 0;
+            switch (aiTargetType.Targeting)
+            {
+                case TargetType.Smaller:
+                    score = CalculateSmallerScore(target, aiTargetType.Estimate);
+                    break;
+                case TargetType.Immortals:
+                    break;
+                case TargetType.CreatureHighAtk:
+                    break;
+                case TargetType.CreatureLowAtk:
+                    break;
+                case TargetType.All:
+                    break;
+                case TargetType.Creature:
+                    break;
+                case TargetType.MyCreature:
+                    break;
+                case TargetType.Permanent:
+                    break;
+                case TargetType.Pillar:
+                    break;
+                case TargetType.BetaCreature:
+                    break;
+                case TargetType.DefineDef:
+                    break;
+                case TargetType.AlphaCreature:
+                    break;
+                case TargetType.DefineAtk:
+                    break;
+                case TargetType.Trebuchet:
+                    score = CalculateTebuchetScore(target, aiTargetType.Estimate);
+                    break;
+                case TargetType.SkillCreature:
+                    break;
+                case TargetType.Weapon:
+                    break;
+                case TargetType.Pandemonium:
+                    break;
+                case TargetType.Fractal:
+                    break;
+                case TargetType.Tears:
+                    break;
+            }
+            
+            if (score <= topScore) continue;
+            topScore = score;
+            bestTarget = target;
+        }
+
+        switch (aiTargetType.Targeting)
+        {
+            case TargetType.CreatureHighAtk:
+                foreach (var target in possibleTargets)
+                {
+                    var score = 0;
+
+                    if (target.id.owner.Equals(OwnerEnum.Opponent) && target.card.AtkNow > target.card.DefNow)
+                    {
+                        if (target.card.Poison > 0 || target.card.def - target.card.DefNow > 0)
+                        {
+                            score = aiTargetType.Estimate;
+                        }
+                    }
+
+                    if (target.id.owner.Equals(OwnerEnum.Player) && target.card.AtkNow > target.card.DefNow)
+                    {
+                        score = target.card.AtkNow / (-aiTargetType.Estimate) / 20;
+                        if (target.card.Poison > 0)
+                        {
+                            score = 0;
+                        }
+                    }
+
+                    if (score <= topScore) continue;
+                    topScore = score;
+                    bestTarget = target;
+                }
+                break;
+            case TargetType.CreatureLowAtk:
+                foreach (var target in possibleTargets)
+                {
+                    var score = 0;
+
+                    if (target.id.owner.Equals(OwnerEnum.Opponent) && target.card.AtkNow < aiTargetType.DefineValue)
+                    {
+                        score = aiTargetType.Estimate * (target.card.DefNow - target.card.Poison) / 10;
+                    }
+
+                    if (target.id.owner.Equals(OwnerEnum.Player) && target.card.AtkNow < aiTargetType.DefineValue)
+                    {
+                        score = 0;
+                    }
+
+                    if (score <= topScore) continue;
+                    topScore = score;
+                    bestTarget = target;
+                }
+                break;
+            case TargetType.Trebuchet:
+                foreach (var target in possibleTargets)
+                {
+                    var score = 0;
+
+                    if (target.id.owner.Equals(OwnerEnum.Opponent))
+                    {
+                         score = (aiTargetType.Estimate * target.card.DefNow / (DuelManager.Instance.player.HealthManager.GetCurrentHealth() + 1) + target.card.Freeze + target.card.Poison * 3 - target.card.AtkNow) / 20;
+                    }
+
+                    if (target.id.owner.Equals(OwnerEnum.Player))
+                    {
+                        score = 0;
+                    }
+
+                    if (score <= topScore) continue;
+                    topScore = score;
+                    bestTarget = target;
+                }
+                break;
+        }
+
+        return bestTarget;
+    }
+
+    private int CalculateImmortalScore()
+    {
+        var score = 0;
+
+        if (aiTargetType.OnlyFoe && target.id.owner.Equals(OwnerEnum.Player))
+        {
+            score = aiTargetType.Estimate / 1;
+        }
+
+        if (aiTargetType.OnlyFriend && target.id.owner.Equals(OwnerEnum.Opponent))
+        {
+            score = 2 * aiTargetType.Estimate / 1;
+        }
+    }
+
+    private int CalculateTebuchetScore((ID id, Card card) target, int estimate)
+    {
+        var score = target.id.owner switch
+        {
+            OwnerEnum.Opponent => (estimate * target.card.DefNow /
+                (DuelManager.Instance.player.HealthManager.GetCurrentHealth() + 1) + target.card.Freeze +
+                target.card.Poison * 3 - target.card.AtkNow) / 20,
+            OwnerEnum.Player => 0,
+            _ => 0
+        };
+
+        return score;
+    }
+
+    private int CalculateSmallerScore((ID id, Card card) target, int estimate)
+    {
+        var score = 0;
+        if (target.id.owner.Equals(OwnerEnum.Opponent))
+        {
+            if (target.card.Poison > 0 ||
+                target.card.AtkNow + target.card.DefNow <= 2 && target.card.skill == "")
+            {
+                score = (-estimate) / 10;
+            }
+            else
+            {
+                score = (estimate) / target.card.AtkNow;
+            }
+        }
+        else
+        {
+            if (target.card.skill != "")
+            {
+                score = 3;
+            }
+
+            score = (score + 1 + target.card.AtkNow / (-estimate)) / 10;
+        }
+
+        return score;
+    }
+//    if(targeting == "trebuchet")
+//    {
+//       i = 1;
+//       while(i <= 23)
+//       {
+//          if(eval("_root.ce" + i + ".ctrl") > 0 and eval("_root.ce" + i + ".statu") != "invulnerable")
+//          {
+//             score[45 + i] = (estimate * eval("_root.ce" + i + ".defnow") / (_root.rethp() + 1) + eval("_root.ce" + i + ".frozen") + eval("_root.ce" + i + ".poison") * 3 - eval("_root.ce" + i + ".atknow")) / 20;
+//          }
+//          if(eval("_root.c" + i + ".ctrl") > 0 and eval("_root.c" + i + ".statu") != "invulnerable")
+//          {
+//             score[2 + i] = 0;
+//          }
+//          i++;
+//       }
+//    }
 //    if(targeting == "creature")
 //    {
 //       i = 1;
@@ -67,77 +271,6 @@ public class TargetingAi
 //             {
 //                score[2 + i] = 0;
 //             }
-//          }
-//          i++;
-//       }
-//    }
-//    if(targeting == "immortals")
-//    {
-//       i = 1;
-//       while(i <= 23)
-//       {
-//          if(eval("_root.ce" + i + ".ctrl") > 0 and onlyfoe == 0 and eval("_root.ce" + i + ".statu") == "invulnerable" and eval("_root.ce" + i + ".burrow") != 1)
-//          {
-//             score[45 + i] = estimate / eval("_root.ce" + i + ".immortal");
-//          }
-//          if(eval("_root.c" + i + ".ctrl") > 0 and onlyfriend == 0 and eval("_root.c" + i + ".statu") == "invulnerable" and eval("_root.c" + i + ".burrow") != 1)
-//          {
-//             score[2 + i] = 2 * estimate / eval("_root.c" + i + ".immortal");
-//          }
-//          i++;
-//       }
-//    }
-//    if(targeting == "creaturehighatk")
-//    {
-//       i = 1;
-//       while(i <= 23)
-//       {
-//          if(eval("_root.ce" + i + ".ctrl") > 0 and eval("_root.ce" + i + ".statu") != "invulnerable" and eval("_root.ce" + i + ".atknow") > eval("_root.ce" + i + ".defnow"))
-//          {
-//             if(eval("_root.ce" + i + ".poison") > 0 or eval("_root.ce" + i + ".def") - eval("_root.ce" + i + ".defnow") > 0)
-//             {
-//                score[45 + i] = estimate;
-//             }
-//          }
-//          if(eval("_root.c" + i + ".ctrl") > 0 and eval("_root.c" + i + ".statu") != "invulnerable" and eval("_root.c" + i + ".atknow") > eval("_root.c" + i + ".defnow"))
-//          {
-//             score[2 + i] = eval("_root.c" + i + ".atknow") / (- estimate) / 20;
-//             if(eval("_root.c" + i + ".statu") == skill or eval("_root.c" + i + ".poison") > 0)
-//             {
-//                score[2 + i] = 0;
-//             }
-//          }
-//          i++;
-//       }
-//    }
-//    if(targeting == "creaturelowatk")
-//    {
-//       i = 1;
-//       while(i <= 23)
-//       {
-//          if(eval("_root.ce" + i + ".ctrl") > 0 and eval("_root.ce" + i + ".statu") != "invulnerable" and eval("_root.ce" + i + ".atknow") < definevalue)
-//          {
-//             score[45 + i] = estimate * (eval("_root.ce" + i + ".defnow") - eval("_root.ce" + i + ".poison")) / 10;
-//          }
-//          if(eval("_root.c" + i + ".ctrl") > 0 and eval("_root.c" + i + ".statu") != "invulnerable" and eval("_root.c" + i + ".atknow") < definevalue)
-//          {
-//             score[2 + i] = 0;
-//          }
-//          i++;
-//       }
-//    }
-//    if(targeting == "trebuchet")
-//    {
-//       i = 1;
-//       while(i <= 23)
-//       {
-//          if(eval("_root.ce" + i + ".ctrl") > 0 and eval("_root.ce" + i + ".statu") != "invulnerable")
-//          {
-//             score[45 + i] = (estimate * eval("_root.ce" + i + ".defnow") / (_root.rethp() + 1) + eval("_root.ce" + i + ".frozen") + eval("_root.ce" + i + ".poison") * 3 - eval("_root.ce" + i + ".atknow")) / 20;
-//          }
-//          if(eval("_root.c" + i + ".ctrl") > 0 and eval("_root.c" + i + ".statu") != "invulnerable")
-//          {
-//             score[2 + i] = 0;
 //          }
 //          i++;
 //       }
@@ -478,33 +611,6 @@ public class TargetingAi
 //          i++;
 //       }
 //    }
-//    if(targeting == "smaller")
-//    {
-//       i = 1;
-//       while(i <= 23)
-//       {
-//          if(eval("_root.ce" + i + ".ctrl") > 0 and eval("_root.ce" + i + ".statu") != "invulnerable" and smaller > eval("_root.ce" + i + ".defnow"))
-//          {
-//             if(eval("_root.ce" + i + ".poison") > 0 or eval("_root.ce" + i + ".atknow") + eval("_root.ce" + i + ".defnow") <= 2 and eval("_root.ce" + i + ".skill") == "")
-//             {
-//                score[45 + i] = (- estimate) / 10;
-//             }
-//             if(_root.monitor.nc > 20)
-//             {
-//                score[45 + i] = (- estimate) / eval("_root.ce" + i + ".atknow");
-//             }
-//          }
-//          if(eval("_root.c" + i + ".ctrl") > 0 and eval("_root.c" + i + ".statu") != "invulnerable" and smaller > eval("_root.c" + i + ".defnow"))
-//          {
-//             if(eval("_root.c" + i + ".skill") != "")
-//             {
-//                skillscore = 3;
-//             }
-//             score[2 + i] = (skillscore + 1 + eval("_root.c" + i + ".atknow") / (- estimate)) / 10;
-//          }
-//          i++;
-//       }
-//    }
 
     public TargetType GetTargetType(string skillName)
     {
@@ -546,7 +652,7 @@ public class TargetingAi
             case "acceleration":
             case "overdrive":
                 return TargetType.Creature;
-            case "immolate": 
+            case "immolate":
             case "cremation":
                 return TargetType.MyCreature;
             case "butterfly":
@@ -568,8 +674,9 @@ public class TargetingAi
 
     public AiTargetType GetAITargetType(string skillName)
     {
-        var prge = DuelManager.Instance.enemy.HealthManager.GetCurrentHealth() / (Math.Abs(DuelManager.Instance.GetPossibleDamage(true)) + 1);
-        var aiTarget = new AiTargetType(false, false, false, TargetType.Creature, 0,0,0);
+        var prge = DuelManager.Instance.enemy.HealthManager.GetCurrentHealth() /
+                   (Math.Abs(DuelManager.Instance.GetPossibleDamage(true)) + 1);
+        var aiTarget = new AiTargetType(false, false, false, TargetType.Creature, 0, 0, 0);
         switch (skillName)
         {
             case "reversetime" when DuelManager.Instance.player.DeckManager.GetDeckCount() < 5:
@@ -581,12 +688,13 @@ public class TargetingAi
                 aiTarget.Targeting = TargetType.Creature;
                 aiTarget.Estimate = -1;
                 break;
-            case "petrify" when DuelManager.Instance.GetCardCount(new List<string>{"74h", "561"}) > 0:
+            case "petrify" when DuelManager.Instance.GetCardCount(new List<string> { "74h", "561" }) > 0:
                 aiTarget.OnlyFriend = true;
                 aiTarget.Estimate = 1;
                 aiTarget.Targeting = TargetType.BetaCreature;
                 break;
-            case "gravitypull" when prge < 5 && DuelManager.Instance.player.playerCreatureField.GetCreatureWithGravity().Equals(default):
+            case "gravitypull" when prge < 5 && DuelManager.Instance.player.playerCreatureField.GetCreatureWithGravity()
+                .Equals(default):
                 aiTarget.OnlyFriend = true;
                 aiTarget.Estimate = 1;
                 aiTarget.DefineValue = 5;
@@ -764,6 +872,7 @@ public class TargetingAi
                 {
                     aiTarget.OnlyFriend = true;
                 }
+
                 if (DuelManager.Instance.player.playerPassiveManager.GetShield().Item2.skill == "reflect")
                 {
                     aiTarget.OnlyFoe = true;
@@ -776,6 +885,7 @@ public class TargetingAi
         return aiTarget;
     }
 }
+
 public enum TargetType
 {
     All,
