@@ -7,6 +7,7 @@ public class Luciferin : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var cardList = Owner.playerCreatureField.GetAllValidCardIds();
 
         foreach (var pair in cardList)

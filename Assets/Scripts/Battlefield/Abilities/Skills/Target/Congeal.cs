@@ -8,6 +8,7 @@ public class Congeal : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.Freeze += 4;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)

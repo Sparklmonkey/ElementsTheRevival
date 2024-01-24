@@ -7,6 +7,7 @@ public class Poison : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, targetId.owner.Not(), targetCard.cardType.Equals(CardType.Spell) ? 2 : 1));
     }
 

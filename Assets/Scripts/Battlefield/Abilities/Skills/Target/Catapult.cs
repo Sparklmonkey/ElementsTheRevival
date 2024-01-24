@@ -8,6 +8,7 @@ public class Catapult : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var damage = 100 * targetCard.DefNow / (100 + targetCard.DefNow);
         damage += targetCard.Freeze > 0 ? Mathf.FloorToInt(damage * 0.5f) : 0;
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));

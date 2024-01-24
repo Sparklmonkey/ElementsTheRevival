@@ -219,6 +219,7 @@ public class DuelManager : MonoBehaviour
 
     private void AddTargetToList(AddTargetToListEvent addTargetToListEvent)
     {
+        if (_validTargets.ContainsKey(addTargetToListEvent.TargetId)) return;
         _validTargets.Add(addTargetToListEvent.TargetId, addTargetToListEvent.TargetCard);
     }
 

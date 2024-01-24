@@ -8,6 +8,7 @@ public class Destroy : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
     }
 

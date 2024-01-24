@@ -1,0 +1,156 @@
+----------------------------------------------------------------
+Super Retro Collection
+©2022/2023 Gif (Twitter @gif_not_jif)
+
+Versions history :
+
+___Version 2.6.1 User requests update :
+	User requests :
+		> (Altera) Adding more samples scenes to the package (2/3) :
+			> indoor map
+		
+
+___Version 2.6.0 User requests update :
+	User requests :
+		> (Altera) Adding more samples scenes to the package (1/3) :
+			> marketplace
+			> farm
+			> (will add more in August hopefully)
+		> Fixes :
+			> In the samples scenes, the camera didn't render the tiles properly
+
+___Version 2.5.0 User requests update :
+        User requests :
+            > (RpgItch) Adding more tiles to the "Farming sim" section of the SuperRetro_TilePalette (to match the itchio version) !
+                > watered dirt tiles (not autitles, just tiles)
+                > sack
+                > wood panels
+
+___Version 2.4.0 (January 2023) Overworld autotiles & collider update :
+        Overworld autotiles (single and animated) :
+            > paths, trees, mountains, rivers, sea, ice, desert
+        User requests :
+            > (Lootsplosion Studios) the autotile palette now have colliders !
+        I have also remade the samples maps with collisions enabled.
+
+___Version 2.3.0 (December 2022) Farming & User requests update :
+        Resources/Animations folder is getting too big, so I'm rearranging it into dedicated subfolders (more to come) :
+            > Chest, Cristal, Door, Farm, Fire, Kart, Lamp, Lava, Switch, Trap, Water
+        Farming update (second round) :
+            > Add 10 more farming crops : Resources/Animations/Farm/
+            > Add 2 icons sheets for farming crops : Resources/Animations/Farm/
+        User requests :
+            > (Jonathan) booby traps : Resources/Animations/Traps/
+            > (philip) tree overlaying map sample : Sample/tree_sample.scene
+
+___Version 2.2.0 (December 2022) Farming update :
+       Add farming crops and tools
+            > Resources/Animations/farm_*.png
+       Add farming characters 
+            > Resources/Characters/Farm/farm_*.png
+       Farming tiles already present in SuperRetro_TilePalette ("FarmingSim" section)
+            > Resources/Environments/TilePalette/SuperRetro_TilePalette
+___Version 2.1.0 (November 2022) Users requests :
+      (Micah) Add characters atlas in various frame size :
+            > Resources/Characters/Characters/atlas_frame16x20.png for any usage
+            > Resources/Characters/Characters/atlas_frame32x32.png for an easier ARPG usage (frame size match Resources/ARPG frame size)
+      (liolyne) Add 48x48 water animation :
+            > Resources/Animations/water_03_48x48.png
+      (杏子シオリ) Fix nude version (1 frame was offset wrong) : Resources/Characters/CharaNude.png
+___Version 2.0.0 (September 2022) Palettes Update : compatibility fix with TopDownEngine Unity Package (switch "Color Mode" from "Gamma" to "Linear").
+      Simplify the number of tile palette to only keep "SuperRetro_TilePalette", "SuperRetro_AutotilePalette" and "SuperRetro_LegacytilePalette" (no more versionned)
+            > Add stacked trees tiles to "SuperRetro_TilePalette"
+      Move legacy tiles to "SuperRetro_LegacytilePalette"
+      Direct integration of Fang package (v2.1.0) so there is no more unity asset store dependency to download
+            > Fix integrated Fang package to clear remaining console errors
+                > comment "public class FangAutoTilePreview : ObjectPreview" class
+                > comment "public override Texture2D RenderStaticPreview" method
+      Remake the sample scene so it shows more biomes correctly while importing the TopDownEngine Unity Package
+___Version 1.3.0 (June 2022) TilePalette Update ! Tiles reorganisation in a new tilepalette. Also add Resources/Characters/Animals/ subfolder.
+___Version 1.2.2 (May 29th 2022) Minor assets parameters update
+___Version 1.2.1 (May 24th 2022) Update the marketing thumbnail of this Unity package
+___Version 1.2.0 (May 15th 2022) Autotiles update !
+___Version 1.1.0 (May 6th 2022) Added Animated sprites and more monsters !
+___Version 1.0.0 (May 5th 2022) Creation
+
+
+
+----------------------------------------------------------------
+What is the Super Retro Collection ? 
+Super Retro is a collection of pixelart assets for classic 2D RPG games (turn-based or A-RPG).
+You'll get plenty of environments, characters and dungeons full of monsters !
+
+
+
+----------------------------------------------------------------
+Package structure
+Gif/
+___README.txt
+
+___Super_Retro_Collection/....................Root path of the Unity Package : Super Retro Collection, by Gif
+
+______Resources/..............................Ressource folder, contains every assets
+_________Animations/..........................Animated sprites (frame size is in each filename) separated in dedicated subfolders
+_________ARPG/................................Action-RPG, contains every attack animation for the Characters (swords, spears, staffs, shields, ...)
+_________Backgrounds/.........................Battle background for turn-based battle system
+_________Battlers/............................Big battlers for turn-based battle system
+_________Characters/..........................Characters and monsters (walk animations). A bunch of characters have been separated into subfolders (for the purpose of the playable map, where you can switch character skins)
+____________Monsters/.........................Monsters sheets
+____________Characters/.......................Characters sheets
+____________Animals/..........................Animals sheets
+
+_________Environments/........................Tiles and autotiles to build maps (11 atlas ready to be added on a TilePalette)
+____________TilePalette/......................Prebuild TilePalettes (samples)
+_______________Autotiles/.....................Autotiles (using Fang package to generate them)
+_______________Tiles/.........................Every tiles availables
+
+______Samples/................................sample playable scenes, where you can move around a bunch of assets. Check "Notice" section for more infos.
+
+______Scripts/................................Scripts used in the playable map
+_________CharacterAppearance..................C# script to animate and change the skin of the 2D Sprite character it is attached to
+_________PlayerMovement.......................Move the player character around with the arrow keys
+
+
+
+----------------------------------------------------------------
+Features 
+ - Various environments + dungeons ! Everything you need to build a 2D RPG game (turn-based or A-RPG) !
+ - Tiles count : over 10000 ! (16x16) 
+ - Animated characters, monsters, chests, doors, and much more !
+ - Autotiles and animated autotiles (roads, water, lava, walls, ...)
+
+
+----------------------------------------------------------------
+Notice
+I already prepare some elements for you to discover
+ - A bunch of autotiles (animated of single frame) arranged in a TilePalette : Gif/Super_Retro_Collection/Ressources/Environments/TilePalette/SuperRetro_AutotilePalette
+ - Every tiles arranged in a TilePalette : Gif/Super_Retro_Collection/Ressources/Environments/TilePalette/SuperRetro_TilePalette
+ - I set small playable scenes (Gif/Super_Retro_Collection/Sample/) with an animated character which can take difference appearance
+       (from "chara_01" to "chara06", stored in Gif/Super_Retro_Collection/Ressources/Characters/)
+       You can change its appearance from the public variable "Sprite Sheet Name" in the Component "Character Appearance (Script)" located in the Player/Player_sprite GameObject.
+ - ARPG content : each character is provided with many swords, spears, slash and other shield animation (4 directions)
+
+
+ ----------------------------------------------------------------
+Dependency (already included) :
+ - Fang autotiling package (free) : https://assetstore.unity.com/packages/tools/sprite-management/fang-auto-tile-132602
+       > It's already shipped with Super Retro Complete Collection, no need to download it (located at Gif/Ruccho/FangAutoTIle)
+
+
+----------------------------------------------------------------
+Compatibility improvment :
+ - TopDownEngine (paid) : https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636
+
+
+----------------------------------------------------------------
+Other playable demo (available online on itch.io) : https://gif-superretroworld.itch.io/demo-pack
+
+
+
+----------------------------------------------------------------
+Contact
+Twitter @gif_not_jif
+Mail pixelart.asset@gmail.com
+
+
+Enjoy !

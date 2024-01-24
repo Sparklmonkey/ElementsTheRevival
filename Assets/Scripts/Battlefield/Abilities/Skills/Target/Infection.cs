@@ -8,6 +8,7 @@ public class Infection : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.Poison += 1;
         if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
         {

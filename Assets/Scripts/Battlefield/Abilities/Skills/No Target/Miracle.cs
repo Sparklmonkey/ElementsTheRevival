@@ -7,6 +7,7 @@ public class Miracle : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var maxHp = Owner.HealthManager.GetMaxHealth();
         var currentHp = Owner.HealthManager.GetCurrentHealth();
 

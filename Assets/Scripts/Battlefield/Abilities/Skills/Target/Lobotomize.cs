@@ -8,6 +8,7 @@ public class Lobotomize : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.skill = "";
         targetCard.desc = "";
         targetCard.passiveSkills = new();

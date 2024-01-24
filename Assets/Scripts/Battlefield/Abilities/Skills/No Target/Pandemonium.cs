@@ -8,6 +8,7 @@ public class Pandemonium : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var cardList = DuelManager.Instance.player.playerCreatureField.GetAllValidCardIds();
 
         foreach (var pair in cardList.Where(pair => !pair.Item2.innateSkills.Immaterial).Where(pair => !pair.Item2.passiveSkills.Burrow))

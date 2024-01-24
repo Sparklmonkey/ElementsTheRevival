@@ -7,6 +7,7 @@ public class Flying : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         Card weapon = new(Owner.playerPassiveManager.GetWeapon().Item2);
         if (weapon.iD == "4t2") return;
         weapon.cardType = CardType.Creature;

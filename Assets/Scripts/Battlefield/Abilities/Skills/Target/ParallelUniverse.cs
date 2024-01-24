@@ -8,6 +8,7 @@ public class Paralleluniverse : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "ParallelUniverse", Element.Other));
         Card dupe = new(targetCard);
         dupe.DefDamage = targetCard.DefDamage;
@@ -20,8 +21,8 @@ public class Paralleluniverse : AbilityEffect
             EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, targetId.owner.Not(), targetCard.Poison));
         }
 
-        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(dupe, targetId.owner.Equals(OwnerEnum.Player)));
-        EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, dupe));
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(dupe, Owner.Owner.Equals(OwnerEnum.Player)));
+        EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(Owner.Owner, dupe));
     }
 
     public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)

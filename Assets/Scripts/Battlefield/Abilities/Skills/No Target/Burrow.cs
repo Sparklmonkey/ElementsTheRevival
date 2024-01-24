@@ -7,6 +7,7 @@ public class Burrow : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         if (targetCard.passiveSkills.Burrow)
         {
             targetCard.passiveSkills.Burrow = false;

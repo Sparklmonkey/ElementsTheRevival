@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Battlefield.Abstract
 {
-    public class CardFieldDisplay : MonoBehaviour, IPointerClickHandler
+    public class CardFieldDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private GameObject validTargetGlow, isUsableGlow;
         [SerializeField] private FieldObjectAnimation fieldObjectAnimation;
@@ -89,6 +89,19 @@ namespace Battlefield.Abstract
         public void OnPointerClick(PointerEventData eventData)
         {
             EventBus<CardTappedEvent>.Raise(new CardTappedEvent(Id, Card));
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (Id.field.Equals(FieldEnum.Hand) && Id.owner.Equals(OwnerEnum.Opponent)) return;
+            var rectTransform = GetComponent<RectTransform>();
+            Vector2 objectSize = new(rectTransform.rect.height, rectTransform.rect.width);
+            ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, Card, Id.index + 1, Id.field == FieldEnum.Creature);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            ToolTipCanvas.Instance.HideToolTip();
         }
     }
 }

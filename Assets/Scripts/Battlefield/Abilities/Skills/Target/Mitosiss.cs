@@ -8,6 +8,7 @@ public class Mitosiss : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.skill = "mitosis";
         targetCard.desc = "Mitosis: \n Generate a daughter creature";
         targetCard.skillCost = targetCard.cost;

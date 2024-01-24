@@ -7,6 +7,7 @@ public class Stoneskin : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var maxHpBuff = Owner.GetAllQuantaOfElement(Element.Earth);
         EventBus<ModifyPlayerHealthLogicEvent>.Raise(new ModifyPlayerHealthLogicEvent(maxHpBuff, Owner.Owner, true));
     }

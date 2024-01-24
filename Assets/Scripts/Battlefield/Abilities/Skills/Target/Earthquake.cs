@@ -8,6 +8,7 @@ public class Earthquake : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         for (var i = 0; i < 3; i++)
         {
             EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));

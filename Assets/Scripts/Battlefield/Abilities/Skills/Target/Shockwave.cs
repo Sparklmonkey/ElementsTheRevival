@@ -8,6 +8,7 @@ public class Shockwave : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         if (targetCard.Freeze > 0)
         {
             EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));

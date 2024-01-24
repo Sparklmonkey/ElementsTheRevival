@@ -8,6 +8,7 @@ public class Momentum : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.AtkModify++;
         targetCard.DefModify++;
         targetCard.passiveSkills.Momentum = true;

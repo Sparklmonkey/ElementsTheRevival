@@ -8,6 +8,7 @@ public class Overdrive : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.desc = "Overdrive: \n Gain +3 /-1 per turn";
         targetCard.skill = "";
         targetCard.passiveSkills.Overdrive = true;

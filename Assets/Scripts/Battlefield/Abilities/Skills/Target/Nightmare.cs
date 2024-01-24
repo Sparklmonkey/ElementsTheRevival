@@ -8,6 +8,7 @@ public class Nightmare : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var opponent = DuelManager.Instance.GetNotIDOwner(Owner.playerID);
         var creature = CardDatabase.Instance.GetCardFromId(targetCard.iD);
 

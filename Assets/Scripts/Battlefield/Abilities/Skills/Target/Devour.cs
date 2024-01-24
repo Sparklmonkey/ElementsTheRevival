@@ -8,6 +8,7 @@ public class Devour : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         BattleVars.Shared.AbilityCardOrigin.AtkModify++;
         BattleVars.Shared.AbilityCardOrigin.DefModify++;
         if (targetCard.innateSkills.Poisonous)

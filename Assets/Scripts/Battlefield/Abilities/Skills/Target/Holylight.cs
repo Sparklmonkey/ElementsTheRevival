@@ -8,7 +8,8 @@ public class Holylight : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
-        if (targetCard is not null)
+        if (!IsCardValid(targetId, targetCard)) return;
+        if (targetCard is null)
         {
             EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(10, false, false, targetId.owner));
             return;

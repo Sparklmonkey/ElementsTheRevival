@@ -8,6 +8,7 @@ public class Ignite : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
 
         EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(20, true, false, targetId.owner.Not()));

@@ -8,6 +8,7 @@ public class Web : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "Web", Element.Other));
         targetCard.innateSkills.Airborne = false;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));

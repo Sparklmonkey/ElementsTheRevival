@@ -21,7 +21,7 @@ public class AbilityAnimation : MonoBehaviour
             if (index >= sprites.Count) { index = 0; }
             image.sprite = sprites[index];
             index++;
-            yield return new WaitForFrames(10);
+            yield return new WaitForFrames(2);
         }
     }
 

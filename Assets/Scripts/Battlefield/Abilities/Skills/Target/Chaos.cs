@@ -8,6 +8,7 @@ public class Chaos : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         ChaosSeed(DuelManager.Instance.GetIDOwner(targetId), targetId, targetCard);
     }
 

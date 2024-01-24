@@ -8,6 +8,7 @@ public class Plague : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var targetPlayer = DuelManager.Instance.GetNotIDOwner(targetId);
         var idList = targetPlayer.playerCreatureField.GetAllValidCardIds();
 

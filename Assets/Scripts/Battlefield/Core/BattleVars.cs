@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 public class BattleVars
@@ -21,6 +22,10 @@ public class BattleVars
         WillStart = false;
         IsTest = false;
         IsArena = false;
+        var rnd = new Random();
+        CodA = 1 + rnd.Next(0, 100);
+        CodB = 1 + rnd.Next(0, 100);
+        CodC = 1 + rnd.Next(0, 100);
     }
 
     public static BattleVars Shared = new();
@@ -39,7 +44,9 @@ public class BattleVars
     public bool IsTest;
     public int TurnCount;
     public long GameStartInTicks;
-
+    public float CodA;
+    public float CodB;
+    public float CodC;
     public int IsSingularity = 0;
     public bool HasToDiscard = false;
 

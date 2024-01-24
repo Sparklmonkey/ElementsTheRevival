@@ -8,6 +8,7 @@ public class Guard : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.innateSkills.Delay++;
         BattleVars.Shared.AbilityCardOrigin.innateSkills.Delay++;
         if (!targetCard.innateSkills.Airborne)

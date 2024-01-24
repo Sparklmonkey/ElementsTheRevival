@@ -9,6 +9,7 @@ public class Icebolt : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var quantaElement = Owner.GetAllQuantaOfElement(Element.Water);
         var damageToDeal = 2 + Mathf.FloorToInt(quantaElement / 10) * 2;
         var willFreeze = Random.Range(0, 100) > 30 + damageToDeal * 5;

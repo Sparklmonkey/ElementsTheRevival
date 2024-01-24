@@ -7,6 +7,7 @@ public class Blackhole : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var victim = DuelManager.Instance.GetNotIDOwner(Owner.playerID);
         var hpToRestore = 0;
         if (victim.playerCounters.sanctuary == 0)

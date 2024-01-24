@@ -8,6 +8,7 @@ public class Serendipity : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var typeToAdd = ExtensionMethods.GetSerendipityWeighted();
         var elementToAdd = Element.Entropy;
 

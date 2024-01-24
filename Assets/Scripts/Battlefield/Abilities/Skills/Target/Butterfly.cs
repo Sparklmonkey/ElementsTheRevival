@@ -8,6 +8,7 @@ public class Butterfly : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.skill = "destroy";
         targetCard.skillCost = 3;
         targetCard.skillElement = Element.Entropy;

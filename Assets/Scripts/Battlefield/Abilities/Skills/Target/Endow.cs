@@ -8,6 +8,7 @@ public class Endow : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         BattleVars.Shared.AbilityCardOrigin.skill = targetCard.skill;
         BattleVars.Shared.AbilityCardOrigin.skillCost = targetCard.skillCost;
         BattleVars.Shared.AbilityCardOrigin.skillElement = targetCard.skillElement;

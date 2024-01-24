@@ -7,6 +7,7 @@ public class Accretion : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         BattleVars.Shared.AbilityCardOrigin.DefModify += 15;
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
         if (BattleVars.Shared.AbilityCardOrigin.DefNow >= 45)

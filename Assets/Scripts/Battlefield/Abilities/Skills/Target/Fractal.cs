@@ -7,6 +7,7 @@ public class Fractal : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         Owner.FillHandWith(CardDatabase.Instance.GetCardFromId(targetCard.iD));
         EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, Element.Aether, Owner.Owner, false));
     }

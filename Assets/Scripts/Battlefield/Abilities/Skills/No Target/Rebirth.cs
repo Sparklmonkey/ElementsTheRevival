@@ -7,6 +7,7 @@ public class Rebirth : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var card = targetCard.iD.IsUpgraded()
             ? CardDatabase.Instance.GetCardFromId("7ds")
             : CardDatabase.Instance.GetCardFromId("5fc");

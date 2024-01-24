@@ -8,6 +8,7 @@ public class Petrify : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         for (var i = 0; i < 6; i++)
         {
             targetCard.innateSkills.Delay++;

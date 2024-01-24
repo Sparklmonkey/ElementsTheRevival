@@ -5205,7 +5205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &263684829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5250,22 +5250,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 734589350}
-        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
-        m_MethodName: CardDetailButton
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 263684829}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1780469453}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1780469455}
+        m_TargetAssemblyTypeName: Elements.Duel.Visual.CardDetailView, Assembly-CSharp
+        m_MethodName: ActionButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13704,7 +13692,6 @@ RectTransform:
   m_Children:
   - {fileID: 234577392}
   - {fileID: 1005543082}
-  - {fileID: 1780469454}
   - {fileID: 2123487705}
   - {fileID: 1808926737}
   - {fileID: 1211396568}
@@ -13713,6 +13700,7 @@ RectTransform:
   - {fileID: 1502699442}
   - {fileID: 1780378777}
   - {fileID: 628701925}
+  - {fileID: 1780469454}
   m_Father: {fileID: 784058160}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -16045,6 +16033,10 @@ PrefabInstance:
     - target: {fileID: 668016795129145195, guid: f3376cb161d9649498e5cc73d9ec0cbd, type: 3}
       propertyPath: m_Name
       value: CardDisplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 668016795129145195, guid: f3376cb161d9649498e5cc73d9ec0cbd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 668016795129145196, guid: f3376cb161d9649498e5cc73d9ec0cbd, type: 3}
       propertyPath: m_Pivot.x
@@ -20991,81 +20983,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282831097}
   m_CullTransparentMesh: 1
---- !u!1 &1283247359
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1283247360}
-  - component: {fileID: 1283247363}
-  - component: {fileID: 1283247362}
-  m_Layer: 5
-  m_Name: ValidTargetGlow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1283247360
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1283247359}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1780469454}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1283247362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1283247359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 686a32aecfb8f1941b1558860cec4c86, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1283247363
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1283247359}
-  m_CullTransparentMesh: 1
 --- !u!1 &1284682059
 GameObject:
   m_ObjectHideFlags: 0
@@ -23048,7 +22965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1402303704
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29002,7 +28919,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1780469454
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29017,7 +28934,6 @@ RectTransform:
   m_Children:
   - {fileID: 1402303704}
   - {fileID: 263684832}
-  - {fileID: 1283247360}
   - {fileID: 1023287760}
   m_Father: {fileID: 807577034}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -29041,6 +28957,7 @@ MonoBehaviour:
   cardDisplay: {fileID: 1023287761}
   buttonText: {fileID: 1036305530}
   actionButton: {fileID: 263684829}
+  cancelButton: {fileID: 1402303705}
 --- !u!1 &1785521876
 GameObject:
   m_ObjectHideFlags: 0
@@ -31472,6 +31389,7 @@ GameObject:
   - component: {fileID: 1912330870}
   - component: {fileID: 1912330875}
   - component: {fileID: 1912330877}
+  - component: {fileID: 1912330878}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -31600,6 +31518,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageAnimatedPrefab: {fileID: 411189476254330367, guid: 30e39debc479f6e4db50c14eb5a6267b, type: 3}
+--- !u!114 &1912330878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912330869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d761ececc5e67347afe7dff18c8a5a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1914524047
 GameObject:
   m_ObjectHideFlags: 0

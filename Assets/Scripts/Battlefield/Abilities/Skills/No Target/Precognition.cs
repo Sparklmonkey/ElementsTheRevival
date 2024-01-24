@@ -7,6 +7,7 @@ public class Precognition : AbilityEffect
     public override bool IsCardValid(ID id, Card card) => false;
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(Owner.Owner));
         DuelManager.Instance.GetNotIDOwner(Owner.playerID).DisplayHand();
     }

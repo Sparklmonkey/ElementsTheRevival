@@ -7,6 +7,7 @@ public class Sacrifice : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(40, true, false, Owner.Owner));
         for (var i = 0; i < 12; i++)
         {

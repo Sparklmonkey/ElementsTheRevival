@@ -7,6 +7,7 @@ public class Healp : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(20, false, false, Owner.Owner));
     }
 

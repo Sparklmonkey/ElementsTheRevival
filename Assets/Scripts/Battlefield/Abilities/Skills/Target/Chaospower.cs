@@ -8,6 +8,7 @@ public class Chaospower : AbilityEffect
     public override TargetPriority GetPriority() => TargetPriority.SelfLowAtk;
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.AtkModify += Random.Range(1, 6);
         targetCard.DefModify += Random.Range(1, 6);
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));

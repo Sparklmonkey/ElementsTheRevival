@@ -8,6 +8,7 @@ public class Acceleration : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.desc = "Acceleration: \n Gain +2 /-1 per turn";
         targetCard.skill = "";
         targetCard.passiveSkills.Acceleration = true;

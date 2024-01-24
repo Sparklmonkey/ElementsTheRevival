@@ -9,6 +9,7 @@ public class Firebolt : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var quantaElement = Owner.GetAllQuantaOfElement(Element.Fire);
         var damageToDeal = 3 + Mathf.FloorToInt(quantaElement / 10) * 3;
 

@@ -7,6 +7,7 @@ public class Evolve : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var card = targetCard.iD.IsUpgraded()
             ? CardDatabase.Instance.GetCardFromId("77h")
             : CardDatabase.Instance.GetCardFromId("591");

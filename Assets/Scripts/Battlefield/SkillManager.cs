@@ -1,27 +1,27 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public delegate bool IsCardValidTarget(ID id, Card card);
 public delegate void ActivateAbilityEffect(ID id, Card card);
-public class SkillManager
+public class SkillManager : MonoBehaviour
 {
-    static SkillManager()
-    {
-    }
-
-    private SkillManager()
+    public static SkillManager Instance { get; private set; }
+    private void OnEnable()
     {
         _setupAbilityTargetsEventBinding = new EventBinding<SetupAbilityTargetsEvent>(SetupTargetHighlights);
         EventBus<SetupAbilityTargetsEvent>.Register(_setupAbilityTargetsEventBinding);
     }
-    
-    ~SkillManager()
+
+    private void OnDisable()
     {
         EventBus<SetupAbilityTargetsEvent>.Unregister(_setupAbilityTargetsEventBinding);
     }
-    
     private EventBinding<SetupAbilityTargetsEvent> _setupAbilityTargetsEventBinding;
 
-    public static SkillManager Instance { get; } = new();
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public bool ShouldAskForTarget(Card card)
     {
@@ -51,24 +51,7 @@ public class SkillManager
         ability.Origin = setupAbilityTargetsEvent.AbilityCard;
         EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(ability.IsCardValid));
     }
-
-    public void SkillRoutineWithTarget(PlayerManager owner, ID targetId, Card targetCard)
-    {
-        var ability = BattleVars.Shared.AbilityCardOrigin.skill.GetSkillScript<AbilityEffect>();
-        if (BattleVars.Shared.AbilityCardOrigin.cardType.Equals(CardType.Spell))
-        {
-            EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(owner.Owner.Equals(OwnerEnum.Player), BattleVars.Shared.AbilityCardOrigin, targetId, targetCard));
-        }
-        else
-        {
-            EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(owner.Owner.Equals(OwnerEnum.Player), BattleVars.Shared.AbilityCardOrigin, targetId, targetCard));
-        }
-        ability.Owner = owner;
-        ability.Origin = BattleVars.Shared.AbilityCardOrigin;
-
-        ability.Activate(targetId, targetCard);
-    }
-
+    
     public void SkillRoutineNoTarget(PlayerManager owner, ID id, Card card)
     {
         var ability = card.skill.GetSkillScript<AbilityEffect>();
@@ -241,6 +224,7 @@ public class SkillManager
                 case TargetPriority.LowestHp:
                 {
                     score += possibleTarget.Item1.owner == OwnerEnum.Opponent ? 75 : 50;
+                    if (possibleTarget.Item2 is null) break;
                     if (possibleTarget.Item2.cardType == CardType.Creature)
                     {
                         score += possibleTarget.Item2.DefNow * 5;

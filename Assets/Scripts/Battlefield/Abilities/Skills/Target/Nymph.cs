@@ -8,6 +8,7 @@ public class Nymph : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var element = targetCard.costElement;
         var card = targetCard.iD.IsUpgraded()
             ? CardDatabase.Instance.GetRandomEliteNymph(element)

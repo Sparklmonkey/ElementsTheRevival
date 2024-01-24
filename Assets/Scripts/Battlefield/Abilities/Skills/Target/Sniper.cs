@@ -8,6 +8,7 @@ public class Sniper : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.DefDamage += 3;
         if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
         {

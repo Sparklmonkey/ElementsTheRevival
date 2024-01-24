@@ -34,6 +34,11 @@ namespace Elements.Duel.Visual
         {
             if (!modifyPlayerHealthVisualEvent.Owner.Equals(owner)) return;
 
+
+            if (modifyPlayerHealthVisualEvent.CurrentHp <= 0)
+            {
+                EventBus<GameEndEvent>.Raise(new GameEndEvent(owner));
+            }
             var current = int.Parse(currentHp.text);
             var difference = current - modifyPlayerHealthVisualEvent.CurrentHp;
             var toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";

@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class CreatureCardDisplay : CardFieldDisplay, IPointerEnterHandler, IPointerExitHandler
+public class CreatureCardDisplay : CardFieldDisplay
 {
     [SerializeField] private Image cardImage,
         upgradeShine,
@@ -57,7 +57,14 @@ public class CreatureCardDisplay : CardFieldDisplay, IPointerEnterHandler, IPoin
     private void DisplayCard(UpdateCreatureCardEvent updateCardDisplayEvent)
     {
         if (!updateCardDisplayEvent.Id.Equals(Id)) return;
-
+        if (updateCardDisplayEvent.IsUpdate)
+        {
+            if (updateCardDisplayEvent.Card.DefNow < 1)
+            {
+                EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(Id));
+                return;
+            }
+        }
         SetCard(updateCardDisplayEvent.Card);
         cardImage.sprite = ImageHelper.GetCardImage(updateCardDisplayEvent.Card.imageID);
         var creatureAtk = updateCardDisplayEvent.Card.passiveSkills.Antimatter
@@ -200,18 +207,6 @@ public class CreatureCardDisplay : CardFieldDisplay, IPointerEnterHandler, IPoin
             Card.AtkModify += 1;
         }
 
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        var rectTransform = GetComponent<RectTransform>();
-        Vector2 objectSize = new(rectTransform.rect.height, rectTransform.rect.width);
-        ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, Card, Id.index + 1, Id.field == FieldEnum.Creature);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        ToolTipCanvas.Instance.HideToolTip();
     }
     
     private bool ShouldActivateDeathTriggers()

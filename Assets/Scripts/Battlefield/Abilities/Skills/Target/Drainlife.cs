@@ -9,6 +9,7 @@ public class Drainlife : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var quantaElement = Owner.GetAllQuantaOfElement(Element.Darkness);
         var damageToDeal = 2 + Mathf.FloorToInt(quantaElement / 10) * 2;
 

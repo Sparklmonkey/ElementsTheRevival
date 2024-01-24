@@ -8,6 +8,7 @@ public class Bravery : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var cardToDraw = Owner.playerPassiveManager.GetMark().Item2.costElement.Equals(Element.Fire) ? 3 : 2;
         for (var i = 0; i < cardToDraw; i++)
         {

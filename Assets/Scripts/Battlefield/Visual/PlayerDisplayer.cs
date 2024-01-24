@@ -20,11 +20,14 @@ namespace Elements.Duel.Visual
 
         private EventBinding<ShouldShowTargetableEvent> _shouldShowTargetableBinding;
         private EventBinding<UpdatePlayerCountersVisualEvent> _updatePlayerCountersVisualBinding;
+        private EventBinding<ActivateAbilityEffectEvent> _activateAbilityEffectBinding;
+
 
         private void OnDisable()
         {
             EventBus<ShouldShowTargetableEvent>.Unregister(_shouldShowTargetableBinding);
             EventBus<UpdatePlayerCountersVisualEvent>.Unregister(_updatePlayerCountersVisualBinding);
+            EventBus<ActivateAbilityEffectEvent>.Unregister(_activateAbilityEffectBinding);
         }
         
         private void OnEnable()
@@ -34,6 +37,9 @@ namespace Elements.Duel.Visual
             
             _updatePlayerCountersVisualBinding = new EventBinding<UpdatePlayerCountersVisualEvent>(UpdatePlayerIndicators);
             EventBus<UpdatePlayerCountersVisualEvent>.Register(_updatePlayerCountersVisualBinding);
+            
+            _activateAbilityEffectBinding = new EventBinding<ActivateAbilityEffectEvent>(ActivateAbilityEffect);
+            EventBus<ActivateAbilityEffectEvent>.Register(_activateAbilityEffectBinding);
         }
         private void ShouldShowTarget(ShouldShowTargetableEvent shouldShowTargetableEvent)
         {
@@ -46,7 +52,7 @@ namespace Elements.Duel.Visual
             EventBus<AddTargetToListEvent>.Raise(new AddTargetToListEvent(playerID, null));
         }
 
-        public void UpdatePlayerIndicators(UpdatePlayerCountersVisualEvent updatePlayerCountersVisualEvent)
+        private void UpdatePlayerIndicators(UpdatePlayerCountersVisualEvent updatePlayerCountersVisualEvent)
         {
             if (!updatePlayerCountersVisualEvent.PlayerId.Equals(playerID)) return;
             if (updatePlayerCountersVisualEvent.Counters.poison != 0)
@@ -95,6 +101,13 @@ namespace Elements.Duel.Visual
         public void OnPointerClick(PointerEventData eventData)
         {
             EventBus<CardTappedEvent>.Raise(new CardTappedEvent(playerID, null));
+        }
+        
+        private void ActivateAbilityEffect(ActivateAbilityEffectEvent activateAbilityEffectEvent)
+        {
+            if (this == null) return;
+            if (!activateAbilityEffectEvent.TargetId.Equals(playerID)) return;
+            activateAbilityEffectEvent.ActivateAbilityEffect(playerID, null);
         }
     }
 }

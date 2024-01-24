@@ -1,19 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FangAutoTile", "FangAutoTile.csproj", "{7f010e84-8fbd-e307-a3bd-4d2a8f89b716}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{9d957e90-e5aa-e4de-dc0b-aa1bd31b43e1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{8e60d30e-c9d2-a1da-47c4-af57a649174c}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FangAutoTile.Editor", "FangAutoTile.Editor.csproj", "{88eb7f98-350a-5016-fa6c-346c27a0f353}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7f010e84-8fbd-e307-a3bd-4d2a8f89b716}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7f010e84-8fbd-e307-a3bd-4d2a8f89b716}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9d957e90-e5aa-e4de-dc0b-aa1bd31b43e1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9d957e90-e5aa-e4de-dc0b-aa1bd31b43e1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8e60d30e-c9d2-a1da-47c4-af57a649174c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8e60d30e-c9d2-a1da-47c4-af57a649174c}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88eb7f98-350a-5016-fa6c-346c27a0f353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88eb7f98-350a-5016-fa6c-346c27a0f353}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

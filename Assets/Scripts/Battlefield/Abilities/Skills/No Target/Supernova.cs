@@ -7,6 +7,7 @@ public class Supernova : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         for (var i = 0; i < 12; i++)
         {
             EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(2, (Element)i, Owner.Owner, true));

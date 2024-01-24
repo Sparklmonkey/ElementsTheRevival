@@ -8,27 +8,30 @@ namespace Elements.Duel.Visual
     {
         [SerializeField] private CardDisplay cardDisplay;
         [SerializeField] private TextMeshProUGUI buttonText;
-        [SerializeField] private Button actionButton;
+        [SerializeField] private Button actionButton, cancelButton;
         private ID _id;
         private Card _card;
         private ButtonCase _buttonCase;
-        private EventBinding<SetupCardDisplayEvent> _modifyPlayerCounterBinding;
+        private EventBinding<SetupCardDisplayEvent> _setupCardDisplayBinding;
 
         private void OnDisable()
         {
-            EventBus<SetupCardDisplayEvent>.Unregister(_modifyPlayerCounterBinding);
+            EventBus<SetupCardDisplayEvent>.Unregister(_setupCardDisplayBinding);
         }
 
         private void OnEnable()
         {
-            _modifyPlayerCounterBinding = new EventBinding<SetupCardDisplayEvent>(SetupCardDisplay);
-            EventBus<SetupCardDisplayEvent>.Register(_modifyPlayerCounterBinding);
+            _setupCardDisplayBinding = new EventBinding<SetupCardDisplayEvent>(SetupCardDisplay);
+            EventBus<SetupCardDisplayEvent>.Register(_setupCardDisplayBinding);
         }
 
         private void SetupCardDisplay(SetupCardDisplayEvent setupCardDisplayEvent)
         {
             _card = setupCardDisplayEvent.Card;
             _id = setupCardDisplayEvent.Id;
+            cardDisplay.gameObject.SetActive(true);
+            actionButton.gameObject.SetActive(true);
+            cancelButton.gameObject.SetActive(true);
             SetupButton(setupCardDisplayEvent.IsPlayable);
             cardDisplay.SetupCardView(_card);
         }
@@ -37,7 +40,6 @@ namespace Elements.Duel.Visual
         {
             var isPlayerTurn = BattleVars.Shared.IsPlayerTurn;
 
-            gameObject.SetActive(true);
             actionButton.gameObject.SetActive(true);
 
             if (_id.owner == OwnerEnum.Opponent || !isPlayerTurn)
@@ -125,13 +127,16 @@ namespace Elements.Duel.Visual
         {
             BattleVars.Shared.AbilityCardOrigin = null;
             BattleVars.Shared.AbilityIDOrigin = null;
-            gameObject.SetActive(false);
+            ClearCard();
         }
 
         private void ClearCard()
         {
             _card = null;
             _id = null;
+            cardDisplay.gameObject.SetActive(false);
+            actionButton.gameObject.SetActive(false);
+            cancelButton.gameObject.SetActive(false);
         }
 
         public void ActionButton()
@@ -140,20 +145,17 @@ namespace Elements.Duel.Visual
             {
                 case ButtonCase.Play:
                     EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(_card, _id));
-                    ClearCard();
                     break;
                 case ButtonCase.Activate:
                     EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(_id, _card));
-                    ClearCard();
                     break;
                 case ButtonCase.SelectTarget:
                     BattleVars.Shared.IsSelectingTarget = true;
                     EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(DuelManager.Instance.player, _card));
                     break;
-                case ButtonCase.None:
-                    ClearCard();
-                    break;
             }
+
+            ClearCard();
         }
     }
 }

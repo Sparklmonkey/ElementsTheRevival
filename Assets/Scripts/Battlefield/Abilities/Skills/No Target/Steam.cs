@@ -7,6 +7,7 @@ public class Steam : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         targetCard.Charge += 5;
         targetCard.AtkModify += 5;
         targetCard.DefModify += 5;

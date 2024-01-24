@@ -8,6 +8,7 @@ public class Thunderstorm : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         var victim = DuelManager.Instance.GetNotIDOwner(targetId);
         var idList = victim.playerCreatureField.GetAllValidCardIds();
 

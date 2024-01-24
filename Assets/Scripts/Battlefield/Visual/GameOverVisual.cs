@@ -33,12 +33,14 @@ public class GameOverVisual : MonoBehaviour
 
     private void EndGame(GameEndEvent gameEndEvent)
     {
+        if (isGameOver) return;
         ShowGameOverScreen(gameEndEvent.Owner.Equals(OwnerEnum.Opponent));
     }
     
     public async void ShowGameOverScreen(bool didWin)
     {
         DuelManager.Instance.StopAllRunningRoutines();
+        EventBus<GameEndEvent>.Unregister(_gameEndBinding);
 
         BattleVars.Shared.PlayerHp = DuelManager.Instance.player.HealthManager.GetCurrentHealth();
         isGameOver = true;
@@ -48,6 +50,7 @@ public class GameOverVisual : MonoBehaviour
         _didPlayerWin = didWin;
         if (BattleVars.Shared.IsTest) { return; }
         _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), GameObject.Find("GameOverManager").transform);
+        // _touchBlocker.transform.SetSiblingIndex(0);
         if (_didPlayerWin)
         {
             if (DuelManager.Instance.player.HealthManager.IsMaxHealth())

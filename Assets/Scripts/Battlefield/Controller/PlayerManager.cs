@@ -145,22 +145,19 @@ public class PlayerManager : MonoBehaviour
 
     public void ManageGravityCreatures(ref int atkNow)
     {
-        var gravityCreatures = playerCreatureField.GetCreaturesWithGravity();
-        if (gravityCreatures.Count == 0) return;
+        var gravityCreature = playerCreatureField.GetCreatureWithGravity();
+        if (gravityCreature.Equals(default)) return;
    
-        foreach (var creature in gravityCreatures)
+        if (gravityCreature.Item2.DefNow >= atkNow)
         {
-            if (creature.Item2.DefNow >= atkNow)
-            {
-                creature.Item2.DefModify -= atkNow;
-                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(creature.Item1, creature.Item2, true));
-                atkNow = 0;
-                return;
-            }
-            
-            atkNow -= creature.Item2.DefNow; 
-            EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(creature.Item1));
+            gravityCreature.Item2.DefModify -= atkNow;
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(gravityCreature.Item1, gravityCreature.Item2, true));
+            atkNow = 0;
+            return;
         }
+            
+        atkNow -= gravityCreature.Item2.DefNow; 
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(gravityCreature.Item1));
     }
 
     [SerializeField]
@@ -187,7 +184,6 @@ public class PlayerManager : MonoBehaviour
     public QuantaManager PlayerQuantaManager;
     public DeckManager DeckManager;
     public HealthManager HealthManager;
-    public CardDetailManager CardDetailManager;
     public Counters playerCounters;
     
     public OwnerEnum Owner;
@@ -553,7 +549,7 @@ public class PlayerManager : MonoBehaviour
         {
             EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(cardToDiscard.iD.IsUpgraded() ? 13 : 10, true, false, Owner));
         }
-        EventBus<RemoveCardFromHandEvent>.Raise(new RemoveCardFromHandEvent(Owner.Equals(OwnerEnum.Player), idToDiscard));
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(idToDiscard));
         BattleVars.Shared.HasToDiscard = false;
     }
 
@@ -607,8 +603,6 @@ public class PlayerManager : MonoBehaviour
     {
         PlayerQuantaManager = new QuantaManager(Owner);
         playerHand.SetOwner(Owner);
-        CardDetailManager = new CardDetailManager();
-        CardDetailManager.OnRemoveCard += cardDetailView.CancelButtonAction;
         playerCounters = new Counters();
         playerID = new(Owner, FieldEnum.Player, 0);
 
@@ -727,6 +721,6 @@ public class PlayerManager : MonoBehaviour
 
     public bool HasGravityCreatures()
     {
-        return playerCreatureField.GetCreaturesWithGravity().Count > 0;
+        return !playerCreatureField.GetCreatureWithGravity().Equals(default);
     }
 }

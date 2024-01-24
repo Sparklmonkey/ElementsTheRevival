@@ -8,6 +8,7 @@ public class Blitz : AbilityEffect
 
     public override void Activate(ID targetId, Card targetCard)
     {
+        if (!IsCardValid(targetId, targetCard)) return;
         EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, Element.Air, Owner.Owner, false));
         var validCardList = Owner.playerCreatureField.GetAllValidCardIds();
         foreach (var pair in validCardList.Where(idCardPair => idCardPair.Item2.innateSkills.Airborne))
