@@ -1,0 +1,20 @@
+﻿public enum TargetType
+{
+    CreatureAndPlayer,
+    Creature,
+    CreatureLowAtk,
+    Permanent,
+    Pillar,
+    Immortals,
+    BetaCreature,
+    DefineDef,
+    CreatureHighAtk,
+    AlphaCreature,
+    DefineAtk,
+    Trebuchet,
+    Smaller,
+    SkillCreature,
+    Weapon,
+    Fractal,
+    Tears
+}

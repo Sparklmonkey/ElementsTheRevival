@@ -33,18 +33,16 @@ namespace Elements.Duel.Manager
                 CardType.Mark => 0,
                 _ => id.index
             };
-            
-            InstantiateCardObject(id);
+            if (!_cardFieldDisplays.ContainsKey(id))
+            {
+                InstantiateCardObject(id);
+            }
             EventBus<UpdatePassiveDisplayEvent>.Raise(new UpdatePassiveDisplayEvent(id, playCardOnFieldEvent.CardToPlay, false));
-            // var handCardObject = Instantiate(cardPrefab, cardPositions[id.index]);
-            // handCardObject.GetComponent<PassiveCardDisplay>().SetupId(id);
-            //
-            // EventBus<UpdatePassiveDisplayEvent>.Raise(new UpdatePassiveDisplayEvent(id, playCardOnFieldEvent.CardToPlay, false));
         }
 
         public (ID, Card) GetShield()
         {
-            var passiveDisplay = _cardFieldDisplays[new ID(owner, field, 0)];
+            var passiveDisplay = _cardFieldDisplays[new ID(owner, field, 2)];
             return (passiveDisplay.Id, passiveDisplay.Card);
         }
         public (ID, Card) GetWeapon()

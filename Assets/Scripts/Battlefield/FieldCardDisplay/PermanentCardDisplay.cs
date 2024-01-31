@@ -18,9 +18,8 @@ public class PermanentCardDisplay : CardFieldDisplay
     private EventBinding<OnDeathTriggerEvent> _onDeathTriggerEventBinding;
     private EventBinding<OnTurnStartEvent> _onTurnStartEventBinding;
     
-    
-    
-    private int _stackCountValue = 0;
+    public int StackCountValue { get; private set; }
+
     private void OnDisable()
     {
         EventBus<ClearCardDisplayEvent>.Unregister(_clearCardDisplayBinding);
@@ -49,7 +48,7 @@ public class PermanentCardDisplay : CardFieldDisplay
     private void DisplayCard(UpdatePermanentCardEvent updatePermanentCardEvent)
     {
         if (!updatePermanentCardEvent.Id.Equals(Id)) return;
-        _stackCountValue++;
+        StackCountValue++;
         SetCard(updatePermanentCardEvent.Card);
         List<string> permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
         if (permanentsWithCountdown.Contains(updatePermanentCardEvent.Card.iD))
@@ -58,7 +57,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         }
         else
         {
-            stackCount.text = _stackCountValue > 1 ? $"{_stackCountValue}X" : "";
+            stackCount.text = StackCountValue > 1 ? $"{StackCountValue}X" : "";
         }
 
         immaterialIndicator.SetActive(updatePermanentCardEvent.Card.innateSkills.Immaterial);
@@ -99,9 +98,9 @@ public class PermanentCardDisplay : CardFieldDisplay
     {
         if (!clearCardDisplayEvent.Id.Equals(Id)) return;
 
-        _stackCountValue--;
+        StackCountValue--;
         CheckOnRemoveEffects();
-        if (_stackCountValue == 0)
+        if (StackCountValue == 0)
         {
             Destroy(gameObject);
             EventBus<RemoveCardFromManagerEvent>.Raise(new RemoveCardFromManagerEvent(Id));
@@ -194,13 +193,13 @@ public class PermanentCardDisplay : CardFieldDisplay
 
     private void TurnEnd(OnPermanentTurnEndEvent onTurnEndEvent)
     {
-        if (!onTurnEndEvent.CardType.Equals(Card.cardType) || !onTurnEndEvent.Owner.Equals(Id.owner)) return;
-        if (Card.cardType.Equals(CardType.Artifact))
+        if (!onTurnEndEvent.Owner.Equals(Id.owner)) return;
+        if (Card.cardType.Equals(CardType.Artifact) && onTurnEndEvent.CardType.Equals(CardType.Artifact))
         {
             ArtifactEndTurnAction();
         }
             
-        if (Card.cardType.Equals(CardType.Pillar))
+        if (Card.cardType.Equals(CardType.Pillar) && onTurnEndEvent.CardType.Equals(CardType.Pillar))
         {
             PillarEndTurnAction();
         }
@@ -239,7 +238,7 @@ public class PermanentCardDisplay : CardFieldDisplay
     {
         if (Card.cardName.Contains("Pendulum"))
         {
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(_stackCountValue, Card.skillElement, Id.owner, true));
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(StackCountValue, Card.skillElement, Id.owner, true));
             if (Id.owner.Equals(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
             {
                 EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "QuantaGenerate", Card.costElement));
@@ -249,7 +248,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         }
         else
         {
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(Card.costElement == Element.Other ? 3 * _stackCountValue : _stackCountValue, Card.costElement, Id.owner, true));
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(Card.costElement == Element.Other ? 3 * StackCountValue : StackCountValue, Card.costElement, Id.owner, true));
             
             if (Id.owner.Equals(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
             {

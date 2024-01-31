@@ -320,8 +320,6 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.Shared.AbilityIDOrigin, abilityCard);
-                ability.Owner = this;
-                ability.Activate(BattleVars.Shared.AbilityIDOrigin, abilityCard);
             }
             EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(abilityCard, BattleVars.Shared.AbilityIDOrigin));
         }
@@ -379,8 +377,6 @@ public class PlayerManager : MonoBehaviour
         
         var canAfford = PlayerQuantaManager.HasEnoughQuanta(card.skillElement, card.skillCost);
         if (canAfford && !SkillManager.Instance.ShouldAskForTarget(card)) { return true; }
-
-        if (!SkillManager.Instance.HasEnoughTargets(this, card)) { return false; }
 
         if (!card.skill.Contains("hasten")) return canAfford;
         return playerHand.GetHandCount() < 8 && canAfford;
@@ -559,9 +555,6 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         
         EventBus<OnPassiveTurnEndEvent>.Raise(new OnPassiveTurnEndEvent(Owner, CardType.Mark));
-        yield return new WaitForSeconds(0.25f);
-        
-        EventBus<OnPermanentTurnEndEvent>.Raise(new OnPermanentTurnEndEvent(Owner, CardType.Artifact));
         yield return new WaitForSeconds(0.25f);
         
         EventBus<OnPermanentTurnEndEvent>.Raise(new OnPermanentTurnEndEvent(Owner, CardType.Artifact));

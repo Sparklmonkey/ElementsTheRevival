@@ -1,8 +1,10 @@
 ﻿using System.Linq;
+using Battlefield.Abilities;
 using UnityEngine;
 
 public class BasicAiTurnLogic : AiTurnBase
 {
+    private TargetingAi _targetingAi = new();
     public override void DiscardCard(PlayerManager aiManager)
     {
         if (!aiManager.playerHand.ShouldDiscard()) return;
@@ -19,44 +21,57 @@ public class BasicAiTurnLogic : AiTurnBase
         EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(card.card, card.id));
     }
 
-    public override void PlaySpellFromHand(PlayerManager aiManager)
+    public async override void PlaySpellFromHand(PlayerManager aiManager)
     {
         var cardList = aiManager.playerHand.GetPlayableCardsOfType(aiManager.HasSufficientQuanta, CardType.Spell);
         var spell = cardList.FirstOrDefault();
         if (spell.Equals(default)) return;
 
-        if (SkillManager.Instance.ShouldAskForTarget(spell.Item2))
+        if (SkillManager.Instance.ShouldAskForTarget(spell.card))
         {
-            var target = SkillManager.Instance.GetRandomTarget(aiManager, spell.Item2);
-            if (target.Equals(default)) return;
-            
             BattleVars.Shared.AbilityCardOrigin = spell.Item2;
             BattleVars.Shared.AbilityIDOrigin = spell.Item1;
+            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, spell.card));
+            await new WaitForSeconds(2f);
+            var target = _targetingAi.BestTarget(spell.card.skill.GetAITargetType(), spell.card.skill);
+            
+            if (target.Equals(default))
+            {
+                DuelManager.Instance.ResetTargeting();
+                return;
+            }
+            
             
             EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
             EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(spell.Item2.imageID, spell.Item2.costElement.FastElementString(), spell.Item2.cardName));
         }
         else
         {
-            SkillManager.Instance.SkillRoutineNoTarget(aiManager, spell.Item1, spell.Item2);
+            SkillManager.Instance.SkillRoutineNoTarget(aiManager, spell.id, spell.card);
             EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(spell.card, spell.id));
             EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(spell.Item2.imageID, spell.Item2.costElement.FastElementString(), spell.Item2.cardName));
         }
 
     }
 
-    public override void ActivateCreatureAbility(PlayerManager aiManager)
+    public async override void ActivateCreatureAbility(PlayerManager aiManager)
     {
         var creature = aiManager.playerCreatureField.GetAllValidCardIds().Find(c => c.Item2.skill is not null or "" or " " && aiManager.IsAbilityUsable(c.Item2));
         if (creature.Equals(default)) return;
 
         if (SkillManager.Instance.ShouldAskForTarget(creature.Item2))
         {
-            var target = SkillManager.Instance.GetRandomTarget(aiManager, creature.Item2);
-            if (target.Equals(default)) return;
-
             BattleVars.Shared.AbilityIDOrigin = creature.Item1;
             BattleVars.Shared.AbilityCardOrigin = creature.Item2;
+            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, creature.card));
+            await new WaitForSeconds(2f);
+            var target = _targetingAi.BestTarget(creature.card.skill.GetAITargetType(), creature.card.skill);
+            if (target.Equals(default))
+            {
+                DuelManager.Instance.ResetTargeting();
+                return;
+            }
+
             creature.Item2.AbilityUsed = true;
             
             EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
@@ -67,18 +82,24 @@ public class BasicAiTurnLogic : AiTurnBase
         SkillManager.Instance.SkillRoutineNoTarget(aiManager, creature.Item1, creature.Item2);
     }
 
-    public override void ActivateArtifactAbility(PlayerManager aiManager)
+    public async override void ActivateArtifactAbility(PlayerManager aiManager)
     {
         var artifact = aiManager.playerPermanentManager.GetAllValidCardIds().Find(a => a.card.skill is not null or "" or " " && aiManager.IsAbilityUsable(a.card));
         if (artifact.Equals(default)) return;
 
         if (SkillManager.Instance.ShouldAskForTarget(artifact.card))
         {
-            var target = SkillManager.Instance.GetRandomTarget(aiManager, artifact.card);
-            if (target.Equals(default)) return;
-
             BattleVars.Shared.AbilityIDOrigin = artifact.id;
             BattleVars.Shared.AbilityCardOrigin = artifact.card;
+            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, artifact.card));
+            await new WaitForSeconds(2f);
+            var target = _targetingAi.BestTarget(artifact.card.skill.GetAITargetType(), artifact.card.skill);
+            if (target.Equals(default))
+            {
+                DuelManager.Instance.ResetTargeting();
+                return;
+            }
+
             artifact.Item2.AbilityUsed = true;
             EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
             return;

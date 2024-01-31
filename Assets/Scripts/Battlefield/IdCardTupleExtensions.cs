@@ -50,9 +50,9 @@ public static class IdCardTupleExtensions
         return !tuple.Item2.innateSkills.Immaterial && !tuple.Item2.passiveSkills.Burrow;
     }
     
-    public static bool HasCard(this (ID, Card) tuple)
+    public static bool HasCard(this (ID id, Card card) tuple)
     {
-        return tuple.Item2 != null && tuple.Item2.iD != "4t2" && tuple.Item2.iD != "4t1";
+        return tuple.card != null && tuple.card.iD != "4t2" && tuple.card.iD != "4t1";
     }
     
     public static void EndTurnPassiveEffect(this (ID id, Card card) cardPair)

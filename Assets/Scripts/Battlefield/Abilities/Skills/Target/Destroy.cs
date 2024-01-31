@@ -45,6 +45,8 @@ public class Destroy : AbilityEffect
             return true;
         }
         
+        if (card.iD is "4t1" or "4t2") return false;
+        if (card.cardType.Equals(CardType.Mark)) return false;
         return id.field.Equals(FieldEnum.Passive) && card.cardType is CardType.Shield or CardType.Weapon && card.IsTargetable();
     }
     public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)

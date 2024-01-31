@@ -48,6 +48,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Error_Animated_Battlefield.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shieldhope.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ModifyPlayerCounterEvent.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\ActivatedAbility.cs" />
     <Compile Include="Assets\Scripts\Dashboard\GameStartManager.cs" />
     <Compile Include="Assets\Scripts\Bazaar\Bazaar_PlayerInventoryManager.cs" />
     <Compile Include="Assets\Scripts\Core\Networking\Requests\PvpRequest.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Assets\Scripts\RedeemCardObject.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Chaos.cs" />
     <Compile Include="Assets\Scripts\Battlefield\IdCardTupleExtensions.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\TargetExtensions.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\IDCardPair.cs" />
     <Compile Include="Assets\Gif\Ruccho\FangAutoTile\Sample\OnMapPlayerController.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Icebolt.cs" />
@@ -133,6 +135,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Devour.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Rebirth.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Improve.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\TargetScoreManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\FieldManager\CardDetailManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Overdrive.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Visual\CardDetailView.cs" />
@@ -244,6 +247,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Core\BattleVars.cs" />
     <Compile Include="Assets\Scripts\Bazaar\Bazaar_ShopInventoryManager.cs" />
     <Compile Include="Assets\Scripts\Dashboard\SupportView.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\TargetType.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ClearCardDisplayEvent.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\CardObject.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Nymph.cs" />
@@ -284,6 +288,7 @@
     <Compile Include="Assets\Scripts\Events\PredefinedAssemblyUtil.cs" />
     <Compile Include="Assets\Scripts\Core\Enums\FieldEnum.cs" />
     <Compile Include="Assets\Scripts\Battlefield\FieldManager\CreatureManager.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\New\Acceleration.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Stoneskin.cs" />
     <Compile Include="Assets\NetworkPlayerTest.cs" />
     <Compile Include="Assets\Scripts\ServicesSpinner.cs" />
@@ -359,6 +364,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Heal.cs" />
     <Compile Include="Assets\Scripts\Battlefield\ImageAnimations.cs" />
     <Compile Include="Assets\Scripts\SignalRTest.cs" />
+    <Compile Include="Assets\AutoResizeGrid.cs" />
     <Compile Include="Assets\Scripts\Core\ScriptableObjects\CardDefinition.cs" />
     <Compile Include="Assets\Scripts\Battlefield\AbilityAnimation.cs" />
     <Compile Include="Assets\Scripts\Core\Enums\OwnerEnum.cs" />

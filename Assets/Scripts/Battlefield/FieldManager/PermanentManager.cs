@@ -36,6 +36,8 @@ namespace Elements.Duel.Manager
                             true));
             }
         }
+        
+        public int GetStackCountForId(ID id) => ((PermanentCardDisplay)_cardFieldDisplays[id]).StackCountValue;
 
         public void PlayPermanent(PlayPermanentOnFieldEvent playCardOnFieldEvent)
         {

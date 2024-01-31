@@ -189,7 +189,6 @@ public class PassiveCardDisplay : CardFieldDisplay
         var owner = DuelManager.Instance.GetIDOwner(Id);
         var enemy = DuelManager.Instance.GetNotIDOwner(Id);
         var atkNow = WeaponInnateSkills(Card.AtkNow, owner);
-
         
         if (!Card.passiveSkills.Momentum)
         {

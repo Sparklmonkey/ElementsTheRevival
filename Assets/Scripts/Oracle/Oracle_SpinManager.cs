@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,6 +68,7 @@ public class OracleSpinManager : MonoBehaviour
         fortuneHead.text = ElementStrings.GetFortuneHeadString(_cardToShow.cardType, _cardToShow.costElement, _cardToShow.cardName);
         fortuneBody.text = ElementStrings.GetCardBodyString(_cardToShow.cardName);
         PlayerData.Shared.playedOracleToday = true;
+        PlayerData.Shared.DayLastOraclePlay = DateTime.Now;
         SetupResultBlock();
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DashboardPlayerData : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI playerScore, playerWins, playerLoses, electrumCount, oracleText, saveStatus;
+    private TextMeshProUGUI playerScore, playerWins, playerLoses, electrumCount, oracleText, saveStatus, versionLabel;
     [SerializeField]
     private Button oracleButton, falseGobButton;
     private static GameObject _touchBlocker;
@@ -45,15 +45,17 @@ public class DashboardPlayerData : MonoBehaviour
 
     public void UpdateDashboard()
     {
+        versionLabel.text = $"Version {Application.version}";
         playerScore.text = PlayerData.Shared.playerScore.ToString();
         playerWins.text = PlayerData.Shared.gamesWon.ToString();
         playerLoses.text = PlayerData.Shared.gamesLost.ToString();
         electrumCount.text = PlayerData.Shared.electrum.ToString();
         oracleButton.interactable = false;
         falseGobButton.interactable = PlayerData.Shared.currentQuestIndex >= 7;
+        PlayerData.Shared.playedOracleToday = PlayerData.Shared.DayLastOraclePlay >= System.DateTime.Today;
         if (PlayerPrefs.GetInt("IsGuest") == 1)
         {
-            oracleButton.interactable = PlayerData.Shared.DayLastOraclePlay.Day < System.DateTime.Today.Day;
+            oracleButton.interactable = PlayerData.Shared.DayLastOraclePlay < System.DateTime.Today;
         }
         else
         {
