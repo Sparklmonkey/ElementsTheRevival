@@ -101,7 +101,6 @@ public class DuelManager : MonoBehaviour
         Instance = this;
         BattleVars.Shared.ElementalMastery = false;
         gameOverVisual.isGameOver = false;
-        ActionManager.ActionList = new List<ElementAction>();
         endTurnButton.interactable = false;
     }
 

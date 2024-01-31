@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Catapult : AbilityEffect
+public class Catapult : ActivatedAbility
 {
     public override bool NeedsTarget() => true;
-    public override TargetPriority GetPriority() => TargetPriority.HighestHp;
 
     public override void Activate(ID targetId, Card targetCard)
     {
@@ -16,21 +15,10 @@ public class Catapult : AbilityEffect
         EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damage, true, false, targetId.owner.Not()));
     }
 
-    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
-    {
-        var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
-        if (possibleTargets.Count == 0) { return new(); }
-        return possibleTargets.FindAll(x => x.IsTargetable());
-    }
-
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && id.owner.Equals(Owner.Owner) && card.IsTargetable();
+        return card.cardType.Equals(CardType.Creature) && id.owner.Equals(BattleVars.Shared.AbilityIDOrigin.owner) && card.IsTargetable();
     }
 
-    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
-    {
-        return possibleTargets.Count == 0 ? default : possibleTargets[Random.Range(0, possibleTargets.Count)];
-    }
 }

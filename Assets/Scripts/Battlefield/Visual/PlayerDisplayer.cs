@@ -61,7 +61,7 @@ namespace Elements.Duel.Visual
                 if (updatePlayerCountersVisualEvent.Counters.poison < 0)
                 {
                     poisonImg.sprite = puritySprite;
-                    poisonLabel.text = "+" + Mathf.Abs(updatePlayerCountersVisualEvent.Counters.poison).ToString();
+                    poisonLabel.text = "+" + Mathf.Abs(updatePlayerCountersVisualEvent.Counters.poison);
                 }
                 else if (updatePlayerCountersVisualEvent.Counters.neurotoxin > 0)
                 {

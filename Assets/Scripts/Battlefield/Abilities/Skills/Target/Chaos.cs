@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Chaos : AbilityEffect
+public class Chaos : ActivatedAbility
 {
     public override bool NeedsTarget() => true;
-    public override TargetPriority GetPriority() => TargetPriority.Any;
 
     public override void Activate(ID targetId, Card targetCard)
     {
@@ -25,7 +24,7 @@ public class Chaos : AbilityEffect
                 targetCard.DefDamage += 5;
                 break;
             case 2:
-                var waterQ = Owner.GetAllQuantaOfElement(Element.Water);
+                var waterQ = DuelManager.Instance.GetIDOwner(BattleVars.Shared.AbilityIDOrigin).GetAllQuantaOfElement(Element.Water);
                 var damageToDeal = 2 + Mathf.FloorToInt(waterQ / 10) * 2;
                 var willFreeze = Random.Range(0, 100) > 30 + damageToDeal * 5;
 
@@ -36,7 +35,7 @@ public class Chaos : AbilityEffect
                 }
                 break;
             case 3:
-                waterQ = Owner.GetAllQuantaOfElement(Element.Fire);
+                waterQ = DuelManager.Instance.GetIDOwner(BattleVars.Shared.AbilityIDOrigin).GetAllQuantaOfElement(Element.Fire);
                 damageToDeal = 2 + Mathf.FloorToInt(waterQ / 10) * 2;
 
                 targetCard.DefDamage += damageToDeal;
@@ -97,21 +96,5 @@ public class Chaos : AbilityEffect
     {
         if (card is null) return false;
         return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
-    }
-    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
-    {
-        var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
-        possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0) { return new(); }
-        return possibleTargets.FindAll(x => x.IsTargetable());
-    }
-
-    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
-    {
-        if (possibleTargets.Count == 0) { return default; }
-
-        var opCreatures = possibleTargets.FindAll(x => x.Item1.owner == OwnerEnum.Player && x.HasCard());
-        
-        return opCreatures.Count == 0 ? default : opCreatures[Random.Range(0, possibleTargets.Count)];
     }
 }

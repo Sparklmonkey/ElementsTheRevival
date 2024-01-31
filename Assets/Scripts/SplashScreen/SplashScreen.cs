@@ -142,7 +142,7 @@ public class SplashScreen : MonoBehaviour
             PlayerData.Shared.email = response.emailAddress;
             PlayerPrefs.SetString("AccessToken", response.accessToken);
             PlayerData.Shared = response.savedData;
-            PlayerData.Shared.userName = response.username;
+            PlayerData.Shared.username = response.username;
             
             SceneTransitionManager.Instance.LoadScene("Dashboard");
         }

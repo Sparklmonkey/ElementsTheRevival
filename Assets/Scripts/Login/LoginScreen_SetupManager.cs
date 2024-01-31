@@ -103,7 +103,7 @@ public class LoginScreenSetupManager : MonoBehaviour
             PlayerData.Shared.email = response.emailAddress;
             PlayerPrefs.SetString("AccessToken", response.accessToken);
             PlayerData.Shared = response.savedData;
-            PlayerData.Shared.userName = username.text;
+            PlayerData.Shared.username = username.text;
 
             if (PlayerData.Shared.currentDeck.Count == 0)
             {

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-public class Paralleluniverse : AbilityEffect
+public class Paralleluniverse : ActivatedAbility
 {
     public override bool NeedsTarget() => true;
-    public override TargetPriority GetPriority() => TargetPriority.AnyHighAtk;
 
     public override void Activate(ID targetId, Card targetCard)
     {
@@ -21,35 +20,12 @@ public class Paralleluniverse : AbilityEffect
             EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, targetId.owner.Not(), targetCard.Poison));
         }
 
-        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(dupe, Owner.Owner.Equals(OwnerEnum.Player)));
-        EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(Owner.Owner, dupe));
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(dupe, BattleVars.Shared.AbilityIDOrigin.owner.Equals(OwnerEnum.Player)));
+        EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(BattleVars.Shared.AbilityIDOrigin.owner, dupe));
     }
-
-    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
-    {
-        var possibleTargets = enemy.playerCreatureField.GetAllValidCardIds();
-        possibleTargets.AddRange(Owner.playerCreatureField.GetAllValidCardIds());
-        if (possibleTargets.Count == 0)
-        {
-            return new();
-        }
-
-        return possibleTargets.FindAll(x => x.IsTargetable());
-    }
-
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
         return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
-    }
-
-    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
-    {
-        if (possibleTargets.Count == 0)
-        {
-            return default;
-        }
-
-        return possibleTargets.Aggregate((i1, i2) => i1.Item2.AtkNow >= i2.Item2.AtkNow ? i1 : i2);
     }
 }

@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Holylight : AbilityEffect
+public class Holylight : ActivatedAbility
 {
     public override bool NeedsTarget() => true;
-    public override TargetPriority GetPriority() => TargetPriority.LowestHp;
 
     public override void Activate(ID targetId, Card targetCard)
     {
@@ -21,16 +20,6 @@ public class Holylight : AbilityEffect
         targetCard.DefDamage -= damage;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
-
-    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
-    {
-        var possibleTargets = Owner.playerCreatureField.GetAllValidCardIds();
-        possibleTargets.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
-        possibleTargets.Add((enemy.playerID, null));
-        possibleTargets.Add((Owner.playerID, null));
-        return possibleTargets.Count == 0 ? new() : possibleTargets.FindAll(x => x.IsTargetable());
-    }
-
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null)
@@ -38,10 +27,5 @@ public class Holylight : AbilityEffect
             return id.field.Equals(FieldEnum.Player);
         }
         return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
-    }
-
-    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
-    {
-        return possibleTargets.Count == 0 ? default : possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 }

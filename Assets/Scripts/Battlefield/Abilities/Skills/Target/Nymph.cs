@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Nymph : AbilityEffect
+public class Nymph : ActivatedAbility
 {
     public override bool NeedsTarget() => true;
-    public override TargetPriority GetPriority() => TargetPriority.OwnPillar;
 
     public override void Activate(ID targetId, Card targetCard)
     {
@@ -19,29 +18,9 @@ public class Nymph : AbilityEffect
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
     }
 
-    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy)
-    {
-        var possibleTargets = Owner.playerPermanentManager.GetAllValidCardIds();
-        if (possibleTargets.Count == 0)
-        {
-            return new();
-        }
-
-        return possibleTargets.FindAll(x => x.Item2.cardType.Equals(CardType.Pillar));
-    }
-
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Pillar) && id.owner.Equals(Owner.Owner) && card.IsTargetable();
-    }
-    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets)
-    {
-        if (possibleTargets.Count == 0)
-        {
-            return default;
-        }
-
-        return possibleTargets[Random.Range(0, possibleTargets.Count)];
+        return card.cardType.Equals(CardType.Pillar) && id.owner.Equals(BattleVars.Shared.AbilityIDOrigin.owner) && card.IsTargetable();
     }
 }

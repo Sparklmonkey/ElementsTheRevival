@@ -10704,7 +10704,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1211396572}
+      - m_Target: {fileID: 1912330879}
         m_TargetAssemblyTypeName: ActionDisplayManager, Assembly-CSharp
         m_MethodName: SetupActionView
         m_Mode: 1
@@ -19149,7 +19149,6 @@ GameObject:
   - component: {fileID: 1211396571}
   - component: {fileID: 1211396570}
   - component: {fileID: 1211396569}
-  - component: {fileID: 1211396572}
   m_Layer: 5
   m_Name: ActionView
   m_TagString: Untagged
@@ -19247,21 +19246,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211396567}
   m_CullTransparentMesh: 1
---- !u!114 &1211396572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1211396567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f2390154e2a0243af764abc445ef94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionContentView: {fileID: 2117480837}
-  actionCellPrefab: {fileID: 5684160973051026041, guid: d5236f9c3777290499cd349e2d815803, type: 3}
-  actionViewObject: {fileID: 1211396567}
 --- !u!1 &1211844422
 GameObject:
   m_ObjectHideFlags: 0
@@ -31390,6 +31374,7 @@ GameObject:
   - component: {fileID: 1912330875}
   - component: {fileID: 1912330877}
   - component: {fileID: 1912330878}
+  - component: {fileID: 1912330879}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -31530,6 +31515,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d761ececc5e67347afe7dff18c8a5a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1912330879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912330869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f2390154e2a0243af764abc445ef94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionContentView: {fileID: 2117480837}
+  actionCellPrefab: {fileID: 5684160973051026041, guid: d5236f9c3777290499cd349e2d815803, type: 3}
+  actionViewObject: {fileID: 1211396567}
 --- !u!1 &1914524047
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class ActionManager
 {
-    public static List<ElementAction> ActionList = new();
+    public List<ElementAction> ActionList = new();
 
     private EventBinding<AddDrawCardActionEvent> _addCardDrawActionBinding;
     private EventBinding<AddCardPlayedOnFieldActionEvent> _addCardPlayedOnFieldBinding;
@@ -11,6 +11,7 @@ public class ActionManager
     
     public ActionManager()
     {
+        ActionList = new List<ElementAction>();
         _addCardDrawActionBinding = new EventBinding<AddDrawCardActionEvent>(AddCardDrawAction);
         EventBus<AddDrawCardActionEvent>.Register(_addCardDrawActionBinding);
         
@@ -24,23 +25,23 @@ public class ActionManager
         EventBus<AddAbilityActivatedActionEvent>.Register(_addAbilityActivatedBinding);
     }
     
-    private static void AddCardDrawAction(AddDrawCardActionEvent addDrawCardActionEvent)
+    private void AddCardDrawAction(AddDrawCardActionEvent addDrawCardActionEvent)
     {
         var isPlayer = addDrawCardActionEvent.Owner.Equals(OwnerEnum.Player);
-        ElementAction action = new(isPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName, 
+        ElementAction action = new(isPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName, 
             "Draw", isPlayer ? addDrawCardActionEvent.CardDrawn.imageID : "", "", false);
         ActionList.Add(action);
     }
 
-    private static void AddCardPlayedOnFieldAction(AddCardPlayedOnFieldActionEvent addCardPlayedOnFieldActionEvent)
+    private void AddCardPlayedOnFieldAction(AddCardPlayedOnFieldActionEvent addCardPlayedOnFieldActionEvent)
     {
-        ElementAction action = new($"{(addCardPlayedOnFieldActionEvent.IsPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName)}", "Played", addCardPlayedOnFieldActionEvent.CardToPlay.imageID, "", false);
+        ElementAction action = new($"{(addCardPlayedOnFieldActionEvent.IsPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName)}", "Played", addCardPlayedOnFieldActionEvent.CardToPlay.imageID, "", false);
 
         ActionList.Add(action);
     }
-    private static void AddSpellPlayedAction(AddSpellActivatedActionEvent addSpellActivatedActionEvent)
+    private void AddSpellPlayedAction(AddSpellActivatedActionEvent addSpellActivatedActionEvent)
     {
-        var owner = addSpellActivatedActionEvent.IsPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName;
+        var owner = addSpellActivatedActionEvent.IsPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName;
         var shouldShowArrow = false;
         var targetId = "";
         if (addSpellActivatedActionEvent.TargetId != null)
@@ -53,9 +54,9 @@ public class ActionManager
         ActionList.Add(action);
     }
 
-    private static void AddAbilityActivatedAction(AddAbilityActivatedActionEvent addAbilityActivatedActionEvent)
+    private void AddAbilityActivatedAction(AddAbilityActivatedActionEvent addAbilityActivatedActionEvent)
     {
-        var owner = addAbilityActivatedActionEvent.IsPlayer ? PlayerData.Shared.userName : BattleVars.Shared.EnemyAiData.opponentName;
+        var owner = addAbilityActivatedActionEvent.IsPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName;
         var shouldShowArrow = false;
         var targetId = "";
         if (addAbilityActivatedActionEvent.TargetId is null)

@@ -95,10 +95,10 @@ public class LoginScreenRegisterManager : MonoBehaviour
         {
             PlayerData.LoadFromApi(response.savedData);
             PlayerData.Shared.email = response.emailAddress;
-            PlayerData.Shared.userName = username.text;
+            PlayerData.Shared.username = username.text;
             PlayerPrefs.SetString("AccessToken", response.accessToken);
             PlayerData.Shared = response.savedData;
-            PlayerData.Shared.userName = username.text;
+            PlayerData.Shared.username = username.text;
             
             SceneTransitionManager.Instance.LoadScene(PlayerData.Shared.currentDeck.Count == 0 ? "DeckSelector" : "Dashboard");
         }

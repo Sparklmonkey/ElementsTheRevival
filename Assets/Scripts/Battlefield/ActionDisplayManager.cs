@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ActionDisplayManager : MonoBehaviour
@@ -7,18 +8,24 @@ public class ActionDisplayManager : MonoBehaviour
     [SerializeField]
     private GameObject actionCellPrefab, actionViewObject;
 
+    private ActionManager _actionManager;
+
+    private void OnEnable()
+    {
+        _actionManager = new ActionManager();
+    }
 
     public void SetupActionView()
     {
-        if (ActionManager.ActionList == null) { return; }
+        if (_actionManager.ActionList == null) { return; }
         actionViewObject.SetActive(true);
-        if (ActionManager.ActionList.Count == 0) { return; }
+        if (_actionManager.ActionList.Count == 0) { return; }
 
         ClearView();
-        for (var i = ActionManager.ActionList.Count - 1; i >= 0; i--)
+        for (var i = _actionManager.ActionList.Count - 1; i >= 0; i--)
         {
             var actionCellObject = Instantiate(actionCellPrefab, actionContentView);
-            actionCellObject.GetComponent<ActionCell>().SetupFromElementAction(ActionManager.ActionList[i]);
+            actionCellObject.GetComponent<ActionCell>().SetupFromElementAction(_actionManager.ActionList[i]);
         }
     }
 

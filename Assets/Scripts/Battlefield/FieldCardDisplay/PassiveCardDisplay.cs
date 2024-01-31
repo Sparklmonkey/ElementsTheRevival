@@ -208,7 +208,7 @@ public class PassiveCardDisplay : CardFieldDisplay
             if (Card.passiveSkills.Venom)
             {
                 EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison,
-                    enemy.Owner, 1));
+                    enemy.Owner, atkNow));
             }
 
             if (Card.innateSkills.Scramble)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Networking;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class PlayerData
@@ -20,7 +21,7 @@ public class PlayerData
     public int arenaWins;
     public int arenaLosses;
     public int playerScore;
-    public string userName = "";
+    public string username = "";
     public string email = "";
     public string completedQuests = "";
 
