@@ -59,7 +59,7 @@ public class ActionManager
         var owner = addAbilityActivatedActionEvent.IsPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName;
         var shouldShowArrow = false;
         var targetId = "";
-        if (addAbilityActivatedActionEvent.TargetId is null)
+        if (addAbilityActivatedActionEvent.TargetId is not null)
         {
             shouldShowArrow = addAbilityActivatedActionEvent.TargetCard is not null || addAbilityActivatedActionEvent.TargetId.field.Equals(FieldEnum.Player);
             targetId = addAbilityActivatedActionEvent.TargetCard is not null ? addAbilityActivatedActionEvent.TargetCard.imageID : "";

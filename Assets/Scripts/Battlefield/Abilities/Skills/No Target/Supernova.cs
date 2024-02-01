@@ -1,16 +1,20 @@
 using System.Collections.Generic;
 
-public class Supernova : AbilityEffect
+public class Supernova : ActivatedAbility
 {
     public override bool NeedsTarget() => false;
-    public override bool IsCardValid(ID id, Card card) => false;
+    public override bool IsCardValid(ID id, Card card)
+    {
+        return id.Equals(
+            new ID(BattleVars.Shared.AbilityIDOrigin.owner, FieldEnum.Player, 0));
+    }
 
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
         for (var i = 0; i < 12; i++)
         {
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(2, (Element)i, Owner.Owner, true));
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(2, (Element)i, targetId.owner, true));
         }
 
         if (BattleVars.Shared.IsSingularity > 0)
@@ -23,10 +27,4 @@ public class Supernova : AbilityEffect
 
         BattleVars.Shared.IsSingularity++;
     }
-
-    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
-
-    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
-
-    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

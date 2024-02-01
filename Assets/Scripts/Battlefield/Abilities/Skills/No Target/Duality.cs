@@ -1,20 +1,17 @@
 using System.Collections.Generic;
 
-public class Duality : AbilityEffect
+public class Duality : ActivatedAbility
 {
-    public override bool NeedsTarget() => false;
-    public override bool IsCardValid(ID id, Card card) => false;
-
+    public override bool NeedsTarget() => false; public override bool IsCardValid(ID id, Card card)
+    {
+        return id.Equals(
+            new ID(BattleVars.Shared.AbilityIDOrigin.owner, FieldEnum.Player, 0));
+    }
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
         var cardToAdd = DuelManager.Instance.GetNotIDOwner(targetId).DeckManager.GetTopCard();
         if (cardToAdd == null) { return; }
-        EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(Owner.Owner, new(cardToAdd)));
+        EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(BattleVars.Shared.AbilityIDOrigin.owner, new(cardToAdd)));
     }
-
-    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
-
-    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
-    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

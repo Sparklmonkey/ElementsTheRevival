@@ -1,13 +1,13 @@
 ﻿public class AiTargetType
 {
-    public int Estimate;
+    public float Estimate;
     public bool OnlyFriend;
     public bool OnlyFoe;
     public bool Freeze;
     public TargetType Targeting;
     public int DefineValue;
     public int DefTolerance;
-    public AiTargetType(bool onlyFriend, bool onlyFoe, bool freeze, TargetType targeting, int estimate, int defineValue, int defTolerance)
+    public AiTargetType(bool onlyFriend, bool onlyFoe, bool freeze, TargetType targeting, float estimate, int defineValue, int defTolerance)
     {
         Estimate = estimate;
         OnlyFriend = onlyFriend;

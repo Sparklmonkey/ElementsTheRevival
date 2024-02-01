@@ -74,14 +74,5 @@ namespace Elements.Duel.Manager
                     card));
             return true;
         }
-
-    public void PermanentTurnDown()
-        {
-            // foreach (var idCard in PairList)
-            // {
-            //     if (!idCard.HasCard()) { continue; }
-            //     idCard.cardBehaviour.OnTurnStart();
-            // }
-        }
     }
 }

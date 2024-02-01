@@ -50,15 +50,6 @@ public class PermanentCardDisplay : CardFieldDisplay
         if (!updatePermanentCardEvent.Id.Equals(Id)) return;
         StackCountValue++;
         SetCard(updatePermanentCardEvent.Card);
-        List<string> permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
-        if (permanentsWithCountdown.Contains(updatePermanentCardEvent.Card.iD))
-        {
-            stackCount.text = $"{updatePermanentCardEvent.Card.TurnsInPlay}";
-        }
-        else
-        {
-            stackCount.text = StackCountValue > 1 ? $"{StackCountValue}X" : "";
-        }
 
         immaterialIndicator.SetActive(updatePermanentCardEvent.Card.innateSkills.Immaterial);
         var isPlayer = Id.owner.Equals(OwnerEnum.Player);
@@ -77,6 +68,16 @@ public class PermanentCardDisplay : CardFieldDisplay
 
         SetupActiveAbility();
         CheckOnPlayEffects();
+        
+        List<string> permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
+        if (permanentsWithCountdown.Contains(updatePermanentCardEvent.Card.iD))
+        {
+            stackCount.text = $"{updatePermanentCardEvent.Card.TurnsInPlay}";
+        }
+        else
+        {
+            stackCount.text = StackCountValue > 1 ? $"{StackCountValue}X" : "";
+        }
     }
 
     private void SetupActiveAbility()
@@ -213,7 +214,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         if (!permanentsWithCountdown.Contains(Card.iD)) return;
         Card.TurnsInPlay--;
     
-        if (Card.TurnsInPlay == 0)
+        if (Card.TurnsInPlay <= 0)
         {
             HideCard(new ClearCardDisplayEvent(Id));
             return;

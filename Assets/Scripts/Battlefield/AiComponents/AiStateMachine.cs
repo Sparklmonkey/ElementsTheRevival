@@ -62,8 +62,6 @@ public class AiStateMachine
             case GameState.Idle:
                 if (!BattleVars.Shared.IsPlayerTurn)
                 {
-                    _aiManager.TurnDownTick();
-
                     if (_aiManager.playerCounters.silence > 0)
                     {
                         _currentState = GameState.EndTurn;
@@ -92,7 +90,7 @@ public class AiStateMachine
                 break;
 
             case GameState.PlaySpells:
-                _aiTurn.PlaySpellFromHand(_aiManager);
+                yield return _aiManager.StartCoroutine(_aiTurn.PlaySpellFromHand(_aiManager));
                 SetNewState();
                 break;
 
@@ -107,22 +105,23 @@ public class AiStateMachine
                 break;
             
             case GameState.ActivateCreatureAbilities:
-                _aiTurn.ActivateCreatureAbility(_aiManager);
+                yield return _aiManager.StartCoroutine(_aiTurn.ActivateCreatureAbility(_aiManager));
                 SetNewState();
                 break;
             case GameState.ActivateArtifactAbilities:
-                _aiTurn.ActivateArtifactAbility(_aiManager);
+                yield return _aiManager.StartCoroutine(_aiTurn.ActivateArtifactAbility(_aiManager));
                 SetNewState();
                 break;
 
             case GameState.DrawCard:
+                EventBus<OnTurnStartEvent>.Raise(new OnTurnStartEvent(_aiManager.Owner));
                 _aiDraw.StartTurnDrawCard(_aiManager);
                 SetNewState();
                 break;
 
             case GameState.EndTurn:
                 if(_aiManager.playerHand.ShouldDiscard()) { _aiTurn.DiscardCard(_aiManager); }
-                
+                _aiTurn.ResetSkipList();
                 yield return _aiManager.StartCoroutine(_aiManager.EndTurnRoutine());
                 _aiManager.UpdateCounterAndEffects();
                 DuelManager.Instance.EndTurn();

@@ -176,11 +176,13 @@ public struct SetupAbilityTargetsEvent : IEvent
 {
     public PlayerManager AbilityOwner;
     public Card AbilityCard;
+    public bool ShouldHideGraphic;
 
-    public SetupAbilityTargetsEvent(PlayerManager abilityOwner, Card abilityCard)
+    public SetupAbilityTargetsEvent(PlayerManager abilityOwner, Card abilityCard, bool shouldHideGraphic = false)
     {
         AbilityOwner = abilityOwner;
         AbilityCard = abilityCard;
+        ShouldHideGraphic = shouldHideGraphic;
     }
 }
 

@@ -1,18 +1,17 @@
 using System.Collections.Generic;
 
-public class Healp : AbilityEffect
+public class Healp : ActivatedAbility
 {
     public override bool NeedsTarget() => false;
-    public override bool IsCardValid(ID id, Card card) => false;
-
+    public override bool IsCardValid(ID id, Card card)
+    {
+        return id.Equals(
+            new ID(BattleVars.Shared.AbilityIDOrigin.owner, FieldEnum.Player, 0));
+    }
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(20, false, false, Owner.Owner));
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(20, false, false, targetId.owner));
     }
 
-    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
-
-    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
-    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

@@ -5,20 +5,20 @@ namespace Battlefield.Abilities
 {
     public static class TargetScoreManager
     {
-        public static int CalculateCreatureLowAtkScore(this (ID id, Card card) target, int estimate, int defineValue)
+        public static float CalculateCreatureLowAtkScore(this (ID id, Card card) target, float estimate, int defineValue)
         {
             var score = target.id.owner switch
             {
                 OwnerEnum.Opponent when target.card.AtkNow < defineValue => estimate *
-                    (target.card.DefNow - target.card.Poison) / 10,
-                OwnerEnum.Player when target.card.AtkNow < defineValue => 0,
-                _ => 0
+                    (target.card.DefNow - target.card.Poison) / 10f,
+                OwnerEnum.Player when target.card.AtkNow < defineValue => 0f,
+                _ => 0f
             };
 
             return score;
         }
 
-        public static int CalculateCreatureHighAtkScore(this (ID id, Card card) target, int estimate)
+        public static float CalculateCreatureHighAtkScore(this (ID id, Card card) target, float estimate)
         {
             switch (target.id.owner)
             {
@@ -29,63 +29,63 @@ namespace Battlefield.Abilities
                         return estimate;
                     }
 
-                    return 0;
+                    return 0f;
                 }
                 case OwnerEnum.Player when target.card.AtkNow > target.card.DefNow:
                 {
                     if (target.card.Poison > 0)
                     {
-                        return 0;
+                        return 0f;
                     }
 
-                    return target.card.AtkNow / (-estimate) / 20;
+                    return target.card.AtkNow / -estimate / 20f;
                 }
                 default:
-                    return 0;
+                    return 0f;
             }
         }
 
-        public static int CalculateImmortalScore(this (ID id, Card card) target, int estimate, bool onlyFriend,
+        public static float CalculateImmortalScore(this (ID id, Card card) target, float estimate, bool onlyFriend,
             bool onlyFoe)
         {
-            var score = 0;
+            var score = 0f;
 
             if (onlyFoe && target.id.owner.Equals(OwnerEnum.Player))
             {
-                score = estimate / 1;
+                score = estimate / 1f;
             }
 
             if (onlyFriend && target.id.owner.Equals(OwnerEnum.Opponent))
             {
-                score = 2 * estimate / 1;
+                score = 2f * estimate / 1f;
             }
 
             return score;
         }
 
-        public static int CalculateTrebuchetScore(this (ID id, Card card) target, int estimate)
+        public static float CalculateTrebuchetScore(this (ID id, Card card) target, float estimate)
         {
             var score = target.id.owner switch
             {
                 OwnerEnum.Opponent => (estimate * target.card.DefNow /
-                    (DuelManager.Instance.player.HealthManager.GetCurrentHealth() + 1) + target.card.Freeze +
-                    target.card.Poison * 3 - target.card.AtkNow) / 20,
-                OwnerEnum.Player => 0,
-                _ => 0
+                    (DuelManager.Instance.player.HealthManager.GetCurrentHealth() + 1f) + target.card.Freeze +
+                    target.card.Poison * 3f - target.card.AtkNow) / 20f,
+                OwnerEnum.Player => 0f,
+                _ => 0f
             };
 
             return score;
         }
 
-        public static int CalculateSmallerScore(this (ID id, Card card) target, int estimate)
+        public static float CalculateSmallerScore(this (ID id, Card card) target, float estimate)
         {
-            var score = 0;
+            var score = 0f;
             if (target.id.owner.Equals(OwnerEnum.Opponent))
             {
                 if (target.card.Poison > 0 ||
                     target.card.AtkNow + target.card.DefNow <= 2 && target.card.skill == "")
                 {
-                    score = (-estimate) / 10;
+                    score = (-estimate) / 10f;
                 }
                 else
                 {
@@ -96,185 +96,185 @@ namespace Battlefield.Abilities
             {
                 if (target.card.skill != "")
                 {
-                    score = 3;
+                    score = 3f;
                 }
 
-                score = (score + 1 + target.card.AtkNow / (-estimate)) / 10;
+                score = (score + 1f + target.card.AtkNow / (-estimate)) / 10f;
             }
 
             return score;
         }
 
-        public static int CalculateSkillCreatureScore(this (ID id, Card card) target, int estimate)
+        public static float CalculateSkillCreatureScore(this (ID id, Card card) target, float estimate)
         {
             switch (target.id.owner)
             {
                 case OwnerEnum.Player when target.card.skill != "":
-                    return (target.card.cost + 1) * -estimate;
+                    return (target.card.cost + 1f) * -estimate;
                 case OwnerEnum.Player:
-                    return 0;
+                    return 0f;
                 case OwnerEnum.Opponent when target.card.skill != "":
                 {
                     if (target.card.costElement == Element.Life)
                     {
-                        return target.card.skillCost * estimate * 3;
+                        return target.card.skillCost * estimate * 3f;
                     }
 
-                    return (target.card.skillCost + 1) * estimate;
+                    return (target.card.skillCost + 1f) * estimate;
                 }
                 case OwnerEnum.Opponent:
-                    return 0;
+                    return 0f;
                 default:
-                    return 0;
+                    return 0f;
             }
         }
 
-        public static int CalculatePillarScore(this (ID id, Card card) target, int estimate)
+        public static float CalculatePillarScore(this (ID id, Card card) target, float estimate)
         {
             var stackCount = DuelManager.Instance.GetIDOwner(target.id).playerPermanentManager
                 .GetStackCountForId(target.id);
             return target.id.owner switch
             {
-                OwnerEnum.Opponent => (int)((estimate + Random.Range(0f, 1f) / 10) / 2),
-                OwnerEnum.Player => (int)(stackCount / (Math.Abs(stackCount - estimate) + 0.5f) * 10 *
-                                          -estimate), //(int)((estimate + 0.5) * 2 * -estimate),
+                OwnerEnum.Opponent => (estimate + Random.Range(0f, 1f) / 10f) / 2f,
+                OwnerEnum.Player => stackCount / (Math.Abs(stackCount - estimate) + 0.5f) * 10 *
+                                          -estimate,
                 _ => 0
             };
         }
 
-        public static int CalculateDefineDefScore(this (ID id, Card card) target, int estimate, bool onlyFriend,
+        public static float CalculateDefineDefScore(this (ID id, Card card) target, float estimate, bool onlyFriend,
             bool onlyFoe, int defineValue)
         {
             if (target.id.owner.Equals(OwnerEnum.Opponent) && !onlyFoe)
             {
-                return estimate * (target.card.DefNow - defineValue) / defineValue;
+                return estimate * (target.card.DefNow - defineValue + 0f) / defineValue;
             }
 
             if (target.id.owner.Equals(OwnerEnum.Player) && !onlyFriend)
             {
-                return (int)((-estimate) * 0.1 * (target.card.cost + target.card.AtkNow) *
-                             ((target.card.DefNow - defineValue - 1) /
-                              (Math.Abs(target.card.DefNow - defineValue - 1) + 0.001)));
+                return -estimate * 0.1f * (target.card.cost + target.card.AtkNow) *
+                             ((target.card.DefNow - defineValue - 1f) /
+                              (Math.Abs(target.card.DefNow - defineValue - 1f) + 0.001f));
             }
 
             if (target.id.owner.Equals(OwnerEnum.Player))
             {
-                return (int)(-estimate * 0.1f * (target.card.cost + target.card.AtkNow) *
-                    (target.card.DefNow - defineValue - 1) / (Math.Abs(target.card.DefNow - defineValue - 1) + 0.001f));
+                return -estimate * 0.1f * (target.card.cost + target.card.AtkNow) *
+                    (target.card.DefNow - defineValue - 1) / (Math.Abs(target.card.DefNow - defineValue - 1) + 0.001f);
             }
 
             return 0;
         }
 
-        public static int CalculateDefineAtk(this (ID id, Card card) target, int estimate, bool onlyFoe,
+        public static float CalculateDefineAtk(this (ID id, Card card) target, float estimate, bool onlyFoe,
             int defineValue, int defineTolerance)
         {
             if (target.id.owner.Equals(OwnerEnum.Opponent) && !onlyFoe)
             {
                 if (target.card.passiveSkills.Adrenaline)
                 {
-                    return 0;
+                    return 0f;
                 }
 
                 if (target.card.skill is "mitosis")
                 {
-                    return 0;
+                    return 0f;
                 }
 
                 if (target.card.skill is "singularity" && target.card.passiveSkills.Antimatter)
                 {
-                    return 0;
+                    return 0f;
                 }
 
-                return estimate * (defineTolerance - Math.Abs(defineValue - target.card.AtkNow)) / 10;
+                return estimate * (defineTolerance - Math.Abs(defineValue - target.card.AtkNow)) / 10f;
             }
 
             if (target.id.owner.Equals(OwnerEnum.Player))
             {
-                return -estimate * (defineTolerance - Math.Abs(defineValue - target.card.AtkNow)) / 10;
+                return -estimate * (defineTolerance - Math.Abs(defineValue - target.card.AtkNow)) / 10f;
             }
 
-            return 0;
+            return 0f;
         }
 
-        public static int CalculateFractalScore(this (ID id, Card card) target, int estimate)
+        public static float CalculateFractalScore(this (ID id, Card card) target, float estimate)
         {
             if (target.id.owner.Equals(OwnerEnum.Opponent))
             {
                 if (estimate > 0)
                 {
-                    return (int)((DuelManager.Instance.enemy.GetAllQuantaOfElement(target.card.costElement) + 1) /
+                    return (DuelManager.Instance.enemy.GetAllQuantaOfElement(target.card.costElement) + 1f) /
                                  (target.card.cost + 0.2f) /
                                  (DuelManager.Instance.enemy.playerHand.GetHandCount() *
-                                     DuelManager.Instance.enemy.playerHand.GetHandCount() * 5 + 1));
+                                     DuelManager.Instance.enemy.playerHand.GetHandCount() * 5f + 1f);
                 }
 
                 if (target.card.innateSkills.Obsession)
                 {
-                    return 1;
+                    return 1f;
                 }
 
-                return (int)((target.card.cost /
-                              (DuelManager.Instance.player.GetAllQuantaOfElement(target.card.costElement) + 1) +
+                return (target.card.cost /
+                              (DuelManager.Instance.player.GetAllQuantaOfElement(target.card.costElement) + 1f) +
                               0.2f) /
                              (DuelManager.Instance.player.playerHand.GetHandCount() *
-                                 DuelManager.Instance.player.playerHand.GetHandCount() * 5 + 1));
+                                 DuelManager.Instance.player.playerHand.GetHandCount() * 5f + 1f);
             }
 
             if (target.id.owner.Equals(OwnerEnum.Player))
             {
                 if (estimate > 0)
                 {
-                    return (int)((DuelManager.Instance.enemy.GetAllQuantaOfElement(target.card.costElement) + 1) /
+                    return (DuelManager.Instance.enemy.GetAllQuantaOfElement(target.card.costElement) + 1f) /
                                  (target.card.cost + 0.2f) /
                                  (DuelManager.Instance.enemy.playerHand.GetHandCount() *
-                                     DuelManager.Instance.enemy.playerHand.GetHandCount() * 5 + 1));
+                                     DuelManager.Instance.enemy.playerHand.GetHandCount() * 5f + 1f);
                 }
 
-                return (int)((target.card.cost /
-                              (DuelManager.Instance.player.GetAllQuantaOfElement(target.card.costElement) + 1) +
+                return (target.card.cost /
+                              (DuelManager.Instance.player.GetAllQuantaOfElement(target.card.costElement) + 1f) +
                               0.2f) /
                              (DuelManager.Instance.player.playerHand.GetHandCount() *
-                                 DuelManager.Instance.player.playerHand.GetHandCount() * 5 + 1));
+                                 DuelManager.Instance.player.playerHand.GetHandCount() * 5f + 1f);
             }
 
-            return 0;
+            return 0f;
         }
 
 
-        public static int CalculatePermanentScore(this (ID id, Card card) target, int estimate, string skill)
+        public static float CalculatePermanentScore(this (ID id, Card card) target, float estimate, string skill)
         {
             if (target.id.owner.Equals(OwnerEnum.Opponent))
             {
-                return (target.card.cost + 1) * estimate / 25 - DuelManager.Instance.enemy.playerHand.GetHandCount();
+                return (target.card.cost + 1f) * estimate / 25f - DuelManager.Instance.enemy.playerHand.GetHandCount();
             }
 
             if (target.id.owner.Equals(OwnerEnum.Player))
             {
-                if (target.card.skill == skill) return 0;
+                if (target.card.skill == skill) return 0f;
                 if (target.card.skill == "sundial" && skill != "steal")
                 {
-                    return DuelManager.Instance.enemy.GetPossibleDamage() * -estimate / 20;
+                    return DuelManager.Instance.enemy.GetPossibleDamage() * -estimate / 20f;
                 }
 
-                return (target.card.cost + 1) * -estimate / 20;
+                return (target.card.cost + 1f) * -estimate / 20;
             }
 
-            return 0;
+            return 0f;
         }
 
-        public static int CalculateWeaponScore(this (ID id, Card card) target)
+        public static float CalculateWeaponScore(this (ID id, Card card) target)
         {
-            var skillScore = 0;
+            var skillScore = 0f;
             if (target.card.skillCost > 0)
             {
                 skillScore =
                     DuelManager.Instance.GetIDOwner(target.id).GetAllQuantaOfElement(target.card.skillElement) /
-                    (1 + target.card.skillCost);
+                    (1f + target.card.skillCost);
             }
             else
             {
-                skillScore = 1;
+                skillScore = 1f;
             }
 
             if (target.id.field.Equals(FieldEnum.Passive))
@@ -288,93 +288,93 @@ namespace Battlefield.Abilities
                 return target.card.atk + skillScore;
             }
 
-            return 0;
+            return 0f;
         }
 
-        public static int CalculateTearsScore(this (ID id, Card card) target, int estimate)
+        public static float CalculateTearsScore(this (ID id, Card card) target, float estimate)
         {
-            return estimate + Random.Range(0, 10) / 2;
+            return estimate + Random.Range(0, 10) / 2f;
         }
 
-        public static int CalculateBetaCreatureScore(this (ID id, Card card) target, int estimate, bool onlyFriend,
+        public static float CalculateBetaCreatureScore(this (ID id, Card card) target, float estimate, bool onlyFriend,
             bool onlyFoe)
         {
-            var skillScore = target.card.skill != "" ? 3 : 0;
+            var skillScore = target.card.skill != "" ? 3f : 0f;
 
             if (target.id.owner.Equals(OwnerEnum.Opponent) && !onlyFoe)
             {
-                return (7 * estimate - (target.card.DefNow + target.card.AtkNow + target.card.cost + skillScore)) / 5;
+                return (7f * estimate - (target.card.DefNow + target.card.AtkNow + target.card.cost + skillScore)) / 5f;
             }
 
             if (target.id.owner.Equals(OwnerEnum.Player) && !onlyFriend)
             {
-                return (-8 + (target.card.DefNow + target.card.AtkNow + skillScore)) / 100;
+                return (-8f + (target.card.DefNow + target.card.AtkNow + skillScore)) / 100;
             }
 
-            return 0;
+            return 0f;
         }
 
 
-        public static int CalculateAlphaCreatureScore(this (ID id, Card card) target, bool onlyFriend, bool onlyFoe)
+        public static float CalculateAlphaCreatureScore(this (ID id, Card card) target, bool onlyFriend, bool onlyFoe)
         {
-            var skillScore = target.card.skill != "" ? 3 : 0;
+            var skillScore = target.card.skill != "" ? 3f : 0f;
             if (target.id.owner.Equals(OwnerEnum.Opponent) && !onlyFoe)
             {
                 if (target.card.skill is "devour" or "dejavu" || target.card.DefNow <= 0)
                 {
-                    skillScore = 10;
+                    skillScore = 10f;
                 }
 
                 if (target.card.skill is "hatch")
                 {
-                    return 0;
+                    return 0f;
                 }
 
                 if (target.card.passiveSkills.Momentum && BattleVars.Shared.AbilityCardOrigin.skill is "momentum")
                 {
-                    return 0;
+                    return 0f;
                 }
 
                 if (target.card.innateSkills.Chimera && BattleVars.Shared.AbilityCardOrigin.skill is "paralleluniverse")
                 {
-                    return 0;
+                    return 0f;
                 }
 
-                return target.card.AtkNow + skillScore - target.card.Freeze - target.card.innateSkills.Delay / 10;
+                return target.card.AtkNow + skillScore - target.card.Freeze - target.card.innateSkills.Delay / 10f;
             }
 
             if (target.id.owner.Equals(OwnerEnum.Player) && !onlyFriend)
             {
-                if (BattleVars.Shared.AbilityCardOrigin.skill is "parallel universe" &&
+                if (BattleVars.Shared.AbilityCardOrigin.skill is "paralleluniverse" &&
                     target.card.innateSkills.Chimera)
                 {
-                    return DuelManager.Instance.player.playerCreatureField.GetAllValidCards().Count / 5;
+                    return DuelManager.Instance.player.playerCreatureField.GetAllValidCards().Count / 5f;
                 }
 
-                return target.card.AtkNow + skillScore - target.card.Freeze - target.card.innateSkills.Delay / 10;
+                return target.card.AtkNow + skillScore - target.card.Freeze - target.card.innateSkills.Delay / 10f;
             }
 
-            return 0;
+            return 0f;
         }
 
-        public static int CalculateCreatureAndPlayerScore(this (ID id, Card card) target, int estimate, bool onlyFriend, bool onlyFoe)
+        public static float CalculateCreatureAndPlayerScore(this (ID id, Card card) target, float estimate, bool onlyFriend, bool onlyFoe)
         {
             if (target.id.owner.Equals(OwnerEnum.Opponent) && target.card is null)
             {
-                return (int)(estimate * (DuelManager.Instance.enemy.HealthManager.GetMaxHealth() -
-                                         DuelManager.Instance.enemy.HealthManager.GetCurrentHealth()) * 0.001f);
+                return estimate * (DuelManager.Instance.enemy.HealthManager.GetMaxHealth() -
+                                         DuelManager.Instance.enemy.HealthManager.GetCurrentHealth()) * 0.001f;
             }
             if (target.id.owner.Equals(OwnerEnum.Player) && target.card is null)
             {
-                var score = -estimate / (DuelManager.Instance.enemy.HealthManager.GetCurrentHealth() * 4);
+                var score = -estimate / (DuelManager.Instance.enemy.HealthManager.GetCurrentHealth() * 4f);
                 if (DuelManager.Instance.player.playerPassiveManager.GetShield().Item2.skill is "reflect")
                 {
-                    return 0;
+                    return 0f;
                 }
 
                 if (DuelManager.Instance.player.sacrificeCount > 0)
                 {
-                    return -score * 50;
+                    return -score * 50f;
                 }
                 
                 if (DuelManager.Instance.enemy.sacrificeCount > 0)
@@ -388,62 +388,65 @@ namespace Battlefield.Abilities
             return target.CalculateCreatureScore(estimate);
         }
 
-        public static int CalculateCreatureScore(this (ID id, Card card) target, int estimate)
+        public static float CalculateCreatureScore(this (ID id, Card card) target, float estimate)
         {
-            var score = 0;
-            if (target.id.owner.Equals(OwnerEnum.Opponent))
+            var score = 0f;
+            ID id;
+            Card card;
+            (id, card) = target;
+            if (id.owner.Equals(OwnerEnum.Opponent))
             {
-                if(target.card.DefNow < target.card.def)
+                if(card.DefNow < card.def)
                 {
-                    score = (int)((0.01f * target.card.AtkNow * target.card.def - target.card.DefNow) * estimate);
+                    score = ((0.01f * card.AtkNow * card.def - card.DefNow) * estimate);
                 }
-                if (target.card.AtkNow < 0)
+                if (card.AtkNow < 0)
                 {
-                    score = (int)(0.1f * target.card.AtkNow * estimate);
+                    score = (0.1f * card.AtkNow * estimate);
                 }
-                if (target.card.Poison < 0 && BattleVars.Shared.AbilityCardOrigin.skill is "purify")
+                if (card.Poison < 0 && BattleVars.Shared.AbilityCardOrigin.skill is "purify")
                 {
-                    score = 0;
+                    score = 0f;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.skill is "holy light" && (target.card.costElement is Element.Death or Element.Darkness))
+                if (BattleVars.Shared.AbilityCardOrigin.skill is "holylight" && (card.costElement is Element.Death or Element.Darkness))
                 {
                     score = -estimate;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.skill is "reverse time" && (target.card.innateSkills.Mummy || target.card.innateSkills.Undead))
+                if (BattleVars.Shared.AbilityCardOrigin.skill is "reversetime" && (card.innateSkills.Mummy || card.innateSkills.Undead))
                 {
-                    score = 1;
+                    score = 1f;
                 }
 
                 return score;
             }
 
-            if (target.id.owner.Equals(OwnerEnum.Player))
+            if (id.owner.Equals(OwnerEnum.Player))
             {
-                var skillScore = target.card.skill != "" ? 3 : 0;
-                score = (target.card.AtkNow + 1 + skillScore) / -estimate / 20;
-                if (target.card.Freeze > 0 || target.card.innateSkills.Delay > 0)
+                var skillScore = card.skill != "" ? 3 : 0;
+                score = (card.AtkNow + 1f + skillScore) / -estimate / 20f;
+                if (card.Freeze > 0 || card.innateSkills.Delay > 0)
                 {
-                    score = 0;
+                    score = 0f;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.skill is "holy light" && (target.card.costElement is Element.Death or Element.Darkness))
+                if (BattleVars.Shared.AbilityCardOrigin.skill is "holylight" && (card.costElement is Element.Death or Element.Darkness))
                 {
-                    score = (target.card.AtkNow + 1 + skillScore) / estimate;
+                    score = (card.AtkNow + 1f + skillScore) / estimate;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.skill is "reverse time" && (target.card.innateSkills.Mummy || target.card.innateSkills.Undead))
+                if (BattleVars.Shared.AbilityCardOrigin.skill is "reversetime" && (card.innateSkills.Mummy || card.innateSkills.Undead))
                 {
-                    score = 0;
+                    score = 0f;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.skill is "reverse time" && target.card.innateSkills.Voodoo && target.card.DefNow > 25)
+                if (BattleVars.Shared.AbilityCardOrigin.skill is "reversetime" && card.innateSkills.Voodoo && card.DefNow > 25)
                 {
-                    score = target.card.DefNow / 25;
+                    score = card.DefNow / 25f;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.skill is "shockwave" && target.card.Freeze > 0)
+                if (BattleVars.Shared.AbilityCardOrigin.skill is "shockwave" && card.Freeze > 0)
                 {
-                    score = 1;
+                    score = 1f;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.skill is "web" && target.card.innateSkills.Airborne)
+                if (BattleVars.Shared.AbilityCardOrigin.skill is "web" && card.innateSkills.Airborne)
                 {
-                    score = 0;
+                    score = 0f;
                 }
 
                 return score;

@@ -25,21 +25,19 @@ public class SkillManager : MonoBehaviour
 
     public bool ShouldAskForTarget(Card card)
     {
-        var ability = card.skill.GetSkillScript<AbilityEffect>();
+        var ability = card.skill.GetSkillScript<ActivatedAbility>();
         return ability.NeedsTarget();
     }
 
     private void SetupTargetHighlights(SetupAbilityTargetsEvent setupAbilityTargetsEvent)
     {
-        var ability = setupAbilityTargetsEvent.AbilityCard.skill.GetSkillScript<AbilityEffect>();
-        ability.Owner = setupAbilityTargetsEvent.AbilityOwner;
-        ability.Origin = setupAbilityTargetsEvent.AbilityCard;
-        EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(ability.IsCardValid));
+        var ability = setupAbilityTargetsEvent.AbilityCard.skill.GetSkillScript<ActivatedAbility>();
+        EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(ability.IsCardValid, setupAbilityTargetsEvent.ShouldHideGraphic));
     }
     
-    public void SkillRoutineNoTarget(PlayerManager owner, ID id, Card card)
+    public async void SkillRoutineNoTarget(PlayerManager owner, ID id, Card card)
     {
-        var ability = card.skill.GetSkillScript<AbilityEffect>();
+        var ability = card.skill.GetSkillScript<ActivatedAbility>();
         if (card.cardType.Equals(CardType.Spell))
         {
             EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(owner.Owner.Equals(OwnerEnum.Player), card, null, null));
@@ -48,7 +46,11 @@ public class SkillManager : MonoBehaviour
         {
             EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(owner.Owner.Equals(OwnerEnum.Player), card, null, null));
         }
-        ability.Owner = owner;
-        ability.Activate(id, card);
+        EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(ability.IsCardValid, true));
+        await new WaitForSeconds(2f);
+        foreach (var target in DuelManager.Instance.ValidTargets)
+        {
+            EventBus<ActivateAbilityEffectEvent>.Raise(new ActivateAbilityEffectEvent(ability.Activate, target.Key));
+        }
     }
 }

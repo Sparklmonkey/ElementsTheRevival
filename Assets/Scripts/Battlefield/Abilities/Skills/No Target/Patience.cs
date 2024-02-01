@@ -1,18 +1,11 @@
 using System.Collections.Generic;
 
-public class Patience : AbilityEffect
+public class Patience : ActivatedAbility
 {
     public override bool NeedsTarget() => false;
-    public override bool IsCardValid(ID id, Card card) => false;
-
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
     }
-
-    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
-
-    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
-    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

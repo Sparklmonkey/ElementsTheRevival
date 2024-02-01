@@ -292,7 +292,6 @@
     <Compile Include="Assets\NetworkPlayerTest.cs" />
     <Compile Include="Assets\Scripts\ServicesSpinner.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\DeadAlive.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\AbilityEffect.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Ablaze.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shieldwings.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Visual\MovingText.cs" />

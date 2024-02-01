@@ -6,12 +6,12 @@ public class TargetingAi
     {
         var possibleTargets = DuelManager.Instance.ValidTargets.ConvertToTuple();
         (ID id, Card card) bestTarget = default;
-        var topScore = 0;
+        var topScore = 0f;
 
 
         foreach (var target in possibleTargets)
         {
-            var score = 0;
+            var score = 0f;
             switch (aiTargetType.Targeting)
             {
                 case TargetType.Smaller:

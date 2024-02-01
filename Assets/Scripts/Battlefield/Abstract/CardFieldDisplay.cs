@@ -50,11 +50,15 @@ namespace Battlefield.Abstract
         private void ShouldShowTarget(ShouldShowTargetableEvent shouldShowTargetableEvent)
         {
             if (this == null) return;
+            if (Id.field.Equals(FieldEnum.Hand)) return;
             validTargetGlow.SetActive(false);
             if (shouldShowTargetableEvent.IsCardValidTarget is null) return;
             var isValid = shouldShowTargetableEvent.IsCardValidTarget(Id, Card);
             if (!isValid) return;
-            validTargetGlow.SetActive(true);
+            if (!shouldShowTargetableEvent.ShouldHideGraphic)
+            {
+                validTargetGlow.SetActive(true);
+            }
             EventBus<AddTargetToListEvent>.Raise(new AddTargetToListEvent(Id, Card));
         }
 

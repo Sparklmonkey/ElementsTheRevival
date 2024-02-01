@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -210,8 +211,14 @@ public class DuelManager : MonoBehaviour
     public int GetCardCount(List<string> cardIds)
     {
         var cardCount = 0;
-        cardCount += Instance.player.playerPermanentManager.GetAllValidCards().FindAll(x => cardIds.Contains(x.iD)).Count;
-        cardCount += Instance.enemy.playerPermanentManager.GetAllValidCards().FindAll(x => cardIds.Contains(x.iD)).Count;
+        if(player.playerPermanentManager.GetAllValidCards().FirstOrDefault(x => cardIds.Contains(x.iD)) is not null)
+        {
+            cardCount += player.playerPermanentManager.GetAllValidCards().FindAll(x => cardIds.Contains(x.iD)).Count;
+        }
+        if(enemy.playerPermanentManager.GetAllValidCards().FirstOrDefault(x => cardIds.Contains(x.iD)) is not null)
+        {
+            cardCount += enemy.playerPermanentManager.GetAllValidCards().FindAll(x => cardIds.Contains(x.iD)).Count;
+        }
         return cardCount;
     }
 

@@ -225,19 +225,10 @@ public class PlayerManager : MonoBehaviour
         EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(9, Element.Other, Owner, true));
     }
 
-    public void TurnDownTick()
-    {
-        playerPassiveManager.PassiveTurnDown();
-
-        playerPermanentManager.PermanentTurnDown();
-
-        playerCreatureField.CreatureTurnDown();
-    }
-
     public void StartTurn()
     {
-        TurnDownTick();
         EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(Owner));
+        EventBus<OnTurnStartEvent>.Raise(new OnTurnStartEvent(Owner));
         DisplayPlayableGlow();
     }
 
@@ -298,23 +289,20 @@ public class PlayerManager : MonoBehaviour
         var abilityCard = BattleVars.Shared.AbilityCardOrigin;
         if (abilityCard is null) return;
         if (!BattleVars.Shared.AbilityIDOrigin.owner.Equals(Owner)) return;
-        var ability = abilityCard.skill.GetSkillScript<AbilityEffect>();
-        
-        if (abilityCard.cardType.Equals(CardType.Spell))
-        {
-            EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, null, null));
-        }
-        else
-        {
-            EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, null, null));
-        }
+        var ability = abilityCard.skill.GetSkillScript<ActivatedAbility>();
         
         if (abilityCard.cardType.Equals(CardType.Spell))
         {
             if (SkillManager.Instance.ShouldAskForTarget(abilityCard))
             {
-                ability.Owner = this;
-                ability.Origin = BattleVars.Shared.AbilityCardOrigin;
+                if (abilityCard.cardType.Equals(CardType.Spell))
+                {
+                    EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
+                }
+                else
+                {
+                    EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
+                }
                 EventBus<ActivateAbilityEffectEvent>.Raise(new ActivateAbilityEffectEvent(ability.Activate, activateSpellOrAbilityEvent.TargetId));
             }
             else
@@ -333,8 +321,14 @@ public class PlayerManager : MonoBehaviour
 
             if (SkillManager.Instance.ShouldAskForTarget(BattleVars.Shared.AbilityCardOrigin))
             {
-                ability.Owner = this;
-                ability.Origin = BattleVars.Shared.AbilityCardOrigin;
+                if (abilityCard.cardType.Equals(CardType.Spell))
+                {
+                    EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
+                }
+                else
+                {
+                    EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
+                }
                 EventBus<ActivateAbilityEffectEvent>.Raise(new ActivateAbilityEffectEvent(ability.Activate, activateSpellOrAbilityEvent.TargetId));
             }
             else

@@ -58,21 +58,5 @@ namespace Elements.Duel.Manager
         }
         
         private readonly List<string> _turnCount = new() { "7n8", "5oo", "61t", "80d" };
-        public void PassiveTurnDown()
-        {
-            // foreach (var idCard in PairList)
-            // {
-            //     if (!idCard.HasCard()) { continue; }
-            //     idCard.cardBehaviour.OnTurnStart();
-            //     if (idCard.card.TurnsInPlay <= 0 && _turnCount.Contains(idCard.card.iD))
-            //     {
-            //         if (idCard.id.index == 2)
-            //         {
-            //             RemoveShield();
-            //         }
-            //     }
-            //     idCard.UpdateCard();
-            // }
-        }
     }
 }

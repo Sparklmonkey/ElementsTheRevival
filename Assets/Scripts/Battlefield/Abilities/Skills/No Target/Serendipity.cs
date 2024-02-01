@@ -1,10 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Serendipity : AbilityEffect
+public class Serendipity : ActivatedAbility
 {
     public override bool NeedsTarget() => false;
-    public override bool IsCardValid(ID id, Card card) => false;
+    public override bool IsCardValid(ID id, Card card)
+    {
+        return id.Equals(
+            new ID(BattleVars.Shared.AbilityIDOrigin.owner, FieldEnum.Player, 0));
+    }
 
     public override void Activate(ID targetId, Card targetCard)
     {
@@ -17,7 +21,7 @@ public class Serendipity : AbilityEffect
             var cardToAdd =
                 CardDatabase.Instance.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd,
                     targetCard.iD.IsUpgraded());
-            EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(Owner.Owner, new(cardToAdd)));
+            EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(targetId.owner, new(cardToAdd)));
             typeToAdd = ExtensionMethods.GetSerendipityWeighted();
             elementToAdd = (Element)Random.Range(0, 12);
 
@@ -28,9 +32,4 @@ public class Serendipity : AbilityEffect
             }
         }
     }
-
-    public override List<(ID, Card)> GetPossibleTargets(PlayerManager enemy) => new List<(ID, Card)>();
-
-    public override (ID, Card) SelectRandomTarget(List<(ID, Card)> possibleTargets) => default;
-    public override TargetPriority GetPriority() => TargetPriority.Any;
 }

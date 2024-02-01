@@ -1,10 +1,12 @@
-﻿using System.Linq;
-using Battlefield.Abilities;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BasicAiTurnLogic : AiTurnBase
 {
     private TargetingAi _targetingAi = new();
+    
     public override void DiscardCard(PlayerManager aiManager)
     {
         if (!aiManager.playerHand.ShouldDiscard()) return;
@@ -21,24 +23,25 @@ public class BasicAiTurnLogic : AiTurnBase
         EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(card.card, card.id));
     }
 
-    public async override void PlaySpellFromHand(PlayerManager aiManager)
+    public override IEnumerator PlaySpellFromHand(PlayerManager aiManager)
     {
         var cardList = aiManager.playerHand.GetPlayableCardsOfType(aiManager.HasSufficientQuanta, CardType.Spell);
-        var spell = cardList.FirstOrDefault();
-        if (spell.Equals(default)) return;
+        var spell = cardList.FirstOrDefault(s => !_skipList.Contains(s.card.skill));
+        if (spell.Equals(default)) yield break;
 
+        BattleVars.Shared.AbilityCardOrigin = spell.Item2;
+        BattleVars.Shared.AbilityIDOrigin = spell.Item1;
         if (SkillManager.Instance.ShouldAskForTarget(spell.card))
         {
-            BattleVars.Shared.AbilityCardOrigin = spell.Item2;
-            BattleVars.Shared.AbilityIDOrigin = spell.Item1;
-            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, spell.card));
-            await new WaitForSeconds(2f);
+            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, spell.card, true));
+            yield return new WaitForSeconds(2f);
             var target = _targetingAi.BestTarget(spell.card.skill.GetAITargetType(), spell.card.skill);
             
             if (target.Equals(default))
             {
+                _skipList.Add(spell.card.skill);
                 DuelManager.Instance.ResetTargeting();
-                return;
+                yield break;
             }
             
             
@@ -54,55 +57,59 @@ public class BasicAiTurnLogic : AiTurnBase
 
     }
 
-    public async override void ActivateCreatureAbility(PlayerManager aiManager)
+    public override IEnumerator ActivateCreatureAbility(PlayerManager aiManager)
     {
-        var creature = aiManager.playerCreatureField.GetAllValidCardIds().Find(c => c.Item2.skill is not null or "" or " " && aiManager.IsAbilityUsable(c.Item2));
-        if (creature.Equals(default)) return;
+        var creature = aiManager.playerCreatureField.GetAllValidCardIds().Find(c => c.Item2.skill is not null or "" or " " 
+            && !_skipList.Contains(c.card.skill) && aiManager.IsAbilityUsable(c.Item2));
+        if (creature.Equals(default)) yield break;
 
+        BattleVars.Shared.AbilityIDOrigin = creature.Item1;
+        BattleVars.Shared.AbilityCardOrigin = creature.Item2;
         if (SkillManager.Instance.ShouldAskForTarget(creature.Item2))
         {
-            BattleVars.Shared.AbilityIDOrigin = creature.Item1;
-            BattleVars.Shared.AbilityCardOrigin = creature.Item2;
-            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, creature.card));
-            await new WaitForSeconds(2f);
+            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, creature.card, true));
+            yield return new WaitForSeconds(2f);
             var target = _targetingAi.BestTarget(creature.card.skill.GetAITargetType(), creature.card.skill);
             if (target.Equals(default))
             {
+                _skipList.Add(creature.card.skill);
                 DuelManager.Instance.ResetTargeting();
-                return;
+                yield break;
             }
 
             creature.Item2.AbilityUsed = true;
             
             EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
-            return;
+            yield break;
         }
         
         creature.Item2.AbilityUsed = true;
         SkillManager.Instance.SkillRoutineNoTarget(aiManager, creature.Item1, creature.Item2);
     }
 
-    public async override void ActivateArtifactAbility(PlayerManager aiManager)
+    public override IEnumerator ActivateArtifactAbility(PlayerManager aiManager)
     {
-        var artifact = aiManager.playerPermanentManager.GetAllValidCardIds().Find(a => a.card.skill is not null or "" or " " && aiManager.IsAbilityUsable(a.card));
-        if (artifact.Equals(default)) return;
+        var artifact = aiManager.playerPermanentManager.GetAllValidCardIds().Find(a => a.card.skill is not null or "" or " " 
+            && !_skipList.Contains(a.card.skill) && aiManager.IsAbilityUsable(a.card));
+        if (artifact.Equals(default))  yield break;
 
+        BattleVars.Shared.AbilityIDOrigin = artifact.id;
+        BattleVars.Shared.AbilityCardOrigin = artifact.card;
         if (SkillManager.Instance.ShouldAskForTarget(artifact.card))
         {
-            BattleVars.Shared.AbilityIDOrigin = artifact.id;
-            BattleVars.Shared.AbilityCardOrigin = artifact.card;
-            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, artifact.card));
-            await new WaitForSeconds(2f);
+            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, artifact.card, true));
+            yield return new WaitForSeconds(2f);
             var target = _targetingAi.BestTarget(artifact.card.skill.GetAITargetType(), artifact.card.skill);
             if (target.Equals(default))
             {
+                _skipList.Add(artifact.card.skill);
                 DuelManager.Instance.ResetTargeting();
-                return;
+                yield break;
             }
 
             artifact.Item2.AbilityUsed = true;
             EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
-            return;
+            yield break;
         }
         
         artifact.card.AbilityUsed = true;
@@ -111,19 +118,28 @@ public class BasicAiTurnLogic : AiTurnBase
     
     public override bool HasCardInHand(PlayerManager aiManager, CardType cardToCheck)
     {
-        return aiManager.playerHand.GetPlayableCardsOfType(aiManager.HasSufficientQuanta, cardToCheck).Count > 0; 
+        var playableCards =  aiManager.playerHand.GetPlayableCardsOfType(aiManager.HasSufficientQuanta, cardToCheck);
+        if (playableCards.Count == 0) return false;
+        if (!cardToCheck.Equals(CardType.Spell)) return true;
+        var reducedList = playableCards.FindAll(s => !_skipList.Contains(s.card.skill));
+        return reducedList.Count > 0;
+
     }
 
     public override bool HasCreatureAbilityToUse(PlayerManager aiManager)
     {
-        var creatureWithSkill = aiManager.playerCreatureField.GetAllValidCardIds().Find(x => x.Item2.skill is not null or "" or " ");
-        return !creatureWithSkill.Equals(default) && aiManager.IsAbilityUsable(creatureWithSkill.Item2);
+        var creatureWithSkillList = aiManager.playerCreatureField.GetAllValidCardIds().FindAll(x => x.Item2.skill is not null or "" or " " 
+            && !_skipList.Contains(x.card.skill));
+        var reducedList = creatureWithSkillList.FindAll(s => aiManager.IsAbilityUsable(s.card));
+        return reducedList.Count > 0;
     }
 
     public override bool HasArtifactAbilityToUse(PlayerManager aiManager)
     {
-        var artifactWithSkill = aiManager.playerPermanentManager.GetAllValidCardIds().Find(x => x.Item2.skill is not null or "" or " ");
-        return !artifactWithSkill.Equals(default) && aiManager.IsAbilityUsable(artifactWithSkill.Item2);
+        var artifactWithSkillList = aiManager.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.Item2.skill is not null or "" or " " 
+            && !_skipList.Contains(x.card.skill));
+        var reducedList = artifactWithSkillList.FindAll(s => aiManager.IsAbilityUsable(s.card));
+        return reducedList.Count > 0;
     }
     
 }
