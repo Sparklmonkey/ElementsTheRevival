@@ -69,7 +69,7 @@ public class DeckDisplayManager : MonoBehaviour
         }
         foreach (var inventoryCard in playerInventory)
         {
-            var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().cardName == inventoryCard.cardName);
+            var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().iD == inventoryCard.iD);
             if (dMCardPrefab != null)
             {
                 dMCardPrefab.AddCard();
@@ -112,7 +112,7 @@ public class DeckDisplayManager : MonoBehaviour
         {
             foreach (var inventoryCard in playerInventory)
             {
-                var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().cardName == inventoryCard.cardName);
+                var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().iD == inventoryCard.iD);
                 if (dMCardPrefab != null)
                 {
                     dMCardPrefab.AddCard();
@@ -138,13 +138,13 @@ public class DeckDisplayManager : MonoBehaviour
 
         if (filter.Equals(Element.Light))
         {
-            filteredList.AddRange(playerInventory.FindAll(x => x.cardName == "Luciferin" || x.cardName == "Luciferase"));
+            filteredList.AddRange(playerInventory.FindAll(x => x.cardName is "Luciferin" or "Luciferase"));
         }
 
         foreach (var inventoryCard in filteredList)
         {
 
-            var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().cardName == inventoryCard.cardName);
+            var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().iD == inventoryCard.iD);
             if (dMCardPrefab != null)
             {
                 dMCardPrefab.AddCard();

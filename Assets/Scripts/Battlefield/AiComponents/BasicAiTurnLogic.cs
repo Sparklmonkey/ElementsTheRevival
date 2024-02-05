@@ -34,7 +34,7 @@ public class BasicAiTurnLogic : AiTurnBase
         if (SkillManager.Instance.ShouldAskForTarget(spell.card))
         {
             EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, spell.card, true));
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
             var target = _targetingAi.BestTarget(spell.card.skill.GetAITargetType(), spell.card.skill);
             
             if (target.Equals(default))
@@ -68,7 +68,7 @@ public class BasicAiTurnLogic : AiTurnBase
         if (SkillManager.Instance.ShouldAskForTarget(creature.Item2))
         {
             EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, creature.card, true));
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
             var target = _targetingAi.BestTarget(creature.card.skill.GetAITargetType(), creature.card.skill);
             if (target.Equals(default))
             {
@@ -98,7 +98,7 @@ public class BasicAiTurnLogic : AiTurnBase
         if (SkillManager.Instance.ShouldAskForTarget(artifact.card))
         {
             EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, artifact.card, true));
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
             var target = _targetingAi.BestTarget(artifact.card.skill.GetAITargetType(), artifact.card.skill);
             if (target.Equals(default))
             {

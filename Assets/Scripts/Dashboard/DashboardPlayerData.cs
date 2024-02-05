@@ -1,3 +1,4 @@
+using System;
 using Networking;
 using TMPro;
 using UnityEngine;
@@ -52,15 +53,9 @@ public class DashboardPlayerData : MonoBehaviour
         electrumCount.text = PlayerData.Shared.electrum.ToString();
         oracleButton.interactable = false;
         falseGobButton.interactable = PlayerData.Shared.currentQuestIndex >= 7;
-        PlayerData.Shared.playedOracleToday = PlayerData.Shared.DayLastOraclePlay >= System.DateTime.Today;
-        if (PlayerPrefs.GetInt("IsGuest") == 1)
-        {
-            oracleButton.interactable = PlayerData.Shared.DayLastOraclePlay < System.DateTime.Today;
-        }
-        else
-        {
-            oracleButton.interactable = !PlayerData.Shared.playedOracleToday;
-        }
+        PlayerData.Shared.playedOracleToday = DateTime.Parse(PlayerData.Shared.oracleLastPlayed).Day == DateTime.Today.Day;
+        
+        oracleButton.interactable = !PlayerData.Shared.playedOracleToday;
         oracleText.text = oracleButton.interactable ? "See what the Oracle has for you today!" : "You cannot visit the Oracle yet";
     }
 }
