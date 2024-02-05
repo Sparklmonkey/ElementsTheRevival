@@ -12,7 +12,7 @@ public class DashAccountManagement : MonoBehaviour
     private Button submitButton;
     [SerializeField]
     private TextMeshProUGUI submitButtonText;
-    [FormerlySerializedAs("error_Animated")] [SerializeField]
+    [SerializeField]
     private ErrorAnimated errorAnimated;
     private GameObject _touchBlocker;
 

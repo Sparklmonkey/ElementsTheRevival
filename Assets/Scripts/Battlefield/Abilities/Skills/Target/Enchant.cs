@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Helpers;
 using UnityEngine;
 
 public class Enchant : ActivatedAbility
@@ -15,7 +16,7 @@ public class Enchant : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        if (id.field.Equals(FieldEnum.Permanent))
+        if (id.IsPermanentField())
         {
             return true;
         }

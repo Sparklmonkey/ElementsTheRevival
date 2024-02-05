@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Helpers;
 using Random = UnityEngine.Random;
 
 namespace Battlefield.Abilities
@@ -50,12 +51,12 @@ namespace Battlefield.Abilities
         {
             var score = 0f;
 
-            if (onlyFoe && target.id.owner.Equals(OwnerEnum.Player))
+            if (onlyFoe && target.id.IsOwnedBy(OwnerEnum.Player))
             {
                 score = estimate / 1f;
             }
 
-            if (onlyFriend && target.id.owner.Equals(OwnerEnum.Opponent))
+            if (onlyFriend && target.id.IsOwnedBy(OwnerEnum.Opponent))
             {
                 score = 2f * estimate / 1f;
             }
@@ -80,7 +81,7 @@ namespace Battlefield.Abilities
         public static float CalculateSmallerScore(this (ID id, Card card) target, float estimate)
         {
             var score = 0f;
-            if (target.id.owner.Equals(OwnerEnum.Opponent))
+            if (target.id.IsOwnedBy(OwnerEnum.Opponent))
             {
                 if (target.card.Poison > 0 ||
                     target.card.AtkNow + target.card.DefNow <= 2 && target.card.skill == "")
@@ -145,19 +146,19 @@ namespace Battlefield.Abilities
         public static float CalculateDefineDefScore(this (ID id, Card card) target, float estimate, bool onlyFriend,
             bool onlyFoe, int defineValue)
         {
-            if (target.id.owner.Equals(OwnerEnum.Opponent) && !onlyFoe)
+            if (target.id.IsOwnedBy(OwnerEnum.Opponent) && !onlyFoe)
             {
                 return estimate * (target.card.DefNow - defineValue + 0f) / defineValue;
             }
 
-            if (target.id.owner.Equals(OwnerEnum.Player) && !onlyFriend)
+            if (target.id.IsOwnedBy(OwnerEnum.Player) && !onlyFriend)
             {
                 return -estimate * 0.1f * (target.card.cost + target.card.AtkNow) *
                              ((target.card.DefNow - defineValue - 1f) /
                               (Math.Abs(target.card.DefNow - defineValue - 1f) + 0.001f));
             }
 
-            if (target.id.owner.Equals(OwnerEnum.Player))
+            if (target.id.IsOwnedBy(OwnerEnum.Player))
             {
                 return -estimate * 0.1f * (target.card.cost + target.card.AtkNow) *
                     (target.card.DefNow - defineValue - 1) / (Math.Abs(target.card.DefNow - defineValue - 1) + 0.001f);
@@ -169,7 +170,7 @@ namespace Battlefield.Abilities
         public static float CalculateDefineAtk(this (ID id, Card card) target, float estimate, bool onlyFoe,
             int defineValue, int defineTolerance)
         {
-            if (target.id.owner.Equals(OwnerEnum.Opponent) && !onlyFoe)
+            if (target.id.IsOwnedBy(OwnerEnum.Opponent) && !onlyFoe)
             {
                 if (target.card.passiveSkills.Adrenaline)
                 {
@@ -189,7 +190,7 @@ namespace Battlefield.Abilities
                 return estimate * (defineTolerance - Math.Abs(defineValue - target.card.AtkNow)) / 10f;
             }
 
-            if (target.id.owner.Equals(OwnerEnum.Player))
+            if (target.id.IsOwnedBy(OwnerEnum.Player))
             {
                 return -estimate * (defineTolerance - Math.Abs(defineValue - target.card.AtkNow)) / 10f;
             }
@@ -199,7 +200,7 @@ namespace Battlefield.Abilities
 
         public static float CalculateFractalScore(this (ID id, Card card) target, float estimate)
         {
-            if (target.id.owner.Equals(OwnerEnum.Opponent))
+            if (target.id.IsOwnedBy(OwnerEnum.Opponent))
             {
                 if (estimate > 0)
                 {
@@ -221,7 +222,7 @@ namespace Battlefield.Abilities
                                  DuelManager.Instance.player.playerHand.GetHandCount() * 5f + 1f);
             }
 
-            if (target.id.owner.Equals(OwnerEnum.Player))
+            if (target.id.IsOwnedBy(OwnerEnum.Player))
             {
                 if (estimate > 0)
                 {
@@ -244,12 +245,12 @@ namespace Battlefield.Abilities
 
         public static float CalculatePermanentScore(this (ID id, Card card) target, float estimate, string skill)
         {
-            if (target.id.owner.Equals(OwnerEnum.Opponent))
+            if (target.id.IsOwnedBy(OwnerEnum.Opponent))
             {
                 return (target.card.cost + 1f) * estimate / 25f - DuelManager.Instance.enemy.playerHand.GetHandCount();
             }
 
-            if (target.id.owner.Equals(OwnerEnum.Player))
+            if (target.id.IsOwnedBy(OwnerEnum.Player))
             {
                 if (target.card.skill == skill) return 0f;
                 if (target.card.skill == "sundial" && skill != "steal")
@@ -282,7 +283,7 @@ namespace Battlefield.Abilities
                 return target.card.atk + skillScore;
             }
 
-            if (target.id.field.Equals(FieldEnum.Creature) &&
+            if (target.id.IsCreatureField() &&
                 CardDatabase.Instance.WeaponIdList.Contains(target.card.iD))
             {
                 return target.card.atk + skillScore;
@@ -301,12 +302,12 @@ namespace Battlefield.Abilities
         {
             var skillScore = target.card.skill != "" ? 3f : 0f;
 
-            if (target.id.owner.Equals(OwnerEnum.Opponent) && !onlyFoe)
+            if (target.id.IsOwnedBy(OwnerEnum.Opponent) && !onlyFoe)
             {
                 return (7f * estimate - (target.card.DefNow + target.card.AtkNow + target.card.cost + skillScore)) / 5f;
             }
 
-            if (target.id.owner.Equals(OwnerEnum.Player) && !onlyFriend)
+            if (target.id.IsOwnedBy(OwnerEnum.Player) && !onlyFriend)
             {
                 return (-8f + (target.card.DefNow + target.card.AtkNow + skillScore)) / 100;
             }
@@ -318,7 +319,7 @@ namespace Battlefield.Abilities
         public static float CalculateAlphaCreatureScore(this (ID id, Card card) target, bool onlyFriend, bool onlyFoe)
         {
             var skillScore = target.card.skill != "" ? 3f : 0f;
-            if (target.id.owner.Equals(OwnerEnum.Opponent) && !onlyFoe)
+            if (target.id.IsOwnedBy(OwnerEnum.Opponent) && !onlyFoe)
             {
                 if (target.card.skill is "devour" or "dejavu" || target.card.DefNow <= 0)
                 {
@@ -343,7 +344,7 @@ namespace Battlefield.Abilities
                 return target.card.AtkNow + skillScore - target.card.Freeze - target.card.innateSkills.Delay / 10f;
             }
 
-            if (target.id.owner.Equals(OwnerEnum.Player) && !onlyFriend)
+            if (target.id.IsOwnedBy(OwnerEnum.Player) && !onlyFriend)
             {
                 if (BattleVars.Shared.AbilityCardOrigin.skill is "paralleluniverse" &&
                     target.card.innateSkills.Chimera)
@@ -359,12 +360,12 @@ namespace Battlefield.Abilities
 
         public static float CalculateCreatureAndPlayerScore(this (ID id, Card card) target, float estimate, bool onlyFriend, bool onlyFoe)
         {
-            if (target.id.owner.Equals(OwnerEnum.Opponent) && target.card is null)
+            if (target.id.IsOwnedBy(OwnerEnum.Opponent) && target.card is null)
             {
                 return estimate * (DuelManager.Instance.enemy.HealthManager.GetMaxHealth() -
                                          DuelManager.Instance.enemy.HealthManager.GetCurrentHealth()) * 0.001f;
             }
-            if (target.id.owner.Equals(OwnerEnum.Player) && target.card is null)
+            if (target.id.IsOwnedBy(OwnerEnum.Player) && target.card is null)
             {
                 var score = -estimate / (DuelManager.Instance.enemy.HealthManager.GetCurrentHealth() * 4f);
                 if (DuelManager.Instance.player.playerPassiveManager.GetShield().Item2.skill is "reflect")
@@ -394,7 +395,7 @@ namespace Battlefield.Abilities
             ID id;
             Card card;
             (id, card) = target;
-            if (id.owner.Equals(OwnerEnum.Opponent))
+            if (id.IsOwnedBy(OwnerEnum.Opponent))
             {
                 if(card.DefNow < card.def)
                 {
@@ -420,7 +421,7 @@ namespace Battlefield.Abilities
                 return score;
             }
 
-            if (id.owner.Equals(OwnerEnum.Player))
+            if (id.IsOwnedBy(OwnerEnum.Player))
             {
                 var skillScore = card.skill != "" ? 3 : 0;
                 score = (card.AtkNow + 1f + skillScore) / -estimate / 20f;

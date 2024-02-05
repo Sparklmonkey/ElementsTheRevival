@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Helpers;
 
 public class Paralleluniverse : ActivatedAbility
 {
@@ -20,7 +21,7 @@ public class Paralleluniverse : ActivatedAbility
             EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, targetId.owner.Not(), targetCard.Poison));
         }
 
-        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(dupe, BattleVars.Shared.AbilityIDOrigin.owner.Equals(OwnerEnum.Player)));
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(dupe, BattleVars.Shared.AbilityIDOrigin.IsOwnedBy(OwnerEnum.Player)));
         EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(BattleVars.Shared.AbilityIDOrigin.owner, dupe));
     }
     public override bool IsCardValid(ID id, Card card)

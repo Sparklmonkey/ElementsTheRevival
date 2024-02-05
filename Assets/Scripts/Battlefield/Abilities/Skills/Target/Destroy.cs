@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Helpers;
 using UnityEngine;
 
 public class Destroy : ActivatedAbility
@@ -14,7 +15,7 @@ public class Destroy : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        if (id.field.Equals(FieldEnum.Permanent) && card.IsTargetable())
+        if (id.IsPermanentField() && card.IsTargetable())
         {
             return true;
         }

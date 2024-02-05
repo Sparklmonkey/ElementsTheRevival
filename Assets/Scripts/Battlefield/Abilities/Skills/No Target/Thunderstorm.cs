@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core.Helpers;
 
 public class Thunderstorm : ActivatedAbility
 {
@@ -7,7 +8,7 @@ public class Thunderstorm : ActivatedAbility
 
     public override bool IsCardValid(ID id, Card card)
     {
-        return !id.owner.Equals(BattleVars.Shared.AbilityIDOrigin.owner) && id.field.Equals(FieldEnum.Creature);
+        return !id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner) && id.IsCreatureField();
     }
 
     public override void Activate(ID targetId, Card targetCard)
