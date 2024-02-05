@@ -295,14 +295,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (SkillManager.Instance.ShouldAskForTarget(abilityCard))
             {
-                if (abilityCard.cardType.Equals(CardType.Spell))
-                {
-                    EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
-                }
-                else
-                {
-                    EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
-                }
+                EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
                 EventBus<ActivateAbilityEffectEvent>.Raise(new ActivateAbilityEffectEvent(ability.Activate, activateSpellOrAbilityEvent.TargetId));
             }
             else
@@ -321,14 +314,7 @@ public class PlayerManager : MonoBehaviour
 
             if (SkillManager.Instance.ShouldAskForTarget(BattleVars.Shared.AbilityCardOrigin))
             {
-                if (abilityCard.cardType.Equals(CardType.Spell))
-                {
-                    EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
-                }
-                else
-                {
-                    EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
-                }
+                EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
                 EventBus<ActivateAbilityEffectEvent>.Raise(new ActivateAbilityEffectEvent(ability.Activate, activateSpellOrAbilityEvent.TargetId));
             }
             else
