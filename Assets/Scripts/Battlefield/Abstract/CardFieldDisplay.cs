@@ -65,22 +65,29 @@ namespace Battlefield.Abstract
         private void ShouldShowUsableGlow(ShouldShowUsableEvent shouldShowUsableEvent)
         {
             if (this == null) return;
-            if (!shouldShowUsableEvent.Owner.Equals(Id.owner)) return;
+            if (isUsableGlow == null) return;
 
-            if (Id.field.Equals(FieldEnum.Hand))
+            if (!shouldShowUsableEvent.Owner.Equals(Id.owner))
             {
-                if (isUsableGlow is null) return;
-                isUsableGlow.SetActive(shouldShowUsableEvent.QuantaCheck(Card.costElement, Card.cost));
+                isUsableGlow.SetActive(false);
                 return;
             }
-            if (Card.skill == "") return;
-            isUsableGlow.SetActive(shouldShowUsableEvent.QuantaCheck(Card.skillElement, Card.skillCost));
+
+            switch (Id.field)
+            {
+                case FieldEnum.Hand:
+                    isUsableGlow.SetActive(shouldShowUsableEvent.QuantaCheck(Card.costElement, Card.cost));
+                    return;
+                default:
+                    isUsableGlow.SetActive(Card.IsAbilityUsable(shouldShowUsableEvent.QuantaCheck, shouldShowUsableEvent.HandCount));
+                    return;
+            }
         }
         
         private void HideUsableGlow(HideUsableDisplayEvent hideUsableDisplayEvent)
         {
             if (this == null) return;
-            validTargetGlow.SetActive(false);
+            isUsableGlow.SetActive(false);
         }
         
         private void ActivateAbilityEffect(ActivateAbilityEffectEvent activateAbilityEffectEvent)
