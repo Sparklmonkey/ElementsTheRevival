@@ -1,3 +1,4 @@
+using Elements.Duel.Manager;
 using System;
 using System.Collections.Generic;
 
@@ -91,6 +92,19 @@ public class Card
             return card;
         }
         return this;
+    }
+
+    public bool IsAbilityUsable(QuantaCheck quantaCheck, int handCount)
+    {
+        if (skill is "" or "none" or null or " ") return false;
+        if (AbilityUsed) return false;
+        if (innateSkills.Delay > 0) return false;
+        if (Freeze > 0) return false;
+        if (cardType is CardType.Shield or CardType.Pillar or CardType.Mark) return false;
+        if (!quantaCheck(skillElement, skillCost)) return false;
+        if (skill.Contains("hasten") && handCount >= 8) return false;
+
+        return true;
     }
 }
 

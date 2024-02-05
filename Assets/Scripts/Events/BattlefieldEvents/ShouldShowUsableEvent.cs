@@ -4,11 +4,13 @@ public struct ShouldShowUsableEvent : IEvent
 {
     public QuantaCheck QuantaCheck;
     public OwnerEnum Owner;
+    public int HandCount;
     
-    public ShouldShowUsableEvent(QuantaCheck quantaCheck, OwnerEnum owner)
+    public ShouldShowUsableEvent(QuantaCheck quantaCheck, OwnerEnum owner, int handCount)
     {
         QuantaCheck = quantaCheck;
         Owner = owner;
+        HandCount = handCount;
     }
 }
 

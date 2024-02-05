@@ -363,17 +363,7 @@ public class PlayerManager : MonoBehaviour
 
     public bool IsAbilityUsable(Card card)
     {
-        if (card.skill is "" or "none" or null or " ") { return false; }
-        if (card.AbilityUsed) { return false; }
-        if (card.innateSkills.Delay > 0) { return false; }
-        if (card.Freeze > 0) { return false; }
-        if (card.cardType is CardType.Shield or CardType.Pillar or CardType.Mark) { return false; }
-        
-        var canAfford = PlayerQuantaManager.HasEnoughQuanta(card.skillElement, card.skillCost);
-        if (canAfford && !SkillManager.Instance.ShouldAskForTarget(card)) { return true; }
-
-        if (!card.skill.Contains("hasten")) return canAfford;
-        return playerHand.GetHandCount() < 8 && canAfford;
+        return card.IsAbilityUsable(HasSufficientQuanta, playerHand.GetHandCount());
     }
 
     //Command Methods
@@ -438,7 +428,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (Owner.Equals(OwnerEnum.Opponent)) { return; }
         EventBus<HideUsableDisplayEvent>.Raise(new HideUsableDisplayEvent());
-        EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(HasSufficientQuanta, Owner));
+        EventBus<ShouldShowUsableEvent>.Raise(new ShouldShowUsableEvent(HasSufficientQuanta, Owner, playerHand.GetHandCount()));
     }
 
     public void ActivateCloakEffect(Transform objectTransform)
@@ -667,6 +657,8 @@ public class PlayerManager : MonoBehaviour
 
             ProcessAbilityCard(targetId, targetCard);
         }
+
+        DisplayPlayableGlow();
     }
 
     private void ProcessAbilityCard(ID id, Card card)
