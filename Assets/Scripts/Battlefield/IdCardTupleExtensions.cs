@@ -133,7 +133,6 @@ public static class IdCardTupleExtensions
         {
             cardPair.card.Charge--;
             cardPair.card.AtkModify--;
-            cardPair.card.DefModify--;
 
         }
         if (cardPair.card.innateSkills.Delay > 0)
