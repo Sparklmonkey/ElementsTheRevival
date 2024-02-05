@@ -1,5 +1,6 @@
 using System;
 using Battlefield.Abstract;
+using Core.Helpers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,7 +37,7 @@ public class HandCardDisplay : CardFieldDisplay
         SetCard(updateCardDisplayEvent.Card);
         isHidden.color = ElementColours.GetInvisibleColor();
         cardHolder.SetActive(true);
-        if (Id.owner.Equals(OwnerEnum.Opponent))
+        if (Id.IsOwnedBy(OwnerEnum.Opponent))
         {
             isHidden.color = ElementColours.GetWhiteColor();
             cardHolder.SetActive(false);

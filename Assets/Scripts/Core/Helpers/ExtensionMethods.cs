@@ -117,11 +117,6 @@ public static class ExtensionMethods
         }
         return sortedList;
     }
-    
-    public static bool IsFromHand(this ID id)
-    {
-        return id.field.Equals(FieldEnum.Hand);
-    }
 
     [ThreadStatic] private static System.Random _local;
 

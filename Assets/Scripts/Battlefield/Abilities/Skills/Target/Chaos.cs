@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Helpers;
 using UnityEngine;
 
 public class Chaos : ActivatedAbility
@@ -42,7 +43,7 @@ public class Chaos : ActivatedAbility
                 break;
             case 4:
             case 5:
-                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(new(targetCard), targetId.owner.Equals(OwnerEnum.Player)));
+                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(new(targetCard), targetId.IsOwnedBy(OwnerEnum.Player)));
                 EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, new(targetCard)));
                 break;
             case 6:
@@ -52,7 +53,7 @@ public class Chaos : ActivatedAbility
                 break;
             case 7:
                 Card cardToPlay = new(targetCard);
-                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(cardToPlay, targetId.owner.Equals(OwnerEnum.Player)));
+                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(cardToPlay, targetId.IsOwnedBy(OwnerEnum.Player)));
                 EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, cardToPlay));
                 EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "Steal", Element.Other));
                 EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Helpers;
 
 public class Queen : ActivatedAbility
 {
@@ -11,7 +12,7 @@ public class Queen : ActivatedAbility
             ? CardDatabase.Instance.GetCardFromId("7n4")
             : CardDatabase.Instance.GetCardFromId("5ok");
         
-        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.owner.Equals(OwnerEnum.Player)));
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.IsOwnedBy(OwnerEnum.Player)));
         EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, card));
     }
 }

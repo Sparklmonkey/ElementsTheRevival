@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Helpers;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -86,12 +87,12 @@ public class DuelManager : MonoBehaviour
 
     public PlayerManager GetIDOwner(ID iD)
     {
-        return iD.owner.Equals(OwnerEnum.Player) ? player : enemy;
+        return iD.IsOwnedBy(OwnerEnum.Player) ? player : enemy;
     }
 
     public PlayerManager GetNotIDOwner(ID iD)
     {
-        return iD.owner.Equals(OwnerEnum.Player) ? enemy : player;
+        return iD.IsOwnedBy(OwnerEnum.Player) ? enemy : player;
     }
 
     public bool allPlayersSetup;
@@ -265,7 +266,7 @@ public class DuelManager : MonoBehaviour
 
     private bool HandleOpponentCardTapped(CardTappedEvent cardTappedEvent)
     {
-        if (!cardTappedEvent.TappedId.owner.Equals(OwnerEnum.Opponent)) return false;
+        if (!cardTappedEvent.TappedId.IsOwnedBy(OwnerEnum.Opponent)) return false;
         if (cardTappedEvent.TappedId.field.Equals(FieldEnum.Hand)) return true; 
 
         if (enemy.playerCounters.invisibility > 0 && !enemy.cloakIndex.Contains(cardTappedEvent.TappedId)) return true;

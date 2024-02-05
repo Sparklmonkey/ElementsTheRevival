@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Helpers;
 using UnityEngine;
 
 public class Icebolt : ActivatedAbility
@@ -34,7 +35,7 @@ public class Icebolt : ActivatedAbility
     {
         if (card is null)
         {
-            return id.field.Equals(FieldEnum.Player);
+            return id.IsPlayerField();
         }
         return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
     }

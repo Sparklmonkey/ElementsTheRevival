@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Battlefield.Abstract;
+using Core.Helpers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,7 +53,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         SetCard(updatePermanentCardEvent.Card);
 
         immaterialIndicator.SetActive(updatePermanentCardEvent.Card.innateSkills.Immaterial);
-        var isPlayer = Id.owner.Equals(OwnerEnum.Player);
+        var isPlayer = Id.IsOwnedBy(OwnerEnum.Player);
         if (updatePermanentCardEvent.Card.cardName.Contains("Pendulum"))
         {
             var pendulumElement = updatePermanentCardEvent.Card.costElement;
@@ -231,7 +232,7 @@ public class PermanentCardDisplay : CardFieldDisplay
 
         if (!Card.innateSkills.Boneyard) return;
         var card = CardDatabase.Instance.GetCardFromId(Card.iD.IsUpgraded() ? "716" : "52m");
-        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, Id.owner.Equals(OwnerEnum.Player)));
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, Id.IsOwnedBy(OwnerEnum.Player)));
         EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(Id.owner, card));
     }
     
@@ -240,7 +241,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         if (Card.cardName.Contains("Pendulum"))
         {
             EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(StackCountValue, Card.skillElement, Id.owner, true));
-            if (Id.owner.Equals(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
+            if (Id.IsOwnedBy(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
             {
                 EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "QuantaGenerate", Card.costElement));
             }
@@ -251,7 +252,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         {
             EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(Card.costElement == Element.Other ? 3 * StackCountValue : StackCountValue, Card.costElement, Id.owner, true));
             
-            if (Id.owner.Equals(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
+            if (Id.IsOwnedBy(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
             {
                 EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "QuantaGenerate", Card.costElement));
             }

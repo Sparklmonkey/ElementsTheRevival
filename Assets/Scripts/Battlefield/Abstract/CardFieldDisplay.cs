@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Core.Helpers;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -15,8 +16,25 @@ namespace Battlefield.Abstract
         {
             Id = newId;
             fieldObjectAnimation.SetupId(newId);
+            RegisterEvents();
         }
 
+        private void RegisterEvents()
+        {
+            if (!Id.IsFromHand())
+            {
+                _shouldShowTargetableBinding = new EventBinding<ShouldShowTargetableEvent>(ShouldShowTarget);
+                EventBus<ShouldShowTargetableEvent>.Register(_shouldShowTargetableBinding);
+                _activateAbilityEffectBinding = new EventBinding<ActivateAbilityEffectEvent>(ActivateAbilityEffect);
+                EventBus<ActivateAbilityEffectEvent>.Register(_activateAbilityEffectBinding);
+            }
+
+            if (Id.IsOwnedBy(OwnerEnum.Opponent)) return;
+            _shouldShowUsableBinding = new EventBinding<ShouldShowUsableEvent>(ShouldShowUsableGlow);
+            EventBus<ShouldShowUsableEvent>.Register(_shouldShowUsableBinding);
+            _hideUsableDisplayBinding = new EventBinding<HideUsableDisplayEvent>(HideUsableGlow);
+            EventBus<HideUsableDisplayEvent>.Register(_hideUsableDisplayBinding);
+        }
         protected void SetCard(Card card) => Card = card;
     
         private EventBinding<ShouldShowTargetableEvent> _shouldShowTargetableBinding;
@@ -34,15 +52,6 @@ namespace Battlefield.Abstract
 
         private void Awake()
         {
-            _shouldShowTargetableBinding = new EventBinding<ShouldShowTargetableEvent>(ShouldShowTarget);
-            EventBus<ShouldShowTargetableEvent>.Register(_shouldShowTargetableBinding);
-            _shouldShowUsableBinding = new EventBinding<ShouldShowUsableEvent>(ShouldShowUsableGlow);
-            EventBus<ShouldShowUsableEvent>.Register(_shouldShowUsableBinding);
-            _hideUsableDisplayBinding = new EventBinding<HideUsableDisplayEvent>(HideUsableGlow);
-            EventBus<HideUsableDisplayEvent>.Register(_hideUsableDisplayBinding);
-            _activateAbilityEffectBinding = new EventBinding<ActivateAbilityEffectEvent>(ActivateAbilityEffect);
-            EventBus<ActivateAbilityEffectEvent>.Register(_activateAbilityEffectBinding);
-            
             isUsableGlow.SetActive(false);
             validTargetGlow.SetActive(false);
         }
@@ -104,7 +113,7 @@ namespace Battlefield.Abstract
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (Id.field.Equals(FieldEnum.Hand) && Id.owner.Equals(OwnerEnum.Opponent)) return;
+            if (Id.field.Equals(FieldEnum.Hand) && Id.IsOwnedBy(OwnerEnum.Opponent)) return;
             if (Card.iD is "4t1" or "4t2") return;
             var rectTransform = GetComponent<RectTransform>();
             Vector2 objectSize = new(rectTransform.rect.height, rectTransform.rect.width);

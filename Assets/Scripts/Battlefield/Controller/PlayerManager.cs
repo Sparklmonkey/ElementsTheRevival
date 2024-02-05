@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -288,7 +289,7 @@ public class PlayerManager : MonoBehaviour
     {
         var abilityCard = BattleVars.Shared.AbilityCardOrigin;
         if (abilityCard is null) return;
-        if (!BattleVars.Shared.AbilityIDOrigin.owner.Equals(Owner)) return;
+        if (!BattleVars.Shared.AbilityIDOrigin.IsOwnedBy(Owner)) return;
         var ability = abilityCard.skill.GetSkillScript<ActivatedAbility>();
         
         if (abilityCard.cardType.Equals(CardType.Spell))
@@ -370,7 +371,7 @@ public class PlayerManager : MonoBehaviour
     
     private void PlayCardFromHand(PlayCardFromHandEvent playCardFromHandEvent)
     {
-        if (!playCardFromHandEvent.Id.owner.Equals(Owner)) return;
+        if (!playCardFromHandEvent.Id.IsOwnedBy(Owner)) return;
         
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CardPlay"));
         if (playerCounters.neurotoxin > 0)
@@ -380,7 +381,7 @@ public class PlayerManager : MonoBehaviour
         
         if (!playCardFromHandEvent.CardToPlay.cardType.Equals(CardType.Spell))
         {
-            EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(playCardFromHandEvent.CardToPlay, playCardFromHandEvent.Id.owner.Equals(OwnerEnum.Player)));
+            EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(playCardFromHandEvent.CardToPlay, playCardFromHandEvent.Id.IsOwnedBy(OwnerEnum.Player)));
             
             
             switch (playCardFromHandEvent.CardToPlay.cardType)

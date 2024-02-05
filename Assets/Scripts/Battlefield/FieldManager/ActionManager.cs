@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Helpers;
 
 public class ActionManager
 {
@@ -46,7 +47,7 @@ public class ActionManager
         var targetId = "";
         if (addSpellActivatedActionEvent.TargetId != null)
         {
-            shouldShowArrow = addSpellActivatedActionEvent.TargetCard is not null || addSpellActivatedActionEvent.TargetId.field.Equals(FieldEnum.Player);
+            shouldShowArrow = addSpellActivatedActionEvent.TargetCard is not null || addSpellActivatedActionEvent.TargetId.IsPlayerField();
             targetId = addSpellActivatedActionEvent.TargetCard is not null ? addSpellActivatedActionEvent.TargetCard.imageID : "";
         }
         ElementAction action = new(owner, "Played Spell", addSpellActivatedActionEvent.Spell.imageID, targetId, shouldShowArrow);
@@ -61,7 +62,7 @@ public class ActionManager
         var targetId = "";
         if (addAbilityActivatedActionEvent.TargetId is not null)
         {
-            shouldShowArrow = addAbilityActivatedActionEvent.TargetCard is not null || addAbilityActivatedActionEvent.TargetId.field.Equals(FieldEnum.Player);
+            shouldShowArrow = addAbilityActivatedActionEvent.TargetCard is not null || addAbilityActivatedActionEvent.TargetId.IsPlayerField();
             targetId = addAbilityActivatedActionEvent.TargetCard is not null ? addAbilityActivatedActionEvent.TargetCard.imageID : "";
         }
         ElementAction action = new(owner, "Activated Ability", addAbilityActivatedActionEvent.AbilityOwner.imageID, targetId, shouldShowArrow);
