@@ -137,13 +137,22 @@ public class PassiveCardDisplay : CardFieldDisplay
             case "5oo":
                 Card.TurnsInPlay--;
                 turnsInPlay.text = Card.TurnsInPlay.ToString();
+                if (Card.TurnsInPlay <= 0)
+                {
+                    HideCard(new ClearCardDisplayEvent(Id));
+                }
                 break;
             case "61t":
             case "80d":
                 Card.TurnsInPlay--;
                 turnsInPlay.text = Card.TurnsInPlay.ToString();
+                if (Card.TurnsInPlay <= 0)
+                {
+                    HideCard(new ClearCardDisplayEvent(Id));
+                }
                 break;
         }
+
     }
 
     private void DeathTrigger(OnDeathTriggerEvent onDeathTriggerEvent)

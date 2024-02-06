@@ -73,7 +73,7 @@ public class InventoryManager : MonoBehaviour
         cardList.Sort((x, y) => string.Compare(x.iD, y.iD));
         foreach (var card in cardList)
         {
-            var dMCard = _dMCards.Find(x => x.GetCard().cardName == card.cardName);
+            var dMCard = _dMCards.Find(x => x.GetCard().iD == card.iD);
             if (dMCard is not null)
             {
                 dMCard.AddCard();
