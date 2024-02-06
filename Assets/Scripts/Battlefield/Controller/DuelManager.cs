@@ -246,7 +246,26 @@ public class DuelManager : MonoBehaviour
         if (PlayerPrefs.GetInt("QuickPlay") == 0)
         {
             player.QuickPlay(cardTappedEvent.TappedId, cardTappedEvent.TappedCard);
-            return;
+            if (cardTappedEvent.TappedId.IsFromHand() && !cardTappedEvent.TappedCard.cardType.Equals(CardType.Spell))
+            {
+                EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(cardTappedEvent.TappedCard, cardTappedEvent.TappedId));
+                return;
+            }
+            
+            if (player.IsCardPlayable(cardTappedEvent.TappedCard))
+            {
+                if (!SkillManager.Instance.ShouldAskForTarget(cardTappedEvent.TappedCard))
+                {
+                    BattleVars.Shared.AbilityIDOrigin = cardTappedEvent.TappedId;
+                    BattleVars.Shared.AbilityCardOrigin = cardTappedEvent.TappedCard;
+                    EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard));
+                }
+                else
+                {
+                    BattleVars.Shared.IsSelectingTarget = true;
+                    EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(Instance.player, cardTappedEvent.TappedCard));
+                }
+            }
         }
 
         EventBus<SetupCardDisplayEvent>.Raise(new SetupCardDisplayEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard, player.IsCardPlayable(cardTappedEvent.TappedCard)));

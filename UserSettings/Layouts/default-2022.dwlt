@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12004, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_PixelRect:
     serializedVersion: 2
     x: 0
@@ -34,8 +34,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12008, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Children:
   - {fileID: 3}
   - {fileID: 5}
@@ -62,8 +62,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12011, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Children: []
   m_Position:
     serializedVersion: 2
@@ -73,7 +73,7 @@ MonoBehaviour:
     height: 30
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
-  m_LastLoadedLayoutName: 
+  m_LastLoadedLayoutName:
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -84,8 +84,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12042, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Children: []
   m_Position:
     serializedVersion: 2
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Children:
   - {fileID: 6}
   - {fileID: 9}
@@ -131,8 +131,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Children:
   - {fileID: 7}
   - {fileID: 8}
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: SceneView
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   m_Children: []
   m_Position:
     serializedVersion: 2
@@ -165,8 +165,8 @@ MonoBehaviour:
     y: 0
     width: 1107
     height: 425
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: ConsoleWindow
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   m_Children: []
   m_Position:
     serializedVersion: 2
@@ -212,8 +212,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Children:
   - {fileID: 10}
   - {fileID: 11}
@@ -237,8 +237,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Children: []
   m_Position:
     serializedVersion: 2
@@ -246,8 +246,8 @@ MonoBehaviour:
     y: 0
     width: 351
     height: 410
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: ProjectBrowser
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   m_Children: []
   m_Position:
     serializedVersion: 2
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: InspectorWindow
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   m_Children: []
   m_Position:
     serializedVersion: 2
@@ -316,14 +316,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12071, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Animation
     m_Image: {fileID: -8166618308981325432, guid: 0000000000000000d000000000000000, type: 0}
-    m_Tooltip: 
+    m_Tooltip:
   m_Pos:
     serializedVersion: 2
     x: 0
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
-    m_SupportedDataModes: 
+    m_SupportedDataModes:
     isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -353,14 +353,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12914, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Animator
     m_Image: {fileID: -1673928668082335149, guid: 0000000000000000d000000000000000, type: 0}
-    m_Tooltip: 
+    m_Tooltip:
   m_Pos:
     serializedVersion: 2
     x: 0
@@ -370,7 +370,7 @@ MonoBehaviour:
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
-    m_SupportedDataModes: 
+    m_SupportedDataModes:
     isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -423,14 +423,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12070, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_MinSize: {x: 900, y: 216}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Profiler
     m_Image: {fileID: -1089619856830078684, guid: 0000000000000000d000000000000000, type: 0}
-    m_Tooltip: 
+    m_Tooltip:
   m_Pos:
     serializedVersion: 2
     x: 0
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
-    m_SupportedDataModes: 
+    m_SupportedDataModes:
     isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -448,7 +448,7 @@ MonoBehaviour:
     m_SaveData: []
     m_OverlaysVisible: 1
   m_Recording: 1
-  m_ActiveNativePlatformSupportModuleName: 
+  m_ActiveNativePlatformSupportModuleName:
   m_AllModules:
   - rid: 9207849178452459520
   - rid: 9207849178452459521
@@ -484,13 +484,13 @@ MonoBehaviour:
           m_Serialized: 0
           m_TreeViewState:
             scrollPos: {x: 0, y: 0}
-            m_SelectedIDs: 
+            m_SelectedIDs:
             m_LastClickedID: 0
-            m_ExpandedIDs: 
+            m_ExpandedIDs:
             m_RenameOverlay:
               m_UserAcceptedRename: 0
-              m_Name: 
-              m_OriginalName: 
+              m_Name:
+              m_OriginalName:
               m_EditFieldRect:
                 serializedVersion: 2
                 x: 0
@@ -503,11 +503,11 @@ MonoBehaviour:
               m_OriginalEventType: 11
               m_IsRenamingFilename: 0
               m_ClientGUIView: {fileID: 0}
-            m_SearchString: 
+            m_SearchString:
           m_MultiColumnHeaderState:
             m_Columns: []
-            m_VisibleColumns: 
-            m_SortedColumns: 
+            m_VisibleColumns:
+            m_SortedColumns:
           m_ThreadIndexInThreadNames: 0
           m_DetailedViewType: 0
           m_DetailedViewSpliterState:
@@ -522,21 +522,21 @@ MonoBehaviour:
             splitSize: 0
             xOffset: 0
             m_Version: 1
-            oldRealSizes: 
-            oldMinSizes: 
-            oldMaxSizes: 
+            oldRealSizes:
+            oldMinSizes:
+            oldMaxSizes:
             oldSplitSize: 0
           m_DetailedObjectsView:
             m_SelectedID: 0
             m_TreeViewState:
               scrollPos: {x: 0, y: 0}
-              m_SelectedIDs: 
+              m_SelectedIDs:
               m_LastClickedID: 0
-              m_ExpandedIDs: 
+              m_ExpandedIDs:
               m_RenameOverlay:
                 m_UserAcceptedRename: 0
-                m_Name: 
-                m_OriginalName: 
+                m_Name:
+                m_OriginalName:
                 m_EditFieldRect:
                   serializedVersion: 2
                   x: 0
@@ -549,11 +549,11 @@ MonoBehaviour:
                 m_OriginalEventType: 11
                 m_IsRenamingFilename: 0
                 m_ClientGUIView: {fileID: 0}
-              m_SearchString: 
+              m_SearchString:
             m_MultiColumnHeaderState:
               m_Columns: []
-              m_VisibleColumns: 
-              m_SortedColumns: 
+              m_VisibleColumns:
+              m_SortedColumns:
             m_VertSplit:
               ID: 0
               splitterInitialOffset: 0
@@ -566,9 +566,9 @@ MonoBehaviour:
               splitSize: 0
               xOffset: 0
               m_Version: 1
-              oldRealSizes: 
-              oldMinSizes: 
-              oldMaxSizes: 
+              oldRealSizes:
+              oldMinSizes:
+              oldMaxSizes:
               oldSplitSize: 0
           m_DetailedCallsView:
             m_SelectedID: -1
@@ -584,20 +584,20 @@ MonoBehaviour:
               splitSize: 0
               xOffset: 0
               m_Version: 1
-              oldRealSizes: 
-              oldMinSizes: 
-              oldMaxSizes: 
+              oldRealSizes:
+              oldMinSizes:
+              oldMaxSizes:
               oldSplitSize: 0
             m_CalleesTreeView:
               m_ViewState:
                 scrollPos: {x: 0, y: 0}
-                m_SelectedIDs: 
+                m_SelectedIDs:
                 m_LastClickedID: 0
-                m_ExpandedIDs: 
+                m_ExpandedIDs:
                 m_RenameOverlay:
                   m_UserAcceptedRename: 0
-                  m_Name: 
-                  m_OriginalName: 
+                  m_Name:
+                  m_OriginalName:
                   m_EditFieldRect:
                     serializedVersion: 2
                     x: 0
@@ -610,7 +610,7 @@ MonoBehaviour:
                   m_OriginalEventType: 11
                   m_IsRenamingFilename: 0
                   m_ClientGUIView: {fileID: 0}
-                m_SearchString: 
+                m_SearchString:
               m_ViewHeaderState:
                 m_Columns:
                 - width: 150
@@ -623,7 +623,7 @@ MonoBehaviour:
 
                       (Press
                       ''F'' for frame selection)'
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 150
@@ -638,7 +638,7 @@ MonoBehaviour:
                     m_Text: Calls
                     m_Image: {fileID: 0}
                     m_Tooltip: Total number of calls in a selected frame
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -652,8 +652,8 @@ MonoBehaviour:
                   headerContent:
                     m_Text: GC Alloc
                     m_Image: {fileID: 0}
-                    m_Tooltip: 
-                  contextMenuText: 
+                    m_Tooltip:
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -668,7 +668,7 @@ MonoBehaviour:
                     m_Text: Time ms
                     m_Image: {fileID: 0}
                     m_Tooltip: Total time the selected function spends within a parent
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -684,7 +684,7 @@ MonoBehaviour:
                     m_Image: {fileID: 0}
                     m_Tooltip: Shows how often the selected function was called from
                       the parent call
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -698,13 +698,13 @@ MonoBehaviour:
             m_CallersTreeView:
               m_ViewState:
                 scrollPos: {x: 0, y: 0}
-                m_SelectedIDs: 
+                m_SelectedIDs:
                 m_LastClickedID: 0
-                m_ExpandedIDs: 
+                m_ExpandedIDs:
                 m_RenameOverlay:
                   m_UserAcceptedRename: 0
-                  m_Name: 
-                  m_OriginalName: 
+                  m_Name:
+                  m_OriginalName:
                   m_EditFieldRect:
                     serializedVersion: 2
                     x: 0
@@ -717,7 +717,7 @@ MonoBehaviour:
                   m_OriginalEventType: 11
                   m_IsRenamingFilename: 0
                   m_ClientGUIView: {fileID: 0}
-                m_SearchString: 
+                m_SearchString:
               m_ViewHeaderState:
                 m_Columns:
                 - width: 150
@@ -730,7 +730,7 @@ MonoBehaviour:
 
                       (Press
                       ''F'' for frame selection)'
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 150
@@ -745,7 +745,7 @@ MonoBehaviour:
                     m_Text: Calls
                     m_Image: {fileID: 0}
                     m_Tooltip: Total number of calls in a selected frame
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -759,8 +759,8 @@ MonoBehaviour:
                   headerContent:
                     m_Text: GC Alloc
                     m_Image: {fileID: 0}
-                    m_Tooltip: 
-                  contextMenuText: 
+                    m_Tooltip:
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -775,7 +775,7 @@ MonoBehaviour:
                     m_Text: Time ms
                     m_Image: {fileID: 0}
                     m_Tooltip: Total time the selected function spends within a parent
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -791,7 +791,7 @@ MonoBehaviour:
                     m_Image: {fileID: 0}
                     m_Tooltip: Shows how often the selected function was called from
                       the parent call
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -806,7 +806,7 @@ MonoBehaviour:
           m_ThreadName: Main Thread
           <threadId>k__BackingField: 0
           <threadIndex>k__BackingField: -1
-          m_GroupName: 
+          m_GroupName:
     - rid: 9207849178452459521
       type: {class: GPUProfilerModule, ns: UnityEditorInternal.Profiling, asm: UnityEditor.CoreModule}
       data:
@@ -822,13 +822,13 @@ MonoBehaviour:
           m_Serialized: 0
           m_TreeViewState:
             scrollPos: {x: 0, y: 0}
-            m_SelectedIDs: 
+            m_SelectedIDs:
             m_LastClickedID: 0
-            m_ExpandedIDs: 
+            m_ExpandedIDs:
             m_RenameOverlay:
               m_UserAcceptedRename: 0
-              m_Name: 
-              m_OriginalName: 
+              m_Name:
+              m_OriginalName:
               m_EditFieldRect:
                 serializedVersion: 2
                 x: 0
@@ -841,11 +841,11 @@ MonoBehaviour:
               m_OriginalEventType: 11
               m_IsRenamingFilename: 0
               m_ClientGUIView: {fileID: 0}
-            m_SearchString: 
+            m_SearchString:
           m_MultiColumnHeaderState:
             m_Columns: []
-            m_VisibleColumns: 
-            m_SortedColumns: 
+            m_VisibleColumns:
+            m_SortedColumns:
           m_ThreadIndexInThreadNames: 0
           m_DetailedViewType: 0
           m_DetailedViewSpliterState:
@@ -860,21 +860,21 @@ MonoBehaviour:
             splitSize: 0
             xOffset: 0
             m_Version: 1
-            oldRealSizes: 
-            oldMinSizes: 
-            oldMaxSizes: 
+            oldRealSizes:
+            oldMinSizes:
+            oldMaxSizes:
             oldSplitSize: 0
           m_DetailedObjectsView:
             m_SelectedID: 0
             m_TreeViewState:
               scrollPos: {x: 0, y: 0}
-              m_SelectedIDs: 
+              m_SelectedIDs:
               m_LastClickedID: 0
-              m_ExpandedIDs: 
+              m_ExpandedIDs:
               m_RenameOverlay:
                 m_UserAcceptedRename: 0
-                m_Name: 
-                m_OriginalName: 
+                m_Name:
+                m_OriginalName:
                 m_EditFieldRect:
                   serializedVersion: 2
                   x: 0
@@ -887,11 +887,11 @@ MonoBehaviour:
                 m_OriginalEventType: 11
                 m_IsRenamingFilename: 0
                 m_ClientGUIView: {fileID: 0}
-              m_SearchString: 
+              m_SearchString:
             m_MultiColumnHeaderState:
               m_Columns: []
-              m_VisibleColumns: 
-              m_SortedColumns: 
+              m_VisibleColumns:
+              m_SortedColumns:
             m_VertSplit:
               ID: 0
               splitterInitialOffset: 0
@@ -904,9 +904,9 @@ MonoBehaviour:
               splitSize: 0
               xOffset: 0
               m_Version: 1
-              oldRealSizes: 
-              oldMinSizes: 
-              oldMaxSizes: 
+              oldRealSizes:
+              oldMinSizes:
+              oldMaxSizes:
               oldSplitSize: 0
           m_DetailedCallsView:
             m_SelectedID: -1
@@ -922,20 +922,20 @@ MonoBehaviour:
               splitSize: 0
               xOffset: 0
               m_Version: 1
-              oldRealSizes: 
-              oldMinSizes: 
-              oldMaxSizes: 
+              oldRealSizes:
+              oldMinSizes:
+              oldMaxSizes:
               oldSplitSize: 0
             m_CalleesTreeView:
               m_ViewState:
                 scrollPos: {x: 0, y: 0}
-                m_SelectedIDs: 
+                m_SelectedIDs:
                 m_LastClickedID: 0
-                m_ExpandedIDs: 
+                m_ExpandedIDs:
                 m_RenameOverlay:
                   m_UserAcceptedRename: 0
-                  m_Name: 
-                  m_OriginalName: 
+                  m_Name:
+                  m_OriginalName:
                   m_EditFieldRect:
                     serializedVersion: 2
                     x: 0
@@ -948,7 +948,7 @@ MonoBehaviour:
                   m_OriginalEventType: 11
                   m_IsRenamingFilename: 0
                   m_ClientGUIView: {fileID: 0}
-                m_SearchString: 
+                m_SearchString:
               m_ViewHeaderState:
                 m_Columns:
                 - width: 150
@@ -961,7 +961,7 @@ MonoBehaviour:
 
                       (Press
                       ''F'' for frame selection)'
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 150
@@ -976,7 +976,7 @@ MonoBehaviour:
                     m_Text: Calls
                     m_Image: {fileID: 0}
                     m_Tooltip: Total number of calls in a selected frame
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -990,8 +990,8 @@ MonoBehaviour:
                   headerContent:
                     m_Text: GC Alloc
                     m_Image: {fileID: 0}
-                    m_Tooltip: 
-                  contextMenuText: 
+                    m_Tooltip:
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -1006,7 +1006,7 @@ MonoBehaviour:
                     m_Text: Time ms
                     m_Image: {fileID: 0}
                     m_Tooltip: Total time the selected function spends within a parent
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -1022,7 +1022,7 @@ MonoBehaviour:
                     m_Image: {fileID: 0}
                     m_Tooltip: Shows how often the selected function was called from
                       the parent call
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -1036,13 +1036,13 @@ MonoBehaviour:
             m_CallersTreeView:
               m_ViewState:
                 scrollPos: {x: 0, y: 0}
-                m_SelectedIDs: 
+                m_SelectedIDs:
                 m_LastClickedID: 0
-                m_ExpandedIDs: 
+                m_ExpandedIDs:
                 m_RenameOverlay:
                   m_UserAcceptedRename: 0
-                  m_Name: 
-                  m_OriginalName: 
+                  m_Name:
+                  m_OriginalName:
                   m_EditFieldRect:
                     serializedVersion: 2
                     x: 0
@@ -1055,7 +1055,7 @@ MonoBehaviour:
                   m_OriginalEventType: 11
                   m_IsRenamingFilename: 0
                   m_ClientGUIView: {fileID: 0}
-                m_SearchString: 
+                m_SearchString:
               m_ViewHeaderState:
                 m_Columns:
                 - width: 150
@@ -1068,7 +1068,7 @@ MonoBehaviour:
 
                       (Press
                       ''F'' for frame selection)'
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 150
@@ -1083,7 +1083,7 @@ MonoBehaviour:
                     m_Text: Calls
                     m_Image: {fileID: 0}
                     m_Tooltip: Total number of calls in a selected frame
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -1097,8 +1097,8 @@ MonoBehaviour:
                   headerContent:
                     m_Text: GC Alloc
                     m_Image: {fileID: 0}
-                    m_Tooltip: 
-                  contextMenuText: 
+                    m_Tooltip:
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -1113,7 +1113,7 @@ MonoBehaviour:
                     m_Text: Time ms
                     m_Image: {fileID: 0}
                     m_Tooltip: Total time the selected function spends within a parent
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -1129,7 +1129,7 @@ MonoBehaviour:
                     m_Image: {fileID: 0}
                     m_Tooltip: Shows how often the selected function was called from
                       the parent call
-                  contextMenuText: 
+                  contextMenuText:
                   headerTextAlignment: 0
                   sortingArrowAlignment: 2
                   minWidth: 60
@@ -1144,7 +1144,7 @@ MonoBehaviour:
           m_ThreadName: Main Thread
           <threadId>k__BackingField: 0
           <threadIndex>k__BackingField: -1
-          m_GroupName: 
+          m_GroupName:
     - rid: 9207849178452459522
       type: {class: RenderingProfilerModule, ns: UnityEditorInternal.Profiling, asm: UnityEditor.CoreModule}
       data:
@@ -1177,9 +1177,9 @@ MonoBehaviour:
           splitSize: 6
           xOffset: 0
           m_Version: 1
-          oldRealSizes: 
-          oldMinSizes: 
-          oldMaxSizes: 
+          oldRealSizes:
+          oldMinSizes:
+          oldMaxSizes:
           oldSplitSize: 0
     - rid: 9207849178452459524
       type: {class: AudioProfilerModule, ns: UnityEditorInternal.Profiling, asm: UnityEditor.CoreModule}
@@ -1262,14 +1262,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12014, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_MinSize: {x: 230, y: 250}
   m_MaxSize: {x: 10000, y: 10000}
   m_TitleContent:
     m_Text: Project
     m_Image: {fileID: -5467254957812901981, guid: 0000000000000000d000000000000000, type: 0}
-    m_Tooltip: 
+    m_Tooltip:
   m_Pos:
     serializedVersion: 2
     x: 1107
@@ -1279,7 +1279,7 @@ MonoBehaviour:
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
-    m_SupportedDataModes: 
+    m_SupportedDataModes:
     isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1287,18 +1287,18 @@ MonoBehaviour:
     m_SaveData: []
     m_OverlaysVisible: 1
   m_SearchFilter:
-    m_NameFilter: 
+    m_NameFilter:
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
-    m_ReferencingInstanceIDs: 
-    m_SceneHandles: 
+    m_ReferencingInstanceIDs:
+    m_SceneHandles:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders: []
     m_Globs: []
-    m_OriginalText: 
+    m_OriginalText:
     m_ImportLogFlags: 0
     m_FilterByTypeIntersection: 0
   m_ViewMode: 0
@@ -1316,8 +1316,8 @@ MonoBehaviour:
     m_ExpandedIDs: 000000008ee0000090e0000092e0000094e0000096e00000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name:
+      m_OriginalName:
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
@@ -1330,50 +1330,50 @@ MonoBehaviour:
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 0}
-    m_SearchString: 
+    m_SearchString:
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
-      m_Path: 
+      m_Path:
       m_Icon: {fileID: 0}
-      m_ResourceFile: 
+      m_ResourceFile:
   m_AssetTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
+    m_SelectedIDs:
     m_LastClickedID: 0
     m_ExpandedIDs: ffffffff000000008ee0000090e0000092e0000094e0000096e0000064740100ba740100c0740100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: AiTurnCounter
+      m_OriginalName: AiTurnCounter
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 22672
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
-    m_SearchString: 
+    m_SearchString:
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
-      m_Path: 
+      m_Path:
       m_Icon: {fileID: 0}
-      m_ResourceFile: 
+      m_ResourceFile:
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
+    m_SelectedInstanceIDs:
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name:
+      m_OriginalName:
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
@@ -1389,9 +1389,9 @@ MonoBehaviour:
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
-      m_Path: 
+      m_Path:
       m_Icon: {fileID: 0}
-      m_ResourceFile: 
+      m_ResourceFile:
     m_NewAssetIndexInList: -1
     m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
@@ -1407,14 +1407,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12013, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Scene
     m_Image: {fileID: 2593428753322112591, guid: 0000000000000000d000000000000000, type: 0}
-    m_Tooltip: 
+    m_Tooltip:
   m_Pos:
     serializedVersion: 2
     x: 0
@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
-    m_SupportedDataModes: 
+    m_SupportedDataModes:
     isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1789,7 +1789,7 @@ MonoBehaviour:
   m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
-  m_ReplacementString: 
+  m_ReplacementString:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
@@ -1803,14 +1803,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12003, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Console
     m_Image: {fileID: -4327648978806127646, guid: 0000000000000000d000000000000000, type: 0}
-    m_Tooltip: 
+    m_Tooltip:
   m_Pos:
     serializedVersion: 2
     x: 0
@@ -1820,7 +1820,7 @@ MonoBehaviour:
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
-    m_SupportedDataModes: 
+    m_SupportedDataModes:
     isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1837,14 +1837,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12061, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Hierarchy
     m_Image: {fileID: 7966133145522015247, guid: 0000000000000000d000000000000000, type: 0}
-    m_Tooltip: 
+    m_Tooltip:
   m_Pos:
     serializedVersion: 2
     x: 1107
@@ -1854,7 +1854,7 @@ MonoBehaviour:
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
-    m_SupportedDataModes: 
+    m_SupportedDataModes:
     isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1869,8 +1869,8 @@ MonoBehaviour:
       m_ExpandedIDs: 1efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name:
+        m_OriginalName:
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
@@ -1883,7 +1883,7 @@ MonoBehaviour:
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 10}
-      m_SearchString: 
+      m_SearchString:
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
     m_LockTracker:
@@ -1900,14 +1900,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12019, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_MinSize: {x: 275, y: 50}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Inspector
     m_Image: {fileID: -2667387946076563598, guid: 0000000000000000d000000000000000, type: 0}
-    m_Tooltip: 
+    m_Tooltip:
   m_Pos:
     serializedVersion: 2
     x: 1458
@@ -1917,7 +1917,7 @@ MonoBehaviour:
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
-    m_SupportedDataModes: 
+    m_SupportedDataModes:
     isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1925,14 +1925,14 @@ MonoBehaviour:
     m_SaveData: []
     m_OverlaysVisible: 1
   m_ObjectsLockedBeforeSerialization: []
-  m_InstanceIDsLockedBeforeSerialization: 
+  m_InstanceIDsLockedBeforeSerialization:
   m_PreviewResizer:
     m_CachedPref: 249
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
   m_LastVerticalScrollValue: 0
-  m_GlobalObjectId: 
+  m_GlobalObjectId:
   m_InspectorMode: 0
   m_LockTracker:
     m_IsLocked: 0
@@ -1947,14 +1947,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6629f1bb292b749a18b5fff7994c8b19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_MinSize: {x: 600, y: 350}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: 'Unity Version Control  '
     m_Image: {fileID: 0}
-    m_Tooltip: 
+    m_Tooltip:
   m_Pos:
     serializedVersion: 2
     x: 1458
@@ -1964,7 +1964,7 @@ MonoBehaviour:
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
-    m_SupportedDataModes: 
+    m_SupportedDataModes:
     isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1982,14 +1982,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12015, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Game
     m_Image: {fileID: -6423792434712278376, guid: 0000000000000000d000000000000000, type: 0}
-    m_Tooltip: 
+    m_Tooltip:
   m_Pos:
     serializedVersion: 2
     x: 0
@@ -1999,7 +1999,7 @@ MonoBehaviour:
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
-    m_SupportedDataModes: 
+    m_SupportedDataModes:
     isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:

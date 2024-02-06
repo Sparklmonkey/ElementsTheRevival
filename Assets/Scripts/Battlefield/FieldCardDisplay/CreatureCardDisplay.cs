@@ -259,7 +259,7 @@ public class CreatureCardDisplay : CardFieldDisplay
                         enemy.ManageGravityCreatures(ref atkNow);
                     }
 
-                    if (!Card.passiveSkills.Momentum && enemy.playerPassiveManager.GetShield().HasCard())
+                    if (!Card.passiveSkills.Momentum)
                     {
                         atkNow = enemy.ManageShield(atkNow, (Id, Card));
                         if (Card.DefNow <= 0) 

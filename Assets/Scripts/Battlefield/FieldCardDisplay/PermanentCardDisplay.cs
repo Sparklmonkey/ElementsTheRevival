@@ -19,6 +19,7 @@ public class PermanentCardDisplay : CardFieldDisplay
     private EventBinding<OnDeathTriggerEvent> _onDeathTriggerEventBinding;
     private EventBinding<OnTurnStartEvent> _onTurnStartEventBinding;
     
+    private List<string> _permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
     public int StackCountValue { get; private set; }
 
     private void OnDisable()
@@ -211,8 +212,7 @@ public class PermanentCardDisplay : CardFieldDisplay
     {
         if (!onTurnStartEvent.Owner.Equals(Id.owner)) return;
         Card.AbilityUsed = false;
-        List<string> permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
-        if (!permanentsWithCountdown.Contains(Card.iD)) return;
+        if (!_permanentsWithCountdown.Contains(Card.iD)) return;
         Card.TurnsInPlay--;
     
         if (Card.TurnsInPlay <= 0)

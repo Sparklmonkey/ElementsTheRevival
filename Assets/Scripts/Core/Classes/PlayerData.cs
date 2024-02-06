@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using Networking;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -41,7 +43,8 @@ public class PlayerData
         completedQuests = "";
         petCount = 0;
         playedOracleToday = false;
-        DayLastOraclePlay = DateTime.Now;
+        oracleLastPlayed = DateTime.Today.ToString();
+        lastOracleDay = 0;
         hasDefeatedLevel0 = false;
         removedCardFromDeck = false;
         hasBoughtCardBazaar = false;
@@ -61,7 +64,9 @@ public class PlayerData
     public int petCount;
     //public string username;
     public bool playedOracleToday;
-    public DateTime DayLastOraclePlay;
+    
+    public string oracleLastPlayed;
+    public int lastOracleDay;
 
     //Quest 1 Flag
     public bool hasDefeatedLevel0;
@@ -124,7 +129,8 @@ public class PlayerData
         completedQuests = "";
         petCount = 0;
         playedOracleToday = false;
-        DayLastOraclePlay = DateTime.Now;
+        oracleLastPlayed = DateTime.Today.ToString();
+        lastOracleDay = 0;
         hasDefeatedLevel0 = false;
         removedCardFromDeck = false;
         hasBoughtCardBazaar = false;
@@ -157,4 +163,12 @@ public class DeckPreset
 {
     public string deckName;
     public string deckCode;
+}
+
+public class CustomDateTimeConverter : IsoDateTimeConverter
+{
+    public CustomDateTimeConverter()
+    {
+        base.DateTimeFormat = "dd/MM/yyyy";
+    }
 }
