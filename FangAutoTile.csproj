@@ -312,6 +312,9 @@
     <Reference Include="Unity.VisualScripting.YamlDotNet">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
     </Reference>
+    <Reference Include="Sirenix.Reflection.Editor">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.Reflection.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
@@ -327,6 +330,9 @@
     <Reference Include="System.Text.Json">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\System.Text.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Sirenix.Serialization">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Authorization">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Packages\Microsoft.AspNetCore.Authorization.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.dll</HintPath>
     </Reference>
@@ -341,6 +347,12 @@
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Http.Features">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.Serialization.Config">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.OdinInspector.Editor">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Authorization.Policy">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Packages\Microsoft.AspNetCore.Authorization.Policy.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.Policy.dll</HintPath>
@@ -378,6 +390,9 @@
     <Reference Include="Unity.VisualScripting.IonicZip">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
     </Reference>
+    <Reference Include="Sirenix.OdinInspector.Attributes">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.FileProviders.Abstractions">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Packages\Microsoft.Extensions.FileProviders.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
     </Reference>
@@ -386,6 +401,9 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.ObjectPool">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Packages\Microsoft.Extensions.ObjectPool.2.2.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.Utilities">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
@@ -435,6 +453,9 @@
     <Reference Include="Microsoft.AspNetCore.Http.Connections">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Packages\Microsoft.AspNetCore.Http.Connections.1.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Connections.dll</HintPath>
     </Reference>
+    <Reference Include="Sirenix.Utilities.Editor">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -476,27 +497,6 @@
     </Reference>
     <Reference Include="Microsoft.Net.Http.Headers">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.OdinInspector.Attributes">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Serialization.Config">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Utilities.Editor">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Utilities">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Serialization">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Reflection.Editor">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.Reflection.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.OdinInspector.Editor">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Android.Types">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.5f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>

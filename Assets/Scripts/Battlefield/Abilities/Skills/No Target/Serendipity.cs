@@ -20,7 +20,7 @@ public class Serendipity : ActivatedAbility
         {
             var cardToAdd =
                 CardDatabase.Instance.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd,
-                    targetCard.iD.IsUpgraded());
+                    BattleVars.Shared.AbilityCardOrigin.iD.IsUpgraded());
             EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(targetId.owner, new(cardToAdd)));
             typeToAdd = ExtensionMethods.GetSerendipityWeighted();
             elementToAdd = (Element)Random.Range(0, 12);

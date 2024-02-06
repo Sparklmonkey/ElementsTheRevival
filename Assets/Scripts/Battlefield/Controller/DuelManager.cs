@@ -245,8 +245,9 @@ public class DuelManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("QuickPlay") == 0)
         {
-            player.QuickPlay(cardTappedEvent.TappedId, cardTappedEvent.TappedCard);
-            if (cardTappedEvent.TappedId.IsFromHand() && !cardTappedEvent.TappedCard.cardType.Equals(CardType.Spell))
+            if (cardTappedEvent.TappedId.IsFromHand() 
+                && !cardTappedEvent.TappedCard.cardType.Equals(CardType.Spell)
+                && player.IsCardPlayable(cardTappedEvent.TappedCard))
             {
                 EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(cardTappedEvent.TappedCard, cardTappedEvent.TappedId));
                 return;
@@ -256,15 +257,17 @@ public class DuelManager : MonoBehaviour
             {
                 if (!SkillManager.Instance.ShouldAskForTarget(cardTappedEvent.TappedCard))
                 {
-                    BattleVars.Shared.AbilityIDOrigin = cardTappedEvent.TappedId;
-                    BattleVars.Shared.AbilityCardOrigin = cardTappedEvent.TappedCard;
                     EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard));
                 }
                 else
                 {
                     BattleVars.Shared.IsSelectingTarget = true;
+                    BattleVars.Shared.AbilityIDOrigin = cardTappedEvent.TappedId;
+                    BattleVars.Shared.AbilityCardOrigin = cardTappedEvent.TappedCard;
                     EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(Instance.player, cardTappedEvent.TappedCard));
                 }
+
+                return;
             }
         }
 
@@ -273,8 +276,9 @@ public class DuelManager : MonoBehaviour
 
     private void HandleValidTargets(CardTappedEvent cardTappedEvent)
     {
-        if (BattleVars.Shared.IsSelectingTarget && ValidTargets.TryGetValue(cardTappedEvent.TappedId, out var target))
+        if (BattleVars.Shared.IsSelectingTarget && ValidTargets.ContainsKey(cardTappedEvent.TappedId))
         {
+            ValidTargets.TryGetValue(cardTappedEvent.TappedId, out var target);
             EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(cardTappedEvent.TappedId, target));
         }
         else

@@ -285,49 +285,6 @@ public class PlayerManager : MonoBehaviour
         playerHand.ShowCardsForPrecog();
     }
 
-    private void ActivateAbility(ActivateSpellOrAbilityEvent activateSpellOrAbilityEvent)
-    {
-        var abilityCard = BattleVars.Shared.AbilityCardOrigin;
-        if (abilityCard is null) return;
-        if (!BattleVars.Shared.AbilityIDOrigin.IsOwnedBy(Owner)) return;
-        var ability = abilityCard.skill.GetSkillScript<ActivatedAbility>();
-
-        if (abilityCard.cardType.Equals(CardType.Spell))
-        {
-            if (SkillManager.Instance.ShouldAskForTarget(abilityCard))
-            {
-                EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
-                EventBus<ActivateAbilityEffectEvent>.Raise(new ActivateAbilityEffectEvent(ability.Activate, activateSpellOrAbilityEvent.TargetId));
-            }
-            else
-            {
-                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.Shared.AbilityIDOrigin, abilityCard);
-            }
-            EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(abilityCard, BattleVars.Shared.AbilityIDOrigin));
-        }
-        else
-        {
-            if (BattleVars.Shared.AbilityCardOrigin.skill != "photosynthesis")
-            {
-                BattleVars.Shared.AbilityCardOrigin.AbilityUsed = true;
-            }
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(BattleVars.Shared.AbilityCardOrigin.skillCost, BattleVars.Shared.AbilityCardOrigin.skillElement, Owner, false));
-
-            if (SkillManager.Instance.ShouldAskForTarget(BattleVars.Shared.AbilityCardOrigin))
-            {
-                EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
-                EventBus<ActivateAbilityEffectEvent>.Raise(new ActivateAbilityEffectEvent(ability.Activate, activateSpellOrAbilityEvent.TargetId));
-            }
-            else
-            {
-                SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin);
-            }
-
-        }
-        DuelManager.Instance.ResetTargeting();
-        DisplayPlayableGlow();
-    }
-
     private void DealPoisonDamage()
     {
         EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(playerCounters.poison, true, false, Owner));
