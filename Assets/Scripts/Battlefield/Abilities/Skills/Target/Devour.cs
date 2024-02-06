@@ -20,6 +20,6 @@ public class Devour : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.DefNow <= BattleVars.Shared.AbilityCardOrigin.DefNow && card.IsTargetable();
+        return card.cardType.Equals(CardType.Creature) && card.DefNow < BattleVars.Shared.AbilityCardOrigin.DefNow && card.IsTargetable();
     }
 }

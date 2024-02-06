@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Helpers;
 using UnityEngine;
 
 public class Holylight : ActivatedAbility
@@ -24,7 +25,7 @@ public class Holylight : ActivatedAbility
     {
         if (card is null)
         {
-            return id.field.Equals(FieldEnum.Player);
+            return id.IsPlayerField();
         }
         return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
     }

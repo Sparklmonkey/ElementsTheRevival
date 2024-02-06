@@ -356,6 +356,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Gravitypull.cs" />
     <Compile Include="Assets\Scripts\Battlefield\V2.0\HandShortcutEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\Shielddelay.cs" />
+    <Compile Include="Assets\Scripts\Core\Helpers\IdExtensionMethods.cs" />
     <Compile Include="Assets\Scripts\Core\SceneTransitionManager.cs" />
     <Compile Include="Assets\Cards\CardScriptableObject.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Precognition.cs" />
@@ -364,7 +365,6 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Heal.cs" />
     <Compile Include="Assets\Scripts\Battlefield\ImageAnimations.cs" />
     <Compile Include="Assets\Scripts\SignalRTest.cs" />
-    <Compile Include="Assets\AutoResizeGrid.cs" />
     <Compile Include="Assets\Scripts\Core\ScriptableObjects\CardDefinition.cs" />
     <Compile Include="Assets\Scripts\Battlefield\AbilityAnimation.cs" />
     <Compile Include="Assets\Scripts\Core\Enums\OwnerEnum.cs" />

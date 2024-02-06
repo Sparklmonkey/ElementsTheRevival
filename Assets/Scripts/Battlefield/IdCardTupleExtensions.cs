@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Helpers;
 using UnityEngine;
 
 public static class IdCardTupleExtensions
@@ -43,7 +44,7 @@ public static class IdCardTupleExtensions
     
     public static bool IsTargetable(this (ID, Card) tuple)
     {
-        if (tuple.Item1.field.Equals(FieldEnum.Player))
+        if (tuple.Item1.IsPlayerField())
         {
             return true;
         }
@@ -104,7 +105,7 @@ public static class IdCardTupleExtensions
             {
                 var card = CardDatabase.Instance.GetCardFromId("4t8");
                 
-                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, cardPair.id.owner.Equals(OwnerEnum.Player)));
+                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, cardPair.id.IsOwnedBy(OwnerEnum.Player)));
                 EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(cardPair.id.owner, card));
             }
 
@@ -133,7 +134,6 @@ public static class IdCardTupleExtensions
         {
             cardPair.card.Charge--;
             cardPair.card.AtkModify--;
-            cardPair.card.DefModify--;
 
         }
         if (cardPair.card.innateSkills.Delay > 0)
@@ -193,7 +193,7 @@ public static class IdCardTupleExtensions
             default:
                 Card duplicate = new(cardPair.card);
                 EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(cardPair.id, "ParallelUniverse", Element.Air));
-                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(duplicate, cardPair.id.owner.Equals(OwnerEnum.Player)));
+                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(duplicate, cardPair.id.IsOwnedBy(OwnerEnum.Player)));
                 EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(cardPair.id.owner, duplicate));
                 break;
         }

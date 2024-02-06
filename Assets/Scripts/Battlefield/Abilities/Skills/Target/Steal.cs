@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Helpers;
 using UnityEngine;
 
 public class Steal : ActivatedAbility
@@ -8,7 +9,7 @@ public class Steal : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(new(targetCard), targetId.owner.Equals(OwnerEnum.Player)));
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(new(targetCard), targetId.IsOwnedBy(OwnerEnum.Player)));
         
         switch (targetCard.cardType)
         {
@@ -28,7 +29,7 @@ public class Steal : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        if (id.field.Equals(FieldEnum.Permanent) && card.IsTargetable())
+        if (id.IsPermanentField() && card.IsTargetable())
         {
             return true;
         }

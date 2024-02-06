@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Helpers;
 
 public class Unstablegas : ActivatedAbility
 {
@@ -9,7 +10,7 @@ public class Unstablegas : ActivatedAbility
         if (!IsCardValid(targetId, targetCard)) return;
         var card = targetCard.iD.IsUpgraded() ? CardDatabase.Instance.GetCardFromId("7n6") : CardDatabase.Instance.GetCardFromId("5om");
         
-        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.owner.Equals(OwnerEnum.Player)));
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.IsOwnedBy(OwnerEnum.Player)));
         EventBus<PlayPermanentOnFieldEvent>.Raise(new PlayPermanentOnFieldEvent(targetId.owner, card));
     }
 }

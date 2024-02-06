@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Helpers;
 
 public class Blitz : ActivatedAbility
 {
@@ -7,7 +8,7 @@ public class Blitz : ActivatedAbility
 
     public override bool IsCardValid(ID id, Card card)
     {
-        return id.field.Equals(FieldEnum.Creature) && id.owner.Equals(BattleVars.Shared.AbilityIDOrigin.owner);
+        return id.IsCreatureField() && id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner);
     }
 
     public override void Activate(ID targetId, Card targetCard)

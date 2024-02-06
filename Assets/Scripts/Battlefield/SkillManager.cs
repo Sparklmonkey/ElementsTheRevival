@@ -35,7 +35,7 @@ public class SkillManager : MonoBehaviour
         EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(ability.IsCardValid, setupAbilityTargetsEvent.ShouldHideGraphic));
     }
     
-    public async void SkillRoutineNoTarget(PlayerManager owner, ID id, Card card)
+    public void SkillRoutineNoTarget(PlayerManager owner, ID id, Card card)
     {
         var ability = card.skill.GetSkillScript<ActivatedAbility>();
         if (card.cardType.Equals(CardType.Spell))
@@ -47,7 +47,6 @@ public class SkillManager : MonoBehaviour
             EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(owner.Owner.Equals(OwnerEnum.Player), card, null, null));
         }
         EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(ability.IsCardValid, true));
-        await new WaitForSeconds(2f);
         foreach (var target in DuelManager.Instance.ValidTargets)
         {
             EventBus<ActivateAbilityEffectEvent>.Raise(new ActivateAbilityEffectEvent(ability.Activate, target.Key));

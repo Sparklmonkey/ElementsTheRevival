@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Helpers;
 using UnityEngine;
 
 public class Catapult : ActivatedAbility
@@ -18,7 +19,7 @@ public class Catapult : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && id.owner.Equals(BattleVars.Shared.AbilityIDOrigin.owner) && card.IsTargetable();
+        return card.cardType.Equals(CardType.Creature) && id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner) && card.IsTargetable();
     }
 
 }

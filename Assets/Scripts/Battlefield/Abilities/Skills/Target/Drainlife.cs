@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Helpers;
 using UnityEngine;
 
 public class Drainlife : ActivatedAbility
@@ -36,7 +37,7 @@ public class Drainlife : ActivatedAbility
     {
         if (card is null)
         {
-            return id.field.Equals(FieldEnum.Player);
+            return id.IsPlayerField();
         }
         return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
     }

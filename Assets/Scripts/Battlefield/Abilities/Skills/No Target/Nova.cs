@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Helpers;
 
 public class Nova : ActivatedAbility
 {
@@ -20,7 +21,7 @@ public class Nova : ActivatedAbility
         {
             var card = CardDatabase.Instance.GetCardFromId("4vr");
             
-            EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.owner.Equals(OwnerEnum.Player)));
+            EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, targetId.IsOwnedBy(OwnerEnum.Player)));
             EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, card));
         }
         BattleVars.Shared.IsSingularity++;

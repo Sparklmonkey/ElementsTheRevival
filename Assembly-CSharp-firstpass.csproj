@@ -45,16 +45,31 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.5f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Items\Armor.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Misc\StatType.cs" />
     <Compile Include="Assets\Plugins\AsyncAwaitUtil\Source\AwaitExtensions.cs" />
     <Compile Include="Assets\Plugins\AsyncAwaitUtil\Source\WaitForUpdate.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Misc\StatValue.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Items\WeaponItem.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Items\ItemTypes.cs" />
     <Compile Include="Assets\Plugins\AsyncAwaitUtil\Source\IEnumeratorAwaitExtensions.cs" />
     <Compile Include="Assets\Plugins\AsyncAwaitUtil\Source\Internal\SyncContextUtil.cs" />
     <Compile Include="Assets\Plugins\AsyncAwaitUtil\Tests\AsyncUtilTests.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Misc\StatList.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Items\Item.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Character\CharacterOverview.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Character\CharacterAlignment.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Items\ConsumableItem.cs" />
     <Compile Include="Assets\Plugins\AsyncAwaitUtil\Source\Awaiters.cs" />
     <Compile Include="Assets\Plugins\AsyncAwaitUtil\Source\Internal\AsyncCoroutineRunner.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Character\Character.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Items\EquipableItem.cs" />
     <Compile Include="Assets\Plugins\AsyncAwaitUtil\Source\TaskExtensions.cs" />
     <Compile Include="Assets\Plugins\AsyncAwaitUtil\Source\WaitForBackgroundThread.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Character\CharacterStats.cs" />
     <Compile Include="Assets\Plugins\AsyncAwaitUtil\Tests\Util\TestButtonHandler.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Misc\ItemSlot.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Character\CharacterEquipment.cs" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.xml" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.xml" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.xml" />
@@ -63,6 +78,7 @@
     <None Include="Assets\Plugins\Sirenix\Readme.txt" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\link.xml" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.xml" />
+    <None Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Icons\icons_by_ravenmore.txt" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.xml" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
