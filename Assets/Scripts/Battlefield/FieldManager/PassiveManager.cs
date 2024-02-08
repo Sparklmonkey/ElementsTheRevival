@@ -40,18 +40,18 @@ namespace Elements.Duel.Manager
             EventBus<UpdatePassiveDisplayEvent>.Raise(new UpdatePassiveDisplayEvent(id, playCardOnFieldEvent.CardToPlay, false));
         }
 
-        public (ID, Card) GetShield()
+        public (ID id, Card card) GetShield()
         {
             var passiveDisplay = _cardFieldDisplays[new ID(owner, field, 2)];
             return (passiveDisplay.Id, passiveDisplay.Card);
         }
-        public (ID, Card) GetWeapon()
+        public (ID id, Card card) GetWeapon()
         {
             var passiveDisplay = _cardFieldDisplays[new ID(owner, field, 1)];
             return (passiveDisplay.Id, passiveDisplay.Card);
         }
 
-        public (ID, Card) GetMark()
+        public (ID id, Card card) GetMark()
         {
             var passiveDisplay = _cardFieldDisplays[new ID(owner, field, 0)];
             return (passiveDisplay.Id, passiveDisplay.Card);

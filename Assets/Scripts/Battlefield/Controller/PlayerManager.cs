@@ -169,8 +169,6 @@ public class PlayerManager : MonoBehaviour
         var shield = playerPassiveManager.GetShield();
         if (shield.Item2.skill == "") { return atkNow; }
         var shieldSkill = shield.Item2.skill.GetShieldScript<ShieldAbility>();
-        shieldSkill.Owner = this;
-        shieldSkill.Enemy = DuelManager.Instance.GetNotIDOwner(playerID);
 
         return shieldSkill.ActivateShield(atkNow, card);
     }

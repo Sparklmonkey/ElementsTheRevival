@@ -906,7 +906,7 @@ MonoBehaviour:
   Name: Odin
   Surname: Inspector, Serializer & Allfather
   Age: 100
-  CharacterAlignment: 3
+  CharacterAlignment: 7
   Skills:
     Stats:
       stats:

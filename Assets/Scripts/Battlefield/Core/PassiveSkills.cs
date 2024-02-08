@@ -1,30 +1,32 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 
 [Serializable]
+[TypeInfoBox("Skills that are affected by Lobotomy.")]
 public struct PassiveSkills
 {
-    public bool Infest { get; set; }
-    public bool Scavenger { get; set; }
-    public bool Momentum { get; set; }
-    public bool Earth { get; set; }
-    public bool Burrow { get; set; }
-    public bool Venom { get; set; }
-    public bool Phoenix { get; set; }
-    public bool Flood { get; set; }
-    public bool Air { get; set; }
-    public bool Light { get; set; }
-    public bool Neurotoxin { get; set; }
-    public bool Vampire { get; set; }
-    public bool Psion { get; set; }
-    public bool DeadlyVenom { get; set; }
-    public bool Fire { get; set; }
-    public bool Dive { get; set; }
-    public bool DivineShield { get; set; }
-    public bool Antimatter { get; set; }
-    public bool Adrenaline { get; set; }
-    public bool Overdrive { get; set; }
-    public bool Acceleration { get; set; }
-    public bool GravityPull { get; set; }
-    public bool Mutant { get; set; }
-    public bool Readiness { get; set; }
+    public bool Infest;
+    public bool Scavenger;
+    public bool Momentum;
+    public bool Earth;
+    public bool Burrow;
+    public bool Venom;
+    public bool Phoenix;
+    public bool Flood;
+    public bool Air;
+    public bool Light;
+    public bool Neurotoxin;
+    public bool Vampire;
+    public bool Psion;
+    public bool DeadlyVenom;
+    public bool Fire;
+    public bool Dive;
+    public bool DivineShield;
+    public bool Antimatter;
+    public bool Adrenaline;
+    public bool Overdrive;
+    public bool Acceleration;
+    public bool GravityPull;
+    public bool Mutant;
+    public bool Readiness;
 }

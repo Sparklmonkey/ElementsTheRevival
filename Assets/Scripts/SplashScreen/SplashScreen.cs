@@ -70,6 +70,7 @@ public class SplashScreen : MonoBehaviour
     }
     private void Start()
     {
+        Application.targetFrameRate = 30;
         if (PlayerPrefs.GetInt("HasKeysStored") != 1)
         {
             PlayerPrefs.SetInt("HasKeysStored", 1);
