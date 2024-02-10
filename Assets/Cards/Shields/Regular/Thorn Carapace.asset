@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cd7530d66977544b9e6d1c9b543843, type: 3}
-  m_Name: Dagger
+  m_Name: Thorn Carapace
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -22,8 +22,11 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: WeaponPassive
+      Entry: 6
+      Data: 
+    - Name: ShieldPassive
       Entry: 7
-      Data: 0|Battlefield.Abilities.Weapon.DaggerSkill, Assembly-CSharp
+      Data: 0|Battlefield.Abilities.SpinesSkill, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -48,18 +51,17 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  CardName: Dagger
-  cardImage: {fileID: 21300000, guid: c49071b709d114923b6d2329857eee18, type: 3}
-  Id: 4t3
-  Cost: 0
-  CardElement: 12
-  CostElement: 12
-  Rarity: 2
-  Desc: 'Weapon: Deal 2 damages at the end of every turn. Deal 1 extra damage if
-    you have a Death or Darkness mark.'
-  Type: 4
-  Atk: 2
-  Def: 1
+  CardName: Thorn Carapace
+  cardImage: {fileID: 21300000, guid: 3811702317a63438da12db0b1216a939, type: 3}
+  Id: 5c3
+  Cost: 7
+  CardElement: 10
+  CostElement: 10
+  Rarity: 3
+  Desc: 'Shield: attacking creatures have a 75% chance to be infected.'
+  Type: 5
+  Atk: 0
+  Def: 0
   SkillCost: 0
   SkillElement: 12
   passiveSkills:

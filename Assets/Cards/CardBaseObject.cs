@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Battlefield.Abilities;
 using UnityEngine;
 using Elements.Duel.Manager;
 using Sirenix.Serialization;
@@ -38,15 +39,20 @@ public class CardBaseObject : SerializedScriptableObject
     
     [PropertySpace(SpaceBefore = 20)]
     [Title("Attack Info", null, TitleAlignments.Centered)]
-    [ShowIf("@Type == CardType.Creature || Type == CardType.Weapon")]
+    [ShowIf("@Type == CardType.Creature || Type == CardType.Weapon || Type == CardType.Shield")]
     public int Atk;
-    [ShowIf("@Type == CardType.Creature || Type == CardType.Weapon")]
+    [ShowIf("@Type == CardType.Creature || Type == CardType.Weapon || Type == CardType.Shield")]
     public int Def;
     
     [PropertySpace(SpaceBefore = 10)]
     [Title("Weapon Passive Skills", null, TitleAlignments.Centered)]
     [ShowIf("@Type == CardType.Weapon"), HideLabel, EnumToggleButtons]
     public WeaponSkill WeaponPassive;
+    
+    [PropertySpace(SpaceBefore = 10)]
+    [Title("Shield Passive Skills", null, TitleAlignments.Centered)]
+    [ShowIf("@Type == CardType.Shield"), HideLabel, EnumToggleButtons]
+    public ShieldSkill ShieldPassive;
     
     [PropertySpace(SpaceBefore = 10)]
     [Title("Skill Info", null, TitleAlignments.Centered)]

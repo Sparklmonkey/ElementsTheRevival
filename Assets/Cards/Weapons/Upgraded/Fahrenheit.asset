@@ -50,15 +50,15 @@ MonoBehaviour:
       Data: 
   CardName: Fahrenheit
   cardImage: {fileID: 21300000, guid: 43b0361dda0c8477da6ed6fe6c385cb1, type: 3}
-  Id: 5f7
+  Id: 7dn
   Cost: 3
   CardElement: 8
   CostElement: 8
-  Rarity: 6
-  Desc: 'Weapon: Deal 4 + X damage at the end of every turn.\nDeal X damages at the
+  Rarity: 18
+  Desc: 'Weapon: Deal 5 + X damage at the end of every turn.\nDeal X damages at the
     end of every turn. X is the number of <sprite=8> you own, divided by 5.'
   Type: 4
-  Atk: 4
+  Atk: 5
   Def: 5
   SkillCost: 0
   SkillElement: 12

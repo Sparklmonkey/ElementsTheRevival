@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cd7530d66977544b9e6d1c9b543843, type: 3}
-  m_Name: Pulverizer
+  m_Name: Dirk
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -22,13 +22,13 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: WeaponPassive
-      Entry: 6
-      Data: 
-    - Name: Skill
       Entry: 7
-      Data: 0|Destroy, Assembly-CSharp
+      Data: 0|Battlefield.Abilities.Weapon.DaggerSkill, Assembly-CSharp
     - Name: 
       Entry: 8
+      Data: 
+    - Name: Skill
+      Entry: 6
       Data: 
     - Name: Counters
       Entry: 7
@@ -48,24 +48,20 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  CardName: Pulverizer
-  cardImage: {fileID: 21300000, guid: 34fe0b2ac9ac840fd9f19f71f00dc8e4, type: 3}
-  Id: 77f
-  Cost: 4
-  CardElement: 5
-  CostElement: 5
-  Rarity: 18
-  Desc: 'Weapon: Deal 5 damages at the end of every turn.
-
-    <sprite=9><sprite=9>:
-    Destroy
-
-    Shatter the target permanent.'
+  CardName: Dirk
+  cardImage: {fileID: 21300000, guid: c49071b709d114923b6d2329857eee18, type: 3}
+  Id: 6rj
+  Cost: 0
+  CardElement: 12
+  CostElement: 12
+  Rarity: 17
+  Desc: 'Weapon: Deal 4 damages at the end of every turn. Deal 1 extra damage if
+    you have a Death or Darkness mark.'
   Type: 4
-  Atk: 5
-  Def: 12
-  SkillCost: 2
-  SkillElement: 9
+  Atk: 4
+  Def: 1
+  SkillCost: 0
+  SkillElement: 12
   passiveSkills:
     Infest: 0
     Scavenger: 0

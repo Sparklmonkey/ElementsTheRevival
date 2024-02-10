@@ -167,6 +167,7 @@ public class PlayerManager : MonoBehaviour
     public int ManageShield(int atkNow, (ID, Card) card)
     {
         var shield = playerPassiveManager.GetShield();
+        atkNow -= shield.card.DefNow;
         if (shield.Item2.skill == "") { return atkNow; }
         var shieldSkill = shield.Item2.skill.GetShieldScript<ShieldAbility>();
 

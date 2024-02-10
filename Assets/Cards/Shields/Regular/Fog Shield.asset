@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cd7530d66977544b9e6d1c9b543843, type: 3}
-  m_Name: Short Bow
+  m_Name: Fog Shield
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -22,8 +22,11 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: WeaponPassive
+      Entry: 6
+      Data: 
+    - Name: ShieldPassive
       Entry: 7
-      Data: 0|Battlefield.Abilities.Weapon.BowSkill, Assembly-CSharp
+      Data: 0|Battlefield.Abilities.FogSkill, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -48,18 +51,17 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  CardName: Short Bow
-  cardImage: {fileID: 21300000, guid: 7f429efc8c793497b8c4bc3f6d62b1e8, type: 3}
-  Id: 4tb
+  CardName: Fog Shield
+  cardImage: {fileID: 21300000, guid: 00c2495be5878485591a58ac0620964a, type: 3}
+  Id: 5og
   Cost: 2
-  CardElement: 12
-  CostElement: 12
+  CardElement: 1
+  CostElement: 1
   Rarity: 3
-  Desc: 'Weapon: Deal 3 damage at the end of every turn. Deal 1 extra damage if you
-    have an Air mark.'
-  Type: 4
-  Atk: 3
-  Def: 3
+  Desc: 'Shield: The attacking creatures have a 40% chance to miss you'
+  Type: 5
+  Atk: 0
+  Def: 0
   SkillCost: 0
   SkillElement: 12
   passiveSkills:
@@ -91,7 +93,7 @@ MonoBehaviour:
     Dagger: 0
     Sword: 0
     Hammer: 0
-    Ranged: 1
+    Ranged: 0
     Bow: 0
     Airborne: 0
     Scramble: 0

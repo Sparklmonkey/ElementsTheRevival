@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cd7530d66977544b9e6d1c9b543843, type: 3}
-  m_Name: Trident
+  m_Name: Solar Shield
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -24,11 +24,14 @@ MonoBehaviour:
     - Name: WeaponPassive
       Entry: 6
       Data: 
-    - Name: Skill
+    - Name: ShieldPassive
       Entry: 7
-      Data: 0|Tsunami, Assembly-CSharp
+      Data: 0|Battlefield.Abilities.SolarSkill, Assembly-CSharp
     - Name: 
       Entry: 8
+      Data: 
+    - Name: Skill
+      Entry: 6
       Data: 
     - Name: Counters
       Entry: 7
@@ -48,24 +51,20 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  CardName: Trident
-  cardImage: {fileID: 21300000, guid: 988fc53a29c6246fb84ef18f61ca4c3e, type: 3}
-  Id: 5ic
+  CardName: Solar Shield
+  cardImage: {fileID: 21300000, guid: 5b76bcb668c91460590e817ca9d0dd8c, type: 3}
+  Id: 5ld
   Cost: 3
-  CardElement: 11
-  CostElement: 11
-  Rarity: 2
-  Desc: 'Weapon: Deal 4 damages at the end of every turn.
-
-    <sprite=5><sprite=5><sprite=5>
-    : Tsunami
-
-    Destroy up to 3 pillars / pendulums in the target cluster'
-  Type: 4
-  Atk: 4
-  Def: 9
-  SkillCost: 3
-  SkillElement: 5
+  CardElement: 3
+  CostElement: 3
+  Rarity: 3
+  Desc: 'Shield: Physical damage reduced by 1, the damage absorbed is converted to
+    <sprite=3>'
+  Type: 5
+  Atk: 0
+  Def: 1
+  SkillCost: 0
+  SkillElement: 12
   passiveSkills:
     Infest: 0
     Scavenger: 0

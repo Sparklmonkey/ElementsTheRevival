@@ -54,7 +54,7 @@ MonoBehaviour:
   Cost: 3
   CardElement: 11
   CostElement: 11
-  Rarity: 2
+  Rarity: 6
   Desc: 'Weapon: Deal 4 damages at the end of every turn.
 
     <sprite=5><sprite=5><sprite=5>

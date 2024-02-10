@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cd7530d66977544b9e6d1c9b543843, type: 3}
-  m_Name: Morning Star
+  m_Name: Jade Staff
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -22,7 +22,10 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: WeaponPassive
-      Entry: 6
+      Entry: 7
+      Data: 0|Battlefield.Abilities.Weapon.RegenerateSkill, Assembly-CSharp
+    - Name: 
+      Entry: 8
       Data: 
     - Name: Skill
       Entry: 6
@@ -45,17 +48,19 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  CardName: Morning Star
-  cardImage: {fileID: 21300000, guid: 494d41214b9ab41feaf9dc22d5f7320b, type: 3}
-  Id: 5lh
-  Cost: 5
-  CardElement: 3
-  CostElement: 3
-  Rarity: 6
-  Desc: 'Weapon: Deal 7 damages at the end of every turn. Can not be destroyed or
-    stolen.'
+  CardName: Jade Staff
+  cardImage: {fileID: 21300000, guid: ef3e4aa2d5fae4eaf8b319b021c3de90, type: 3}
+  Id: 7al
+  Cost: 2
+  CardElement: 10
+  CostElement: 10
+  Rarity: 18
+  Desc: 'Weapon: Deal 4 damages at the end of every turn.
+
+    Heal yourself for
+    up to 5 HP''s'
   Type: 4
-  Atk: 7
+  Atk: 4
   Def: 7
   SkillCost: 0
   SkillElement: 12
@@ -110,7 +115,7 @@ MonoBehaviour:
     Gratitude: 0
     Empathy: 0
     Regenerate: 0
-    Immaterial: 1
+    Immaterial: 0
     Integrity: 0
     Chimera: 0
     Aflatoxin: 0

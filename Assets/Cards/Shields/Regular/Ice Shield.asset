@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cd7530d66977544b9e6d1c9b543843, type: 3}
-  m_Name: Druidic Staff
+  m_Name: Ice Shield
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -22,8 +22,11 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: WeaponPassive
+      Entry: 6
+      Data: 
+    - Name: ShieldPassive
       Entry: 7
-      Data: 0|Battlefield.Abilities.Weapon.RegenerateSkill, Assembly-CSharp
+      Data: 0|Battlefield.Abilities.FreezeSkill, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -48,20 +51,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  CardName: Druidic Staff
-  cardImage: {fileID: 21300000, guid: ef3e4aa2d5fae4eaf8b319b021c3de90, type: 3}
-  Id: 5c5
-  Cost: 2
-  CardElement: 10
-  CostElement: 10
-  Rarity: 6
-  Desc: 'Weapon: Deal 2 damages at the end of every turn.
-
-    Heal yourself for
-    up to 5 HP''s'
-  Type: 4
-  Atk: 2
-  Def: 7
+  CardName: Ice Shield
+  cardImage: {fileID: 21300000, guid: 561719a1f9960499db59e753003b563c, type: 3}
+  Id: 5i9
+  Cost: 6
+  CardElement: 11
+  CostElement: 11
+  Rarity: 3
+  Desc: 'Shield: damage dealt to you from physical damage sources is reduced by 1.
+    Attacking creatures might freeze'
+  Type: 5
+  Atk: 0
+  Def: 1
   SkillCost: 0
   SkillElement: 12
   passiveSkills:

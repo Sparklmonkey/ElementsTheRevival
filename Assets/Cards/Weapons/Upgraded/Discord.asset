@@ -50,15 +50,15 @@ MonoBehaviour:
       Data: 
   CardName: Discord
   cardImage: {fileID: 21300000, guid: a402ac6bd93754244ae2832bdbbabdfe, type: 3}
-  Id: 4v1
+  Id: 6u5
   Cost: 3
   CardElement: 6
   CostElement: 6
-  Rarity: 6
-  Desc: 'Weapon: Deal 4 damage at the end of every turn. Randomly convert some of
+  Rarity: 18
+  Desc: 'Weapon: Deal 6 damage at the end of every turn. Randomly convert some of
     the opponent''s quantums into other elements.'
   Type: 4
-  Atk: 4
+  Atk: 6
   Def: 3
   SkillCost: 0
   SkillElement: 12

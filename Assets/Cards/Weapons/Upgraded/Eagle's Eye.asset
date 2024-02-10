@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cd7530d66977544b9e6d1c9b543843, type: 3}
-  m_Name: Short Sword
+  m_Name: Eagle's Eye
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -25,7 +25,10 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: Skill
-      Entry: 6
+      Entry: 7
+      Data: 0|Sniper, Assembly-CSharp
+    - Name: 
+      Entry: 8
       Data: 
     - Name: Counters
       Entry: 7
@@ -45,19 +48,24 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  CardName: Short Sword
-  cardImage: {fileID: 21300000, guid: ce2871ce0b96f440aa851ed47f7ad427, type: 3}
-  Id: 4t4
-  Cost: 1
-  CardElement: 12
-  CostElement: 12
-  Rarity: 3
-  Desc: 'Weapon: Deal 3 damages at the end of every turn.'
+  CardName: Eagle's Eye
+  cardImage: {fileID: 21300000, guid: 8fcd71c00e84b4b8bb9ed2e5a19ffd6b, type: 3}
+  Id: 7n5
+  Cost: 5
+  CardElement: 1
+  CostElement: 1
+  Rarity: 18
+  Desc: 'Weapon: Deal 7 damages at the end of every turn.
+
+    <sprite=1><sprite=1>
+    : Sniper
+
+    Deal 3 damage to the target creature.'
   Type: 4
-  Atk: 3
-  Def: 2
-  SkillCost: 0
-  SkillElement: 12
+  Atk: 7
+  Def: 7
+  SkillCost: 2
+  SkillElement: 1
   passiveSkills:
     Infest: 0
     Scavenger: 0
@@ -87,7 +95,7 @@ MonoBehaviour:
     Dagger: 0
     Sword: 0
     Hammer: 0
-    Ranged: 0
+    Ranged: 1
     Bow: 0
     Airborne: 0
     Scramble: 0

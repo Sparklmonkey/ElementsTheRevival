@@ -50,16 +50,16 @@ MonoBehaviour:
       Data: 
   CardName: Hammer
   cardImage: {fileID: 21300000, guid: 626ffa2a5a7ee4a648e3ff3a7a6261db, type: 3}
-  Id: 4t5
+  Id: 6rl
   Cost: 2
   CardElement: 12
   CostElement: 12
-  Rarity: 3
-  Desc: 'Weapon: Deal 3 damages at the end of every turn. Deal 1 extra damage if
+  Rarity: 17
+  Desc: 'Weapon: Deal 6 damages at the end of every turn. Deal 1 extra damage if
     you have a Gravity or Earth mark.'
   Type: 4
-  Atk: 3
-  Def: 4
+  Atk: 6
+  Def: 6
   SkillCost: 0
   SkillElement: 12
   passiveSkills:

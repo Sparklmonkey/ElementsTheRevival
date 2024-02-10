@@ -47,17 +47,17 @@ MonoBehaviour:
       Data: 
   CardName: Titan
   cardImage: {fileID: 21300000, guid: dcf2537154d0b4db593b2bb574579793, type: 3}
-  Id: 55s
-  Cost: 1
+  Id: 74c
+  Cost: 5
   CardElement: 9
   CostElement: 9
-  Rarity: 6
-  Desc: 'Weapon: Deal 7 damages at the end of every turn.
+  Rarity: 18
+  Desc: 'Weapon: Deal 8 damages at the end of every turn.
 
     Momentum: Shield effects
     are ignored.'
   Type: 4
-  Atk: 7
+  Atk: 8
   Def: 50
   SkillCost: 0
   SkillElement: 12
