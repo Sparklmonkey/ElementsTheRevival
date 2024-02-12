@@ -31,10 +31,10 @@ public class DuelManager : MonoBehaviour
         _addTargetToListBinding = new EventBinding<AddTargetToListEvent>(AddTargetToList);
         EventBus<AddTargetToListEvent>.Register(_addTargetToListBinding);
     }
-    public void UpdateNightFallEclipse(bool isAdded, string skill)
+    public void UpdateNightFallEclipse(bool isAdded, bool isNightFall)
     {
-        player.CheckEclipseNightfall(isAdded, skill);
-        enemy.CheckEclipseNightfall(isAdded, skill);
+        player.CheckEclipseNightfall(isAdded, isNightFall);
+        enemy.CheckEclipseNightfall(isAdded, isNightFall);
     }
 
     public static List<CardObject> OpponentShuffledDeck;

@@ -21,6 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: DeathTriggerAbility
+      Entry: 6
+      Data: 
+    - Name: OnPlayAbility
+      Entry: 6
+      Data: 
     - Name: WeaponPassive
       Entry: 6
       Data: 
@@ -52,7 +58,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   CardName: Hope
-  cardImage: {fileID: 21300000, guid: df53fa27f8d7e4849acd0a8b5937edf5, type: 3}
+  cardImage: {fileID: 21300000, guid: faabb973c00b548fbb939a91c9eac90b, type: 3}
   Id: 5lk
   Cost: 7
   CardElement: 3

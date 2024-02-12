@@ -1,17 +1,23 @@
 ﻿namespace Battlefield.Abilities
 {
-    public class EDissipationSkill : ShieldSkill
+    public class DissipationSkill : ShieldSkill
     {
         public override int ActivateSkill(int atkNow, (ID id, Card card) cardPair)
         {
             var owner = DuelManager.Instance.GetNotIDOwner(cardPair.id);
-            if (owner.GetAllQuantaOfElement(Element.Entropy) <= 0)
+            if (owner.playerCounters.sanctuary > 0) { return atkNow; }
+            var allQuanta = owner.GetAllQuantaOfElement(Element.Other);
+            if (allQuanta >= atkNow)
             {
-                EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(new(cardPair.id.owner.Not(), FieldEnum.Passive, 2)));
-                return atkNow;
+                EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(atkNow, Element.Other, cardPair.id.owner.Not(), false));
+                atkNow = 0;
             }
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Entropy, cardPair.id.owner.Not(), false));
-            return atkNow > 3 ? atkNow -= 3 : 0;
+            else
+            {
+                EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(new ID(cardPair.id.owner.Not(), FieldEnum.Passive, 2)));
+            }
+
+            return atkNow;
         }
     }
 }

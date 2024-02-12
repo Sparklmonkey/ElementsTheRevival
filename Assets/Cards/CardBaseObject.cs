@@ -31,6 +31,11 @@ public class CardBaseObject : SerializedScriptableObject
     [HideLabel]
     [MultiLineProperty(3)]
     public string Desc = "";
+
+    [PropertySpace(SpaceBefore = 10)] [Title("Turn Phase Abilities", null, TitleAlignments.Centered)]
+    public DeathTriggerAbility DeathTriggerAbility;
+    public OnPlayRemoveAbility PlayRemoveAbility;
+    public OnEndTurnAbility TurnEndAbility;
     
     [PropertySpace(SpaceBefore = 10)]
     [EnumToggleButtons]

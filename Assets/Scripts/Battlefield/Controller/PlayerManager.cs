@@ -394,7 +394,7 @@ public class PlayerManager : MonoBehaviour
         // cardPair.transform.SetSiblingIndex(cardPair.id.index);
     }
 
-    public void CheckEclipseNightfall(bool isAdded, string id)
+    public void CheckEclipseNightfall(bool isAdded, bool isNightFall)
     {
         var creatures = playerCreatureField.GetAllValidCardIds();
 
@@ -405,61 +405,59 @@ public class PlayerManager : MonoBehaviour
         var defMod = 0;
         if (isAdded)
         {
-            switch (id)
+            if (isNightFall)
             {
-                case "7ta":
-                    if (eclipseCount == 1 && nightfallCount > 0)
-                    {
+                if (eclipseCount == 0 && nightfallCount == 1)
+                {
+                    atkMod = 1;
+                    defMod = 1;
+                }
+            }
+            else
+            {
+                switch (eclipseCount)
+                {
+                    case 1 when nightfallCount > 0:
                         atkMod = 1;
                         defMod = 0;
                         break;
-                    }
-                    if (eclipseCount == 1 && nightfallCount == 0)
-                    {
+                    case 1 when nightfallCount == 0:
                         atkMod = 2;
                         defMod = 1;
-                    }
-                    break;
-                case "5uq":
-                    if (eclipseCount == 0 && nightfallCount == 1)
-                    {
-                        atkMod = 1;
-                        defMod = 1;
-                    }
-                    break;
+                        break;
+                }
             }
         }
         else
         {
-            switch (id)
+
+            if (isNightFall)
             {
-                case "7ta":
-                    if (eclipseCount == 0 && nightfallCount > 0)
-                    {
+                if (eclipseCount == 0 && nightfallCount == 0)
+                {
+                    atkMod = -1;
+                    defMod = -1;
+                }
+            }
+            else
+            {
+                switch (eclipseCount)
+                {
+                    case 0 when nightfallCount > 0:
                         atkMod = -1;
                         defMod = 0;
                         break;
-                    }
-                    if (eclipseCount == 0 && nightfallCount == 0)
-                    {
+                    case 0 when nightfallCount == 0:
                         atkMod = -2;
                         defMod = -1;
-                    }
-                    break;
-                case "5uq":
-                    if (eclipseCount == 0 && nightfallCount == 0)
-                    {
-                        atkMod = -1;
-                        defMod = -1;
-                    }
-                    break;
+                        break;
+                }
             }
         }
 
-        foreach (var creature in creatures)
+        var viableCreatures = creatures.FindAll(pair => pair.card.costElement is Element.Darkness or Element.Death);
+        foreach (var creature in viableCreatures)
         {
-            if (!creature.Item2.costElement.Equals(Element.Darkness) &&
-                !creature.Item2.costElement.Equals(Element.Death)) continue;
             creature.Item2.DefModify += defMod;
             creature.Item2.AtkModify += atkMod;
             EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(creature.Item1, creature.Item2, true));

@@ -21,6 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: DeathTriggerAbility
+      Entry: 6
+      Data: 
+    - Name: OnPlayAbility
+      Entry: 6
+      Data: 
     - Name: WeaponPassive
       Entry: 6
       Data: 
@@ -55,8 +61,7 @@ MonoBehaviour:
   CardElement: 8
   CostElement: 8
   Rarity: 3
-  Desc: 'Shield: Reduce damage by 1. Spells are reflected against your opponent.
-    Can not be destroyed or stolen.'
+  Desc: 'Shield: 1 damage is dealt to any attacking creature'
   Type: 5
   Atk: 1
   Def: 0

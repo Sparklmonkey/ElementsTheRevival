@@ -137,8 +137,10 @@ public class PermanentCardDisplay : CardFieldDisplay
                 EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Patience, Id.owner, 1));
                 break;
             case "5uq":
+                DuelManager.Instance.UpdateNightFallEclipse(true, true);
+                break;
             case "7ta":
-                DuelManager.Instance.UpdateNightFallEclipse(true, Card.iD);
+                DuelManager.Instance.UpdateNightFallEclipse(true, false);
                 break;
             case "5pa":
             case "7nq":
@@ -175,8 +177,10 @@ public class PermanentCardDisplay : CardFieldDisplay
                 EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Patience, Id.owner, -1));
                 break;
             case "5uq":
+                DuelManager.Instance.UpdateNightFallEclipse(false, true);
+                break;
             case "7ta":
-                DuelManager.Instance.UpdateNightFallEclipse(false, Card.iD);
+                DuelManager.Instance.UpdateNightFallEclipse(false, false);
                 break;
             case "5pa":
             case "7nq":
