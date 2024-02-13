@@ -6,7 +6,7 @@ namespace Battlefield.Abilities
     public class FloodingEndTurn : OnEndTurnAbility
     {
         private List<int> _saveZones = new() { 11, 13, 9, 10, 12 };
-        public override void Activate(ID owner)
+        public override void Activate(ID owner, Card card)
         {
             var player = DuelManager.Instance.GetIDOwner(owner);
             var idList = player.playerCreatureField.GetAllValidCardIds();

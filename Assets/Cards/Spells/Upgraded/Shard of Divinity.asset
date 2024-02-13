@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cd7530d66977544b9e6d1c9b543843, type: 3}
+  m_Name: Shard of Divinity
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: DeathTriggerAbility
+      Entry: 6
+      Data: 
+    - Name: PlayRemoveAbility
+      Entry: 6
+      Data: 
+    - Name: TurnEndAbility
+      Entry: 6
+      Data: 
+    - Name: WeaponPassive
+      Entry: 6
+      Data: 
+    - Name: ShieldPassive
+      Entry: 6
+      Data: 
+    - Name: Skill
+      Entry: 7
+      Data: 0|Shard, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Counters
+      Entry: 7
+      Data: CardCounters, Assembly-CSharp
+    - Name: Poison
+      Entry: 3
+      Data: 0
+    - Name: Charge
+      Entry: 3
+      Data: 0
+    - Name: Freeze
+      Entry: 3
+      Data: 0
+    - Name: Delay
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+  CardName: Shard of Divinity
+  cardImage: {fileID: 21300000, guid: 896d9bc44baef44b1a9c58a48dcf747a, type: 3}
+  Id: 7km
+  Cost: 3
+  CardElement: 3
+  CostElement: 3
+  Rarity: 18
+  Desc: Add 16 HP's to your maximum health. 24 if your mark is <sprite=3>.
+  Type: 2
+  Atk: 0
+  Def: 0
+  SkillCost: 0
+  SkillElement: 0
+  passiveSkills:
+    Infest: 0
+    Scavenger: 0
+    Momentum: 0
+    Earth: 0
+    Burrow: 0
+    Venom: 0
+    Phoenix: 0
+    Flood: 0
+    Air: 0
+    Light: 0
+    Neurotoxin: 0
+    Vampire: 0
+    Psion: 0
+    DeadlyVenom: 0
+    Fire: 0
+    Dive: 0
+    DivineShield: 0
+    Antimatter: 0
+    Adrenaline: 0
+    Overdrive: 0
+    Acceleration: 0
+    GravityPull: 0
+    Mutant: 0
+    Readiness: 0
+  innateSkills:
+    Dagger: 0
+    Sword: 0
+    Hammer: 0
+    Ranged: 0
+    Bow: 0
+    Airborne: 0
+    Scramble: 0
+    Singularity: 0
+    Undead: 0
+    Boneyard: 0
+    Venom: 0
+    Bones: 0
+    Mummy: 0
+    Poisonous: 0
+    SoulCatch: 0
+    Void: 0
+    Voodoo: 0
+    Devourer: 0
+    Obsession: 0
+    Swarm: 0
+    Sanctuary: 0
+    Fiery: 0
+    Gratitude: 0
+    Empathy: 0
+    Regenerate: 0
+    Immaterial: 0
+    Integrity: 0
+    Chimera: 0
+    Aflatoxin: 0
+    Delay: 0
+  AbilityUsed: 0
+  ReadyUsed: 0
+  HasTurnLimit: 0
+  TurnsInPlay: 0

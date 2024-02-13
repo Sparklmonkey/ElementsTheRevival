@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cd7530d66977544b9e6d1c9b543843, type: 3}
-  m_Name: Aether Pillar
+  m_Name: Life Pendulum
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -24,11 +24,11 @@ MonoBehaviour:
     - Name: DeathTriggerAbility
       Entry: 6
       Data: 
-    - Name: OnPlayAbility
-      Entry: 7
-      Data: 0|Battlefield.Abilities.TowerPlayRemoveAbility, Assembly-CSharp
-    - Name: 
-      Entry: 8
+    - Name: PlayRemoveAbility
+      Entry: 6
+      Data: 
+    - Name: TurnEndAbility
+      Entry: 6
       Data: 
     - Name: WeaponPassive
       Entry: 6
@@ -57,14 +57,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  CardName: Aether Pillar
-  cardImage: {fileID: 21300000, guid: 00cfacc54ed0e4cf0a953587919489a6, type: 3}
-  Id: 61o
+  CardName: Life Pendulum
+  cardImage: {fileID: 21300000, guid: cee4d0a37ac5b4592a845f6db9a4d5ee, type: 3}
+  Id: 5de
   Cost: 0
-  CardElement: 0
-  CostElement: 0
-  Rarity: 17
-  Desc: Each turn <sprite=0> is generated.
+  CardElement: 10
+  CostElement: 10
+  Rarity: 2
+  Desc: Alternately generates <sprite=10> and 1 quantum matching your mark.
   Type: 0
   Atk: 0
   Def: 0

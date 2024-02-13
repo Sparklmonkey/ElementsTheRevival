@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Visual\PlayerDisplayer.cs" />
     <Compile Include="Assets\Scripts\Bazaar\Bazaar_TransactionManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Enum\TextDirection.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\SingularityEndTurn.cs" />
     <Compile Include="Assets\Scripts\Battlefield\FieldManager\PassiveManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldNone.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\VoidEndTurn.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Assets\Scripts\Dashboard\Dash_QuestManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Deadlypoison.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\HopeSkill.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\ESerendipity.cs" />
     <Compile Include="Assets\Scripts\RedeemCardObject.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Chaos.cs" />
     <Compile Include="Assets\Scripts\Battlefield\IdCardTupleExtensions.cs" />
@@ -204,11 +206,13 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Wisdom.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Blitz.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\DeathTrigger\BonesDeathTrigger.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\PatiencePlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\GameEndEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Drainlife.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\OnPermanentTurnEndEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Patience.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Mutation.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\InfestEndTurn.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\QuantaChangeLogicEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Web.cs" />
     <Compile Include="Assets\Scripts\DeckSelector\DeckSelector.cs" />
@@ -225,6 +229,7 @@
     <Compile Include="Assets\Scripts\Dashboard\Dash_ResetAccountAnimator.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Enum\MutationEnum.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ShouldShowUsableEvent.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\DeathTrigger\ScavengerDeathTrigger.cs" />
     <Compile Include="Assets\FieldObjectAnimation.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\EDissipationSkill.cs" />
     <Compile Include="Assets\Scripts\Dashboard\Dash_AchievementManager.cs" />
@@ -269,6 +274,7 @@
     <Compile Include="Assets\Scripts\Core\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\PlayPermanentOnFieldEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Rainoffire.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\EPandemonium.cs" />
     <Compile Include="Assets\Gif\Super_Retro_Collection\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Core\BattleVars.cs" />
     <Compile Include="Assets\Scripts\Bazaar\Bazaar_ShopInventoryManager.cs" />
@@ -283,6 +289,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Thunderstorm.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ModifyPlayerHealthVisualEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Adrenaline.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\EInfestEndTurn.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldIce.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Destroy.cs" />
     <Compile Include="Assets\Scripts\Battlefield\CoinFlip.cs" />

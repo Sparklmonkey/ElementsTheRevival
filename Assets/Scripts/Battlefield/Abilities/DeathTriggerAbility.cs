@@ -2,7 +2,7 @@
 {
     public abstract class DeathTriggerAbility
     {
-        public virtual void Activate(ID owner)
+        public virtual void Activate(ID owner, Card card)
         {
         
         }
