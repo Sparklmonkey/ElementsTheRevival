@@ -7,6 +7,7 @@ public class Divineshield : ActivatedAbility
     {
         if (!IsCardValid(targetId, targetCard)) return;
         targetCard.passiveSkills.DivineShield = true;
+        targetCard.innateSkills.Immaterial = true;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 }

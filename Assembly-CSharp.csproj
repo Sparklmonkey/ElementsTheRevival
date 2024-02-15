@@ -58,8 +58,10 @@
     <Compile Include="Assets\Scripts\Deck Manager\DMCardPrefabNoTT.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Purify.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Lycanthropy.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\ChimeraPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Networking\Responses\UpdateUserDataResponse.cs" />
     <Compile Include="Assets\Scripts\Battlefield\AiComponents\IAiDrawComponent.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\LightEndTurn.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Visual\PlayerDisplayer.cs" />
     <Compile Include="Assets\Scripts\Bazaar\Bazaar_TransactionManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Enum\TextDirection.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\AddSpellActivatedActionEvent.cs" />
     <Compile Include="Assets\Scripts\Quests\QuestBazaar.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Dive.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\SwarmEndTurn.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Weapon\ScrambleSkill.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Blackhole.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ModifyPlayerHealthLogicEvent.cs" />
@@ -124,6 +127,7 @@
     <Compile Include="Assets\Scripts\DeckPresetHead.cs" />
     <Compile Include="Assets\Scripts\Dashboard\Dash_QuestManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Deadlypoison.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\AirEndTurn.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\HopeSkill.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\ESerendipity.cs" />
     <Compile Include="Assets\Scripts\RedeemCardObject.cs" />
@@ -159,6 +163,7 @@
     <Compile Include="Assets\Scripts\Core\Enums\Element.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Serendipity.cs" />
     <Compile Include="Assets\Scripts\Battlefield\FieldManager\HandManager.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\FireEndTurn.cs" />
     <Compile Include="Assets\WebGLCopyAndPaste\Scripts\WebGLCopyAndPaste.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\OnCreatureTurnEndEvent.cs" />
     <Compile Include="Assets\Scripts\Quests\QuestBiolerplate.cs" />
@@ -226,6 +231,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\PhaseSkill.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\UpdateHandDisplayEvent.cs" />
     <Compile Include="Assets\Scripts\Networking\Responses\ArenaResponse.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\EarthEndTurn.cs" />
     <Compile Include="Assets\Scripts\Dashboard\Dash_ResetAccountAnimator.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Enum\MutationEnum.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ShouldShowUsableEvent.cs" />
@@ -250,6 +256,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Petrify.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Nightmare.cs" />
     <Compile Include="Assets\Scripts\Battlefield\FieldManager\DeckManager.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\PhoenixPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Core\SingletonMono.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Cremation.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\OnPassiveTurnEndEvent.cs" />
@@ -264,6 +271,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Luciferin.cs" />
     <Compile Include="Assets\Scripts\Core\Networking\PvP_Action.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Controller\Pvp_PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\DarknessEndTurn.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\PlayCardFromHandEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Butterfly.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Visual\HealthDisplayer.cs" />
@@ -282,6 +290,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\TargetType.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldFirewall.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ClearCardDisplayEvent.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\ShardGolemPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\CardObject.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Nymph.cs" />
     <Compile Include="Assets\Scripts\Networking\Responses\AppInfoResponse.cs" />
@@ -298,6 +307,7 @@
     <Compile Include="Assets\Scripts\Core\ScriptableObjects\EnemyAi.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\PlayerAchievements.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Liquidshadow.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\IntegrityPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\StarterDecks.cs" />
     <Compile Include="Assets\Scripts\Bazaar\Bazaar_PlayerDataManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Logic\QuantaPool.cs" />
@@ -307,6 +317,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Sacrifice.cs" />
     <Compile Include="Assets\Scripts\UpgradeCard\UCardHead.cs" />
     <Compile Include="Assets\Scripts\Dashboard\Dash_CodeRedemption.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\DivineShieldEndTurn.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Enchant.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\DeckCountChangeEvent.cs" />
     <Compile Include="Assets\Scripts\StarterDeckElementButton.cs" />
