@@ -18,11 +18,11 @@ public class StarterDeckCardHead : MonoBehaviour, IPointerEnterHandler, IPointer
     public void SetupCardHead(Card card, CardDisplay cardDisplay)
     {
         _cardDisplay = cardDisplay;
-        cardName.text = card.cardName;
+        cardName.text = card.CardName;
         cardName.font = underlayBlack;
         cardName.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
-        cardElement.sprite = ImageHelper.GetCardBackGroundImage(card.costElement.ToString());
-        cardImage.sprite = ImageHelper.GetCardImage(card.imageID);
+        cardElement.sprite = ImageHelper.GetCardBackGroundImage(card.CardElement.ToString());
+        cardImage.sprite = card.cardImage;
         cardToShow = card;
     }
 

@@ -22,23 +22,7 @@ public class BazaarShopInventoryManager : InventoryManager
         var cardsToShow = new List<Card>();
         foreach (var card in _inventoryCardList)
         {
-            if (card.cardName == "Animate Weapon")
-            {
-                if (filter.Equals(Element.Air))
-                {
-                    cardsToShow.Add(card);
-                }
-                continue;
-            }
-            if (card.cardName == "Luciferin" || card.cardName == "Luciferase")
-            {
-                if (filter.Equals(Element.Light))
-                {
-                    cardsToShow.Add(card);
-                }
-                continue;
-            }
-            if (card.costElement != filter) { continue; }
+            if (card.CardElement != filter) { continue; }
             cardsToShow.Add(card);
         }
         SetupContentView(cardsToShow, false);

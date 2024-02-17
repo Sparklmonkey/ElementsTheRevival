@@ -25,20 +25,19 @@ public class SkillManager : MonoBehaviour
 
     public bool ShouldAskForTarget(Card card)
     {
-        var ability = card.skill.GetSkillScript<ActivatedAbility>();
-        return ability.NeedsTarget();
+        return card.Skill.NeedsTarget();
     }
 
     private void SetupTargetHighlights(SetupAbilityTargetsEvent setupAbilityTargetsEvent)
     {
-        var ability = setupAbilityTargetsEvent.AbilityCard.skill.GetSkillScript<ActivatedAbility>();
+        var ability = setupAbilityTargetsEvent.AbilityCard.Skill;
         EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(ability.IsCardValid, setupAbilityTargetsEvent.ShouldHideGraphic));
     }
     
     public void SkillRoutineNoTarget(PlayerManager owner, ID id, Card card)
     {
-        var ability = card.skill.GetSkillScript<ActivatedAbility>();
-        if (card.cardType.Equals(CardType.Spell))
+        var ability = card.Skill;
+        if (card.Type.Equals(CardType.Spell))
         {
             EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(owner.Owner.Equals(OwnerEnum.Player), card, null, null));
         }

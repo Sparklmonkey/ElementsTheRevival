@@ -20,7 +20,7 @@ public class Serendipity : ActivatedAbility
         {
             var cardToAdd =
                 CardDatabase.Instance.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd, false);
-            EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(targetId.owner, new(cardToAdd)));
+            EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(targetId.owner, cardToAdd.Clone()));
             typeToAdd = ExtensionMethods.GetSerendipityWeighted();
             elementToAdd = (Element)Random.Range(0, 12);
 

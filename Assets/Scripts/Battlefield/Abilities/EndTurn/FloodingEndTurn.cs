@@ -11,7 +11,7 @@ namespace Battlefield.Abilities
             var player = DuelManager.Instance.GetIDOwner(owner);
             var idList = player.playerCreatureField.GetAllValidCardIds();
             foreach (var idCard in from idCard in idList where !_saveZones.Contains(idCard.Item1.index) 
-                     where idCard.Item2.costElement is not Element.Other and Element.Water where !idCard.IsTargetable() select idCard)
+                     where idCard.Item2.CardElement is not Element.Other and Element.Water where !idCard.IsTargetable() select idCard)
             {
                 EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(idCard.Item1));
             }

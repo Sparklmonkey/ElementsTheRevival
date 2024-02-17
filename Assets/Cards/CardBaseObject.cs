@@ -6,7 +6,7 @@ using Elements.Duel.Manager;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 [CreateAssetMenu(fileName = "CardObject", menuName = "ScriptableObjects/CardObject", order = 3)]
-public class CardBaseObject : SerializedScriptableObject
+public class Card : SerializedScriptableObject
 {
     
     [PropertySpace(SpaceBefore = 10)]
@@ -123,4 +123,5 @@ public struct CardCounters
     public int Charge;
     public int Freeze;
     public int Delay;
+    public int Aflatoxin;
 }

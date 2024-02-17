@@ -24,7 +24,7 @@ public class CardTest : MonoBehaviour
             {
                 var cardType = (CardType)j;
                 var cardCount = CardDatabase.Instance.FullCardList
-                    .FindAll(x => x.costElement == element && x.cardType == cardType).Count;
+                    .FindAll(x => x.CostElement == element && x.Type == cardType).Count;
                 debugString += $"\n * {cardType.FastCardTypeString()} - {cardCount}";
             }
             debugString += $"\n ";

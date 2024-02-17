@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Battlefield.Abilities;
 using Core.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,7 +47,7 @@ public class PlayerManager : MonoBehaviour
         var damage = modifyPlayerHealthEvent.IsDamage
             ? -modifyPlayerHealthEvent.Amount
             : modifyPlayerHealthEvent.Amount;
-        if (playerPassiveManager.GetShield().Item2.skill is "reflect" && modifyPlayerHealthEvent.FromSpell)
+        if (playerPassiveManager.GetShield().Item2.ShieldPassive is ReflectSkill && modifyPlayerHealthEvent.FromSpell)
         {
             EventBus<ModifyPlayerHealthLogicEvent>.Raise(new ModifyPlayerHealthLogicEvent(damage, Owner.Not(), false));
             return;
@@ -115,7 +116,7 @@ public class PlayerManager : MonoBehaviour
 
     public void RemoveAllCloaks()
     {
-        foreach (var perm in playerPermanentManager.GetAllValidCardIds().Where(perm => perm.card.iD is "5v2" or "7ti"))
+        foreach (var perm in playerPermanentManager.GetAllValidCardIds().Where(perm => perm.card.Id is "5v2" or "7ti"))
         {
             ResetCloakPermParent(perm);
             EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(perm.Item1));
@@ -140,7 +141,7 @@ public class PlayerManager : MonoBehaviour
 
         var value = creatures.Sum(item => item.Item2.AtkNow);
         var weapon = playerPassiveManager.GetWeapon().Item2;
-        if (weapon.cardName != "Weapon") { value += weapon.AtkNow; }
+        if (weapon.CardName != "Weapon") { value += weapon.AtkNow; }
         return value;
     }
 
@@ -168,10 +169,10 @@ public class PlayerManager : MonoBehaviour
     {
         var shield = playerPassiveManager.GetShield();
         atkNow -= shield.card.DefNow;
-        if (shield.Item2.skill == "") { return atkNow; }
-        var shieldSkill = shield.Item2.skill.GetShieldScript<ShieldAbility>();
+        if (shield.Item2.ShieldPassive is null) { return atkNow; }
+        var shieldSkill = shield.Item2.ShieldPassive;
 
-        return shieldSkill.ActivateShield(atkNow, card);
+        return shieldSkill.ActivateSkill(atkNow, card);
     }
 
     public PlayerDisplayer playerDisplayer;
@@ -194,7 +195,7 @@ public class PlayerManager : MonoBehaviour
         foreach (var idCard in idList)
         {
             if (safeZones.Contains(idCard.Item1.index)) { continue; }
-            if (idCard.Item2.costElement.Equals(Element.Other) || idCard.Item2.costElement.Equals(Element.Water)) { continue; }
+            if (idCard.Item2.CostElement.Equals(Element.Other) || idCard.Item2.CostElement.Equals(Element.Water)) { continue; }
             if (idCard.Item2.innateSkills.Immaterial || idCard.Item2.passiveSkills.Burrow) { continue; }
             EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(idCard.Item1));
         }
@@ -267,7 +268,7 @@ public class PlayerManager : MonoBehaviour
         var count = 0;
         foreach (var id in allIds)
         {
-            if (id.Item2.passiveSkills.Light)
+            if (id.Item2.TurnEndAbility is LightEndTurn)
             {
                 count++;
             }
@@ -291,9 +292,9 @@ public class PlayerManager : MonoBehaviour
 
     public bool IsCardPlayable(Card cardToCheck)
     {
-        var canAfford = PlayerQuantaManager.HasEnoughQuanta(cardToCheck.costElement, cardToCheck.cost);
+        var canAfford = PlayerQuantaManager.HasEnoughQuanta(cardToCheck.CostElement, cardToCheck.Cost);
 
-        var hasSpace = cardToCheck.cardType switch
+        var hasSpace = cardToCheck.Type switch
         {
             CardType.Pillar => playerPermanentManager.GetAllValidCards().Count < 14,
             CardType.Creature => playerCreatureField.GetAllValidCardIds().Count < 23,
@@ -315,7 +316,7 @@ public class PlayerManager : MonoBehaviour
         var amountToAdd = 8 - playerHand.GetHandCount();
         for (var i = 0; i < amountToAdd; i++)
         {
-            DeckManager.AddCardToTop(CardDatabase.Instance.GetCardFromId(newCard.iD));
+            DeckManager.AddCardToTop(CardDatabase.Instance.GetCardFromId(newCard.Id));
             EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(Owner));
         }
     }
@@ -335,12 +336,12 @@ public class PlayerManager : MonoBehaviour
             EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Neurotoxin, Owner, 1));
         }
 
-        if (!playCardFromHandEvent.CardToPlay.cardType.Equals(CardType.Spell))
+        if (!playCardFromHandEvent.CardToPlay.Type.Equals(CardType.Spell))
         {
             EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(playCardFromHandEvent.CardToPlay, playCardFromHandEvent.Id.IsOwnedBy(OwnerEnum.Player)));
 
 
-            switch (playCardFromHandEvent.CardToPlay.cardType)
+            switch (playCardFromHandEvent.CardToPlay.Type)
             {
                 case CardType.Artifact:
                 case CardType.Pillar:
@@ -358,9 +359,9 @@ public class PlayerManager : MonoBehaviour
         }
 
         //Spend Quanta
-        if (playCardFromHandEvent.CardToPlay.cost > 0)
+        if (playCardFromHandEvent.CardToPlay.Cost > 0)
         {
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(playCardFromHandEvent.CardToPlay.cost, playCardFromHandEvent.CardToPlay.costElement, Owner, false));
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(playCardFromHandEvent.CardToPlay.Cost, playCardFromHandEvent.CardToPlay.CostElement, Owner, false));
         }
         //Remove Card From Hand
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(playCardFromHandEvent.Id));
@@ -455,7 +456,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        var viableCreatures = creatures.FindAll(pair => pair.card.costElement is Element.Darkness or Element.Death);
+        var viableCreatures = creatures.FindAll(pair => pair.card.CostElement is Element.Darkness or Element.Death);
         foreach (var creature in viableCreatures)
         {
             creature.Item2.DefModify += defMod;
@@ -468,7 +469,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (cardToDiscard.innateSkills.Obsession)
         {
-            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(cardToDiscard.iD.IsUpgraded() ? 13 : 10, true, false, Owner));
+            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(cardToDiscard.Id.IsUpgraded() ? 13 : 10, true, false, Owner));
         }
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(idToDiscard));
         BattleVars.Shared.HasToDiscard = false;
@@ -578,7 +579,7 @@ public class PlayerManager : MonoBehaviour
                 return;
             }
 
-            if (!targetCard.cardType.Equals(CardType.Spell))
+            if (!targetCard.Type.Equals(CardType.Spell))
             {
                 EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(targetCard, targetId));
             }
@@ -605,13 +606,13 @@ public class PlayerManager : MonoBehaviour
     {
         if (!SkillManager.Instance.ShouldAskForTarget(card))
         {
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(card.skillCost, card.skillElement, Owner, false));
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(card.SkillCost, card.SkillElement, Owner, false));
             SkillManager.Instance.SkillRoutineNoTarget(this, id, card);
             if (id.IsFromHand())
             {
                 EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(card, id));
             }
-            else if (card.skill != "photosynthesis")
+            else if (card.Skill is not Photosynthesis)
             {
                 card.AbilityUsed = true;
             }
@@ -628,13 +629,13 @@ public class PlayerManager : MonoBehaviour
         var abilityCard = BattleVars.Shared.AbilityCardOrigin;
         if (abilityCard is null) return;
         if (!BattleVars.Shared.AbilityIDOrigin.owner.Equals(Owner)) return;
-        var ability = abilityCard.skill.GetSkillScript<ActivatedAbility>();
+        var ability = abilityCard.Skill;
 
-        if (abilityCard.cardType.Equals(CardType.Spell))
+        if (abilityCard.Type.Equals(CardType.Spell))
         {
             if (SkillManager.Instance.ShouldAskForTarget(abilityCard))
             {
-                if (abilityCard.cardType.Equals(CardType.Spell))
+                if (abilityCard.Type.Equals(CardType.Spell))
                 {
                     EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
                 }
@@ -652,15 +653,15 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            if (BattleVars.Shared.AbilityCardOrigin.skill != "photosynthesis")
+            if (BattleVars.Shared.AbilityCardOrigin.Skill is not Photosynthesis)
             {
                 BattleVars.Shared.AbilityCardOrigin.AbilityUsed = true;
             }
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(BattleVars.Shared.AbilityCardOrigin.skillCost, BattleVars.Shared.AbilityCardOrigin.skillElement, Owner, false));
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(BattleVars.Shared.AbilityCardOrigin.SkillCost, BattleVars.Shared.AbilityCardOrigin.SkillElement, Owner, false));
 
             if (SkillManager.Instance.ShouldAskForTarget(BattleVars.Shared.AbilityCardOrigin))
             {
-                if (abilityCard.cardType.Equals(CardType.Spell))
+                if (abilityCard.Type.Equals(CardType.Spell))
                 {
                     EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(Owner.Equals(OwnerEnum.Player), abilityCard, activateSpellOrAbilityEvent.TargetId, activateSpellOrAbilityEvent.TargetCard));
                 }

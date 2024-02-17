@@ -19,4 +19,9 @@ public class Tsunami : ActivatedAbility
         if (card is null) return false;
         return id.IsPermanentField() && card.IsTargetable();
     }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.Pillar, -1, 0, 0);
+    }
 }

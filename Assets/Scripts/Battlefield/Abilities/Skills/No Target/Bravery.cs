@@ -8,7 +8,7 @@ public class Bravery : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        var cardToDraw = DuelManager.Instance.GetIDOwner(targetId).playerPassiveManager.GetMark().Item2.costElement.Equals(Element.Fire) ? 3 : 2;
+        var cardToDraw = DuelManager.Instance.GetIDOwner(targetId).playerPassiveManager.GetMark().Item2.CostElement.Equals(Element.Fire) ? 3 : 2;
         for (var i = 0; i < cardToDraw; i++)
         {
             EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(targetId.owner));

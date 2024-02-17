@@ -16,10 +16,10 @@ public class Mutation : ActivatedAbility
                 EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
                 return;
             case MutationEnum.Mutate:
-                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetMutant(targetCard.iD.IsUpgraded()), false));
+                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetMutant(targetCard.Id.IsUpgraded()), false));
                 break;
             default:
-                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetCardFromId(targetCard.iD.IsUpgraded() ? "6tu" : "4ve"), false));
+                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetCardFromId(targetCard.Id.IsUpgraded() ? "6tu" : "4ve"), false));
                 break;
         }
     }
@@ -38,6 +38,11 @@ public class Mutation : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.BetaCreature, -1, 0, 0);
     }
 }

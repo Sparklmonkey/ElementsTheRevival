@@ -2,49 +2,33 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Battlefield.Abilities;
+using Battlefield.Abilities.Weapon;
 using UnityEngine;
 
 
-public class CardDatabase
+public class CardDatabase : SingletonMono<CardDatabase>
 {
-    static CardDatabase()
-    {
-    }
-
-    public CardDatabase()
-    {
-        FullCardList = SetupNewCardBase();
-    }
-
-    public static CardDatabase Instance { get; } = new();
-
-    public Dictionary<string, string> CardNameToBackGroundString = new()
-    {
-        {"Animate Weapon", "Air"},
-        {"Luciferin", "Light"},
-        {"Luciferase", "Light"}
-    };
-
     private readonly AiDeckBuilder _deckBuilder = new();
 
     public List<string> RareWeaponRewards = new (){ "5ic", "5ol", "5ur", "5f7", "5lh", "4vl", "52q", "55s", "58v", "5c5", "5ro","61u"};
 
-    public List<Card> FullCardList = new();
+    public List<Card> FullCardList;
 
     private readonly List<string> _illegalPets = new() { "4vr", "4t8", "4vf", "52h", "55o", "58r", "5bt", "5f2", "5id", "5la", "5of", "5rm", "5ul", "61v", "5lt", "7kd" };
 
     public Card GetRandomPet()
     {
-        return FullCardList.Find(x => !x.iD.IsUpgraded() && !_illegalPets.Contains(x.iD) && x.cardType.Equals(CardType.Creature));
+        return FullCardList.Find(x => !x.Id.IsUpgraded() && !_illegalPets.Contains(x.Id) && x.Type.Equals(CardType.Creature));
     }
 
     public Card GetOracleCreature(Element element)
     {
-        return FullCardList.Find(x => !x.iD.IsUpgraded()
-                        && x.costElement.Equals(element)
-                        && !_illegalPets.Contains(x.iD)
-                        && x.cardType.Equals(CardType.Creature)
-                        && !x.cardName.Contains("Shard of"));
+        return FullCardList.Find(x => !x.Id.IsUpgraded()
+                        && x.CostElement.Equals(element)
+                        && !_illegalPets.Contains(x.Id)
+                        && x.Type.Equals(CardType.Creature)
+                        && !x.CardName.Contains("Shard of"));
     }
 
     public List<string> TrainerCardList = new(){ "562", "5c7", "52s", "4vn", "595", "55v", "5lf", "4vo", "4vi", "5f6", "5us", "593", "592", "5f4", "5oi", "622", "5i7", "55t",
@@ -69,7 +53,7 @@ public class CardDatabase
         "71a", "6u5", "7q8", "7dn", "77f", "74c", "6rl", "7al", "6rr", "6rk", "7k1", "7gs", "7tb" };
     public Card GetShardOfElement(Element element)
     {
-        return GetAllShards().Find(x => x.costElement.Equals(element) && !x.iD.IsUpgraded());
+        return GetAllShards().Find(x => x.CostElement.Equals(element) && !x.Id.IsUpgraded());
     }
 
     private readonly List<string> _mutantActiveAList = new()
@@ -106,14 +90,14 @@ public class CardDatabase
     }
     public Card GetCardFromId(string id)
     {
-        var baseCard = FullCardList.Find(x => x.iD == id);
+        var baseCard = FullCardList.Find(x => x.Id == id);
 
         return baseCard.Clone();
     }
 
     internal List<Card> GetAllBazaarCards()
     {
-        return new List<Card>(FullCardList.FindAll(x => !x.IsRare() && x.iD.IsBazaarLegal()));
+        return new List<Card>(FullCardList.FindAll(x => !x.IsRare() && x.Id.IsBazaarLegal()));
     }
 
     internal List<Card> GetCardListWithID(List<string> cardRewards)
@@ -128,7 +112,7 @@ public class CardDatabase
 
     public List<Card> GetAllShards()
     {
-        List<Card> list = new(FullCardList.FindAll(x => x.cardName.Contains("Shard of")));
+        List<Card> list = new(FullCardList.FindAll(x => x.CardName.Contains("Shard of")));
         return list;
     }
 
@@ -141,14 +125,14 @@ public class CardDatabase
         {
             FullCardList = SetupNewCardBase();
         }
-        List<Card> list = new(FullCardList.FindAll(x => x.cardType.Equals(cardType) && x.iD.IsUpgraded() == isUpgraded && x.iD.IsDeckLegal()));
+        List<Card> list = new(FullCardList.FindAll(x => x.Type.Equals(cardType) && x.Id.IsUpgraded() == isUpgraded && x.Id.IsDeckLegal()));
         if (shouldBeHatchLegal)
         {
-            list = list.FindAll(x => !_illegalHatchCards.Contains(x.iD));
+            list = list.FindAll(x => !_illegalHatchCards.Contains(x.Id));
         }
         if (shouldBeElement)
         {
-            list = list.FindAll(x => x.costElement.Equals(element));
+            list = list.FindAll(x => x.CostElement.Equals(element));
         }
         var card = list[Random.Range(0, list.Count)];
         return card.Clone();
@@ -160,17 +144,17 @@ public class CardDatabase
         List<string> deckToReturn = new();
         for (var i = 0; i < 10; i++)
         {
-            deckToReturn.Add(GetRandomCard(CardType.Pillar, false, true).iD);
+            deckToReturn.Add(GetRandomCard(CardType.Pillar, false, true).Id);
         }
 
         for (var i = 0; i < 20; i++)
         {
-            deckToReturn.Add(GetRandomCard(CardType.Creature, false, true).iD);
+            deckToReturn.Add(GetRandomCard(CardType.Creature, false, true).Id);
         }
 
         for (var i = 0; i < 10; i++)
         {
-            deckToReturn.Add(GetRandomCard(CardType.Spell, false, true).iD);
+            deckToReturn.Add(GetRandomCard(CardType.Spell, false, true).Id);
         }
 
         return deckToReturn;
@@ -178,11 +162,11 @@ public class CardDatabase
 
     public Card GetRandomCardOfTypeWithElement(CardType type, Element element, bool shouldBeUpgraded)
     {
-        var reducedList = FullCardList.FindAll(x => x.costElement.Equals(element)
-                                                    && x.cardType.Equals(type)
-                                                    && !x.cardName.Contains("Shard of")
-                                                    && !x.cardName.Contains(" Nymph")
-                                                    && x.iD.IsUpgraded() == shouldBeUpgraded);
+        var reducedList = FullCardList.FindAll(x => x.CostElement.Equals(element)
+                                                    && x.Type.Equals(type)
+                                                    && !x.CardName.Contains("Shard of")
+                                                    && !x.CardName.Contains(" Nymph")
+                                                    && x.Id.IsUpgraded() == shouldBeUpgraded);
         if (reducedList.Count > 0)
         {
             var card = reducedList[Random.Range(0, reducedList.Count)];
@@ -197,31 +181,31 @@ public class CardDatabase
     public Card GetMutant(bool isUpgraded, Card fromCard = null)
     {
         var card = fromCard == null ? GetRandomCard(CardType.Creature, isUpgraded, true) : fromCard;
-        card.atk += Random.Range(0, 4);
-        card.def += Random.Range(0, 4);
+        card.Atk += Random.Range(0, 4);
+        card.Def += Random.Range(0, 4);
         card.passiveSkills.Mutant = true;
-        card.skillCost = Random.Range(1, 3);
-        card.skillElement = card.costElement;
+        card.SkillCost = Random.Range(1, 3);
+        card.SkillElement = card.CostElement;
         var index = Random.Range(0, _mutantActiveAList.Count);
         var abilityName = _mutantActiveAList[index];
 
         switch (abilityName)
         {
             case "immaterial":
-                card.skillCost = 0;
+                card.SkillCost = 0;
                 card.innateSkills.Immaterial = true;
                 break;
             case "momentum":
             case "scavenger":
-                card.skillCost = 0;
-                card.passiveSkills.Scavenger = true;
+                card.SkillCost = 0;
+                card.DeathTriggerAbility = new ScavengerDeathTrigger();
                 break;
             default:
-                card.skill = abilityName;
+                // card.skill = abilityName;
                 break;
         }
-        var skillCost = card.skillCost == 0 ? "" : card.skillCost == 1 ? $"<sprite={(int)card.costElement}>" : $"<sprite={(int)card.costElement}><sprite={(int)card.costElement}>";
-        card.desc = $"{AddSpacesToSentence(abilityName)} {skillCost} : \n {_mutantActiveADescList[index]}";
+        var skillCost = card.SkillCost == 0 ? "" : card.SkillCost == 1 ? $"<sprite={(int)card.CostElement}>" : $"<sprite={(int)card.CostElement}><sprite={(int)card.CostElement}>";
+        card.Desc = $"{AddSpacesToSentence(abilityName)} {skillCost} : \n {_mutantActiveADescList[index]}";
 
         return card;
     }
@@ -326,24 +310,24 @@ public class CardDatabase
         };
         foreach (var item in shardList)
         {
-            elementCount[item.card.costElement]++;
-            switch (item.card.costElement)
+            elementCount[item.card.CostElement]++;
+            switch (item.card.CostElement)
             {
                 case Element.Earth:
-                    golem.atk += item.card.iD.IsUpgraded() ? 2 : 1;
-                    golem.def += item.card.iD.IsUpgraded() ? 5 : 4;
+                    golem.Atk += item.card.Id.IsUpgraded() ? 2 : 1;
+                    golem.Def += item.card.Id.IsUpgraded() ? 5 : 4;
                     break;
                 case Element.Fire:
-                    golem.atk += item.card.iD.IsUpgraded() ? 4 : 3;
-                    golem.def += item.card.iD.IsUpgraded() ? 1 : 0;
+                    golem.Atk += item.card.Id.IsUpgraded() ? 4 : 3;
+                    golem.Def += item.card.Id.IsUpgraded() ? 1 : 0;
                     break;
                 case Element.Gravity:
-                    golem.atk += item.card.iD.IsUpgraded() ? 1 : 0;
-                    golem.def += item.card.iD.IsUpgraded() ? 7 : 6;
+                    golem.Atk += item.card.Id.IsUpgraded() ? 1 : 0;
+                    golem.Def += item.card.Id.IsUpgraded() ? 7 : 6;
                     break;
                 default:
-                    golem.atk += item.card.iD.IsUpgraded() ? 3 : 2;
-                    golem.def += item.card.iD.IsUpgraded() ? 3 : 2;
+                    golem.Atk += item.card.Id.IsUpgraded() ? 3 : 2;
+                    golem.Def += item.card.Id.IsUpgraded() ? 3 : 2;
                     break;
             }
             EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(item.id));
@@ -356,7 +340,7 @@ public class CardDatabase
 
         if (elementCount[Element.Darkness] > 0)
         {
-            golem.innateSkills.Devourer = true;
+            golem.TurnEndAbility = new DevourerEndTurn();
         }
 
         if (elementCount[Element.Darkness] > 1)
@@ -381,7 +365,7 @@ public class CardDatabase
 
         var maxValueKey = elementCount.Aggregate((x, y) => x.Value >= y.Value ? x : y).Key;
 
-        golem.skillElement = maxValueKey;
+        golem.SkillElement = maxValueKey;
         switch (maxValueKey)
         {
             case Element.Aether:
@@ -390,14 +374,14 @@ public class CardDatabase
                     case 3:
                     case 4:
                     case 5:
-                        golem.skill = "lobotomize";
-                        golem.skillCost = 2;
-                        golem.desc = "<sprite=0><sprite=0> : Remove any skill from the target creature.";
+                        golem.Skill = new Lobotomize();
+                        golem.SkillCost = 2;
+                        golem.Desc = "<sprite=0><sprite=0> : Remove any skill from the target creature.";
                         break;
                     case 6:
                     case 7:
                         golem.innateSkills.Immaterial = true;
-                        golem.desc = "Immaterial: \n Golem can not be targeted.";
+                        golem.Desc = "Immaterial: \n Golem can not be targeted.";
                         break;
                 }
                 break;
@@ -405,26 +389,26 @@ public class CardDatabase
                 switch (elementCount[maxValueKey])
                 {
                     case 2:
-                        golem.skill = "queen";
-                        golem.skillCost = 2;
-                        golem.desc = "<sprite=1><sprite=1> : Firefly\nGenerate a firefly.";
+                        golem.Skill = new Queen();
+                        golem.SkillCost = 2;
+                        golem.Desc = "<sprite=1><sprite=1> : Firefly\nGenerate a firefly.";
                         break;
                     case 3:
-                        golem.skill = "sniper";
-                        golem.desc = "<sprite=1><sprite=1> : Sniper\nDeal 3 damage to the target creature.";
-                        golem.skillCost = 2;
+                        golem.Skill = new Sniper();
+                        golem.Desc = "<sprite=1><sprite=1> : Sniper\nDeal 3 damage to the target creature.";
+                        golem.SkillCost = 2;
                         break;
                     case 4:
                     case 5:
-                        golem.skill = "dive";
-                        golem.desc = "<sprite=1><sprite=1> : Dive\nThe damage dealt is doubled for 1 turn.";
-                        golem.skillCost = 2;
+                        golem.Skill = new Dive();
+                        golem.Desc = "<sprite=1><sprite=1> : Dive\nThe damage dealt is doubled for 1 turn.";
+                        golem.SkillCost = 2;
                         break;
                     case 6:
                     case 7:
-                        golem.skill = "unstablegas";
-                        golem.desc = "<sprite=1><sprite=1> : Unstable gas\n Generate unstable gas";
-                        golem.skillCost = 2;
+                        golem.Skill = new Unstablegas();
+                        golem.Desc = "<sprite=1><sprite=1> : Unstable gas\n Generate unstable gas";
+                        golem.SkillCost = 2;
                         break;
                 }
                 break;
@@ -436,15 +420,15 @@ public class CardDatabase
                         golem.passiveSkills.Vampire = true;
                         break;
                     case 5:
-                        golem.skill = "liquidshadow";
-                        golem.desc = "<sprite=2><sprite=2> : : Liquid Shadow\nThe target creature is poisoned and its skill switched to \"vampire\".";
-                        golem.skillCost = 2;
+                        golem.Skill = new Liquidshadow();
+                        golem.Desc = "<sprite=2><sprite=2> : : Liquid Shadow\nThe target creature is poisoned and its skill switched to \"vampire\".";
+                        golem.SkillCost = 2;
                         break;
                     case 6:
                     case 7:
-                        golem.skill = "steal";
-                        golem.desc = "<sprite=2><sprite=2><sprite=2> : : Steal\nSteal a permanent";
-                        golem.skillCost = 3;
+                        golem.Skill = new Steal();
+                        golem.Desc = "<sprite=2><sprite=2><sprite=2> : : Steal\nSteal a permanent";
+                        golem.SkillCost = 3;
                         break;
                 }
                 break;
@@ -453,22 +437,22 @@ public class CardDatabase
                 {
                     case 1:
                     case 2:
-                        golem.skill = "heal";
-                        golem.desc = "<sprite=3> : Heal\nHeal the target creature up to 5 HP's";
-                        golem.skillCost = 1;
+                        golem.Skill = new Heal();
+                        golem.Desc = "<sprite=3> : Heal\nHeal the target creature up to 5 HP's";
+                        golem.SkillCost = 1;
                         break;
                     case 3:
                     case 4:
                     case 5:
-                        golem.skill = "endow";
-                        golem.desc = "<sprite=3><sprite=3> : Endow\nGain the target weapon's ability and +X|+2. X is the weapon's attack.";
-                        golem.skillCost = 2;
+                        golem.Skill = new Endow();
+                        golem.Desc = "<sprite=3><sprite=3> : Endow\nGain the target weapon's ability and +X|+2. X is the weapon's attack.";
+                        golem.SkillCost = 2;
                         break;
                     case 6:
                     case 7:
-                        golem.skill = "luciferin";
-                        golem.desc = "<sprite=3><sprite=3><sprite=3><sprite=3> : Luciferin\nAll your creatures without a skill gain \"bioluminescence\". Heal yourself for up to 10 HP";
-                        golem.skillCost = 4;
+                        golem.Skill = new Luciferin();
+                        golem.Desc = "<sprite=3><sprite=3><sprite=3><sprite=3> : Luciferin\nAll your creatures without a skill gain \"bioluminescence\". Heal yourself for up to 10 HP";
+                        golem.SkillCost = 4;
                         break;
                 }
                 break;
@@ -476,28 +460,28 @@ public class CardDatabase
                 switch (elementCount[maxValueKey])
                 {
                     case 1:
-                        golem.skill = "infection";
-                        golem.desc = "<sprite=4> : Infection\nInflict 1 damage per turn to a target creature.";
-                        golem.skillCost = 1;
+                        golem.Skill = new Infection();
+                        golem.Desc = "<sprite=4> : Infection\nInflict 1 damage per turn to a target creature.";
+                        golem.SkillCost = 1;
                         break;
                     case 2:
                     case 3:
-                        golem.passiveSkills.Scavenger = true;
-                        golem.desc = "Scavenger:\nEvery time a creature dies, Shard Golem gains +1/+1";
+                        golem.DeathTriggerAbility = new ScavengerDeathTrigger();
+                        golem.Desc = "Scavenger:\nEvery time a creature dies, Shard Golem gains +1/+1";
                         break;
                     case 4:
                         golem.passiveSkills.Venom = true;
-                        golem.desc = "Deal 1 poison damage at the end of every turn.\nPoison damage is cumulative.";
+                        golem.Desc = "Deal 1 poison damage at the end of every turn.\nPoison damage is cumulative.";
                         break;
                     case 5:
-                        golem.skill = "aflatoxin";
-                        golem.desc = "<sprite=4><sprite=4> : Poison the target creature. If the target creature dies, it turns into a malignant cell.";
-                        golem.skillCost = 2;
+                        golem.Skill = new Aflatoxin();
+                        golem.Desc = "<sprite=4><sprite=4> : Poison the target creature. If the target creature dies, it turns into a malignant cell.";
+                        golem.SkillCost = 2;
                         break;
                     case 6:
                     case 7:
                         golem.passiveSkills.DeadlyVenom = true;
-                        golem.desc = "Deadly Venom: \nAdd 2 poison damage to each successful attack. Cause poisoning if ingested.";
+                        golem.Desc = "Deadly Venom: \nAdd 2 poison damage to each successful attack. Cause poisoning if ingested.";
                         break;
                 }
                 break;
@@ -505,27 +489,27 @@ public class CardDatabase
                 switch (elementCount[maxValueKey])
                 {
                     case 1:
-                        golem.skill = "burrow";
-                        golem.desc = "<sprite=5> : Burrow\nThe Shard Golem can not be targeted, but its damage is halved.";
-                        golem.skillCost = 1;
+                        golem.Skill = new Burrow();
+                        golem.Desc = "<sprite=5> : Burrow\nThe Shard Golem can not be targeted, but its damage is halved.";
+                        golem.SkillCost = 1;
                         break;
                     case 2:
                     case 3:
-                        golem.skill = "stoneform";
-                        golem.desc = "<sprite=5> : Stone form\nShard Golem gains +0 / +20";
-                        golem.skillCost = 1;
+                        golem.Skill = new Stoneform();
+                        golem.Desc = "<sprite=5> : Stone form\nShard Golem gains +0 / +20";
+                        golem.SkillCost = 1;
                         break;
                     case 4:
                     case 5:
-                        golem.skill = "guard";
-                        golem.desc = "<sprite=5> : Guard\n(Do not attack) Delay the target creature for 1 turn (cumulative) and attack it unless it is airborne.";
-                        golem.skillCost = 1;
+                        golem.Skill = new Guard();
+                        golem.Desc = "<sprite=5> : Guard\n(Do not attack) Delay the target creature for 1 turn (cumulative) and attack it unless it is airborne.";
+                        golem.SkillCost = 1;
                         break;
                     case 6:
                     case 7:
-                        golem.skill = "petrify";
-                        golem.desc = "<sprite=5><sprite=5> : Petrify\nThe target creature gains +0/+20 but can not attack or use skills for 6 turns.";
-                        golem.skillCost = 2;
+                        golem.Skill = new Petrify();
+                        golem.Desc = "<sprite=5><sprite=5> : Petrify\nThe target creature gains +0/+20 but can not attack or use skills for 6 turns.";
+                        golem.SkillCost = 2;
                         break;
                 }
                 break;
@@ -533,34 +517,34 @@ public class CardDatabase
                 switch (elementCount[maxValueKey])
                 {
                     case 1:
-                        golem.skill = "deadalive";
-                        golem.desc = "<sprite=6> : Dead and Alive\nKill this creature; death effects are triggered. This creature is still alive.";
-                        golem.skillCost = 1;
+                        golem.Skill = new Deadalive();
+                        golem.Desc = "<sprite=6> : Dead and Alive\nKill this creature; death effects are triggered. This creature is still alive.";
+                        golem.SkillCost = 1;
                         break;
                     case 2:
-                        golem.skill = "mutation";
-                        golem.desc = "<sprite=6><sprite=6> : Mutation\nThe target creature might turn into an abomination, a mutant, or die.";
-                        golem.skillCost = 2;
+                        golem.Skill = new Mutation();
+                        golem.Desc = "<sprite=6><sprite=6> : Mutation\nThe target creature might turn into an abomination, a mutant, or die.";
+                        golem.SkillCost = 2;
                         break;
                     case 3:
-                        golem.skill = "paradox";
-                        golem.desc = "<sprite=6><sprite=6> : Paradox\nKill the target creature if its attack is higher than its defence";
-                        golem.skillCost = 2;
+                        golem.Skill = new Paradox();
+                        golem.Desc = "<sprite=6><sprite=6> : Paradox\nKill the target creature if its attack is higher than its defence";
+                        golem.SkillCost = 2;
                         break;
                     case 4:
-                        golem.skill = "improve";
-                        golem.desc = "<sprite=6><sprite=6> : Improved Mutation\nThe target creature might turn into an abomination, a mutant, or die";
-                        golem.skillCost = 2;
+                        golem.Skill = new Improve();
+                        golem.Desc = "<sprite=6><sprite=6> : Improved Mutation\nThe target creature might turn into an abomination, a mutant, or die";
+                        golem.SkillCost = 2;
                         break;
                     case 5:
-                        golem.innateSkills.Scramble = true;
-                        golem.desc = "Randomly convert some of the opponent's quantums into other elements.";
+                        golem.WeaponPassive = new ScrambleSkill();
+                        golem.Desc = "Randomly convert some of the opponent's quantums into other elements.";
                         break;
                     case 6:
                     case 7:
-                        golem.skill = "anitmatter";
-                        golem.desc = "<sprite=6><sprite=6><sprite=6><sprite=6> : Antimatter\nInvert the attack power of the target creature (the creature inflict heals instead of damage)";
-                        golem.skillCost = 4;
+                        golem.Skill = new Antimatter();
+                        golem.Desc = "<sprite=6><sprite=6><sprite=6><sprite=6> : Antimatter\nInvert the attack power of the target creature (the creature inflict heals instead of damage)";
+                        golem.SkillCost = 4;
                         break;
                 }
                 break;
@@ -568,25 +552,25 @@ public class CardDatabase
                 switch (elementCount[maxValueKey])
                 {
                     case 2:
-                        golem.skill = "scarab";
-                        golem.desc = "<sprite=7><sprite=7> : Scarab\nGenerate a Scarab.";
-                        golem.skillCost = 2;
+                        golem.Skill = new Scarab();
+                        golem.Desc = "<sprite=7><sprite=7> : Scarab\nGenerate a Scarab.";
+                        golem.SkillCost = 2;
                         break;
                     case 3:
-                        golem.skill = "dejavu";
-                        golem.desc = "<sprite=7><sprite=7><sprite=7><sprite=7> : Deja Vu\nShard Golem creates a copy of itself";
-                        golem.skillCost = 4;
+                        golem.Skill = new Dejavu();
+                        golem.Desc = "<sprite=7><sprite=7><sprite=7><sprite=7> : Deja Vu\nShard Golem creates a copy of itself";
+                        golem.SkillCost = 4;
                         break;
                     case 4:
                     case 5:
                         golem.passiveSkills.Neurotoxin = true;
-                        golem.desc = "Neurotoxin: Add 1 poison damage to each successful attack, 1 extra poison for each card played by afflicted player.";
+                        golem.Desc = "Neurotoxin: Add 1 poison damage to each successful attack, 1 extra poison for each card played by afflicted player.";
                         break;
                     case 6:
                     case 7:
-                        golem.skill = "precognition";
-                        golem.desc = "<sprite=7><sprite=7> : Precognition\nYou can see your opponent's hand. Draw a card.";
-                        golem.skillCost = 2;
+                        golem.Skill = new Precognition();
+                        golem.Desc = "<sprite=7><sprite=7> : Precognition\nYou can see your opponent's hand. Draw a card.";
+                        golem.SkillCost = 2;
                         break;
                 }
                 break;
@@ -594,25 +578,25 @@ public class CardDatabase
                 switch (elementCount[maxValueKey])
                 {
                     case 2:
-                        golem.skill = "ablaze";
-                        golem.desc = "<sprite=8> : Ablaze\nShard Golem gains +2/+0";
-                        golem.skillCost = 1;
+                        golem.Skill = new Ablaze();
+                        golem.Desc = "<sprite=8> : Ablaze\nShard Golem gains +2/+0";
+                        golem.SkillCost = 1;
                         break;
                     case 3:
                     case 4:
-                        golem.innateSkills.Fiery = true;
-                        golem.desc = "Deal X damages at the end of every turn. X is the number of <sprite=8> you own, divided by 5.";
+                        golem.WeaponPassive = new FierySkill();
+                        golem.Desc = "Deal X damages at the end of every turn. X is the number of <sprite=8> you own, divided by 5.";
                         break;
                     case 5:
-                        golem.skill = "destroy";
-                        golem.desc = "<sprite=8><sprite=8><sprite=8>: Destroy\nShatter the target permanent.";
-                        golem.skillCost = 3;
+                        golem.Skill = new Destroy();
+                        golem.Desc = "<sprite=8><sprite=8><sprite=8>: Destroy\nShatter the target permanent.";
+                        golem.SkillCost = 3;
                         break;
                     case 6:
                     case 7:
-                        golem.skill = "rage";
-                        golem.desc = "<sprite=8><sprite=8> : Rage\nThe target creature gains +5/-5";
-                        golem.skillCost = 2;
+                        golem.Skill = new Rage();
+                        golem.Desc = "<sprite=8><sprite=8> : Rage\nThe target creature gains +5/-5";
+                        golem.SkillCost = 2;
                         break;
                 }
                 break;
@@ -620,15 +604,15 @@ public class CardDatabase
                 switch (elementCount[maxValueKey])
                 {
                     case 5:
-                        golem.skill = "devour";
-                        golem.desc = "<sprite=9><sprite=9><sprite=9> : Devour\nSwallow a smaller (less HP's) creature and gain +1/+1";
-                        golem.skillCost = 3;
+                        golem.Skill = new Devour();
+                        golem.Desc = "<sprite=9><sprite=9><sprite=9> : Devour\nSwallow a smaller (less HP's) creature and gain +1/+1";
+                        golem.SkillCost = 3;
                         break;
                     case 6:
                     case 7:
-                        golem.skill = "blackhole";
-                        golem.desc = "<sprite=9><sprite=9><sprite=9><sprite=9> : Black Hole\nAbsorb 3 quanta per element from the opponent. Gain 1 HP per absorbed quantum.";
-                        golem.skillCost = 4;
+                        golem.Skill = new Blackhole();
+                        golem.Desc = "<sprite=9><sprite=9><sprite=9><sprite=9> : Black Hole\nAbsorb 3 quanta per element from the opponent. Gain 1 HP per absorbed quantum.";
+                        golem.SkillCost = 4;
                         break;
                 }
                 break;
@@ -639,20 +623,20 @@ public class CardDatabase
                     case 2:
                     case 3:
                     case 4:
-                        golem.skill = "growth";
-                        golem.desc = "<sprite=10><sprite=10> : Growth\nThe Shard Golem gains +2/+2";
-                        golem.skillCost = 2;
+                        golem.Skill = new Growth();
+                        golem.Desc = "<sprite=10><sprite=10> : Growth\nThe Shard Golem gains +2/+2";
+                        golem.SkillCost = 2;
                         break;
                     case 5:
-                        golem.skill = "adrenaline";
-                        golem.desc = "<sprite=10><sprite=10> : Adrenaline\nThe target creature attacks multiple times per turn.";
-                        golem.skillCost = 2;
+                        golem.Skill = new Adrenaline();
+                        golem.Desc = "<sprite=10><sprite=10> : Adrenaline\nThe target creature attacks multiple times per turn.";
+                        golem.SkillCost = 2;
                         break;
                     case 6:
                     case 7:
-                        golem.skill = "mitosiss";
-                        golem.desc = "<sprite=10><sprite=10><sprite=10><sprite=10> Mitosis: \n Generate a daughter creature";
-                        golem.skillCost = 4;
+                        golem.Skill = new Mitosiss();
+                        golem.Desc = "<sprite=10><sprite=10><sprite=10><sprite=10> Mitosis: \n Generate a daughter creature";
+                        golem.SkillCost = 4;
                         break;
                 }
                 break;
@@ -661,21 +645,21 @@ public class CardDatabase
                 {
                     case 2:
                     case 3:
-                        golem.skill = "steam";
-                        golem.desc = "<sprite=11><sprite=11> : Steam\nGain 5 charges (+5|+0). Remove 1 charge per turn.";
-                        golem.skillCost = 2;
+                        golem.Skill = new Steam();
+                        golem.Desc = "<sprite=11><sprite=11> : Steam\nGain 5 charges (+5|+0). Remove 1 charge per turn.";
+                        golem.SkillCost = 2;
                         break;
                     case 4:
                     case 5:
-                        golem.skill = "freeze";
-                        golem.desc = "<sprite=11><sprite=11><sprite=11> : Freeze\nFreeze the target creature";
-                        golem.skillCost = 3;
+                        golem.Skill = new Freeze();
+                        golem.Desc = "<sprite=11><sprite=11><sprite=11> : Freeze\nFreeze the target creature";
+                        golem.SkillCost = 3;
                         break;
                     case 6:
                     case 7:
-                        golem.skill = "nymph";
-                        golem.desc = "<sprite=10><sprite=10><sprite=10><sprite=10> : Nymph's tears\nTurn one of your pillars into a Nymph";
-                        golem.skillCost = 4;
+                        golem.Skill = new Nymph();
+                        golem.Desc = "<sprite=10><sprite=10><sprite=10><sprite=10> : Nymph's tears\nTurn one of your pillars into a Nymph";
+                        golem.SkillCost = 4;
                         break;
                 }
                 break;

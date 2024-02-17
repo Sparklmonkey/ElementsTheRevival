@@ -25,7 +25,7 @@ public class UpgradePlayerDataManager : MonoBehaviour
 
     public void UpgradeCardInInventory(Card cardToUpgrade)
     {
-        if (cardToUpgrade.iD.IsUpgraded())
+        if (cardToUpgrade.Id.IsUpgraded())
         {
             Debug.Log("Already Upgraded");
             return;
@@ -39,7 +39,7 @@ public class UpgradePlayerDataManager : MonoBehaviour
 
         _cardToUpgrade = cardToUpgrade;
         confirmationPopUp.gameObject.SetActive(true);
-        confirmationPopUp.SetupErrorMessage($"Are you sure you want to UPGRADE {cardToUpgrade.cardName}?");
+        confirmationPopUp.SetupErrorMessage($"Are you sure you want to UPGRADE {cardToUpgrade.CardName}?");
     }
 
     public void ConfirmUpgrade()
@@ -48,12 +48,12 @@ public class UpgradePlayerDataManager : MonoBehaviour
 
         for (var i = 0; i < PlayerData.Shared.inventoryCards.Count; i++)
         {
-            if (PlayerData.Shared.inventoryCards[i] != _cardToUpgrade.iD) continue;
+            if (PlayerData.Shared.inventoryCards[i] != _cardToUpgrade.Id) continue;
             cardIndex = i;
             break;
         }
         PlayerData.Shared.inventoryCards.RemoveAt(cardIndex);
-        PlayerData.Shared.inventoryCards.Add(_cardToUpgrade.iD.GetUppedRegular());
+        PlayerData.Shared.inventoryCards.Add(_cardToUpgrade.Id.GetUppedRegular());
         _playerInventoryManager.SetupContentView(PlayerData.Shared.inventoryCards.DeserializeCard());
         GetComponent<UpgradeTransactionManager>().ChangeCoinCount();
         PlayerData.SaveData();

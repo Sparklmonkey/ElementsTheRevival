@@ -51,7 +51,7 @@ namespace Elements.Duel.Visual
                 return;
             }
 
-            if (_card.cardType == CardType.Spell)
+            if (_card.Type == CardType.Spell)
             {
                 if (SetButtonForSpell(isPlayable, isPlayerTurn)) return;
             }
@@ -62,7 +62,7 @@ namespace Elements.Duel.Visual
                 return;
             }
 
-            if (!string.IsNullOrEmpty(_card.skill))
+            if (_card.Skill is not null)
             {
                 if (_card.AbilityUsed)
                 {

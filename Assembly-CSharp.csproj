@@ -126,14 +126,13 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\DeathTrigger\BoneyardDeathTrigger.cs" />
     <Compile Include="Assets\Scripts\DeckPresetHead.cs" />
     <Compile Include="Assets\Scripts\Dashboard\Dash_QuestManager.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Deadlypoison.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\AirEndTurn.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Deadlypoison.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\HopeSkill.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\ESerendipity.cs" />
     <Compile Include="Assets\Scripts\RedeemCardObject.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Chaos.cs" />
     <Compile Include="Assets\Scripts\Battlefield\IdCardTupleExtensions.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\TargetExtensions.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\IDCardPair.cs" />
     <Compile Include="Assets\Gif\Ruccho\FangAutoTile\Sample\OnMapPlayerController.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldIceTwo.cs" />
@@ -312,6 +311,7 @@
     <Compile Include="Assets\Scripts\Bazaar\Bazaar_PlayerDataManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Logic\QuantaPool.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Shockwave.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\SundialPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\DissipationSkill.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\TargetingAi.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Sacrifice.cs" />

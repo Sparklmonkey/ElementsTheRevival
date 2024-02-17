@@ -85,7 +85,7 @@ namespace Battlefield.Abstract
             switch (Id.field)
             {
                 case FieldEnum.Hand:
-                    isUsableGlow.SetActive(shouldShowUsableEvent.QuantaCheck(Card.costElement, Card.cost));
+                    isUsableGlow.SetActive(shouldShowUsableEvent.QuantaCheck(Card.CostElement, Card.Cost));
                     return;
                 default:
                     isUsableGlow.SetActive(Card.IsAbilityUsable(shouldShowUsableEvent.QuantaCheck, shouldShowUsableEvent.HandCount));
@@ -114,7 +114,7 @@ namespace Battlefield.Abstract
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (Id.field.Equals(FieldEnum.Hand) && Id.IsOwnedBy(OwnerEnum.Opponent)) return;
-            if (Card.iD is "4t1" or "4t2") return;
+            if (Card.Id is "4t1" or "4t2") return;
             var rectTransform = GetComponent<RectTransform>();
             Vector2 objectSize = new(rectTransform.rect.height, rectTransform.rect.width);
             ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, Card, Id.index + 1, Id.field == FieldEnum.Creature);

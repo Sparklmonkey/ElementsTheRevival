@@ -8,13 +8,13 @@ public class CreatureDetailToolTip : MonoBehaviour
 
     public void SetupDetailView(Card cardOnDisplay, int fieldIndex)
     {
-        hpFull.text = cardOnDisplay.def.ToString();
-        atkFull.text = cardOnDisplay.atk.ToString();
-        hpCurrent.text = cardOnDisplay.def.ToString();
-        frozenCount.text = cardOnDisplay.Freeze.ToString();
-        delayCount.text = $"{cardOnDisplay.innateSkills.Delay}";
+        hpFull.text = cardOnDisplay.Def.ToString();
+        atkFull.text = cardOnDisplay.Atk.ToString();
+        hpCurrent.text = cardOnDisplay.Def.ToString();
+        frozenCount.text = cardOnDisplay.Counters.Freeze.ToString();
+        delayCount.text = $"{cardOnDisplay.Counters.Delay}";
         this.fieldIndex.text = fieldIndex.ToString();
-        atkCurrent.text = cardOnDisplay.atk.ToString();
+        atkCurrent.text = cardOnDisplay.Atk.ToString();
 
         //if (cardOnDisplay.innate?.Count > 0)
         //{

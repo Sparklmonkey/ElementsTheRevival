@@ -85,7 +85,7 @@ public class DashCodeRedemption : MonoBehaviour
     public async void ChooseCard()
     {
         if (ApiManager.IsTrainer) return;
-        PlayerData.Shared.inventoryCards.Add(cardDisplayDetail.card.iD);
+        PlayerData.Shared.inventoryCards.Add(cardDisplayDetail.card.Id);
 
         await ApiManager.Instance.SaveGameData();
         electrumRewardDisplay.SetActive(false);

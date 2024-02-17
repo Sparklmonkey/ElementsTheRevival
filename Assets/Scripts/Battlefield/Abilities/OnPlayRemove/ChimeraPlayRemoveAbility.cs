@@ -19,8 +19,8 @@ namespace Battlefield.Abilities
                 }
             }
 
-            card.atk = chimeraPwrHp.Item1;
-            card.def = chimeraPwrHp.Item2;
+            card.Atk = chimeraPwrHp.Item1;
+            card.Def = chimeraPwrHp.Item2;
         }
     }
 }

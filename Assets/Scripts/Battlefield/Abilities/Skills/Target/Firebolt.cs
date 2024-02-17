@@ -34,6 +34,11 @@ public class Firebolt : ActivatedAbility
         {
             return id.IsPlayerField();
         }
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.CreatureAndPlayer, -3, 0, 0);
     }
 }

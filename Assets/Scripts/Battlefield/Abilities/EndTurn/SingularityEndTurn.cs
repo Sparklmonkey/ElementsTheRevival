@@ -50,7 +50,7 @@ namespace Battlefield.Abilities
                     card.passiveSkills.Adrenaline = true;
                     break;
                 default:
-                    Card duplicate = new(card);
+                    Card duplicate = card.Clone();
                     EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(owner, "ParallelUniverse", Element.Air));
                     EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(duplicate, owner.IsOwnedBy(OwnerEnum.Player)));
                     EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(owner.owner, duplicate));

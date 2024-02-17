@@ -21,6 +21,11 @@ public class Enchant : ActivatedAbility
             return true;
         }
         
-        return id.field.Equals(FieldEnum.Passive) && card.cardType is CardType.Shield or CardType.Weapon && card.IsTargetable();
+        return id.field.Equals(FieldEnum.Passive) && card.Type is CardType.Shield or CardType.Weapon && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.Permanent, -1, 0, 0);
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Battlefield.Abilities;
 using Core.Helpers;
 
 public class Luciferin : ActivatedAbility
@@ -8,7 +9,7 @@ public class Luciferin : ActivatedAbility
     { 
         if(!id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner)) return false;
         if(id.IsPlayerField()) return true;
-        return id.IsCreatureField() && card.skill == "";
+        return id.IsCreatureField() && card.Skill is null;
     }
 
     public override void Activate(ID targetId, Card targetCard)
@@ -21,8 +22,8 @@ public class Luciferin : ActivatedAbility
         }
         else
         {
-            targetCard.passiveSkills.Light = true;
-            targetCard.desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
+            targetCard.TurnEndAbility = new LightEndTurn();
+            targetCard.Desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
             EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         }
     }

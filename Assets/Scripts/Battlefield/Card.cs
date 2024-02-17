@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public class Card
+public class CardLegacy
 {
     public string iD;
     public string imageID;
@@ -36,9 +36,9 @@ public class Card
     public int BuyPrice => iD.IsUpgraded() ? iD.GetRegularBuyPrice() + 1500 : rarity * rarity * 6 + cost;
     public int SellPrice => rarity * rarity * 4 + cost;
 
-    public Card(Card cardToCopy)
+    public CardLegacy(CardLegacy cardToCopy)
     {
-        var newBase = (Card)cardToCopy.MemberwiseClone();
+        var newBase = (CardLegacy)cardToCopy.MemberwiseClone();
         iD = newBase.iD;
         imageID = newBase.imageID;
         cardName = newBase.cardName;
@@ -60,7 +60,7 @@ public class Card
         Freeze = newBase.Freeze;
     }
 
-    public Card()
+    public CardLegacy()
     {
         iD = "";
         imageID = "";
@@ -84,10 +84,10 @@ public class Card
         Freeze = 0;
     }
 
-    public Card Clone()
+    public CardLegacy Clone()
     {
         var clone = MemberwiseClone();
-        if (clone is Card card)
+        if (clone is CardLegacy card)
         {
             return card;
         }
@@ -98,7 +98,6 @@ public class Card
     {
         if (skill is "" or "none" or null or " ") return false;
         if (AbilityUsed) return false;
-        if (innateSkills.Delay > 0) return false;
         if (Freeze > 0) return false;
         if (cardType is CardType.Shield or CardType.Pillar or CardType.Mark) return false;
         if (!quantaCheck(skillElement, skillCost)) return false;

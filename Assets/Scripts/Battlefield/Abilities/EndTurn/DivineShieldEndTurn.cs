@@ -15,8 +15,8 @@
     {
         public override void Activate(ID owner, Card card)
         {
-            if (card.Charge <= 0) return;
-            card.Charge--;
+            if (card.Counters.Charge <= 0) return;
+            card.Counters.Charge--;
             card.AtkModify--;
             EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(owner, card, true));
         }

@@ -212,13 +212,13 @@ public class DuelManager : MonoBehaviour
     public int GetCardCount(List<string> cardIds)
     {
         var cardCount = 0;
-        if(player.playerPermanentManager.GetAllValidCards().FirstOrDefault(x => cardIds.Contains(x.iD)) is not null)
+        if(player.playerPermanentManager.GetAllValidCards().FirstOrDefault(x => cardIds.Contains(x.Id)) is not null)
         {
-            cardCount += player.playerPermanentManager.GetAllValidCards().FindAll(x => cardIds.Contains(x.iD)).Count;
+            cardCount += player.playerPermanentManager.GetAllValidCards().FindAll(x => cardIds.Contains(x.Id)).Count;
         }
-        if(enemy.playerPermanentManager.GetAllValidCards().FirstOrDefault(x => cardIds.Contains(x.iD)) is not null)
+        if(enemy.playerPermanentManager.GetAllValidCards().FirstOrDefault(x => cardIds.Contains(x.Id)) is not null)
         {
-            cardCount += enemy.playerPermanentManager.GetAllValidCards().FindAll(x => cardIds.Contains(x.iD)).Count;
+            cardCount += enemy.playerPermanentManager.GetAllValidCards().FindAll(x => cardIds.Contains(x.Id)).Count;
         }
         return cardCount;
     }
@@ -246,7 +246,7 @@ public class DuelManager : MonoBehaviour
         if (PlayerPrefs.GetInt("QuickPlay") == 0)
         {
             if (cardTappedEvent.TappedId.IsFromHand() 
-                && !cardTappedEvent.TappedCard.cardType.Equals(CardType.Spell)
+                && !cardTappedEvent.TappedCard.Type.Equals(CardType.Spell)
                 && player.IsCardPlayable(cardTappedEvent.TappedCard))
             {
                 EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(cardTappedEvent.TappedCard, cardTappedEvent.TappedId));

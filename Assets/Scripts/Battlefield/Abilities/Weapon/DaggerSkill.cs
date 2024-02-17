@@ -4,7 +4,7 @@
     {
         public override void ModifyWeaponAtk(ID owner, ref int atk)
         {
-            var markElement = DuelManager.Instance.GetIDOwner(owner).playerPassiveManager.GetMark().card.costElement;
+            var markElement = DuelManager.Instance.GetIDOwner(owner).playerPassiveManager.GetMark().card.CostElement;
             if (markElement is Element.Death or Element.Darkness)
             {
                 atk += 1;

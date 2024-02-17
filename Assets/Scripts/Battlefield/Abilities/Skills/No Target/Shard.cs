@@ -12,7 +12,7 @@ public class Shard : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        var maxHpBuff = DuelManager.Instance.GetIDOwner(targetId).playerPassiveManager.GetMark().Item2.costElement.Equals(Element.Light) ? 24 : 16;
+        var maxHpBuff = DuelManager.Instance.GetIDOwner(targetId).playerPassiveManager.GetMark().Item2.CostElement.Equals(Element.Light) ? 24 : 16;
         EventBus<ModifyPlayerHealthLogicEvent>.Raise(new ModifyPlayerHealthLogicEvent(maxHpBuff, targetId.owner, true));
     }
 }

@@ -5,7 +5,7 @@
         public override void Activate(ID owner, Card card)
         {
             var amount =
-                DuelManager.Instance.GetIDOwner(owner).playerPassiveManager.GetMark().card.costElement is Element
+                DuelManager.Instance.GetIDOwner(owner).playerPassiveManager.GetMark().card.CardElement is Element
                     .Darkness
                     ? 3
                     : 2;

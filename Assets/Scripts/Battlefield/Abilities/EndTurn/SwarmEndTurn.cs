@@ -5,7 +5,7 @@
         public override void Activate(ID owner, Card card)
         {
             var player = DuelManager.Instance.GetIDOwner(owner);
-            card.def = player.playerCounters.scarab;
+            card.Def = player.playerCounters.scarab;
             EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(owner, card, true));
         }
     }

@@ -14,6 +14,11 @@ public class Paradox : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable() && card.AtkNow > card.DefNow;
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable() && card.AtkNow > card.DefNow;
+    }
+
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.CreatureHighAtk, -1, 0, 0);
     }
 }

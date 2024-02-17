@@ -49,7 +49,7 @@ public class ToolTipCanvas : MonoBehaviour
         _detailObjectPosition = objectPosition - objectSize;
         _detailObjectPosition.x += _detailRectTransform.rect.width / 2;
         _detailObjectPosition.y += _detailRectTransform.rect.height;
-        //isCreature = cardToDisplay.cardType.Equals(CardType.Creature);
+        //isCreature = cardToDisplay.Type.Equals(CardType.Creature);
         this._objectPosition = objectPosition;
         if (objectPosition.y > canvasRectTransform.rect.height / 2)
         {

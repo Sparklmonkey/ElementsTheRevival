@@ -26,7 +26,7 @@ namespace Elements.Duel.Manager
 
             var id = new ID(owner, field, 0);
 
-            id.index = playCardOnFieldEvent.CardToPlay.cardType switch
+            id.index = playCardOnFieldEvent.CardToPlay.Type switch
             {
                 CardType.Weapon => 1,
                 CardType.Shield => 2,

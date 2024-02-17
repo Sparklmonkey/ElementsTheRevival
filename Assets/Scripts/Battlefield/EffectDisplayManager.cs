@@ -40,15 +40,15 @@ public class EffectDisplayManager : MonoBehaviour
         psionImage.SetActive(card.passiveSkills.Psion);
         immaterialImage.SetActive(card.innateSkills.Immaterial);
         gravityImage.SetActive(card.passiveSkills.GravityPull);
-        delayedImage.SetActive(card.innateSkills.Delay > 0);
-        frozenImage.SetActive(card.Freeze > 0);
+        delayedImage.SetActive(card.Counters.Delay > 0);
+        frozenImage.SetActive(card.Counters.Freeze > 0);
         burrowedImage.SetActive(card.passiveSkills.Burrow);
         adrenalineImage.SetActive(card.passiveSkills.Adrenaline);
-        poisonImage.SetActive(card.Poison != 0);
+        poisonImage.SetActive(card.Counters.Poison != 0);
 
-        if (card.Poison == 0) return;
-        poisonImage.GetComponent<Image>().sprite = ImageHelper.GetPoisonSprite(card.Poison > 0);
-        poisonImage.GetComponent<Image>().color = card.IsAflatoxin ? new(108f, 108f, 108f) : new(byte.MaxValue, byte.MaxValue, byte.MaxValue);
-        poisonCount.text = $"{Mathf.Abs(card.Poison)}";
+        if (card.Counters.Poison == 0) return;
+        poisonImage.GetComponent<Image>().sprite = ImageHelper.GetPoisonSprite(card.Counters.Poison > 0);
+        poisonImage.GetComponent<Image>().color = card.Counters.Aflatoxin > 0 ? new(108f, 108f, 108f) : new(byte.MaxValue, byte.MaxValue, byte.MaxValue);
+        poisonCount.text = $"{Mathf.Abs(card.Counters.Poison)}";
     }
 }

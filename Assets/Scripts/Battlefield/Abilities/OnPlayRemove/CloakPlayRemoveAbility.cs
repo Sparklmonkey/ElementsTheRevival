@@ -12,7 +12,7 @@
         {
             var player = DuelManager.Instance.GetIDOwner(owner);
             player.ResetCloakPermParent((owner, card));
-            if (player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.Item2.iD is "5v2" or "7ti").Count != 1) return;
+            if (player.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.Item2.Id is "5v2" or "7ti").Count != 1) return;
             player.DeactivateCloakEffect();
             EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Invisibility, owner.owner, -3));
         }
