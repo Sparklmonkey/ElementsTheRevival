@@ -104,7 +104,7 @@ public class CreatureCardDisplay : CardFieldDisplay
         if (Card.Skill is null) return;
         
         activeAHolder.SetActive(true);
-        activeAName.text = nameof(Card.Skill);
+        activeAName.text = Card.Skill.GetType().Name;
         var hasCost = Card.SkillCost > 0;
         activeACost.text = hasCost ? Card.SkillCost.ToString() : "";
         activeAElement.color = hasCost ? new Color32(255, 255, 255, 255) : new Color32(255, 255, 255, 0);
@@ -167,50 +167,19 @@ public class CreatureCardDisplay : CardFieldDisplay
 
     private void CheckOnPlayEffects()
     {
-        
         Card.PlayRemoveAbility?.OnPlayActivate(Id, Card);
-        // if (Card.innateSkills.Swarm)
-        // {
-        //     EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Scarab, Id.owner, 1));
-        // }
-        //
-        // if (Card.innateSkills.Integrity)
-        // {
-        //     var shardList = DuelManager.Instance.GetIDOwner(Id).playerHand.GetAllValidCardIds().FindAll(x => x.card.CardName.Contains("Shard of"));
-        //     SetCard(CardDatabase.Instance.GetGolemAbility(shardList));
-        // }
-        //
-        // if (Card.innateSkills.Chimera)
-        // {
-        //     var creatureList = DuelManager.Instance.GetIDOwner(Id).playerCreatureField.GetAllValidCardIds();
-        //     var chimeraPwrHp = (0, 0);
-        //
-        //     if (creatureList.Count > 0)
-        //     {
-        //         foreach (var creature in creatureList.Where(creature => !creature.Item1.Equals(Id)))
-        //         {
-        //             chimeraPwrHp.Item1 += creature.Item2.AtkNow;
-        //             chimeraPwrHp.Item2 += creature.Item2.DefNow;
-        //             EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(creature.Item1));
-        //         }
-        //     }
-        //
-        //     Card.Atk = chimeraPwrHp.Item1;
-        //     Card.Def = chimeraPwrHp.Item2;
-        // }
-        //
-        // if (!Card.CostElement.Equals(Element.Darkness)
-        //     && !Card.CostElement.Equals(Element.Death)) return;
-        // if (DuelManager.Instance.GetCardCount(new() { "7ta" }) > 0)
-        // {
-        //     Card.DefModify += 1;
-        //     Card.AtkModify += 2;
-        // }
-        // else if (DuelManager.Instance.GetCardCount(new() { "5uq" }) > 0)
-        // {
-        //     Card.DefModify += 1;
-        //     Card.AtkModify += 1;
-        // }
+        if (!Card.CostElement.Equals(Element.Darkness)
+            && !Card.CostElement.Equals(Element.Death)) return;
+        if (DuelManager.Instance.GetCardCount(new() { "7ta" }) > 0)
+        {
+            Card.DefModify += 1;
+            Card.AtkModify += 2;
+        }
+        else if (DuelManager.Instance.GetCardCount(new() { "5uq" }) > 0)
+        {
+            Card.DefModify += 1;
+            Card.AtkModify += 1;
+        }
 
     }
     
