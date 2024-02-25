@@ -9,7 +9,7 @@ namespace Battlefield.Abilities
             var cell = CardDatabase.Instance.GetCardFromId("6ro");
                 
             EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(card, owner.IsOwnedBy(OwnerEnum.Player)));
-            EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(owner.owner, card));
+            EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(owner.owner, cell));
         }
     }
 }

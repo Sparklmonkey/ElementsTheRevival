@@ -22,9 +22,9 @@ namespace Elements.Duel.Visual
             EventBus<DeckCountChangeEvent>.Unregister(_deckCountChangeBinding);
         }
 
-        public void UpdateDeckCount(DeckCountChangeEvent deckCountChangeEvent)
+        private void UpdateDeckCount(DeckCountChangeEvent deckCountChangeEvent)
         {
-            if (deckCountChangeEvent.Owner.Equals(owner)) return;
+            if (!deckCountChangeEvent.Owner.Equals(owner)) return;
             deckCount.text = deckCountChangeEvent.DeckCount.ToString();
         }
     }

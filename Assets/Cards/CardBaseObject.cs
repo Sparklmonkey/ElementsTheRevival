@@ -81,7 +81,7 @@ public class Card : SerializedScriptableObject
     public CardCounters Counters;
 
     [HorizontalGroup("Ability")]
-    public bool AbilityUsed;
+    public bool AbilityUsed = true;
     [HorizontalGroup("Ability")]
     public bool ReadyUsed;
 
@@ -106,10 +106,14 @@ public class Card : SerializedScriptableObject
     public bool IsAbilityUsable(QuantaCheck quantaCheck, int handCount)
     {
         if (Skill is null) return false;
-        if (AbilityUsed) return false;
         if (Counters.Delay > 0) return false;
         if (Counters.Freeze > 0) return false;
         if (Type is CardType.Shield or CardType.Pillar or CardType.Mark) return false;
+        if (passiveSkills.Readiness)
+        {
+            if (AbilityUsed && ReadyUsed) return false;
+        }
+        else if (AbilityUsed) return false;
         if (!quantaCheck(SkillElement, SkillCost)) return false;
         if (Skill.Equals(typeof(Hasten)) && handCount >= 8) return false;
 

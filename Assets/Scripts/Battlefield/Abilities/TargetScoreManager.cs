@@ -392,28 +392,25 @@ namespace Battlefield.Abilities
         public static float CalculateCreatureScore(this (ID id, Card card) target, float estimate)
         {
             var score = 0f;
-            ID id;
-            Card card;
-            (id, card) = target;
-            if (id.IsOwnedBy(OwnerEnum.Opponent))
+            if (target.id.IsOwnedBy(OwnerEnum.Opponent))
             {
-                if(card.DefNow < card.Def)
+                if(target.card.DefNow < target.card.Def)
                 {
-                    score = ((0.01f * card.AtkNow * card.Def - card.DefNow) * estimate);
+                    score = ((0.01f * target.card.AtkNow * target.card.Def - target.card.DefNow) * estimate);
                 }
-                if (card.AtkNow < 0)
+                if (target.card.AtkNow < 0)
                 {
-                    score = (0.1f * card.AtkNow * estimate);
+                    score = (0.1f * target.card.AtkNow * estimate);
                 }
-                if (card.Counters.Poison < 0 && BattleVars.Shared.AbilityCardOrigin.Skill is Purify)
+                if (target.card.Counters.Poison < 0 && BattleVars.Shared.AbilityCardOrigin.Skill is Purify)
                 {
                     score = 0f;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.Skill is Holylight && (card.CostElement is Element.Death or Element.Darkness))
+                if (BattleVars.Shared.AbilityCardOrigin.Skill is Holylight && (target.card.CostElement is Element.Death or Element.Darkness))
                 {
                     score = -estimate;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.Skill is Reversetime && (card.innateSkills.Mummy || card.innateSkills.Undead))
+                if (BattleVars.Shared.AbilityCardOrigin.Skill is Reversetime && (target.card.innateSkills.Mummy || target.card.innateSkills.Undead))
                 {
                     score = 1f;
                 }
@@ -421,31 +418,31 @@ namespace Battlefield.Abilities
                 return score;
             }
 
-            if (id.IsOwnedBy(OwnerEnum.Player))
+            if (target.id.IsOwnedBy(OwnerEnum.Player))
             {
-                var skillScore = card?.Skill is not null ? 3 : 0;
-                score = (card.AtkNow + 1f + skillScore) / -estimate / 20f;
-                if (card.Counters.Freeze > 0 || card.Counters.Delay > 0)
+                var skillScore = target.card.Skill is not null ? 3 : 0;
+                score = (target.card.AtkNow + 1f + skillScore) / -estimate / 20f;
+                if (target.card.Counters.Freeze > 0 || target.card.Counters.Delay > 0)
                 {
                     score = 0f;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.Skill is Holylight && (card.CostElement is Element.Death or Element.Darkness))
+                if (BattleVars.Shared.AbilityCardOrigin.Skill is Holylight && (target.card.CostElement is Element.Death or Element.Darkness))
                 {
-                    score = (card.AtkNow + 1f + skillScore) / estimate;
+                    score = (target.card.AtkNow + 1f + skillScore) / estimate;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.Skill is Reversetime && (card.innateSkills.Mummy || card.innateSkills.Undead))
+                if (BattleVars.Shared.AbilityCardOrigin.Skill is Reversetime && (target.card.innateSkills.Mummy || target.card.innateSkills.Undead))
                 {
                     score = 0f;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.Skill is Reversetime && card.innateSkills.Voodoo && card.DefNow > 25)
+                if (BattleVars.Shared.AbilityCardOrigin.Skill is Reversetime && target.card.innateSkills.Voodoo && target.card.DefNow > 25)
                 {
-                    score = card.DefNow / 25f;
+                    score = target.card.DefNow / 25f;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.Skill is Shockwave && card.Counters.Freeze > 0)
+                if (BattleVars.Shared.AbilityCardOrigin.Skill is Shockwave && target.card.Counters.Freeze > 0)
                 {
                     score = 1f;
                 }
-                if (BattleVars.Shared.AbilityCardOrigin.Skill is Web && card.innateSkills.Airborne)
+                if (BattleVars.Shared.AbilityCardOrigin.Skill is Web && target.card.innateSkills.Airborne)
                 {
                     score = 0f;
                 }

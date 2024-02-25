@@ -79,22 +79,6 @@ namespace Elements.Duel.Visual
                     poisonLabel.text = updatePlayerCountersVisualEvent.Counters.poison.ToString();
                 }
             }
-            
-            if (updatePlayerCountersVisualEvent.Counters.invisibility != 0)
-            {
-                if (playerID.IsOwnedBy(OwnerEnum.Opponent) && updatePlayerCountersVisualEvent.Counters.invisibility > 0)
-                {
-                    cloakVisual.SetActive(true);
-                }
-                if (updatePlayerCountersVisualEvent.Counters.invisibility <= 0)
-                {
-                    updatePlayerCountersVisualEvent.Counters.invisibility = 0;
-                    if (playerID.IsOwnedBy(OwnerEnum.Opponent))
-                    {
-                        cloakVisual.SetActive(false);
-                    }
-                }
-            }
             silenceImage.gameObject.SetActive(updatePlayerCountersVisualEvent.Counters.silence > 0);
             sanctImage.gameObject.SetActive(updatePlayerCountersVisualEvent.Counters.sanctuary > 0);
         }

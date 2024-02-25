@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Battlefield.Abilities;
 using UnityEngine;
 
 public class Overdrive : ActivatedAbility
@@ -9,8 +10,8 @@ public class Overdrive : ActivatedAbility
     {
         if (!IsCardValid(targetId, targetCard)) return;
         targetCard.Desc = "Overdrive: \n Gain +3 /-1 per turn";
+        targetCard.TurnEndAbility = new OverdriveEndTurn();
         targetCard.Skill = null;
-        targetCard.passiveSkills.Overdrive = true;
     }
 
     public override bool IsCardValid(ID id, Card card)

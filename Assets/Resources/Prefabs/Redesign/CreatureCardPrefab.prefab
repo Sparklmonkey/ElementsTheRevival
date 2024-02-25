@@ -2383,6 +2383,7 @@ MonoBehaviour:
   rareIndicator: {fileID: 875467801983031257}
   cardHeadBack: {fileID: 8366457247206475172}
   activeAElement: {fileID: 9173858084557918021}
+  effectDisplayManager: {fileID: 8087429309753568943}
   creatureValue: {fileID: 6435766100061775614}
   cardName: {fileID: 3567943042067432622}
   activeAName: {fileID: 3574201528895647798}

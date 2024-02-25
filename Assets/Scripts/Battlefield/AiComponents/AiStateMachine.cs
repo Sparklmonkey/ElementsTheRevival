@@ -112,7 +112,7 @@ public class AiStateMachine
                 break;
 
             case GameState.DrawCard:
-                EventBus<OnTurnStartEvent>.Raise(new OnTurnStartEvent(_aiManager.Owner));
+                EventBus<OnTurnStartEvent>.Raise(new OnTurnStartEvent(_aiManager.owner));
                 _aiDraw.StartTurnDrawCard(_aiManager);
                 SetNewState();
                 break;

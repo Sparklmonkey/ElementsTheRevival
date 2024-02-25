@@ -72,7 +72,7 @@ public class PassiveCardDisplay : CardFieldDisplay
         if (updateCardDisplayEvent.Card.Skill is not null)
         {
             activeAHolder.SetActive(true);
-            activeAName.text = nameof(updateCardDisplayEvent.Card.Skill);
+            activeAName.text = Card.Skill.GetType().Name;
             if (updateCardDisplayEvent.Card.SkillCost > 0)
             {
                 activeACost.text = updateCardDisplayEvent.Card.SkillCost.ToString();
@@ -93,6 +93,8 @@ public class PassiveCardDisplay : CardFieldDisplay
 
         immaterialIndicator.SetActive(updateCardDisplayEvent.Card.innateSkills.Immaterial);
         Card.PlayRemoveAbility?.OnPlayActivate(Id, Card);
+        
+        turnsInPlay.text = Card.HasTurnLimit ? Card.TurnsInPlay.ToString() : "";
     }
 
     private void HideCard(ClearCardDisplayEvent clearCardDisplayEvent)
@@ -118,6 +120,7 @@ public class PassiveCardDisplay : CardFieldDisplay
             HideCard(new ClearCardDisplayEvent(Id));
         }
 
+        turnsInPlay.text = Card.TurnsInPlay.ToString();
     }
 
     private void DeathTrigger(OnDeathTriggerEvent onDeathTriggerEvent)
@@ -168,19 +171,19 @@ public class PassiveCardDisplay : CardFieldDisplay
         }
 
         //Send Damage
-        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(atkNow, true, false, enemy.Owner));
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(atkNow, true, false, enemy.owner));
 
         if (atkNow > 0)
         {
             if (Card.passiveSkills.Vampire)
             {
-                EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(atkNow, false, false, owner.Owner));
+                EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(atkNow, false, false, owner.owner));
             }
 
             if (Card.passiveSkills.Venom)
             {
                 EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison,
-                    enemy.Owner, atkNow));
+                    enemy.owner, atkNow));
             }
 
             Card.WeaponPassive?.EndTurnEffect(Id);

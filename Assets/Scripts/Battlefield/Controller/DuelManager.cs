@@ -292,7 +292,7 @@ public class DuelManager : MonoBehaviour
         if (!cardTappedEvent.TappedId.IsOwnedBy(OwnerEnum.Opponent)) return false;
         if (cardTappedEvent.TappedId.field.Equals(FieldEnum.Hand)) return true; 
 
-        if (enemy.playerCounters.invisibility > 0 && !enemy.cloakIndex.Contains(cardTappedEvent.TappedId)) return true;
+        if (enemy.playerCounters.invisibility > 0) return true;
         EventBus<SetupCardDisplayEvent>.Raise(new SetupCardDisplayEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard, false));
         return true;
 

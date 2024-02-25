@@ -5,7 +5,6 @@ using Sirenix.OdinInspector;
 [TypeInfoBox("Skills that are affected by Lobotomy.")]
 public struct PassiveSkills
 {
-    public bool Infest;
     public bool Momentum;
     public bool Burrow;
     public bool Venom;
@@ -17,8 +16,6 @@ public struct PassiveSkills
     public bool DivineShield;
     public bool Antimatter;
     public bool Adrenaline;
-    public bool Overdrive;
-    public bool Acceleration;
     public bool GravityPull;
     public bool Mutant;
     public bool Readiness;

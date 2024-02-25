@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Battlefield.Abilities;
 using Battlefield.Abstract;
 using Core.Helpers;
 using TMPro;
@@ -88,7 +89,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         if (Card.Skill is null) return;
         
         activeAHolder.SetActive(true);
-        activeAName.text = nameof(Card.Skill);
+        activeAName.text = Card.Skill.GetType().Name;
         var hasCost = Card.SkillCost > 0;
         activeACost.text = hasCost ? Card.SkillCost.ToString() : "";
         activeAElement.color = hasCost ? new Color32(255, 255, 255, 255) : new Color32(255, 255, 255, 0);
@@ -119,85 +120,20 @@ public class PermanentCardDisplay : CardFieldDisplay
     private void CheckOnPlayEffects()
     {
         Card.PlayRemoveAbility?.OnPlayActivate(Id, Card);
-        // switch (Card.Id)
-        // {
-        //     case "7q9":
-        //     case "5rp":
-        //         Card.TurnsInPlay = 2;
-        //         EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Delay, Id.owner.Not(), 1));
-        //         EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Delay, Id.owner, 1));
-        //         break;
-        //     case "5v2":
-        //     case "7ti":
-        //         EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Invisibility, Id.owner, 3));
-        //         Card.TurnsInPlay = 3;
-        //         DuelManager.Instance.GetIDOwner(Id).ActivateCloakEffect(transform);
-        //         break;
-        //     case "5j2":
-        //     case "7hi":
-        //         EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Patience, Id.owner, 1));
-        //         break;
-        //     case "5uq":
-        //         DuelManager.Instance.UpdateNightFallEclipse(true, true);
-        //         break;
-        //     case "7ta":
-        //         DuelManager.Instance.UpdateNightFallEclipse(true, false);
-        //         break;
-        //     case "5pa":
-        //     case "7nq":
-        //         EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Freedom, Id.owner, 1));
-        //         break;
-        //     case "5ih":
-        //     case "7h1":
-        //         DuelManager.Instance.AddFloodCount(1);
-        //         break;
-        // }
-        //
-        // if (Card.innateSkills.Sanctuary)
-        // {
-        //     EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Sanctuary, Id.owner, 1));
-        // }
+
+        if (Card.PlayRemoveAbility is CloakPlayRemoveAbility)
+        {
+            EventBus<UpdateCloakParentEvent>.Raise(new UpdateCloakParentEvent(transform, Id, true));
+        }
     }
 
     private void CheckOnRemoveEffects()
     {
         Card.PlayRemoveAbility?.OnRemoveActivate(Id, Card);
-        // var owner = DuelManager.Instance.GetIDOwner(Id);
-        // switch (Card.Id)
-        // {
-        //     case "5v2":
-        //     case "7ti":
-        //         owner.ResetCloakPermParent((Id, Card));
-        //         if (owner.playerPermanentManager.GetAllValidCardIds().FindAll(x => x.Item2.Id is "5v2" or "7ti").Count == 1)
-        //         {
-        //             owner.DeactivateCloakEffect();
-        //             EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Invisibility, Id.owner, -3));
-        //         }
-        //         break;
-        //     case "5j2":
-        //     case "7hi":
-        //         EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Patience, Id.owner, -1));
-        //         break;
-        //     case "5uq":
-        //         DuelManager.Instance.UpdateNightFallEclipse(false, true);
-        //         break;
-        //     case "7ta":
-        //         DuelManager.Instance.UpdateNightFallEclipse(false, false);
-        //         break;
-        //     case "5pa":
-        //     case "7nq":
-        //         EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Freedom, Id.owner, -1));
-        //         break;
-        //     case "5ih":
-        //     case "7h1":
-        //         DuelManager.Instance.AddFloodCount(-1);
-        //         break;
-        // }
-        //
-        // if (Card.innateSkills.Sanctuary)
-        // {
-        //     EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Sanctuary, Id.owner, -1));
-        // }
+        if (Card.PlayRemoveAbility is CloakPlayRemoveAbility)
+        {
+            EventBus<UpdateCloakParentEvent>.Raise(new UpdateCloakParentEvent(transform, Id, false));
+        }
     }
 
     private void TurnEnd(OnPermanentTurnEndEvent onTurnEndEvent)

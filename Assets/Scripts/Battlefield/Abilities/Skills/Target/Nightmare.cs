@@ -13,7 +13,7 @@ public class Nightmare : ActivatedAbility
 
         var damage = 7 - opponent.playerHand.GetHandCount();
         opponent.FillHandWith(creature);
-        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damage * 2, true, true, opponent.Owner));
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damage * 2, true, true, opponent.owner));
         EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damage * 2, false, true, BattleVars.Shared.AbilityIDOrigin.owner));
     }
 

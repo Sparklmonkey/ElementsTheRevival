@@ -10,7 +10,7 @@ public class DashResetAccountManager : MonoBehaviour
     public async void ConfirmResetText(TMP_InputField inputField)
     {
         if (ApiManager.IsTrainer) return;
-        if (inputField.text == "RESET")
+        if (inputField.text == "DELETE")
         {
             var response = await ApiManager.Instance.ResetSaveData();
             PlayerData.Shared = response.savedData;

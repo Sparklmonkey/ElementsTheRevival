@@ -19,10 +19,6 @@ public class Rainoffire : ActivatedAbility
         
         targetCard.DefDamage += 3;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
-
-        if (victim.playerCounters.invisibility > 0)
-        {
-            victim.RemoveAllCloaks();
-        }
+        victim.RemoveAllCloaks();
     }
 }

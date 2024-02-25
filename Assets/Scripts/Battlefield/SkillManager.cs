@@ -39,11 +39,11 @@ public class SkillManager : MonoBehaviour
         var ability = card.Skill;
         if (card.Type.Equals(CardType.Spell))
         {
-            EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(owner.Owner.Equals(OwnerEnum.Player), card, null, null));
+            EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(owner.owner.Equals(OwnerEnum.Player), card, null, null));
         }
         else
         {
-            EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(owner.Owner.Equals(OwnerEnum.Player), card, null, null));
+            EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(owner.owner.Equals(OwnerEnum.Player), card, null, null));
         }
         EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(ability.IsCardValid, true));
         foreach (var target in DuelManager.Instance.ValidTargets)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Serket
   m_EditorClassIdentifier: 
   opponentName: Serket
-  maxHP: 200
+  maxHp: 200
   mark: 2
   deck: 710 710 710 710 710 710 710 713 713 713 713 713 71a 71a 71e 71e 71e 71e 71e
     7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ao 7ao 7ao 7ao 7ao 7b0 7b0 7ta 7ta 7ta 7ti 7ti

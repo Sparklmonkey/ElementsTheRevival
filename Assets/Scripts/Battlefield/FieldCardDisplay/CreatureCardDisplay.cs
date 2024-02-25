@@ -17,6 +17,7 @@ public class CreatureCardDisplay : CardFieldDisplay
         cardHeadBack,
         activeAElement;
 
+    [SerializeField] private EffectDisplayManager effectDisplayManager;
     [SerializeField] private TextMeshProUGUI creatureValue, cardName, activeAName, activeACost;
     [SerializeField] private GameObject upMovingText, activeAHolder;
 
@@ -85,6 +86,7 @@ public class CreatureCardDisplay : CardFieldDisplay
         rareIndicator.gameObject.SetActive(updateCardDisplayEvent.Card.IsRare());
 
         SetupActiveAbility();
+        effectDisplayManager.UpdateEffectDisplay(Card);
         if (updateCardDisplayEvent.IsUpdate) return;
         CheckOnPlayEffects();
     }
@@ -138,13 +140,13 @@ public class CreatureCardDisplay : CardFieldDisplay
         EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "CardDeath", Element.Other));
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("RemoveCardFromField"));
         
-        // EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Scarab, Id.owner, Card.innateSkills.Swarm ? -1 : 0));
-        
         var shouldDeath = ShouldActivateDeathTriggers();
         if (shouldDeath)
         {
             EventBus<OnDeathTriggerEvent>.Raise(new OnDeathTriggerEvent());
         }
+        
+        
         if (Card.Counters.Aflatoxin > 0)
         {
             var card = CardDatabase.Instance.GetCardFromId("6ro");
@@ -153,12 +155,11 @@ public class CreatureCardDisplay : CardFieldDisplay
         else if (Card.PlayRemoveAbility is PhoenixPlayRemoveAbility && !shouldDeath)
         {
             Card.PlayRemoveAbility?.OnRemoveActivate(Id, Card);
-            // var card = CardDatabase.Instance.GetCardFromId(Card.Id.IsUpgraded() ? "7dt" : "5fd");
-            // DisplayCard(new UpdateCreatureCardEvent(Id, card, false));
         }
         else
         {
             Card.PlayRemoveAbility?.OnRemoveActivate(Id, Card);
+            
             EventBus<RemoveCardFromManagerEvent>.Raise(new RemoveCardFromManagerEvent(Id));
             Destroy(gameObject);
         }
@@ -168,6 +169,7 @@ public class CreatureCardDisplay : CardFieldDisplay
     private void CheckOnPlayEffects()
     {
         Card.PlayRemoveAbility?.OnPlayActivate(Id, Card);
+        
         if (!Card.CostElement.Equals(Element.Darkness)
             && !Card.CostElement.Equals(Element.Death)) return;
         if (DuelManager.Instance.GetCardCount(new() { "7ta" }) > 0)
@@ -233,12 +235,6 @@ public class CreatureCardDisplay : CardFieldDisplay
                     if (!Card.passiveSkills.Momentum)
                     {
                         atkNow = enemy.ManageShield(atkNow, (Id, Card));
-                        if (Card.DefNow <= 0) 
-                        {
-                            EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(Id)); 
-                            return;
-                        }
-                        
                     }
                 }
 
@@ -253,17 +249,17 @@ public class CreatureCardDisplay : CardFieldDisplay
                     {
                         if (Card.passiveSkills.Venom)
                         {
-                            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, enemy.Owner, 1));
+                            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, enemy.owner, 1));
                         }
 
                         if (Card.passiveSkills.DeadlyVenom)
                         {
-                            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, enemy.Owner, 2));
+                            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, enemy.owner, 2));
                         }
 
                         if (Card.passiveSkills.Neurotoxin)
                         {
-                            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Neurotoxin, enemy.Owner, 1));
+                            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Neurotoxin, enemy.owner, 1));
                         }
                     }
                 }
@@ -272,9 +268,9 @@ public class CreatureCardDisplay : CardFieldDisplay
                 {
                     if (Card.passiveSkills.Vampire)
                     {
-                        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(atkNow, false, false, owner.Owner));
+                        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(atkNow, false, false, owner.owner));
                     }
-                    EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(atkNow, true, Card.passiveSkills.Psion, enemy.Owner));
+                    EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(atkNow, true, Card.passiveSkills.Psion, enemy.owner));
                     EventBus<DisplayCreatureAttackEvent>.Raise(new DisplayCreatureAttackEvent(Id, atkNow));
                 }
                 
@@ -299,5 +295,18 @@ public class CreatureCardDisplay : CardFieldDisplay
             (Id, Card).CreatureTurnDownTick();
             DisplayCard(new UpdateCreatureCardEvent(Id, Card, true));
         }
+    }
+}
+
+public struct UpdateCloakParentEvent : IEvent
+{
+    public Transform Transform;
+    public ID Id;
+    public bool IsAdd;
+    public UpdateCloakParentEvent(Transform transform, ID id, bool isAdd)
+    {
+        Transform = transform;
+        Id = id;
+        IsAdd = isAdd;
     }
 }

@@ -54,7 +54,6 @@
     <Compile Include="Assets\Scripts\ArenaDataManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Flying.cs" />
     <Compile Include="Assets\Scripts\CardTest.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldHope.cs" />
     <Compile Include="Assets\Scripts\Deck Manager\DMCardPrefabNoTT.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Purify.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Lycanthropy.cs" />
@@ -67,7 +66,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Enum\TextDirection.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\SingularityEndTurn.cs" />
     <Compile Include="Assets\Scripts\Battlefield\FieldManager\PassiveManager.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldNone.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\SwarmPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\VoidEndTurn.cs" />
     <Compile Include="Assets\Scripts\Networking\Responses\CodeRedemptionResponse.cs" />
     <Compile Include="Assets\Scripts\Core\PvpUserInfo.cs" />
@@ -75,7 +74,6 @@
     <Compile Include="Assets\Scripts\Quests\QuestWelcome.cs" />
     <Compile Include="Assets\Scripts\Battlefield\MessageManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\ToolTipCanvas.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldOne.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\ID.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\PlaySoundEffectEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Weapon\DaggerSkill.cs" />
@@ -99,7 +97,6 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Blackhole.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ModifyPlayerHealthLogicEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ReflectSkill.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldWeight.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Controller\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\FreedomPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Fractal.cs" />
@@ -135,9 +132,7 @@
     <Compile Include="Assets\Scripts\Battlefield\IdCardTupleExtensions.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\IDCardPair.cs" />
     <Compile Include="Assets\Gif\Ruccho\FangAutoTile\Sample\OnMapPlayerController.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldIceTwo.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\EmpathyEndTurn.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldBones.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\CloakPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Icebolt.cs" />
     <Compile Include="Assets\Scripts\Dashboard\Option_Toggle.cs" />
@@ -157,7 +152,6 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Overdrive.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\SanctuaryPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Visual\CardDetailView.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldEdissipation.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Logic\ActionCell.cs" />
     <Compile Include="Assets\Scripts\Core\Enums\Element.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Serendipity.cs" />
@@ -175,7 +169,6 @@
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ShouldShowTargetableEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Unstablegas.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Paradox.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldDusk.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Growth.cs" />
     <Compile Include="Assets\Scripts\Battlefield\FieldCardDisplay\CreatureCardDisplay.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\PlayPassiveOnFieldEvent.cs" />
@@ -183,6 +176,7 @@
     <Compile Include="Assets\Scripts\Oracle\OracleHelper.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Firebolt.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnEndTurnAbility.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\DevourerEndTurn.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Enum\CounterEnum.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\BonesPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Rage.cs" />
@@ -223,7 +217,6 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Gravitypullc.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\OnDeathTriggerEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Core\PassiveSkills.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldDissipation.cs" />
     <Compile Include="Assets\Scripts\Battlefield\FieldCardDisplay\PassiveCardDisplay.cs" />
     <Compile Include="Assets\Scripts\PvP\Game_PvpHubConnection.cs" />
     <Compile Include="Assets\Scripts\Deck Manager\DM_MarkManager.cs" />
@@ -259,7 +252,6 @@
     <Compile Include="Assets\Scripts\Core\SingletonMono.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Cremation.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\OnPassiveTurnEndEvent.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldPhaseShift.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Momentum.cs" />
     <Compile Include="Assets\Scripts\Core\Networking\Enums\ErrorCases.cs" />
     <Compile Include="Assets\Scripts\Core\PvpConnectionData.cs" />
@@ -277,7 +269,6 @@
     <Compile Include="Assets\Scripts\Battlefield\ActiveAbilityDisplay.cs" />
     <Compile Include="Assets\Scripts\Networking\Responses\UpdateGameStatResponse.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Dejavu.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldDelay.cs" />
     <Compile Include="Assets\Scripts\Core\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\PlayPermanentOnFieldEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Rainoffire.cs" />
@@ -287,7 +278,6 @@
     <Compile Include="Assets\Scripts\Bazaar\Bazaar_ShopInventoryManager.cs" />
     <Compile Include="Assets\Scripts\Dashboard\SupportView.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\TargetType.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldFirewall.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ClearCardDisplayEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\ShardGolemPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\CardObject.cs" />
@@ -298,7 +288,7 @@
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\ModifyPlayerHealthVisualEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Adrenaline.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\EInfestEndTurn.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldIce.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\OverdriveEndTurn.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Destroy.cs" />
     <Compile Include="Assets\Scripts\Battlefield\CoinFlip.cs" />
     <Compile Include="Assets\Scripts\Achievements\AchievementManager.cs" />
@@ -324,7 +314,6 @@
     <Compile Include="Assets\Scripts\Events\IEventBinding.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Hatch.cs" />
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldReflect.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\ElementColours.cs" />
     <Compile Include="Assets\Scripts\Quests\QuestScoreTwo.cs" />
     <Compile Include="Assets\Scripts\DeckSelector\CardDisplay.cs" />
@@ -368,7 +357,6 @@
     <Compile Include="Assets\Scripts\Core\Helpers\WaitForFrames.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\TowerPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Weapon\BowSkill.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Card.cs" />
     <Compile Include="Assets\Scripts\Networking\Requests\CodeRedemptionRequest.cs" />
     <Compile Include="Assets\Scripts\Quests\QuestScoreOne.cs" />
     <Compile Include="Assets\Scripts\Bazaar\BaseClass\InventoryManager.cs" />
@@ -379,10 +367,10 @@
     <Compile Include="Assets\BattlefieldHotkeys.cs" />
     <Compile Include="Assets\Scripts\Networking\Endpointbuilder.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Armor.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldFog.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\SpinesSkill.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Aflatoxin.cs" />
     <Compile Include="Assets\Scripts\Core\Abilities\Skills.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\AccelerateEndTurn.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\UpdateCardDisplayEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Healp.cs" />
     <Compile Include="Assets\Scripts\Battlefield\FieldCardDisplay\HandCardDisplay.cs" />
@@ -412,13 +400,10 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Chaospower.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\BoneSkill.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\FloodingEndTurn.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\ShieldAbility.cs" />
     <Compile Include="Assets\Scripts\Spinner\CardSpinAnimation.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\WingsSkill.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Heal.cs" />
     <Compile Include="Assets\Scripts\Battlefield\ImageAnimations.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldSolar.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldSpines.cs" />
     <Compile Include="Assets\Scripts\SignalRTest.cs" />
     <Compile Include="Assets\Scripts\Core\ScriptableObjects\CardDefinition.cs" />
     <Compile Include="Assets\Scripts\Battlefield\AbilityAnimation.cs" />
@@ -430,7 +415,6 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Holylight.cs" />
     <Compile Include="Assets\Scripts\Battlefield\AiComponents\IAiDiscardComponent.cs" />
     <Compile Include="Assets\Scripts\Test_LoginPanel.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldTwo.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Weapon\FierySkill.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\SolarSkill.cs" />
     <Compile Include="Assets\Scripts\Quests\QuestImproveDeck.cs" />
@@ -441,7 +425,6 @@
     <Compile Include="Assets\Scripts\Battlefield\EffectDisplayManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\AiTargetType.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\RemoveCardFromHandEvent.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldUnholy.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Sniper.cs" />
     <Compile Include="Assets\Scripts\Battlefield\CardDisplayDetail.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Blessing.cs" />
@@ -453,9 +436,7 @@
     <Compile Include="Assets\Scripts\Deck Manager\DeckDisplayManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Ignite.cs" />
     <Compile Include="Assets\Scripts\Events\EventBus.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldWings.cs" />
     <Compile Include="Assets\Scripts\Core\Networking\Response\CodeDetails.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\ShieldThree.cs" />
     <Compile Include="Assets\Scripts\Login\LoginScreen_RegisterManager.cs" />
     <Compile Include="Assets\Scripts\Core\ScriptableObjects\TargetPriority.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\CardDatabase.cs" />

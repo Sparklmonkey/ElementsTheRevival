@@ -82,16 +82,9 @@ public class CardDatabase : SingletonMono<CardDatabase>
             "scavenger"
         };
 
-    public List<Card> SetupNewCardBase()
-    {
-        var jsonString = Resources.Load<TextAsset>("Cards/CardDatabase");
-        var newDc = JsonConvert.DeserializeObject<CardDB>(jsonString.text);
-        return newDc.cardDb;
-    }
     public Card GetCardFromId(string id)
     {
         var baseCard = FullCardList.Find(x => x.Id == id);
-
         return baseCard.Clone();
     }
 
@@ -121,10 +114,6 @@ public class CardDatabase : SingletonMono<CardDatabase>
 
     public Card GetRandomCard(CardType cardType, bool isUpgraded, bool shouldBeHatchLegal, Element element = Element.Aether, bool shouldBeElement = false)
     {
-        if(FullCardList.Count == 0)
-        {
-            FullCardList = SetupNewCardBase();
-        }
         List<Card> list = new(FullCardList.FindAll(x => x.Type.Equals(cardType) && x.Id.IsUpgraded() == isUpgraded && x.Id.IsDeckLegal()));
         if (shouldBeHatchLegal)
         {
@@ -140,7 +129,6 @@ public class CardDatabase : SingletonMono<CardDatabase>
 
     public List<string> GetRandomDeck()
     {
-        if (FullCardList == null) { SetupNewCardBase(); }
         List<string> deckToReturn = new();
         for (var i = 0; i < 10; i++)
         {

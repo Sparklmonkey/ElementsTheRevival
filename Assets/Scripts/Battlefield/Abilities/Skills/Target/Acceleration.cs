@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Battlefield.Abilities;
 
 public class Acceleration : ActivatedAbility
 {
@@ -8,8 +9,8 @@ public class Acceleration : ActivatedAbility
     {
         if (!IsCardValid(targetId, targetCard)) return;
         targetCard.Desc = "Acceleration: \n Gain +2 /-1 per turn";
+        targetCard.TurnEndAbility = new AccelerateEndTurn();
         targetCard.Skill = null;
-        targetCard.passiveSkills.Acceleration = true;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
     public override bool IsCardValid(ID id, Card card)
