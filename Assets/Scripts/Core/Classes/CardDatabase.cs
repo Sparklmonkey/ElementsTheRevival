@@ -15,6 +15,8 @@ public class CardDatabase : SingletonMono<CardDatabase>
 
     public List<Card> FullCardList;
 
+    public List<StarterDeck> StarterDecks;
+    
     private readonly List<string> _illegalPets = new() { "4vr", "4t8", "4vf", "52h", "55o", "58r", "5bt", "5f2", "5id", "5la", "5of", "5rm", "5ul", "61v", "5lt", "7kd" };
 
     public Card GetRandomPet()

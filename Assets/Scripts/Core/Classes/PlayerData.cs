@@ -43,7 +43,7 @@ public class PlayerData
         completedQuests = "";
         petCount = 0;
         playedOracleToday = false;
-        oracleLastPlayed = DateTime.Today.ToString();
+        oracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
         lastOracleDay = 0;
         hasDefeatedLevel0 = false;
         removedCardFromDeck = false;
@@ -128,8 +128,8 @@ public class PlayerData
         petName = "";
         completedQuests = "";
         petCount = 0;
-        playedOracleToday = false;
-        oracleLastPlayed = DateTime.Today.ToString();
+        playedOracleToday = false; //2024-02-03T00:21:49.2289075-03:00
+        oracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
         lastOracleDay = 0;
         hasDefeatedLevel0 = false;
         removedCardFromDeck = false;

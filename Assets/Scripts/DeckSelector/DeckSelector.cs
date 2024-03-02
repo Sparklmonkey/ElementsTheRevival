@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -26,16 +27,16 @@ public class DeckSelector : MonoBehaviour
         _playerDeck = element;
         elementDescription.text = ElementStrings.GetElementDescription(_playerDeck);
         ClearGridView();
-        var starterDeck = StarterDecks.Instance.GetStarterDeck(_playerDeck).DeserializeCard();
+        var starterDeck = CardDatabase.Instance.StarterDecks.First(x => x.MarkElement.Equals(element));
 
         for (var i = 0; i < cardHeads.Count; i++)
         {
-            cardHeads[i].SetupCardHead(starterDeck[i], cardDisplayDetail);
+            cardHeads[i].SetupCardHead(starterDeck.DeckList[i], cardDisplayDetail);
         }
         cardDisplayDetail.gameObject.SetActive(false);
-        var displayCards = StarterDecks.Instance.GetDisplayCards(_playerDeck);
-        cardOne.SetupCardView(CardDatabase.Instance.GetCardFromId(displayCards.Item1));
-        cardTwo.SetupCardView(CardDatabase.Instance.GetCardFromId(displayCards.Item2));
+        
+        cardOne.SetupCardView(starterDeck.HighlightOne);
+        cardTwo.SetupCardView(starterDeck.HighlightTwo);
     }
 
     private void ClearGridView()
@@ -47,7 +48,7 @@ public class DeckSelector : MonoBehaviour
     public void StartGame()
     {
         PlayerData.Shared.markElement = _playerDeck;
-        PlayerData.Shared.currentDeck = StarterDecks.Instance.GetStarterDeck(_playerDeck);
+        PlayerData.Shared.currentDeck = CardDatabase.Instance.StarterDecks.First(x => x.MarkElement.Equals(_playerDeck)).DeckList.SerializeCard();
         PlayerData.Shared.inventoryCards = new List<string>();
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }

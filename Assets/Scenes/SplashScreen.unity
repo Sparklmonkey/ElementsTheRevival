@@ -2338,6 +2338,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b4877f9a50706734794385dfc968698b, type: 2}
   - {fileID: 11400000, guid: 3a5afdf1efe4497479fee5299a79c765, type: 2}
   - {fileID: 11400000, guid: a9c9ae3dcaf623449aa41ff92a138025, type: 2}
+  StarterDecks:
+  - {fileID: 11400000, guid: 524df9bb4fbe7144397098ad39c52481, type: 2}
+  - {fileID: 11400000, guid: d4d4e1bd8cfdc0d44b410fa87f122573, type: 2}
+  - {fileID: 11400000, guid: bcdbcc1b3b41c944e9bff04197fc2038, type: 2}
+  - {fileID: 11400000, guid: f56dcb6a22a51b442bf2df03c16c986e, type: 2}
+  - {fileID: 11400000, guid: 578e840f81ca56b44a68e23714efcda7, type: 2}
+  - {fileID: 11400000, guid: d773d1c05e24ddc4e86c25fa891ad4a5, type: 2}
+  - {fileID: 11400000, guid: dd9caa7328b1ac34eb8202e53e9e32aa, type: 2}
+  - {fileID: 11400000, guid: 7ae849893ecf2734aa2da568dcba5e82, type: 2}
+  - {fileID: 11400000, guid: 291cef4d1bf52f047aba91b267f979a1, type: 2}
+  - {fileID: 11400000, guid: a8f5835eb77243a4886d0cac5a9a906c, type: 2}
+  - {fileID: 11400000, guid: 2d3cd15ebfff0dc48aea02a0f1ee6238, type: 2}
+  - {fileID: 11400000, guid: 846e65120d828414289f426ba10adc7b, type: 2}
   TrainerCardList:
   - 562
   - 5c7

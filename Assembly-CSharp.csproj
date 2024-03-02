@@ -56,6 +56,7 @@
     <Compile Include="Assets\Scripts\CardTest.cs" />
     <Compile Include="Assets\Scripts\Deck Manager\DMCardPrefabNoTT.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Purify.cs" />
+    <Compile Include="Assets\Cards\StarterDecks\StarterDeck.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Lycanthropy.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\ChimeraPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Networking\Responses\UpdateUserDataResponse.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Fractal.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Bravery.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Weapon\HammerSkill.cs" />
+    <Compile Include="Assets\Resources\TrainerAccount.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\SetBoneCountEvent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Controller\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Battlefield\ActionDisplayManager.cs" />
@@ -297,7 +299,6 @@
     <Compile Include="Assets\Scripts\Core\Classes\PlayerAchievements.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Liquidshadow.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\IntegrityPlayRemoveAbility.cs" />
-    <Compile Include="Assets\Scripts\StarterDecks.cs" />
     <Compile Include="Assets\Scripts\Bazaar\Bazaar_PlayerDataManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Logic\QuantaPool.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Shockwave.cs" />

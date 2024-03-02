@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Networking;
 using TMPro;
 using UnityEngine;
@@ -59,7 +60,7 @@ public class LoginScreenSetupManager : MonoBehaviour
         fullList.Sort((x, y) => string.Compare(x, y));
         PlayerData.Shared.inventoryCards = new List<string>(fullList);
 
-        PlayerData.Shared.currentDeck = StarterDecks.Instance.GetStarterDeck(Element.Darkness);
+        PlayerData.Shared.currentDeck = CardDatabase.Instance.StarterDecks.First(x => x.MarkElement.Equals(Element.Darkness)).DeckList.SerializeCard();
         PlayerData.Shared.markElement = Element.Darkness;
         PlayerData.Shared.currentQuestIndex = 8;
         PlayerData.Shared.electrum = 9999999;
