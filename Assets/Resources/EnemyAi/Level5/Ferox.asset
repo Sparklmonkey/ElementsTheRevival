@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ferox
   m_EditorClassIdentifier: 
   opponentName: Ferox
-  maxHP: 200
+  maxHp: 200
   mark: 10
   deck: 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ad 7ad
     7ad 7ad 7ae 7ae 7ae 7ae 7af 7af 7af 7af 7af 7af 7ag 7ag 7ag 7ag 7ak 7al 7am 7am

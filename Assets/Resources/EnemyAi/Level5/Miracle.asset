@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Miracle
   m_EditorClassIdentifier: 
   opponentName: Miracle
-  maxHP: 200
+  maxHp: 200
   mark: 3
   deck: 7ac 7ac 7ac 7ac 7ad 7af 7af 7ak 7al 7jo 7jo 7jo 7jo 7jo 7jo 7jo 7jo 7jo 7jq
     7jq 7jq 7jr 7jr 7jt 7jv 7jv 7jv 7k1 7k2 7k2 7k2 7ms 7ms 7ms 7ms 7n3 7n3 7n3

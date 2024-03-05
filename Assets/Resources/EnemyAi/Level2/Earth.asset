@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Earth
   m_EditorClassIdentifier: 
   opponentName: Mountain
-  maxHP: 100
+  maxHp: 100
   mark: 5
   deck: 4sa 4t4 58o 58o 58o 58o 58o 58o 58p 58p 58p 58q 58q 58q 58r 58s 58t 58t 58t
     5i4 5i4 5i4 5i6 5i6 5i7 5i8 5ia 5l9 5l9 61o 61o 61o 61p 61p 61q 61r 61t

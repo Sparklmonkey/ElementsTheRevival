@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gemini
   m_EditorClassIdentifier: 
   opponentName: Gemini
-  maxHP: 200
+  maxHp: 200
   mark: 0
   deck: 744 744 744 744 744 744 748 748 748 74a 74a 74a 74a 808 808 808 808 808 808
     808 808 808 808 808 808 808 80b 80b 80b 80b 80b 80b 80c 80d 80d 80d 80d 80e 80f

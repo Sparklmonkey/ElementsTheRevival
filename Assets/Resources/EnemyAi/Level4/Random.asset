@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Random
   m_EditorClassIdentifier: 
   opponentName: Lumofuze
-  maxHP: 150
+  maxHp: 150
   mark: 8
-  deck: []
+  deck: 
   spins: 3
   coinAvg: 15
   costToPlay: 20

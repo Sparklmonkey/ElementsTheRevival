@@ -22,7 +22,7 @@ public static class IdCardTupleExtensions
     
     public static bool HasCard(this (ID id, Card card) tuple)
     {
-        return tuple.card != null && tuple.card.Id != "4t2" && tuple.card.Id != "4t1";
+        return tuple.card != null && tuple.card.Id != "4t2" && tuple.card.Id != "4t1" && !tuple.card.Type.Equals(CardType.Mark);
     }
     
     public static void CreatureTurnDownTick(this (ID id, Card card) cardPair)

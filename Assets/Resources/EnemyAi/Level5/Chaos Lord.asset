@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chaos Lord
   m_EditorClassIdentifier: 
   opponentName: Chaos Lord
-  maxHP: 200
+  maxHp: 200
   mark: 6
   deck: 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6ts 6ts 6ts 6ts 6ts 6ts 6ts 6ts 6ts
     6ts 6tt 6tv 6u0 6u0 6u1 6u1 6u2 6u2 6u2 6u3 6u3 6u3 6u3 6u3 6u3 6u4 6u4 6u4 6u5

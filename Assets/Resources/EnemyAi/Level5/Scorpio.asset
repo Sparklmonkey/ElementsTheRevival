@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scorpio
   m_EditorClassIdentifier: 
   opponentName: Scorpio
-  maxHP: 200
+  maxHp: 200
   mark: 4
   deck: 718 718 718 718 718 71a 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk
     7gk 7gk 7gk 7gk 7gk 7gl 7gl 7gl 7gm 7gm 7gm 7gn 7gn 7gn 7go 7gp 7gp 7gq 7gr 7gr

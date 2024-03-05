@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Destiny
   m_EditorClassIdentifier: 
   opponentName: Destiny
-  maxHP: 200
+  maxHp: 200
   mark: 7
   deck: 6ts 6ts 6ts 6ts 6ts 6ts 6ts 6ts 6ts 6ts 6ts 6ts 6ts 6tt 6tt 6u2 6u2 6u2 6u2
     6u2 6u3 6u3 6u3 6u3 6u3 6u6 6u6 7q0 7q0 7q0 7q0 7q0 7q0 7q0 7q0 7q2 7q2 7q2 7q2

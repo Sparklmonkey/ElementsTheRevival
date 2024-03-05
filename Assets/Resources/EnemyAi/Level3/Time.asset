@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Time
   m_EditorClassIdentifier: 
   opponentName: Who
-  maxHP: 100
+  maxHp: 100
   mark: 7
   deck: 561 576 576 576 576 5c2 5c2 5c5 5c5 5c6 5c6 5c6 5de 5de 5de 5de 5de 5de 5rg
     5rg 5rg 5rg 5rg 5rj 5rl 5rl 5rl 5rl 5rq 5rq 5rq 5rq 5rs 5rs 5rs 5rs 5t2 5t2 5t2

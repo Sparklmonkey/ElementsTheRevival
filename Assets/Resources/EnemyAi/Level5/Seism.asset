@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Seism
   m_EditorClassIdentifier: 
   opponentName: Seism
-  maxHP: 200
+  maxHp: 200
   mark: 7
   deck: 778 778 778 778 778 778 778 778 778 778 778 778 778 778 778 778 779 77a 77a
     77b 77b 77c 77e 77e 77e 77f 77g 77g 77g 77g 77g 77g 77i 77i 77j 77j 77j 77j 77j

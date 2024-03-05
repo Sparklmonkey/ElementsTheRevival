@@ -108,7 +108,10 @@ namespace Battlefield.Abstract
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            EventBus<CardTappedEvent>.Raise(new CardTappedEvent(Id, Card));
+            if ((Id, Card).HasCard())
+            {
+                EventBus<CardTappedEvent>.Raise(new CardTappedEvent(Id, Card));
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)

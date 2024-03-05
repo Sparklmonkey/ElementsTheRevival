@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Decay
   m_EditorClassIdentifier: 
   opponentName: Decay
-  maxHP: 200
+  maxHp: 200
   mark: 2
   deck: 7t6 7t6 7t6 7t6 7t6 7t6 7t8 7t9 7t9 7ta 7tc 7tc 7tc 7tc 7tc 7tc 808 808 808
     808 808 808 808 80e 80i 80i 80i 80i 80i 80i

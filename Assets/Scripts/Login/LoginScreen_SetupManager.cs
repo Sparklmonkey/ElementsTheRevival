@@ -51,14 +51,14 @@ public class LoginScreenSetupManager : MonoBehaviour
         ApiManager.IsTrainer = true;
         PlayerData.Shared = new PlayerData();
         var simpleList = CardDatabase.Instance.TrainerCardList;
-        var fullList = new List<string>(simpleList);
+        var fullList = new List<Card>(simpleList);
         fullList.AddRange(simpleList);
         fullList.AddRange(simpleList);
         fullList.AddRange(simpleList);
         fullList.AddRange(simpleList);
         fullList.AddRange(simpleList);
-        fullList.Sort((x, y) => string.Compare(x, y));
-        PlayerData.Shared.inventoryCards = new List<string>(fullList);
+        fullList.Sort((x, y) => string.Compare(x.Id, y.Id));
+        PlayerData.Shared.inventoryCards = fullList.SerializeCard();
 
         PlayerData.Shared.currentDeck = CardDatabase.Instance.StarterDecks.First(x => x.MarkElement.Equals(Element.Darkness)).DeckList.SerializeCard();
         PlayerData.Shared.markElement = Element.Darkness;

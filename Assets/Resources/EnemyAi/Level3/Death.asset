@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Death
   m_EditorClassIdentifier: 
   opponentName: Plague
-  maxHP: 100
+  maxHp: 100
   mark: 4
   deck: 4vc 4vc 4vc 4vc 4vd 4vd 4ve 4vk 4vk 4vk 4vo 4vp 4vq 4vq 4vq 50u 50u 50u 50u
     52g 52g 52g 52g 52g 52g 52g 52h 52j 52j 52k 52k 52k 52n 52n 52p 52p 52p 52q 52r

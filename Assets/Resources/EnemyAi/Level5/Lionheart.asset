@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lionheart
   m_EditorClassIdentifier: 
   opponentName: Lionheart
-  maxHP: 200
+  maxHp: 200
   mark: 7
   deck: 6qq 6qq 6qq 7jo 7jo 7jo 7jo 7jo 7k5 7k5 7k5 7k5 7k5 7n2 7q0 7q0 7q0 7q0 7q0
     7q0 7q0 7q0 7q3 7q3 7q5 7q5 7q5 7q5 7q5 7q7 7q7 7q7 7q8 7q8 7qc 80h 80h 81q 81q

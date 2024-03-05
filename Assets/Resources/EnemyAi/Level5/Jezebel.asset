@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Jezebel
   m_EditorClassIdentifier: 
   opponentName: Jezebel
-  maxHP: 200
+  maxHp: 200
   mark: 2
   deck: 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gp 7h0
     7h0 7h0 7h0 7h0 7h0 7t9 7t9 7t9 7t9 7tb 7tc 7tc 7tc 7ti 7ti 7ti

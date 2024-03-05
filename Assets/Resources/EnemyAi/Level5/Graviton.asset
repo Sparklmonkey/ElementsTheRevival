@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Graviton
   m_EditorClassIdentifier: 
   opponentName: Graviton
-  maxHP: 200
+  maxHp: 200
   mark: 8
   deck: 744 744 744 744 744 744 744 744 744 744 744 744 744 744 745 745 746 749 74a
     74a 74a 74b 74b 74b 74c 74d 74e 74e 74e 74e 74e 74e 7dm 7dm 7do

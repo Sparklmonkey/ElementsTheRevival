@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Random
   m_EditorClassIdentifier: 
   opponentName: CoolBob
-  maxHp: 0
+  maxHp: 100
   mark: 4
   deck: 
   spins: 3
