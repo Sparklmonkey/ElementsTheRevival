@@ -115,7 +115,7 @@ public class Card : SerializedScriptableObject
         }
         else if (AbilityUsed) return false;
         if (!quantaCheck(SkillElement, SkillCost)) return false;
-        if (Skill.Equals(typeof(Hasten)) && handCount >= 8) return false;
+        if (Skill is Hasten && handCount >= 8) return false;
 
         return true;
     }

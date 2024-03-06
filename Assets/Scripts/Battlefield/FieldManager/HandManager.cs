@@ -94,12 +94,10 @@ namespace Elements.Duel.Manager
         
         public void ShowCardsForPrecog()
         {
-            // foreach (var item in PairList)
-            // {
-            //     if (!item.HasCard()) { continue; }
-            //     item.isHidden = false;
-            //     item.UpdateCard();
-            // }
+            foreach (var cardFieldDisplay in _cardFieldDisplays)
+            {
+                EventBus<UpdatePrecogEvent>.Raise(new UpdatePrecogEvent(cardFieldDisplay.Key));
+            }
         }
     }
 }

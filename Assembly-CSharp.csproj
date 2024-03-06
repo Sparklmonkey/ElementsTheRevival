@@ -406,6 +406,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Heal.cs" />
     <Compile Include="Assets\Scripts\Battlefield\ImageAnimations.cs" />
     <Compile Include="Assets\Scripts\SignalRTest.cs" />
+    <Compile Include="Assets\Scripts\Events\BattlefieldEvents\UpdatePassiveDisplayEvent.cs" />
     <Compile Include="Assets\Scripts\Core\ScriptableObjects\CardDefinition.cs" />
     <Compile Include="Assets\Scripts\Battlefield\AbilityAnimation.cs" />
     <Compile Include="Assets\Scripts\Core\Enums\OwnerEnum.cs" />

@@ -278,6 +278,7 @@ public class PlayerManager : MonoBehaviour
     }
     internal void DisplayHand()
     {
+        if (owner.Equals(OwnerEnum.Player)) return;
         playerHand.ShowCardsForPrecog();
     }
 

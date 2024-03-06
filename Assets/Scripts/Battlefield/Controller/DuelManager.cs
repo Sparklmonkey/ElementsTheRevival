@@ -243,18 +243,22 @@ public class DuelManager : MonoBehaviour
 
         if (HandleDiscard(cardTappedEvent)) return;
 
+        var isPlayable = player.IsCardPlayable(cardTappedEvent.TappedCard);
+        var isAbilityUsable = player.IsAbilityUsable(cardTappedEvent.TappedCard);
         if (PlayerPrefs.GetInt("QuickPlay") == 0)
         {
-            if (cardTappedEvent.TappedId.IsFromHand() 
+             if (cardTappedEvent.TappedId.IsFromHand() 
                 && !cardTappedEvent.TappedCard.Type.Equals(CardType.Spell)
-                && player.IsCardPlayable(cardTappedEvent.TappedCard))
+                && isPlayable)
             {
                 EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(cardTappedEvent.TappedCard, cardTappedEvent.TappedId));
                 return;
             }
             
-            if (player.IsCardPlayable(cardTappedEvent.TappedCard))
+            if (isAbilityUsable)
             {
+                BattleVars.Shared.AbilityIDOrigin = cardTappedEvent.TappedId;
+                BattleVars.Shared.AbilityCardOrigin = cardTappedEvent.TappedCard;
                 if (!SkillManager.Instance.ShouldAskForTarget(cardTappedEvent.TappedCard))
                 {
                     EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard));
@@ -262,8 +266,6 @@ public class DuelManager : MonoBehaviour
                 else
                 {
                     BattleVars.Shared.IsSelectingTarget = true;
-                    BattleVars.Shared.AbilityIDOrigin = cardTappedEvent.TappedId;
-                    BattleVars.Shared.AbilityCardOrigin = cardTappedEvent.TappedCard;
                     EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(Instance.player, cardTappedEvent.TappedCard));
                 }
 
@@ -271,7 +273,7 @@ public class DuelManager : MonoBehaviour
             }
         }
 
-        EventBus<SetupCardDisplayEvent>.Raise(new SetupCardDisplayEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard, player.IsCardPlayable(cardTappedEvent.TappedCard)));
+        EventBus<SetupCardDisplayEvent>.Raise(new SetupCardDisplayEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard, isPlayable, isAbilityUsable));
     }
 
     private void HandleValidTargets(CardTappedEvent cardTappedEvent)
@@ -293,7 +295,7 @@ public class DuelManager : MonoBehaviour
         if (cardTappedEvent.TappedId.field.Equals(FieldEnum.Hand)) return true; 
 
         if (enemy.playerCounters.invisibility > 0) return true;
-        EventBus<SetupCardDisplayEvent>.Raise(new SetupCardDisplayEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard, false));
+        EventBus<SetupCardDisplayEvent>.Raise(new SetupCardDisplayEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard, false, false));
         return true;
 
     }

@@ -15,11 +15,14 @@ public class HandCardDisplay : CardFieldDisplay
 
     private EventBinding<ClearCardDisplayEvent> _clearCardDisplayBinding;
     private EventBinding<UpdateCardDisplayEvent> _updateCardDisplayBinding;
+    private EventBinding<UpdatePrecogEvent> _updatePreCogEventBinding;
 
+    private bool isPrecogCard;
     private void OnDisable()
     {
         EventBus<ClearCardDisplayEvent>.Unregister(_clearCardDisplayBinding);
         EventBus<UpdateCardDisplayEvent>.Unregister(_updateCardDisplayBinding);
+        EventBus<UpdatePrecogEvent>.Unregister(_updatePreCogEventBinding);
     }
 
     private void OnEnable()
@@ -28,8 +31,47 @@ public class HandCardDisplay : CardFieldDisplay
         EventBus<ClearCardDisplayEvent>.Register(_clearCardDisplayBinding);
         _updateCardDisplayBinding = new EventBinding<UpdateCardDisplayEvent>(DisplayCard);
         EventBus<UpdateCardDisplayEvent>.Register(_updateCardDisplayBinding);
+        _updatePreCogEventBinding = new EventBinding<UpdatePrecogEvent>(UpdateForPrecog);
+        EventBus<UpdatePrecogEvent>.Register(_updatePreCogEventBinding);
     }
 
+    private void UpdateForPrecog(UpdatePrecogEvent  updatePrecogEvent)
+    {
+        if (!updatePrecogEvent.Id.Equals(Id)) return;
+        isPrecogCard = true;
+        isHidden.color = ElementColours.GetInvisibleColor();
+        
+        SetCardImage(Card.cardImage, Card.CardName.Contains("Pendulum"),
+            Card.CostElement == Card.SkillElement,
+            Card.CostElement);
+        cardName.text = Card.CardName;
+        cardName.font = Card.Id.IsUpgraded() ? underlayWhite : underlayBlack;
+        cardName.color = Card.Id.IsUpgraded()
+            ? ElementColours.GetBlackColor()
+            : ElementColours.GetWhiteColor();
+
+        cardCost.text = Card.Cost.ToString();
+        cardElement.sprite = ImageHelper.GetElementImage(Card.CostElement.ToString());
+
+        cardElement.color = ElementColours.GetWhiteColor();
+
+
+        cardBackground.sprite = ImageHelper.GetCardBackGroundImage(Card.CardElement.ToString());
+
+        if (Card.Cost == 0)
+        {
+            cardCost.text = "";
+            cardElement.color = ElementColours.GetInvisibleColor();
+        }
+
+        if (Card.CostElement.Equals(Element.Other))
+        {
+            cardElement.color = ElementColours.GetInvisibleColor();
+        }
+
+        cardHolder.SetActive(true);
+    }
+    
     private void DisplayCard(UpdateCardDisplayEvent updateCardDisplayEvent)
     {
         if (!updateCardDisplayEvent.Id.Equals(Id)) return;

@@ -7,7 +7,8 @@ namespace Battlefield.Abstract
 {
     public class CardFieldDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private GameObject validTargetGlow, isUsableGlow;
+        [SerializeField] protected GameObject validTargetGlow;
+        [SerializeField] private GameObject isUsableGlow;
         [SerializeField] private FieldObjectAnimation fieldObjectAnimation;
         public Card Card { get; private set; }
         public ID Id { get; private set; }
