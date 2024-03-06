@@ -30,7 +30,7 @@ namespace Elements.Duel.Manager
                 EventBus<GameEndEvent>.Raise(new GameEndEvent(_owner));
                 return;
             }
-            Card newCard = new(_deck[0]);
+            Card newCard = _deck[0].Clone();
             _deck.RemoveAt(0);
             EventBus<AddDrawCardActionEvent>.Raise(new AddDrawCardActionEvent(newCard, _owner));
             EventBus<DeckCountChangeEvent>.Raise(new DeckCountChangeEvent(_deck.Count, _owner));

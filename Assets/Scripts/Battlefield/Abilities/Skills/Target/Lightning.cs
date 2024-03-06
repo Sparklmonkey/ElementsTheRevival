@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Helpers;
 
 public class Lightning : ActivatedAbility
 {
@@ -27,8 +28,14 @@ public class Lightning : ActivatedAbility
     {
         if (card is null)
         {
-            return id.field.Equals(FieldEnum.Player);
+            return id.IsPlayerField();
         }
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+                
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.CreatureAndPlayer, -5, 0, 0);
     }
 }

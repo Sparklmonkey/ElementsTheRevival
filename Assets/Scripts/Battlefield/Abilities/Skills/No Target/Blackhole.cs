@@ -19,17 +19,17 @@ public class Blackhole : ActivatedAbility
             {
                 if (victim.HasSufficientQuanta((Element)i, 3))
                 {
-                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(3, (Element)i, victim.Owner, false));
+                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(3, (Element)i, victim.owner, false));
                     hpToRestore += 3;
                 }
                 else if (victim.HasSufficientQuanta((Element)i, 2))
                 {
-                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(2, (Element)i, victim.Owner, false));
+                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(2, (Element)i, victim.owner, false));
                     hpToRestore += 2;
                 }
                 else if (victim.HasSufficientQuanta((Element)i, 1))
                 {
-                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, (Element)i, victim.Owner, false));
+                    EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, (Element)i, victim.owner, false));
                     hpToRestore++;
                 }
             }

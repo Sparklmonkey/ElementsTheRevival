@@ -12,14 +12,20 @@ public class Devour : ActivatedAbility
         BattleVars.Shared.AbilityCardOrigin.DefModify++;
         if (targetCard.innateSkills.Poisonous)
         {
-            BattleVars.Shared.AbilityCardOrigin.Poison++;
+            BattleVars.Shared.AbilityCardOrigin.Counters.Poison++;
         }
         EventBus<UpdateCreatureCardEvent>.Raise( new UpdateCreatureCardEvent(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin, true));
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
     }
+    
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.DefNow <= BattleVars.Shared.AbilityCardOrigin.DefNow && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.DefNow < BattleVars.Shared.AbilityCardOrigin.DefNow && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.Smaller, -1, 0, 0);
     }
 }

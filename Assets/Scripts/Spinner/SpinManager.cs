@@ -121,7 +121,7 @@ public class SpinManager : MonoBehaviour
 
         foreach (var card in deck)
         {
-            _spriteList.Add(ImageHelper.GetCardImage(card.imageID));
+            _spriteList.Add(card.cardImage);
         }
 
         _spriteList.Shuffle();
@@ -137,26 +137,26 @@ public class SpinManager : MonoBehaviour
         var cardTwo = spinResult[1];
         var cardThree = spinResult[2];
 
-        if (cardOne.cardName == cardThree.cardName && cardOne.cardName == cardTwo.cardName)
+        if (cardOne.CardName == cardThree.CardName && cardOne.CardName == cardTwo.CardName)
         {
             _shouldWinCard = true;
-            _cardsWon.Add(CardDatabase.Instance.GetCardFromId(cardOne.iD));
+            _cardsWon.Add(CardDatabase.Instance.GetCardFromId(cardOne.Id));
         }
-        else if (cardOne.cardName == cardTwo.cardName || cardOne.cardName == cardThree.cardName || cardTwo.cardName == cardThree.cardName)
+        else if (cardOne.CardName == cardTwo.CardName || cardOne.CardName == cardThree.CardName || cardTwo.CardName == cardThree.CardName)
         {
             _shouldWinCoins = true;
         }
 
-        var tempList = new List<Sprite>(_spriteList) { ImageHelper.GetCardImage(cardOne.imageID) };
-        spinOne.isUpgraded = cardOne.iD.IsUpgraded();
+        var tempList = new List<Sprite>(_spriteList) { cardOne.cardImage };
+        spinOne.isUpgraded = cardOne.Id.IsUpgraded();
         StartCoroutine(spinOne.DissolveAnimation(tempList));
         yield return new WaitForSeconds(0.5f);
-        tempList = new List<Sprite>(_spriteList) { ImageHelper.GetCardImage(cardTwo.imageID) };
-        spinTwo.isUpgraded = cardOne.iD.IsUpgraded();
+        tempList = new List<Sprite>(_spriteList) { cardTwo.cardImage };
+        spinTwo.isUpgraded = cardOne.Id.IsUpgraded();
         StartCoroutine(spinTwo.DissolveAnimation(tempList));
         yield return new WaitForSeconds(0.5f);
-        tempList = new List<Sprite>(_spriteList) { ImageHelper.GetCardImage(cardThree.imageID) };
-        spinThree.isUpgraded = cardOne.iD.IsUpgraded();
+        tempList = new List<Sprite>(_spriteList) { cardThree.cardImage };
+        spinThree.isUpgraded = cardOne.Id.IsUpgraded();
         yield return StartCoroutine(spinThree.DissolveAnimation(tempList));
 
     }
@@ -211,9 +211,9 @@ public class SpinManager : MonoBehaviour
         var rnd = new System.Random();
         var cardOne = _oppDeck.OrderBy(_ => rnd.Next())
                       .First();
-        var cardTwo = _oppDeck.Where(c => c.iD != cardOne.iD).OrderBy(_ => rnd.Next())
+        var cardTwo = _oppDeck.Where(c => c.Id != cardOne.Id).OrderBy(_ => rnd.Next())
                       .First();
-        var cardThree = _oppDeck.Where(c => c.iD != cardOne.iD && c.iD != cardTwo.iD).OrderBy(_ => rnd.Next())
+        var cardThree = _oppDeck.Where(c => c.Id != cardOne.Id && c.Id != cardTwo.Id).OrderBy(_ => rnd.Next())
                       .First();
         //return new List<Card> { cardOne, cardOne, cardOne };
         if (rewardType < 15)

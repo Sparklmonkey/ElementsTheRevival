@@ -31,7 +31,6 @@ public static class EventBus<T> where T : IEvent
 
     private static void Clear()
     {
-        Debug.Log($"Clearing {typeof(T).Name} bindings");
         bindings.Clear();
     }
 }

@@ -8,8 +8,8 @@ public class Guard : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        targetCard.innateSkills.Delay++;
-        BattleVars.Shared.AbilityCardOrigin.innateSkills.Delay++;
+        targetCard.Counters.Delay++;
+        BattleVars.Shared.AbilityCardOrigin.Counters.Delay++;
         if (!targetCard.innateSkills.Airborne)
         {
             targetCard.DefDamage += BattleVars.Shared.AbilityCardOrigin.AtkNow;
@@ -20,6 +20,11 @@ public class Guard : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.Creature, -1, 0, 0);
     }
 }

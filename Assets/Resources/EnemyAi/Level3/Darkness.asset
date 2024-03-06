@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Darkness
   m_EditorClassIdentifier: 
   opponentName: Vampire
-  maxHP: 100
+  maxHp: 100
   mark: 2
   deck: 4vo 4vo 4vo 4vp 4vp 4vp 4vp 4vp 50u 50u 50u 50u 50u 50u 50u 50u 50u 50u 50u
     50u 50u 50u 5ul 5uo 5up 5uq 5uq 5ur 5us 5us 5uu 5uu 5v0 5v0 5v0 5v0 5v0 5v0

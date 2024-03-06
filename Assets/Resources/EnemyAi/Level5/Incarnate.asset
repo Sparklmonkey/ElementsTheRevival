@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Incarnate
   m_EditorClassIdentifier: 
   opponentName: Incarnate
-  maxHP: 200
+  maxHp: 200
   mark: 4
   deck: 712 712 712 712 717 717 717 717 717 71b 71b 71b 71b 7t4 7t4 7t4 7t4 7t4 7t4
     7t4 7t4 7t4 7t4 7t4 7t4 7t4 7t4 7t4 7t7 7t7 7t7 7t7 7ta 7ta 7ta 7ta 7tb 7td 7td

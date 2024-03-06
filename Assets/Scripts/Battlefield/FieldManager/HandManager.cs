@@ -37,19 +37,19 @@ namespace Elements.Duel.Manager
         public List<(ID id, Card card)> GetPlayableCards(QuantaCheck quantaCheck)
         {
             var returnList = GetAllValidCardIds();
-            return returnList.Where(x => quantaCheck(x.card.costElement, x.card.cost)).ToList();
+            return returnList.Where(x => quantaCheck(x.card.CostElement, x.card.Cost)).ToList();
         }
         
         public bool HasCardOfType(CardType cardType)
         {
             var returnList = GetAllValidCardIds();
-            return returnList.Exists(x => x.card.cardType == cardType);
+            return returnList.Exists(x => x.card.Type == cardType);
         }
 
         public List<(ID id, Card card)> GetPlayableCardsOfType(QuantaCheck quantaCheck, CardType cardType)
         {
             var returnList = GetAllValidCardIds();
-            return returnList.Where(x => quantaCheck(x.card.costElement, x.card.cost) && x.card.cardType == cardType).ToList();
+            return returnList.Where(x => quantaCheck(x.card.CostElement, x.card.Cost) && x.card.Type == cardType).ToList();
         }
         
         private IEnumerator MoveCardPosition()
@@ -94,12 +94,10 @@ namespace Elements.Duel.Manager
         
         public void ShowCardsForPrecog()
         {
-            // foreach (var item in PairList)
-            // {
-            //     if (!item.HasCard()) { continue; }
-            //     item.isHidden = false;
-            //     item.UpdateCard();
-            // }
+            foreach (var cardFieldDisplay in _cardFieldDisplays)
+            {
+                EventBus<UpdatePrecogEvent>.Raise(new UpdatePrecogEvent(cardFieldDisplay.Key));
+            }
         }
     }
 }

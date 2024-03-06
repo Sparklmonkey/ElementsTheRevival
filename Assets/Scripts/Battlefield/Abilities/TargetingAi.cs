@@ -4,6 +4,7 @@ public class TargetingAi
 {
     public (ID id, Card card) BestTarget(AiTargetType aiTargetType, string skill)
     {
+        if (aiTargetType is null) return default;
         var possibleTargets = DuelManager.Instance.ValidTargets.ConvertToTuple();
         (ID id, Card card) bestTarget = default;
         var topScore = 0f;

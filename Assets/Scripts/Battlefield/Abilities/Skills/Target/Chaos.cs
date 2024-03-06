@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Helpers;
 using UnityEngine;
 
 public class Chaos : ActivatedAbility
@@ -18,7 +19,7 @@ public class Chaos : ActivatedAbility
         switch (effect)
         {
             case 0:
-                targetCard.Poison++;
+                targetCard.Counters.Poison++;
                 break;
             case 1:
                 targetCard.DefDamage += 5;
@@ -31,7 +32,7 @@ public class Chaos : ActivatedAbility
                 targetCard.DefDamage += damageToDeal;
                 if (willFreeze)
                 {
-                    targetCard.Freeze = 3;
+                    targetCard.Counters.Freeze = 3;
                 }
                 break;
             case 3:
@@ -42,17 +43,17 @@ public class Chaos : ActivatedAbility
                 break;
             case 4:
             case 5:
-                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(new(targetCard), targetId.owner.Equals(OwnerEnum.Player)));
-                EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, new(targetCard)));
+                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(targetCard.Clone(), targetId.IsOwnedBy(OwnerEnum.Player)));
+                EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, targetCard.Clone()));
                 break;
             case 6:
-                targetCard.skill = "";
-                targetCard.desc = "";
+                targetCard.Skill = null;
+                targetCard.Desc = "";
                 targetCard.passiveSkills = new();
                 break;
             case 7:
-                Card cardToPlay = new(targetCard);
-                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(cardToPlay, targetId.owner.Equals(OwnerEnum.Player)));
+                Card cardToPlay = targetCard.Clone();
+                EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(cardToPlay, targetId.IsOwnedBy(OwnerEnum.Player)));
                 EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, cardToPlay));
                 EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "Steal", Element.Other));
                 EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
@@ -61,7 +62,7 @@ public class Chaos : ActivatedAbility
                 targetCard.DefDamage += 3;
                 break;
             case 9:
-                if (targetCard.Freeze > 0)
+                if (targetCard.Counters.Freeze > 0)
                 {
                     EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
                     return;
@@ -71,16 +72,16 @@ public class Chaos : ActivatedAbility
             case 10:
                 if (targetCard.innateSkills.Mummy)
                 {
-                    var pharoah = CardDatabase.Instance.GetCardFromId(targetCard.iD.IsUpgraded() ? "7qc" : "5rs");
+                    var pharoah = CardDatabase.Instance.GetCardFromId(targetCard.Id.IsUpgraded() ? "7qc" : "5rs");
                     EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, pharoah, false));
                 }
                 else if (targetCard.innateSkills.Undead)
                 {
-                    EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetRandomCard(CardType.Creature, targetCard.iD.IsUpgraded(), true), false));
+                    EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetRandomCard(CardType.Creature, targetCard.Id.IsUpgraded(), true), false));
                 }
                 else
                 {
-                    var baseCreature = CardDatabase.Instance.GetCardFromId(targetCard.iD);
+                    var baseCreature = CardDatabase.Instance.GetCardFromId(targetCard.Id);
                     targetOwner.AddCardToDeck(baseCreature);
                     EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
                 }
@@ -95,6 +96,11 @@ public class Chaos : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, true, false, TargetType.AlphaCreature, -1, 0, 0);
     }
 }

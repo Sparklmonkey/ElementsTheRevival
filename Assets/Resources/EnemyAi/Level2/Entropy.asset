@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Entropy
   m_EditorClassIdentifier: 
   opponentName: Entropy
-  maxHP: 100
+  maxHp: 100
   mark: 6
   deck: 4sa 4sa 4t3 4vc 4vc 4vc 4vc 4vc 4vc 4vd 4ve 4ve 4ve 4vf 4vg 4vh 4vi 4vi 4vi
     4vj 4vj 5f0 5f0 5f0 5f1 5f1 5f4 5f6 5f6 5rg 5rg 5rg 5rh 5rh 5rh 5ri 5ri

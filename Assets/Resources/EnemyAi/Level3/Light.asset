@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Light
   m_EditorClassIdentifier: 
   opponentName: LED
-  maxHP: 100
+  maxHp: 100
   mark: 3
   deck: 5l8 5l8 5l8 5l8 5l8 5l8 5l8 5lb 5lb 5lb 5le 5le 5lf 5lf 5lf 5li 5ll 5ll 5ll
     5ll 5oc 5oc 5oc 5oc 5oe 5oe 5oe 5ol 5ol 5oo 5op 5op 5op 5pu 5pu 5pu 5pu 5pu 5pu

@@ -19,9 +19,8 @@ public class Serendipity : ActivatedAbility
         for (var i = 0; i < 3; i++)
         {
             var cardToAdd =
-                CardDatabase.Instance.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd,
-                    targetCard.iD.IsUpgraded());
-            EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(targetId.owner, new(cardToAdd)));
+                CardDatabase.Instance.GetRandomCardOfTypeWithElement(typeToAdd, elementToAdd, false);
+            EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(targetId.owner, cardToAdd.Clone()));
             typeToAdd = ExtensionMethods.GetSerendipityWeighted();
             elementToAdd = (Element)Random.Range(0, 12);
 

@@ -10,7 +10,7 @@ namespace Networking
         public static bool IsTrainer;
         private string _jwtToken;
 
-        private readonly string _baseUrl = "https://www.elementstherevival.com/api/";
+        private readonly string _baseUrl =  "https://www.elementstherevival.com/api/";
         private readonly string _apiKey = "ElementRevival-ApiKey";
         public AppInfo AppInfo;
 

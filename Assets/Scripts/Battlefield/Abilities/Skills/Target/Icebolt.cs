@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Helpers;
 using UnityEngine;
 
 public class Icebolt : ActivatedAbility
@@ -21,7 +22,7 @@ public class Icebolt : ActivatedAbility
         }
 
         targetCard.DefDamage += damageToDeal;
-        targetCard.Freeze += willFreeze ? 3 : 0;
+        targetCard.Counters.Freeze += willFreeze ? 3 : 0;
         if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
         {
             EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(targetCard.DefNow < damageToDeal ? targetCard.DefNow : damageToDeal, true, false, targetId.owner.Not()));
@@ -34,8 +35,13 @@ public class Icebolt : ActivatedAbility
     {
         if (card is null)
         {
-            return id.field.Equals(FieldEnum.Player);
+            return id.IsPlayerField();
         }
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.CreatureAndPlayer, -2, 0, 0);
     }
 }

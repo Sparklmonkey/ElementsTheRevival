@@ -27,7 +27,7 @@ public class CardPlayedDisplay : MonoBehaviour
     {
         container.SetActive(true);
         cardName.text = card.CardName;
-        cardImage.sprite = ImageHelper.GetCardImage(card.ImageId);
+        cardImage.sprite = card.Sprite;
         headerBackground.sprite = ImageHelper.GetCardHeadBackground(card.Element);
         StartCoroutine(HideCardPlayed());
     }
@@ -41,12 +41,12 @@ public class CardPlayedDisplay : MonoBehaviour
 
 public struct DisplayCardPlayedEvent : IEvent
 {
-    public string ImageId;
+    public Sprite Sprite;
     public string Element;
     public string CardName;
-    public DisplayCardPlayedEvent(string imageId, string element, string cardName)
+    public DisplayCardPlayedEvent(Sprite sprite, string element, string cardName)
     {
-        ImageId = imageId;
+        Sprite = sprite;
         Element = element;
         CardName = cardName;
     }

@@ -1,3 +1,4 @@
+using Core.Helpers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -76,22 +77,6 @@ namespace Elements.Duel.Visual
                 {
                     poisonImg.sprite = poisonSprite;
                     poisonLabel.text = updatePlayerCountersVisualEvent.Counters.poison.ToString();
-                }
-            }
-            
-            if (updatePlayerCountersVisualEvent.Counters.invisibility != 0)
-            {
-                if (playerID.owner.Equals(OwnerEnum.Opponent) && updatePlayerCountersVisualEvent.Counters.invisibility > 0)
-                {
-                    cloakVisual.SetActive(true);
-                }
-                if (updatePlayerCountersVisualEvent.Counters.invisibility <= 0)
-                {
-                    updatePlayerCountersVisualEvent.Counters.invisibility = 0;
-                    if (playerID.owner.Equals(OwnerEnum.Opponent))
-                    {
-                        cloakVisual.SetActive(false);
-                    }
                 }
             }
             silenceImage.gameObject.SetActive(updatePlayerCountersVisualEvent.Counters.silence > 0);

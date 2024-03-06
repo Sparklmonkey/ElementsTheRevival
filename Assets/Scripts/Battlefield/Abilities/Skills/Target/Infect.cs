@@ -8,7 +8,7 @@ public class Infect : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        targetCard.Poison += 1;
+        targetCard.Counters.Poison += 1;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         if (targetCard.innateSkills.Voodoo)
         {
@@ -20,6 +20,11 @@ public class Infect : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.Creature, -1, 0, 0);
     }
 }

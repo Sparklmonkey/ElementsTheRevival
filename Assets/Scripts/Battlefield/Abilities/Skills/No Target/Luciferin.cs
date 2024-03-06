@@ -1,13 +1,15 @@
 using System.Collections.Generic;
+using Battlefield.Abilities;
+using Core.Helpers;
 
 public class Luciferin : ActivatedAbility
 {
     public override bool NeedsTarget() => false;
     public override bool IsCardValid(ID id, Card card)
     { 
-        if(!id.owner.Equals(BattleVars.Shared.AbilityIDOrigin.owner)) return false;
-        if(id.field.Equals(FieldEnum.Player)) return true;
-        return id.field.Equals(FieldEnum.Creature) && card.skill == "";
+        if(!id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner)) return false;
+        if(id.IsPlayerField()) return true;
+        return id.IsCreatureField() && card.Skill is null;
     }
 
     public override void Activate(ID targetId, Card targetCard)
@@ -20,8 +22,8 @@ public class Luciferin : ActivatedAbility
         }
         else
         {
-            targetCard.passiveSkills.Light = true;
-            targetCard.desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
+            targetCard.TurnEndAbility = new LightEndTurn();
+            targetCard.Desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
             EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         }
     }

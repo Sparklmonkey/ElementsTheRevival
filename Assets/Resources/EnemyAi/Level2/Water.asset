@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   opponentName: Drowned
-  maxHP: 100
+  maxHp: 100
   mark: 11
   deck: 4sa 4t3 5bs 5bs 5bs 5bu 5bv 5c0 5c0 5c2 5i4 5i4 5i4 5i4 5i4 5i4 5i5 5i5 5i6
     5i6 5i6 5i7 5i7 5i7 5i8 5i8 5i8 5i9 5ia 5ia 5rg 5rg 5rg 5rh 5ri 5ri 5rk

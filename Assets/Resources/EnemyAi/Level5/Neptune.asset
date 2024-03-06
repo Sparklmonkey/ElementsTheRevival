@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Neptune
   m_EditorClassIdentifier: 
   opponentName: Neptune
-  maxHP: 200
+  maxHp: 200
   mark: 1
   deck: 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gk 7gm 7gm 7gm 7gm 7gn 7gp 7gp
     7gr 7gr 7gr 7gr 7gs 7gt 7gt 7h1 7h1 7h1 7h1 7n5 7n7 7n7 7n7 7n7 7n7 7n7

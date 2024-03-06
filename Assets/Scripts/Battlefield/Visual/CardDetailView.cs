@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Core.Helpers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,11 +33,11 @@ namespace Elements.Duel.Visual
             cardDisplay.gameObject.SetActive(true);
             actionButton.gameObject.SetActive(true);
             cancelButton.gameObject.SetActive(true);
-            SetupButton(setupCardDisplayEvent.IsPlayable);
+            SetupButton(setupCardDisplayEvent.IsPlayable, setupCardDisplayEvent.IsAbilityUsable);
             cardDisplay.SetupCardView(_card);
         }
         
-        private void SetupButton(bool isPlayable)
+        private void SetupButton(bool isPlayable, bool isAbilityUsable)
         {
             var isPlayerTurn = BattleVars.Shared.IsPlayerTurn;
 
@@ -50,9 +51,9 @@ namespace Elements.Duel.Visual
                 return;
             }
 
-            if (_card.cardType == CardType.Spell)
+            if (_card.Type == CardType.Spell)
             {
-                if (SetButtonForSpell(isPlayable, isPlayerTurn)) return;
+                if (SetButtonForSpell(isPlayable)) return;
             }
 
             if (_id.IsFromHand())
@@ -61,16 +62,16 @@ namespace Elements.Duel.Visual
                 return;
             }
 
-            if (!string.IsNullOrEmpty(_card.skill))
+            if (_card.Skill is not null)
             {
                 if (_card.AbilityUsed)
                 {
                     _buttonCase = ButtonCase.None;
-                    SetButtonProperties("Insufficient Quanta");
+                    SetButtonProperties("Ability used");
                     return;
                 }
 
-                if (SetButtonForSpell(isPlayable, isPlayerTurn)) return;
+                if (SetButtonForSpell(isAbilityUsable)) return;
             }
 
             _buttonCase = ButtonCase.None;
@@ -86,16 +87,16 @@ namespace Elements.Duel.Visual
             BattleVars.Shared.AbilityCardOrigin = _card;
         }
 
-        private bool SetButtonForSpell(bool hasQuanta, bool isPlayerTurn)
+        private bool SetButtonForSpell(bool hasQuanta)
         {
-            if (!SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta && isPlayerTurn)
+            if (!SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta)
             {
                 _buttonCase = ButtonCase.Activate;
                 SetButtonProperties("Activate");
                 return true;
             }
 
-            if (SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta && isPlayerTurn)
+            if (SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta)
             {
                 _buttonCase = ButtonCase.SelectTarget;
                 SetButtonProperties("Select Target");

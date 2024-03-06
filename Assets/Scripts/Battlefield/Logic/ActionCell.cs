@@ -15,24 +15,24 @@ public class ActionCell : MonoBehaviour
         owner.text = elementAction.Owner;
         action.text = elementAction.Action;
 
-        if (elementAction.OriginImage == "")
+        if (elementAction.OriginImage is null)
         {
             originImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue);
         }
         else
         {
             originImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
-            originImage.sprite = ImageHelper.GetCardImage(elementAction.OriginImage);
+            originImage.sprite = elementAction.OriginImage;
         }
 
-        if (elementAction.TargetImage == "")
+        if (elementAction.TargetImage is null)
         {
             targetImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue);
         }
         else
         {
             targetImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
-            targetImage.sprite = ImageHelper.GetCardImage(elementAction.TargetImage);
+            targetImage.sprite = elementAction.TargetImage;
         }
 
         if (elementAction.ShouldShowArrow)

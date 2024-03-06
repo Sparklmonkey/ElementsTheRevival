@@ -8,17 +8,22 @@ public class Liquidshadow : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        targetCard.skill = "";
-        targetCard.desc = "";
+        targetCard.Skill = null;
+        targetCard.Desc = "";
         targetCard.passiveSkills = new();
         targetCard.passiveSkills.Vampire = true;
-        targetCard.Poison++;
+        targetCard.Counters.Poison++;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.DefineDef, 1, 3, 0);
     }
 }

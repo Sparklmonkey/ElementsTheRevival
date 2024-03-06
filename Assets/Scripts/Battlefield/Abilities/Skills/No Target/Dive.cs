@@ -8,7 +8,7 @@ public class Dive : ActivatedAbility
         if (!IsCardValid(targetId, targetCard)) return;
         targetCard.passiveSkills.Dive = true;
         targetCard.AtkModify *= 2;
-        targetCard.atk *= 2;
+        targetCard.Atk *= 2;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 }

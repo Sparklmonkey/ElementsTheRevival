@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Osiris
   m_EditorClassIdentifier: 
   opponentName: Osiris
-  maxHP: 200
+  maxHp: 200
   mark: 9
   deck: 74a 74a 74h 74h 752 752 7q0 7q0 7q0 7q0 7q0 7q0 7q0 7q0 7q0 7q0 7q0 7q0 7q0
     7q0 7q0 7q0 7q3 7q4 7q4 7q8 7qb 7qb 7qc 7qc 7qc 7qc 7qc 7qc

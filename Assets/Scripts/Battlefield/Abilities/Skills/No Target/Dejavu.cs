@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Helpers;
 
 public class Dejavu : ActivatedAbility
 {
@@ -7,11 +8,11 @@ public class Dejavu : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        targetCard.skill = "";
-        targetCard.desc = "";
-        Card dupe = new(targetCard);
+        targetCard.Skill = null;
+        targetCard.Desc = "";
+        Card dupe = targetCard.Clone();
         
-        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(dupe, targetId.owner.Equals(OwnerEnum.Player)));
+        EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(dupe, targetId.IsOwnedBy(OwnerEnum.Player)));
         EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, dupe));
         
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));

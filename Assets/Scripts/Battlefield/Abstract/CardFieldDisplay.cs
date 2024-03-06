@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Core.Helpers;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -6,7 +7,8 @@ namespace Battlefield.Abstract
 {
     public class CardFieldDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private GameObject validTargetGlow, isUsableGlow;
+        [SerializeField] protected GameObject validTargetGlow;
+        [SerializeField] private GameObject isUsableGlow;
         [SerializeField] private FieldObjectAnimation fieldObjectAnimation;
         public Card Card { get; private set; }
         public ID Id { get; private set; }
@@ -15,8 +17,25 @@ namespace Battlefield.Abstract
         {
             Id = newId;
             fieldObjectAnimation.SetupId(newId);
+            RegisterEvents();
         }
 
+        private void RegisterEvents()
+        {
+            if (!Id.IsFromHand())
+            {
+                _shouldShowTargetableBinding = new EventBinding<ShouldShowTargetableEvent>(ShouldShowTarget);
+                EventBus<ShouldShowTargetableEvent>.Register(_shouldShowTargetableBinding);
+                _activateAbilityEffectBinding = new EventBinding<ActivateAbilityEffectEvent>(ActivateAbilityEffect);
+                EventBus<ActivateAbilityEffectEvent>.Register(_activateAbilityEffectBinding);
+            }
+
+            if (Id.IsOwnedBy(OwnerEnum.Opponent)) return;
+            _shouldShowUsableBinding = new EventBinding<ShouldShowUsableEvent>(ShouldShowUsableGlow);
+            EventBus<ShouldShowUsableEvent>.Register(_shouldShowUsableBinding);
+            _hideUsableDisplayBinding = new EventBinding<HideUsableDisplayEvent>(HideUsableGlow);
+            EventBus<HideUsableDisplayEvent>.Register(_hideUsableDisplayBinding);
+        }
         protected void SetCard(Card card) => Card = card;
     
         private EventBinding<ShouldShowTargetableEvent> _shouldShowTargetableBinding;
@@ -34,15 +53,6 @@ namespace Battlefield.Abstract
 
         private void Awake()
         {
-            _shouldShowTargetableBinding = new EventBinding<ShouldShowTargetableEvent>(ShouldShowTarget);
-            EventBus<ShouldShowTargetableEvent>.Register(_shouldShowTargetableBinding);
-            _shouldShowUsableBinding = new EventBinding<ShouldShowUsableEvent>(ShouldShowUsableGlow);
-            EventBus<ShouldShowUsableEvent>.Register(_shouldShowUsableBinding);
-            _hideUsableDisplayBinding = new EventBinding<HideUsableDisplayEvent>(HideUsableGlow);
-            EventBus<HideUsableDisplayEvent>.Register(_hideUsableDisplayBinding);
-            _activateAbilityEffectBinding = new EventBinding<ActivateAbilityEffectEvent>(ActivateAbilityEffect);
-            EventBus<ActivateAbilityEffectEvent>.Register(_activateAbilityEffectBinding);
-            
             isUsableGlow.SetActive(false);
             validTargetGlow.SetActive(false);
         }
@@ -65,22 +75,29 @@ namespace Battlefield.Abstract
         private void ShouldShowUsableGlow(ShouldShowUsableEvent shouldShowUsableEvent)
         {
             if (this == null) return;
-            if (!shouldShowUsableEvent.Owner.Equals(Id.owner)) return;
+            if (isUsableGlow == null) return;
 
-            if (Id.field.Equals(FieldEnum.Hand))
+            if (!shouldShowUsableEvent.Owner.Equals(Id.owner))
             {
-                if (isUsableGlow is null) return;
-                isUsableGlow.SetActive(shouldShowUsableEvent.QuantaCheck(Card.costElement, Card.cost));
+                isUsableGlow.SetActive(false);
                 return;
             }
-            if (Card.skill == "") return;
-            isUsableGlow.SetActive(shouldShowUsableEvent.QuantaCheck(Card.skillElement, Card.skillCost));
+
+            switch (Id.field)
+            {
+                case FieldEnum.Hand:
+                    isUsableGlow.SetActive(shouldShowUsableEvent.QuantaCheck(Card.CostElement, Card.Cost));
+                    return;
+                default:
+                    isUsableGlow.SetActive(Card.IsAbilityUsable(shouldShowUsableEvent.QuantaCheck, shouldShowUsableEvent.HandCount));
+                    return;
+            }
         }
         
         private void HideUsableGlow(HideUsableDisplayEvent hideUsableDisplayEvent)
         {
             if (this == null) return;
-            validTargetGlow.SetActive(false);
+            isUsableGlow.SetActive(false);
         }
         
         private void ActivateAbilityEffect(ActivateAbilityEffectEvent activateAbilityEffectEvent)
@@ -92,13 +109,16 @@ namespace Battlefield.Abstract
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            EventBus<CardTappedEvent>.Raise(new CardTappedEvent(Id, Card));
+            if ((Id, Card).HasCard())
+            {
+                EventBus<CardTappedEvent>.Raise(new CardTappedEvent(Id, Card));
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (Id.field.Equals(FieldEnum.Hand) && Id.owner.Equals(OwnerEnum.Opponent)) return;
-            if (Card.iD is "4t1" or "4t2") return;
+            if (Id.field.Equals(FieldEnum.Hand) && Id.IsOwnedBy(OwnerEnum.Opponent)) return;
+            if (Card.Id is "4t1" or "4t2") return;
             var rectTransform = GetComponent<RectTransform>();
             Vector2 objectSize = new(rectTransform.rect.height, rectTransform.rect.width);
             ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, Card, Id.index + 1, Id.field == FieldEnum.Creature);

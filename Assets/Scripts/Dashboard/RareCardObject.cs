@@ -18,14 +18,14 @@ public class RareCardObject : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         this._rareCard = rareCard;
         this._cardDisplay = cardDisplay;
         this._questManager = questManager;
-        cardImage.sprite = ImageHelper.GetCardImage(rareCard.imageID);
-        backgroundColor.sprite = ImageHelper.GetCardBackGroundImage(rareCard.costElement.FastElementString());
-        cardName.text = rareCard.cardName;
+        cardImage.sprite = rareCard.cardImage;
+        backgroundColor.sprite = ImageHelper.GetCardBackGroundImage(rareCard.CostElement.FastElementString());
+        cardName.text = rareCard.CardName;
     }
 
     public void SelectCard()
     {
-        PlayerData.Shared.inventoryCards.Add(_rareCard.iD);
+        PlayerData.Shared.inventoryCards.Add(_rareCard.Id);
         PlayerData.SaveData();
         PlayerPrefs.SetFloat("ShouldShowRareCard", 2);
         _questManager.SetupQuestPanel();
@@ -44,7 +44,7 @@ public class RareCardObject : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        PlayerData.Shared.inventoryCards.Add(_rareCard.iD);
+        PlayerData.Shared.inventoryCards.Add(_rareCard.Id);
         PlayerPrefs.SetFloat("ShouldShowRareCard", 2);
         _questManager.SetupQuestPanel();
     }

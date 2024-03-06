@@ -15,6 +15,11 @@ public class Adrenaline : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(true, false, false, TargetType.DefineAtk, 1, 3, 7);
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rainbow
   m_EditorClassIdentifier: 
   opponentName: Rainbow
-  maxHP: 200
+  maxHp: 200
   mark: 7
   deck: 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6qq
     6qq 6qq 6qq 6qq 6qq 6u1 6u1 6u1 6u1 74d 74d 74d 77g 77g 77g 77g 7ah 7ah 7ah 7ah

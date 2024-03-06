@@ -9,8 +9,8 @@ public class Lycanthropy : ActivatedAbility
         if (!IsCardValid(targetId, targetCard)) return;
         targetCard.AtkModify += 5;
         targetCard.DefModify += 5;
-        targetCard.skill = "";
-        targetCard.desc = "";
+        targetCard.Skill = null;
+        targetCard.Desc = "";
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 }

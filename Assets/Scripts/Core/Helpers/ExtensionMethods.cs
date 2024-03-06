@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Battlefield.Abstract;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public static class ExtensionMethods
 {
@@ -52,13 +53,26 @@ public static class ExtensionMethods
         };
     }
 
+    public static T Clone<T>(this T scriptableObject) where T : ScriptableObject
+    {
+        if (scriptableObject == null)
+        {
+            Debug.LogError($"ScriptableObject was null. Returning default {typeof(T)} object.");
+            return (T)ScriptableObject.CreateInstance(typeof(T));
+        }
+ 
+        T instance = Object.Instantiate(scriptableObject);
+        instance.name = scriptableObject.name; // remove (Clone) from name
+        return instance;
+    }
+    
     public static List<string> SerializeCard(this List<Card> cardList)
     {
         var listToReturn = new List<string>();
 
         foreach (var card in cardList)
         {
-            listToReturn.Add(card.iD);
+            listToReturn.Add(card.Id);
         }
 
         return listToReturn;
@@ -108,7 +122,7 @@ public static class ExtensionMethods
 
                 foreach (var card in listToSort)
                 {
-                    if (card.costElement.Equals(element) && card.cardType.Equals(cardType))
+                    if (card.CostElement.Equals(element) && card.Type.Equals(cardType))
                     {
                         sortedList.Add(card);
                     }
@@ -116,11 +130,6 @@ public static class ExtensionMethods
             }
         }
         return sortedList;
-    }
-    
-    public static bool IsFromHand(this ID id)
-    {
-        return id.field.Equals(FieldEnum.Hand);
     }
 
     [ThreadStatic] private static System.Random _local;
@@ -251,7 +260,7 @@ public static class ExtensionMethods
     public static int GetRegularBuyPrice(this string cardID)
     {
         var regCard = CardDatabase.Instance.GetCardFromId(cardID.GetUppedRegular());
-        return regCard.rarity * regCard.rarity * 6 + regCard.cost;
+        return regCard.Rarity * regCard.Rarity * 6 + regCard.Cost;
     }
 
     public static bool IsBazaarLegal(this string cardID)
@@ -350,7 +359,7 @@ public static class ExtensionMethods
 
     public static bool IsRare(this Card card)
     {
-        return card.rarity is 6 or 8 or 15 or 18 or 20;
+        return card.Rarity is 6 or 8 or 15 or 18 or 20;
     }
 
     public const string AcceptedCharacters = "ybndrfg8ejkmcpqxot1uwisza345h769";

@@ -23,7 +23,6 @@ public class AiStateMachine
     private GameState _currentState;
     private readonly PlayerManager _aiManager;
     private readonly IAiDrawComponent _aiDraw;
-    private readonly IAiDiscardComponent _aiDiscard;
     private readonly AiTurnBase _aiTurn;
     private readonly GameOverVisual _gameOverVisual;
     private int _stateCount;
@@ -36,7 +35,6 @@ public class AiStateMachine
         _stateCount = 0;
         EventBus<ResetAiTurnCountEvent>.Raise(new ResetAiTurnCountEvent());
         _aiDraw = BattleVars.Shared.EnemyAiData.drawComponent.GetScriptFromName<IAiDrawComponent>();
-        _aiDiscard = BattleVars.Shared.EnemyAiData.discardComponent.GetScriptFromName<IAiDiscardComponent>();
         _aiTurn = new BasicAiTurnLogic();
     }
 
@@ -114,7 +112,7 @@ public class AiStateMachine
                 break;
 
             case GameState.DrawCard:
-                EventBus<OnTurnStartEvent>.Raise(new OnTurnStartEvent(_aiManager.Owner));
+                EventBus<OnTurnStartEvent>.Raise(new OnTurnStartEvent(_aiManager.owner));
                 _aiDraw.StartTurnDrawCard(_aiManager);
                 SetNewState();
                 break;

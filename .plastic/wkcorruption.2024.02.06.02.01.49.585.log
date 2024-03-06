@@ -1,0 +1,11 @@
+Process name: plasticscmshellextensionproxy
+Process image: C:\Program Files\PlasticSCM5\client\plasticscmshellextensionproxy.exe
+Process started: 2024.02.05.16.36.43.596
+Error: Format_Bad7BitInt32
+StackTrace:    at Codice.CM.Common.Serialization.PlasticBinaryReader.Read7BitEncodedInt()
+   at Codice.CM.Common.Serialization.PlasticBinaryReader.ReadString()
+   at Codice.CM.WorkspaceServer.RevisionInfoDataStore.ReadRevisionInfo(PlasticBinaryReader reader, IWorkspaceRevisionInfoCache cache, RepositorySpec repSpec, IList seids, Boolean bReadRepositoryModules)
+   at Codice.CM.WorkspaceServer.TreeChangedDataStore.ReadChangedNode(PlasticBinaryReader reader, MountPointId mountId, IList seids, MovedReferencesBuilders movedRefsBuilders, Options options, LocalItemIdSequencer localItemIdSequencer)
+   at Codice.CM.WorkspaceServer.TreeChangedDataStore.ReadChangedNode(PlasticBinaryReader reader, MountPointId mountId, IList seids, MovedReferencesBuilders movedRefsBuilders, Options options, LocalItemIdSequencer localItemIdSequencer)
+   at Codice.CM.WorkspaceServer.TreeChangedDataStore.ReadChangedTree(WorkspaceInfo wkInfo, LocalItemIdSequencer localItemIdSequencer, PlasticBinaryReader chgTreeReader)
+   at Codice.CM.WorkspaceServer.TreeChangedDataStore.GetChangedTree(WorkspaceInfo wkInfo, String wkChangesFile, LocalItemIdSequencer localItemIdSequencer)

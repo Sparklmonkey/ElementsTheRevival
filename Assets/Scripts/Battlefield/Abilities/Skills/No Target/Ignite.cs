@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core.Helpers;
 
 public class Ignite : ActivatedAbility
 {
@@ -7,8 +8,8 @@ public class Ignite : ActivatedAbility
 
     public override bool IsCardValid(ID id, Card card)
     {
-        if (id.field.Equals(FieldEnum.Player) && !id.owner.Equals(BattleVars.Shared.AbilityIDOrigin.owner)) return true;
-        return id.field.Equals(FieldEnum.Creature);
+        if (id.IsPlayerField() && !id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner)) return true;
+        return id.IsCreatureField();
     }
 
     public override void Activate(ID targetId, Card targetCard)

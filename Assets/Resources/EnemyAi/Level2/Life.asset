@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Life
   m_EditorClassIdentifier: 
   opponentName: Growth
-  maxHP: 100
+  maxHp: 100
   mark: 10
   deck: 4sa 4t3 55k 55k 55k 55l 55m 55n 55q 55q 5bs 5bs 5bs 5bs 5bs 5bs 5bt 5bu 5bu
     5bv 5bv 5c0 5c0 5c1 5c1 5c2 5c2 5c3 5oc 5oc 5oc 5od 5od 5oe 5oe 5oh 5oh

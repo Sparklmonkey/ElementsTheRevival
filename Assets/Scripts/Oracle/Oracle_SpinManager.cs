@@ -49,7 +49,7 @@ public class OracleSpinManager : MonoBehaviour
         electrumReward.text = $"{_electrumToAdd}";
         nextFalseGod.text = OracleHelper.GetNextFalseGod();
         getCardButton.gameObject.SetActive(true);
-        petName.text = OracleHelper.GetPetForNextBattle(_cardToShow.costElement);
+        petName.text = OracleHelper.GetPetForNextBattle(_cardToShow.CostElement);
     }
     public void SaveOracleResults()
     {
@@ -57,18 +57,18 @@ public class OracleSpinManager : MonoBehaviour
         PlayerData.Shared.petName = petName.text;
         PlayerData.Shared.petCount = 3;
         PlayerData.Shared.nextFalseGod = nextFalseGod.text;
-        PlayerData.Shared.inventoryCards.Add(_cardToShow.iD);
+        PlayerData.Shared.inventoryCards.Add(_cardToShow.Id);
         PlayerData.SaveData();
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 
     private void SetupFortuneText()
     {
-        cardName.text = _cardToShow.cardName;
-        fortuneHead.text = ElementStrings.GetFortuneHeadString(_cardToShow.cardType, _cardToShow.costElement, _cardToShow.cardName);
-        fortuneBody.text = ElementStrings.GetCardBodyString(_cardToShow.cardName);
+        cardName.text = _cardToShow.CardName;
+        fortuneHead.text = ElementStrings.GetFortuneHeadString(_cardToShow.Type, _cardToShow.CostElement, _cardToShow.CardName);
+        fortuneBody.text = ElementStrings.GetCardBodyString(_cardToShow.CardName);
         PlayerData.Shared.playedOracleToday = true;
-        PlayerData.Shared.DayLastOraclePlay = DateTime.Now;
+        PlayerData.Shared.oracleLastPlayed = DateTime.Now.ToString();
         SetupResultBlock();
     }
 
@@ -112,7 +112,7 @@ public class OracleSpinManager : MonoBehaviour
         cardHide.material = dissolveMat;
         cardHide.material.SetFloat("_Fade", 1f);
         cardHide.material.SetFloat("_Scale", 25f);
-        cardHide.material.SetColor("_EdgeColour", ElementColours.GetElementColour(_cardToShow.costElement));
+        cardHide.material.SetColor("_EdgeColour", ElementColours.GetElementColour(_cardToShow.CostElement));
 
         float currentTime = 1;
         while (currentTime > 0f)

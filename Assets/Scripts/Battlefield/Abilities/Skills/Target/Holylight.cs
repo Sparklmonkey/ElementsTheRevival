@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Helpers;
 using UnityEngine;
 
 public class Holylight : ActivatedAbility
@@ -14,7 +15,7 @@ public class Holylight : ActivatedAbility
             return;
         }
 
-        var damage = targetCard.costElement.Equals(Element.Death) || targetCard.costElement.Equals(Element.Darkness)
+        var damage = targetCard.CostElement.Equals(Element.Death) || targetCard.CostElement.Equals(Element.Darkness)
             ? -10
             : 10;
         targetCard.DefDamage -= damage;
@@ -24,8 +25,13 @@ public class Holylight : ActivatedAbility
     {
         if (card is null)
         {
-            return id.field.Equals(FieldEnum.Player);
+            return id.IsPlayerField();
         }
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.CreatureAndPlayer, 10, 0, 0);
     }
 }

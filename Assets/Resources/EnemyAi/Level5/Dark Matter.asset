@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dark Matter
   m_EditorClassIdentifier: 
   opponentName: Dark Matter
-  maxHP: 200
+  maxHp: 200
   mark: 3
   deck: 744 744 744 744 744 744 744 744 744 744 744 744 744 744 744 744 744 744 744
     745 745 745 745 746 748 74a 74b 74b 74c 74d 74d 74d 74d 74f 74f 74f 74f 74f 74f

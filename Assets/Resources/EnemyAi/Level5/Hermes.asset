@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hermes
   m_EditorClassIdentifier: 
   opponentName: Hermes
-  maxHP: 200
+  maxHp: 200
   mark: 5
   deck: 77d 77d 77d 77i 77i 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7dg
     7dg 7dg 7dg 7dg 7dg 7dg 7dh 7dh 7dh 7dh 7di 7dj 7dj 7dj 7dj 7dk 7dk 7dk 7dk 7dk

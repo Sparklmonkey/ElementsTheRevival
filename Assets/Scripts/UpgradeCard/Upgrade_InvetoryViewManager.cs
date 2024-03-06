@@ -34,7 +34,7 @@ public class UpgradeInvetoryViewManager : MonoBehaviour
         var cardsToShow = new List<Card>();
         foreach (var card in _inventoryCardList)
         {
-            if (card.costElement != filter) { continue; }
+            if (card.CostElement != filter) { continue; }
             cardsToShow.Add(card);
         }
         SetupContentView(cardsToShow);
@@ -43,7 +43,7 @@ public class UpgradeInvetoryViewManager : MonoBehaviour
 
     public void DisplayCardAndUp(Card card)
     {
-        var upgradedCard = CardDatabase.Instance.GetCardFromId(card.iD.GetUppedRegular());
+        var upgradedCard = CardDatabase.Instance.GetCardFromId(card.Id.GetUppedRegular());
 
         currentCardDisplay.gameObject.SetActive(true);
         currentCardDisplay.SetupCardView(card);
@@ -66,10 +66,10 @@ public class UpgradeInvetoryViewManager : MonoBehaviour
     {
         HideCardAndUp();
         ClearContentView();
-        cardList.Sort((x, y) => string.Compare(x.iD, y.iD));
+        cardList.Sort((x, y) => string.Compare(x.Id, y.Id));
         foreach (var card in cardList)
         {
-            var dMCardPrefab = _cardHeads.Find(x => x.GetCard().cardName == card.cardName);
+            var dMCardPrefab = _cardHeads.Find(x => x.GetCard().Id == card.Id);
             if (dMCardPrefab != null)
             {
                 dMCardPrefab.AddCard();

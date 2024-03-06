@@ -18,11 +18,13 @@ public struct SetupCardDisplayEvent : IEvent
     public ID Id;
     public Card Card;
     public bool IsPlayable;
+    public bool IsAbilityUsable;
     
-    public SetupCardDisplayEvent(ID id, Card card, bool isPlayable)
+    public SetupCardDisplayEvent(ID id, Card card, bool isPlayable, bool isAbilityUsable)
     {
         Id = id;
         Card = card;
         IsPlayable = isPlayable;
+        IsAbilityUsable = isAbilityUsable;
     }
 }

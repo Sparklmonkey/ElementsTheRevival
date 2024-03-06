@@ -25,29 +25,27 @@ public class SkillManager : MonoBehaviour
 
     public bool ShouldAskForTarget(Card card)
     {
-        var ability = card.skill.GetSkillScript<ActivatedAbility>();
-        return ability.NeedsTarget();
+        return card.Skill.NeedsTarget();
     }
 
     private void SetupTargetHighlights(SetupAbilityTargetsEvent setupAbilityTargetsEvent)
     {
-        var ability = setupAbilityTargetsEvent.AbilityCard.skill.GetSkillScript<ActivatedAbility>();
+        var ability = setupAbilityTargetsEvent.AbilityCard.Skill;
         EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(ability.IsCardValid, setupAbilityTargetsEvent.ShouldHideGraphic));
     }
     
-    public async void SkillRoutineNoTarget(PlayerManager owner, ID id, Card card)
+    public void SkillRoutineNoTarget(PlayerManager owner, ID id, Card card)
     {
-        var ability = card.skill.GetSkillScript<ActivatedAbility>();
-        if (card.cardType.Equals(CardType.Spell))
+        var ability = card.Skill;
+        if (card.Type.Equals(CardType.Spell))
         {
-            EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(owner.Owner.Equals(OwnerEnum.Player), card, null, null));
+            EventBus<AddSpellActivatedActionEvent>.Raise(new AddSpellActivatedActionEvent(owner.owner.Equals(OwnerEnum.Player), card, null, null));
         }
         else
         {
-            EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(owner.Owner.Equals(OwnerEnum.Player), card, null, null));
+            EventBus<AddAbilityActivatedActionEvent>.Raise(new AddAbilityActivatedActionEvent(owner.owner.Equals(OwnerEnum.Player), card, null, null));
         }
         EventBus<ShouldShowTargetableEvent>.Raise(new ShouldShowTargetableEvent(ability.IsCardValid, true));
-        await new WaitForSeconds(2f);
         foreach (var target in DuelManager.Instance.ValidTargets)
         {
             EventBus<ActivateAbilityEffectEvent>.Raise(new ActivateAbilityEffectEvent(ability.Activate, target.Key));
