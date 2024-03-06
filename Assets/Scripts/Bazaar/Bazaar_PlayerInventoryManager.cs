@@ -17,7 +17,7 @@ public class BazaarPlayerInventoryManager : InventoryManager
     public void SetupPlayerInvetoryView(List<Card> cardList)
     {
         this._cardList = cardList;
-        cardList.Sort((x, y) => string.Compare(x.iD, y.iD));
+        cardList.Sort((x, y) => string.Compare(x.Id, y.Id));
         SetupContentView(cardList, true);
     }
 
@@ -51,23 +51,7 @@ public class BazaarPlayerInventoryManager : InventoryManager
         List<Card> cardsToShow = new();
         foreach (var card in _cardList)
         {
-            if (card.cardName == "Animate Weapon")
-            {
-                if (filter.Equals(Element.Air))
-                {
-                    cardsToShow.Add(card);
-                }
-                continue;
-            }
-            if (card.cardName == "Luciferin" || card.cardName == "Luciferase")
-            {
-                if (filter.Equals(Element.Light))
-                {
-                    cardsToShow.Add(card);
-                }
-                continue;
-            }
-            if (card.costElement != filter || card.BuyPrice == 0) { continue; }
+            if (card.CardElement != filter || card.BuyPrice == 0) { continue; }
             cardsToShow.Add(card);
         }
         SetupContentView(cardsToShow, true);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Divine Glory
   m_EditorClassIdentifier: 
   opponentName: Divine Glory
-  maxHP: 200
+  maxHp: 200
   mark: 3
   deck: 7dg 7dg 7dg 7dm 7dm 7dm 7dm 7dm 7dm 7jo 7jo 7jo 7jo 7jo 7jo 7jo 7jo 7jo 7jo
     7jo 7jo 7jo 7k1 7k1 7k1 7k1 7k1 7k1 7k2 7k2 7k2 7n2 7n2 7n2 7n2 7n2

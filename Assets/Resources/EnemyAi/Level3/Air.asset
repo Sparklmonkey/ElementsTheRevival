@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Air
   m_EditorClassIdentifier: 
   opponentName: Airborne
-  maxHP: 100
+  maxHp: 100
   mark: 1
   deck: 5c6 5c6 5c6 5c6 5c6 5c6 5de 5de 5de 5de 5de 5de 5de 5de 5de 5de 5de 5lk 5lk
     5lk 5lk 5oc 5oc 5oc 5oc 5oc 5oc 5oc 5oj 5oj 5oj 5oj 5oj 5oj 5ol 5ol 5ol 5on 5on

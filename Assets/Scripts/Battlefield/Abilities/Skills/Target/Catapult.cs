@@ -10,7 +10,7 @@ public class Catapult : ActivatedAbility
     {
         if (!IsCardValid(targetId, targetCard)) return;
         var damage = 100 * targetCard.DefNow / (100 + targetCard.DefNow);
-        damage += targetCard.Freeze > 0 ? Mathf.FloorToInt(damage * 0.5f) : 0;
+        damage += targetCard.Counters.Freeze > 0 ? Mathf.FloorToInt(damage * 0.5f) : 0;
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
         
         EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damage, true, false, targetId.owner.Not()));
@@ -19,7 +19,11 @@ public class Catapult : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner) && card.IsTargetable();
     }
 
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.Trebuchet, 20, 0, 0);
+    }
 }

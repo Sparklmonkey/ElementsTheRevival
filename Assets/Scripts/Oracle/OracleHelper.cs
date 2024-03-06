@@ -58,7 +58,7 @@ public class OracleHelper
     {
         if (Random.Range(0, 100) > 75)
         {
-            return CardDatabase.Instance.GetRandomPet().cardName;
+            return CardDatabase.Instance.GetRandomPet().CardName;
         }
         switch (element)
         {

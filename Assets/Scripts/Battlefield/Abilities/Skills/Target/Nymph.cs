@@ -9,8 +9,8 @@ public class Nymph : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        var element = targetCard.costElement;
-        var card = targetCard.iD.IsUpgraded()
+        var element = targetCard.CostElement;
+        var card = targetCard.Id.IsUpgraded()
             ? CardDatabase.Instance.GetRandomEliteNymph(element)
             : CardDatabase.Instance.GetRandomRegularNymph(element);
         
@@ -22,6 +22,11 @@ public class Nymph : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Pillar) && id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner) && card.IsTargetable();
+        return card.Type.Equals(CardType.Pillar) && id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.Tears, 1, 0, 0);
     }
 }

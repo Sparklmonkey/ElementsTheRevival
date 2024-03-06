@@ -19,9 +19,9 @@ public class UCardHead : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public Card GetCard() => cardToShow;
     public void SetupCardHead(Card card, UpgradeInvetoryViewManager inventoryManager)
     {
-        cardName.text = card.cardName;
+        cardName.text = card.CardName;
 
-        if (card.iD.IsUpgraded())
+        if (card.Id.IsUpgraded())
         {
             cardName.font = underlayWhite;
             cardName.color = new Color32(byte.MinValue, byte.MinValue, byte.MinValue, byte.MaxValue);
@@ -31,12 +31,12 @@ public class UCardHead : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             cardName.font = underlayBlack;
             cardName.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
         }
-        cardElement.sprite = ImageHelper.GetCardBackGroundImage(card.costElement.FastElementString());
+        cardElement.sprite = ImageHelper.GetCardBackGroundImage(card.CostElement.FastElementString());
         cardToShow = card;
         _cardCountValue = 1;
         cardCount.text = _cardCountValue.ToString();
         this._inventoryManager = inventoryManager;
-        uppedShine.gameObject.SetActive(card.iD.IsUpgraded());
+        uppedShine.gameObject.SetActive(card.Id.IsUpgraded());
         rareIndicator.gameObject.SetActive(card.IsRare());
     }
 

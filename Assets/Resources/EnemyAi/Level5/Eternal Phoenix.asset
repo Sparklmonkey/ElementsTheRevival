@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Eternal Phoenix
   m_EditorClassIdentifier: 
   opponentName: Eternal Phoenix
-  maxHP: 200
+  maxHp: 200
   mark: 0
   deck: 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7dg 7di 7di 7dk 7dk 7dm 7dm 7dm 7dm
     7do 7ds 7ds 7ds 7ds 7ds 7ds 80a 80i 80i 80i

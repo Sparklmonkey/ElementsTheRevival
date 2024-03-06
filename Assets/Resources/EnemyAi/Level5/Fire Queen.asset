@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fire Queen
   m_EditorClassIdentifier: 
   opponentName: Fire Queen
-  maxHP: 200
+  maxHp: 200
   mark: 1
   deck: 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7ac 7am 7am 7am
     7am 7am 7am 7dk 7dk 7dk 7dn 7dn 7ms 7ms 7ms 7ms 7ms 7ms 7ms 7ms 7ms 7ms 7ms 7n2

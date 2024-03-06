@@ -8,8 +8,8 @@ public class Stoneform : ActivatedAbility
     {
         if (!IsCardValid(targetId, targetCard)) return;
         targetCard.DefModify += 20;
-        targetCard.skill = "";
-        targetCard.desc = "";
+        targetCard.Skill = null;
+        targetCard.Desc = "";
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 }

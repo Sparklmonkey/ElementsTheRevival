@@ -43,7 +43,7 @@ public class BazaarPlayerDataManager : MonoBehaviour
         this._isAdd = isAdd;
 
         confirmationMessage.gameObject.SetActive(true);
-        confirmationMessage.SetupErrorMessage($"Are you sure you want to {(isAdd ? "buy" : "sell")} {card.cardName}?");
+        confirmationMessage.SetupErrorMessage($"Are you sure you want to {(isAdd ? "buy" : "sell")} {card.CardName}?");
     }
 
     public void ConfirmModification()
@@ -52,14 +52,14 @@ public class BazaarPlayerDataManager : MonoBehaviour
         if (_isAdd)
         {
             GetComponent<BazaarTransactionManager>().ChangeCoinCount(_cardToChange.BuyPrice, true);
-            PlayerData.Shared.inventoryCards.Add(_cardToChange.iD);
+            PlayerData.Shared.inventoryCards.Add(_cardToChange.Id);
         }
         else
         {
             var index = 0;
             for (var i = 0; i < PlayerData.Shared.inventoryCards.Count; i++)
             {
-                if (PlayerData.Shared.inventoryCards[i] == _cardToChange.iD)
+                if (PlayerData.Shared.inventoryCards[i] == _cardToChange.Id)
                 {
                     index = i;
                     break;

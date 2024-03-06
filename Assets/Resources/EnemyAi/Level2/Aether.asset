@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Aether
   m_EditorClassIdentifier: 
   opponentName: Ethereal
-  maxHP: 100
+  maxHp: 100
   mark: 0
   deck: 4t3 4vc 4vc 4vc 4vd 4ve 4vg 4vi 4vi 5bs 5bs 5bs 5bu 5c0 5c0 5c1 5c2 61o 61o
     61o 61o 61o 61o 61p 61p 61p 61q 61q 61q 61q 61r 61r 61r 61r 61s 61s 61t

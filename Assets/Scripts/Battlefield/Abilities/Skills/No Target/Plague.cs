@@ -15,10 +15,10 @@ public class Plague : ActivatedAbility
     {
         if (!IsCardValid(targetId, targetCard)) return;
 
-        targetCard.Poison += 1;
+        targetCard.Counters.Poison += 1;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         
-        if (BattleVars.Shared.AbilityCardOrigin.cardType.Equals(CardType.Creature))
+        if (BattleVars.Shared.AbilityCardOrigin.Type.Equals(CardType.Creature))
         {
             EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(BattleVars.Shared.AbilityIDOrigin));
         }

@@ -12,6 +12,6 @@ public class Duality : ActivatedAbility
         if (!IsCardValid(targetId, targetCard)) return;
         var cardToAdd = DuelManager.Instance.GetNotIDOwner(targetId).DeckManager.GetTopCard();
         if (cardToAdd == null) { return; }
-        EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(BattleVars.Shared.AbilityIDOrigin.owner, new(cardToAdd)));
+        EventBus<AddCardToHandEvent>.Raise(new AddCardToHandEvent(BattleVars.Shared.AbilityIDOrigin.owner, cardToAdd.Clone()));
     }
 }

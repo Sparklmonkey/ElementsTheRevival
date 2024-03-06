@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Morte
   m_EditorClassIdentifier: 
   opponentName: Morte
-  maxHP: 200
+  maxHp: 200
   mark: 4
   deck: 710 710 710 710 710 710 710 710 710 710 710 710 710 710 710 711 711 712 712
     712 712 712 712 713 714 714 714 717 717 717 718 718 718 718 718 719 719 719 71a

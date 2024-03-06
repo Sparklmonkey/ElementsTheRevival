@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Elidnis
   m_EditorClassIdentifier: 
   opponentName: Elidnis
-  maxHP: 200
+  maxHp: 200
   mark: 10
   deck: 7ah 7ah 7ah 7ah 7ah 7ah 7ai 7ai 7ak 7al 7am 7am 7am 7am 7am 7gk 7gk 7gk 7gk
     7gk 7gk 7gk 7gk 7gk 7gk 7gm 7gm 7gm 7gn 7gn 7gn 7gn 7gn 7gu 7gu 7gu 7gv 7gv 7gv

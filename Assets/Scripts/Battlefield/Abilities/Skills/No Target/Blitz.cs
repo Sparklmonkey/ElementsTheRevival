@@ -19,7 +19,7 @@ public class Blitz : ActivatedAbility
         EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "Dive", Element.Other));
         targetCard.passiveSkills.Dive = true;
         targetCard.AtkModify *= 2;
-        targetCard.atk *= 2;
+        targetCard.Atk *= 2;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 }

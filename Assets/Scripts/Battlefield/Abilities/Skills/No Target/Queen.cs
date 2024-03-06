@@ -8,7 +8,7 @@ public class Queen : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        var card = targetCard.iD.IsUpgraded()
+        var card = targetCard.Id.IsUpgraded()
             ? CardDatabase.Instance.GetCardFromId("7n4")
             : CardDatabase.Instance.GetCardFromId("5ok");
         

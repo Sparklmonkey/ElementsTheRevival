@@ -16,10 +16,11 @@ display.options.full_branch_names=true
 display.options.layout_mode=0
 display.options.show_excluded_replication_sources=false
 display.options.show_parent_to_child_arrows=false
-display.options.start_date=638262720000000000
-display.options.timesince=OneMonthAgo
+display.options.start_date=638413920000000000
+display.options.timesince=AGivenDate
 display.optionspanel.visible=false
 display.optionspanel.visibletabindex=0
 display.properties.legend=false
 display.properties.zoom=0.9
 filters.conditional.numrules=0
+

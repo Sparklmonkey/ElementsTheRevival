@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Paradox
   m_EditorClassIdentifier: 
   opponentName: Paradox
-  maxHP: 200
+  maxHp: 200
   mark: 7
   deck: 7jp 7jp 7jp 7jp 7jp 7jp 7jp 7jp 7jv 7jv 7jv 7jv 7jv 7jv 7jv 7jv 7k0 7k0 7k1
     7k1 7k2 7k2 7k2 7q1 7q1 7q1 7q1 7q1 7q1 7q1 7q1 7q5 7q5 7q5 7q5 808 808 808 808

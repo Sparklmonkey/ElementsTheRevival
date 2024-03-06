@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gravity
   m_EditorClassIdentifier: 
   opponentName: Relativity
-  maxHP: 100
+  maxHp: 100
   mark: 9
   deck: 55k 55k 55k 55k 55k 55k 55k 55k 55k 55k 55k 55k 55k 55k 55k 55l 55m 55m 55m
     55m 55n 55n 55o 55o 55p 55q 55q 55q 55r 55r 55r 55s 55s 55t 55t 560 560 560 560

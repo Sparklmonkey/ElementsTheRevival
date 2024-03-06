@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Helpers;
+using UnityEngine;
 
 public class ActionManager
 {
@@ -30,13 +31,13 @@ public class ActionManager
     {
         var isPlayer = addDrawCardActionEvent.Owner.Equals(OwnerEnum.Player);
         ElementAction action = new(isPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName, 
-            "Draw", isPlayer ? addDrawCardActionEvent.CardDrawn.imageID : "", "", false);
+            "Draw", isPlayer ? addDrawCardActionEvent.CardDrawn.cardImage : null, null, false);
         ActionList.Add(action);
     }
 
     private void AddCardPlayedOnFieldAction(AddCardPlayedOnFieldActionEvent addCardPlayedOnFieldActionEvent)
     {
-        ElementAction action = new($"{(addCardPlayedOnFieldActionEvent.IsPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName)}", "Played", addCardPlayedOnFieldActionEvent.CardToPlay.imageID, "", false);
+        ElementAction action = new($"{(addCardPlayedOnFieldActionEvent.IsPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName)}", "Played", addCardPlayedOnFieldActionEvent.CardToPlay.cardImage, null, false);
 
         ActionList.Add(action);
     }
@@ -44,13 +45,13 @@ public class ActionManager
     {
         var owner = addSpellActivatedActionEvent.IsPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName;
         var shouldShowArrow = false;
-        var targetId = "";
+        Sprite targetId = null;
         if (addSpellActivatedActionEvent.TargetId != null)
         {
             shouldShowArrow = addSpellActivatedActionEvent.TargetCard is not null || addSpellActivatedActionEvent.TargetId.IsPlayerField();
-            targetId = addSpellActivatedActionEvent.TargetCard is not null ? addSpellActivatedActionEvent.TargetCard.imageID : "";
+            targetId = addSpellActivatedActionEvent.TargetCard is not null ? addSpellActivatedActionEvent.TargetCard.cardImage : null;
         }
-        ElementAction action = new(owner, "Played Spell", addSpellActivatedActionEvent.Spell.imageID, targetId, shouldShowArrow);
+        ElementAction action = new(owner, "Played Spell", addSpellActivatedActionEvent.Spell.cardImage, targetId, shouldShowArrow);
 
         ActionList.Add(action);
     }
@@ -59,13 +60,13 @@ public class ActionManager
     {
         var owner = addAbilityActivatedActionEvent.IsPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName;
         var shouldShowArrow = false;
-        var targetId = "";
+        Sprite targetId = null;
         if (addAbilityActivatedActionEvent.TargetId is not null)
         {
             shouldShowArrow = addAbilityActivatedActionEvent.TargetCard is not null || addAbilityActivatedActionEvent.TargetId.IsPlayerField();
-            targetId = addAbilityActivatedActionEvent.TargetCard is not null ? addAbilityActivatedActionEvent.TargetCard.imageID : "";
+            targetId = addAbilityActivatedActionEvent.TargetCard is not null ? addAbilityActivatedActionEvent.TargetCard.cardImage : null;
         }
-        ElementAction action = new(owner, "Activated Ability", addAbilityActivatedActionEvent.AbilityOwner.imageID, targetId, shouldShowArrow);
+        ElementAction action = new(owner, "Activated Ability", addAbilityActivatedActionEvent.AbilityOwner.cardImage, targetId, shouldShowArrow);
 
         ActionList.Add(action);
     }
@@ -77,11 +78,11 @@ public class ElementAction
     public string Owner;
     public string Action;
 
-    public string OriginImage;
-    public string TargetImage;
+    public Sprite OriginImage;
+    public Sprite TargetImage;
     public bool ShouldShowArrow;
 
-    public ElementAction(string owner, string action, string originImage, string targetImage, bool shouldShowArrow)
+    public ElementAction(string owner, string action, Sprite originImage, Sprite targetImage, bool shouldShowArrow)
     {
         Owner = owner;
         Action = action;

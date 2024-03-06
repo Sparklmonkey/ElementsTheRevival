@@ -8,16 +8,21 @@ public class Butterfly : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        targetCard.skill = "destroy";
-        targetCard.skillCost = 3;
-        targetCard.skillElement = Element.Entropy;
-        targetCard.desc = "<sprite=6><sprite=6><sprite=6>: Destroy: \n Destroy the targeted permanent";
+        targetCard.Skill = new Destroy();
+        targetCard.SkillCost = 3;
+        targetCard.SkillElement = Element.Entropy;
+        targetCard.Desc = "<sprite=6><sprite=6><sprite=6>: Destroy: \n Destroy the targeted permanent";
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
     
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.AtkNow < 4 && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.AtkNow < 4 && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.CreatureLowAtk, 1, 3, 0);
     }
 }

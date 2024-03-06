@@ -45,7 +45,7 @@ public class DeckDisplayManager : MonoBehaviour
             playerInventory.AddRange(PlayerData.Shared.currentDeck.DeserializeCard());
             foreach (var item in playerDeck)
             {
-                var index = playerInventory.FindIndex(x => x.iD == item.iD);
+                var index = playerInventory.FindIndex(x => x.Id == item.Id);
                 playerInventory.Remove(item);
             }
             markManager.SetupMarkCard((int)PlayerData.Shared.arenaT50Mark);
@@ -57,8 +57,8 @@ public class DeckDisplayManager : MonoBehaviour
             playerInventory = PlayerData.Shared.inventoryCards.DeserializeCard();
             markManager.SetupMarkCard((int)PlayerData.Shared.markElement);
         }
-        playerDeck.Sort((x, y) => string.Compare(x.iD, y.iD));
-        playerInventory.Sort((x, y) => string.Compare(x.iD, y.iD));
+        playerDeck.Sort((x, y) => string.Compare(x.Id, y.Id));
+        playerInventory.Sort((x, y) => string.Compare(x.Id, y.Id));
 
         deckCount.text = $"( {playerDeck.Count} Cards ) ";
         inventoryCount.text = $"( {playerInventory.Count} Cards ) ";
@@ -69,7 +69,7 @@ public class DeckDisplayManager : MonoBehaviour
         }
         foreach (var inventoryCard in playerInventory)
         {
-            var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().iD == inventoryCard.iD);
+            var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().Id == inventoryCard.Id);
             if (dMCardPrefab != null)
             {
                 dMCardPrefab.AddCard();
@@ -98,7 +98,7 @@ public class DeckDisplayManager : MonoBehaviour
 
             var deckPresetObject = Instantiate(deckPresetPrefab, deckPresetContentView);
             var markId = deck[1][^3..];
-            deckPresetObject.GetComponent<DeckPresetHead>().SetupCardHead(deck[0], CardDatabase.Instance.GetCardFromId(markId).costElement.FastElementString(), deck[1], this);
+            deckPresetObject.GetComponent<DeckPresetHead>().SetupCardHead(deck[0], CardDatabase.Instance.GetCardFromId(markId).CostElement.FastElementString(), deck[1], this);
         }
     }
 
@@ -107,12 +107,12 @@ public class DeckDisplayManager : MonoBehaviour
         _currentFilterSelection = element;
         _inventoryDmCard = new List<DmCardPrefab>();
         ClearInventoryView();
-        playerInventory.Sort((x, y) => string.Compare(x.iD, y.iD));
+        playerInventory.Sort((x, y) => string.Compare(x.Id, y.Id));
         if (element == 14)
         {
             foreach (var inventoryCard in playerInventory)
             {
-                var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().iD == inventoryCard.iD);
+                var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().Id == inventoryCard.Id);
                 if (dMCardPrefab != null)
                 {
                     dMCardPrefab.AddCard();
@@ -129,22 +129,12 @@ public class DeckDisplayManager : MonoBehaviour
 
         var filter = (Element)element;
 
-        var filteredList = playerInventory.FindAll(x => x.costElement == filter);
-
-        if (filter.Equals(Element.Air))
-        {
-            filteredList.AddRange(playerInventory.FindAll(x => x.cardName == "Animate Weapon"));
-        }
-
-        if (filter.Equals(Element.Light))
-        {
-            filteredList.AddRange(playerInventory.FindAll(x => x.cardName is "Luciferin" or "Luciferase"));
-        }
+        var filteredList = playerInventory.FindAll(x => x.CardElement == filter);
 
         foreach (var inventoryCard in filteredList)
         {
 
-            var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().iD == inventoryCard.iD);
+            var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().Id == inventoryCard.Id);
             if (dMCardPrefab != null)
             {
                 dMCardPrefab.AddCard();
@@ -196,7 +186,7 @@ public class DeckDisplayManager : MonoBehaviour
         ClearDeckView();
         deckCount.text = $"( {playerDeck.Count} Cards ) ";
         inventoryCount.text = $"( {playerInventory.Count} Cards ) ";
-        playerDeck.Sort((x, y) => string.Compare(x.iD, y.iD));
+        playerDeck.Sort((x, y) => string.Compare(x.Id, y.Id));
         foreach (var deckCard in playerDeck)
         {
             var cardHeadObject = Instantiate(cardHeadPrefab, deckContentView);
@@ -217,7 +207,7 @@ public class DeckDisplayManager : MonoBehaviour
             return;
         }
 
-        if (playerDeck.FindAll(x => x.iD == card.iD || x.iD == card.iD.GetUppedRegular()).Count == 6 && !card.cardType.Equals(CardType.Pillar))
+        if (playerDeck.FindAll(x => x.Id == card.Id || x.Id == card.Id.GetUppedRegular()).Count == 6 && !card.Type.Equals(CardType.Pillar))
         {
             errorMessage.SetupErrorMessage("No more than 6 copies of each card(except pillars)");
             return;
@@ -245,7 +235,7 @@ public class DeckDisplayManager : MonoBehaviour
         var returnString = "";
         foreach (var card in playerDeck)
         {
-            returnString += $"{card.iD} ";
+            returnString += $"{card.Id} ";
         }
         GetComponent<DeckCodeManager>().SetupFields(returnString, markManager.GetMarkSelected());
     }
@@ -256,13 +246,13 @@ public class DeckDisplayManager : MonoBehaviour
         var idList = deckCode.DecompressDeckCode();
         foreach (var id in idList)
         {
-            var cardIndex = playerInventory.FindIndex(x => x.iD == id);
+            var cardIndex = playerInventory.FindIndex(x => x.Id == id);
             if (cardIndex == -1) { continue; }
             playerDeck.Add(playerInventory[cardIndex]);
             playerInventory.RemoveAt(cardIndex);
             if (CardDatabase.Instance.MarkIds.Contains(id))
             {
-                markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).costElement);
+                markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).CostElement);
             }
         }
         UpdateCardView();
@@ -275,13 +265,13 @@ public class DeckDisplayManager : MonoBehaviour
         List<string> idList = new(deckCodeField.text.Split(" "));
         foreach (var id in idList)
         {
-            var cardIndex = playerInventory.FindIndex(x => x.iD == id);
+            var cardIndex = playerInventory.FindIndex(x => x.Id == id);
             if (cardIndex == -1) { continue; }
             playerDeck.Add(playerInventory[cardIndex]);
             playerInventory.RemoveAt(cardIndex);
             if (CardDatabase.Instance.MarkIds.Contains(id))
             {
-                markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).costElement);
+                markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).CostElement);
             }
         }
         UpdateCardView();

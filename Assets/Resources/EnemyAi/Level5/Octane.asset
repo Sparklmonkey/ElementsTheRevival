@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Octane
   m_EditorClassIdentifier: 
   opponentName: Octane
-  maxHP: 200
+  maxHp: 200
   mark: 8
   deck: 7dk 7dk 7dl 7dm 7dm 7ms 7ms 7ms 7ms 7ms 7ms 7ms 7ms 7ms 7ms 7ms 7ms 7n2 7n2
     7n2 7n2 7n5 7n5 7n5 7n5 7n5 7n6 7n6 7n6 7n6 7n6 7n6

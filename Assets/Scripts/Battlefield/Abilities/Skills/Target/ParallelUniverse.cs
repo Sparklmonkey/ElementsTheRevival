@@ -10,7 +10,7 @@ public class Paralleluniverse : ActivatedAbility
     {
         if (!IsCardValid(targetId, targetCard)) return;
         EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "ParallelUniverse", Element.Other));
-        Card dupe = new(targetCard);
+        Card dupe = targetCard.Clone();
         dupe.DefDamage = targetCard.DefDamage;
         dupe.DefModify = targetCard.DefModify;
         dupe.AtkModify = targetCard.AtkModify;
@@ -18,7 +18,7 @@ public class Paralleluniverse : ActivatedAbility
         if (dupe.innateSkills.Voodoo)
         {
             EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(targetCard.DefDamage, true, false, targetId.owner.Not()));
-            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, targetId.owner.Not(), targetCard.Poison));
+            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, targetId.owner.Not(), targetCard.Counters.Poison));
         }
 
         EventBus<AddCardPlayedOnFieldActionEvent>.Raise(new AddCardPlayedOnFieldActionEvent(dupe, BattleVars.Shared.AbilityIDOrigin.IsOwnedBy(OwnerEnum.Player)));
@@ -27,6 +27,11 @@ public class Paralleluniverse : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.AlphaCreature, 0, 0, 0);
     }
 }

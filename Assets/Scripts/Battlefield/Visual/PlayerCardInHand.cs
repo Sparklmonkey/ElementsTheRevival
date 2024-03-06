@@ -59,11 +59,11 @@
 //             isHidden.color = ElementColours.GetInvisibleColor();
 //
 //             cardName.text = updateCardDisplayEvent.Card.cardName;
-//             cardName.font = updateCardDisplayEvent.Card.iD.IsUpgraded() ? underlayWhite : underlayBlack;
-//             cardName.color = updateCardDisplayEvent.Card.iD.IsUpgraded() ? ElementColours.GetBlackColor() : ElementColours.GetWhiteColor();
+//             cardName.font = updateCardDisplayEvent.Card.Id.IsUpgraded() ? underlayWhite : underlayBlack;
+//             cardName.color = updateCardDisplayEvent.Card.Id.IsUpgraded() ? ElementColours.GetBlackColor() : ElementColours.GetWhiteColor();
 //
 //             cardCost.text = updateCardDisplayEvent.Card.cost.ToString();
-//             cardElement.sprite = ImageHelper.GetElementImage(updateCardDisplayEvent.Card.costElement.ToString());
+//             cardElement.sprite = ImageHelper.GetElementImage(updateCardDisplayEvent.Card.CostElement.ToString());
 //
 //             cardElement.color = ElementColours.GetWhiteColor();
 //
@@ -74,7 +74,7 @@
 //             }
 //             else
 //             {
-//                 cardBackground.sprite = ImageHelper.GetCardBackGroundImage(updateCardDisplayEvent.Card.costElement.ToString());
+//                 cardBackground.sprite = ImageHelper.GetCardBackGroundImage(updateCardDisplayEvent.Card.CostElement.ToString());
 //             }
 //
 //             if (updateCardDisplayEvent.Card.cost == 0)
@@ -83,12 +83,12 @@
 //                 cardElement.color = ElementColours.GetInvisibleColor();
 //             }
 //
-//             if (updateCardDisplayEvent.Card.costElement.Equals(Element.Other))
+//             if (updateCardDisplayEvent.Card.CostElement.Equals(Element.Other))
 //             {
 //                 cardElement.color = ElementColours.GetInvisibleColor();
 //             }
 //
-//             SetCardImage(updateCardDisplayEvent.Card.imageID, updateCardDisplayEvent.Card.cardName.Contains("Pendulum"), updateCardDisplayEvent.Card.costElement == updateCardDisplayEvent.Card.skillElement, updateCardDisplayEvent.Card.costElement);
+//             SetCardImage(updateCardDisplayEvent.Card.imageID, updateCardDisplayEvent.Card.cardName.Contains("Pendulum"), updateCardDisplayEvent.Card.CostElement == updateCardDisplayEvent.Card.SkillElement, updateCardDisplayEvent.Card.CostElement);
 //
 //         }
 //

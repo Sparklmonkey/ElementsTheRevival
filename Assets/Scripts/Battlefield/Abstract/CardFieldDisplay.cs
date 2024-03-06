@@ -7,7 +7,8 @@ namespace Battlefield.Abstract
 {
     public class CardFieldDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private GameObject validTargetGlow, isUsableGlow;
+        [SerializeField] protected GameObject validTargetGlow;
+        [SerializeField] private GameObject isUsableGlow;
         [SerializeField] private FieldObjectAnimation fieldObjectAnimation;
         public Card Card { get; private set; }
         public ID Id { get; private set; }
@@ -85,7 +86,7 @@ namespace Battlefield.Abstract
             switch (Id.field)
             {
                 case FieldEnum.Hand:
-                    isUsableGlow.SetActive(shouldShowUsableEvent.QuantaCheck(Card.costElement, Card.cost));
+                    isUsableGlow.SetActive(shouldShowUsableEvent.QuantaCheck(Card.CostElement, Card.Cost));
                     return;
                 default:
                     isUsableGlow.SetActive(Card.IsAbilityUsable(shouldShowUsableEvent.QuantaCheck, shouldShowUsableEvent.HandCount));
@@ -108,13 +109,16 @@ namespace Battlefield.Abstract
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            EventBus<CardTappedEvent>.Raise(new CardTappedEvent(Id, Card));
+            if ((Id, Card).HasCard())
+            {
+                EventBus<CardTappedEvent>.Raise(new CardTappedEvent(Id, Card));
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (Id.field.Equals(FieldEnum.Hand) && Id.IsOwnedBy(OwnerEnum.Opponent)) return;
-            if (Card.iD is "4t1" or "4t2") return;
+            if (Card.Id is "4t1" or "4t2") return;
             var rectTransform = GetComponent<RectTransform>();
             Vector2 objectSize = new(rectTransform.rect.height, rectTransform.rect.width);
             ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, Card, Id.index + 1, Id.field == FieldEnum.Creature);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fire
   m_EditorClassIdentifier: 
   opponentName: Flamer
-  maxHP: 100
+  maxHp: 100
   mark: 8
   deck: 5f0 5f0 5f0 5f0 5f0 5f0 5f0 5f0 5f0 5f3 5f3 5f6 5f6 5f6 5f7 5fb 5fb 5fb 5fb
     5fb 5fb 5fc 5fc 5fc 5uk 5uk 5uk 5uk 5uk 5uk 5uk 5ul 5ul 5uo 5up 5up 5up 5v0 5v0

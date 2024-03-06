@@ -16,14 +16,14 @@ public class CardDisplayDetail : MonoBehaviour
 
     public void SetupCardView(Card cardToDisplay, bool belongsToPlayer, bool isBattlefield)
     {
-        if (cardToDisplay == null) { gameObject.SetActive(false); return; }
+        if (cardToDisplay is null) { gameObject.SetActive(false); return; }
         card = cardToDisplay;
 
-        if (cardToDisplay.cardName.Contains("Pendulum") && isBattlefield)
+        if (cardToDisplay.CardName.Contains("Pendulum") && isBattlefield)
         {
-            var pendulumElement = cardToDisplay.costElement;
+            var pendulumElement = cardToDisplay.CostElement;
             var markElement = belongsToPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
-            if (cardToDisplay.costElement == cardToDisplay.skillElement)
+            if (cardToDisplay.CostElement == cardToDisplay.SkillElement)
             {
                 cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
             }
@@ -34,21 +34,19 @@ public class CardDisplayDetail : MonoBehaviour
         }
         else
         {
-            cardImage.sprite = ImageHelper.GetCardImage(cardToDisplay.imageID);
+            cardImage.sprite = cardToDisplay.cardImage;
         }
 
-        cardName.text = cardToDisplay.cardName;
-        var backGroundString = cardToDisplay.cardName == "Animate Weapon" ? "Air" :
-                                cardToDisplay.cardName == "Luciferin" || cardToDisplay.cardName == "Luciferase" ? "Light" :
-                                cardToDisplay.costElement.ToString();
+        cardName.text = cardToDisplay.CardName;
+        var backGroundString = cardToDisplay.CardElement.ToString();
         cardBack.sprite = ImageHelper.GetCardBackGroundImage(backGroundString);
-        cardCost.text = cardToDisplay.cost.ToString();
+        cardCost.text = cardToDisplay.Cost.ToString();
         elementImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
-        elementImage.sprite = ImageHelper.GetElementImage(cardToDisplay.costElement.FastElementString());
-        cardDescription.text = cardToDisplay.desc;
+        elementImage.sprite = ImageHelper.GetElementImage(cardToDisplay.CostElement.FastElementString());
+        cardDescription.text = cardToDisplay.Desc;
 
 
-        if (cardToDisplay.iD.IsUpgraded())
+        if (cardToDisplay.Id.IsUpgraded())
         {
             cardName.color = new Color32(byte.MinValue, byte.MinValue, byte.MinValue, byte.MaxValue);
             cardName.font = underLayWhite;
@@ -61,26 +59,26 @@ public class CardDisplayDetail : MonoBehaviour
             upgradeShine.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue);
         }
 
-        if (cardToDisplay.cost == 0)
+        if (cardToDisplay.Cost == 0)
         {
             cardCost.text = "";
             elementImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, 0);
         }
 
-        if (cardToDisplay.costElement.Equals(Element.Other))
+        if (cardToDisplay.CostElement.Equals(Element.Other))
         {
             elementImage.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, 0);
         }
 
-        if (cardToDisplay.cardType.Equals(CardType.Creature))
+        if (cardToDisplay.Type.Equals(CardType.Creature))
         {
             cardType.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, 0);
-            creatureValues.text = cardToDisplay.atk + "/" + cardToDisplay.def;
+            creatureValues.text = cardToDisplay.Atk + "/" + cardToDisplay.Def;
         }
         else
         {
             creatureValues.text = "";
-            cardType.sprite = ImageHelper.GetCardTypeImage(cardToDisplay.cardType.FastCardTypeString());
+            cardType.sprite = ImageHelper.GetCardTypeImage(cardToDisplay.Type.FastCardTypeString());
         }
     }
 }

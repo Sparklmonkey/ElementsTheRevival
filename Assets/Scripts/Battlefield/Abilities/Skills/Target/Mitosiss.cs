@@ -8,15 +8,20 @@ public class Mitosiss : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        targetCard.skill = "mitosis";
-        targetCard.desc = "Mitosis: \n Generate a daughter creature";
-        targetCard.skillCost = targetCard.cost;
-        targetCard.skillElement = targetCard.costElement;
+        targetCard.Skill = new Mitosis();
+        targetCard.Desc = "Mitosis: \n Generate a daughter creature";
+        targetCard.SkillCost = targetCard.Cost;
+        targetCard.SkillElement = targetCard.CostElement;
     }
 
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.DefineAtk, 1, 25, 25);
     }
 }

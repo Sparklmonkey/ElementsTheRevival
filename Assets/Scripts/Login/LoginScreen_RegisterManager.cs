@@ -79,6 +79,7 @@ public class LoginScreenRegisterManager : MonoBehaviour
         _touchBlocker.transform.SetAsFirstSibling();
         var response = await ApiManager.Instance.RegisterController(new()
         {
+            dataToLink = new(),
             username = username.text,
             password = password.text,
             email = email.text

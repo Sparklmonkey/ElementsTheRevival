@@ -23,9 +23,9 @@ public class DmCardPrefab : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void SetupCardHead(Card card, DeckDisplayManager deckDisplayManager)
     {
         this._deckDisplayManager = deckDisplayManager;
-        cardName.text = card.cardName;
+        cardName.text = card.CardName;
 
-        if (card.iD.IsUpgraded())
+        if (card.Id.IsUpgraded())
         {
             cardName.font = underlayWhite;
             cardName.color = new Color32(byte.MinValue, byte.MinValue, byte.MinValue, byte.MaxValue);
@@ -36,15 +36,13 @@ public class DmCardPrefab : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             cardName.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
         }
 
-        var backGroundString = card.cardName == "Animate Weapon" ? "Air" :
-                                card.cardName == "Luciferin" || card.cardName == "Luciferase" ? "Light" :
-                                card.costElement.ToString();
+        var backGroundString = card.CardElement.ToString();
         cardElement.sprite = ImageHelper.GetCardBackGroundImage(backGroundString);
-        cardImage.sprite = ImageHelper.GetCardImage(card.imageID);
+        cardImage.sprite = card.cardImage;
         cardToShow = card;
         _cardCountValue = 1;
         cardCount.text = _cardCountValue.ToString();
-        uppedShine.gameObject.SetActive(card.iD.IsUpgraded());
+        uppedShine.gameObject.SetActive(card.Id.IsUpgraded());
         rareIndicator.gameObject.SetActive(card.IsRare());
         //actionButton.onClick.AddListener(delegate { this.deckDisplayManager.ChangeParentContentView(transform); });
     }

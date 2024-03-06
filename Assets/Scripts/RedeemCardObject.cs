@@ -15,9 +15,9 @@ public class RedeemCardObject : MonoBehaviour, IPointerClickHandler
     {
         _cardOnDisplay = card;
         manager = delegateManager;
-        cardName.text = card.cardName;
-        cardImage.sprite = ImageHelper.GetCardImage(card.imageID);
-        cardHeadBackground.sprite = ImageHelper.GetCardHeadBackground(card.costElement.FastElementString());
+        cardName.text = card.CardName;
+        cardImage.sprite = card.cardImage;
+        cardHeadBackground.sprite = ImageHelper.GetCardHeadBackground(card.CostElement.FastElementString());
     }
 
     public void OnPointerClick(PointerEventData eventData)

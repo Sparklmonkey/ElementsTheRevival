@@ -10,13 +10,13 @@ public class Burrow : ActivatedAbility
         if (targetCard.passiveSkills.Burrow)
         {
             targetCard.passiveSkills.Burrow = false;
-            targetCard.atk *= 2;
+            targetCard.Atk *= 2;
             targetCard.AtkModify *= 2;
         }
         else
         {
             targetCard.passiveSkills.Burrow = true;
-            targetCard.atk /= 2;
+            targetCard.Atk /= 2;
             targetCard.AtkModify /= 2;
         }
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));

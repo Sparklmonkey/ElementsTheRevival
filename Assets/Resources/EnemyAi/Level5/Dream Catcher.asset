@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dream Catcher
   m_EditorClassIdentifier: 
   opponentName: Dream Catcher
-  maxHP: 200
+  maxHp: 200
   mark: 6
   deck: 6ts 6ts 6ts 6ts 6ts 6ts 6tu 6tu 6tu 6tu 6tu 6tu 6u3 6u3 6u3 6u3 6u3 6u3 6u5
     6u5 6u8 6u8 6u8 6ug 74f 77i 77j 7dr 7gl 7gn 7n7 7n7 7q1 7q2 7t6 7t6 80a 80h

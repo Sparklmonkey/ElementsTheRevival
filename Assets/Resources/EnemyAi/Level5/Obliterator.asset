@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Obliterator
   m_EditorClassIdentifier: 
   opponentName: Obliterator
-  maxHP: 200
+  maxHp: 200
   mark: 9
   deck: 74a 74a 74a 74a 74d 74d 74d 74d 74d 778 778 778 778 778 778 778 778 778 778
     778 778 778 778 778 778 778 778 778 778 77b 77b 77b 77b 77b 77c 77c 77f 77f 77h

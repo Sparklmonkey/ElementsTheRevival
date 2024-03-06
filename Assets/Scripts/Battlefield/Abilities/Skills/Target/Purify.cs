@@ -16,10 +16,10 @@ public class Purify : ActivatedAbility
             return;
         }
 
-        targetCard.IsAflatoxin = false;
-        targetCard.Poison = targetCard.Poison > 0 ? 0 : targetCard.Poison;
+        targetCard.Counters.Aflatoxin = 0;
+        targetCard.Counters.Poison = targetCard.Counters.Poison > 0 ? 0 : targetCard.Counters.Poison;
 
-        targetCard.Poison -= 2;
+        targetCard.Counters.Poison -= 2;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
@@ -29,6 +29,11 @@ public class Purify : ActivatedAbility
         {
             return id.IsPlayerField();
         }
-        return card.cardType.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+    }
+    
+    public override AiTargetType GetTargetType()
+    {
+        return new AiTargetType(false, false, false, TargetType.CreatureAndPlayer, 2, 0, 0);
     }
 }

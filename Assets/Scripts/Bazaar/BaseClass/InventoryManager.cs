@@ -70,10 +70,10 @@ public class InventoryManager : MonoBehaviour
         _dMCards = new List<DmCardPrefabNoTt>();
         ClearContentView();
         var cardList = PlayerData.Shared.inventoryCards.DeserializeCard();
-        cardList.Sort((x, y) => string.Compare(x.iD, y.iD));
+        cardList.Sort((x, y) => string.Compare(x.Id, y.Id));
         foreach (var card in cardList)
         {
-            var dMCard = _dMCards.Find(x => x.GetCard().iD == card.iD);
+            var dMCard = _dMCards.Find(x => x.GetCard().Id == card.Id);
             if (dMCard is not null)
             {
                 dMCard.AddCard();

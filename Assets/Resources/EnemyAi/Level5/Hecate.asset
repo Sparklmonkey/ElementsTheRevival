@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hecate
   m_EditorClassIdentifier: 
   opponentName: Hecate
-  maxHP: 200
+  maxHp: 200
   mark: 8
   deck: 7dr 7dr 7dr 7dr 7dr 7dr 7t4 7t4 7t4 7t4 7t4 7t4 7t4 7t4 7t4 7t4 7tb 7te 7te
     7te 7te 7tg 7tg 7tg 7tg 7tg 7tg 7th 7t9 7t9 7ta 7ta 7t8
