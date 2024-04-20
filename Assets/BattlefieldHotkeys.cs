@@ -167,12 +167,131 @@ public partial class @BattlefieldHotkeys: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""DashboardShortcuts"",
+            ""id"": ""3f53b2d2-bce1-4853-801e-4fa93f11864b"",
+            ""actions"": [
+                {
+                    ""name"": ""StartDuel"",
+                    ""type"": ""Button"",
+                    ""id"": ""21ceeda9-3c89-4878-9f2a-9a9d184e8788"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StartPvP"",
+                    ""type"": ""Button"",
+                    ""id"": ""94322bd9-f05f-4675-b669-33b530755271"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e2786d56-af47-4eab-af08-d1abb8119220"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DashboardShortcuts"",
+                    ""action"": ""StartDuel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b68bd9e2-542a-4356-95f4-9095bcde281f"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DashboardShortcuts"",
+                    ""action"": ""StartDuel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a38b157f-b0d9-476b-9cf1-845f8ee7291a"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DashboardShortcuts"",
+                    ""action"": ""StartDuel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91cac276-8e04-4b6c-a584-33d40f21a96c"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DashboardShortcuts"",
+                    ""action"": ""StartDuel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d6da594-3ba8-4719-a4cd-f483c7af4e5b"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DashboardShortcuts"",
+                    ""action"": ""StartDuel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""456ef855-294c-4af0-a74c-b55c5d6248fc"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DashboardShortcuts"",
+                    ""action"": ""StartDuel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12bd8c23-2bda-402d-b332-646b1eaaa867"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DashboardShortcuts"",
+                    ""action"": ""StartDuel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""26f5df22-a7cd-470b-9c02-55a73227cc4c"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DashboardShortcuts"",
+                    ""action"": ""StartPvP"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
         {
             ""name"": ""BattlefieldHotkeys"",
             ""bindingGroup"": ""BattlefieldHotkeys"",
+            ""devices"": []
+        },
+        {
+            ""name"": ""DashboardShortcuts"",
+            ""bindingGroup"": ""DashboardShortcuts"",
             ""devices"": []
         }
     ]
@@ -182,6 +301,10 @@ public partial class @BattlefieldHotkeys: IInputActionCollection2, IDisposable
         m_Shortcuts_PlayHandCards = m_Shortcuts.FindAction("PlayHandCards", throwIfNotFound: true);
         m_Shortcuts_RestartGame = m_Shortcuts.FindAction("RestartGame", throwIfNotFound: true);
         m_Shortcuts_SurrenderGame = m_Shortcuts.FindAction("SurrenderGame", throwIfNotFound: true);
+        // DashboardShortcuts
+        m_DashboardShortcuts = asset.FindActionMap("DashboardShortcuts", throwIfNotFound: true);
+        m_DashboardShortcuts_StartDuel = m_DashboardShortcuts.FindAction("StartDuel", throwIfNotFound: true);
+        m_DashboardShortcuts_StartPvP = m_DashboardShortcuts.FindAction("StartPvP", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -301,6 +424,60 @@ public partial class @BattlefieldHotkeys: IInputActionCollection2, IDisposable
         }
     }
     public ShortcutsActions @Shortcuts => new ShortcutsActions(this);
+
+    // DashboardShortcuts
+    private readonly InputActionMap m_DashboardShortcuts;
+    private List<IDashboardShortcutsActions> m_DashboardShortcutsActionsCallbackInterfaces = new List<IDashboardShortcutsActions>();
+    private readonly InputAction m_DashboardShortcuts_StartDuel;
+    private readonly InputAction m_DashboardShortcuts_StartPvP;
+    public struct DashboardShortcutsActions
+    {
+        private @BattlefieldHotkeys m_Wrapper;
+        public DashboardShortcutsActions(@BattlefieldHotkeys wrapper) { m_Wrapper = wrapper; }
+        public InputAction @StartDuel => m_Wrapper.m_DashboardShortcuts_StartDuel;
+        public InputAction @StartPvP => m_Wrapper.m_DashboardShortcuts_StartPvP;
+        public InputActionMap Get() { return m_Wrapper.m_DashboardShortcuts; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DashboardShortcutsActions set) { return set.Get(); }
+        public void AddCallbacks(IDashboardShortcutsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_DashboardShortcutsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DashboardShortcutsActionsCallbackInterfaces.Add(instance);
+            @StartDuel.started += instance.OnStartDuel;
+            @StartDuel.performed += instance.OnStartDuel;
+            @StartDuel.canceled += instance.OnStartDuel;
+            @StartPvP.started += instance.OnStartPvP;
+            @StartPvP.performed += instance.OnStartPvP;
+            @StartPvP.canceled += instance.OnStartPvP;
+        }
+
+        private void UnregisterCallbacks(IDashboardShortcutsActions instance)
+        {
+            @StartDuel.started -= instance.OnStartDuel;
+            @StartDuel.performed -= instance.OnStartDuel;
+            @StartDuel.canceled -= instance.OnStartDuel;
+            @StartPvP.started -= instance.OnStartPvP;
+            @StartPvP.performed -= instance.OnStartPvP;
+            @StartPvP.canceled -= instance.OnStartPvP;
+        }
+
+        public void RemoveCallbacks(IDashboardShortcutsActions instance)
+        {
+            if (m_Wrapper.m_DashboardShortcutsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IDashboardShortcutsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_DashboardShortcutsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_DashboardShortcutsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public DashboardShortcutsActions @DashboardShortcuts => new DashboardShortcutsActions(this);
     private int m_BattlefieldHotkeysSchemeIndex = -1;
     public InputControlScheme BattlefieldHotkeysScheme
     {
@@ -310,10 +487,24 @@ public partial class @BattlefieldHotkeys: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_BattlefieldHotkeysSchemeIndex];
         }
     }
+    private int m_DashboardShortcutsSchemeIndex = -1;
+    public InputControlScheme DashboardShortcutsScheme
+    {
+        get
+        {
+            if (m_DashboardShortcutsSchemeIndex == -1) m_DashboardShortcutsSchemeIndex = asset.FindControlSchemeIndex("DashboardShortcuts");
+            return asset.controlSchemes[m_DashboardShortcutsSchemeIndex];
+        }
+    }
     public interface IShortcutsActions
     {
         void OnPlayHandCards(InputAction.CallbackContext context);
         void OnRestartGame(InputAction.CallbackContext context);
         void OnSurrenderGame(InputAction.CallbackContext context);
+    }
+    public interface IDashboardShortcutsActions
+    {
+        void OnStartDuel(InputAction.CallbackContext context);
+        void OnStartPvP(InputAction.CallbackContext context);
     }
 }

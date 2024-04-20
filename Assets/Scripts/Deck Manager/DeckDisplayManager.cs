@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Networking;
 using TMPro;
 using UnityEngine;
@@ -57,18 +58,28 @@ public class DeckDisplayManager : MonoBehaviour
             playerInventory = PlayerData.Shared.inventoryCards.DeserializeCard();
             markManager.SetupMarkCard((int)PlayerData.Shared.markElement);
         }
-        playerDeck.Sort((x, y) => string.Compare(x.Id, y.Id));
-        playerInventory.Sort((x, y) => string.Compare(x.Id, y.Id));
+        playerDeck.Sort((x, y) => string.CompareOrdinal(x.Id, y.Id));
+        playerInventory.Sort((x, y) => string.CompareOrdinal(x.Id, y.Id));
 
         deckCount.text = $"( {playerDeck.Count} Cards ) ";
         inventoryCount.text = $"( {playerInventory.Count} Cards ) ";
         foreach (var deckCard in playerDeck)
         {
+            if (deckCard.Id is "999")
+            {
+                PlayerData.Shared.currentDeck.Remove(deckCard.Id);
+                continue;
+            }
             var cardHeadObject = Instantiate(cardHeadPrefab, deckContentView);
             cardHeadObject.GetComponent<DmCardPrefab>().SetupCardHead(deckCard, this);
         }
         foreach (var inventoryCard in playerInventory)
         {
+            if (inventoryCard.Id is "999")
+            {
+                PlayerData.Shared.inventoryCards.Remove(inventoryCard.Id);
+                continue;
+            }
             var dMCardPrefab = _inventoryDmCard.Find(x => x.GetCard().Id == inventoryCard.Id);
             if (dMCardPrefab != null)
             {
