@@ -54,7 +54,7 @@ public class GameStartManager : MonoBehaviour
                 ai.deck = string.Join(" ", CardDatabase.Instance.GetHalfBloodDeck(BattleVars.Shared.PrimaryElement, BattleVars.Shared.SecondaryElement).SerializeCard());
                 break;
             case 5:
-                var falseGod = "Serket";//PlayerData.Shared.nextFalseGod;
+                var falseGod = PlayerData.Shared.nextFalseGod;
                 if (falseGod == "")
                 {
                     falseGod = _falseGodNameList[Random.Range(0, _falseGodNameList.Count)];

@@ -21,7 +21,7 @@ public class DmCardPrefabNoTt : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void SetupCardHead(Card card, bool isInventory, InventoryManager inventoryManager)
     {
-        this._inventoryManager = inventoryManager;
+        _inventoryManager = inventoryManager;
         this.isInventory = isInventory;
         cardName.text = card.CardName;
 

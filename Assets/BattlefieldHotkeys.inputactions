@@ -145,12 +145,131 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "DashboardShortcuts",
+            "id": "3f53b2d2-bce1-4853-801e-4fa93f11864b",
+            "actions": [
+                {
+                    "name": "StartDuel",
+                    "type": "Button",
+                    "id": "21ceeda9-3c89-4878-9f2a-9a9d184e8788",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StartPvP",
+                    "type": "Button",
+                    "id": "94322bd9-f05f-4675-b669-33b530755271",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e2786d56-af47-4eab-af08-d1abb8119220",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DashboardShortcuts",
+                    "action": "StartDuel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b68bd9e2-542a-4356-95f4-9095bcde281f",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DashboardShortcuts",
+                    "action": "StartDuel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a38b157f-b0d9-476b-9cf1-845f8ee7291a",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DashboardShortcuts",
+                    "action": "StartDuel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91cac276-8e04-4b6c-a584-33d40f21a96c",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DashboardShortcuts",
+                    "action": "StartDuel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d6da594-3ba8-4719-a4cd-f483c7af4e5b",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DashboardShortcuts",
+                    "action": "StartDuel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "456ef855-294c-4af0-a74c-b55c5d6248fc",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DashboardShortcuts",
+                    "action": "StartDuel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "12bd8c23-2bda-402d-b332-646b1eaaa867",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DashboardShortcuts",
+                    "action": "StartDuel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "26f5df22-a7cd-470b-9c02-55a73227cc4c",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DashboardShortcuts",
+                    "action": "StartPvP",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
         {
             "name": "BattlefieldHotkeys",
             "bindingGroup": "BattlefieldHotkeys",
+            "devices": []
+        },
+        {
+            "name": "DashboardShortcuts",
+            "bindingGroup": "DashboardShortcuts",
             "devices": []
         }
     ]

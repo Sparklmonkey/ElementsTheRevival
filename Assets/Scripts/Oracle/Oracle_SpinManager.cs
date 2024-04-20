@@ -68,7 +68,7 @@ public class OracleSpinManager : MonoBehaviour
         fortuneHead.text = ElementStrings.GetFortuneHeadString(_cardToShow.Type, _cardToShow.CostElement, _cardToShow.CardName);
         fortuneBody.text = ElementStrings.GetCardBodyString(_cardToShow.CardName);
         PlayerData.Shared.playedOracleToday = true;
-        PlayerData.Shared.oracleLastPlayed = DateTime.Now.ToString();
+        PlayerData.Shared.oracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
         SetupResultBlock();
     }
 

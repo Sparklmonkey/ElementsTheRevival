@@ -63,7 +63,7 @@ public class CreatureCardDisplay : CardFieldDisplay
         {
             if (updateCardDisplayEvent.Card.DefNow < 1)
             {
-                EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(Id));
+                HideCard(new ClearCardDisplayEvent(Id));
                 return;
             }
         }
@@ -146,7 +146,6 @@ public class CreatureCardDisplay : CardFieldDisplay
             EventBus<OnDeathTriggerEvent>.Raise(new OnDeathTriggerEvent());
         }
         
-        
         if (Card.Counters.Aflatoxin > 0)
         {
             var card = CardDatabase.Instance.GetCardFromId("6ro");
@@ -191,7 +190,7 @@ public class CreatureCardDisplay : CardFieldDisplay
         {
             return BattleVars.Shared.AbilityCardOrigin.Skill is not Reversetime;
         }
-        return Card.CardName.Contains("Skeleton");
+        return !Card.CardName.Contains("Skeleton");
     }
 
     private void DeathTrigger(OnDeathTriggerEvent onDeathTriggerEvent)

@@ -259,7 +259,6 @@
     <Compile Include="Assets\Scripts\Core\PvpConnectionData.cs" />
     <Compile Include="Assets\Scripts\Networking\Requests\UpdateGameStatRequest.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Miracle.cs" />
-    <Compile Include="Assets\AiTurnCounter.cs" />
     <Compile Include="Assets\Scripts\ArenaLeagueOpponent.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Luciferin.cs" />
     <Compile Include="Assets\Scripts\Core\Networking\PvP_Action.cs" />
@@ -316,6 +315,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Hatch.cs" />
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\ElementColours.cs" />
+    <Compile Include="Assets\Scripts\AiTurnCounter.cs" />
     <Compile Include="Assets\Scripts\Quests\QuestScoreTwo.cs" />
     <Compile Include="Assets\Scripts\DeckSelector\CardDisplay.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Catapult.cs" />

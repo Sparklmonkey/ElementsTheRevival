@@ -5,7 +5,7 @@
         public override void OnRemoveActivate(ID owner, Card card)
         {
             var ash = CardDatabase.Instance.GetCardFromId(card.Id.IsUpgraded() ? "7dt" : "5fd");
-            EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(owner.owner, ash));
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(owner, ash, false));
         }
     }
 }
