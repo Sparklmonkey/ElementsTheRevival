@@ -4,10 +4,13 @@
     {
         public override void Activate(ID owner, Card card)
         {
-            if (!card.passiveSkills.DivineShield) return;
-            card.passiveSkills.DivineShield.Toggle();
-            card.innateSkills.Immaterial = false;
-            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(owner, card, true));
+            if (card.passiveSkills.DivineShield <= 0) return;
+            card.passiveSkills.DivineShield--;
+            if (card.passiveSkills.DivineShield <= 0)
+            {
+                card.innateSkills.Immaterial = false;
+                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(owner, card, true));
+            }
         }
     }
     

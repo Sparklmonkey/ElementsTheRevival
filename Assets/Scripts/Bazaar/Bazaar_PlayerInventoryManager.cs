@@ -34,7 +34,7 @@ public class BazaarPlayerInventoryManager : InventoryManager
         touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(touchBlocker);
         DeckDisplayManager.IsArena = false;
-        SceneTransitionManager.Instance.LoadScene("Dashboard");
+        SceneTransitionManager.Instance.LoadScene("DeckManagement");
     }
 
     public void UpdateCardFilter(int element)

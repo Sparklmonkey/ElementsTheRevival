@@ -6,7 +6,7 @@ public class Divineshield : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        targetCard.passiveSkills.DivineShield = true;
+        targetCard.passiveSkills.DivineShield = 2;
         targetCard.innateSkills.Immaterial = true;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }

@@ -14,11 +14,7 @@ public class ToolTipCanvas : MonoBehaviour
     private GameObject topFieldToolTip, bottomFieldToolTip, creatureDetailToollTip;
 
     private Card _cardOnDisplay;
-    // Start is called before the first frame update
-    private void Start()
-    {
-
-    }
+    
     private void Awake()
     {
         Instance = this;
@@ -43,24 +39,24 @@ public class ToolTipCanvas : MonoBehaviour
     private bool _isCreatureField;
     public void SetupToolTip(Vector2 objectPosition, Vector2 objectSize, Card cardToDisplay, int fieldIndex, bool isCreatureField)
     {
-        this._isCreatureField = isCreatureField;
-        this._fieldIndex = fieldIndex;
+        _isCreatureField = isCreatureField;
+        _fieldIndex = fieldIndex;
         _cardOnDisplay = cardToDisplay;
         _detailObjectPosition = objectPosition - objectSize;
         _detailObjectPosition.x += _detailRectTransform.rect.width / 2;
         _detailObjectPosition.y += _detailRectTransform.rect.height;
-        //isCreature = cardToDisplay.Type.Equals(CardType.Creature);
-        this._objectPosition = objectPosition;
-        if (objectPosition.y > canvasRectTransform.rect.height / 2)
+        
+        _objectPosition = objectPosition;
+        if (objectPosition.y < canvasRectTransform.rect.height / 2)
         {
-            this._objectPosition.x += objectSize.x;
+            _objectPosition.x += objectSize.x;
             topFieldToolTip.SetActive(true);
             topFieldToolTip.GetComponent<CardDisplayDetail>().SetupCardView(_cardOnDisplay, true, true);
         }
         else
         {
-            this._objectPosition.x -= objectSize.x;
-            this._objectPosition.y -= objectSize.y;
+            _objectPosition.x -= objectSize.x;
+            _objectPosition.y -= objectSize.y;
 
             bottomFieldToolTip.SetActive(true);
             bottomFieldToolTip.GetComponent<CardDisplayDetail>().SetupCardView(_cardOnDisplay, false, true);
@@ -122,7 +118,6 @@ public class ToolTipCanvas : MonoBehaviour
             anchoredPosition.y = canvasRectTransform.rect.height - _topFieldRectTransform.rect.height;
         }
         _topFieldRectTransform.anchoredPosition = anchoredPosition;
-        return;
     }
 
 }

@@ -13,7 +13,7 @@ public struct PassiveSkills
     public bool Psion;
     public bool DeadlyVenom;
     public bool Dive;
-    public bool DivineShield;
+    public int DivineShield;
     public bool Antimatter;
     public bool Adrenaline;
     public bool GravityPull;

@@ -99,7 +99,6 @@ public class DuelManager : MonoBehaviour
 
     private void Awake()
     {
-        
         Instance = this;
         BattleVars.Shared.ElementalMastery = false;
         gameOverVisual.isGameOver = false;
@@ -243,7 +242,7 @@ public class DuelManager : MonoBehaviour
 
         if (HandleDiscard(cardTappedEvent)) return;
 
-        var isPlayable = player.IsCardPlayable(cardTappedEvent.TappedCard);
+        var isPlayable = player.IsCardPlayable(cardTappedEvent.TappedCard) && player.playerCounters.silence <= 0;
         var isAbilityUsable = player.IsAbilityUsable(cardTappedEvent.TappedCard);
         if (PlayerPrefs.GetInt("QuickPlay") == 0)
         {

@@ -42,7 +42,7 @@ public class HandCardDisplay : CardFieldDisplay
         isHidden.color = ElementColours.GetInvisibleColor();
         
         SetCardImage(Card.cardImage, Card.CardName.Contains("Pendulum"),
-            Card.CostElement == Card.SkillElement,
+            Card.IsPendulumTurn,
             Card.CostElement);
         cardName.text = Card.CardName;
         cardName.font = Card.Id.IsUpgraded() ? underlayWhite : underlayBlack;
@@ -111,7 +111,7 @@ public class HandCardDisplay : CardFieldDisplay
         }
 
         SetCardImage(updateCardDisplayEvent.Card.cardImage, updateCardDisplayEvent.Card.CardName.Contains("Pendulum"),
-            updateCardDisplayEvent.Card.CostElement == updateCardDisplayEvent.Card.SkillElement,
+            updateCardDisplayEvent.Card.IsPendulumTurn,
             updateCardDisplayEvent.Card.CostElement);
     }
 

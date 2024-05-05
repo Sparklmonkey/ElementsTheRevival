@@ -5,9 +5,11 @@ public abstract class AiTurnBase
 {
     
     protected List<string> _skipList = new();
+    protected List<string> _creatureList = new();
     public void ResetSkipList()
     {
         _skipList.Clear();
+        _creatureList.Clear();
     }
     
     public abstract void DiscardCard(PlayerManager aiManager);

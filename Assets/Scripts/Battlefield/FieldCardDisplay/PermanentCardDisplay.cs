@@ -53,6 +53,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         if (!updatePermanentCardEvent.Id.Equals(Id)) return;
         StackCountValue++;
         SetCard(updatePermanentCardEvent.Card);
+        Card.AbilityUsed = true;
 
         immaterialIndicator.SetActive(updatePermanentCardEvent.Card.innateSkills.Immaterial);
         var isPlayer = Id.IsOwnedBy(OwnerEnum.Player);
@@ -60,7 +61,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         {
             var pendulumElement = updatePermanentCardEvent.Card.CostElement;
             var markElement = isPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
-            cardImage.sprite = updatePermanentCardEvent.Card.CostElement == updatePermanentCardEvent.Card.SkillElement
+            cardImage.sprite = updatePermanentCardEvent.Card.IsPendulumTurn
                 ? ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString())
                 : ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
         }
@@ -72,8 +73,8 @@ public class PermanentCardDisplay : CardFieldDisplay
         SetupActiveAbility();
         CheckOnPlayEffects();
         
-        List<string> permanentsWithCountdown = new() { "7q9", "5rp", "5v2", "7ti" };
-        if (permanentsWithCountdown.Contains(updatePermanentCardEvent.Card.Id))
+        
+        if (_permanentsWithCountdown.Contains(updatePermanentCardEvent.Card.Id))
         {
             stackCount.text = $"{updatePermanentCardEvent.Card.TurnsInPlay}";
         }
@@ -104,10 +105,10 @@ public class PermanentCardDisplay : CardFieldDisplay
 
         StackCountValue--;
         CheckOnRemoveEffects();
-        if (StackCountValue == 0)
+        if (StackCountValue <= 0)
         {
-            Destroy(gameObject);
             EventBus<RemoveCardFromManagerEvent>.Raise(new RemoveCardFromManagerEvent(Id));
+            Destroy(gameObject);
             return;
         }
 
@@ -174,13 +175,19 @@ public class PermanentCardDisplay : CardFieldDisplay
     {
         if (Card.CardName.Contains("Pendulum"))
         {
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(StackCountValue, Card.SkillElement, Id.owner, true));
+            var markElement = Id.IsOwnedBy(OwnerEnum.Player) ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
+            var pendulumElement = Card.IsPendulumTurn ? Card.CostElement : markElement;
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(StackCountValue, pendulumElement, Id.owner, true));
             if (Id.IsOwnedBy(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
             {
-                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "QuantaGenerate", Card.CostElement));
+                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "QuantaGenerate", pendulumElement));
             }
-    
-            Card.SkillElement = Card.SkillElement == Card.CostElement ? DuelManager.Instance.GetIDOwner(Id).playerPassiveManager.GetMark().Item2.CostElement : Card.CostElement;
+
+            Card.IsPendulumTurn = !Card.IsPendulumTurn;
+            
+            cardImage.sprite = Card.IsPendulumTurn
+                ? ImageHelper.GetPendulumImage(Card.CostElement.FastElementString(), markElement.FastElementString())
+                : ImageHelper.GetPendulumImage(markElement.FastElementString(), Card.CostElement.FastElementString());
         }
         else
         {
@@ -191,50 +198,5 @@ public class PermanentCardDisplay : CardFieldDisplay
                 EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "QuantaGenerate", Card.CostElement));
             }
         }
-    }
-    
-    private void ArtifactEndTurnAction()
-    {
-        // var owner = DuelManager.Instance.GetIDOwner(Id);
-        // if (Card.innateSkills.Empathy)
-        // {
-        //     var creatureCount = owner.playerCreatureField.GetAllValidCardIds().Count;
-        //     EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(creatureCount, false, false, owner.Owner));
-        // }
-        // if (Card.innateSkills.Gratitude)
-        // {
-        //     var healthAmount = owner.playerPassiveManager.GetMark().Item2.CostElement == Element.Life ? 5 : 3;
-        //     EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(healthAmount, false, false, owner.Owner));
-        // }
-        //
-        // List<int> floodList = new() { 11, 13, 9, 10, 12 };
-        // switch (Card.Id)
-        // {
-        //     case "5j2":
-        //     case "7hi":
-        //         var creatureList = owner.playerCreatureField.GetAllValidCardIds();
-        //         foreach (var creature in creatureList)
-        //         {
-        //             var statModifier = DuelManager.Instance.GetCardCount(new() { "5ih", "7h1" }) > 0 && floodList.Contains(Id.index) ? 5 : 2;
-        //             creature.Item2.AtkModify += statModifier;
-        //             creature.Item2.AtkModify += statModifier;
-        //             EventBus<UpdateCardDisplayEvent>.Raise(new UpdateCardDisplayEvent(creature.Item1, creature.Item2));
-        //         }
-        //         break;
-        //     case "5ih":
-        //     case "7h1":
-        //         DuelManager.Instance.enemy.ClearFloodedArea(floodList);
-        //         DuelManager.Instance.player.ClearFloodedArea(floodList);
-        //         break;
-        // }
-        //
-        // if (Card.innateSkills.Sanctuary)
-        // {
-        //     EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(4, false, false, owner.Owner));
-        // }
-        //
-        // if (!Card.innateSkills.Void) return;
-        // var healthChange = owner.playerPassiveManager.GetMark().Item2.CostElement == Element.Darkness ? 3 : 2;
-        // EventBus<ModifyPlayerHealthLogicEvent>.Raise(new ModifyPlayerHealthLogicEvent(-healthChange, owner.Owner.Not(), true));
     }
 }

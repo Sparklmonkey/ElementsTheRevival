@@ -19,7 +19,7 @@ public class Mutation : ActivatedAbility
                 EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetMutant(targetCard.Id.IsUpgraded()), false));
                 break;
             default:
-                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetCardFromId(targetCard.Id.IsUpgraded() ? "6tu" : "4ve"), false));
+                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetCardFromId("4ve"), false));
                 break;
         }
     }

@@ -1,16 +1,18 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NetworkPlayerTest : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public CardDatabase CardDatabase;
     private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
+        foreach (var card in CardDatabase.FullCardList)
+        {
+            if (CardDatabase.FullCardList.FindAll(c => c.Equals(card)).Count > 1)
+            {
+                Debug.Log(card.CardName);
+            }
+        }
     }
 }

@@ -7,10 +7,10 @@ namespace Networking
 {
     public class ApiManager : SingletonMono<ApiManager>
     {
-        public static bool IsTrainer;
+        public static bool IsTrainer => PlayerPrefs.GetInt("IsTrainer") == 1;
         private string _jwtToken;
 
-        private readonly string _baseUrl =  "https://www.elementstherevival.com/api/";
+        private readonly string _baseUrl = "https://www.elementstherevival.com/api/";
         private readonly string _apiKey = "ElementRevival-ApiKey";
         public AppInfo AppInfo;
 

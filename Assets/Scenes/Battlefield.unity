@@ -4627,11 +4627,9 @@ MonoBehaviour:
     owner: 1
     field: 4
     index: 0
-  deckDisplayer: {fileID: 1161888806}
   healthDisplayer: {fileID: 4619177}
   cloakVisual: {fileID: 1893749477}
   permParent: {fileID: 224746655}
-  cardDetailView: {fileID: 1780469455}
   playerDisplayer: {fileID: 1212562475}
   playerHand: {fileID: 1380193954}
   playerCreatureField: {fileID: 571250018}
@@ -4650,8 +4648,7 @@ MonoBehaviour:
     patience: 0
     freedom: 0
     scarab: 0
-  Owner: 1
-  cloakIndex: []
+  owner: 0
   sacrificeCount: 0
 --- !u!114 &234577396
 MonoBehaviour:
@@ -11725,8 +11722,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 425425753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.021000002, y: 0.06015214}
-  m_AnchorMax: {x: 0.30900002, y: 0.9398479}
+  m_AnchorMin: {x: 0.3503225, y: 0.06015214}
+  m_AnchorMax: {x: 0.64, y: 0.9398479}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12480,11 +12477,9 @@ MonoBehaviour:
     owner: 0
     field: 4
     index: 0
-  deckDisplayer: {fileID: 54247499}
   healthDisplayer: {fileID: 2020686621}
   cloakVisual: {fileID: 1893749477}
   permParent: {fileID: 1214186463}
-  cardDetailView: {fileID: 1780469455}
   playerDisplayer: {fileID: 753189428}
   playerHand: {fileID: 355413619}
   playerCreatureField: {fileID: 1092642542}
@@ -12503,8 +12498,7 @@ MonoBehaviour:
     patience: 0
     freedom: 0
     scarab: 0
-  Owner: 0
-  cloakIndex: []
+  owner: 0
   sacrificeCount: 0
 --- !u!4 &734589351
 Transform:
@@ -31398,7 +31392,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &1912330871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32012,10 +32006,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 425425753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 240, y: 80}
-  m_SizeDelta: {x: 140, y: 140}
+  m_AnchorMin: {x: 0.021000002, y: 0.06015214}
+  m_AnchorMax: {x: 0.30900002, y: 0.9398479}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1966028807
 MonoBehaviour:

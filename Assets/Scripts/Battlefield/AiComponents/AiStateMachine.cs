@@ -60,16 +60,9 @@ public class AiStateMachine
             case GameState.Idle:
                 if (!BattleVars.Shared.IsPlayerTurn)
                 {
-                    if (_aiManager.playerCounters.silence > 0)
-                    {
-                        _currentState = GameState.EndTurn;
-                    }
-                    else
-                    {
-                        _stateCount = 0;
-                        EventBus<ResetAiTurnCountEvent>.Raise(new ResetAiTurnCountEvent());
-                        _currentState = GameState.DrawCard;
-                    }
+                    _stateCount = 0; 
+                    EventBus<ResetAiTurnCountEvent>.Raise(new ResetAiTurnCountEvent()); 
+                    _currentState = GameState.DrawCard;
                 }
                 break;
             case GameState.PlayPillars:
@@ -133,36 +126,40 @@ public class AiStateMachine
 
     private void SetNewState()
     {
-        if (_aiTurn.HasCardInHand(_aiManager, CardType.Pillar))
+        if (_aiManager.playerCounters.silence <= 0)
         {
-            _currentState = GameState.PlayPillars;
-            return;
+            if (_aiTurn.HasCardInHand(_aiManager, CardType.Pillar))
+            {
+                _currentState = GameState.PlayPillars;
+                return;
+            }
+            if (_aiTurn.HasCardInHand(_aiManager, CardType.Creature))
+            {
+                _currentState = GameState.PlayCreatures;
+                return;
+            }
+            if (_aiTurn.HasCardInHand(_aiManager, CardType.Artifact))
+            {
+                _currentState = GameState.PlayArtifacts;
+                return;
+            }
+            if (_aiTurn.HasCardInHand(_aiManager, CardType.Shield) && !_aiManager.playerPassiveManager.GetShield().HasCard())
+            {
+                _currentState = GameState.PlayShield;
+                return;
+            }
+            if (_aiTurn.HasCardInHand(_aiManager, CardType.Weapon) && !_aiManager.playerPassiveManager.GetWeapon().HasCard())
+            {
+                _currentState = GameState.PlayWeapon;
+                return;
+            }
+            if (_aiTurn.HasCardInHand(_aiManager, CardType.Spell))
+            {
+                _currentState = GameState.PlaySpells;
+                return;
+            }
         }
-        if (_aiTurn.HasCardInHand(_aiManager, CardType.Creature))
-        {
-            _currentState = GameState.PlayCreatures;
-            return;
-        }
-        if (_aiTurn.HasCardInHand(_aiManager, CardType.Artifact))
-        {
-            _currentState = GameState.PlayArtifacts;
-            return;
-        }
-        if (_aiTurn.HasCardInHand(_aiManager, CardType.Shield))
-        {
-            _currentState = GameState.PlayShield;
-            return;
-        }
-        if (_aiTurn.HasCardInHand(_aiManager, CardType.Weapon))
-        {
-            _currentState = GameState.PlayWeapon;
-            return;
-        }
-        if (_aiTurn.HasCardInHand(_aiManager, CardType.Spell))
-        {
-            _currentState = GameState.PlaySpells;
-            return;
-        }
+        
         if (_aiTurn.HasCreatureAbilityToUse(_aiManager))
         {
             _currentState = GameState.ActivateCreatureAbilities;

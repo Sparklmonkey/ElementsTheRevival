@@ -66,6 +66,7 @@ namespace Battlefield.Abilities
 
         public static float CalculateTrebuchetScore(this (ID id, Card card) target, float estimate)
         {
+            if (target.card is null) return 0f;
             var score = target.id.owner switch
             {
                 OwnerEnum.Opponent => (estimate * target.card.DefNow /
@@ -81,6 +82,7 @@ namespace Battlefield.Abilities
         public static float CalculateSmallerScore(this (ID id, Card card) target, float estimate)
         {
             var score = 0f;
+            if (target.card is null) return 0;
             if (target.id.IsOwnedBy(OwnerEnum.Opponent))
             {
                 if (target.card.Counters.Poison > 0 ||
@@ -108,6 +110,7 @@ namespace Battlefield.Abilities
 
         public static float CalculateSkillCreatureScore(this (ID id, Card card) target, float estimate)
         {
+            if (target.card is null) return 0;
             switch (target.id.owner)
             {
                 case OwnerEnum.Player when target.card.Skill is not null:
@@ -132,6 +135,7 @@ namespace Battlefield.Abilities
 
         public static float CalculatePillarScore(this (ID id, Card card) target, float estimate)
         {
+            if (target.card is null) return 0;
             var stackCount = DuelManager.Instance.GetIDOwner(target.id).playerPermanentManager
                 .GetStackCountForId(target.id);
             return target.id.owner switch
@@ -146,6 +150,7 @@ namespace Battlefield.Abilities
         public static float CalculateDefineDefScore(this (ID id, Card card) target, float estimate, bool onlyFriend,
             bool onlyFoe, int defineValue)
         {
+            if (target.card is null) return 0;
             if (target.id.IsOwnedBy(OwnerEnum.Opponent) && !onlyFoe)
             {
                 return estimate * (target.card.DefNow - defineValue + 0f) / defineValue;
@@ -170,6 +175,7 @@ namespace Battlefield.Abilities
         public static float CalculateDefineAtk(this (ID id, Card card) target, float estimate, bool onlyFoe,
             int defineValue, int defineTolerance)
         {
+            if (target.card is null) return 0;
             if (target.id.IsOwnedBy(OwnerEnum.Opponent) && !onlyFoe)
             {
                 if (target.card.passiveSkills.Adrenaline)
@@ -200,6 +206,7 @@ namespace Battlefield.Abilities
 
         public static float CalculateFractalScore(this (ID id, Card card) target, float estimate)
         {
+            if (target.card is null) return 0;
             if (target.id.IsOwnedBy(OwnerEnum.Opponent))
             {
                 if (estimate > 0)
@@ -245,6 +252,7 @@ namespace Battlefield.Abilities
 
         public static float CalculatePermanentScore(this (ID id, Card card) target, float estimate, string skill)
         {
+            if (target.card is null) return 0;
             if (target.id.IsOwnedBy(OwnerEnum.Opponent))
             {
                 return (target.card.Cost + 1f) * estimate / 25f - DuelManager.Instance.enemy.playerHand.GetHandCount();
@@ -266,6 +274,7 @@ namespace Battlefield.Abilities
 
         public static float CalculateWeaponScore(this (ID id, Card card) target)
         {
+            if (target.card is null) return 0;
             var skillScore = 0f;
             if (target.card.SkillCost > 0)
             {
@@ -294,12 +303,14 @@ namespace Battlefield.Abilities
 
         public static float CalculateTearsScore(this (ID id, Card card) target, float estimate)
         {
+            if (target.card is null) return 0;
             return estimate + Random.Range(0, 10) / 2f;
         }
 
         public static float CalculateBetaCreatureScore(this (ID id, Card card) target, float estimate, bool onlyFriend,
             bool onlyFoe)
         {
+            if (target.card is null) return 0;
             var skillScore = target.card.Skill is not null ? 3f : 0f;
 
             if (target.id.IsOwnedBy(OwnerEnum.Opponent) && !onlyFoe)
@@ -318,6 +329,7 @@ namespace Battlefield.Abilities
 
         public static float CalculateAlphaCreatureScore(this (ID id, Card card) target, bool onlyFriend, bool onlyFoe)
         {
+            if (target.card is null) return 0;
             var skillScore = target.card.Skill is not null ? 3f : 0f;
             if (target.id.IsOwnedBy(OwnerEnum.Opponent) && !onlyFoe)
             {
@@ -391,6 +403,7 @@ namespace Battlefield.Abilities
 
         public static float CalculateCreatureScore(this (ID id, Card card) target, float estimate)
         {
+            if (target.card is null) return 0;
             var score = 0f;
             if (target.id.IsOwnedBy(OwnerEnum.Opponent))
             {

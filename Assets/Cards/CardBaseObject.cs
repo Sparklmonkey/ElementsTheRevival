@@ -91,6 +91,8 @@ public class Card : SerializedScriptableObject
     [ShowIf("@HasTurnLimit")]
     public int TurnsInPlay;
     
+    [HideInInspector]
+    public bool IsPendulumTurn;
     
     public int DefNow => Def + DefModify - DefDamage;
     public int AtkNow => Atk + AtkModify;

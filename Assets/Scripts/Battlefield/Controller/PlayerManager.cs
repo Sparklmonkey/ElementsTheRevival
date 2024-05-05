@@ -45,7 +45,10 @@ public class PlayerManager : MonoBehaviour
     {
         if (!modifyPlayerHealthEvent.Target.Equals(owner)) return;
 
-        if (sacrificeCount > 0) { modifyPlayerHealthEvent.IsDamage.Toggle(); }
+        if (sacrificeCount > 0)
+        {
+            modifyPlayerHealthEvent.IsDamage = !modifyPlayerHealthEvent.IsDamage; 
+        }
 
         var damage = modifyPlayerHealthEvent.IsDamage
             ? -modifyPlayerHealthEvent.Amount
@@ -148,16 +151,20 @@ public class PlayerManager : MonoBehaviour
         var gravityCreature = playerCreatureField.GetCreatureWithGravity();
         if (gravityCreature.Equals(default)) return;
 
-        if (gravityCreature.Item2.DefNow >= atkNow)
+        if (gravityCreature.card.DefNow >= atkNow)
         {
+            if (gravityCreature.card.innateSkills.Voodoo)
+            {
+                EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(atkNow, true, false, gravityCreature.id.owner.Not()));
+            }
             gravityCreature.Item2.DefModify -= atkNow;
-            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(gravityCreature.Item1, gravityCreature.Item2, true));
+            EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(gravityCreature.id, gravityCreature.card, true));
             atkNow = 0;
             return;
         }
 
-        atkNow -= gravityCreature.Item2.DefNow;
-        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(gravityCreature.Item1));
+        atkNow -= gravityCreature.card.DefNow;
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(gravityCreature.id));
     }
 
     public int ManageShield(int atkNow, (ID id, Card card) card)
@@ -310,6 +317,15 @@ public class PlayerManager : MonoBehaviour
     //Command Methods
     public void FillHandWith(Card newCard)
     {
+        if (playerCounters.sanctuary > 0)
+        {
+            switch (BattleVars.Shared.IsPlayerTurn)
+            {
+                case true when owner.Equals(OwnerEnum.Opponent):
+                case false when owner.Equals(OwnerEnum.Player):
+                    return;
+            }
+        }
         var amountToAdd = 8 - playerHand.GetHandCount();
         for (var i = 0; i < amountToAdd; i++)
         {
@@ -385,7 +401,7 @@ public class PlayerManager : MonoBehaviour
         updateCloakParentEvent.Transform.parent.transform.parent = permParent.transform;
         updateCloakParentEvent.Transform.SetSiblingIndex(updateCloakParentEvent.Id.index);
         
-        if(cloakVisual.transform.childCount > 1) return;
+        if(cloakVisual.transform.childCount > 2) return;
         cloakVisual.SetActive(false);
     }
 

@@ -82,7 +82,7 @@ MonoBehaviour:
     Burrow: 0
     Venom: 0
     Neurotoxin: 0
-    Vampire: 1
+    Vampire: 0
     Psion: 0
     DeadlyVenom: 0
     Dive: 0
@@ -106,3 +106,4 @@ MonoBehaviour:
   ReadyUsed: 0
   HasTurnLimit: 0
   TurnsInPlay: 0
+  IsPendulumTurn: 0

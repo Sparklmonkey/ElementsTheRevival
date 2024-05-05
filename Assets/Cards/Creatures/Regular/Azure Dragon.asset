@@ -60,8 +60,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  CardName: Sky Dragon
-  cardImage: {fileID: 21300000, guid: 2e169de96e5734f57bb023ecc96863e5, type: 3}
+  CardName: Azure Dragon
+  cardImage: {fileID: 21300000, guid: 7499db246e1e04a02a10c4858cde65bd, type: 3}
   Id: 5of
   Cost: 10
   CardElement: 1
@@ -102,3 +102,4 @@ MonoBehaviour:
   ReadyUsed: 0
   HasTurnLimit: 0
   TurnsInPlay: 0
+  IsPendulumTurn: 0

@@ -34,7 +34,7 @@ namespace Elements.Duel.Visual
             actionButton.gameObject.SetActive(true);
             cancelButton.gameObject.SetActive(true);
             SetupButton(setupCardDisplayEvent.IsPlayable, setupCardDisplayEvent.IsAbilityUsable);
-            cardDisplay.SetupCardView(_card);
+            cardDisplay.SetupCardView(_card, _id.IsOwnedBy(OwnerEnum.Player));
         }
         
         private void SetupButton(bool isPlayable, bool isAbilityUsable)

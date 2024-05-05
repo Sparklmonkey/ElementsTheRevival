@@ -59,6 +59,7 @@ public class CreatureCardDisplay : CardFieldDisplay
     private void DisplayCard(UpdateCreatureCardEvent updateCardDisplayEvent)
     {
         if (!updateCardDisplayEvent.Id.Equals(Id)) return;
+        SetCard(updateCardDisplayEvent.Card);
         if (updateCardDisplayEvent.IsUpdate)
         {
             if (updateCardDisplayEvent.Card.DefNow < 1)
@@ -67,7 +68,10 @@ public class CreatureCardDisplay : CardFieldDisplay
                 return;
             }
         }
-        SetCard(updateCardDisplayEvent.Card);
+        else
+        {
+            Card.AbilityUsed = true;
+        }
         cardImage.sprite = updateCardDisplayEvent.Card.cardImage;
         var creatureAtk = updateCardDisplayEvent.Card.passiveSkills.Antimatter
             ? -updateCardDisplayEvent.Card.AtkNow
@@ -139,7 +143,6 @@ public class CreatureCardDisplay : CardFieldDisplay
 
         EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "CardDeath", Element.Other));
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("RemoveCardFromField"));
-        
         var shouldDeath = ShouldActivateDeathTriggers();
         if (shouldDeath)
         {
@@ -151,7 +154,7 @@ public class CreatureCardDisplay : CardFieldDisplay
             var card = CardDatabase.Instance.GetCardFromId("6ro");
             DisplayCard(new UpdateCreatureCardEvent(Id, card, false));
         } 
-        else if (Card.PlayRemoveAbility is PhoenixPlayRemoveAbility && !shouldDeath)
+        else if (Card.PlayRemoveAbility is PhoenixPlayRemoveAbility && shouldDeath)
         {
             Card.PlayRemoveAbility?.OnRemoveActivate(Id, Card);
         }
@@ -207,9 +210,9 @@ public class CreatureCardDisplay : CardFieldDisplay
         var adrenalineIndex = 0;
         var hasAdrenaline = Card.passiveSkills.Adrenaline;
         var isFirstAttack = true;
-        var atkNow = Card.AtkNow;
+        var atkNow = Card.passiveSkills.Antimatter ? -Card.AtkNow : Card.AtkNow;
 
-        var shouldSkip = DuelManager.Instance.GetCardCount(new() { "5rp", "7q9" }) > 0 || 
+        var shouldSkip = owner.playerCounters.delay > 0 ||
                          owner.playerCounters.patience > 0 || 
                          Card.Counters.Freeze > 0 || 
                          Card.Counters.Delay > 0;
@@ -277,18 +280,26 @@ public class CreatureCardDisplay : CardFieldDisplay
                 if (Card.AtkNow != 0 && hasAdrenaline)
                 {
                     adrenalineIndex++;
-                    if (DuelManager.AdrenalineDamageList[Mathf.Abs(Card.AtkNow) - 1].Count <= adrenalineIndex)
+                    var adrenalineDictIndex = Mathf.Abs(Card.AtkNow) - 1;
+                    adrenalineDictIndex = adrenalineDictIndex >= DuelManager.AdrenalineDamageList.Count
+                        ? DuelManager.AdrenalineDamageList.Count - 1
+                        : adrenalineDictIndex;
+                    if (DuelManager.AdrenalineDamageList[adrenalineDictIndex].Count <= adrenalineIndex)
                     {
                         hasAdrenaline = false;
                     }
                     else
                     {
-                        atkNow = DuelManager.AdrenalineDamageList[Mathf.Abs(Card.AtkNow) - 1][adrenalineIndex];
+                        atkNow = DuelManager.AdrenalineDamageList[adrenalineDictIndex][adrenalineIndex];
                         if (Card.passiveSkills.Antimatter)
                         {
                             atkNow = -atkNow;
                         }
                     }
+                }
+                else
+                {
+                    hasAdrenaline = false;
                 }
             }
             (Id, Card).CreatureTurnDownTick();

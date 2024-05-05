@@ -14,21 +14,16 @@ public class CardDisplay : MonoBehaviour
     private TMP_FontAsset cardNameRegular, cardNameUpped, creatureValuesFont, spellIconFont;
     private Card _card;
 
-    public void SetupCardView(Card cardToDisplay)
+    public void SetupCardView(Card cardToDisplay, bool isOwnedByPlayer = true)
     {
         _card = cardToDisplay;
         if (cardToDisplay.CardName.Contains("Pendulum") && SceneTransitionManager.Instance.GetActiveScene() == "Battlefield")
         {
             var pendulumElement = cardToDisplay.CostElement;
-            var markElement = BattleVars.Shared.IsPlayerTurn ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
-            if (cardToDisplay.CostElement == cardToDisplay.SkillElement)
-            {
-                cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
-            }
-            else
-            {
-                cardImage.sprite = ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
-            }
+            var markElement = isOwnedByPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
+            cardImage.sprite = cardToDisplay.IsPendulumTurn ? 
+                ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString()) : 
+                ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
         }
         else
         {

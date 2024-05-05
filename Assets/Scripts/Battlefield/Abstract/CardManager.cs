@@ -61,7 +61,7 @@ namespace Battlefield.Abstract
             return _cardFieldDisplays.MapDictToTupleList();
         }
     
-        public (ID, Card) GetCreatureWithGravity()
+        public (ID id, Card card) GetCreatureWithGravity()
         {
             var idCardList = GetAllValidCardIds();
             return idCardList.Count == 0 ? default : idCardList.FirstOrDefault(x => x.Item2.passiveSkills.GravityPull);

@@ -40,7 +40,6 @@ public class LoginScreenSetupManager : MonoBehaviour
     {
         lastUpdateNote.text = ApiManager.Instance.AppInfo.UpdateNote;
         fields = new List<TMP_InputField> { username, password };
-        ApiManager.IsTrainer = false;
         SoundManager.Instance.PlayBGM("LoginScreen");
         username.text = PlayerPrefs.HasKey("SavedUser") ? PlayerPrefs.GetString("SavedUser") : "";
         versionLabel.text = $"Version {Application.version}";
@@ -48,7 +47,7 @@ public class LoginScreenSetupManager : MonoBehaviour
 
     public void PlayAsTrainer()
     {
-        ApiManager.IsTrainer = true;
+        PlayerPrefs.SetInt("IsTrainer", 1);
         PlayerData.Shared = new PlayerData();
         var simpleList = CardDatabase.Instance.TrainerCardList;
         var fullList = new List<Card>(simpleList);
@@ -106,6 +105,7 @@ public class LoginScreenSetupManager : MonoBehaviour
             PlayerData.Shared = response.savedData;
             PlayerData.Shared.username = username.text;
 
+            PlayerPrefs.SetInt("IsTrainer", 0);
             if (PlayerData.Shared.currentDeck.Count == 0)
             {
                 SceneTransitionManager.Instance.LoadScene("DeckSelector");

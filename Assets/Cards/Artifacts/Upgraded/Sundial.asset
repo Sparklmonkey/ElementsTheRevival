@@ -25,7 +25,10 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: PlayRemoveAbility
-      Entry: 6
+      Entry: 7
+      Data: 0|Battlefield.Abilities.SundialPlayRemoveAbility, Assembly-CSharp
+    - Name: 
+      Entry: 8
       Data: 
     - Name: TurnEndAbility
       Entry: 6
@@ -38,7 +41,7 @@ MonoBehaviour:
       Data: 
     - Name: Skill
       Entry: 7
-      Data: 0|Hasten, Assembly-CSharp
+      Data: 1|Hasten, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -110,3 +113,4 @@ MonoBehaviour:
   ReadyUsed: 0
   HasTurnLimit: 1
   TurnsInPlay: 2
+  IsPendulumTurn: 0

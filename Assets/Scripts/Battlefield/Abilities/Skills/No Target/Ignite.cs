@@ -15,7 +15,7 @@ public class Ignite : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(BattleVars.Shared.AbilityIDOrigin));
 
         if (targetCard is null)
         {

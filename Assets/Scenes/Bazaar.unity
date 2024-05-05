@@ -6406,7 +6406,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!223 &1301119995
 Canvas:
   m_ObjectHideFlags: 0
@@ -6467,188 +6467,20 @@ MonoBehaviour:
   cardHeadPrefab: {fileID: 1180958980928692671, guid: 53ceabc6ccf0cc84db219959c1421a61, type: 3}
   cardCount: {fileID: 1872945388}
   testList:
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
-  - iD: 
-    imageID: 
-    cardName: 
-    cardType: 0
-    atk: 0
-    def: 0
-    skill: 
-    skillCost: 0
-    skillElement: 0
-    cost: 0
-    costElement: 0
-    rarity: 0
-    desc: 
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   touchBlocker: {fileID: 0}
 --- !u!114 &1301119998
 MonoBehaviour:

@@ -5,7 +5,7 @@ namespace Battlefield.Abilities
 {
     public class FloodingEndTurn : OnEndTurnAbility
     {
-        private List<int> _saveZones = new() { 11, 13, 9, 10, 12 };
+        private readonly List<int> _saveZones = new() { 10, 11, 12, 13, 14 };
         public override void Activate(ID owner, Card card)
         {
             var player = DuelManager.Instance.GetIDOwner(owner);

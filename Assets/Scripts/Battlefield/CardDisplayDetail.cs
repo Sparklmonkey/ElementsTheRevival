@@ -19,18 +19,13 @@ public class CardDisplayDetail : MonoBehaviour
         if (cardToDisplay is null) { gameObject.SetActive(false); return; }
         card = cardToDisplay;
 
-        if (cardToDisplay.CardName.Contains("Pendulum") && isBattlefield)
+        if (cardToDisplay.CardName.Contains("Pendulum"))
         {
             var pendulumElement = cardToDisplay.CostElement;
             var markElement = belongsToPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
-            if (cardToDisplay.CostElement == cardToDisplay.SkillElement)
-            {
-                cardImage.sprite = ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString());
-            }
-            else
-            {
-                cardImage.sprite = ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
-            }
+            cardImage.sprite = cardToDisplay.IsPendulumTurn ? 
+                ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString()) : 
+                ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
         }
         else
         {

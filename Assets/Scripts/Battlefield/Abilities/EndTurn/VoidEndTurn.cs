@@ -9,7 +9,7 @@
                     .Darkness
                     ? 3
                     : 2;
-            EventBus<ModifyPlayerHealthLogicEvent>.Raise(new ModifyPlayerHealthLogicEvent(amount, owner.owner, true));
+            EventBus<ModifyPlayerHealthLogicEvent>.Raise(new ModifyPlayerHealthLogicEvent(-amount, owner.owner.Not(), true));
         }
     }
 }

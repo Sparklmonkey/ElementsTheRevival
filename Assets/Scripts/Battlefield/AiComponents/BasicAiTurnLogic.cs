@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Battlefield.Abilities;
 using UnityEngine;
 
 public class BasicAiTurnLogic : AiTurnBase
@@ -16,17 +17,26 @@ public class BasicAiTurnLogic : AiTurnBase
     
     public override void PlayCardFromHand(PlayerManager aiManager, CardType cardType)
     {
-        var card = aiManager.playerHand.GetPlayableCards(aiManager.HasSufficientQuanta).FirstOrDefault(c => c.Item2.Type.Equals(cardType));
-        if (card.Equals(default)) return;
+        var card = aiManager.playerHand.GetPlayableCards(aiManager.HasSufficientQuanta).FirstOrDefault(c => c.card.Type.Equals(cardType) && !_creatureList.Contains(c.card.CardName));
         
-        EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(card.Item2.cardImage, card.Item2.CostElement.FastElementString(), card.Item2.CardName));
+        if (card.Equals(default)) return;
+        if (card.card.CardName.Contains("Chimera"))
+        {
+            if (aiManager.playerCreatureField.GetAllValidCardIds().Count == 0)
+            {
+                _creatureList.Add(card.card.CardName);
+                return;
+            }
+        }
+        EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(card.card.cardImage, card.card.CostElement.FastElementString(), card.card.CardName));
         EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(card.card, card.id));
     }
 
     public override IEnumerator PlaySpellFromHand(PlayerManager aiManager)
     {
+        bool canPlaySingu = BattleVars.Shared.IsSingularity == 0;
         var cardList = aiManager.playerHand.GetPlayableCardsOfType(aiManager.HasSufficientQuanta, CardType.Spell);
-        var spell = cardList.FirstOrDefault(s => !_skipList.Contains(nameof(s.card.Skill)));
+        var spell = cardList.FirstOrDefault(s => !_skipList.Contains(nameof(s.card.Skill)) && (canPlaySingu || s.card.Id is "6u3" or "4vj"));
         if (spell.Equals(default)) yield break;
 
         BattleVars.Shared.AbilityCardOrigin = spell.Item2;
@@ -54,7 +64,6 @@ public class BasicAiTurnLogic : AiTurnBase
             EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(spell.card, spell.id));
             EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(spell.Item2.cardImage, spell.Item2.CostElement.FastElementString(), spell.Item2.CardName));
         }
-
     }
 
     public override IEnumerator ActivateCreatureAbility(PlayerManager aiManager)

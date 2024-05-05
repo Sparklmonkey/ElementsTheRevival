@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9026199a39d59840a5654d0d04f3e59, type: 3}
-  m_Name: Gravity
+  m_Name: Random
   m_EditorClassIdentifier: 
   opponentName: Aether
   maxHp: 50
   mark: 9
-  deck: 52g 5de 5jm 52g 5rg 5pu 5pu 5jm 5f0 5gi 4vh 5f1 534 5bv 58u 568 55m 5un 5ie
-    55m 5f1 5rs 4vq 5le 5cg 55l 5v0 5ib 55m 4ve 50a 5rk 5i7 4vn 52o 5oh 55q 61q 55q
-    5oi
+  deck: 
   spins: 0
   coinAvg: 1
   costToPlay: 0

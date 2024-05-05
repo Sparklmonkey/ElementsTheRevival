@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor-firs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FangAutoTile.Editor", "FangAutoTile.Editor.csproj", "{88eb7f98-350a-5016-fa6c-346c27a0f353}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{ff5fc4aa-a137-b6f8-4605-f39cb8965b2c}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.Modules.UnityMathematics", "Sirenix.OdinInspector.Modules.UnityMathematics.csproj", "{5c004456-df92-7698-7ea7-d17e9533360e}"
 EndProject
 Global
@@ -28,6 +30,8 @@ Global
 		{fe05fafc-f1b4-467e-2dcc-6504d6933661}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88eb7f98-350a-5016-fa6c-346c27a0f353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{88eb7f98-350a-5016-fa6c-346c27a0f353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ff5fc4aa-a137-b6f8-4605-f39cb8965b2c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ff5fc4aa-a137-b6f8-4605-f39cb8965b2c}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5c004456-df92-7698-7ea7-d17e9533360e}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5c004456-df92-7698-7ea7-d17e9533360e}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
