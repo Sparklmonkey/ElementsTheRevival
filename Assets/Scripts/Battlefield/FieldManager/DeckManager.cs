@@ -27,7 +27,6 @@ namespace Elements.Duel.Manager
             if (!drawCardFromDeckEvent.Owner.Equals(_owner)) return;
             if (_deck.Count == 0)
             {
-                EventBus<GameEndEvent>.Raise(new GameEndEvent(_owner));
                 return;
             }
             Card newCard = _deck[0].Clone();

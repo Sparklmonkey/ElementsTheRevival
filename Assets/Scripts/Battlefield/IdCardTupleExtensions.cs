@@ -6,16 +6,27 @@ using UnityEngine;
 public static class IdCardTupleExtensions
 {
 
-    public static bool IsTargetable(this Card card)
+    public static bool IsTargetable(this Card card, ID id)
     {
+        if (DuelManager.Instance.GetIDOwner(id).playerCounters.freedom > 0 &&
+            card.CardElement.Equals(Element.Air))
+        {
+            return false;
+        }
         return !card.innateSkills.Immaterial && !card.passiveSkills.Burrow;
     }
     
-    public static bool IsTargetable(this (ID, Card) tuple)
+    public static bool IsTargetable(this (ID id, Card card) tuple)
     {
         if (tuple.Item1.IsPlayerField())
         {
             return true;
+        }
+
+        if (DuelManager.Instance.GetIDOwner(tuple.id).playerCounters.freedom > 0 &&
+            tuple.card.CardElement.Equals(Element.Air))
+        {
+            return false;
         }
         return !tuple.Item2.innateSkills.Immaterial && !tuple.Item2.passiveSkills.Burrow;
     }

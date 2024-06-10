@@ -40,7 +40,6 @@ public class LoginScreenSetupManager : MonoBehaviour
     {
         lastUpdateNote.text = ApiManager.Instance.AppInfo.UpdateNote;
         fields = new List<TMP_InputField> { username, password };
-        SoundManager.Instance.PlayBGM("LoginScreen");
         username.text = PlayerPrefs.HasKey("SavedUser") ? PlayerPrefs.GetString("SavedUser") : "";
         versionLabel.text = $"Version {Application.version}";
     }
@@ -57,9 +56,9 @@ public class LoginScreenSetupManager : MonoBehaviour
         fullList.AddRange(simpleList);
         fullList.AddRange(simpleList);
         fullList.Sort((x, y) => string.Compare(x.Id, y.Id));
-        PlayerData.Shared.inventoryCards = fullList.SerializeCard();
+        PlayerData.Shared.SetInventory(fullList.SerializeCard());
 
-        PlayerData.Shared.currentDeck = CardDatabase.Instance.StarterDecks.First(x => x.MarkElement.Equals(Element.Darkness)).DeckList.SerializeCard();
+        PlayerData.Shared.SetDeck(CardDatabase.Instance.StarterDecks.First(x => x.MarkElement.Equals(Element.Darkness)).DeckList.SerializeCard());
         PlayerData.Shared.markElement = Element.Darkness;
         PlayerData.Shared.currentQuestIndex = 8;
         PlayerData.Shared.electrum = 9999999;
@@ -106,7 +105,7 @@ public class LoginScreenSetupManager : MonoBehaviour
             PlayerData.Shared.username = username.text;
 
             PlayerPrefs.SetInt("IsTrainer", 0);
-            if (PlayerData.Shared.currentDeck.Count == 0)
+            if (PlayerData.Shared.GetDeck().Count == 0)
             {
                 SceneTransitionManager.Instance.LoadScene("DeckSelector");
             }

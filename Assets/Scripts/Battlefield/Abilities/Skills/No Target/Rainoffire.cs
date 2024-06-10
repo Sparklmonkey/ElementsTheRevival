@@ -14,6 +14,7 @@ public class Rainoffire : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
+        if (!targetCard.IsTargetable(targetId)) return;
         var victim = DuelManager.Instance.GetNotIDOwner(targetId);
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("Lightning"));
         

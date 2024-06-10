@@ -100,7 +100,7 @@ public static class ExtensionMethods
 
         foreach (var cardID in cardObjectList)
         {
-            if (cardID != "" && cardID != " ")
+            if (cardID != "" && cardID != " " && cardID != "Card ID")
             {
                 listToReturn.Add(CardDatabase.Instance.GetCardFromId(cardID));
             }
@@ -318,7 +318,54 @@ public static class ExtensionMethods
         }
         return returnString + $"1{markId}";
     }
+    
+    public static string ConvertListToCardCode(this List<string> deckList)
+    {
+        var returnString = "X";
+        var cardDict = new Dictionary<string, int>();
 
+        foreach (var item in deckList)
+        {
+            if (item is " " or "") { continue; }
+            if (cardDict.ContainsKey(item))
+            {
+                cardDict[item]++;
+            }
+            else
+            {
+                cardDict.Add(item, 1);
+            }
+        }
+            
+        foreach (var item in cardDict)
+        {
+            var countString = item.Value.IntToBase32();
+            var cardId = (item.Key.Base32ToInt() - 4000).IntToBase32();
+            var stringId = cardId;
+            returnString += $"{countString}{stringId}X";
+        }
+        return returnString;
+    }
+    
+    public static List<string> ConvertCardCodeToList(this string arenaDeck)
+    {
+        var returnStr = new List<string>();
+        var deckSeparated = arenaDeck.Split("X");
+
+        foreach (var oCard in deckSeparated)
+        {
+            if (oCard is "") continue;
+            var cardCode = oCard[^3..];
+            var cardCount = oCard[..^3].Base32ToInt();
+            var legacyId = (cardCode.Base32ToInt() + 4000).IntToBase32();
+            for (var i = 0; i < cardCount; i++)
+            {
+                returnStr.Add(legacyId);
+            }
+        }
+        return returnStr;
+    }
+    
     public static string ConvertOetgToLegacy(this string oetgCode)
     {
         var returnStr = new List<string>();

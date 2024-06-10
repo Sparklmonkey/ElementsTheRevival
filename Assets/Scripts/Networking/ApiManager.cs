@@ -1,5 +1,7 @@
 using System.Text;
 using System.Threading.Tasks;
+using Core;
+using Core.Networking.Response;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -9,8 +11,13 @@ namespace Networking
     {
         public static bool IsTrainer => PlayerPrefs.GetInt("IsTrainer") == 1;
         private string _jwtToken;
-
-        private readonly string _baseUrl = "https://www.elementstherevival.com/api/";
+#if UNITY_EDITOR
+        private readonly string _baseUrl =  "http://localhost:5158/api/";
+#else
+        private readonly string _baseUrl =  "https://www.elementstherevival.com/api/";
+#endif
+        
+        
         private readonly string _apiKey = "ElementRevival-ApiKey";
         public AppInfo AppInfo;
 
@@ -62,7 +69,6 @@ namespace Networking
 
         public async Task SaveGameData()
         {
-            PlayerData.Shared.ClearIllegalCards();
             var response = await SendPutRequest<SaveDataRequest, SaveDataResponse>(Endpointbuilder.UpdateSaveData,new SaveDataRequest(){ savedData = PlayerData.Shared});
             _jwtToken = response.newToken;
         }
@@ -98,9 +104,25 @@ namespace Networking
             return AppInfo;
         }
     
+        public async Task GetGameNews()
+        {
+            var gameNews = await SendGetRequest<GameNewsResponse>(Endpointbuilder.GameNews);
+            SessionManager.Instance.GameNews = gameNews.newsList;
+        }
+
         public async Task<ArenaResponse> GetT50Opponent()
         {
             return await SendGetRequest<ArenaResponse>(Endpointbuilder.ArenaT50);
+        }
+        
+        public async Task<SimpleBoolResponse> HasSeenLatestNews()
+        {
+            return await SendPostRequest<ViewedNewsRequest, SimpleBoolResponse>(Endpointbuilder.NewsNotification, null);
+        }
+        
+        public async Task<SimpleBoolResponse> UpdateSeenNews(ViewedNewsRequest request)
+        {
+            return await SendPostRequest<ViewedNewsRequest, SimpleBoolResponse>(Endpointbuilder.NewsNotification, request);
         }
         
         private async Task<TResponse> SendPostRequest<TRequest, TResponse>(string actionUrl, TRequest requestBody)

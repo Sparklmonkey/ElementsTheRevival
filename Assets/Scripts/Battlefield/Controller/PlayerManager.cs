@@ -116,6 +116,13 @@ public class PlayerManager : MonoBehaviour
                 }
                 playerCounters.poison -= amount;
                 break;
+            case PlayerCounters.Delay:
+                playerCounters.delay += amount;
+                if (playerCounters.delay < 0)
+                {
+                    playerCounters.delay = 0;
+                }
+                break;
         }
         EventBus<UpdatePlayerCountersVisualEvent>.Raise(new UpdatePlayerCountersVisualEvent(playerID, playerCounters));
     }
@@ -139,7 +146,7 @@ public class PlayerManager : MonoBehaviour
     public int GetPossibleDamage()
     {
         var creatures = playerCreatureField.GetAllValidCardIds();
-
+        
         var value = creatures.Sum(item => item.Item2.AtkNow);
         var weapon = playerPassiveManager.GetWeapon().Item2;
         if (weapon.CardName != "Weapon") { value += weapon.AtkNow; }
@@ -485,9 +492,9 @@ public class PlayerManager : MonoBehaviour
         BattleVars.Shared.HasToDiscard = false;
     }
 
-    public IEnumerator EndTurnRoutine()
+    public IEnumerator EndTurnRoutine(IsGameOver gameCheck)
     {
-        EventBus<OnPermanentTurnEndEvent>.Raise(new OnPermanentTurnEndEvent(owner, CardType.Pillar));
+        yield return StartCoroutine(EventBus<OnPermanentTurnEndEvent>.RaiseCoroutine(new OnPermanentTurnEndEvent(owner, CardType.Pillar)));
         yield return new WaitForSeconds(0.25f);
 
         EventBus<OnPassiveTurnEndEvent>.Raise(new OnPassiveTurnEndEvent(owner, CardType.Mark));
@@ -498,7 +505,7 @@ public class PlayerManager : MonoBehaviour
 
         DuelManager.Instance.GetNotIDOwner(playerID).DealPoisonDamage();
 
-        EventBus<OnCreatureTurnEndEvent>.Raise(new OnCreatureTurnEndEvent(owner));
+        yield return StartCoroutine(EventBus<OnCreatureTurnEndEvent>.RaiseCoroutine(new OnCreatureTurnEndEvent(owner)));
         yield return new WaitForSeconds(0.25f);
 
         EventBus<OnPassiveTurnEndEvent>.Raise(new OnPassiveTurnEndEvent(owner, CardType.Weapon));
@@ -506,7 +513,10 @@ public class PlayerManager : MonoBehaviour
 
         EventBus<OnPassiveTurnEndEvent>.Raise(new OnPassiveTurnEndEvent(owner, CardType.Shield));
         yield return new WaitForSeconds(0.25f);
-
+        if (gameCheck())
+        {
+            yield break;
+        }
         if (owner.Equals(OwnerEnum.Player))
         {
             BattleVars.Shared.ChangePlayerTurn();
@@ -536,7 +546,7 @@ public class PlayerManager : MonoBehaviour
         playerID = new(owner, FieldEnum.Player, 0);
 
         List<Card> deck = new(owner.Equals(OwnerEnum.Player) ?
-                    PlayerData.Shared.currentDeck.DeserializeCard()
+                    PlayerData.Shared.GetDeck().DeserializeCard()
                     : new List<string>(BattleVars.Shared.EnemyAiData.deck.Split(" ")).DeserializeCard());
 
         if (BattleVars.Shared.EnemyAiData.maxHp == 200 && owner.Equals(OwnerEnum.Opponent))
@@ -604,6 +614,11 @@ public class PlayerManager : MonoBehaviour
                 SkillManager.Instance.SkillRoutineNoTarget(this, BattleVars.Shared.AbilityIDOrigin, abilityCard);
             }
             EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(abilityCard, BattleVars.Shared.AbilityIDOrigin));
+
+            if (BattleVars.Shared.AbilityCardOrigin.Skill is Fractal)
+            {
+                DuelManager.Instance.GetIDOwner(BattleVars.Shared.AbilityIDOrigin).FillHandWith(CardDatabase.Instance.GetCardFromId(activateSpellOrAbilityEvent.TargetCard.Id));
+            }
         }
         else
         {

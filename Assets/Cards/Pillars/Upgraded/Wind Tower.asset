@@ -25,7 +25,10 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: PlayRemoveAbility
-      Entry: 6
+      Entry: 7
+      Data: 0|Battlefield.Abilities.TowerPlayRemoveAbility, Assembly-CSharp
+    - Name: 
+      Entry: 8
       Data: 
     - Name: TurnEndAbility
       Entry: 6
@@ -103,3 +106,4 @@ MonoBehaviour:
   ReadyUsed: 0
   HasTurnLimit: 0
   TurnsInPlay: 0
+  IsPendulumTurn: 0

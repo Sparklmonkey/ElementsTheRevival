@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -191,6 +191,7 @@ RectTransform:
   m_Children:
   - {fileID: 1485435049}
   - {fileID: 1033615814}
+  - {fileID: 1249189186}
   m_Father: {fileID: 232795922}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.75, y: 0.05}
@@ -576,7 +577,6 @@ RectTransform:
   - {fileID: 119988468}
   - {fileID: 461607594}
   - {fileID: 1233924940}
-  - {fileID: 1249189186}
   - {fileID: 144389019}
   - {fileID: 844888380}
   - {fileID: 800846143}
@@ -1911,7 +1911,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 100.6
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2343,12 +2343,12 @@ RectTransform:
   - {fileID: 2088952111}
   - {fileID: 1483726963}
   - {fileID: 1752379502}
-  m_Father: {fileID: 232795922}
+  m_Father: {fileID: 144389019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.81, y: 0.83}
   m_AnchorMax: {x: 0.99, y: 0.88}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -154.43994, y: 823.23}
+  m_SizeDelta: {x: 320.11203, y: 51.30006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1255036847
 GameObject:
@@ -3426,7 +3426,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!223 &1584226681
 Canvas:
   m_ObjectHideFlags: 0

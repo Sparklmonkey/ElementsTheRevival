@@ -29,7 +29,7 @@ public class Purify : ActivatedAbility
         {
             return id.IsPlayerField();
         }
-        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable(id);
     }
     
     public override AiTargetType GetTargetType()

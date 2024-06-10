@@ -57,7 +57,9 @@ public class OracleSpinManager : MonoBehaviour
         PlayerData.Shared.petName = petName.text;
         PlayerData.Shared.petCount = 3;
         PlayerData.Shared.nextFalseGod = nextFalseGod.text;
-        PlayerData.Shared.inventoryCards.Add(_cardToShow.Id);
+        var invent = PlayerData.Shared.GetInventory();
+        invent.Add(_cardToShow.Id);
+        PlayerData.Shared.SetInventory(invent);
         PlayerData.SaveData();
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }

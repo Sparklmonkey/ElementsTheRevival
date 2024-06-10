@@ -21,7 +21,7 @@ public class Endow : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return CardDatabase.Instance.WeaponIdList.Contains(card.Id) && card.IsTargetable();
+        return CardDatabase.Instance.WeaponIdList.Contains(card.Id) && card.IsTargetable(id);
     }
     
     public override AiTargetType GetTargetType()

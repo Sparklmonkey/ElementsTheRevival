@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+public delegate bool IsGameOver();
 public class DuelManager : MonoBehaviour
 {
     public static DuelManager Instance { get; private set; }
@@ -48,7 +49,9 @@ public class DuelManager : MonoBehaviour
     }
     public int GetPossibleDamage(bool isPlayer)
     {
-        return isPlayer ? Instance.enemy.GetPossibleDamage() : Instance.player.GetPossibleDamage();
+        var creatureDamage = isPlayer ? enemy.GetPossibleDamage() : player.GetPossibleDamage();
+        var poisonDamage = isPlayer ? player.playerCounters.poison : enemy.playerCounters.poison;
+        return creatureDamage + poisonDamage;
     }
 
     public PlayerManager player;
@@ -148,7 +151,7 @@ public class DuelManager : MonoBehaviour
 
         if (BattleVars.Shared.IsPlayerTurn)
         {
-            player.StartCoroutine(player.EndTurnRoutine());
+            player.StartCoroutine(player.EndTurnRoutine(ShouldEndGame));
             player.UpdateCounterAndEffects();
             if (ShouldEndGame()) { return; }
             OpponentCardsTurn = 0;
@@ -163,7 +166,7 @@ public class DuelManager : MonoBehaviour
         }
     }
 
-    private bool ShouldEndGame()
+    public bool ShouldEndGame()
     {
         if (IsGameWinForPlayer())
         {
@@ -246,6 +249,7 @@ public class DuelManager : MonoBehaviour
         var isAbilityUsable = player.IsAbilityUsable(cardTappedEvent.TappedCard);
         if (PlayerPrefs.GetInt("QuickPlay") == 0)
         {
+            //Check if card is in hand and is NOT a spell
              if (cardTappedEvent.TappedId.IsFromHand() 
                 && !cardTappedEvent.TappedCard.Type.Equals(CardType.Spell)
                 && isPlayable)
@@ -254,7 +258,24 @@ public class DuelManager : MonoBehaviour
                 return;
             }
             
-            if (isAbilityUsable)
+             //Check if card is in hand and IS a spell
+             if (cardTappedEvent.TappedCard.Type.Equals(CardType.Spell) && isPlayable)
+             {
+                 BattleVars.Shared.AbilityIDOrigin = cardTappedEvent.TappedId;
+                 BattleVars.Shared.AbilityCardOrigin = cardTappedEvent.TappedCard;
+                 if (!SkillManager.Instance.ShouldAskForTarget(cardTappedEvent.TappedCard))
+                 {
+                     EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(cardTappedEvent.TappedId, cardTappedEvent.TappedCard));
+                 }
+                 else
+                 {
+                     BattleVars.Shared.IsSelectingTarget = true;
+                     EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(Instance.player, cardTappedEvent.TappedCard));
+                 }
+                 return;
+             }
+            
+            if (isAbilityUsable && !cardTappedEvent.TappedId.IsFromHand())
             {
                 BattleVars.Shared.AbilityIDOrigin = cardTappedEvent.TappedId;
                 BattleVars.Shared.AbilityCardOrigin = cardTappedEvent.TappedCard;

@@ -1,3 +1,4 @@
+using Core;
 using TMPro;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class BazaarPlayerDataManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI deckCount;
     [SerializeField]
-    private ErrorMessageManager confirmationMessage;
+    private Bazaar_ConfirmationMessage confirmationMessage;
 
     private Card _cardToChange;
     private bool _isAdd = false;
@@ -19,17 +20,11 @@ public class BazaarPlayerDataManager : MonoBehaviour
     {
         _playerInventoryManager = GetComponent<BazaarPlayerInventoryManager>();
         _shopInventoryManager = GetComponent<BazaarShopInventoryManager>();
-        _playerInventoryManager.SetupPlayerInvetoryView(PlayerData.Shared.inventoryCards.DeserializeCard());
+        _playerInventoryManager.SetupPlayerInvetoryView(PlayerData.Shared.GetInventory().DeserializeCard());
 
         _shopInventoryManager.SetupInitialCardView();
-        deckCount.text = $"( {PlayerData.Shared.inventoryCards.Count} )";
+        deckCount.text = $"( {PlayerData.Shared.GetInventory().Count} )";
         GetComponent<BazaarTransactionManager>().SetupTransactionManager(PlayerData.Shared.electrum);
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-
     }
 
     public bool CanBuyCard(int buyPrice)
@@ -40,37 +35,46 @@ public class BazaarPlayerDataManager : MonoBehaviour
     public void ModifyPlayerCardInventory(Card card, bool isAdd)
     {
         _cardToChange = card;
-        this._isAdd = isAdd;
-
+        _isAdd = isAdd;
+        if(SessionManager.Instance.ShouldHideConfirm) 
+        {
+            ConfirmModification();
+            return;
+        }
         confirmationMessage.gameObject.SetActive(true);
         confirmationMessage.SetupErrorMessage($"Are you sure you want to {(isAdd ? "buy" : "sell")} {card.CardName}?");
     }
 
     public void ConfirmModification()
     {
+        SessionManager.Instance.ShouldHideConfirm = confirmationMessage.hideConfirmation.isOn;
         confirmationMessage.gameObject.SetActive(false);
         if (_isAdd)
         {
             GetComponent<BazaarTransactionManager>().ChangeCoinCount(_cardToChange.BuyPrice, true);
-            PlayerData.Shared.inventoryCards.Add(_cardToChange.Id);
+            var invent = PlayerData.Shared.GetInventory();
+            invent.Add(_cardToChange.Id);
+            PlayerData.Shared.SetInventory(invent);
         }
         else
         {
+            var invent = PlayerData.Shared.GetInventory();
             var index = 0;
-            for (var i = 0; i < PlayerData.Shared.inventoryCards.Count; i++)
+            for (var i = 0; i < invent.Count; i++)
             {
-                if (PlayerData.Shared.inventoryCards[i] == _cardToChange.Id)
+                if (invent[i] == _cardToChange.Id)
                 {
                     index = i;
                     break;
                 }
             }
             GetComponent<BazaarTransactionManager>().ChangeCoinCount(_cardToChange.SellPrice, false);
-            PlayerData.Shared.inventoryCards.RemoveAt(index);
+            invent.RemoveAt(index);
+            PlayerData.Shared.SetInventory(invent);
         }
         PlayerData.SaveData();
-        deckCount.text = $"( {PlayerData.Shared.inventoryCards.Count} )";
-        _playerInventoryManager.SetupPlayerInvetoryView(PlayerData.Shared.inventoryCards.DeserializeCard());
+        deckCount.text = $"( {PlayerData.Shared.GetInventory().Count} )";
+        _playerInventoryManager.SetupPlayerInvetoryView(PlayerData.Shared.GetInventory().DeserializeCard());
     }
 
     public void CancelModification()

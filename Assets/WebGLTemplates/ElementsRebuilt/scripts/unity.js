@@ -39,9 +39,9 @@ var config = {
   symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
   #endif
   streamingAssetsUrl: "StreamingAssets",
-  companyName: "{{{ JSON.stringify(COMPANY_NAME) }}}"",
-  productName: "{{{ JSON.stringify(PRODUCT_NAME) }}}",
-  productVersion: "{{{ JSON.stringify(PRODUCT_VERSION) }}}",
+  companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+  productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+  productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
   showBanner: unityShowBanner,
 };
 if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {

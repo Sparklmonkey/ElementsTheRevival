@@ -113,6 +113,7 @@ namespace Battlefield.Abstract
             {
                 EventBus<CardTappedEvent>.Raise(new CardTappedEvent(Id, Card));
             }
+            ToolTipCanvas.Instance.HideToolTip();
         }
 
         public void OnPointerEnter(PointerEventData eventData)

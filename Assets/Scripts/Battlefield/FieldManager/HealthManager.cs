@@ -33,11 +33,6 @@
                 _currentHealth += modifyPlayerHealthLogicEvent.Amount;
                 _currentHealth = _currentHealth > _maxHealth ? _maxHealth : _currentHealth;
             }
-
-            if (_currentHealth <= 0)
-            {
-                EventBus<GameEndEvent>.Raise(new GameEndEvent(_owner));
-            }
             
             EventBus<ModifyPlayerHealthVisualEvent>.Raise(new ModifyPlayerHealthVisualEvent(_currentHealth, _owner, _maxHealth));
         }

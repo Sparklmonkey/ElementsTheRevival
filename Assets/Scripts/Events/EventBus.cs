@@ -21,11 +21,13 @@ public static class EventBus<T> where T : IEvent
     
     public static IEnumerator RaiseCoroutine(T @event)
     {
+        var animSpeed = PlayerPrefs.GetFloat("AnimSpeed");
+        if(bindings.Count == 0 ) {yield break;}
         foreach (var binding in bindings)
         {
             binding.Event.Invoke(@event);
             binding.EventNoArgs.Invoke();
-            yield return new WaitForFrames(1);
+            yield return new WaitForSeconds(animSpeed);
         }
     }
 

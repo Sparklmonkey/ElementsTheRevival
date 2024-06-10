@@ -17,7 +17,7 @@ public class Tsunami : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return id.IsPermanentField() && card.IsTargetable();
+        return id.IsPermanentField() && card.IsTargetable(id);
     }
     
     public override AiTargetType GetTargetType()

@@ -6,7 +6,7 @@ public class Pandemonium : ActivatedAbility
     public override bool NeedsTarget() => false;
     public override bool IsCardValid(ID id, Card card)
     {
-        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable(id);
     }
 
     public override void Activate(ID targetId, Card targetCard)

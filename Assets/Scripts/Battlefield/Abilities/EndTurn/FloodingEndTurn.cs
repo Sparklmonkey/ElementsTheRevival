@@ -5,23 +5,29 @@ namespace Battlefield.Abilities
 {
     public class FloodingEndTurn : OnEndTurnAbility
     {
-        private readonly List<int> _saveZones = new() { 10, 11, 12, 13, 14 };
         public override void Activate(ID owner, Card card)
         {
+            var saveZones = new List<int> { 10, 11, 12, 13, 9 };
             var player = DuelManager.Instance.GetIDOwner(owner);
-            var idList = player.playerCreatureField.GetAllValidCardIds();
-            foreach (var idCard in from idCard in idList where !_saveZones.Contains(idCard.Item1.index) 
-                     where idCard.Item2.CardElement is not Element.Other and Element.Water where !idCard.IsTargetable() select idCard)
-            {
-                EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(idCard.Item1));
-            }
-
+            var enemy = DuelManager.Instance.GetNotIDOwner(owner);
             if (player.GetAllQuantaOfElement(Element.Water) == 0)
             {
                 EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(owner));
                 return;
             }
             EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Water, owner.owner, false));
+            var idList = player.playerCreatureField.GetAllValidCardIds();
+            idList.AddRange(enemy.playerCreatureField.GetAllValidCardIds());
+            var checkList = idList.FindAll(x => !saveZones.Contains(x.id.index));
+            if (checkList.Count == 0) return;
+            checkList = checkList.FindAll(x => x.card.CardElement is not Element.Other and Element.Water);
+            if (checkList.Count == 0) return;
+            checkList = checkList.FindAll(x => x.IsTargetable());
+            if (checkList.Count == 0) return;
+            foreach (var idCard in checkList)
+            {
+                EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(idCard.Item1));
+            }
         }
     }
 }

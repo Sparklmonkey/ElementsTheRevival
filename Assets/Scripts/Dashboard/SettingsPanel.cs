@@ -16,11 +16,11 @@ public class SettingsPanel : MonoBehaviour
         }
         else if (animSpeed.currentToggle == 1)
         {
-            PlayerPrefs.SetFloat("AnimSpeed", 0.01f);
+            PlayerPrefs.SetFloat("AnimSpeed", 0.5f);
         }
         else
         {
-            PlayerPrefs.SetFloat("AnimSpeed", 0.05f);
+            PlayerPrefs.SetFloat("AnimSpeed", 1f);
         }
         PlayerPrefs.SetFloat("BGMVolume", bgmVolumeSlider.value);
         PlayerPrefs.SetFloat("SFXVolume", sfxVolumeSlider.value);
@@ -38,7 +38,7 @@ public class SettingsPanel : MonoBehaviour
         {
             animSpeed.SetUpToggle(2);
         }
-        else if (animSpeedInt == 0.01f)
+        else if (animSpeedInt == 0.5f)
         {
             animSpeed.SetUpToggle(1);
         }

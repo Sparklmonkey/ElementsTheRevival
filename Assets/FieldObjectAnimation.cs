@@ -31,7 +31,7 @@ public class FieldObjectAnimation : MonoBehaviour
     {
         if (!gameObject.activeInHierarchy) yield break;
 
-        spritePerFrame = PlayerPrefs.GetFloat("AnimSpeed") == 0.05f ? 2 : 0;
+        spritePerFrame = Mathf.FloorToInt(PlayerPrefs.GetFloat("AnimSpeed") * 2);
 
         _sprites = animation;
         image.color = color;
@@ -43,14 +43,20 @@ public class FieldObjectAnimation : MonoBehaviour
         }
 
         image.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MinValue);
-        Destroy(gameObject);
+        // Destroy(gameObject);
+    }
+
+    private void ResetValues()
+    {
+        _index = 0;
+        image.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
     }
     
     private void PlayAnimation(PlayAnimationEvent playAnimationEvent)
     {
         if (!playAnimationEvent.Id.Equals(_id)) return;
         if (PlayerPrefs.GetFloat("AnimSpeed") == 0) return;
-        
+        ResetValues();
         //Get Sprites
         List<Sprite> sprites = new (Resources.LoadAll<Sprite>($"Sprites/Animations/{playAnimationEvent.AnimName}/"));
         sprites.OrderSprites();

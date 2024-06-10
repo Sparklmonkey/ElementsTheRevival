@@ -141,13 +141,11 @@ public class CardDatabase : SingletonMono<CardDatabase>
                                                     && !x.CardName.Contains("Shard of")
                                                     && !x.CardName.Contains(" Nymph")
                                                     && x.Id.IsUpgraded() == shouldBeUpgraded);
-        if (reducedList.Count > 0)
-        {
-            var card = reducedList[Random.Range(0, reducedList.Count)];
-            var cardToReturn = card.Clone();
-            return cardToReturn;
-        }
-        return GetRandomCardOfTypeWithElement((CardType)Random.Range(0, 6), element, shouldBeUpgraded);
+        if (reducedList.Count <= 0)
+            return GetRandomCardOfTypeWithElement((CardType)Random.Range(0, 6), element, shouldBeUpgraded);
+        var card = reducedList[Random.Range(0, reducedList.Count)];
+        var cardToReturn = card.Clone();
+        return cardToReturn;
     }
 
     public List<Card> GetHalfBloodDeck(Element primary, Element secondary) => _deckBuilder.GetHalfBloodDeck(primary, secondary);

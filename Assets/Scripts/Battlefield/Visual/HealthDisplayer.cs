@@ -19,26 +19,25 @@ namespace Elements.Duel.Visual
         private OwnerEnum owner;
 
         private EventBinding<ModifyPlayerHealthVisualEvent> _modifyPlayerHealthLogicBinding;
+        private EventBinding<UpdatePossibleDamageEvent> _updatePossibleDamageBinding;
     
         private void OnDisable() {
             EventBus<ModifyPlayerHealthVisualEvent>.Unregister(_modifyPlayerHealthLogicBinding);
+            EventBus<UpdatePossibleDamageEvent>.Unregister(_updatePossibleDamageBinding);
         }
         
         private void OnEnable()
         {
             _modifyPlayerHealthLogicBinding = new EventBinding<ModifyPlayerHealthVisualEvent>(ModifyPlayerHealth);
             EventBus<ModifyPlayerHealthVisualEvent>.Register(_modifyPlayerHealthLogicBinding);
+            _updatePossibleDamageBinding = new EventBinding<UpdatePossibleDamageEvent>(UpdatePossibleDamage);
+            EventBus<UpdatePossibleDamageEvent>.Register(_updatePossibleDamageBinding);
         }
 
         private void ModifyPlayerHealth(ModifyPlayerHealthVisualEvent modifyPlayerHealthVisualEvent)
         {
             if (!modifyPlayerHealthVisualEvent.Owner.Equals(owner)) return;
 
-
-            if (modifyPlayerHealthVisualEvent.CurrentHp <= 0)
-            {
-                EventBus<GameEndEvent>.Raise(new GameEndEvent(owner));
-            }
             var current = int.Parse(currentHp.text);
             var difference = current - modifyPlayerHealthVisualEvent.CurrentHp;
             var toShow = difference > 0 ? $"-{difference}" : $"+{Math.Abs(difference)}";
@@ -59,6 +58,14 @@ namespace Elements.Duel.Visual
             damageSlider.value = modifyPlayerHealthVisualEvent.CurrentHp;
             if (difference == 0) return;
             StartCoroutine(AnimateTextChange(toShow));
+        }
+
+        private void UpdatePossibleDamage()
+        {
+            var hp = int.Parse(currentHp.text);
+            var temp = hp - DuelManager.Instance.GetPossibleDamage(owner.Equals(OwnerEnum.Player));
+            hpSlider.value = temp < 0 ? 0 : temp;
+            damageSlider.value = hp;
         }
         
         public void SetHpStart(int hpToSet)

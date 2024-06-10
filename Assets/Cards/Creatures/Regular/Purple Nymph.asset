@@ -75,7 +75,7 @@ MonoBehaviour:
     Invert the attack
     power of the target creature (the creature inflict heals instead of damage)'
   Type: 1
-  Atk: 1
+  Atk: 3
   Def: 1
   SkillCost: 4
   SkillElement: 6
@@ -108,3 +108,4 @@ MonoBehaviour:
   ReadyUsed: 0
   HasTurnLimit: 0
   TurnsInPlay: 0
+  IsPendulumTurn: 0

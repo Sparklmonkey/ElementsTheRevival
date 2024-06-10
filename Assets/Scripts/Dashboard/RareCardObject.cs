@@ -25,7 +25,9 @@ public class RareCardObject : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void SelectCard()
     {
-        PlayerData.Shared.inventoryCards.Add(_rareCard.Id);
+        var invent = PlayerData.Shared.GetInventory();
+        invent.Add(_rareCard.Id);
+        PlayerData.Shared.SetInventory(invent);
         PlayerData.SaveData();
         PlayerPrefs.SetFloat("ShouldShowRareCard", 2);
         _questManager.SetupQuestPanel();
@@ -44,7 +46,9 @@ public class RareCardObject : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        PlayerData.Shared.inventoryCards.Add(_rareCard.Id);
+        var invent = PlayerData.Shared.GetInventory();
+        invent.Add(_rareCard.Id);
+        PlayerData.Shared.SetInventory(invent);
         PlayerPrefs.SetFloat("ShouldShowRareCard", 2);
         _questManager.SetupQuestPanel();
     }

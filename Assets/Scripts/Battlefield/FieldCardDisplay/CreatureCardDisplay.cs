@@ -73,9 +73,7 @@ public class CreatureCardDisplay : CardFieldDisplay
             Card.AbilityUsed = true;
         }
         cardImage.sprite = updateCardDisplayEvent.Card.cardImage;
-        var creatureAtk = updateCardDisplayEvent.Card.passiveSkills.Antimatter
-            ? -updateCardDisplayEvent.Card.AtkNow
-            : updateCardDisplayEvent.Card.AtkNow;
+        var creatureAtk = updateCardDisplayEvent.Card.AtkNow;
         creatureValue.text = $"{creatureAtk}|{updateCardDisplayEvent.Card.DefNow}";
         cardName.text = updateCardDisplayEvent.Card.CardName;
         cardHeadBack.sprite =
@@ -93,6 +91,7 @@ public class CreatureCardDisplay : CardFieldDisplay
         effectDisplayManager.UpdateEffectDisplay(Card);
         if (updateCardDisplayEvent.IsUpdate) return;
         CheckOnPlayEffects();
+        EventBus<UpdatePossibleDamageEvent>.Raise(new UpdatePossibleDamageEvent());
     }
 
     private void SetupActiveAbility()
@@ -210,20 +209,41 @@ public class CreatureCardDisplay : CardFieldDisplay
         var adrenalineIndex = 0;
         var hasAdrenaline = Card.passiveSkills.Adrenaline;
         var isFirstAttack = true;
-        var atkNow = Card.passiveSkills.Antimatter ? -Card.AtkNow : Card.AtkNow;
+        var atkNow = Card.Counters.Freeze > 0 || 
+                     Card.Counters.Delay > 0 ? 0 : Card.AtkNow;
 
         var shouldSkip = owner.playerCounters.delay > 0 ||
-                         owner.playerCounters.patience > 0 || 
-                         Card.Counters.Freeze > 0 || 
-                         Card.Counters.Delay > 0;
+                         owner.playerCounters.patience > 0;
         Card.AbilityUsed = false;
 
         while (isFirstAttack || hasAdrenaline)
         {
+            if (!isFirstAttack)
+            {
+                adrenalineIndex++;
+                if (atkNow != 0)
+                {
+                    var adrIndex = Mathf.Clamp(Mathf.Abs(atkNow), 0, 14);
+                    if (DuelManager.AdrenalineDamageList[adrIndex].Count <= adrenalineIndex)
+                    {
+                        break;
+                    }
+
+                    atkNow = DuelManager.AdrenalineDamageList[adrIndex][adrenalineIndex];
+                    if (Card.passiveSkills.Antimatter)
+                    {
+                        atkNow = -atkNow;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
             isFirstAttack = false;
             if (!shouldSkip)
             {
-                Card.WeaponPassive?.ModifyWeaponAtk(Id, ref atkNow);   ;
+                Card.WeaponPassive?.ModifyWeaponAtk(Id, ref atkNow);
                 var isFreedomEffect = Random.Range(0, 100) < 25 * owner.playerCounters.freedom && Card.CostElement.Equals(Element.Air);
                 atkNow = Mathf.FloorToInt(isFreedomEffect ? atkNow * 1.5f : atkNow);
                 EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CreatureDamage"));
@@ -274,32 +294,6 @@ public class CreatureCardDisplay : CardFieldDisplay
                     }
                     EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(atkNow, true, Card.passiveSkills.Psion, enemy.owner));
                     EventBus<DisplayCreatureAttackEvent>.Raise(new DisplayCreatureAttackEvent(Id, atkNow));
-                }
-                
-                DisplayCard(new UpdateCreatureCardEvent(Id, Card, true));
-                if (Card.AtkNow != 0 && hasAdrenaline)
-                {
-                    adrenalineIndex++;
-                    var adrenalineDictIndex = Mathf.Abs(Card.AtkNow) - 1;
-                    adrenalineDictIndex = adrenalineDictIndex >= DuelManager.AdrenalineDamageList.Count
-                        ? DuelManager.AdrenalineDamageList.Count - 1
-                        : adrenalineDictIndex;
-                    if (DuelManager.AdrenalineDamageList[adrenalineDictIndex].Count <= adrenalineIndex)
-                    {
-                        hasAdrenaline = false;
-                    }
-                    else
-                    {
-                        atkNow = DuelManager.AdrenalineDamageList[adrenalineDictIndex][adrenalineIndex];
-                        if (Card.passiveSkills.Antimatter)
-                        {
-                            atkNow = -atkNow;
-                        }
-                    }
-                }
-                else
-                {
-                    hasAdrenaline = false;
                 }
             }
             (Id, Card).CreatureTurnDownTick();

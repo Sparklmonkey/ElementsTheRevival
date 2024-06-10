@@ -13,10 +13,10 @@ public class PlayerData
     public static PlayerData Shared;
     public int id;
     public Element markElement;
-    public List<string> currentDeck;
+    public string currentDeck;
     public Element arenaT50Mark;
-    public List<string> arenaT50Deck;
-    public List<string> inventoryCards;
+    public string arenaT50Deck;
+    public string inventoryCards;
     public int electrum;
     public int gamesWon;
     public int gamesLost;
@@ -30,8 +30,8 @@ public class PlayerData
     internal void ResetAccount()
     {
         markElement = Element.Aether;
-        currentDeck = new();
-        inventoryCards = new();
+        currentDeck = "";
+        inventoryCards = "";
         savedDecks = new();
         electrum = 0;
         gamesWon = 0;
@@ -51,7 +51,7 @@ public class PlayerData
         hasSoldCardBazaar = false;
         hasDefeatedLevel1 = false;
         hasDefeatedLevel2 = false;
-        arenaT50Deck = new();
+        arenaT50Deck = "";
         arenaT50Mark = Element.Aether;
     }
 
@@ -89,6 +89,14 @@ public class PlayerData
     {
         Shared = playerData;
     }
+    
+    public List<string> GetDeck() => currentDeck.ConvertCardCodeToList();
+    public List<string> GetInventory() => inventoryCards.ConvertCardCodeToList();
+    public void SetInventory(List<string> cardList) => inventoryCards = cardList.ConvertListToCardCode();
+    public void SetDeck(List<string> cardList) => currentDeck = cardList.ConvertListToCardCode();
+    public List<string> GetArenaTFifty() => arenaT50Deck.ConvertCardCodeToList();
+    public void SetArenaTFifty(List<string> cardList) => arenaT50Deck = cardList.ConvertListToCardCode();
+    
 
     public static bool LoadData()
     {
@@ -116,8 +124,8 @@ public class PlayerData
     public PlayerData()
     {
         markElement = Element.Aether;
-        currentDeck = new();
-        inventoryCards = new();
+        currentDeck = "X";
+        inventoryCards = "X";
         savedDecks = new();
         electrum = 0;
         gamesWon = 0;
@@ -137,24 +145,8 @@ public class PlayerData
         hasSoldCardBazaar = false;
         hasDefeatedLevel1 = false;
         hasDefeatedLevel2 = false;
-        arenaT50Deck = new();
+        arenaT50Deck = "";
         arenaT50Mark = Element.Aether;
-    }
-
-    public void ClearIllegalCards()
-    {
-        currentDeck.RemoveAll(x => x == "6ro");
-        currentDeck.RemoveAll(x => x == "4t8");
-        currentDeck.RemoveAll(x => x == "4vr");
-        currentDeck.RemoveAll(x => x == "6ub");
-        inventoryCards.RemoveAll(x => x == "6ro");
-        inventoryCards.RemoveAll(x => x == "4t8");
-        inventoryCards.RemoveAll(x => x == "4vr");
-        inventoryCards.RemoveAll(x => x == "6ub");
-        arenaT50Deck.RemoveAll(x => x == "6ro");
-        arenaT50Deck.RemoveAll(x => x == "4t8");
-        arenaT50Deck.RemoveAll(x => x == "4vr");
-        arenaT50Deck.RemoveAll(x => x == "6ub");
     }
 }
 

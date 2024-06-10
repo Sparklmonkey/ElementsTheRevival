@@ -97,7 +97,21 @@ public class Card : SerializedScriptableObject
     public int DefNow => Def + DefModify - DefDamage;
     public int AtkNow => Atk + AtkModify;
     public int DefModify { get; set; }
-    public int DefDamage { get; set; }
+    private int _defDamage;
+
+    public int DefDamage
+    {
+        get => _defDamage;
+        set
+        {
+            _defDamage += value;
+            if (_defDamage < 0)
+            {
+                _defDamage = 0;
+            }
+        }
+    }
+
     public int AtkModify { get; set; }
     
     [HorizontalGroup("Bazaar"), ReadOnly, ShowInInspector]

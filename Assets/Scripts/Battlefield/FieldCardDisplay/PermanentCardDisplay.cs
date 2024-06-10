@@ -176,7 +176,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         if (Card.CardName.Contains("Pendulum"))
         {
             var markElement = Id.IsOwnedBy(OwnerEnum.Player) ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
-            var pendulumElement = Card.IsPendulumTurn ? Card.CostElement : markElement;
+            var pendulumElement = Card.IsPendulumTurn ? markElement : Card.CostElement;
             EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(StackCountValue, pendulumElement, Id.owner, true));
             if (Id.IsOwnedBy(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
             {

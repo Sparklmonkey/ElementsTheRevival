@@ -11,3 +11,8 @@
         MaxHp = maxHp;
     }
 }
+
+public struct UpdatePossibleDamageEvent : IEvent
+{
+    
+}

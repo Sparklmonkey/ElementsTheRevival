@@ -28,13 +28,13 @@ public class Accretion : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        if (id.IsPermanentField() && card.IsTargetable())
+        if (id.IsPermanentField() && card.IsTargetable(id))
         {
             return true;
         }
         if (card.Id is "4t1" or "4t2") return false;
         if (card.Type.Equals(CardType.Mark)) return false;
-        return id.field.Equals(FieldEnum.Passive) && card.Type is CardType.Shield or CardType.Weapon && card.IsTargetable();
+        return id.field.Equals(FieldEnum.Passive) && card.Type is CardType.Shield or CardType.Weapon && card.IsTargetable(id);
     }
     
     public override AiTargetType GetTargetType()

@@ -23,19 +23,6 @@ namespace Elements.Duel.Manager
             _playPermanentBinding = new EventBinding<PlayPermanentOnFieldEvent>(PlayPermanent);
             EventBus<PlayPermanentOnFieldEvent>.Register(_playPermanentBinding);
         }
-
-        private void TowerCheck(Card card)
-        {
-            if (card.Id.IsUpgraded())
-            {
-                EventBus<QuantaChangeLogicEvent>.Raise(
-                    card.CostElement.Equals(Element.Other)
-                        ? new QuantaChangeLogicEvent(3, card.CostElement, owner,
-                            true)
-                        : new QuantaChangeLogicEvent(1, card.CostElement, owner,
-                            true));
-            }
-        }
         
         public int GetStackCountForId(ID id) => ((PermanentCardDisplay)_cardFieldDisplays[id]).StackCountValue;
 
@@ -58,7 +45,6 @@ namespace Elements.Duel.Manager
         private bool IsStacked(Card card)
         {
             if (!card.Type.Equals(CardType.Pillar)) return false;
-            TowerCheck(card);
             
             if (!cardPositions.Exists(t => t.childCount > 0)) return false;
             

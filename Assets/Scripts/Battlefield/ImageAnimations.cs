@@ -18,7 +18,7 @@ public class ImageAnimations : MonoBehaviour
             yield break;
         }
 
-        spritePerFrame = PlayerPrefs.GetFloat("AnimSpeed") == 0.05f ? 2 : 0;
+        spritePerFrame = Mathf.FloorToInt(PlayerPrefs.GetFloat("AnimSpeed") * 2);
 
         sprites = animation;
         image.color = color;

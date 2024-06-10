@@ -32,22 +32,9 @@ public class SupportView : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-#if PLATFORM_WEBGL
-        webText.text = "A Coffee?";
-#else
-        webText.text = "Play on Web";
-#endif
-    }
-
     public void OpenWebSite()
     {
-#if PLATFORM_WEBGL
-        Application.OpenURL("https://www.buymeacoffee.com/sparklmonkey");
-#else
-        Application.OpenURL("https://elementrevival.sparklmonkeygames.com/");
-#endif
+        Application.OpenURL("https://www.twitch.tv/sparklmonkey");
     }
 
     private string MyEscapeURL(string url)

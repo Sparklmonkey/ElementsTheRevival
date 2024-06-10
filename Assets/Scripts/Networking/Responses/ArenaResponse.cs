@@ -6,7 +6,7 @@ namespace Networking
     [Serializable]
     public class ArenaResponse
     {
-        public List<string> arenaT50Deck;
+        public string arenaT50Deck;
         public int arenaT50Mark;
         public string username;
         public int playerScore;

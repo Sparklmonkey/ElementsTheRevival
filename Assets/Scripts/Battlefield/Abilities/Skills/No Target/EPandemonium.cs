@@ -5,7 +5,7 @@
     {
         if (!id.owner.Equals(BattleVars.Shared.AbilityIDOrigin.owner)) return false;
         if (card is null) return false;
-        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable(id);
     }
 
     public override void Activate(ID targetId, Card targetCard)

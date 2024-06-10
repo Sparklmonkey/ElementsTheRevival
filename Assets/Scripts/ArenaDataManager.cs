@@ -1,3 +1,4 @@
+using System.Linq;
 using Networking;
 using TMPro;
 using UnityEngine;
@@ -33,7 +34,7 @@ public class ArenaDataManager : MonoBehaviour
     public void StartGame()
     {
 
-        if (PlayerData.Shared.arenaT50Deck.Count < 30)
+        if (PlayerData.Shared.GetArenaTFifty().Count < 30)
         {
             responseText.text = "Please set a deck to use in Arena T50. \n You can do so by tapping the 'Modify Deck' button";
         }
@@ -48,7 +49,8 @@ public class ArenaDataManager : MonoBehaviour
 
     private void ArenaResponseHandler(ArenaResponse arenaResponse)
     {
-        if (arenaResponse.arenaT50Deck.Count == 0)
+        var opDeck = arenaResponse.arenaT50Deck.ConvertCardCodeToList();
+        if (opDeck.Count == 0)
         {
             responseText.text = "No opponent found, try again later";
             return;
@@ -59,7 +61,7 @@ public class ArenaDataManager : MonoBehaviour
         oppName.text = arenaResponse.username;
         _enemyAi.opponentName = arenaResponse.username;
         _enemyAi.mark = (Element)arenaResponse.arenaT50Mark;
-        _enemyAi.deck = string.Join(" ", arenaResponse.arenaT50Deck);
+        _enemyAi.deck = string.Join(" ", opDeck);
         oppWin.text = arenaResponse.arenaWins.ToString();
         oppScore.text = arenaResponse.playerScore.ToString();
         oppLoss.text = arenaResponse.arenaLoses.ToString();

@@ -70,6 +70,8 @@ public class SplashScreen : MonoBehaviour
     }
     private void Start()
     {
+        SoundManager.Instance.PlayBGM("LoginScreen");
+        QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 30;
         
         if (PlayerPrefs.GetInt("HasKeysStored") != 1)
@@ -77,7 +79,7 @@ public class SplashScreen : MonoBehaviour
             PlayerPrefs.SetInt("HasKeysStored", 1);
 
             PlayerPrefs.SetInt("QuickPlay", 1);
-            PlayerPrefs.SetFloat("AnimSpeed", 0.2f);
+            PlayerPrefs.SetFloat("AnimSpeed", 1f);
             PlayerPrefs.SetFloat("BGMVolume", 100f);
             PlayerPrefs.SetFloat("SFXVolume", 100f);
         }
@@ -122,6 +124,7 @@ public class SplashScreen : MonoBehaviour
         }
         else
         {
+            await ApiManager.Instance.GetGameNews();
             if (PlayerPrefs.HasKey("AccessToken"))
             {
                 var token = PlayerPrefs.GetString("AccessToken");

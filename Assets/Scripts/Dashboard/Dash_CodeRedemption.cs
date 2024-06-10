@@ -52,7 +52,9 @@ public class DashCodeRedemption : MonoBehaviour
                 }
                 else
                 {
-                    PlayerData.Shared.inventoryCards.AddRange(cardList);
+                    var invent = PlayerData.Shared.GetInventory();
+                    invent.AddRange(cardList);
+                    PlayerData.Shared.SetInventory(invent);
                 }
                 SetupCardRewardView(cards);
             }
@@ -85,7 +87,9 @@ public class DashCodeRedemption : MonoBehaviour
     public async void ChooseCard()
     {
         if (ApiManager.IsTrainer) return;
-        PlayerData.Shared.inventoryCards.Add(cardDisplayDetail.card.Id);
+        var invent = PlayerData.Shared.GetInventory();
+        invent.Add(cardDisplayDetail.card.Id);
+        PlayerData.Shared.SetInventory(invent);
 
         await ApiManager.Instance.SaveGameData();
         electrumRewardDisplay.SetActive(false);

@@ -15,9 +15,9 @@ public class UpgradePlayerDataManager : MonoBehaviour
     private void Start()
     {
         _playerInventoryManager = GetComponent<UpgradeInvetoryViewManager>();
-        _playerInventoryManager.SetupInitialCardView(PlayerData.Shared.inventoryCards.DeserializeCard());
+        _playerInventoryManager.SetupInitialCardView(PlayerData.Shared.GetInventory().DeserializeCard());
 
-        deckCount.text = $"( {PlayerData.Shared.inventoryCards.Count} )";
+        deckCount.text = $"( {PlayerData.Shared.GetInventory().Count} )";
         GetComponent<UpgradeTransactionManager>().SetupTransactionManager();
     }
 
@@ -45,16 +45,17 @@ public class UpgradePlayerDataManager : MonoBehaviour
     public void ConfirmUpgrade()
     {
         var cardIndex = 0;
-
-        for (var i = 0; i < PlayerData.Shared.inventoryCards.Count; i++)
+        var invent = PlayerData.Shared.GetInventory();
+        for (var i = 0; i < invent.Count; i++)
         {
-            if (PlayerData.Shared.inventoryCards[i] != _cardToUpgrade.Id) continue;
+            if (invent[i] != _cardToUpgrade.Id) continue;
             cardIndex = i;
             break;
         }
-        PlayerData.Shared.inventoryCards.RemoveAt(cardIndex);
-        PlayerData.Shared.inventoryCards.Add(_cardToUpgrade.Id.GetUppedRegular());
-        _playerInventoryManager.SetupContentView(PlayerData.Shared.inventoryCards.DeserializeCard());
+        invent.RemoveAt(cardIndex);
+        invent.Add(_cardToUpgrade.Id.GetUppedRegular());
+        PlayerData.Shared.SetInventory(invent);
+        _playerInventoryManager.SetupContentView(PlayerData.Shared.GetInventory().DeserializeCard());
         GetComponent<UpgradeTransactionManager>().ChangeCoinCount();
         PlayerData.SaveData();
         _cardToUpgrade = null;

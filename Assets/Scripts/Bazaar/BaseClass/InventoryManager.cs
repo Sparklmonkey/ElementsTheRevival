@@ -69,7 +69,7 @@ public class InventoryManager : MonoBehaviour
     {
         _dMCards = new List<DmCardPrefabNoTt>();
         ClearContentView();
-        var cardList = PlayerData.Shared.inventoryCards.DeserializeCard();
+        var cardList = PlayerData.Shared.GetInventory().DeserializeCard();
         cardList.Sort((x, y) => string.Compare(x.Id, y.Id));
         foreach (var card in cardList)
         {

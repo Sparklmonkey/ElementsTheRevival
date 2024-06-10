@@ -18,7 +18,7 @@ public class Earthquake : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.Type.Equals(CardType.Pillar) && id.IsPermanentField() && card.IsTargetable();
+        return card.Type.Equals(CardType.Pillar) && id.IsPermanentField() && card.IsTargetable(id);
     }
     
     public override AiTargetType GetTargetType()

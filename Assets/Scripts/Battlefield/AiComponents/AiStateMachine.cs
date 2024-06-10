@@ -113,7 +113,7 @@ public class AiStateMachine
             case GameState.EndTurn:
                 if(_aiManager.playerHand.ShouldDiscard()) { _aiTurn.DiscardCard(_aiManager); }
                 _aiTurn.ResetSkipList();
-                yield return _aiManager.StartCoroutine(_aiManager.EndTurnRoutine());
+                yield return _aiManager.StartCoroutine(_aiManager.EndTurnRoutine(DuelManager.Instance.ShouldEndGame));
                 _aiManager.UpdateCounterAndEffects();
                 DuelManager.Instance.EndTurn();
                 _currentState = GameState.Idle;
@@ -123,7 +123,7 @@ public class AiStateMachine
         yield return new WaitForSeconds(1f);
         owner.StartCoroutine(Update(owner));
     }
-
+    
     private void SetNewState()
     {
         if (_aiManager.playerCounters.silence <= 0)

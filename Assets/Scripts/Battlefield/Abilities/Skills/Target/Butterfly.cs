@@ -18,7 +18,7 @@ public class Butterfly : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.Type.Equals(CardType.Creature) && card.AtkNow < 4 && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.AtkNow < 4 && card.IsTargetable(id);
     }
     
     public override AiTargetType GetTargetType()

@@ -16,7 +16,7 @@ public class Gravitypull : ActivatedAbility
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable(id);
     }
     public override AiTargetType GetTargetType()
     {

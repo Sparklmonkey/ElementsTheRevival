@@ -4,7 +4,12 @@ using Core.Helpers;
 public class Flying : ActivatedAbility
 {
     public override bool NeedsTarget() => false;
-    public override bool IsCardValid(ID targetId, Card targetCard) => targetCard.Type == CardType.Weapon && targetId.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner);
+
+    public override bool IsCardValid(ID targetId, Card targetCard)
+    {
+        if (targetCard is null) return false;
+        return  targetCard.Type == CardType.Weapon && targetId.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner);
+    }
 
     public override void Activate(ID targetId, Card targetCard)
     {

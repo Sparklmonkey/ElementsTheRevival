@@ -9,13 +9,15 @@ public class Antimatter : ActivatedAbility
     {
         if (!IsCardValid(targetId, targetCard)) return;
         targetCard.passiveSkills.Antimatter = true;
+        targetCard.Atk *= -1;
+        targetCard.AtkModify *= -1;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable(id);
     }
 
     public override AiTargetType GetTargetType()

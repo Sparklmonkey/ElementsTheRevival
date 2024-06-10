@@ -12,12 +12,13 @@ public class Mitosiss : ActivatedAbility
         targetCard.Desc = "Mitosis: \n Generate a daughter creature";
         targetCard.SkillCost = targetCard.Cost;
         targetCard.SkillElement = targetCard.CostElement;
+        targetCard.AbilityUsed = false;
     }
 
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.Type.Equals(CardType.Creature) && card.IsTargetable();
+        return card.Type.Equals(CardType.Creature) && card.IsTargetable(id);
     }
     
     public override AiTargetType GetTargetType()
