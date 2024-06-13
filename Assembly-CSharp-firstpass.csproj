@@ -1022,14 +1022,6 @@
       <Project>{5c004456-df92-7698-7ea7-d17e9533360e}</Project>
       <Name>Sirenix.OdinInspector.Modules.UnityMathematics</Name>
     </ProjectReference>
-    <ProjectReference Include="FangAutoTile.csproj">
-      <Project>{7f010e84-8fbd-e307-a3bd-4d2a8f89b716}</Project>
-      <Name>FangAutoTile</Name>
-    </ProjectReference>
-    <ProjectReference Include="FangAutoTile.Editor.csproj">
-      <Project>{88eb7f98-350a-5016-fa6c-346c27a0f353}</Project>
-      <Name>FangAutoTile.Editor</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

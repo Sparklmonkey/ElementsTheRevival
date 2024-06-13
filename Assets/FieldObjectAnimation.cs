@@ -31,7 +31,7 @@ public class FieldObjectAnimation : MonoBehaviour
     {
         if (!gameObject.activeInHierarchy) yield break;
 
-        spritePerFrame = Mathf.FloorToInt(PlayerPrefs.GetFloat("AnimSpeed") * 2);
+        spritePerFrame = Mathf.FloorToInt(PlayerPrefs.GetFloat("AnimSpeed"));
 
         _sprites = animation;
         image.color = color;

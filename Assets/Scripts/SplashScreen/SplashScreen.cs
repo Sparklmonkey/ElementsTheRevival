@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Core.FixedStrings;
 using Networking;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,8 +21,10 @@ public class SplashScreen : MonoBehaviour
 
     [SerializeField]
     private List<Transform> finalPositions;
+    [SerializeField]
+    private Transform popUpParent;
 
-    [SerializeField] private GameObject maintenancePopUp, appUpdatePopUp;
+    [SerializeField] private GameObject popUpModal;
     [SerializeField]
     private List<GameObject> imageObjects;
 
@@ -110,33 +113,52 @@ public class SplashScreen : MonoBehaviour
         var appInfo = await ApiManager.Instance.GetAppInfo();
         if (appInfo == null)
         {
-            maintenancePopUp.SetActive(true);
+            var popUpObject = Instantiate(popUpModal, popUpParent);
+            popUpObject.GetComponent<PopUpModal>().SetupModal(LanguageManager.Instance.LanguageStringController.SplashUnknownFailureModalTitle, 
+                LanguageManager.Instance.LanguageStringController.SplashUnknownFailureButtonTitle,
+                GoToLogin);
             return;
         }
 
         if (appInfo.IsMaintenance)
         {
-            maintenancePopUp.SetActive(true);
+            var popUpObject = Instantiate(popUpModal, popUpParent);
+            popUpObject.GetComponent<PopUpModal>().SetupModal(LanguageManager.Instance.LanguageStringController.SplashMaintenanceModalTitle, 
+                LanguageManager.Instance.LanguageStringController.SplashMaintenanceButtonTitle,
+                CloseApp);
+            return;
         }
-        else if (appInfo.ShouldUpdate)
+        
+        if (appInfo.ShouldUpdate)
         {
-            appUpdatePopUp.SetActive(true);
+            var popUpObject = Instantiate(popUpModal, popUpParent);
+            popUpObject.GetComponent<PopUpModal>().SetupModal(LanguageManager.Instance.LanguageStringController.SplashForcedUpdateModalTitle, 
+                LanguageManager.Instance.LanguageStringController.SplashForcedUpdateButtonTitle,
+                GoToAppStore);
+            return;
         }
-        else
-        {
-            await ApiManager.Instance.GetGameNews();
-            if (PlayerPrefs.HasKey("AccessToken"))
+        await ApiManager.Instance.GetGameNews();
+        if (PlayerPrefs.HasKey("AccessToken"))
+        { 
+            var token = PlayerPrefs.GetString("AccessToken"); 
+            var response = await ApiManager.Instance.LoginController(new LoginRequest() 
             {
-                var token = PlayerPrefs.GetString("AccessToken");
-                var response = await ApiManager.Instance.LoginController(new LoginRequest()
-                {
-                    accessToken = token
-                }, Endpointbuilder.UserTokenLogin);
-                ManageResponse(response);
-                return;
-            }
-            SceneTransitionManager.Instance.LoadScene("LoginScreen");
+                accessToken = token
+            }, Endpointbuilder.UserTokenLogin);
+            ManageResponse(response);
+            return;
         }
+        GoToLogin();
+    }
+
+    public void GoToLogin()
+    {
+        SceneTransitionManager.Instance.LoadScene("LoginScreen");
+    }
+    
+    public void CloseApp()
+    {
+        Application.Quit();
     }
 
     private void ManageResponse(LoginResponse response)

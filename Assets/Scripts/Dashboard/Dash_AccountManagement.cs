@@ -69,7 +69,7 @@ public class DashAccountManagement : MonoBehaviour
     public void UpdateFieldsWithInfo()
     {
         currentUsernameField.text = PlayerData.Shared.username;
-        submitButton.interactable = false;
+        submitButton.interactable = true;
         submitButtonText.text = "Submit";
         emailField.text = PlayerData.Shared.email;
     }
