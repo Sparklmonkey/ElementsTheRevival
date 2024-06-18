@@ -60,7 +60,7 @@ public class SpinManager : MonoBehaviour
         SetupImageList(_oppDeck);
         buttonText.text = BattleVars.Shared.EnemyAiData.spins == 0 ? "Continue" : "Start Spin";
         spinAllButton.SetActive(BattleVars.Shared.EnemyAiData.spins > 0);
-        var gameTimeInSeconds = TimeSpan.FromTicks(DateTime.Now.Ticks - BattleVars.Shared.GameStartInTicks).TotalSeconds;
+        var gameTimeInSeconds = (DateTime.Now - BattleVars.Shared.GameStartInTicks).TotalSeconds;
         gameTurns.text = $"{BattleVars.Shared.TurnCount}";
         gameTime.text = $"{(int)gameTimeInSeconds}";
         playerScore.text = $"{PlayerData.Shared.playerScore}";

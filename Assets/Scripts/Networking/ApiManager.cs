@@ -98,6 +98,11 @@ namespace Networking
             await SendPostRequest<LogoutRequest, LogoutResponse>(Endpointbuilder.Logout, new LogoutRequest(accessToken));
         }
 
+        public async Task<GetAchievementsResponse> GetPlayersAchievements()
+        {
+            return await SendPostRequest<SaveDataRequest, GetAchievementsResponse>(Endpointbuilder.GetAchievements, new SaveDataRequest(){ savedData = PlayerData.Shared});
+        }
+
         public async Task<AppInfo> GetAppInfo()
         {
             AppInfo = await SendGetRequest<AppInfo>(Endpointbuilder.AppInfo);

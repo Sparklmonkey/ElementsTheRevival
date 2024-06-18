@@ -162,30 +162,6 @@ public static class ExtensionMethods
         return obj;
     }
 
-    public static T GetSkillScript<T>(this string abilityName)
-    {
-        var nameToCheck = abilityName[0].ToString().ToUpper() + abilityName[1..];
-        var type = Type.GetType(nameToCheck);
-        if (type == null)
-        {
-            return default;
-        }
-        var obj = (T)Activator.CreateInstance(type);
-        return obj;
-    }
-
-    public static T GetShieldScript<T>(this string abilityName)
-    {
-        var nameToCheck = $"Shield{abilityName}";
-        var type = Type.GetType(nameToCheck);
-        if (type == null)
-        {
-            return default;
-        }
-        var obj = (T)Activator.CreateInstance(type);
-        return obj;
-    }
-
     public static void Shuffle<T>(this IList<T> list)
     {
         var n = list.Count;

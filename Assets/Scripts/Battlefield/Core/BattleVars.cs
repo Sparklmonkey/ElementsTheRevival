@@ -22,6 +22,7 @@ public class BattleVars
         WillStart = false;
         IsTest = false;
         IsArena = false;
+        GameStartInTicks = DateTime.Now;
     }
 
     public static BattleVars Shared = new();
@@ -39,7 +40,7 @@ public class BattleVars
     public bool IsArena;
     public bool IsTest;
     public int TurnCount;
-    public long GameStartInTicks;
+    public DateTime GameStartInTicks;
     public int IsSingularity = 0;
     public bool HasToDiscard = false;
 

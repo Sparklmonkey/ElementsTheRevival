@@ -112,7 +112,7 @@ public class DuelManager : MonoBehaviour
     {
         ValidTargets = new();
         FloodCount = 0;
-        BattleVars.Shared.GameStartInTicks = DateTime.Now.Ticks;
+        BattleVars.Shared.GameStartInTicks = DateTime.Now;
         aiController.SetupController(enemy, gameOverVisual);
         enemyName.text = BattleVars.Shared.EnemyAiData.opponentName;
         StartCoroutine(SetupManagers());

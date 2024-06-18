@@ -1,4 +1,5 @@
 using System;
+using Core;
 using Networking;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,15 @@ public class DashboardPlayerData : MonoBehaviour
     {
         UpdateDashboard();
         InvokeRepeating(nameof(PeriodicSave), 0f, 780f);
+        GetAchievementsResponse();
+    }
+
+    private async void GetAchievementsResponse()
+    {
+        var achievements = await ApiManager.Instance.GetPlayersAchievements();
+        SessionManager.Instance.Achievements = achievements.achievements;
+        Debug.Log(achievements.achievements.ToString());
+        Debug.Log(JsonUtility.ToJson(achievements));
     }
 
     private void OnDisable()

@@ -55,4 +55,10 @@ public static class ImageHelper
     {
         return Resources.Load<Sprite>($"Sprites/PoisonTypes/{IsAltOrOriginal()}/" + (isPoison ? "Death" : "Water"));
     }
+
+    public static Sprite GetAchievementFrame(int achievementDataRarity)
+    {
+        var rarity = achievementDataRarity == 1 ? "Normal" : achievementDataRarity == 2 ? "Medium" : "Hard";
+        return Resources.Load<Sprite>($"Sprites/AchievementFrame/" + rarity);
+    }
 }
