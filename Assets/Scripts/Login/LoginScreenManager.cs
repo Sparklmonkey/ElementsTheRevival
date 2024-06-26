@@ -40,7 +40,7 @@ namespace Login
 
         private void Start()
         {
-            lastUpdateNote.text = ApiManager.Instance.AppInfo.UpdateNote;
+            lastUpdateNote.text = ApiManager.Instance.AppInfo.updateNote;
             fields = new List<TMP_InputField> { username, password };
             username.text = PlayerPrefs.HasKey("SavedUser") ? PlayerPrefs.GetString("SavedUser") : "";
             versionLabel.text = $"Version {Application.version}";
@@ -73,6 +73,7 @@ namespace Login
             if (PlayerPrefs.HasKey("SaveData"))
             {
                 PlayerData.LoadData();
+                SceneTransitionManager.Instance.LoadScene("Dashboard");
             }
             else
             {
@@ -105,16 +106,10 @@ namespace Login
                 PlayerPrefs.SetString("AccessToken", response.accessToken);
                 PlayerData.Shared = response.savedData;
                 PlayerData.Shared.username = username.text;
-
-                PlayerPrefs.SetInt("IsTrainer", 0);
-                if (PlayerData.Shared.GetDeck().Count == 0)
-                {
-                    SceneTransitionManager.Instance.LoadScene("DeckSelector");
-                }
-                else
-                {
-                    SceneTransitionManager.Instance.LoadScene("Dashboard");
-                }
+                
+                SceneTransitionManager.Instance.LoadScene(PlayerData.Shared.GetDeck().Count == 0
+                    ? "DeckSelector"
+                    : "Dashboard");
             }
             else
             {

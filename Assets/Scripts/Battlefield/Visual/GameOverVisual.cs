@@ -34,10 +34,10 @@ public class GameOverVisual : MonoBehaviour
     private void EndGame(GameEndEvent gameEndEvent)
     {
         if (isGameOver) return;
-        ShowGameOverScreen(gameEndEvent.Owner.Equals(OwnerEnum.Opponent));
+        ShowGameOverScreen(gameEndEvent.Owner.Equals(OwnerEnum.Player));
     }
     
-    public async void ShowGameOverScreen(bool didWin)
+    private async void ShowGameOverScreen(bool didWin)
     {
         DuelManager.Instance.StopAllRunningRoutines();
         EventBus<GameEndEvent>.Unregister(_gameEndBinding);

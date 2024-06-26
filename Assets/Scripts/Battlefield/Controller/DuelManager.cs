@@ -170,13 +170,13 @@ public class DuelManager : MonoBehaviour
     {
         if (IsGameWinForPlayer())
         {
-            gameOverVisual.ShowGameOverScreen(true);
+            EventBus<GameEndEvent>.Raise(new GameEndEvent(OwnerEnum.Player));
             return true;
         }
 
         if (IsGameLossForPlayer())
         {
-            gameOverVisual.ShowGameOverScreen(false);
+            EventBus<GameEndEvent>.Raise(new GameEndEvent(OwnerEnum.Opponent));
             return true;
         }
 

@@ -34,9 +34,9 @@ public class BasicAiTurnLogic : AiTurnBase
 
     public override IEnumerator PlaySpellFromHand(PlayerManager aiManager)
     {
-        bool canPlaySingu = BattleVars.Shared.IsSingularity == 0;
+        var canPlaySingularity = BattleVars.Shared.IsSingularity == 0;
         var cardList = aiManager.playerHand.GetPlayableCardsOfType(aiManager.HasSufficientQuanta, CardType.Spell);
-        var spell = cardList.FirstOrDefault(s => !_skipList.Contains(nameof(s.card.Skill)) && (canPlaySingu || s.card.Id is "6u3" or "4vj"));
+        var spell = cardList.FirstOrDefault(s => !_skipList.Contains(nameof(s.card.Skill)) && (canPlaySingularity || s.card.Id is "6u3" or "4vj"));
         if (spell.Equals(default)) yield break;
 
         BattleVars.Shared.AbilityCardOrigin = spell.Item2;
@@ -77,7 +77,7 @@ public class BasicAiTurnLogic : AiTurnBase
         if (SkillManager.Instance.ShouldAskForTarget(creature.Item2))
         {
             EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, creature.card, true));
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             var target = _targetingAi.BestTarget(creature.card.Skill.GetTargetType(), nameof(creature.card.Skill));
             if (target.Equals(default))
             {

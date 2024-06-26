@@ -19,7 +19,7 @@ namespace Networking
         
         public const string UpdateUserData = "user-data/update";
         
-        public const string GameNews = "game-news";
+        public const string GameNews = "game-news/all";
         public const string NewsNotification = "viewed-news/has-seen";
         public const string UpdateNews = "viewed-news/update";
         

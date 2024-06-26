@@ -63,7 +63,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  CardName: Quantum Pillar
+  CardName: Quantum Tower
   cardImage: {fileID: 21300000, guid: 208cb847d081c460fbfe9935d7590a2d, type: 3}
   Id: 6qq
   Cost: 0

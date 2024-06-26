@@ -73,6 +73,8 @@ public class SplashScreen : MonoBehaviour
     }
     private void Start()
     {
+        PlayerPrefs.SetInt("IsGuest", 0);
+        PlayerPrefs.SetInt("IsTrainer", 0);
         SoundManager.Instance.PlayBGM("LoginScreen");
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 30;
@@ -120,7 +122,7 @@ public class SplashScreen : MonoBehaviour
             return;
         }
 
-        if (appInfo.IsMaintenance)
+        if (appInfo.isMaintenance)
         {
             var popUpObject = Instantiate(popUpModal, popUpParent);
             popUpObject.GetComponent<PopUpModal>().SetupModal(LanguageManager.Instance.LanguageStringController.SplashMaintenanceModalTitle, 
@@ -129,7 +131,7 @@ public class SplashScreen : MonoBehaviour
             return;
         }
         
-        if (appInfo.ShouldUpdate)
+        if (appInfo.shouldUpdate)
         {
             var popUpObject = Instantiate(popUpModal, popUpParent);
             popUpObject.GetComponent<PopUpModal>().SetupModal(LanguageManager.Instance.LanguageStringController.SplashForcedUpdateModalTitle, 

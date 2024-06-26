@@ -23,7 +23,7 @@ public static class EventBus<T> where T : IEvent
     {
         var animSpeed = PlayerPrefs.GetFloat("AnimSpeed");
         if(bindings.Count == 0 ) {yield break;}
-        foreach (var binding in bindings)
+        foreach (var binding in bindings.ToList())
         {
             binding.Event.Invoke(@event);
             binding.EventNoArgs.Invoke();

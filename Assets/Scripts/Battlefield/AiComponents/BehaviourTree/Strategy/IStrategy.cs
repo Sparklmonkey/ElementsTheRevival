@@ -1,5 +1,5 @@
 ﻿public interface IStrategy
 {
-    Node.Status Process();
+    Node.Status Process((Card card, ID id) cardId);
     void Reset();
 }

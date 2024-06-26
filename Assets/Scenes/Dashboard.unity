@@ -1870,6 +1870,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &72429359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3716,6 +3718,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &162861679
 GameObject:
   m_ObjectHideFlags: 0
@@ -4199,7 +4203,7 @@ GameObject:
   - component: {fileID: 181774785}
   - component: {fileID: 181774782}
   m_Layer: 5
-  m_Name: Button
+  m_Name: RedeemButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4331,6 +4335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &183716545
 GameObject:
   m_ObjectHideFlags: 0
@@ -4943,6 +4949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &202635070
 GameObject:
   m_ObjectHideFlags: 0
@@ -5912,6 +5920,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &259070272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7914,6 +7924,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &345617157
 GameObject:
   m_ObjectHideFlags: 0
@@ -8232,6 +8244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &368093266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10995,6 +11009,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &514155205
 GameObject:
   m_ObjectHideFlags: 0
@@ -11507,6 +11523,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &546275716
 GameObject:
   m_ObjectHideFlags: 0
@@ -11967,6 +11985,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &577163201
 GameObject:
   m_ObjectHideFlags: 0
@@ -15119,6 +15139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &816312168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16846,6 +16868,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &916330341
 GameObject:
   m_ObjectHideFlags: 0
@@ -18174,6 +18198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &1004078738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18376,6 +18402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &1006303166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23600,6 +23628,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &1222552191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24278,6 +24308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &1264083297
 GameObject:
   m_ObjectHideFlags: 0
@@ -24594,6 +24626,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &1274264547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26853,6 +26887,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &1350255968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27510,6 +27546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &1390371784
 GameObject:
   m_ObjectHideFlags: 0
@@ -27919,6 +27957,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &1412590942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28765,6 +28805,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &1466343682
 GameObject:
   m_ObjectHideFlags: 0
@@ -30338,6 +30380,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &1552674377
 GameObject:
   m_ObjectHideFlags: 0
@@ -31296,6 +31340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &1627577147
 GameObject:
   m_ObjectHideFlags: 0
@@ -33539,6 +33585,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &1755628512
 GameObject:
   m_ObjectHideFlags: 0
@@ -35431,6 +35479,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &1850105330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37056,6 +37106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!1 &1984116232
 GameObject:
   m_ObjectHideFlags: 0
@@ -37152,6 +37204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &1984116236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37413,6 +37467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &1995384413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38155,6 +38211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &2030267554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38503,6 +38561,8 @@ MonoBehaviour:
   versionLabel: {fileID: 1286142318}
   oracleButton: {fileID: 574070953}
   falseGobButton: {fileID: 1964908673}
+  achieveButton: {fileID: 2056968109}
+  redeemButton: {fileID: 181774782}
 --- !u!4 &2035341976
 Transform:
   m_ObjectHideFlags: 0
@@ -38834,6 +38894,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9976df7f8781394d86121846aa02294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTransitionButton: 0
+  nextScene: 
 --- !u!114 &2056968111
 MonoBehaviour:
   m_ObjectHideFlags: 0

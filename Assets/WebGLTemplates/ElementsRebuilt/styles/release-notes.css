@@ -1,0 +1,53 @@
+body {
+  background-color: #331100;
+}
+
+.frame{
+ background-image: url('../img/tribal.jpg');
+  margin: auto;
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.page-title {
+  font-family: title-font;
+  color: #634930;
+  text-shadow: #C9BAAB 5px 5px 5px;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: center;
+  font-size: 6vw;
+}
+
+.top-bar {
+  padding-left: 7.5%;
+  padding-right: 7.5%;
+}
+
+.bullet-point {
+  width: 50px;
+  height: 50px;
+}
+
+.navigation-list {
+margin: 2% auto 0 auto;
+  /* width: 25vw; */
+}
+.etg-button {
+  width: 320px;
+  height: 64px;
+ background: url('../img/button.png');
+ background-size: cover;
+ border: 0;
+  margin-left: auto;
+  color: #FFF;
+  font-size: 30px;
+  font-family: button-font;
+}
+
+.game-container {
+  margin: 5% 12.5% 0 12.5%;
+  font-size: 48px;
+  color: #FFF;
+}

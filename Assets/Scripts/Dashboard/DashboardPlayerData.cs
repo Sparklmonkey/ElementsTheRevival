@@ -10,7 +10,7 @@ public class DashboardPlayerData : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI playerScore, playerWins, playerLoses, electrumCount, oracleText, saveStatus, versionLabel;
     [SerializeField]
-    private Button oracleButton, falseGobButton;
+    private Button oracleButton, falseGobButton, achieveButton, redeemButton;
     private static GameObject _touchBlocker;
 
     private void Start()
@@ -22,10 +22,14 @@ public class DashboardPlayerData : MonoBehaviour
 
     private async void GetAchievementsResponse()
     {
+        if (PlayerPrefs.GetInt("IsGuest") == 1 || ApiManager.IsTrainer)
+        {
+            achieveButton.enabled = false;
+            redeemButton.enabled = false;
+            return;
+        }
         var achievements = await ApiManager.Instance.GetPlayersAchievements();
         SessionManager.Instance.Achievements = achievements.achievements;
-        Debug.Log(achievements.achievements.ToString());
-        Debug.Log(JsonUtility.ToJson(achievements));
     }
 
     private void OnDisable()

@@ -396,7 +396,7 @@ public class PlayerManager : MonoBehaviour
 
     private void UpdateCloakEffect(UpdateCloakParentEvent updateCloakParentEvent)
     {
-        if (owner.Equals(OwnerEnum.Player)) { return; }
+        if (updateCloakParentEvent.Id.IsOwnedBy(OwnerEnum.Player)) { return; }
 
         if (updateCloakParentEvent.IsAdd)
         {

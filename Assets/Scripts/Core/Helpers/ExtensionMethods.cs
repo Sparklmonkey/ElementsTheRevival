@@ -317,7 +317,7 @@ public static class ExtensionMethods
         {
             var countString = item.Value.IntToBase32();
             var cardId = (item.Key.Base32ToInt() - 4000).IntToBase32();
-            var stringId = cardId;
+            var stringId = cardId.Length < 3 ? $"0{cardId}" : cardId;
             returnString += $"{countString}{stringId}X";
         }
         return returnString;

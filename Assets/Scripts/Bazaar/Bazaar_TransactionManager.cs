@@ -5,9 +5,7 @@ public class BazaarTransactionManager : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI coinCount;
-
-
-
+    
     public void SetupTransactionManager(int coinCount)
     {
         this.coinCount.text = $"{coinCount}";

@@ -69,6 +69,11 @@ namespace Networking
 
         public async Task SaveGameData()
         {
+            if (PlayerPrefs.GetInt("IsGuest") == 1)
+            {
+                PlayerData.SaveData();
+                return;
+            }
             var response = await SendPutRequest<SaveDataRequest, SaveDataResponse>(Endpointbuilder.UpdateSaveData,new SaveDataRequest(){ savedData = PlayerData.Shared});
             _jwtToken = response.newToken;
         }
@@ -100,7 +105,7 @@ namespace Networking
 
         public async Task<GetAchievementsResponse> GetPlayersAchievements()
         {
-            return await SendPostRequest<SaveDataRequest, GetAchievementsResponse>(Endpointbuilder.GetAchievements, new SaveDataRequest(){ savedData = PlayerData.Shared});
+            return await SendGetRequest<GetAchievementsResponse>(Endpointbuilder.GetAchievements);
         }
 
         public async Task<AppInfo> GetAppInfo()
@@ -154,9 +159,9 @@ namespace Networking
 
     public class AppInfo
     {
-        public bool IsMaintenance;
-        public bool ShouldUpdate;
-        public string UpdateNote;
+        public bool isMaintenance;
+        public bool shouldUpdate;
+        public string updateNote;
     }
 
     public class SaveDataResponse

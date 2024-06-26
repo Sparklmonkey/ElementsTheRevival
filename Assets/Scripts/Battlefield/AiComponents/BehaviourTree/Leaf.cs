@@ -7,7 +7,7 @@
         _strategy = strategy;
     }
 
-    public override Status Process() => _strategy.Process();
+    // public override Status Process() => _strategy.Process();
     public override void Reset() => _strategy.Reset();
 }
 
