@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Battlefield\FieldManager\PassiveManager.cs" />
     <Compile Include="Assets\Scripts\Core\FixedStrings\Languages\SpanishLanguageController.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\SwarmPlayRemoveAbility.cs" />
+    <Compile Include="Assets\Scripts\GameStats\GameStatsFilterManager.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\VoidEndTurn.cs" />
     <Compile Include="Assets\Scripts\Networking\Responses\CodeRedemptionResponse.cs" />
     <Compile Include="Assets\Scripts\Core\PvpUserInfo.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Assets\Scripts\Battlefield\ToolTipCanvas.cs" />
     <Compile Include="Assets\Scripts\Core\Classes\ID.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\PlaySoundEffectEvent.cs" />
+    <Compile Include="Assets\Scripts\Core\Classes\AiDeckBuilder.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Weapon\DaggerSkill.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Earthquake.cs" />
     <Compile Include="Assets\Scripts\Spinner\SpinManager.cs" />
@@ -418,6 +420,7 @@
     <Compile Include="Assets\Scripts\Dashboard\Quests.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abstract\CardManager.cs" />
     <Compile Include="Assets\Scripts\Core\Helpers\ImageHelper.cs" />
+    <Compile Include="Assets\Scripts\Core\Classes\GolemHelper.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Enum\DetailButtonCase.cs" />
     <Compile Include="Assets\Scripts\StarterDeckCardHead.cs" />
     <Compile Include="Assets\Scripts\Networking\Requests\LoginRequest.cs" />
@@ -477,6 +480,7 @@
     <Compile Include="Assets\Scripts\Battlefield\AiComponents\AiTurnBase.cs" />
     <Compile Include="Assets\Scripts\Dashboard\Error_Animated.cs" />
     <Compile Include="Assets\Scripts\Deck Manager\DeckDisplayManager.cs" />
+    <Compile Include="Assets\Scripts\Core\Classes\MutantHelper.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Ignite.cs" />
     <Compile Include="Assets\Scripts\Events\EventBus.cs" />
     <Compile Include="Assets\Scripts\Core\Networking\Response\CodeDetails.cs" />

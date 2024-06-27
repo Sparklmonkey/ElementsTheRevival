@@ -114,7 +114,6 @@ public class AiStateMachine
                 if(_aiManager.playerHand.ShouldDiscard()) { _aiTurn.DiscardCard(_aiManager); }
                 _aiTurn.ResetSkipList();
                 yield return _aiManager.StartCoroutine(_aiManager.EndTurnRoutine(DuelManager.Instance.ShouldEndGame));
-                _aiManager.UpdateCounterAndEffects();
                 DuelManager.Instance.EndTurn();
                 _currentState = GameState.Idle;
                 break;

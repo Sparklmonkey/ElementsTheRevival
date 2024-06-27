@@ -360,7 +360,7 @@ public class DeckDisplayManager : MonoBehaviour
                 if (cardIndex == -1) { continue; }
                 playerDeck.Add(arenaInventory[cardIndex]);
                 arenaInventory.RemoveAt(cardIndex);
-                if (CardDatabase.Instance.MarkIds.Contains(id))
+                if (CardDatabase.Instance.markIds.Contains(id))
                 {
                     markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).CostElement);
                 }
@@ -374,7 +374,7 @@ public class DeckDisplayManager : MonoBehaviour
                 if (cardIndex == -1) { continue; }
                 playerDeck.Add(playerInventory[cardIndex]);
                 playerInventory.RemoveAt(cardIndex);
-                if (CardDatabase.Instance.MarkIds.Contains(id))
+                if (CardDatabase.Instance.markIds.Contains(id))
                 {
                     markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).CostElement);
                 }
@@ -396,7 +396,7 @@ public class DeckDisplayManager : MonoBehaviour
                 if (cardIndex == -1) { continue; }
                 playerDeck.Add(arenaInventory[cardIndex]);
                 arenaInventory.RemoveAt(cardIndex);
-                if (CardDatabase.Instance.MarkIds.Contains(id))
+                if (CardDatabase.Instance.markIds.Contains(id))
                 {
                     markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).CostElement);
                 }
@@ -410,7 +410,7 @@ public class DeckDisplayManager : MonoBehaviour
                 if (cardIndex == -1) { continue; }
                 playerDeck.Add(playerInventory[cardIndex]);
                 playerInventory.RemoveAt(cardIndex);
-                if (CardDatabase.Instance.MarkIds.Contains(id))
+                if (CardDatabase.Instance.markIds.Contains(id))
                 {
                     markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).CostElement);
                 }

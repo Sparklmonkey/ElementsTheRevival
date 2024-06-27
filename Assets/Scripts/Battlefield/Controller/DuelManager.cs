@@ -152,13 +152,10 @@ public class DuelManager : MonoBehaviour
         if (BattleVars.Shared.IsPlayerTurn)
         {
             player.StartCoroutine(player.EndTurnRoutine(ShouldEndGame));
-            player.UpdateCounterAndEffects();
-            if (ShouldEndGame()) { return; }
             OpponentCardsTurn = 0;
         }
         else
         {
-            if (ShouldEndGame()) { return; }
             PlayerCardsTurn = 0;
             player.StartTurn();
             endTurnButton.interactable = true;

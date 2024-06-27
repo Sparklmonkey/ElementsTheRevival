@@ -51,7 +51,7 @@ public class PassiveCardDisplay : CardFieldDisplay
     private void SetBoneCount(SetBoneCountEvent setBoneCountEvent)
     {
         if (!setBoneCountEvent.Owner.Equals(Id.owner) || !Card.Type.Equals(CardType.Shield)) return;
-        Card.TurnsInPlay += setBoneCountEvent.Amount;
+        Card.TurnsInPlay = setBoneCountEvent.Amount;
         turnsInPlay.text = Card.TurnsInPlay.ToString();
         if (Card.TurnsInPlay <= 0)
         {

@@ -70,8 +70,8 @@ public class PlayerManager : MonoBehaviour
         switch (modifyPlayerCounterEvent.Counter)
         {
             case PlayerCounters.Bone:
-                EventBus<SetBoneCountEvent>.Raise(new SetBoneCountEvent(owner, amount));
                 playerCounters.bone += amount;
+                EventBus<SetBoneCountEvent>.Raise(new SetBoneCountEvent(owner, playerCounters.bone));
                 if (playerCounters.bone < 0) { playerCounters.bone = 0; }
                 break;
             case PlayerCounters.Invisibility:
@@ -243,7 +243,7 @@ public class PlayerManager : MonoBehaviour
         DisplayPlayableGlow();
     }
 
-    public void UpdateCounterAndEffects()
+    private void UpdateCounterAndEffects()
     {
         //Player Counters First
         if (playerCounters.freeze > 0)
@@ -504,7 +504,6 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
 
         DuelManager.Instance.GetNotIDOwner(playerID).DealPoisonDamage();
-
         yield return StartCoroutine(EventBus<OnCreatureTurnEndEvent>.RaiseCoroutine(new OnCreatureTurnEndEvent(owner)));
         yield return new WaitForSeconds(0.25f);
 
@@ -513,6 +512,9 @@ public class PlayerManager : MonoBehaviour
 
         EventBus<OnPassiveTurnEndEvent>.Raise(new OnPassiveTurnEndEvent(owner, CardType.Shield));
         yield return new WaitForSeconds(0.25f);
+        
+        UpdateCounterAndEffects();
+        
         if (gameCheck())
         {
             yield break;
@@ -530,7 +532,7 @@ public class PlayerManager : MonoBehaviour
         playerPermanentManager.SetOwner(owner);
         var markElement = owner.Equals(OwnerEnum.Player) ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
 
-        var mark = CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.MarkIds[(int)markElement]);
+        var mark = CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.markIds[(int)markElement]);
         EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(owner, mark));
         EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(owner, CardDatabase.Instance.GetPlaceholderCard(2)));
         EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(owner, CardDatabase.Instance.GetPlaceholderCard(1)));

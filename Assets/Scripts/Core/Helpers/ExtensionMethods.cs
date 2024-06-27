@@ -241,7 +241,7 @@ public static class ExtensionMethods
 
     public static bool IsBazaarLegal(this string cardID)
     {
-        if (CardDatabase.Instance.MarkIds.Contains(cardID))
+        if (CardDatabase.Instance.markIds.Contains(cardID))
         {
             return false;
         }
@@ -255,7 +255,7 @@ public static class ExtensionMethods
 
     public static bool IsDeckLegal(this string cardId)
     {
-        if (CardDatabase.Instance.MarkIds.Contains(cardId))
+        if (CardDatabase.Instance.markIds.Contains(cardId))
         {
             return false;
         }
@@ -275,7 +275,7 @@ public static class ExtensionMethods
         {
             if (item == " ") { continue; }
             if (item == "") { continue; }
-            if (CardDatabase.Instance.MarkIds.Contains(item)) { markId = item; continue; }
+            if (CardDatabase.Instance.markIds.Contains(item)) { markId = item; continue; }
             if (cardDict.ContainsKey(item))
             {
                 cardDict[item]++;

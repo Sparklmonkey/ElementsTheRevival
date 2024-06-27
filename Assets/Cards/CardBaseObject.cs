@@ -94,7 +94,7 @@ public class Card : SerializedScriptableObject
     [HideInInspector]
     public bool IsPendulumTurn;
     
-    public int DefNow => Def + DefModify - DefDamage;
+    public int DefNow => Def + DefModify - _defDamage;
     public int AtkNow => Atk + AtkModify;
     public int DefModify { get; set; }
     private int _defDamage;
@@ -104,7 +104,7 @@ public class Card : SerializedScriptableObject
         get => _defDamage;
         set
         {
-            _defDamage += value;
+            _defDamage = value;
             if (_defDamage < 0)
             {
                 _defDamage = 0;

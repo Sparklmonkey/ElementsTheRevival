@@ -29,7 +29,7 @@ namespace Elements.Duel.Manager
             {
                 return;
             }
-            Card newCard = _deck[0].Clone();
+            var newCard = _deck[0].Clone();
             _deck.RemoveAt(0);
             EventBus<AddDrawCardActionEvent>.Raise(new AddDrawCardActionEvent(newCard, _owner));
             EventBus<DeckCountChangeEvent>.Raise(new DeckCountChangeEvent(_deck.Count, _owner));
