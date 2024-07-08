@@ -10,6 +10,10 @@ public class Beserk : ActivatedAbility
         if (!IsCardValid(targetId, targetCard)) return;
         targetCard.AtkModify += 6;
         targetCard.DefModify -= 6;
+        if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
+        {
+            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(6, true, false, targetId.owner.Not()));
+        }
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 

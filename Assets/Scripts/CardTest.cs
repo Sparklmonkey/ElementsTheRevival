@@ -13,23 +13,16 @@ public class CardTest : MonoBehaviour
         ViewedNewsTest();
     }
 
-    private async void ViewedNewsTest()
+    private void ViewedNewsTest()
     {
-        
-        var response = await ApiManager.Instance.LoginController(new LoginRequest
+        for (int i = 0; i < 12; i++)
         {
-            username = "TheGreat",
-            password = "TheGreat"
-        }, Endpointbuilder.UserCredentialLogin);
-
-        var testOne = await ApiManager.Instance.HasSeenLatestNews();
-        Debug.Log(testOne.booleanValue);
-        
-        var testTwo = await ApiManager.Instance.UpdateSeenNews(new ViewedNewsRequest
-        {
-            newsId = 1
-        });
-        Debug.Log(testTwo.booleanValue);
+            var regularNymph = CardDatabase.Instance.GetRandomRegularNymph((Element)i);
+            var uppedNymph = CardDatabase.Instance.GetRandomEliteNymph((Element)i);
+            Debug.Log($"Regular ID: {regularNymph.Id}");
+            Debug.Log($"Upped ID: {uppedNymph.Id}");
+            Debug.Log($"Element: {(Element)i}");
+        }
     } 
 }
 

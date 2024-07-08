@@ -11,6 +11,7 @@ namespace Networking
     {
         public static bool IsTrainer => PlayerPrefs.GetInt("IsTrainer") == 1;
         private string _jwtToken;
+        // private readonly string _baseUrl =  "https://www.elementstherevival.com/api/";
 #if UNITY_EDITOR
         private readonly string _baseUrl =  "http://localhost:5158/api/";
 #else

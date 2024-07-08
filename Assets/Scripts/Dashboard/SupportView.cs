@@ -1,10 +1,28 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SupportView : MonoBehaviour
 {
+
+    public GameObject webObject;
+    public Image webImage;
+    public TextMeshProUGUI webText;
+    public Sprite coffeeSprite, webSprite;
+    private void Awake()
+    {
+#if Android
+        webText.text = "Website";
+        webImage.sprite = webSprite;
+#else
+        webText.text = "Ko-fi";
+        webImage.sprite = coffeeSprite;
+#endif
+    }
+
     public void OpenOetgDiscord()
     {
         Application.OpenURL("https://discord.gg/6GG9j4xzek");
@@ -14,10 +32,6 @@ public class SupportView : MonoBehaviour
     {
         Application.OpenURL("https://discord.gg/XQs6Muman3");
     }
-
-    public GameObject webObject;
-    public Image webImage;
-    public TextMeshProUGUI webText;
     public void EmailSparky()
     {
         //email Id to send the mail to
@@ -32,9 +46,18 @@ public class SupportView : MonoBehaviour
 
     }
 
-    public void OpenWebSite()
+    public void OpenTwitchChannel()
     {
         Application.OpenURL("https://www.twitch.tv/sparklmonkey");
+    }
+
+    public void OpenKofiOrWeb()
+    {
+        #if Android
+            Application.OpenURL("https://www.elementstherevival.com/");
+        #else
+            Application.OpenURL("https://ko-fi.com/sparklmonkey");
+        #endif
     }
 
     private string MyEscapeURL(string url)

@@ -103,7 +103,7 @@ public class PermanentCardDisplay : CardFieldDisplay
     {
         if (!clearCardDisplayEvent.Id.Equals(Id)) return;
 
-        StackCountValue--;
+        StackCountValue =- clearCardDisplayEvent.Stack;
         CheckOnRemoveEffects();
         if (StackCountValue <= 0)
         {

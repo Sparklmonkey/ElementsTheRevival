@@ -8,7 +8,7 @@ public class Sniper : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        targetCard.DefDamage += 3;
+        targetCard.SetDefDamage(3);
         if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
         {
             EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(3, true, false, targetId.owner.Not()));

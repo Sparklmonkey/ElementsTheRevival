@@ -15,7 +15,7 @@ public class Lightning : ActivatedAbility
             return;
         }
 
-        targetCard.DefDamage += 5;
+        targetCard.SetDefDamage(5);
         if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
         {
             EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(5, true, false, targetId.owner.Not()));

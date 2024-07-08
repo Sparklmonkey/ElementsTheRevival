@@ -12,7 +12,7 @@ public class Guard : ActivatedAbility
         BattleVars.Shared.AbilityCardOrigin.Counters.Delay++;
         if (!targetCard.innateSkills.Airborne)
         {
-            targetCard.DefDamage += BattleVars.Shared.AbilityCardOrigin.AtkNow;
+            targetCard.SetDefDamage(BattleVars.Shared.AbilityCardOrigin.AtkNow);
         }
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(BattleVars.Shared.AbilityIDOrigin, BattleVars.Shared.AbilityCardOrigin, true));

@@ -61,7 +61,6 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (!HasCard()) { return; }
         if (card.Type.Equals(CardType.Creature))
         {
-            if (card.DefDamage < 0) { card.DefDamage = 0; }
             if (card.DefNow <= 0)
             {
                 EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(id));

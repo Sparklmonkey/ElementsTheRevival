@@ -23,7 +23,7 @@ public class Ignite : ActivatedAbility
         }
         else
         {
-            targetCard.DefDamage += 1;
+            targetCard.SetDefDamage(1);
             EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         }
     }

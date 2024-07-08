@@ -21,11 +21,11 @@ public class Icebolt : ActivatedAbility
             return;
         }
 
-        targetCard.DefDamage += damageToDeal;
+        targetCard.SetDefDamage(damageToDeal);
         targetCard.Counters.Freeze += willFreeze ? 3 : 0;
         if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
         {
-            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(targetCard.DefNow < damageToDeal ? targetCard.DefNow : damageToDeal, true, false, targetId.owner.Not()));
+            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damageToDeal, true, false, targetId.owner.Not()));
             EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Freeze, targetId.owner.Not(), willFreeze ? 3 : 0));
         }
 

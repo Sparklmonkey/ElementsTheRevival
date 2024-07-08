@@ -9,15 +9,12 @@ public class Tsunami : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        for (int i = 0; i < 3; i++)
-        {
-            EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
-        }
+        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId, 3));
     }
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return id.IsPermanentField() && card.IsTargetable(id);
+        return card.Type.Equals(CardType.Pillar) && id.IsPermanentField() && card.IsTargetable(id);
     }
     
     public override AiTargetType GetTargetType()

@@ -209,6 +209,7 @@ public class CreatureCardDisplay : CardFieldDisplay
         var adrenalineIndex = 0;
         var hasAdrenaline = Card.passiveSkills.Adrenaline;
         var isFirstAttack = true;
+        var initialAtk = Card.AtkNow;
         var atkNow = Card.Counters.Freeze > 0 || 
                      Card.Counters.Delay > 0 ? 0 : Card.AtkNow;
 
@@ -223,13 +224,12 @@ public class CreatureCardDisplay : CardFieldDisplay
                 adrenalineIndex++;
                 if (atkNow != 0)
                 {
-                    var adrIndex = Mathf.Clamp(Mathf.Abs(atkNow), 0, 14);
-                    if (DuelManager.AdrenalineDamageList[adrIndex].Count <= adrenalineIndex)
+                    if (DuelManager.AdrenalineDamageList[initialAtk].Count <= adrenalineIndex)
                     {
                         break;
                     }
 
-                    atkNow = DuelManager.AdrenalineDamageList[adrIndex][adrenalineIndex];
+                    atkNow = DuelManager.AdrenalineDamageList[initialAtk][adrenalineIndex];
                     if (Card.passiveSkills.Antimatter)
                     {
                         atkNow = -atkNow;

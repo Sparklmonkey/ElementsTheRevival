@@ -94,21 +94,17 @@ public class Card : SerializedScriptableObject
     [HideInInspector]
     public bool IsPendulumTurn;
     
-    public int DefNow => Def + DefModify - _defDamage;
+    public int DefNow => Def + DefModify - DefDamage;
     public int AtkNow => Atk + AtkModify;
     public int DefModify { get; set; }
-    private int _defDamage;
+    public int DefDamage { get; private set; }
 
-    public int DefDamage
+    public void SetDefDamage(int amount)
     {
-        get => _defDamage;
-        set
+        DefDamage += amount;
+        if (DefDamage < 0)
         {
-            _defDamage = value;
-            if (_defDamage < 0)
-            {
-                _defDamage = 0;
-            }
+            DefDamage = 0;
         }
     }
 
@@ -144,4 +140,112 @@ public struct CardCounters
     public int Freeze;
     public int Delay;
     public int Aflatoxin;
+}
+
+public struct CardStruct
+{
+    public string CardName;
+    public Sprite CardImage;
+    public string Id;
+    public int Cost;
+    public Element CardElement;
+    public Element CostElement;
+    public int Rarity;
+    
+    public string Desc;
+
+    public DeathTriggerAbility DeathTriggerAbility;
+    public OnPlayRemoveAbility PlayRemoveAbility;
+    public OnEndTurnAbility TurnEndAbility;
+    
+    public CardType Type;
+    
+    public int Atk;
+    public int Def;
+    
+    public WeaponSkill WeaponPassive;
+    
+    public ShieldSkill ShieldPassive;
+    
+    public ActivatedAbility Skill;
+    public int SkillCost;
+    public Element SkillElement;
+    
+    public PassiveSkills passiveSkills;
+    
+    public InnateSkills innateSkills;
+    
+    public CardCounters Counters;
+
+    public bool AbilityUsed;
+    public bool ReadyUsed;
+
+    public bool HasTurnLimit;
+    public int TurnsInPlay;
+    
+    public bool IsPendulumTurn;
+    
+    public int DefNow => Def + DefModify - DefDamage;
+    public int AtkNow => Atk + AtkModify;
+    public int DefModify { get; set; }
+    public int DefDamage { get; private set; }
+
+    public void SetDefDamage(int amount)
+    {
+        DefDamage += amount;
+        if (DefDamage < 0)
+        {
+            DefDamage = 0;
+        }
+    }
+
+    public int AtkModify { get; set; }
+
+    public CardStruct(Card cardBase) : this()
+    {
+        CardName = cardBase.CardName;
+        CardImage = cardBase.cardImage;
+        Id = cardBase.Id;
+        Cost = cardBase.Cost;
+        CardElement = cardBase.CardElement;
+        CostElement = cardBase.CostElement;
+        Rarity = cardBase.Rarity;
+        Desc = cardBase.Desc;
+        DeathTriggerAbility = cardBase.DeathTriggerAbility;
+        PlayRemoveAbility = cardBase.PlayRemoveAbility;
+        TurnEndAbility = cardBase.TurnEndAbility;
+        Type = cardBase.Type;
+        Atk = cardBase.Atk;
+        Def = cardBase.Def;
+        WeaponPassive = cardBase.WeaponPassive;
+        ShieldPassive = cardBase.ShieldPassive;
+        Skill = cardBase.Skill;
+        SkillCost = cardBase.SkillCost;
+        SkillElement = cardBase.SkillElement;
+        passiveSkills = cardBase.passiveSkills;
+        innateSkills = cardBase.innateSkills;
+        Counters = cardBase.Counters;
+        AbilityUsed = cardBase.AbilityUsed;
+        ReadyUsed = cardBase.ReadyUsed;
+        HasTurnLimit = cardBase.HasTurnLimit;
+        TurnsInPlay = cardBase.TurnsInPlay;
+        IsPendulumTurn = cardBase.IsPendulumTurn;
+    }
+
+    public bool IsAbilityUsable(QuantaCheck quantaCheck, int handCount)
+    {
+        if (Skill is null) return false;
+        if (Counters.Delay > 0) return false;
+        if (Counters.Freeze > 0) return false;
+        if (Type is CardType.Shield or CardType.Pillar or CardType.Mark) return false;
+        if (passiveSkills.Readiness)
+        {
+            if (AbilityUsed && ReadyUsed) return false;
+        }
+        else if (AbilityUsed) return false;
+        if (!quantaCheck(SkillElement, SkillCost)) return false;
+        if (Skill is Hasten && handCount >= 8) return false;
+
+        return true;
+    }
 }

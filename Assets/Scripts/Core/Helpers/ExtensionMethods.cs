@@ -262,7 +262,7 @@ public static class ExtensionMethods
         return !bazaarIllegalIds.Contains(cardId);
     }
 
-    private static readonly List<string> bazaarIllegalIds = new() { "4sj", "4sk", "4sl", "4sm", "4sn", "4so", "4sp", "4sq", "4sr", "4st", "8pu", "4t8", "4vr", "4t1", "4t2", "8pu", "8pr", "8pt", "8pq", "8pk", "8pm", "8pj", "8ps", "8po", "8pl", "8pn", "8pp" };
+    private static readonly List<string> bazaarIllegalIds = new() { "4sj", "5fd", "7dt", "4sk", "4sl", "4sm", "4sn", "4so", "4sp", "4sq", "4sr", "4st", "8pu", "4t8", "4vr", "4t1", "4t2", "8pu", "8pr", "8pt", "8pq", "8pk", "8pm", "8pj", "8ps", "8po", "8pl", "8pn", "8pp" };
 
 
     public static string ConvertLegacyToOetg(this string legacyCode)

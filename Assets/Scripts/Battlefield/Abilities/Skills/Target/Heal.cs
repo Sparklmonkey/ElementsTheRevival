@@ -8,7 +8,7 @@ public class Heal : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        targetCard.DefDamage -= 5;
+        targetCard.SetDefDamage(-5);
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
     public override bool IsCardValid(ID id, Card card)

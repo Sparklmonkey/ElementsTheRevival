@@ -4,6 +4,14 @@
     {
         public override void OnPlayActivate(ID owner, Card card)
         {
+            if (BattleVars.Shared.AbilityCardOrigin is not null)
+            {
+                if (BattleVars.Shared.AbilityCardOrigin.Skill is Steal)
+                {
+                    EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Bone, owner.owner, 1));
+                    return;
+                }
+            }
             EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Bone, owner.owner, 7));
         }
 

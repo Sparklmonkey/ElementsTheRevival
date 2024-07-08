@@ -10,6 +10,11 @@ public class Rage : ActivatedAbility
         if (!IsCardValid(targetId, targetCard)) return;
         targetCard.AtkModify += 5;
         targetCard.DefModify -= 5;
+        
+        if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
+        {
+            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(5, true, false, targetId.owner.Not()));
+        }
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
     public override bool IsCardValid(ID id, Card card)

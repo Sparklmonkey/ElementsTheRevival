@@ -21,7 +21,7 @@ public class Drainlife : ActivatedAbility
         }
 
         var defPlaceHolder = targetCard.DefNow;
-        targetCard.DefDamage += damageToDeal;
+        targetCard.SetDefDamage(damageToDeal);
         var amountToHeal = targetCard.DefNow > 0 ? damageToDeal : defPlaceHolder;
 
         EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(amountToHeal, false, false, BattleVars.Shared.AbilityIDOrigin.owner));

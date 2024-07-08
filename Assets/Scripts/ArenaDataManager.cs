@@ -24,16 +24,12 @@ public class ArenaDataManager : MonoBehaviour
         BattleVars.Shared.ResetBattleVars();
         _enemyAi = Resources.Load<EnemyAi>("EnemyAi/Arena/Random");
         playerMark.sprite = ImageHelper.GetElementImage(PlayerData.Shared.arenaT50Mark.ToString());
-        if (_arenaResponse == null)
-        {
-            _arenaResponse = await ApiManager.Instance.GetT50Opponent();
-        }
+        _arenaResponse = await ApiManager.Instance.GetT50Opponent();
         ArenaResponseHandler(_arenaResponse);
     }
 
     public void StartGame()
     {
-
         if (PlayerData.Shared.GetArenaTFifty().Count < 30)
         {
             responseText.text = "Please set a deck to use in Arena T50. \n You can do so by tapping the 'Modify Deck' button";
@@ -55,7 +51,6 @@ public class ArenaDataManager : MonoBehaviour
             responseText.text = "No opponent found, try again later";
             return;
         }
-
         oppInfo.SetActive(true);
         oppMark.sprite = ImageHelper.GetElementImage(((Element)arenaResponse.arenaT50Mark).FastElementString());
         oppName.text = arenaResponse.username;

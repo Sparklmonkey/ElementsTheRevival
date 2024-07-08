@@ -8,6 +8,7 @@ public class Flying : ActivatedAbility
     public override bool IsCardValid(ID targetId, Card targetCard)
     {
         if (targetCard is null) return false;
+        if (targetCard.Id == "4t2") return false;
         return  targetCard.Type == CardType.Weapon && targetId.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner);
     }
 

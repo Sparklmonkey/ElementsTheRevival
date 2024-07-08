@@ -19,7 +19,7 @@ public class Firebolt : ActivatedAbility
             return;
         }
 
-        targetCard.DefDamage += damageToDeal;
+        targetCard.SetDefDamage(damageToDeal);
         if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
         {
             EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(targetCard.DefNow < damageToDeal ? targetCard.DefNow : damageToDeal, true, false, targetId.owner.Not()));

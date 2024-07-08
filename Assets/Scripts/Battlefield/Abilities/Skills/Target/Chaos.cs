@@ -22,24 +22,38 @@ public class Chaos : ActivatedAbility
                 targetCard.Counters.Poison++;
                 break;
             case 1:
-                targetCard.DefDamage += 5;
+                targetCard.SetDefDamage(5);
+                
+                if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
+                {
+                    EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(5, true, false, targetId.owner.Not()));
+                }
                 break;
             case 2:
                 var waterQ = DuelManager.Instance.GetIDOwner(BattleVars.Shared.AbilityIDOrigin).GetAllQuantaOfElement(Element.Water);
                 var damageToDeal = 2 + Mathf.FloorToInt(waterQ / 10) * 2;
                 var willFreeze = Random.Range(0, 100) > 30 + damageToDeal * 5;
 
-                targetCard.DefDamage += damageToDeal;
+                targetCard.SetDefDamage(damageToDeal);
                 if (willFreeze)
                 {
                     targetCard.Counters.Freeze = 3;
+                }
+                if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
+                {
+                    EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damageToDeal, true, false, targetId.owner.Not()));
+                    EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Freeze, targetId.owner.Not(), willFreeze ? 3 : 0));
                 }
                 break;
             case 3:
                 waterQ = DuelManager.Instance.GetIDOwner(BattleVars.Shared.AbilityIDOrigin).GetAllQuantaOfElement(Element.Fire);
                 damageToDeal = 2 + Mathf.FloorToInt(waterQ / 10) * 2;
 
-                targetCard.DefDamage += damageToDeal;
+                targetCard.SetDefDamage(damageToDeal);
+                if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
+                {
+                    EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damageToDeal, true, false, targetId.owner.Not()));
+                }
                 break;
             case 4:
             case 5:
@@ -59,7 +73,7 @@ public class Chaos : ActivatedAbility
                 EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
                 return;
             case 8:
-                targetCard.DefDamage += 3;
+                targetCard.SetDefDamage(3);
                 break;
             case 9:
                 if (targetCard.Counters.Freeze > 0)
@@ -67,7 +81,11 @@ public class Chaos : ActivatedAbility
                     EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
                     return;
                 }
-                targetCard.DefDamage += 4;
+                targetCard.SetDefDamage(4);
+                if (targetCard.DefNow > 0 && targetCard.innateSkills.Voodoo)
+                {
+                    EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(4, true, false, targetId.owner.Not()));
+                }
                 break;
             case 10:
                 if (targetCard.innateSkills.Mummy)

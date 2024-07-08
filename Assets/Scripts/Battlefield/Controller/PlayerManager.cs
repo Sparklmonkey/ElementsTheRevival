@@ -179,6 +179,7 @@ public class PlayerManager : MonoBehaviour
         var shield = playerPassiveManager.GetShield();
         atkNow -= shield.card.DefNow;
         card.card.DefModify -= shield.card.AtkNow;
+        if (atkNow <= 0) return 0;
         if (shield.Item2.ShieldPassive is null) { return atkNow; }
         var shieldSkill = shield.Item2.ShieldPassive;
 

@@ -13,9 +13,18 @@ namespace Battlefield.Abilities
             if (!card.passiveSkills.Antimatter)
             {
                 card.passiveSkills.Antimatter = true;
+            }
+
+            if (card.Atk > 0)
+            {
                 card.Atk *= -1;
+            }
+
+            if (card.AtkModify > 0)
+            {
                 card.AtkModify *= -1;
             }
+            
             if (!card.innateSkills.Immaterial)
             {
                 singuEffects.Add("Immaterial");

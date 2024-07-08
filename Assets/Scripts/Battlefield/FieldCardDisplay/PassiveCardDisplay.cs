@@ -160,12 +160,13 @@ public class PassiveCardDisplay : CardFieldDisplay
     private void WeaponTurnEnd()
     {
         if (!Card.Type.Equals(CardType.Weapon)) return;
+        if (Card.AtkNow == 0) return; 
         var owner = DuelManager.Instance.GetIDOwner(Id);
         var enemy = DuelManager.Instance.GetNotIDOwner(Id);
         var atkNow = Card.AtkNow;
         Card.WeaponPassive?.ModifyWeaponAtk(Id, ref atkNow);
 
-        if (!Card.passiveSkills.Momentum)
+        if (!Card.passiveSkills.Momentum && atkNow > 0)
         {
             atkNow = enemy.ManageShield(atkNow, (Id, Card));
         }

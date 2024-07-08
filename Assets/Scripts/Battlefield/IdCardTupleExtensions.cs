@@ -62,6 +62,6 @@ public static class IdCardTupleExtensions
         }
 
         var healthChange = cardPair.card.Counters.Poison;
-        cardPair.card.DefDamage += healthChange;
+        cardPair.card.SetDefDamage(healthChange);
     }
 }

@@ -11,7 +11,7 @@ public class Paralleluniverse : ActivatedAbility
         if (!IsCardValid(targetId, targetCard)) return;
         EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "ParallelUniverse", Element.Other));
         Card dupe = targetCard.Clone();
-        dupe.DefDamage = targetCard.DefDamage;
+        dupe.SetDefDamage(targetCard.DefDamage);
         dupe.DefModify = targetCard.DefModify;
         dupe.AtkModify = targetCard.AtkModify;
 

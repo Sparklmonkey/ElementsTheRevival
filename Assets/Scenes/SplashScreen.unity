@@ -1696,6 +1696,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b4877f9a50706734794385dfc968698b, type: 2}
   - {fileID: 11400000, guid: 3a5afdf1efe4497479fee5299a79c765, type: 2}
   - {fileID: 11400000, guid: a9c9ae3dcaf623449aa41ff92a138025, type: 2}
+  - {fileID: 11400000, guid: fd301cc06d653ba40a517ac38d908510, type: 2}
   StarterDecks:
   - {fileID: 11400000, guid: 524df9bb4fbe7144397098ad39c52481, type: 2}
   - {fileID: 11400000, guid: d4d4e1bd8cfdc0d44b410fa87f122573, type: 2}
@@ -2183,7 +2184,7 @@ MonoBehaviour:
   - 7k1
   - 7gs
   - 7tb
-  MarkIds:
+  markIds:
   - 8pu
   - 8pr
   - 8pt

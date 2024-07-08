@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Battlefield.Abilities;
 using Core.Helpers;
 using UnityEngine;
 
@@ -24,7 +25,14 @@ public class Steal : ActivatedAbility
                 break;
         }
         EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "Steal", Element.Other));
-        EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
+        if (targetCard.ShieldPassive is BoneSkill)
+        {
+            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Bone, targetId.owner, -1));
+        }
+        else
+        {
+            EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
+        }
     }
     public override bool IsCardValid(ID id, Card card)
     {

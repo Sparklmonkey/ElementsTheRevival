@@ -58,7 +58,7 @@ public static class ImageHelper
 
     public static Sprite GetAchievementFrame(int achievementDataRarity)
     {
-        var rarity = achievementDataRarity == 1 ? "Normal" : achievementDataRarity == 2 ? "Medium" : "Hard";
+        var rarity = achievementDataRarity == 2 ? "Hard" : achievementDataRarity == 1 ? "Medium" : "Normal";
         return Resources.Load<Sprite>($"Sprites/AchievementFrame/" + rarity);
     }
 }

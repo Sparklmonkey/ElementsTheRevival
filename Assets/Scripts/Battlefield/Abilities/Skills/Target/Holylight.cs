@@ -18,7 +18,7 @@ public class Holylight : ActivatedAbility
         var damage = targetCard.CostElement.Equals(Element.Death) || targetCard.CostElement.Equals(Element.Darkness)
             ? -10
             : 10;
-        targetCard.DefDamage -= damage;
+        targetCard.SetDefDamage(-damage);
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
     public override bool IsCardValid(ID id, Card card)
