@@ -1,0 +1,5 @@
+C:/Users/juana/Documents/Sparklmonkey_Games/Elements Mobile (1)/.utmp/RelWithDebInfo/3l5mk5a2/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/juana/Documents/Sparklmonkey_Games/Elements Mobile (1)/.utmp/RelWithDebInfo/3l5mk5a2/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+C:/Users/juana/Documents/Sparklmonkey_Games/Elements Mobile (1)/.utmp/RelWithDebInfo/3l5mk5a2/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/Users/juana/Documents/Sparklmonkey_Games/Elements Mobile (1)/.utmp/RelWithDebInfo/3l5mk5a2/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
+C:/Users/juana/Documents/Sparklmonkey_Games/Elements Mobile (1)/.utmp/RelWithDebInfo/3l5mk5a2/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir
