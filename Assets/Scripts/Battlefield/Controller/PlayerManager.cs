@@ -270,6 +270,9 @@ public class PlayerManager : MonoBehaviour
         {
             playerCounters.invisibility--;
         }
+
+        playerCounters.scarabOld += playerCounters.scarab;
+        playerCounters.scarab = 0;
         EventBus<UpdatePlayerCountersVisualEvent>.Raise(new UpdatePlayerCountersVisualEvent(playerID, playerCounters));
     }
 
@@ -350,7 +353,6 @@ public class PlayerManager : MonoBehaviour
     {
         if (!playCardFromHandEvent.Id.IsOwnedBy(owner)) return;
 
-        EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CardPlay"));
         if (playerCounters.neurotoxin > 0)
         {
             EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Neurotoxin, owner, 1));
@@ -495,6 +497,11 @@ public class PlayerManager : MonoBehaviour
 
     public IEnumerator EndTurnRoutine(IsGameOver gameCheck)
     {
+        BattleVars.Shared.CanInteract = false;
+        DuelManager.Instance.GetNotIDOwner(playerID).DealPoisonDamage();
+        yield return StartCoroutine(EventBus<OnCreatureTurnEndEvent>.RaiseCoroutine(new OnCreatureTurnEndEvent(owner)));
+        yield return new WaitForSeconds(0.25f);
+        
         yield return StartCoroutine(EventBus<OnPermanentTurnEndEvent>.RaiseCoroutine(new OnPermanentTurnEndEvent(owner, CardType.Pillar)));
         yield return new WaitForSeconds(0.25f);
 
@@ -504,9 +511,6 @@ public class PlayerManager : MonoBehaviour
         EventBus<OnPermanentTurnEndEvent>.Raise(new OnPermanentTurnEndEvent(owner, CardType.Artifact));
         yield return new WaitForSeconds(0.25f);
 
-        DuelManager.Instance.GetNotIDOwner(playerID).DealPoisonDamage();
-        yield return StartCoroutine(EventBus<OnCreatureTurnEndEvent>.RaiseCoroutine(new OnCreatureTurnEndEvent(owner)));
-        yield return new WaitForSeconds(0.25f);
 
         EventBus<OnPassiveTurnEndEvent>.Raise(new OnPassiveTurnEndEvent(owner, CardType.Weapon));
         yield return new WaitForSeconds(0.25f);
@@ -518,12 +522,14 @@ public class PlayerManager : MonoBehaviour
         
         if (gameCheck())
         {
+            BattleVars.Shared.CanInteract = true;
             yield break;
         }
         if (owner.Equals(OwnerEnum.Player))
         {
             BattleVars.Shared.ChangePlayerTurn();
         }
+        BattleVars.Shared.CanInteract = true;
     }
 
     private IEnumerator SetupPassiveDisplayers()
@@ -625,10 +631,20 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            if (BattleVars.Shared.AbilityCardOrigin.Skill is not Photosynthesis)
+            if (BattleVars.Shared.AbilityCardOrigin.passiveSkills.Readiness && BattleVars.Shared.AbilityCardOrigin.AbilityUsed)
             {
-                BattleVars.Shared.AbilityCardOrigin.AbilityUsed = true;
+                if (!BattleVars.Shared.AbilityCardOrigin.ReadyUsed)
+                {
+                    BattleVars.Shared.AbilityCardOrigin.ReadyUsed = true;
+                }
             }
+            
+            BattleVars.Shared.AbilityCardOrigin.AbilityUsed = true;
+            if (BattleVars.Shared.AbilityCardOrigin.Skill is Photosynthesis && BattleVars.Shared.AbilityCardOrigin.SkillCost > 0)
+            {
+                BattleVars.Shared.AbilityCardOrigin.AbilityUsed = false;
+            }
+
             EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(BattleVars.Shared.AbilityCardOrigin.SkillCost, BattleVars.Shared.AbilityCardOrigin.SkillElement, owner, false));
 
             if (SkillManager.Instance.ShouldAskForTarget(BattleVars.Shared.AbilityCardOrigin))

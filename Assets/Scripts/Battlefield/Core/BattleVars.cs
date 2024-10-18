@@ -9,6 +9,7 @@ public class BattleVars
         TurnCount = 0;
         HasToDiscard = false;
         IsSingularity = 0;
+        CanInteract = true;
         PlayerHp = 0;
         IsSelectingTarget = false;
         SpaceTapped = false;
@@ -26,6 +27,7 @@ public class BattleVars
     }
 
     public static BattleVars Shared = new();
+    public bool CanInteract = true;
     public float AIPlaySpeed = 0.5f;
     public int AILevel = 0;
     public Element PrimaryElement = Element.Aether;

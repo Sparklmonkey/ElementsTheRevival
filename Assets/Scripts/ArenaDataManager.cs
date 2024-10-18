@@ -75,4 +75,16 @@ public class ArenaDataManager : MonoBehaviour
         DeckDisplayManager.IsArena = true;
         SceneTransitionManager.Instance.LoadScene("DeckManagement");
     }
+
+    public void PlayAgainstSelf()
+    {
+        BattleVars.Shared.IsTest = true;
+        var opDeck = PlayerData.Shared.arenaT50Deck.ConvertCardCodeToList();
+        _enemyAi.opponentName = PlayerData.Shared.username;
+        _enemyAi.mark = PlayerData.Shared.arenaT50Mark;
+        _enemyAi.deck = string.Join(" ", opDeck);
+        BattleVars.Shared.IsArena = true;
+        BattleVars.Shared.EnemyAiData = _enemyAi;
+        SceneTransitionManager.Instance.LoadScene("Battlefield");
+    }
 }

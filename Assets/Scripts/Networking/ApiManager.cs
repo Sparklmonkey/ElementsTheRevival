@@ -11,6 +11,7 @@ namespace Networking
     {
         public static bool IsTrainer => PlayerPrefs.GetInt("IsTrainer") == 1;
         private string _jwtToken;
+        private string _accountId;
         // private readonly string _baseUrl =  "https://www.elementstherevival.com/api/";
 #if UNITY_EDITOR
         private readonly string _baseUrl =  "http://localhost:5158/api/";
@@ -41,6 +42,7 @@ namespace Networking
             request.SetRequestHeader("Content-Type", "application/json");
             request.SetRequestHeader("AppVersion", Application.version);
             request.SetRequestHeader("Authorization", $"Bearer {_jwtToken}");
+            request.SetRequestHeader("Account", $"{_accountId}");
             request.timeout = 60;
             return request;
         }
@@ -85,6 +87,7 @@ namespace Networking
         {
             var response = await SendPostRequest<LoginRequest, LoginResponse>(endPoint, loginRequest);
             _jwtToken = response.token;
+            _accountId = response.accountId;
             return response;
         }
 
@@ -92,6 +95,7 @@ namespace Networking
         {
             var response = await SendPostRequest<RegisterRequest, LoginResponse>(endPoint, registerRequest);
             _jwtToken = response.token;
+            _accountId = response.accountId;
             return response;
         }
 

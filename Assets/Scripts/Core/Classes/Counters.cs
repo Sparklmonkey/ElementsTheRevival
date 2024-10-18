@@ -14,5 +14,6 @@ public class Counters
     public int sanctuary;
     public int patience;
     public int freedom;
+    public int scarabOld;
     public int scarab;
 }

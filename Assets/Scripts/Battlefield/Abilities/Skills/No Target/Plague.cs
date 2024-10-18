@@ -14,7 +14,10 @@ public class Plague : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-
+        if (!targetCard.IsTargetable(targetId))
+        {
+            return;
+        }
         targetCard.Counters.Poison += 1;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         

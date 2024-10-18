@@ -8,7 +8,7 @@ public class FieldObjectAnimation : MonoBehaviour
 {
     [SerializeField] private Image image;
     [SerializeField] private RectTransform rectTransform;
-    [SerializeField] private int spritePerFrame = 6;
+    [SerializeField] private int spritePerFrame = 1;
 
     private int _index = 0;
     private List<Sprite> _sprites;

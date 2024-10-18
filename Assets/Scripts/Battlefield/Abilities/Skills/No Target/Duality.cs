@@ -2,7 +2,8 @@ using System.Collections.Generic;
 
 public class Duality : ActivatedAbility
 {
-    public override bool NeedsTarget() => false; public override bool IsCardValid(ID id, Card card)
+    public override bool NeedsTarget() => false; 
+    public override bool IsCardValid(ID id, Card card)
     {
         return id.Equals(
             new ID(BattleVars.Shared.AbilityIDOrigin.owner, FieldEnum.Player, 0));

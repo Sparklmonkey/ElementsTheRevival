@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public class Blackhole : ActivatedAbility
 {
     public override bool NeedsTarget() => false;
+    
     public override bool IsCardValid(ID id, Card card)
     {
         return id.Equals(

@@ -109,7 +109,7 @@ public class ScoreOneQuest : IQuest
 
     public string QuestReward => "Reward: 150";
 
-    public bool IsComplete => PlayerData.Shared.playerScore > 150;
+    public bool IsComplete => PlayerData.Shared.playerScore >= 150;
 
     public void RewardPlayer()
     {
@@ -127,7 +127,7 @@ public class ScoreTwoQuest : IQuest
 
     public string QuestReward => "Reward: A rare card";
 
-    public bool IsComplete => PlayerData.Shared.playerScore > 500;
+    public bool IsComplete => PlayerData.Shared.playerScore >= 500;
 
     public void RewardPlayer()
     {

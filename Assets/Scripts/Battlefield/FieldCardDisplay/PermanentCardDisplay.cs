@@ -103,19 +103,17 @@ public class PermanentCardDisplay : CardFieldDisplay
     {
         if (!clearCardDisplayEvent.Id.Equals(Id)) return;
 
-        StackCountValue =- clearCardDisplayEvent.Stack;
-        CheckOnRemoveEffects();
+        StackCountValue -= clearCardDisplayEvent.Stack;
         if (StackCountValue <= 0)
         {
-            EventBus<RemoveCardFromManagerEvent>.Raise(new RemoveCardFromManagerEvent(Id));
-            Destroy(gameObject);
+            ClearCardDisplay(true);
             return;
         }
 
         stackCount.text = clearCardDisplayEvent.Stack > 1 ? $"{clearCardDisplayEvent.Stack}X" : "";
         
-        EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "CardDeath", Element.Air));
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("RemoveCardFromField"));
+        ClearCardDisplay(false);
     }
     
     private void CheckOnPlayEffects()
@@ -125,15 +123,6 @@ public class PermanentCardDisplay : CardFieldDisplay
         if (Card.PlayRemoveAbility is CloakPlayRemoveAbility)
         {
             EventBus<UpdateCloakParentEvent>.Raise(new UpdateCloakParentEvent(transform, Id, true));
-        }
-    }
-
-    private void CheckOnRemoveEffects()
-    {
-        Card.PlayRemoveAbility?.OnRemoveActivate(Id, Card);
-        if (Card.PlayRemoveAbility is CloakPlayRemoveAbility)
-        {
-            EventBus<UpdateCloakParentEvent>.Raise(new UpdateCloakParentEvent(transform, Id, false));
         }
     }
 

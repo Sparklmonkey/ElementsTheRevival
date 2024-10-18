@@ -10,14 +10,17 @@ public class Wisdom : ActivatedAbility
     {
         if (!IsCardValid(targetId, targetCard)) return;
         targetCard.AtkModify += 4;
-        targetCard.passiveSkills.Psion = true;
-        targetCard.Desc = $"{targetCard.CardName}'s attacks deal spell damage.";
+        if (targetCard.innateSkills.Immaterial)
+        {
+            targetCard.passiveSkills.Psion = true;
+            targetCard.Desc = $"{targetCard.CardName}'s attacks deal spell damage.";
+        }
     }
 
     public override bool IsCardValid(ID id, Card card)
     {
         if (card is null) return false;
-        return card.Type.Equals(CardType.Creature) && card.innateSkills.Immaterial;
+        return card.Type.Equals(CardType.Creature) || (card.innateSkills.Immaterial && card.Type.Equals(CardType.Creature));
     }
 
     public override AiTargetType GetTargetType()

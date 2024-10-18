@@ -11,5 +11,6 @@ namespace Networking
         public PlayerData savedData;
         public ErrorCases errorMessage;
         public string token;
+        public string accountId;
     }
 }

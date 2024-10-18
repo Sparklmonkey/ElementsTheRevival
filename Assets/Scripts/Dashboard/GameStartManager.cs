@@ -42,7 +42,7 @@ public class GameStartManager : MonoBehaviour
                 {
                     elementDeck = Element.Aether;
                 }
-                ai = Resources.Load<EnemyAi>($"EnemyAi/Level3/{elementDeck.FastElementString()}");
+                ai = Resources.Load<EnemyAi>($"EnemyAi/Level3/Water");//{elementDeck.FastElementString()}");
                 break;
             case 4:
                 ai = Instantiate(Resources.Load<EnemyAi>("EnemyAi/Level4/Random"));

@@ -20,7 +20,7 @@ public class CreatureManager : CardManager
     }
     
     private readonly List<int> _creatureCardOrder = new() { 11, 13, 9, 10, 12, 14, 8, 16, 18, 20, 22, 0, 2, 4, 6, 15, 17, 19, 21, 1, 3, 5, 7 };
-    private readonly List<int> _safeZones = new() { 11, 13, 10, 12, 14 };
+    private readonly List<int> _safeZones = new() { 10, 12, 9, 11, 13 };
     
     public void PlayCreature(PlayCreatureOnFieldEvent playCardOnFieldEvent)
     {
@@ -50,13 +50,4 @@ public class CreatureManager : CardManager
         }
         return false;
     }
-
-    // private void InstantiateCreature(int index, Card card)
-    // {
-    //     var id = new ID(_owner, FieldEnum.Creature, index);
-    //     var creatureCardObject = Instantiate(creaturePrefab, creaturePositions[index]);
-    //     creatureCardObject.GetComponent<CreatureCardDisplay>().SetupId(id);
-    //
-    //     EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(id, card, false));
-    // }
 }

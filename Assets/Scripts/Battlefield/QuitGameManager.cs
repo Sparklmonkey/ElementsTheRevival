@@ -1,3 +1,4 @@
+using System;
 using Networking;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,14 @@ public class QuitGameManager : MonoBehaviour
             PlayerData.Shared.arenaLosses++;
         }
 
+        coinsLost.text = BattleVars.Shared.EnemyAiData.costToPlay.ToString();
+        coinsLeft.text = PlayerData.Shared.electrum.ToString();
+        gameTurns.text = BattleVars.Shared.TurnCount.ToString();
+        var gameTimeInSeconds = (DateTime.Now - BattleVars.Shared.GameStartInTicks).TotalSeconds;
+        gameTurns.text = $"{BattleVars.Shared.TurnCount}";
+        gameTime.text = $"{(int)gameTimeInSeconds}";
+        
+        
         PlayerData.Shared.gamesLost++;
         PlayerData.Shared.playerScore -= BattleVars.Shared.EnemyAiData.scoreWin / 2;
         PlayerData.Shared.playerScore = PlayerData.Shared.playerScore < 0 ? 0 : PlayerData.Shared.playerScore;

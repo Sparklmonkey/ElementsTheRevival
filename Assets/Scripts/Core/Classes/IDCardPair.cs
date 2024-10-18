@@ -80,7 +80,7 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        ToolTipCanvas.Instance.HideToolTip();
+        EventBus<DisplayCardToolTipEvent>.Raise(new DisplayCardToolTipEvent(id, card, true));
         if (!HasCard() && id.field != FieldEnum.Player) { return; }
         // EventBus<CardTappedEvent>.Raise(new CardTappedEvent(this));
     }
@@ -91,12 +91,12 @@ public class IDCardPair : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (id.field == FieldEnum.Hand && id.owner == OwnerEnum.Opponent) { return; }
         var rectTransform = GetComponent<RectTransform>();
         Vector2 objectSize = new(rectTransform.rect.height, rectTransform.rect.width);
-        ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, card, id.index + 1, id.field == FieldEnum.Creature);
+        EventBus<DisplayCardToolTipEvent>.Raise(new DisplayCardToolTipEvent(id, card, false));
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        ToolTipCanvas.Instance.HideToolTip();
+        EventBus<DisplayCardToolTipEvent>.Raise(new DisplayCardToolTipEvent(id, card, true));
     }
 
 }

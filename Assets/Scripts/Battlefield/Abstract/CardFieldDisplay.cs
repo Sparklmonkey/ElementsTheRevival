@@ -1,4 +1,6 @@
-﻿using Core.Helpers;
+﻿using Battlefield.Abilities;
+using Core.Helpers;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,8 +20,20 @@ namespace Battlefield.Abstract
             Id = newId;
             fieldObjectAnimation.SetupId(newId);
             RegisterEvents();
+            PlaySoundEffect();
         }
 
+        private void PlaySoundEffect()
+        {
+            if (Id.IsFromHand())
+            {
+            }
+            else
+            {
+                EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CardPlay"));
+            }
+
+        }
         private void RegisterEvents()
         {
             if (!Id.IsFromHand())
@@ -113,21 +127,44 @@ namespace Battlefield.Abstract
             {
                 EventBus<CardTappedEvent>.Raise(new CardTappedEvent(Id, Card));
             }
-            ToolTipCanvas.Instance.HideToolTip();
+            EventBus<DisplayCardToolTipEvent>.Raise(new DisplayCardToolTipEvent(Id, Card, true));
         }
 
+        internal void ClearCardDisplay(bool isClear)
+        {
+            var ability = Card.PlayRemoveAbility;
+            if (isClear)
+            {
+                EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "CardDeath", Element.Air));
+                EventBus<RemoveCardFromManagerEvent>.Raise(new RemoveCardFromManagerEvent(Id));
+            }
+            CheckOnRemoveEffects(ability);
+            if (isClear)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void CheckOnRemoveEffects(OnPlayRemoveAbility removeAbility)
+        {
+            removeAbility?.OnRemoveActivate(Id, Card);
+            if (removeAbility is CloakPlayRemoveAbility)
+            {
+                EventBus<UpdateCloakParentEvent>.Raise(new UpdateCloakParentEvent(transform, Id, false));
+            }
+        }
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (Id.field.Equals(FieldEnum.Hand) && Id.IsOwnedBy(OwnerEnum.Opponent)) return;
             if (Card.Id is "4t1" or "4t2") return;
             var rectTransform = GetComponent<RectTransform>();
             Vector2 objectSize = new(rectTransform.rect.height, rectTransform.rect.width);
-            ToolTipCanvas.Instance.SetupToolTip(new Vector2(transform.position.x, transform.position.y), objectSize, Card, Id.index + 1, Id.field == FieldEnum.Creature);
+            EventBus<DisplayCardToolTipEvent>.Raise(new DisplayCardToolTipEvent(Id, Card, false));
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            ToolTipCanvas.Instance.HideToolTip();
+            EventBus<DisplayCardToolTipEvent>.Raise(new DisplayCardToolTipEvent(Id, Card, true));
         }
     }
 }

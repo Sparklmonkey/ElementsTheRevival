@@ -8,7 +8,7 @@ public class Blitz : ActivatedAbility
 
     public override bool IsCardValid(ID id, Card card)
     {
-        return id.IsCreatureField() && id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner);
+        return id.IsCreatureField() && id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner) && card.innateSkills.Airborne && card.IsTargetable(id);
     }
 
     public override void Activate(ID targetId, Card targetCard)

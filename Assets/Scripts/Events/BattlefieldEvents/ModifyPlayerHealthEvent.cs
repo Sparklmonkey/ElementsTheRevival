@@ -28,3 +28,18 @@ public struct SetupCardDisplayEvent : IEvent
         IsAbilityUsable = isAbilityUsable;
     }
 }
+
+
+public struct DisplayCardToolTipEvent : IEvent
+{
+    public ID Id;
+    public Card Card;
+    public bool IsHide;
+    
+    public DisplayCardToolTipEvent(ID id, Card card, bool isHide)
+    {
+        Id = id;
+        Card = card;
+        IsHide = isHide;
+    }
+}

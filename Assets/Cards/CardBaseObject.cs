@@ -111,7 +111,16 @@ public class Card : SerializedScriptableObject
     public int AtkModify { get; set; }
     
     [HorizontalGroup("Bazaar"), ReadOnly, ShowInInspector]
-    public int BuyPrice => Rarity * Rarity * 6;
+    public int BuyPrice
+    {
+        get
+        {
+            if (!Id.IsUpgraded()) return Rarity * Rarity * 6;
+            var unUppedCost = CardDatabase.Instance.GetUnuppedAlt(Id).BuyPrice;
+            return unUppedCost + 1500;
+        }
+    }
+
     [HorizontalGroup("Bazaar"), ReadOnly, ShowInInspector]
     public int SellPrice => Rarity * Rarity * 4 + Cost;
     

@@ -8,13 +8,11 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
+            if (_instance != null) return _instance;
+            _instance = FindObjectOfType<T>();
             if (_instance == null)
             {
-                _instance = FindObjectOfType<T>();
-                if (_instance == null)
-                {
-                    _instance = new GameObject(typeof(T).ToString()).AddComponent<T>();
-                }
+                _instance = new GameObject(typeof(T).ToString()).AddComponent<T>();
             }
             return _instance;
         }

@@ -231,6 +231,7 @@ public class DuelManager : MonoBehaviour
     private void CardTapped(CardTappedEvent cardTappedEvent)
     {
         if (!BattleVars.Shared.IsPlayerTurn) return;
+        if (!BattleVars.Shared.CanInteract) return;
 
         if (ValidTargets.Count > 0)
         {

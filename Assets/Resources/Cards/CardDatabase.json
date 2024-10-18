@@ -7388,6 +7388,7 @@
 			"skill": "",
 			"skillCost": 0,
 			"skillElement": 2,
+			"skillElement": 2,
 			"cost": 2,
 			"costElement": 2,
 			"rarity": 18,

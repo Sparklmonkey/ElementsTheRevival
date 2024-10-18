@@ -28,7 +28,10 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: PlayRemoveAbility
-      Entry: 6
+      Entry: 7
+      Data: 1|Battlefield.Abilities.BonesPlayRemoveAbility, Assembly-CSharp
+    - Name: 
+      Entry: 8
       Data: 
     - Name: TurnEndAbility
       Entry: 6
@@ -38,7 +41,7 @@ MonoBehaviour:
       Data: 
     - Name: ShieldPassive
       Entry: 7
-      Data: 1|Battlefield.Abilities.BoneSkill, Assembly-CSharp
+      Data: 2|Battlefield.Abilities.BoneSkill, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -109,3 +112,4 @@ MonoBehaviour:
   ReadyUsed: 0
   HasTurnLimit: 0
   TurnsInPlay: 0
+  IsPendulumTurn: 0

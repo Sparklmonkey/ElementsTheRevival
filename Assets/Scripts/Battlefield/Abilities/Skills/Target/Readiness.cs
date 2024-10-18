@@ -9,7 +9,10 @@ public class Readiness : ActivatedAbility
     {
         if (!IsCardValid(targetId, targetCard)) return;
         targetCard.SkillCost = 0;
-        targetCard.passiveSkills.Readiness = true;
+        if (targetCard.CardElement is Element.Time)
+        {
+            targetCard.passiveSkills.Readiness = true;
+        }
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
 

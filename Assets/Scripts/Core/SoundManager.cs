@@ -13,15 +13,17 @@ public class SoundManager : SingletonMono<SoundManager>
     private void OnDisable() {
         EventBus<PlaySoundEffectEvent>.Unregister(_playSoundEffectBinding);
     }
-    private void OnEnable()
-    {
-        _playSoundEffectBinding = new EventBinding<PlaySoundEffectEvent>(PlayAudioClip);
-        EventBus<PlaySoundEffectEvent>.Register(_playSoundEffectBinding);
-    }
     // Start is called before the first frame update
     private void Start()
     {
         UpdateVolume();
+        RegisterEvents();
+    }
+
+    public void RegisterEvents()
+    {
+        _playSoundEffectBinding = new EventBinding<PlaySoundEffectEvent>(PlayAudioClip);
+        EventBus<PlaySoundEffectEvent>.Register(_playSoundEffectBinding);
     }
 
     public void UpdateVolume()

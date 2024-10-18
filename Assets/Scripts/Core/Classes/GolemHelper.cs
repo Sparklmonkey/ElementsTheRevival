@@ -63,6 +63,8 @@ namespace Core.Classes
             (int atk, int def) golemStats = (0,0);
             var elementCount = GetShardDict().SetValue(ref golemStats, shardList);
               
+            golem.AtkModify = golemStats.atk;
+            golem.DefModify = golemStats.def;
             if (elementCount[Element.Air] > 0)
             {
                 golem.innateSkills.Airborne = true;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ImageAnimations : MonoBehaviour
 {
     public List<Sprite> sprites;
-    public int spritePerFrame = 6;
+    public int spritePerFrame = 1;
 
     private int _index = 0;
     [SerializeField] private Image image;

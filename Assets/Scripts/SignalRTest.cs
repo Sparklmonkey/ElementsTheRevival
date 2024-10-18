@@ -18,20 +18,10 @@ public class SignalRTest : MonoBehaviour
     {
 
         userName = "Sparklmonkey";
-
-        Debug.Log("Hello World!");
-        _connection = new HubConnectionBuilder()
-            .WithUrl("http://localhost:5158/pvphub")
-                                 .Build();
-        _connection.Closed += async (error) =>
-        {
-            await Task.Delay(Random.Range(0, 5) * 1000);
-            await _connection.StartAsync();
-        };
-        ConnectionTest();
+        SetupHubConnection();
     }
 
-    public void SetupHubConnection()
+    public async void SetupHubConnection()
     {
         _connection = new HubConnectionBuilder()
             .WithUrl("http://localhost:5158/pvpHub")
@@ -41,12 +31,13 @@ public class SignalRTest : MonoBehaviour
             await Task.Delay(Random.Range(0, 5) * 1000);
             await _connection.StartAsync();
         };
+        await Connect();
     }
 
     //Setup Connection and Methods
     private async Task Connect()
     {
-        _connection.On<string>("ReceiveConnID", message =>
+        _connection.On("ReceiveConnId", (string message) =>
         {
             _connectionId = message;
             Debug.Log($"ConnID: {message}");

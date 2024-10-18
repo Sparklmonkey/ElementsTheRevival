@@ -8,27 +8,26 @@ public static class IdCardTupleExtensions
 
     public static bool IsTargetable(this Card card, ID id)
     {
+        if (DuelManager.Instance.GetIDOwner(id).playerCounters.invisibility > 0)
+        {
+            if (id.IsOwnedBy(OwnerEnum.Player) && BattleVars.Shared.IsPlayerTurn)
+            {
+                return !card.innateSkills.Immaterial && !card.passiveSkills.Burrow;
+            }
+
+            if (id.IsOwnedBy(OwnerEnum.Opponent) && !BattleVars.Shared.IsPlayerTurn)
+            {
+                return !card.innateSkills.Immaterial && !card.passiveSkills.Burrow;
+            }
+
+            return false;
+        }
         if (DuelManager.Instance.GetIDOwner(id).playerCounters.freedom > 0 &&
             card.CardElement.Equals(Element.Air))
         {
             return false;
         }
         return !card.innateSkills.Immaterial && !card.passiveSkills.Burrow;
-    }
-    
-    public static bool IsTargetable(this (ID id, Card card) tuple)
-    {
-        if (tuple.Item1.IsPlayerField())
-        {
-            return true;
-        }
-
-        if (DuelManager.Instance.GetIDOwner(tuple.id).playerCounters.freedom > 0 &&
-            tuple.card.CardElement.Equals(Element.Air))
-        {
-            return false;
-        }
-        return !tuple.Item2.innateSkills.Immaterial && !tuple.Item2.passiveSkills.Burrow;
     }
     
     public static bool HasCard(this (ID id, Card card) tuple)

@@ -100,14 +100,13 @@ public class PassiveCardDisplay : CardFieldDisplay
     private void HideCard(ClearCardDisplayEvent clearCardDisplayEvent)
     {
         if (!clearCardDisplayEvent.Id.Equals(Id)) return;
-        DisplayCard(new UpdatePassiveDisplayEvent(Id, CardDatabase.Instance.GetPlaceholderCard(Id.index), false));
-
         EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "CardDeath", Element.Other));
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("RemoveCardFromField"));
+        EventBus<RemoveCardFromManagerEvent>.Raise(new RemoveCardFromManagerEvent(Id));
 
         Card.PlayRemoveAbility?.OnRemoveActivate(Id, Card);
 
-        DisplayCard(new UpdatePassiveDisplayEvent(Id, CardDatabase.Instance.GetPlaceholderCard(Id.index), false));
+        EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(Id.owner, CardDatabase.Instance.GetPlaceholderCard(Id.index)));
     }
 
     private void OnTurnStart(OnTurnStartEvent onTurnStartEvent)

@@ -11,6 +11,7 @@
             if (activation > creatureChance) return atkNow;
             
             var isUpgraded = cardPair.card.Id.IsUpgraded();
+            cardPair.card.PlayRemoveAbility?.OnRemoveActivate(cardPair.id, cardPair.card);
             EventBus<OnDeathTriggerEvent>.Raise(new OnDeathTriggerEvent());
             var card = CardDatabase.Instance.GetCardFromId(isUpgraded ? "716" : "52m");
             EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(cardPair.id, card, false));

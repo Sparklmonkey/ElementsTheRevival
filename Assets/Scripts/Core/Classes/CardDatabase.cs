@@ -171,4 +171,10 @@ public class CardDatabase : SingletonMono<CardDatabase>
         return GetCardFromId("4t1");
 
     }
+
+    public Card GetUnuppedAlt(string id)
+    {
+        var idToGet = id.GetUppedRegular();
+        return GetCardFromId(idToGet);
+    }
 }
