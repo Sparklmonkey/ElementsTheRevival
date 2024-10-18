@@ -107,6 +107,7 @@ public class PassiveCardDisplay : CardFieldDisplay
         Card.PlayRemoveAbility?.OnRemoveActivate(Id, Card);
 
         EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(Id.owner, CardDatabase.Instance.GetPlaceholderCard(Id.index)));
+        Destroy(gameObject);
     }
 
     private void OnTurnStart(OnTurnStartEvent onTurnStartEvent)

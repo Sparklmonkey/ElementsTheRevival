@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 498
+    y: 444
     width: 1059
     height: 493
   m_SerializedDataModeController:
@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 73
+    y: 19
     width: 1059
     height: 404
   m_SerializedDataModeController:
@@ -910,7 +910,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.1422165, y: -0.038597826, z: 0.0055499407, w: 0.9890672}
     speed: 2
-    m_Value: {x: 0.1422165, y: -0.038597826, z: 0.0055499407, w: 0.9890672}
+    m_Value: {x: -0.1422165, y: 0.03859783, z: -0.0055499407, w: -0.98906726}
   m_Size:
     m_Target: 191.50677
     speed: 2
@@ -1113,8 +1113,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Hierarchy\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1060
-    y: 73
+    x: 1
+    y: 19
     width: 389
     height: 390
   m_SerializedDataModeController:
@@ -1179,8 +1179,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1060
-    y: 484
+    x: 1
+    y: 430
     width: 389
     height: 507
   m_SerializedDataModeController:
@@ -1223,7 +1223,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 56830000
     m_LastClickedID: 33622
-    m_ExpandedIDs: 0000000000b50000eab50000ecb50000eeb50000f0b50000f2b50000f4b50000f6b50000f8b50000fab50000fcb50000feb5000000b6000002b6000004b6000006b6000008b600000ab600000cb600000eb6000010b6000012b6000014b6000016b6000018b600001ab600001cb600001eb6000020b6000022b6000024b60000
+    m_ExpandedIDs: 0000000050b0000052b0000054b0000056b0000058b000005ab000005cb000005eb0000060b0000062b0000064b0000066b0000068b000006ab000006cb000006eb0000070b0000072b0000074b0000076b0000078b000007ab000007cb000007eb0000080b0000082b0000084b0000086b0000088b000008ab000008cb000008eb0000090b00000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1252,21 +1252,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 5764}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff0000000000b50000eab50000ecb50000eeb50000f0b50000f2b50000f4b50000f6b50000f8b50000fab50000fcb50000feb5000000b6000002b6000004b6000006b6000008b600000ab600000cb600000eb6000010b6000012b6000014b6000016b6000018b600001ab600001cb600001eb6000020b6000022b6000024b6000090be0000b4be0000
+    m_ExpandedIDs: 0000000050b0000052b0000054b0000056b0000058b000005ab000005cb000005eb0000060b0000062b0000064b0000066b0000068b000006ab000006cb000006eb0000070b0000072b0000074b0000076b0000078b000007ab000007cb000007eb0000080b0000082b0000084b0000086b0000088b000008ab000008cb000008eb0000090b00000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: QuitGameManager
-      m_OriginalName: QuitGameManager
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 34554
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 11}
@@ -1331,8 +1331,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1451
-    y: 73
+    x: 1452
+    y: 19
     width: 468
     height: 918
   m_SerializedDataModeController:
