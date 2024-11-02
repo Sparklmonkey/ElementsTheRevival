@@ -18,12 +18,11 @@ public class QuitGameManager : MonoBehaviour
             PlayerData.Shared.arenaLosses++;
         }
 
-        coinsLost.text = BattleVars.Shared.EnemyAiData.costToPlay.ToString();
-        coinsLeft.text = PlayerData.Shared.electrum.ToString();
-        gameTurns.text = BattleVars.Shared.TurnCount.ToString();
+        coinsLost.text = $"You lost: {BattleVars.Shared.EnemyAiData.costToPlay.ToString()}";
+        coinsLeft.text = $"Electrum coins left: {PlayerData.Shared.electrum.ToString()}";
         var gameTimeInSeconds = (DateTime.Now - BattleVars.Shared.GameStartInTicks).TotalSeconds;
-        gameTurns.text = $"{BattleVars.Shared.TurnCount}";
-        gameTime.text = $"{(int)gameTimeInSeconds}";
+        gameTime.text = $"Game Time: {BattleVars.Shared.TurnCount} seconds";
+        gameTurns.text = $"Game Length: {(int)gameTimeInSeconds} turns";
         
         
         PlayerData.Shared.gamesLost++;

@@ -167,7 +167,7 @@ public class PermanentCardDisplay : CardFieldDisplay
             var markElement = Id.IsOwnedBy(OwnerEnum.Player) ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
             var pendulumElement = Card.IsPendulumTurn ? markElement : Card.CostElement;
             EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(StackCountValue, pendulumElement, Id.owner, true));
-            if (Id.IsOwnedBy(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
+            if (Id.IsOwnedBy(OwnerEnum.Player) || !DuelManager.Instance.GetIDOwner(Id).IsPlayerInvisible())
             {
                 EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "QuantaGenerate", pendulumElement));
             }
@@ -182,7 +182,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         {
             EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(Card.CostElement == Element.Other ? 3 * StackCountValue : StackCountValue, Card.CostElement, Id.owner, true));
             
-            if (Id.IsOwnedBy(OwnerEnum.Player) || DuelManager.Instance.GetIDOwner(Id).playerCounters.invisibility <= 0)
+            if (Id.IsOwnedBy(OwnerEnum.Player) || !DuelManager.Instance.GetIDOwner(Id).IsPlayerInvisible())
             {
                 EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "QuantaGenerate", Card.CostElement));
             }

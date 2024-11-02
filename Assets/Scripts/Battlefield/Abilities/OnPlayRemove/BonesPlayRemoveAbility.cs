@@ -17,7 +17,9 @@
 
         public override void OnRemoveActivate(ID owner, Card card)
         {
-            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Bone, owner.owner, -9999));
+            var ownerManager = DuelManager.Instance.GetIDOwner(owner);
+            EventBus<SetBoneCountEvent>.Raise(new SetBoneCountEvent(owner.owner, 0, false));
+            ownerManager.playerCounters.bone = 0;
         }
     }
 }

@@ -16,7 +16,7 @@ public class Mutation : ActivatedAbility
                 EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
                 return;
             case MutationEnum.Mutate:
-                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetMutant(targetCard.Id.IsUpgraded()), false));
+                EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetMutant(), false));
                 break;
             default:
                 EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetCardFromId("4ve"), false));

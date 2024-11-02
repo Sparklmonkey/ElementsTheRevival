@@ -2,9 +2,11 @@
 {
     public OwnerEnum Owner;
     public int Amount;
-    public SetBoneCountEvent(OwnerEnum owner, int amount)
+    public bool IsFromDestroy;
+    public SetBoneCountEvent(OwnerEnum owner, int amount, bool isFromDestroy)
     {
         Owner = owner;
         Amount = amount;
+        IsFromDestroy = isFromDestroy;
     }
 }

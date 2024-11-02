@@ -240,21 +240,4 @@ public struct CardStruct
         TurnsInPlay = cardBase.TurnsInPlay;
         IsPendulumTurn = cardBase.IsPendulumTurn;
     }
-
-    public bool IsAbilityUsable(QuantaCheck quantaCheck, int handCount)
-    {
-        if (Skill is null) return false;
-        if (Counters.Delay > 0) return false;
-        if (Counters.Freeze > 0) return false;
-        if (Type is CardType.Shield or CardType.Pillar or CardType.Mark) return false;
-        if (passiveSkills.Readiness)
-        {
-            if (AbilityUsed && ReadyUsed) return false;
-        }
-        else if (AbilityUsed) return false;
-        if (!quantaCheck(SkillElement, SkillCost)) return false;
-        if (Skill is Hasten && handCount >= 8) return false;
-
-        return true;
-    }
 }

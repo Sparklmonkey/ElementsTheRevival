@@ -8,7 +8,7 @@ public static class IdCardTupleExtensions
 
     public static bool IsTargetable(this Card card, ID id)
     {
-        if (DuelManager.Instance.GetIDOwner(id).playerCounters.invisibility > 0)
+        if (!DuelManager.Instance.GetIDOwner(id).IsPlayerInvisible())
         {
             if (id.IsOwnedBy(OwnerEnum.Player) && BattleVars.Shared.IsPlayerTurn)
             {
@@ -30,6 +30,11 @@ public static class IdCardTupleExtensions
         return !card.innateSkills.Immaterial && !card.passiveSkills.Burrow;
     }
     
+    public static bool IsBurrowedOrImmaterial(this Card card)
+    {
+        return card.innateSkills.Immaterial || card.passiveSkills.Burrow;
+    }
+    
     public static bool HasCard(this (ID id, Card card) tuple)
     {
         return tuple.card is not null && tuple.card.Id != "4t2" && tuple.card.Id != "4t1" && !tuple.card.Type.Equals(CardType.Mark);
@@ -49,12 +54,6 @@ public static class IdCardTupleExtensions
             cardPair.card.Counters.Freeze--;
         }
 
-        if (cardPair.card.Counters.Charge > 0)
-        {
-            cardPair.card.Counters.Charge--;
-            cardPair.card.AtkModify--;
-
-        }
         if (cardPair.card.Counters.Delay > 0)
         {
             cardPair.card.Counters.Delay--;

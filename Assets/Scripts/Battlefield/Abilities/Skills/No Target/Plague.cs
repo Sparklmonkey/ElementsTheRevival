@@ -14,7 +14,7 @@ public class Plague : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        if (!targetCard.IsTargetable(targetId))
+        if (targetCard.IsBurrowedOrImmaterial())
         {
             return;
         }

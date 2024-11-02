@@ -14,7 +14,10 @@ public class Thunderstorm : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        if (!targetCard.IsTargetable(targetId)) return;
+        if (targetCard.IsBurrowedOrImmaterial())
+        {
+            return;
+        }
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("Lightning"));
         targetCard.SetDefDamage(2);
         
@@ -23,5 +26,7 @@ public class Thunderstorm : ActivatedAbility
             EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(2, true, false, targetId.owner.Not()));
         }
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
+        
+        DuelManager.Instance.GetIDOwner(targetId).RemoveAllCloaks();
     }
 }

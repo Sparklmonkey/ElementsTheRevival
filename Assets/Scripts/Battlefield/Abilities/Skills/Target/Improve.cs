@@ -9,7 +9,7 @@ public class Improve : ActivatedAbility
     {
         if (!IsCardValid(targetId, targetCard)) return;
         EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(targetId, "Mutation", Element.Other));
-        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetMutant(targetCard.Id.IsUpgraded()), true));
+        EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, CardDatabase.Instance.GetMutant(), true));
     }
     public override bool IsCardValid(ID id, Card card)
     {

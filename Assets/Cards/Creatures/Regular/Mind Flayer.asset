@@ -99,7 +99,7 @@ MonoBehaviour:
     Undead: 0
     Venom: 0
     Mummy: 0
-    Poisonous: 1
+    Poisonous: 0
     Voodoo: 0
     Obsession: 0
     Immaterial: 0
@@ -107,3 +107,4 @@ MonoBehaviour:
   ReadyUsed: 0
   HasTurnLimit: 0
   TurnsInPlay: 0
+  IsPendulumTurn: 0

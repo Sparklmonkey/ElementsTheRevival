@@ -53,7 +53,7 @@ public class PassiveCardDisplay : CardFieldDisplay
         if (!setBoneCountEvent.Owner.Equals(Id.owner) || !Card.Type.Equals(CardType.Shield)) return;
         Card.TurnsInPlay = setBoneCountEvent.Amount;
         turnsInPlay.text = Card.TurnsInPlay.ToString();
-        if (Card.TurnsInPlay <= 0)
+        if (Card.TurnsInPlay <= 0 && setBoneCountEvent.IsFromDestroy)
         {
             HideCard(new ClearCardDisplayEvent(Id));
         }
@@ -166,6 +166,7 @@ public class PassiveCardDisplay : CardFieldDisplay
         var atkNow = Card.AtkNow;
         Card.WeaponPassive?.ModifyWeaponAtk(Id, ref atkNow);
 
+        
         if (!Card.passiveSkills.Momentum && atkNow > 0)
         {
             atkNow = enemy.ManageShield(atkNow, (Id, Card));

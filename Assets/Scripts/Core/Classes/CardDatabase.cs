@@ -108,8 +108,7 @@ public class CardDatabase : SingletonMono<CardDatabase>
 
     public List<string> GetRandomDeck() => _deckBuilder.GetRandomDeck();
 
-    public Card GetMutant(bool isUpgraded, Card fromCard = null) => MutantHelper.GetMutant(isUpgraded,
-        fromCard == null ? GetRandomCard(CardType.Creature, isUpgraded, true) : fromCard);
+    public Card GetMutant(Card fromCard = null) => MutantHelper.GetMutant(fromCard == null ? GetRandomCard(CardType.Creature, false, true) : fromCard);
 
     private Dictionary<Element, string> _regularNymphNames = new(){
         { Element.Gravity, "568" },

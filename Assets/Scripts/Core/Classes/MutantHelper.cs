@@ -7,7 +7,7 @@ namespace Core.Classes
 {
     public static class MutantHelper
     {
-        public static Card GetMutant(bool isUpgraded, Card fromCard)
+        public static Card GetMutant(Card fromCard)
         {
             fromCard.Atk += Random.Range(0, 4);
             fromCard.Def += Random.Range(0, 4);

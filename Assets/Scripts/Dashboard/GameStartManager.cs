@@ -6,7 +6,7 @@ public class GameStartManager : MonoBehaviour
     [SerializeField]
     private ErrorAnimated errorMessageManager;
 
-    private readonly List<string> _elderPrefix = new() { "Aeth", "Air", "Shad", "Lum", "Mor", "Ter", "Dis", "Chr", "Pyr", "Mas", "Vit", "Aqua" };
+    private readonly List<string> _elderPrefix = new() { "Aeth", "Ari", "Shad", "Lum", "Mor", "Ter", "Dis", "Chr", "Pyr", "Mas", "Vit", "Aqua" };
     private readonly List<string> _elderSuffix = new() { "eric", "es", "ow", "iel", "tis", "ra", "cord", "onos", "ofuze", "sa", "al", "rius" };
 
     public void StartGameOnDificulty(int level)
@@ -42,7 +42,8 @@ public class GameStartManager : MonoBehaviour
                 {
                     elementDeck = Element.Aether;
                 }
-                ai = Resources.Load<EnemyAi>($"EnemyAi/Level3/Water");//{elementDeck.FastElementString()}");
+
+                ai = Resources.Load<EnemyAi>($"EnemyAi/Level3/{elementDeck.FastElementString()}");
                 break;
             case 4:
                 ai = Instantiate(Resources.Load<EnemyAi>("EnemyAi/Level4/Random"));

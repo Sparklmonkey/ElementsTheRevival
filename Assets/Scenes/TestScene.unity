@@ -38,12 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -266,8 +266,12 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!4 &210257811
 Transform:
   m_ObjectHideFlags: 0
@@ -316,7 +320,8 @@ GameObject:
   m_Component:
   - component: {fileID: 238337768}
   - component: {fileID: 238337767}
-  - component: {fileID: 238337766}
+  - component: {fileID: 238337770}
+  - component: {fileID: 238337769}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -324,18 +329,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &238337766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238337765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &238337767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,7 +336,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238337765}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7be7059b0f78f184c87cd6a678c05c18, type: 3}
   m_Name: 
@@ -364,6 +357,99 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &238337769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238337765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Graph: {fileID: -1126003923733470585, guid: 4d2c48fe0a63a574f87a047d24fd391c, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 7464314640412442910
+  - rid: 7464314640412442954
+  - rid: 346843164778693210
+  - rid: 346843164778693274
+  references:
+    version: 2
+    RefIds:
+    - rid: 346843164778693210
+      type: {class: 'BlackboardVariable`1[[ChangeTurnOwner, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 14088223148651740361
+          m_Value1: 7972452518050524640
+        Name: TurnChange
+        m_Value: {fileID: 11400000, guid: 61a73580e9673df4cbd3e1ecddacd7f3, type: 2}
+    - rid: 346843164778693274
+      type: {class: 'BlackboardVariable`1[[PlayerManager, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 5457807165283260159
+          m_Value1: 1543924798717789291
+        Name: HumanPlayer
+        m_Value: {fileID: 856169121}
+    - rid: 7464314640412442910
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 238337765}
+    - rid: 7464314640412442954
+      type: {class: 'BlackboardVariable`1[[PlayerManager, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 15058938776461591549
+          m_Value1: 13128915741729755904
+        Name: AiManager
+        m_Value: {fileID: 238337770}
+--- !u!114 &238337770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238337765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 669435e4dfdbc455e8406a41a6c47adb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID:
+    owner: 0
+    field: 0
+    index: 0
+  healthDisplayer: {fileID: 0}
+  cloakVisual: {fileID: 0}
+  permParent: {fileID: 0}
+  playerDisplayer: {fileID: 0}
+  playerHand: {fileID: 0}
+  playerCreatureField: {fileID: 0}
+  playerPermanentManager: {fileID: 0}
+  playerPassiveManager: {fileID: 0}
+  playerCounters:
+    freeze: 0
+    delay: 0
+    poison: 0
+    invisibility: 0
+    neurotoxin: 0
+    bone: 0
+    silence: 0
+    stasis: 0
+    sanctuary: 0
+    patience: 0
+    freedom: 0
+    scarabOld: 0
+    scarab: 0
+  owner: 0
+  sacrificeCount: 0
 --- !u!1 &420123567
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,6 +1808,92 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &856169120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 856169123}
+  - component: {fileID: 856169122}
+  - component: {fileID: 856169121}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &856169121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856169120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 669435e4dfdbc455e8406a41a6c47adb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID:
+    owner: 0
+    field: 0
+    index: 0
+  healthDisplayer: {fileID: 0}
+  cloakVisual: {fileID: 0}
+  permParent: {fileID: 0}
+  playerDisplayer: {fileID: 0}
+  playerHand: {fileID: 0}
+  playerCreatureField: {fileID: 0}
+  playerPermanentManager: {fileID: 0}
+  playerPassiveManager: {fileID: 0}
+  playerCounters:
+    freeze: 0
+    delay: 0
+    poison: 0
+    invisibility: 0
+    neurotoxin: 0
+    bone: 0
+    silence: 0
+    stasis: 0
+    sanctuary: 0
+    patience: 0
+    freedom: 0
+    scarabOld: 0
+    scarab: 0
+  owner: 0
+  sacrificeCount: 0
+--- !u!114 &856169122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856169120}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be7059b0f78f184c87cd6a678c05c18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardDatabase: {fileID: 512179543}
+--- !u!4 &856169123
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856169120}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 995.23395, y: 619.0819, z: -5.998269}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &856962285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,12 +2025,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &886345024
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,7 +2428,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069913846}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e2640f7751fb5b49979277ab55fcca5, type: 3}
   m_Name: 
@@ -2273,7 +2445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d59de0f91849ed408bb20730c990bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userName: 
 --- !u!1 &2142118832
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,4 +2489,5 @@ SceneRoots:
   - {fileID: 2069913850}
   - {fileID: 1237547253}
   - {fileID: 238337768}
+  - {fileID: 856169123}
   - {fileID: 512179548}

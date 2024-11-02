@@ -11,6 +11,7 @@ public class Lobotomize : ActivatedAbility
         targetCard.Skill = null;
         targetCard.Desc = "";
         targetCard.passiveSkills = new();
+        targetCard.TurnEndAbility = null;
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
     }
     public override bool IsCardValid(ID id, Card card)

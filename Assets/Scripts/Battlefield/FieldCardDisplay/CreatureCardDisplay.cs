@@ -202,12 +202,17 @@ public class CreatureCardDisplay : CardFieldDisplay
 
     private bool ShouldActivateDeathTriggers()
     {
+        if (Card.CardName.Contains("Skeleton"))
+        {
+            return false;
+        }
+        
         if (BattleVars.Shared.AbilityCardOrigin is not null)
         {
             return BattleVars.Shared.AbilityCardOrigin.Skill is not Reversetime;
         }
 
-        return !Card.CardName.Contains("Skeleton");
+        return true;
     }
 
     private void DeathTrigger(OnDeathTriggerEvent onDeathTriggerEvent)

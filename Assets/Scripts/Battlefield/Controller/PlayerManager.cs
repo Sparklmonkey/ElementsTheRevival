@@ -71,12 +71,8 @@ public class PlayerManager : MonoBehaviour
         {
             case PlayerCounters.Bone:
                 playerCounters.bone += amount;
-                EventBus<SetBoneCountEvent>.Raise(new SetBoneCountEvent(owner, playerCounters.bone));
+                EventBus<SetBoneCountEvent>.Raise(new SetBoneCountEvent(owner, playerCounters.bone, true));
                 if (playerCounters.bone < 0) { playerCounters.bone = 0; }
-                break;
-            case PlayerCounters.Invisibility:
-                playerCounters.invisibility += amount;
-                if (playerCounters.invisibility < 0) { playerCounters.invisibility = 0; }
                 break;
             case PlayerCounters.Freeze:
                 playerCounters.freeze += amount;
@@ -135,6 +131,10 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public bool IsPlayerInvisible()
+    {
+        return playerPermanentManager.GetAllValidCardIds().Count(perm => perm.card.Id is "5v2" or "7ti") > 0;
+    }
     public ID playerID;
 
     public HealthDisplayer healthDisplayer;
