@@ -144,7 +144,7 @@ public class SpinManager : MonoBehaviour
             _shouldWinCard = true;
             _cardsWon.Add(CardDatabase.Instance.GetCardFromId(cardOne.Id));
         }
-        else if (cardOne.CardName == cardTwo.CardName || cardOne.CardName == cardThree.CardName || cardTwo.CardName == cardThree.CardName)
+        if (cardOne.CardName == cardTwo.CardName)
         {
             _shouldWinCoins = true;
         }
