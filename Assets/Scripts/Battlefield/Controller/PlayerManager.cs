@@ -103,6 +103,7 @@ public class PlayerManager : MonoBehaviour
             case PlayerCounters.Silence:
                 playerCounters.silence += amount;
                 if (playerCounters.silence < 0) { playerCounters.silence = 0; }
+                if (playerCounters.silence > 1) { playerCounters.silence = 1; }
                 break;
             case PlayerCounters.Purify:
                 if (playerCounters.poison > 0)
@@ -170,7 +171,7 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-        atkNow -= gravityCreature.card.DefNow;
+        atkNow = 0;
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(gravityCreature.id));
     }
 

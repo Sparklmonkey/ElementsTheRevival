@@ -8,7 +8,7 @@ public static class IdCardTupleExtensions
 
     public static bool IsTargetable(this Card card, ID id)
     {
-        if (!DuelManager.Instance.GetIDOwner(id).IsPlayerInvisible())
+        if (DuelManager.Instance.GetIDOwner(id).IsPlayerInvisible())
         {
             if (id.IsOwnedBy(OwnerEnum.Player) && BattleVars.Shared.IsPlayerTurn)
             {
@@ -61,5 +61,9 @@ public static class IdCardTupleExtensions
 
         var healthChange = cardPair.card.Counters.Poison;
         cardPair.card.SetDefDamage(healthChange);
+        if (cardPair.card.innateSkills.Voodoo)
+        {
+            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(healthChange > 0 ? healthChange : 0, true, false, cardPair.id.owner.Not()));
+        }
     }
 }

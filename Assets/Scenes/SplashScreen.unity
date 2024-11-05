@@ -1695,6 +1695,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3a5afdf1efe4497479fee5299a79c765, type: 2}
   - {fileID: 11400000, guid: a9c9ae3dcaf623449aa41ff92a138025, type: 2}
   - {fileID: 11400000, guid: fd301cc06d653ba40a517ac38d908510, type: 2}
+  - {fileID: 11400000, guid: 6eec670b150d23441abfeb0e9cf11159, type: 2}
+  - {fileID: 11400000, guid: d8859508a7ea03b42956fc03926dba70, type: 2}
   StarterDecks:
   - {fileID: 11400000, guid: 524df9bb4fbe7144397098ad39c52481, type: 2}
   - {fileID: 11400000, guid: d4d4e1bd8cfdc0d44b410fa87f122573, type: 2}
@@ -2149,6 +2151,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e4023fe6e02a16e449f6e6ebcf6882a0, type: 2}
   - {fileID: 11400000, guid: 5af629c8be04bc746b7fe17612169666, type: 2}
   - {fileID: 11400000, guid: e1d1804ce6c98504aa076bcf0a0a9863, type: 2}
+  - {fileID: 11400000, guid: d8859508a7ea03b42956fc03926dba70, type: 2}
+  - {fileID: 11400000, guid: 6eec670b150d23441abfeb0e9cf11159, type: 2}
   WeaponIdList:
   - 52q
   - 4t3

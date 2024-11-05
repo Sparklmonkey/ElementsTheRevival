@@ -7,7 +7,7 @@ public class FalseGodDrawComponenet : IAiDrawComponent
 {
     public void StartTurnDrawCard(PlayerManager aiManager)
     {
-        if (aiManager.playerHand.GetHandCount() < 8)
+        if (aiManager.playerHand.GetHandCount() < 7)
         {
             EventBus<DrawCardFromDeckEvent>.Raise(new DrawCardFromDeckEvent(OwnerEnum.Opponent));
         }

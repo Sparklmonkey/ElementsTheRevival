@@ -336,6 +336,7 @@ public class CreatureCardDisplay : CardFieldDisplay
 
     private bool SetupAdrenaline(ref int atkNow, int initialAtk, int adrIndex)
     {
+        if (initialAtk > 15) return false;
         var adrAtkList = DuelManager.AdrenalineDamageList[initialAtk];
         if (atkNow == 0) return false;
         if (adrAtkList.Count <= adrIndex) return false;

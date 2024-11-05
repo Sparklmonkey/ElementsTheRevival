@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cd7530d66977544b9e6d1c9b543843, type: 3}
-  m_Name: Death Nymph
+  m_Name: Dry Spell
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -38,7 +38,7 @@ MonoBehaviour:
       Data: 
     - Name: Skill
       Entry: 7
-      Data: 0|Aflatoxin, Assembly-CSharp
+      Data: 0|Dryspell, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -63,22 +63,20 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  CardName: Death Nymph
-  cardImage: {fileID: 21300000, guid: 869ab6d996e0f453b9c41bcc2eee81dd, type: 3}
-  Id: 71k
-  Cost: 8
-  CardElement: 4
-  CostElement: 4
-  Rarity: 20
-  Desc: '<sprite=4> : Aflatoxin
-
-    Poison the target creature (+2 poison). If the
-    target creature dies, it turns into a malignant cell.'
-  Type: 1
-  Atk: 8
-  Def: 9
-  SkillCost: 1
-  SkillElement: 4
+  CardName: Dry Spell
+  cardImage: {fileID: 21300000, guid: 4d624216f76d2324e861e707a19ae000, type: 3}
+  Id: 5ij
+  Cost: 2
+  CardElement: 11
+  CostElement: 11
+  Rarity: 2
+  Desc: Deals 1 damage to every creature on the field. Gain <sprite=11>  for every
+    creature damaged. Removes Invisibility.
+  Type: 2
+  Atk: 0
+  Def: 0
+  SkillCost: 0
+  SkillElement: 11
   passiveSkills:
     Momentum: 0
     Burrow: 0

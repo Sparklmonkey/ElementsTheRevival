@@ -175,7 +175,7 @@ public class SpinManager : MonoBehaviour
                 newCoinCount += 5;
                 electrumValue.text = newCoinCount.ToString();
             }
-            else if (_shouldWinCard)
+            if (_shouldWinCard)
             {
                 UpdateCardsWonSection();
             }

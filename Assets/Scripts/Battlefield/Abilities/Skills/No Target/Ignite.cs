@@ -19,7 +19,7 @@ public class Ignite : ActivatedAbility
 
         if (targetCard is null)
         {
-            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(20, true, false, targetId.owner));
+            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(20, true, true, targetId.owner));
         }
         else
         {

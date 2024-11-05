@@ -18,7 +18,7 @@ public class Rainoffire : ActivatedAbility
         {
             return;
         }
-        var victim = DuelManager.Instance.GetNotIDOwner(targetId);
+        var victim = DuelManager.Instance.GetNotIDOwner(BattleVars.Shared.AbilityIDOrigin);
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("Lightning"));
         
         targetCard.SetDefDamage(3);

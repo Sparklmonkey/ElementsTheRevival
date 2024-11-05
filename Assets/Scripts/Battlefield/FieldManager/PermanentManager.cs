@@ -46,8 +46,6 @@ namespace Elements.Duel.Manager
         {
             if (!card.Type.Equals(CardType.Pillar)) return false;
             
-            if (!cardPositions.Exists(t => t.childCount > 0)) return false;
-            
             var filteredList = cardPositions.FindAll(t => t.childCount > 0);
             if (filteredList.Count <= 0) return false;
             

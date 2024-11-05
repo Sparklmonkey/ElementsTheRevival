@@ -103,7 +103,7 @@ MonoBehaviour:
     Poisonous: 0
     Voodoo: 0
     Obsession: 0
-    Immaterial: 1
+    Immaterial: 0
   AbilityUsed: 0
   ReadyUsed: 0
   HasTurnLimit: 0
