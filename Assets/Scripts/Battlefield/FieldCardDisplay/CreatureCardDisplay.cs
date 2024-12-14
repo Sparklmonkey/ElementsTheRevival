@@ -204,8 +204,10 @@ public class CreatureCardDisplay : CardFieldDisplay
     {
         if (Card.CardName.Contains("Skeleton"))
         {
+            BattleVars.Shared.WasSkeleton = true;
             return false;
         }
+        BattleVars.Shared.WasSkeleton = false;
         
         if (BattleVars.Shared.AbilityCardOrigin is not null)
         {
@@ -286,6 +288,8 @@ public class CreatureCardDisplay : CardFieldDisplay
         var isFreedomEffect = Random.Range(0, 100) < 25 * owner.playerCounters.freedom &&
                               Card.CostElement.Equals(Element.Air);
         atkNow = Mathf.FloorToInt(isFreedomEffect ? atkNow * 1.5f : atkNow);
+        
+        Card.PreAttackAbility?.Activate(Id, Card);
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("CreatureDamage"));
         if (atkNow > 0)
         {
@@ -293,8 +297,7 @@ public class CreatureCardDisplay : CardFieldDisplay
             {
                 enemy.ManageGravityCreatures(ref atkNow);
             }
-
-            if (!Card.passiveSkills.Momentum)
+            else if (!Card.passiveSkills.Momentum)
             {
                 atkNow = enemy.ManageShield(atkNow, (Id, Card));
             }

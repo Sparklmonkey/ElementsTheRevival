@@ -6,13 +6,21 @@
         {
             var owner = DuelManager.Instance.GetNotIDOwner(cardPair.id);
             if (owner.playerCounters.sanctuary > 0) { return atkNow; }
-            if (owner.GetAllQuantaOfElement(Element.Entropy) <= 0)
+
+            var entropy = owner.GetAllQuantaOfElement(Element.Entropy);
+            while (atkNow > 0)
             {
-                EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(new(cardPair.id.owner.Not(), FieldEnum.Passive, 2)));
-                return atkNow;
+                if (entropy <= 0)
+                {
+                    EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(new(cardPair.id.owner.Not(), FieldEnum.Passive, 2)));
+                    return atkNow;
+                }
+                EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Entropy, cardPair.id.owner.Not(), false));
+                entropy -= 1;
+                atkNow -= 3;
             }
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(1, Element.Entropy, cardPair.id.owner.Not(), false));
-            return atkNow > 3 ? atkNow -= 3 : 0;
+
+            return atkNow;
         }
     }
 }

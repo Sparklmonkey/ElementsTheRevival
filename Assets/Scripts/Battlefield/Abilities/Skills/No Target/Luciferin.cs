@@ -22,7 +22,7 @@ public class Luciferin : ActivatedAbility
         }
         else
         {
-            targetCard.TurnEndAbility = new LightEndTurn();
+            targetCard.PreAttackAbility = new LightEndTurn();
             targetCard.Desc = "Bioluminescence : \n Each turn <sprite=3> is generated";
             EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, targetCard, true));
         }

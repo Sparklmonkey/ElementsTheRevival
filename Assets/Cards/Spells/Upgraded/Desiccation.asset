@@ -65,8 +65,8 @@ MonoBehaviour:
       Data: 
   CardName: Desiccation
   cardImage: {fileID: 21300000, guid: 4d624216f76d2324e861e707a19ae000, type: 3}
-  Id: 5ij
-  Cost: 2
+  Id: 7h3
+  Cost: 4
   CardElement: 11
   CostElement: 11
   Rarity: 17

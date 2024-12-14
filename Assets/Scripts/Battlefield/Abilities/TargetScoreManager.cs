@@ -188,7 +188,7 @@ namespace Battlefield.Abilities
                     return 0f;
                 }
 
-                if (target.card.TurnEndAbility is SingularityEndTurn && target.card.passiveSkills.Antimatter)
+                if (target.card.PreAttackAbility is SingularityEndTurn && target.card.passiveSkills.Antimatter)
                 {
                     return 0f;
                 }
@@ -333,7 +333,7 @@ namespace Battlefield.Abilities
             var skillScore = target.card.Skill is not null ? 3f : 0f;
             if (target.id.IsOwnedBy(OwnerEnum.Opponent) && !onlyFoe)
             {
-                if (target.card.Skill is Dejavu || target.card.TurnEndAbility is DevourerEndTurn || target.card.DefNow <= 0)
+                if (target.card.Skill is Dejavu || target.card.PreAttackAbility is DevourerEndTurn || target.card.DefNow <= 0)
                 {
                     skillScore = 10f;
                 }

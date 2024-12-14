@@ -94,6 +94,8 @@ public class SplashScreen : MonoBehaviour
         {
             PlayerPrefs.SetInt("IsAltArt", 0);
         }
+
+        CardDatabase.Instance.SortCardList();
         StartCoroutine(MoveImageAround(imageObjects[11], 12));
         StartCoroutine(StartTitleAnimation());
     }

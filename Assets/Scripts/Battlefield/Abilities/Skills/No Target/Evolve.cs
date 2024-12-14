@@ -11,5 +11,9 @@ public class Evolve : ActivatedAbility
             ? CardDatabase.Instance.GetCardFromId("77h")
             : CardDatabase.Instance.GetCardFromId("591");
         EventBus<UpdateCreatureCardEvent>.Raise(new UpdateCreatureCardEvent(targetId, card, false));
+        if (targetCard.passiveSkills.Readiness)
+        {
+            EventBus<PlayCreatureOnFieldEvent>.Raise(new PlayCreatureOnFieldEvent(targetId.owner, card));
+        }
     }
 }

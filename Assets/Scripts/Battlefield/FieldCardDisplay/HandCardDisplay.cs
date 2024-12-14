@@ -131,6 +131,10 @@ public class HandCardDisplay : CardFieldDisplay
     private void HideCard(ClearCardDisplayEvent clearCardDisplayEvent)
     {
         if (!clearCardDisplayEvent.Id.Equals(Id)) return;
+        if (Card.innateSkills.Obsession)
+        {
+            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(Card.Id.IsUpgraded() ? 13 : 10, true, false, Id.owner));
+        }
         EventBus<RemoveCardFromManagerEvent>.Raise(new RemoveCardFromManagerEvent(Id));
         Destroy(gameObject);
     }

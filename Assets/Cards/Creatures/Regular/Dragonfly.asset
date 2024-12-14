@@ -28,6 +28,9 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: TurnEndAbility
+      Entry: 6
+      Data: 
+    - Name: PreAttackAbility
       Entry: 7
       Data: 0|Battlefield.Abilities.AirEndTurn, Assembly-CSharp
     - Name: 
@@ -105,3 +108,4 @@ MonoBehaviour:
   ReadyUsed: 0
   HasTurnLimit: 0
   TurnsInPlay: 0
+  IsPendulumTurn: 0

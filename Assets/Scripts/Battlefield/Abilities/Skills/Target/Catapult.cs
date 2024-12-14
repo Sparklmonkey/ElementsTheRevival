@@ -11,6 +11,12 @@ public class Catapult : ActivatedAbility
         if (!IsCardValid(targetId, targetCard)) return;
         var damage = 100 * targetCard.DefNow / (100 + targetCard.DefNow);
         damage += targetCard.Counters.Freeze > 0 ? Mathf.FloorToInt(damage * 0.5f) : 0;
+
+        if (targetCard.Counters.Poison > 0)
+        {
+            EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Poison, targetId.owner.Not(), targetCard.Counters.Poison));
+        }
+        
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(targetId));
         
         EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(damage, true, false, targetId.owner.Not()));

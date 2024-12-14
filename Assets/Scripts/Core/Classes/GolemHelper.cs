@@ -72,7 +72,7 @@ namespace Core.Classes
 
             if (elementCount[Element.Darkness] > 0)
             {
-                golem.TurnEndAbility = new DevourerEndTurn();
+                golem.PreAttackAbility = new DevourerEndTurn();
             }
 
             if (elementCount[Element.Darkness] > 1)

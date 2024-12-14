@@ -9,17 +9,16 @@ public class Sacrifice : ActivatedAbility
             new ID(BattleVars.Shared.AbilityIDOrigin.owner, FieldEnum.Player, 0));
     }
 
-
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(40, true, false, targetId.owner));
+        var amount = BattleVars.Shared.AbilityCardOrigin.Id.IsUpgraded() ? 40 : 48;
+        EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(amount, true, true, BattleVars.Shared.AbilityIDOrigin.owner));
         for (var i = 0; i < 12; i++)
         {
-            if ((Element)i == Element.Death) { continue; }
-            
-            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, (Element)i, targetId.owner, false));
+            if ((Element)i != Element.Death) { continue; }
+            EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(75, (Element)i, BattleVars.Shared.AbilityIDOrigin.owner, false));
         }
-        EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Sacrifice, targetId.owner, 2));
+        EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Sacrifice, BattleVars.Shared.AbilityIDOrigin.owner, 2));
     }
 }

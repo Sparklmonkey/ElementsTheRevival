@@ -56,6 +56,7 @@ namespace Elements.Duel.Visual
         private void UpdatePlayerIndicators(UpdatePlayerCountersVisualEvent updatePlayerCountersVisualEvent)
         {
             if (!updatePlayerCountersVisualEvent.PlayerId.Equals(playerID)) return;
+            poisonImg.gameObject.SetActive(false);
             if (updatePlayerCountersVisualEvent.Counters.poison != 0)
             {
                 poisonImg.gameObject.SetActive(true);

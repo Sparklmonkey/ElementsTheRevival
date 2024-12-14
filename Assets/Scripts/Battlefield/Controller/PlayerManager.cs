@@ -53,7 +53,7 @@ public class PlayerManager : MonoBehaviour
         var damage = modifyPlayerHealthEvent.IsDamage
             ? -modifyPlayerHealthEvent.Amount
             : modifyPlayerHealthEvent.Amount;
-        if (playerPassiveManager.GetShield().Item2.ShieldPassive is ReflectSkill && modifyPlayerHealthEvent.FromSpell)
+        if (playerPassiveManager.GetShield().Item2.ShieldPassive is ReflectSkill && modifyPlayerHealthEvent is { FromSpell: true, IsDamage: true })
         {
             EventBus<ModifyPlayerHealthLogicEvent>.Raise(new ModifyPlayerHealthLogicEvent(damage, owner.Not(), false));
             return;
@@ -120,6 +120,13 @@ public class PlayerManager : MonoBehaviour
                     playerCounters.delay = 0;
                 }
                 break;
+            case PlayerCounters.Sacrifice:
+                sacrificeCount += amount;
+                if (sacrificeCount < 1)
+                {
+                    sacrificeCount = 0;
+                }
+                break;
         }
         EventBus<UpdatePlayerCountersVisualEvent>.Raise(new UpdatePlayerCountersVisualEvent(playerID, playerCounters));
     }
@@ -178,6 +185,14 @@ public class PlayerManager : MonoBehaviour
     public int ManageShield(int atkNow, (ID id, Card card) card)
     {
         var shield = playerPassiveManager.GetShield();
+        
+        if (card.card.passiveSkills.Psion)
+        {
+            if (shield.Item2.ShieldPassive is null) return atkNow;
+            if (shield.card.ShieldPassive is not ReflectSkill) return atkNow;
+            
+            return shield.card.ShieldPassive.ActivateSkill(atkNow, card);
+        }
         atkNow -= shield.card.DefNow;
         card.card.DefModify -= shield.card.AtkNow;
         if (atkNow <= 0) return 0;
@@ -283,7 +298,7 @@ public class PlayerManager : MonoBehaviour
         var count = 0;
         foreach (var id in allIds)
         {
-            if (id.Item2.TurnEndAbility is LightEndTurn)
+            if (id.Item2.PreAttackAbility is LightEndTurn)
             {
                 count++;
             }
@@ -488,10 +503,6 @@ public class PlayerManager : MonoBehaviour
 
     public void DiscardCard(ID idToDiscard, Card cardToDiscard)
     {
-        if (cardToDiscard.innateSkills.Obsession)
-        {
-            EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(cardToDiscard.Id.IsUpgraded() ? 13 : 10, true, false, owner));
-        }
         EventBus<ClearCardDisplayEvent>.Raise(new ClearCardDisplayEvent(idToDiscard));
         BattleVars.Shared.HasToDiscard = false;
     }

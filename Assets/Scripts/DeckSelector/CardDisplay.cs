@@ -56,6 +56,7 @@ public class CardDisplay : MonoBehaviour
         }
         else if (cardToDisplay.Type.Equals(CardType.Spell))
         {
+            cardType.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, 0);
             creatureValues.text = "~";
             creatureValues.font = spellIconFont;
         }

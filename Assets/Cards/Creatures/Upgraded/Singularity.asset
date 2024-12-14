@@ -28,6 +28,9 @@ MonoBehaviour:
       Entry: 6
       Data: 
     - Name: TurnEndAbility
+      Entry: 6
+      Data: 
+    - Name: PreAttackAbility
       Entry: 7
       Data: 0|Battlefield.Abilities.SingularityEndTurn, Assembly-CSharp
     - Name: 

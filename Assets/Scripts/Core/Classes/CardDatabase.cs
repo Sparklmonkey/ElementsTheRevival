@@ -21,6 +21,10 @@ public class CardDatabase : SingletonMono<CardDatabase>
     
     private readonly List<string> _illegalPets = new() { "4vr", "4t8", "4vf", "52h", "55o", "58r", "5bt", "5f2", "5id", "5la", "5of", "5rm", "5ul", "61v", "5lt", "7kd" };
 
+    public void SortCardList()
+    {
+        FullCardList.Sort((x, y) => string.CompareOrdinal(x.Id, y.Id));
+    }
     public Card GetRandomPet()
     {
         return FullCardList.Find(x => !x.Id.IsUpgraded() && !_illegalPets.Contains(x.Id) && x.Type.Equals(CardType.Creature));

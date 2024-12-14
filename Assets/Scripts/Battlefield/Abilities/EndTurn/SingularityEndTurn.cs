@@ -48,7 +48,7 @@ namespace Battlefield.Abilities
                     break;
                 case "Chaos":
                     var chaos = Random.Range(1, 6);
-                    card.AtkModify += chaos;
+                    card.AtkModify -= chaos;
                     card.DefModify += chaos;
                     break;
                 case "Nova":

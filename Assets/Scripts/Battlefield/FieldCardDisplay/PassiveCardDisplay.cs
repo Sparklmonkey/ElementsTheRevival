@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Battlefield.Abilities;
 using Battlefield.Abstract;
 using TMPro;
 using UnityEngine;
@@ -100,6 +101,16 @@ public class PassiveCardDisplay : CardFieldDisplay
     private void HideCard(ClearCardDisplayEvent clearCardDisplayEvent)
     {
         if (!clearCardDisplayEvent.Id.Equals(Id)) return;
+
+        if (Card.ShieldPassive is BoneSkill)
+        {
+            var owner = DuelManager.Instance.GetNotIDOwner(Id);
+            if (owner.playerCounters.bone > 1)
+            {
+                EventBus<ModifyPlayerCounterEvent>.Raise(new ModifyPlayerCounterEvent(PlayerCounters.Bone, Id.owner, -1));
+                return;
+            }
+        }
         EventBus<PlayAnimationEvent>.Raise(new PlayAnimationEvent(Id, "CardDeath", Element.Other));
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("RemoveCardFromField"));
         EventBus<RemoveCardFromManagerEvent>.Raise(new RemoveCardFromManagerEvent(Id));

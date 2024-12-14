@@ -8,7 +8,7 @@ public class Desiccation : ActivatedAbility
 
     public override bool IsCardValid(ID id, Card card)
     {
-        return id.IsCreatureField();
+        return id.IsCreatureField() && !id.IsOwnedBy(BattleVars.Shared.AbilityIDOrigin.owner);
     }
 
     public override void Activate(ID targetId, Card targetCard)

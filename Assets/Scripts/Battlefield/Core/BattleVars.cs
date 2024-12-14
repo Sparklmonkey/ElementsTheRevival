@@ -22,6 +22,7 @@ public class BattleVars
         CoinFlip = 0;
         WillStart = false;
         IsTest = false;
+        WasSkeleton = false;
         IsArena = false;
         GameStartInTicks = DateTime.Now;
     }
@@ -29,6 +30,7 @@ public class BattleVars
     public static BattleVars Shared = new();
     public bool CanInteract = true;
     public float AIPlaySpeed = 0.5f;
+    public bool WasSkeleton = false;
     public int AILevel = 0;
     public Element PrimaryElement = Element.Aether;
     public Element SecondaryElement = Element.Aether;
