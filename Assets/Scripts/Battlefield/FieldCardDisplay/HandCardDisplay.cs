@@ -131,7 +131,7 @@ public class HandCardDisplay : CardFieldDisplay
     private void HideCard(ClearCardDisplayEvent clearCardDisplayEvent)
     {
         if (!clearCardDisplayEvent.Id.Equals(Id)) return;
-        if (Card.innateSkills.Obsession)
+        if (Card.innateSkills.Obsession && BattleVars.Shared.HasToDiscard)
         {
             EventBus<ModifyPlayerHealthEvent>.Raise(new ModifyPlayerHealthEvent(Card.Id.IsUpgraded() ? 13 : 10, true, false, Id.owner));
         }
