@@ -1,9 +1,19 @@
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Core;
 using Core.Networking.Response;
+using Networking;
+using Unity.Services.Authentication;
+using Unity.Services.Authentication.PlayerAccounts;
+using Unity.Services.CloudCode;
+using Unity.Services.CloudSave;
+using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.Networking;
+
+public delegate void LoginLegacyHandler(LoginResponse response);
+public delegate void LoginUserHandler(string responseMessage);
 
 namespace Networking
 {
@@ -12,6 +22,7 @@ namespace Networking
         public static bool IsTrainer => PlayerPrefs.GetInt("IsTrainer") == 1;
         private string _jwtToken;
         private string _accountId;
+        public bool isUnityUser = false;
         // private readonly string _baseUrl =  "https://www.elementstherevival.com/api/";
 #if UNITY_EDITOR
         private readonly string _baseUrl =  "http://localhost:5158/api/";
@@ -80,8 +91,17 @@ namespace Networking
             var response = await SendPutRequest<SaveDataRequest, SaveDataResponse>(Endpointbuilder.UpdateSaveData,new SaveDataRequest(){ savedData = PlayerData.Shared});
             _jwtToken = response.newToken;
         }
-    
-    
+
+
+        public async Task LoginLegacy(LoginRequest loginRequest, LoginLegacyHandler loginSuccess, string endPoint)
+        {
+            var response = await SendPostRequest<LoginRequest, LoginResponse>(endPoint, loginRequest);
+            _jwtToken = response.token;
+            _accountId = response.accountId;
+            PlayerData.LoadFromApi(response.savedData);
+            loginSuccess(response);
+        }
+
         //POST Requests
         public async Task<LoginResponse> LoginController(LoginRequest loginRequest, string endPoint)
         {
@@ -118,7 +138,62 @@ namespace Networking
             AppInfo = await SendGetRequest<AppInfo>(Endpointbuilder.AppInfo);
             return AppInfo;
         }
-    
+        public async Task UserLoginAsync(LoginType loginType, LoginUserHandler handler, string username = "", string password = "")
+    {
+        try
+        {
+            switch (loginType)
+            {
+                case LoginType.Unity:
+                    await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+                    await LoadSomeData();
+                    isUnityUser = true;
+                    break;
+                case LoginType.UserPass:
+                    await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
+                    await LoadSomeData();
+                    break;
+                case LoginType.RegisterUserPass:
+                    await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
+                    PlayerData.Shared = new();
+                    PlayerData.Shared.username = username;
+                    await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
+                    await SaveDataToUnity();
+                    break;
+                case LoginType.RegisterUnity:
+                    await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+                    PlayerData.Shared = new();
+                    PlayerData.Shared.username = username;
+                    await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
+                    await SaveDataToUnity();
+                    isUnityUser = true;
+                    break;
+                case LoginType.LinkUserPass:
+                    await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
+                    await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
+                    await SaveDataToUnity();
+                    break;
+                default:
+                    break;
+            }
+            handler("Success");
+        }
+        catch (AuthenticationException ex)
+        {
+            if (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
+            {
+                handler("Username is already in use. Please try a different one.");
+            }
+            else
+            {
+                handler("Something went wrong. Please try again later.");
+            }
+        }
+        catch (RequestFailedException)
+        {
+            handler("Something went wrong. Please try again later.");
+        }
+    }
         public async Task GetGameNews()
         {
             var gameNews = await SendGetRequest<GameNewsResponse>(Endpointbuilder.GameNews);
@@ -160,6 +235,35 @@ namespace Networking
             await uwr.SendWebRequest();
             return JsonUtility.FromJson<TResponse>(uwr.downloadHandler.text);
         }
+    
+    public async Task SavePlayerScore()
+    {
+        var arguments = new Dictionary<string, object> { { "playerScore", PlayerData.Shared.playerScore } };
+        await CloudCodeService.Instance.CallEndpointAsync("update-player-score", arguments);
+    }
+    
+    public async Task<bool> LoadSomeData()
+    {
+        Dictionary<string, string> savedData = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> { "SaveData" });
+        if (savedData == null)
+        {
+            PlayerData.Shared = new();
+            return false;
+        }
+        else
+        {
+            PlayerData.Shared = JsonUtility.FromJson<PlayerData>(savedData["SaveData"]);
+            return true;
+        }
+    }
+
+    public async Task SaveDataToUnity()
+    {
+        await SavePlayerScore();
+        var data = new Dictionary<string, object> { { "SaveData", PlayerData.Shared } };
+        await CloudSaveService.Instance.Data.ForceSaveAsync(data);
+    }
+    
     }
 
     public class AppInfo
@@ -188,4 +292,13 @@ namespace Networking
     {
         public bool WasSuccess;
     }
+}
+
+public enum LoginType
+{
+    Unity,
+    UserPass,
+    RegisterUserPass,
+    RegisterUnity,
+    LinkUserPass
 }

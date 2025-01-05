@@ -149,8 +149,8 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Supernova.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Wisdom.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\PatiencePlayRemoveAbility.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Drainlife.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\OnPermanentTurnEndEvent.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\Target\Drainlife.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Patience.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\EndTurn\InfestEndTurn.cs" />
     <Compile Include="Assets\Scripts\Events\BattlefieldEvents\QuantaChangeLogicEvent.cs" />
@@ -439,8 +439,8 @@
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Ablaze.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Visual\MovingText.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Shield\DelaySkill.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Evolve.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Visual\PlayerCardInHand.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Evolve.cs" />
     <Compile Include="Assets\Scripts\Battlefield\AiComponents\BasicAiTurnLogic.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Scarab.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Visual\DisplayCreatureAttackEvent.cs" />
@@ -471,8 +471,8 @@
     <Compile Include="Assets\Scripts\Battlefield\FieldCardDisplay\HandCardDisplay.cs" />
     <Compile Include="Assets\Scripts\Dashboard\RareCardObject.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\Skills\No Target\Silence.cs" />
-    <Compile Include="Assets\Bazaar_ConfirmationMessage.cs" />
     <Compile Include="Assets\Scripts\Dashboard\Quests.cs" />
+    <Compile Include="Assets\Bazaar_ConfirmationMessage.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abstract\CardManager.cs" />
     <Compile Include="Assets\Scripts\Core\Helpers\ImageHelper.cs" />
     <Compile Include="Assets\Scripts\StarterDeckCardHead.cs" />
@@ -952,6 +952,9 @@
     </Reference>
     <Reference Include="UnityEditor.XRModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.0.23f1\Editor\Data\Managed\UnityEngine\UnityEditor.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\PackageCache\com.unity.services.wire\Plugins\websocket-sharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Packages\Microsoft.Extensions.DependencyInjection.Abstractions.7.0.0\lib\netstandard2.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
@@ -1514,9 +1517,6 @@
     <Reference Include="UnityEditor.UI">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Searcher.Editor">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
@@ -1526,11 +1526,17 @@
     <Reference Include="Unity.AI.Navigation">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Searcher.Editor">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RemoteConfig.Editor.Core">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RemoteConfig.Editor.Core.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime.Shared">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.Shared.dll</HintPath>
@@ -1565,11 +1571,20 @@
     <Reference Include="Unity.Behavior.Serialization">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Behavior.Serialization.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Services.Authentication.PlayerAccounts">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Services.Authentication.PlayerAccounts.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RemoteConfig.Editor">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RemoteConfig.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Collections">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Collections.dll</HintPath>
     </Reference>
     <Reference Include="PPv2URPConverters">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.RemoteConfig">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Services.RemoteConfig.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rendering.LightTransport.Editor">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Rendering.LightTransport.Editor.dll</HintPath>
@@ -1577,8 +1592,14 @@
     <Reference Include="Unity.Behavior.Serialization.Editor">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Behavior.Serialization.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Services.Authentication.Editor.Shared">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Services.Authentication.Editor.Shared.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Core">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.CloudSave.Editor">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Services.CloudSave.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Behavior.GraphFramework">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Behavior.GraphFramework.dll</HintPath>
@@ -1595,14 +1616,11 @@
     <Reference Include="Unity.AppUI">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.AppUI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Collections.Editor">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Collections.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Behavior.Authoring">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Behavior.Authoring.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    <Reference Include="Unity.Collections.Editor">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Collections.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Shared.Editor">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
@@ -1615,6 +1633,9 @@
     </Reference>
     <Reference Include="Unity.AI.Navigation.Updater">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Muse.Behavior">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Muse.Behavior.dll</HintPath>
@@ -1631,6 +1652,9 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Services.Core.Analytics">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Services.Core.Analytics.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
@@ -1643,6 +1667,9 @@
     <Reference Include="Unity.AI.Navigation.Editor">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Services.Authentication">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Services.Authentication.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Mathematics">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
@@ -1652,8 +1679,14 @@
     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Services.CloudSave">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Services.CloudSave.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Environments">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Services.Core.Environments.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
@@ -1670,17 +1703,23 @@
     <Reference Include="Unity.Burst.Editor">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Services.Core">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Services.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Burst">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.CloudCode">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Services.CloudCode.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rendering.LightTransport.Runtime">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Rendering.LightTransport.Runtime.dll</HintPath>

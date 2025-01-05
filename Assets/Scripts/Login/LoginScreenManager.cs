@@ -86,14 +86,9 @@ namespace Login
         {
             _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
             _touchBlocker.transform.SetAsFirstSibling();
-            var response = await ApiManager.Instance.LoginController(new LoginRequest()
-            {
-                username = username.text,
-                password = password.text
-            }, Endpointbuilder.UserCredentialLogin);
-        
-            Destroy(_touchBlocker);
-            ManageResponse(response);
+
+            await ApiManager.Instance.UserLoginAsync(LoginType.UserPass, HandleUserLogin, username.text, password.text);
+            
         }
     
     
@@ -115,6 +110,39 @@ namespace Login
             {
                 errorMessage.text = response.errorMessage.ToLongDescription();
             }
+        }
+        
+        public void HandleUserLogin(string responseMessage)
+        {
+            if (responseMessage == "Success")
+            {
+                _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+                Destroy(_touchBlocker);
+                if (PlayerData.Shared.currentDeck.DecompressDeckCode().Count < 30)
+                {
+                    GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
+                }
+                else
+                {
+                    GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
+                }
+            }
+            else
+            {
+                HandleUserLoginWithLegacyFallback();
+            }
+        }
+        
+        private async void HandleUserLoginWithLegacyFallback()
+        {
+            var response = await ApiManager.Instance.LoginController(new LoginRequest()
+            {
+                username = username.text,
+                password = password.text
+            }, Endpointbuilder.UserCredentialLogin);
+        
+            Destroy(_touchBlocker);
+            ManageResponse(response);
         }
     }
 }

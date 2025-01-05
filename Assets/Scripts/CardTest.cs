@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Networking;
-using Newtonsoft.Json;
+using Unity.Services.Authentication;
+using Unity.Services.Authentication.PlayerAccounts;
+using Unity.Services.CloudCode;
+using Unity.Services.CloudSave;
+using Unity.Services.Core;
 using UnityEngine;
 
 public class CardTest : MonoBehaviour
@@ -10,18 +12,8 @@ public class CardTest : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        var elderAi = Resources.LoadAll<EnemyAi>($"EnemyAi/Level3/");
-        foreach (var elder in elderAi)
-        {
-            Debug.Log($"--------{elder.opponentName}---------");
-            var deck = new List<string>(elder.deck.Split(" ")).DeserializeCard();
-            foreach (var card in deck)
-            {
-                if (card.Type is not CardType.Spell) continue;
-                Debug.Log($"--------{card.CardName}---------");
-                Debug.Log(card.Id);
-            }
-        }
+        AuthenticationService.Instance.SignInAnonymouslyAsync();
+        
     }
 
     private void ViewedNewsTest()

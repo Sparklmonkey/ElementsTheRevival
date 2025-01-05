@@ -418,6 +418,9 @@
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.0.23f1\Editor\Data\PlaybackEngines\AndroidPlayer\UnityEditor.Android.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Library\PackageCache\com.unity.services.wire\Plugins\websocket-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
       <HintPath>C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\Assets\Packages\Microsoft.Extensions.DependencyInjection.Abstractions.7.0.0\lib\netstandard2.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
