@@ -39,7 +39,6 @@ public class NewsPanelManager : MonoBehaviour
         StopAllCoroutines();
         subtitle.text = gameNews.newsSubtitle;
         description.text = gameNews.newsDescription;
-
         topImageContainer.sizeDelta = new Vector2(topImageContainer.rect.width, 0);
         bottomImageContainer.sizeDelta = new Vector2(bottomImageContainer.rect.width, 0);
         if (gameNews.topImageUrl.Contains("https"))
