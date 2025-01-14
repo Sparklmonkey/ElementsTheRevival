@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Core;
 using Dashboard;
 using TMPro;
@@ -25,17 +26,19 @@ public class NewsPanelManager : MonoBehaviour
         foreach (var newsItem in _newsList)
         {
             var newsObject = Instantiate(newsPrefab, content);
-            var newsScript = newsObject.GetComponent<NewsItem>();
+            var newsScript = newsObject.GetComponent<NewsItem>(); 
             newsScript.SetupItem(newsItem, UpdateSelectedNewsItem);
         }
+
+        _newsList = _newsList.OrderBy(x => x.priority).ToList();
         UpdateSelectedNewsItem(_newsList[0]);
     }
 
     private void UpdateSelectedNewsItem(GameNews gameNews)
     {
         StopAllCoroutines();
-        subtitle.text = gameNews.subtitle;
-        description.text = gameNews.description;
+        subtitle.text = gameNews.newsSubtitle;
+        description.text = gameNews.newsDescription;
 
         topImageContainer.sizeDelta = new Vector2(topImageContainer.rect.width, 0);
         bottomImageContainer.sizeDelta = new Vector2(bottomImageContainer.rect.width, 0);
@@ -92,10 +95,10 @@ public class NewsPanelManager : MonoBehaviour
 [Serializable]
 public class GameNews
 {
-    public int id;
-    public string title;
-    public string subtitle;
-    public string description;
+    public int priority;
+    public string newsTitle;
+    public string newsSubtitle;
+    public string newsDescription;
     public string topImageUrl;
     public string bottomImageUrl;
 }

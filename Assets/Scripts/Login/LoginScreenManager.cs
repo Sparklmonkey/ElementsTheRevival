@@ -2,6 +2,7 @@
 using System.Linq;
 using Networking;
 using TMPro;
+using Unity.Services.RemoteConfig;
 using UnityEngine;
 
 namespace Login
@@ -40,7 +41,8 @@ namespace Login
 
         private void Start()
         {
-            lastUpdateNote.text = ApiManager.Instance.AppInfo.updateNote;
+            var updateNote = RemoteConfigService.Instance.appConfig.GetString("VersionNote");
+            lastUpdateNote.text = updateNote;
             fields = new List<TMP_InputField> { username, password };
             username.text = PlayerPrefs.HasKey("SavedUser") ? PlayerPrefs.GetString("SavedUser") : "";
             versionLabel.text = $"Version {Application.version}";

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,16 +24,16 @@ namespace Networking
         private string _jwtToken;
         private string _accountId;
         public bool isUnityUser = false;
+
         // private readonly string _baseUrl =  "https://www.elementstherevival.com/api/";
 #if UNITY_EDITOR
-        private readonly string _baseUrl =  "http://localhost:5158/api/";
+        private readonly string _baseUrl =  "https://www.elementstherevival.com/api/";
+        // private readonly string _baseUrl =  "http://localhost:5158/api/";
 #else
         private readonly string _baseUrl =  "https://www.elementstherevival.com/api/";
 #endif
         
-        
         private readonly string _apiKey = "ElementRevival-ApiKey";
-        public AppInfo AppInfo;
 
         private void Start()
         {
@@ -57,7 +58,15 @@ namespace Networking
             request.timeout = 60;
             return request;
         }
-    
+
+        public bool ShouldForceUpdate(string minVersion)
+        {
+            var version1 = new Version(Application.version);
+            var version2 = new Version(minVersion);
+
+            var result = version1.CompareTo(version2);
+            return result < 0;
+        }
 
         //PUT Requests
 
@@ -83,6 +92,8 @@ namespace Networking
 
         public async Task SaveGameData()
         {
+            if (PlayerPrefs.GetInt("IsTrainer") == 1) return;
+            
             if (PlayerPrefs.GetInt("IsGuest") == 1)
             {
                 PlayerData.SaveData();
@@ -133,11 +144,6 @@ namespace Networking
             return await SendGetRequest<GetAchievementsResponse>(Endpointbuilder.GetAchievements);
         }
 
-        public async Task<AppInfo> GetAppInfo()
-        {
-            AppInfo = await SendGetRequest<AppInfo>(Endpointbuilder.AppInfo);
-            return AppInfo;
-        }
         public async Task UserLoginAsync(LoginType loginType, LoginUserHandler handler, string username = "", string password = "")
     {
         try
@@ -264,13 +270,6 @@ namespace Networking
         await CloudSaveService.Instance.Data.ForceSaveAsync(data);
     }
     
-    }
-
-    public class AppInfo
-    {
-        public bool isMaintenance;
-        public bool shouldUpdate;
-        public string updateNote;
     }
 
     public class SaveDataResponse

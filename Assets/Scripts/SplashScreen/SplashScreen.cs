@@ -1,7 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core;
 using Core.FixedStrings;
+using Core.Networking.Response;
 using Networking;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
+using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,6 +79,15 @@ public class SplashScreen : MonoBehaviour
     }
     private void Start()
     {
+        if (PlayerPrefs.HasKey("IsTrainer"))
+        {
+            var isTrainer = PlayerPrefs.GetInt("IsTrainer");
+            if (isTrainer == 1)
+            {
+                PlayerPrefs.SetString("AccessToken", "");
+                PlayerPrefs.SetString("SaveData", "");
+            }
+        }
         PlayerPrefs.SetInt("IsGuest", 0);
         PlayerPrefs.SetInt("IsTrainer", 0);
         SoundManager.Instance.PlayBGM("LoginScreen");
@@ -112,19 +127,20 @@ public class SplashScreen : MonoBehaviour
         LoadNextScene();
     }
 
+
+    private async Task<bool> SetupRemoteConfig()
+    {
+        await UnityServices.InitializeAsync();
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+        return true;
+    }
     private async void LoadNextScene()
     {
-        var appInfo = await ApiManager.Instance.GetAppInfo();
-        if (appInfo == null)
-        {
-            var popUpObject = Instantiate(popUpModal, popUpParent);
-            popUpObject.GetComponent<PopUpModal>().SetupModal(LanguageManager.Instance.LanguageStringController.SplashUnknownFailureModalTitle, 
-                LanguageManager.Instance.LanguageStringController.SplashUnknownFailureButtonTitle,
-                GoToLogin);
-            return;
-        }
-
-        if (appInfo.isMaintenance)
+        var isLoaded = await SetupRemoteConfig();
+        
+        var isMaintenance = RemoteConfigService.Instance.appConfig.GetBool("IsMaintenance");
+        if (isMaintenance)
         {
             var popUpObject = Instantiate(popUpModal, popUpParent);
             popUpObject.GetComponent<PopUpModal>().SetupModal(LanguageManager.Instance.LanguageStringController.SplashMaintenanceModalTitle, 
@@ -132,8 +148,11 @@ public class SplashScreen : MonoBehaviour
                 CloseApp);
             return;
         }
-        
-        if (appInfo.shouldUpdate)
+        var minVersion = RemoteConfigService.Instance.appConfig.GetString("MinVersion");
+        var news = RemoteConfigService.Instance.appConfig.GetJson("GameNews");
+        var newsItem = JsonUtility.FromJson<RemoteConfigGameNews>(news);
+        SessionManager.Instance.GameNews = newsItem.newsList;
+        if (ApiManager.Instance.ShouldForceUpdate(minVersion))
         {
             var popUpObject = Instantiate(popUpModal, popUpParent);
             popUpObject.GetComponent<PopUpModal>().SetupModal(LanguageManager.Instance.LanguageStringController.SplashForcedUpdateModalTitle, 
@@ -141,7 +160,6 @@ public class SplashScreen : MonoBehaviour
                 GoToAppStore);
             return;
         }
-        await ApiManager.Instance.GetGameNews();
         if (PlayerPrefs.HasKey("AccessToken"))
         { 
             var token = PlayerPrefs.GetString("AccessToken"); 

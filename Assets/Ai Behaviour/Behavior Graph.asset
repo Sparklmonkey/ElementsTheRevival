@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c02bb70996b49eba31d0c206e28da24, type: 3}
-  m_Name: Behavior Graph Blackboard Editor
+  m_Name: Behavior Graph Blackboard
   m_EditorClassIdentifier: 
   VersionTimestamp: 638660135535021894
   AssetID:
@@ -471,9 +471,6 @@ MonoBehaviour:
   m_Blackboard:
     m_Variables:
     - rid: 346843166745559289
-    - rid: 346843166745559290
-    - rid: 346843166745559291
-    - rid: 346843166745559292
     - rid: 346843166745559293
   m_SharedBlackboardVariableGuids: []
   references:
@@ -486,30 +483,6 @@ MonoBehaviour:
           m_Value0: 1
           m_Value1: 0
         Name: Self
-        m_Value: {fileID: 0}
-    - rid: 346843166745559290
-      type: {class: 'BlackboardVariable`1[[PlayerManager, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 15058938776461591549
-          m_Value1: 13128915741729755904
-        Name: AiManager
-        m_Value: {fileID: 0}
-    - rid: 346843166745559291
-      type: {class: 'BlackboardVariable`1[[ChangeTurnOwner, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 14088223148651740361
-          m_Value1: 7972452518050524640
-        Name: TurnChange
-        m_Value: {fileID: 0}
-    - rid: 346843166745559292
-      type: {class: 'BlackboardVariable`1[[PlayerManager, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 5457807165283260159
-          m_Value1: 1543924798717789291
-        Name: HumanPlayer
         m_Value: {fileID: 0}
     - rid: 346843166745559293
       type: {class: 'BlackboardVariable`1[[System.String, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
@@ -554,6 +527,7 @@ MonoBehaviour:
   - rid: 346843165887038425
   m_VersionTimestamp: 638660138094829388
   m_DebugInfo: {fileID: 6181260701724446220}
+  m_RuntimeGraph: {fileID: 0}
   AssetID:
     m_Value0: 8405233178423864397
     m_Value1: 2033935039892585208
@@ -686,6 +660,7 @@ MonoBehaviour:
     Variables: []
     NamedChildren: []
   m_Blackboards: []
+  m_MainBlackboardAuthoringAsset: {fileID: 8580262377065665376}
   m_CommandBuffer:
     m_Commands: []
   references:
@@ -1811,7 +1786,7 @@ MonoBehaviour:
   m_CodeBreakPointsList: []
 --- !u!114 &8580262377065665376
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1819,16 +1794,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dd922ae02c94c87a66e46a10a7319b9, type: 3}
-  m_Name: Behavior Graph Blackboard Editor
+  m_Name: Behavior Graph Blackboard
   m_EditorClassIdentifier: 
   AssetID:
     m_Value0: 8405233178423864397
     m_Value1: 2033935039892585208
   m_Variables:
   - rid: 7464314568790245610
-  - rid: 7464314640412442911
-  - rid: 346843164778693123
-  - rid: 346843164778693135
   - rid: 346843164778693286
   m_VersionTimestamp: 638660138094829388
   m_CommandBuffer:
@@ -1837,26 +1809,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 346843164778693123
-      type: {class: 'TypedVariableModel`1[[ChangeTurnOwner, Assembly-CSharp]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
-      data:
-        ID:
-          m_Value0: 14088223148651740361
-          m_Value1: 7972452518050524640
-        Name: TurnChange
-        IsExposed: 1
-        m_IsShared: 0
-        m_Value: {fileID: 0}
-    - rid: 346843164778693135
-      type: {class: 'TypedVariableModel`1[[PlayerManager, Assembly-CSharp]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
-      data:
-        ID:
-          m_Value0: 5457807165283260159
-          m_Value1: 1543924798717789291
-        Name: HumanPlayer
-        IsExposed: 1
-        m_IsShared: 0
-        m_Value: {fileID: 0}
     - rid: 346843164778693286
       type: {class: 'TypedVariableModel`1[[System.String, mscorlib]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
       data:
@@ -1874,16 +1826,6 @@ MonoBehaviour:
           m_Value0: 1
           m_Value1: 0
         Name: Self
-        IsExposed: 1
-        m_IsShared: 0
-        m_Value: {fileID: 0}
-    - rid: 7464314640412442911
-      type: {class: 'TypedVariableModel`1[[PlayerManager, Assembly-CSharp]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
-      data:
-        ID:
-          m_Value0: 15058938776461591549
-          m_Value1: 13128915741729755904
-        Name: AiManager
         IsExposed: 1
         m_IsShared: 0
         m_Value: {fileID: 0}

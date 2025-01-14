@@ -1,0 +1,9 @@
+Process name: Unity
+Process image: /Applications/Unity/Hub/Editor/6000.0.32f1/Unity.app/Contents/MacOS/Unity
+Process started: 2025.01.05.17.34.32.736
+Error: Unity VCS client is not correctly configured for the current user: Client config file /Users/Juan.Soler/.plastic4/client.conf not found. Please execute 'cm configure' to perform a text mode configuration or 'macplastic --configure' for graphical mode.
+StackTrace:   at Codice.Client.Common.ClientConfig.get_SafeData () [0x00037] in <9877eb58f6f144c884d75b42e9bdd116>:0 
+  at Codice.Client.Common.ClientConfig.IsNewWorkspaceTreeFormatEnabled () [0x00001] in <9877eb58f6f144c884d75b42e9bdd116>:0 
+  at Codice.CM.WorkspaceServer.WorkspaceTreeDataStore.CheckIsValidVersion (Codice.CM.Common.WorkspaceInfo wkInfo, System.Byte fileVersion) [0x0007b] in <9877eb58f6f144c884d75b42e9bdd116>:0 
+  at Codice.CM.WorkspaceServer.WorkspaceTreeDataStore.ReadLoadedChangesetFromFile (Codice.CM.Common.WorkspaceInfo wkInfo, System.String wkTreeFile, Codice.Utils.Buffers.FlexibleBufferPool bufferPool) [0x00066] in <9877eb58f6f144c884d75b42e9bdd116>:0 
+  at Codice.CM.WorkspaceServer.WorkspaceTreeDataStore.ReadLoadedChangesetId (Codice.CM.Common.WorkspaceInfo wkInfo, System.String wkTreeFile, Codice.Utils.Buffers.FlexibleBufferPool bufferPool) [0x00008] in <9877eb58f6f144c884d75b42e9bdd116>:0 
