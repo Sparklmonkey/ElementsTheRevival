@@ -97,7 +97,7 @@ namespace Core.Classes
 
             var maxValueKey = elementCount.Aggregate((x, y) => x.Value >= y.Value ? x : y).Key;
 
-            golem.SkillElement = maxValueKey;
+            golem.SkillElement = Element.Earth;
             switch (maxValueKey)
             {
                 case Element.Aether:

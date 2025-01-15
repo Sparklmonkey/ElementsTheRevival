@@ -324,7 +324,7 @@ public class PlayerManager : MonoBehaviour
         var hasSpace = cardToCheck.Type switch
         {
             CardType.Pillar => playerPermanentManager.GetAllValidCards().Count < 14,
-            CardType.Creature => playerCreatureField.GetAllValidCardIds().Count < 23,
+            CardType.Creature => playerCreatureField.GetAllValidCards().Count < 23,
             CardType.Artifact => playerPermanentManager.GetAllValidCards().Count < 14,
             _ => true
         };

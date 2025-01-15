@@ -8,7 +8,7 @@ public static class IdCardTupleExtensions
 
     public static bool IsTargetable(this Card card, ID id)
     {
-        if (DuelManager.Instance.GetIDOwner(id).IsPlayerInvisible())
+        if (DuelManager.Instance.GetIDOwner(id).IsPlayerInvisible() && card.Id is not "5v2" && card.Id is not "7ti")
         {
             if (id.IsOwnedBy(OwnerEnum.Player) && BattleVars.Shared.IsPlayerTurn)
             {
