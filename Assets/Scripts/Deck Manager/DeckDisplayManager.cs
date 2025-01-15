@@ -407,13 +407,14 @@ public class DeckDisplayManager : MonoBehaviour
             foreach (var id in idList)
             {
                 var cardIndex = playerInventory.FindIndex(x => x.Id == id);
-                if (cardIndex == -1) { continue; }
-                playerDeck.Add(playerInventory[cardIndex]);
-                playerInventory.RemoveAt(cardIndex);
                 if (CardDatabase.Instance.markIds.Contains(id))
                 {
                     markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).CostElement);
                 }
+                if (cardIndex == -1) { continue; }
+                playerDeck.Add(playerInventory[cardIndex]);
+                playerInventory.RemoveAt(cardIndex);
+                
             }
         }
         

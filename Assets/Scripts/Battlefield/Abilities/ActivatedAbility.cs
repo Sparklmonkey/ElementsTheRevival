@@ -12,4 +12,9 @@
         return null;
     }
     
+    public ActivatedAbility Clone()
+    {
+        var clone = (ActivatedAbility)MemberwiseClone();
+        return clone;
+    }
 }

@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{5c724db2-d21e-65bf-c3e3-dde183911ff2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{b1780e3a-4ed6-4e7e-e7ff-10458caa7ccd}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.Modules.UnityMathematics", "Sirenix.OdinInspector.Modules.UnityMathematics.csproj", "{45042d90-614f-804c-25de-2b3da3f37ee5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{27f09fb7-fce0-27c3-7212-922d4d9c896a}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor-firstpass", "Assembly-CSharp-Editor-firstpass.csproj", "{8d800075-28cb-e9ce-bed9-fbd2eedfb507}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5c724db2-d21e-65bf-c3e3-dde183911ff2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5c724db2-d21e-65bf-c3e3-dde183911ff2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{b1780e3a-4ed6-4e7e-e7ff-10458caa7ccd}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{b1780e3a-4ed6-4e7e-e7ff-10458caa7ccd}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45042d90-614f-804c-25de-2b3da3f37ee5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45042d90-614f-804c-25de-2b3da3f37ee5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27f09fb7-fce0-27c3-7212-922d4d9c896a}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27f09fb7-fce0-27c3-7212-922d4d9c896a}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8d800075-28cb-e9ce-bed9-fbd2eedfb507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8d800075-28cb-e9ce-bed9-fbd2eedfb507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

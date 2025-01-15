@@ -115,7 +115,10 @@ public class PassiveCardDisplay : CardFieldDisplay
         EventBus<PlaySoundEffectEvent>.Raise(new PlaySoundEffectEvent("RemoveCardFromField"));
         EventBus<RemoveCardFromManagerEvent>.Raise(new RemoveCardFromManagerEvent(Id));
 
-        Card.PlayRemoveAbility?.OnRemoveActivate(Id, Card);
+        if (Card.ShieldPassive is not BoneSkill)
+        {
+            Card.PlayRemoveAbility?.OnRemoveActivate(Id, Card);
+        }
 
         EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(Id.owner, CardDatabase.Instance.GetPlaceholderCard(Id.index)));
         Destroy(gameObject);
