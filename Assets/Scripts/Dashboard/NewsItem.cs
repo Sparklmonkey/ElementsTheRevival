@@ -12,7 +12,7 @@ namespace Dashboard
         public void SetupItem(GameNews gameNews, NewsUpdateMethod updateMethod)
         {
             _gameNews = gameNews;
-            title.text = _gameNews.title;
+            title.text = _gameNews.newsTitle;
             _updateMethod = updateMethod;
         }
 

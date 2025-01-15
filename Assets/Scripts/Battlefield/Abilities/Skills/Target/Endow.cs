@@ -8,7 +8,7 @@ public class Endow : ActivatedAbility
     public override void Activate(ID targetId, Card targetCard)
     {
         if (!IsCardValid(targetId, targetCard)) return;
-        BattleVars.Shared.AbilityCardOrigin.Skill = nameof(targetCard.Skill).GetScriptFromName<ActivatedAbility>();
+        BattleVars.Shared.AbilityCardOrigin.Skill = targetCard.Skill.Clone();
         BattleVars.Shared.AbilityCardOrigin.WeaponPassive = targetCard.WeaponPassive;
         BattleVars.Shared.AbilityCardOrigin.SkillCost = targetCard.SkillCost;
         BattleVars.Shared.AbilityCardOrigin.SkillElement = targetCard.SkillElement;

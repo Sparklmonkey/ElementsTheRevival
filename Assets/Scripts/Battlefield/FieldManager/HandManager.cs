@@ -61,7 +61,7 @@ namespace Elements.Duel.Manager
                 for (var i = j + 1; i < cardPositions.Count; i++)
                 {
                     if (cardPositions[i].childCount == 0) continue;
-                    cardPositions[i].GetChild(0).parent = cardPositions[j];
+                    cardPositions[i].GetChild(0).SetParent(cardPositions[j], false);
                     cardPositions[j].GetChild(0).position = cardPositions[j].position;
                     cardPositions[j].GetChild(0).GetComponent<HandCardDisplay>().SetupId(new ID(owner, field, j));
                     break;

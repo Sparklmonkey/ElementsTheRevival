@@ -2,6 +2,7 @@
 using System.Linq;
 using Networking;
 using TMPro;
+using Unity.Services.RemoteConfig;
 using UnityEngine;
 
 namespace Login
@@ -40,7 +41,8 @@ namespace Login
 
         private void Start()
         {
-            lastUpdateNote.text = ApiManager.Instance.AppInfo.updateNote;
+            var updateNote = RemoteConfigService.Instance.appConfig.GetString("VersionNote");
+            lastUpdateNote.text = updateNote;
             fields = new List<TMP_InputField> { username, password };
             username.text = PlayerPrefs.HasKey("SavedUser") ? PlayerPrefs.GetString("SavedUser") : "";
             versionLabel.text = $"Version {Application.version}";
@@ -86,14 +88,9 @@ namespace Login
         {
             _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
             _touchBlocker.transform.SetAsFirstSibling();
-            var response = await ApiManager.Instance.LoginController(new LoginRequest()
-            {
-                username = username.text,
-                password = password.text
-            }, Endpointbuilder.UserCredentialLogin);
-        
-            Destroy(_touchBlocker);
-            ManageResponse(response);
+
+            await ApiManager.Instance.UserLoginAsync(LoginType.UserPass, HandleUserLogin, username.text, password.text);
+            
         }
     
     
@@ -115,6 +112,39 @@ namespace Login
             {
                 errorMessage.text = response.errorMessage.ToLongDescription();
             }
+        }
+        
+        public void HandleUserLogin(string responseMessage)
+        {
+            if (responseMessage == "Success")
+            {
+                _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+                Destroy(_touchBlocker);
+                if (PlayerData.Shared.currentDeck.DecompressDeckCode().Count < 30)
+                {
+                    GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
+                }
+                else
+                {
+                    GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
+                }
+            }
+            else
+            {
+                HandleUserLoginWithLegacyFallback();
+            }
+        }
+        
+        private async void HandleUserLoginWithLegacyFallback()
+        {
+            var response = await ApiManager.Instance.LoginController(new LoginRequest()
+            {
+                username = username.text,
+                password = password.text
+            }, Endpointbuilder.UserCredentialLogin);
+        
+            Destroy(_touchBlocker);
+            ManageResponse(response);
         }
     }
 }

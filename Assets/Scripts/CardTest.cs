@@ -1,51 +1,59 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Networking;
-using Newtonsoft.Json;
+using Unity.Services.Authentication;
+using Unity.Services.Authentication.PlayerAccounts;
+using Unity.Services.CloudCode;
+using Unity.Services.CloudSave;
+using Unity.Services.Core;
+using Unity.Services.RemoteConfig;
+using Unity.VisualScripting;
 using UnityEngine;
 
+public struct UserAttributes {
+    // Optionally declare variables for any custom user attributes:
+    public bool expansionFlag;
+}
+
+public struct AppAttributes {
+    // Optionally declare variables for any custom app attributes:
+    public string VersionNote;
+    public bool IsMaintenance;
+    public string MinVersion;
+    public string GameNews;
+}
 public class CardTest : MonoBehaviour
 {
     // Start is called before the first frame update
     private void Start()
     {
-        var elderAi = Resources.LoadAll<EnemyAi>($"EnemyAi/Level3/");
-        foreach (var elder in elderAi)
-        {
-            Debug.Log($"--------{elder.opponentName}---------");
-            var deck = new List<string>(elder.deck.Split(" ")).DeserializeCard();
-            foreach (var card in deck)
-            {
-                if (card.Type is not CardType.Spell) continue;
-                Debug.Log($"--------{card.CardName}---------");
-                Debug.Log(card.Id);
-            }
-        }
+        SetupRemoteConfig();
     }
 
-    private void ViewedNewsTest()
+    private async void SetupRemoteConfig()
     {
-        var idList = "";
-        foreach (var card in CardDatabase.Instance.FullCardList)
-        {
-            idList += $" \"{card.Id}\",";
-        }
+        await UnityServices.InitializeAsync();
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
         
-        Debug.Log(idList);
-        // for (int i = 0; i < 12; i++)
-        // {
-        //     var regularNymph = CardDatabase.Instance.GetRandomRegularNymph((Element)i);
-        //     var uppedNymph = CardDatabase.Instance.GetRandomEliteNymph((Element)i);
-        //     Debug.Log($"Regular ID: {regularNymph.Id}");
-        //     Debug.Log($"Upped ID: {uppedNymph.Id}");
-        //     Debug.Log($"Element: {(Element)i}");
-        // }
-    } 
+        Debug.Log("-----------Min App Version-----------");
+        Debug.Log(RemoteConfigService.Instance.appConfig.GetString("minVersion"));
+        
+        Debug.Log("-----------Version Note-----------");
+        Debug.Log(RemoteConfigService.Instance.appConfig.GetString("versionNote"));
+    }
+    
 }
 
 [Serializable]
 public class CardDBLegacy
 {
     public List<CardDefinition> cardDb;
-} 
+}
+
+[Serializable]
+public class RemoteConfigGameNews
+{
+    public List<GameNews> newsList;
+    public string description;
+    public string title;
+}

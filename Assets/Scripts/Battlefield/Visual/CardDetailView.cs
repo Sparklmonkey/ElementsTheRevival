@@ -89,6 +89,13 @@ namespace Elements.Duel.Visual
 
         private bool SetButtonForSpell(bool hasQuanta)
         {
+            if (DuelManager.Instance.player.playerCounters.silence > 0)
+            {
+                _buttonCase = ButtonCase.None;
+                SetButtonProperties("Silenced");
+                return true;
+            }
+            
             if (!SkillManager.Instance.ShouldAskForTarget(_card) && hasQuanta)
             {
                 _buttonCase = ButtonCase.Activate;
@@ -112,6 +119,13 @@ namespace Elements.Duel.Visual
 
         private void SetButtonForHand(bool hasQuanta)
         {
+            if (DuelManager.Instance.player.playerCounters.silence > 0)
+            {
+                _buttonCase = ButtonCase.None;
+                SetButtonProperties("Silenced");
+                return;
+            }
+            
             if (hasQuanta)
             {
                 _buttonCase = ButtonCase.Play;

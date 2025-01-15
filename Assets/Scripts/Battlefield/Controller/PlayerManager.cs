@@ -282,10 +282,6 @@ public class PlayerManager : MonoBehaviour
         {
             playerCounters.delay--;
         }
-        if (playerCounters.invisibility > 0)
-        {
-            playerCounters.invisibility--;
-        }
 
         playerCounters.scarabOld += playerCounters.scarab;
         playerCounters.scarab = 0;
@@ -328,7 +324,7 @@ public class PlayerManager : MonoBehaviour
         var hasSpace = cardToCheck.Type switch
         {
             CardType.Pillar => playerPermanentManager.GetAllValidCards().Count < 14,
-            CardType.Creature => playerCreatureField.GetAllValidCardIds().Count < 23,
+            CardType.Creature => playerCreatureField.GetAllValidCards().Count < 23,
             CardType.Artifact => playerPermanentManager.GetAllValidCards().Count < 14,
             _ => true
         };
@@ -420,14 +416,14 @@ public class PlayerManager : MonoBehaviour
         if (updateCloakParentEvent.IsAdd)
         {
             cloakVisual.SetActive(true);
-            updateCloakParentEvent.Transform.parent.transform.parent = cloakVisual.transform;
+            updateCloakParentEvent.Transform.parent.transform.SetParent(cloakVisual.transform);
             return;
         }
         
-        updateCloakParentEvent.Transform.parent.transform.parent = permParent.transform;
+        updateCloakParentEvent.Transform.parent.transform.SetParent(permParent.transform);
         updateCloakParentEvent.Transform.SetSiblingIndex(updateCloakParentEvent.Id.index);
         
-        if(cloakVisual.transform.childCount > 2) return;
+        if(cloakVisual.transform.childCount > 1) return;
         cloakVisual.SetActive(false);
     }
 
