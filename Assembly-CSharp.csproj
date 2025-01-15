@@ -439,7 +439,6 @@
     <Compile Include="Assets/Scripts/Battlefield/Abilities/Skills/No Target/Ablaze.cs" />
     <Compile Include="Assets/Scripts/Battlefield/Visual/MovingText.cs" />
     <Compile Include="Assets/Scripts/Battlefield/Abilities/Shield/DelaySkill.cs" />
-    <Compile Include="Assets/Scripts/Battlefield/Visual/PlayerCardInHand.cs" />
     <Compile Include="Assets/Scripts/Battlefield/Abilities/Skills/No Target/Evolve.cs" />
     <Compile Include="Assets/Scripts/Battlefield/AiComponents/BasicAiTurnLogic.cs" />
     <Compile Include="Assets/Scripts/Battlefield/Abilities/Skills/No Target/Scarab.cs" />

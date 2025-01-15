@@ -19,7 +19,6 @@
         {
             var ownerManager = DuelManager.Instance.GetIDOwner(owner);
             EventBus<SetBoneCountEvent>.Raise(new SetBoneCountEvent(owner.owner, 0, false));
-            ownerManager.playerCounters.bone = 0;
         }
     }
 }
