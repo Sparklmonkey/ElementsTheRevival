@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public delegate void ButtonActionNoParams();
+public delegate void ButtonActionStringParam(string stringParam);
 namespace Settings
 {
 public class SettingsButton : MonoBehaviour

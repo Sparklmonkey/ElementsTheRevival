@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Achievements;
+using Networking;
 
 namespace Core
 {
@@ -23,5 +24,6 @@ namespace Core
         public bool ShouldHideConfirm = false;
         public List<GameNews> GameNews = new();
         public List<PlayerAchievement> Achievements = new();
+        public ScoreUpdateResponse PlayerScore;
     }
 }

@@ -12,11 +12,11 @@ namespace Core.Networking.Response
 
         public CodeDetails(CodeRedemptionResponse codeRedemptionResponse)
         {
-            CodeName = codeRedemptionResponse.codeName;
-            CardRewards = codeRedemptionResponse.cardRewards;
-            ElectrumRewards = codeRedemptionResponse.electrumRewards;
-            IsSingleUse = codeRedemptionResponse.isSingleUse;
-            IsCardSelect = codeRedemptionResponse.isCardSelect;
+            CodeName = codeRedemptionResponse.CodeName;
+            CardRewards = codeRedemptionResponse.CardRewards;
+            ElectrumRewards = codeRedemptionResponse.ElectrumRewards;
+            IsSingleUse = codeRedemptionResponse.IsSingleUse;
+            IsCardSelect = codeRedemptionResponse.IsCardSelect;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -13,7 +14,45 @@ public static class ExtensionMethods
     private static readonly string passwordCriteria = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!#$%^&*()\-_=+{};:,<.>/?\\[\]|]).{8,30}$";
     public static bool UsernameCheck(this string username) => Regex.IsMatch(username, usernameCriteria, RegexOptions.None);
     public static bool PasswordCheck(this string password) => Regex.IsMatch(password, passwordCriteria, RegexOptions.None);
+    public static bool IsValidEmail(this string email)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+            return false;
 
+        try
+        {
+            // Normalize the domain
+            email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
+                RegexOptions.None, TimeSpan.FromMilliseconds(200));
+
+            // Examines the domain part of the email and normalizes it.
+            string DomainMapper(Match match)
+            {
+                // Use IdnMapping class to convert Unicode domain names.
+                var idn = new IdnMapping();
+
+                // Pull out and process domain name (throws ArgumentException on invalid)
+                string domainName = idn.GetAscii(match.Groups[2].Value);
+
+                return match.Groups[1].Value + domainName;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+
+        try
+        {
+            return Regex.IsMatch(email,
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+                RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+        }
+        catch
+        {
+            return false;
+        }
+    }
     public static List<(ID id, Card card)> ConvertToTuple(this Dictionary<ID, Card> dictionary)
     {
         return dictionary.Select(keyValueItem => (keyValueItem.Key, keyValueItem.Value)).ToList();

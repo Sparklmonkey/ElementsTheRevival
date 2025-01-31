@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Core;
+using Networking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,11 +38,13 @@ public class SpinManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private async void Start()
     {
         var bonus = GetBonusGain();
         var coinsWon = bonus;
         PlayerData.Shared.playerScore += BattleVars.Shared.EnemyAiData.scoreWin + bonus;
+        var newScore = await ApiManager.Instance.UpdateScore(BattleVars.Shared.EnemyAiData.scoreWin + bonus);
+        SessionManager.Instance.PlayerScore = newScore;
         if (BattleVars.Shared.ElementalMastery)
         {
             coinsWon *= 2;

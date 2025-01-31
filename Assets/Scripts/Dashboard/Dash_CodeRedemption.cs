@@ -16,7 +16,7 @@ public class DashCodeRedemption : MonoBehaviour
 
     public async void RedeemCode(TMP_InputField input)
     {
-        var response = await ApiManager.Instance.CheckCodeRedemption(input.text);
+        var response = await ApiManager.Instance.GetCodeDetails(input.text);
         CodeRedepmtionHandler(new(response));
     }
 
@@ -34,7 +34,7 @@ public class DashCodeRedemption : MonoBehaviour
             PlayerData.Shared.electrum += response.ElectrumRewards;
             electrumRewardAmount.text = response.ElectrumRewards.ToString();
         }
-
+        Debug.Log(response.CardRewards);
         var cardList = response.CardRewards.Split(" ").ToList();
         
         
@@ -59,7 +59,10 @@ public class DashCodeRedemption : MonoBehaviour
                 SetupCardRewardView(cards);
             }
         }
-        await ApiManager.Instance.SaveGameData();
+        else
+        {
+            await ApiManager.Instance.RedeemCode(response.CodeName);
+        }
         GetComponent<DashboardPlayerData>().UpdateDashboard();
         errorMessage.text = "Code Successfully Redeemed!";
     }
@@ -90,7 +93,7 @@ public class DashCodeRedemption : MonoBehaviour
         var invent = PlayerData.Shared.GetInventory();
         invent.Add(cardDisplayDetail.card.Id);
         PlayerData.Shared.SetInventory(invent);
-
+        
         await ApiManager.Instance.SaveGameData();
         electrumRewardDisplay.SetActive(false);
         cardRewardObject.SetActive(false);

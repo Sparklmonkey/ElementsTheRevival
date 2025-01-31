@@ -1,4 +1,5 @@
 using System;
+using Core;
 using Networking;
 using TMPro;
 using UnityEngine;
@@ -76,6 +77,7 @@ public class GameOverVisual : MonoBehaviour
             {
                 PlayerData.Shared.arenaWins++;
             }
+            
             await ApiManager.Instance.SaveGameStats(new (BattleVars.Shared.EnemyAiData, true, BattleVars.Shared.IsArena));
             PlayerData.Shared.electrum += BattleVars.Shared.EnemyAiData.costToPlay;
         }
@@ -88,6 +90,8 @@ public class GameOverVisual : MonoBehaviour
             PlayerData.Shared.gamesLost++;
             PlayerData.Shared.playerScore -= BattleVars.Shared.EnemyAiData.scoreWin / 2;
             PlayerData.Shared.playerScore = PlayerData.Shared.playerScore < 0 ? 0 : PlayerData.Shared.playerScore;
+            var newScore = await ApiManager.Instance.UpdateScore(-BattleVars.Shared.EnemyAiData.scoreWin / 2);
+            SessionManager.Instance.PlayerScore = newScore;
             await ApiManager.Instance.SaveGameStats(new (BattleVars.Shared.EnemyAiData, true, BattleVars.Shared.IsArena));
         }   
 

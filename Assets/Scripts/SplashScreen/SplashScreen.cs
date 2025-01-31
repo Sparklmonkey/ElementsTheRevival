@@ -35,7 +35,7 @@ public class SplashScreen : MonoBehaviour
     private List<GameObject> imageObjects;
 
     private bool _isLoadingNextScene = false;
-    private bool _mustWait = true;
+    private bool _isCachedLogin = false;
     private bool _dataLoaded = false;
 
     private IEnumerator MoveImageAround(GameObject imageToMove, int finalIndex)
@@ -131,44 +131,45 @@ public class SplashScreen : MonoBehaviour
     private async Task<bool> SetupRemoteConfig()
     {
         await UnityServices.InitializeAsync();
+        _isCachedLogin = AuthenticationService.Instance.SessionTokenExists;
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+        RemoteConfigHelper.Instance.SetFeatureFlags(RemoteConfigService.Instance.appConfig.GetJson("FeatureFlags"));
         return true;
     }
     private async void LoadNextScene()
     {
-        var isLoaded = await SetupRemoteConfig();
-        
-        var isMaintenance = RemoteConfigService.Instance.appConfig.GetBool("IsMaintenance");
-        if (isMaintenance)
+        await SetupRemoteConfig();
+        if (RemoteConfigHelper.Instance.IsMaintenance())
         {
-            var popUpObject = Instantiate(popUpModal, popUpParent);
-            popUpObject.GetComponent<PopUpModal>().SetupModal(LanguageManager.Instance.LanguageStringController.SplashMaintenanceModalTitle, 
-                LanguageManager.Instance.LanguageStringController.SplashMaintenanceButtonTitle,
+            ShowPopUpModal("SplashScreen",
+                "SplashMaintenanceModalTitle", 
+                "SplashMaintenanceButtonTitle",
                 CloseApp);
             return;
         }
-        var minVersion = RemoteConfigService.Instance.appConfig.GetString("MinVersion");
-        var news = RemoteConfigService.Instance.appConfig.GetJson("GameNews");
-        var newsItem = JsonUtility.FromJson<RemoteConfigGameNews>(news);
-        SessionManager.Instance.GameNews = newsItem.newsList;
-        if (ApiManager.Instance.ShouldForceUpdate(minVersion))
+        
+        RemoteConfigHelper.Instance.SetupGameNews();
+        
+        if (RemoteConfigHelper.Instance.IsForceUpdate())
         {
-            var popUpObject = Instantiate(popUpModal, popUpParent);
-            popUpObject.GetComponent<PopUpModal>().SetupModal(LanguageManager.Instance.LanguageStringController.SplashForcedUpdateModalTitle, 
-                LanguageManager.Instance.LanguageStringController.SplashForcedUpdateButtonTitle,
+            ShowPopUpModal("SplashScreen",
+                "SplashForcedUpdateModalTitle", 
+                "SplashForcedUpdateButtonTitle",
                 GoToAppStore);
             return;
         }
-        if (PlayerPrefs.HasKey("AccessToken"))
-        { 
-            var token = PlayerPrefs.GetString("AccessToken"); 
-            var response = await ApiManager.Instance.LoginController(new LoginRequest() 
+        if (_isCachedLogin)
+        {
+            var foundSavedData = await ApiManager.Instance.LoadSomeData();
+            ApiManager.Instance.isUnityUser = true;
+            if (foundSavedData)
             {
-                accessToken = token
-            }, Endpointbuilder.UserTokenLogin);
-            ManageResponse(response);
-            return;
+                var cardList = PlayerData.Shared.currentDeck.ConvertCardCodeToList();
+                SceneTransitionManager.Instance.LoadScene(
+                    cardList.Count < 30 ? "DeckSelector" : "Dashboard");
+                return;
+            }
         }
         GoToLogin();
     }
@@ -181,6 +182,12 @@ public class SplashScreen : MonoBehaviour
     public void CloseApp()
     {
         Application.Quit();
+    }
+
+    private void ShowPopUpModal(string localeTable, string messageTitleKey, string buttonTitleKey, ButtonActionNoParams actionButtonMethod)
+    {
+        var popUpObject = Instantiate(popUpModal, popUpParent);
+        popUpObject.GetComponent<PopUpModal>().SetupModal(localeTable, messageTitleKey, buttonTitleKey, actionButtonMethod);
     }
 
     private void ManageResponse(LoginResponse response)

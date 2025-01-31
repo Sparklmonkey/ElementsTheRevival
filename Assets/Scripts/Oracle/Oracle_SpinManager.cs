@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Networking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -51,7 +52,7 @@ public class OracleSpinManager : MonoBehaviour
         getCardButton.gameObject.SetActive(true);
         petName.text = OracleHelper.GetPetForNextBattle(_cardToShow.CostElement);
     }
-    public void SaveOracleResults()
+    public async void SaveOracleResults()
     {
         PlayerData.Shared.electrum += _electrumToAdd;
         PlayerData.Shared.petName = petName.text;
@@ -61,6 +62,7 @@ public class OracleSpinManager : MonoBehaviour
         invent.Add(_cardToShow.Id);
         PlayerData.Shared.SetInventory(invent);
         PlayerData.SaveData();
+        await ApiManager.Instance.UpdateOraclePlayed();
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 
