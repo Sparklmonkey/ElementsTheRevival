@@ -65,7 +65,7 @@ public class DeckDisplayManager : MonoBehaviour
         {
             arenaInventory.Remove(item);
         }
-        markManager.SetupMarkCard((int)PlayerData.Shared.arenaT50Mark);
+        markManager.SetupMarkCard((int)PlayerData.Shared.ArenaT50Mark);
         
         playerDeck.Sort((x, y) => string.CompareOrdinal(x.Id, y.Id));
         arenaInventory.Sort((x, y) => string.CompareOrdinal(x.Id, y.Id));
@@ -94,7 +94,7 @@ public class DeckDisplayManager : MonoBehaviour
         menuBtnText.text = "Main Menu";
         playerDeck = PlayerData.Shared.GetDeck().DeserializeCard();
         playerInventory = PlayerData.Shared.GetInventory().DeserializeCard();
-        markManager.SetupMarkCard((int)PlayerData.Shared.markElement);
+        markManager.SetupMarkCard((int)PlayerData.Shared.MarkElement);
         
         playerDeck.Sort((x, y) => string.CompareOrdinal(x.Id, y.Id));
         playerInventory.Sort((x, y) => string.CompareOrdinal(x.Id, y.Id));
@@ -126,7 +126,7 @@ public class DeckDisplayManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (var deckPreset in PlayerData.Shared.savedDecks)
+        foreach (var deckPreset in PlayerData.Shared.SavedDecks)
         {
             var deck = deckPreset.Split(":");
 
@@ -294,7 +294,7 @@ public class DeckDisplayManager : MonoBehaviour
         var card = transform.GetComponent<DmCardPrefab>().GetCard();
         if (transform.parent.name == "DeckContentView")
         {
-            PlayerData.Shared.removedCardFromDeck = true;
+            PlayerData.Shared.RemovedCardFromDeck = true;
             playerDeck.Remove(card);
             if (IsArena)
             {
@@ -429,12 +429,12 @@ public class DeckDisplayManager : MonoBehaviour
             if (IsArena)
             {
                 PlayerData.Shared.SetArenaTFifty(playerDeck.SerializeCard());
-                PlayerData.Shared.arenaT50Mark = markManager.GetMarkSelected();
+                PlayerData.Shared.ArenaT50Mark = markManager.GetMarkSelected();
             }
             else
             {
                 PlayerData.Shared.SetDeck(playerDeck.SerializeCard());
-                PlayerData.Shared.markElement = markManager.GetMarkSelected();
+                PlayerData.Shared.MarkElement = markManager.GetMarkSelected();
                 PlayerData.Shared.SetInventory(playerInventory.SerializeCard());
             }
 
@@ -472,12 +472,12 @@ public class DeckDisplayManager : MonoBehaviour
             if (IsArena)
             {
                 PlayerData.Shared.SetArenaTFifty(playerDeck.SerializeCard());
-                PlayerData.Shared.arenaT50Mark = markManager.GetMarkSelected();
+                PlayerData.Shared.ArenaT50Mark = markManager.GetMarkSelected();
             }
             else
             {
                 PlayerData.Shared.SetDeck(playerDeck.SerializeCard());
-                PlayerData.Shared.markElement = markManager.GetMarkSelected();
+                PlayerData.Shared.MarkElement = markManager.GetMarkSelected();
                 PlayerData.Shared.SetInventory(playerInventory.SerializeCard());
             }
 

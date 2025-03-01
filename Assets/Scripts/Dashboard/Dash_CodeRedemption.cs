@@ -31,7 +31,7 @@ public class DashCodeRedemption : MonoBehaviour
         if (response.ElectrumRewards > 0)
         {
             electrumRewardDisplay.SetActive(true);
-            PlayerData.Shared.electrum += response.ElectrumRewards;
+            PlayerData.Shared.Electrum += response.ElectrumRewards;
             electrumRewardAmount.text = response.ElectrumRewards.ToString();
         }
         Debug.Log(response.CardRewards);

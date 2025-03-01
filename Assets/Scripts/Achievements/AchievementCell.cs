@@ -16,17 +16,17 @@ public class AchievementCell : MonoBehaviour
 
     public void SetupCell(PlayerAchievement achievementData)
     {
-        achieveCount.text = achievementData.id.ToString();
-        achieveName.text = achievementData.name;
-        var status = achievementData.completionPercent == 100 ? "Complete" : "In Progress";
-        tooltipTrigger.SetText("TitleText", achievementData.name);
-        tooltipTrigger.SetText("BodyText", achievementData.description);
-        tooltipTrigger.SetText("ProgressText", $"{achievementData.completionPercent}% Complete");
+        achieveCount.text = achievementData.Id.ToString();
+        achieveName.text = achievementData.Name;
+        var status = achievementData.CompletionPercent == 100 ? "Complete" : "In Progress";
+        tooltipTrigger.SetText("TitleText", achievementData.Name);
+        tooltipTrigger.SetText("BodyText", achievementData.Description);
+        tooltipTrigger.SetText("ProgressText", $"{achievementData.CompletionPercent}% Complete");
         tooltipTrigger.SetText("StatusText", status);
         progressBar.sprite =
-            ImageHelper.GetElementImage(((Element)achievementData.element).FastElementString());
-        progressBar.fillAmount = achievementData.completionPercent / 100.0f;
-        achieveFrameImg.sprite = ImageHelper.GetAchievementFrame(achievementData.tierAchieved);
+            ImageHelper.GetElementImage(((Element)achievementData.Element).FastElementString());
+        progressBar.fillAmount = achievementData.CompletionPercent / 100.0f;
+        achieveFrameImg.sprite = ImageHelper.GetAchievementFrame(achievementData.TierAchieved);
         // progressBar.sprite.fill
     }
     

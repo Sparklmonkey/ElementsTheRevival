@@ -194,9 +194,8 @@ public class CreatureCardDisplay : CardFieldDisplay
 
         if (Card.PlayRemoveAbility is SwarmPlayRemoveAbility)
         {
-            
             var hp = DuelManager.Instance.GetIDOwner(Id).playerCounters.scarabOld + DuelManager.Instance.GetIDOwner(Id).playerCounters.scarab;
-
+            Card.Def = hp;
         }
     }
 

@@ -284,7 +284,7 @@ public static class ExtensionMethods
         {
             return false;
         }
-        if ((PlayerData.Shared.currentQuestIndex < 7 || PlayerPrefs.GetFloat("ShouldShowRareCard") == 1) && cardID.IsUpgraded())
+        if ((PlayerData.Shared.CurrentQuestIndex < 7 || PlayerPrefs.GetFloat("ShouldShowRareCard") == 1) && cardID.IsUpgraded())
         {
             return false;
         }

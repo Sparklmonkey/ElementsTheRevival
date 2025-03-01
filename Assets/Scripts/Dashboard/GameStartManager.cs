@@ -53,13 +53,13 @@ public class GameStartManager : MonoBehaviour
                 ai.deck = string.Join(" ", CardDatabase.Instance.GetHalfBloodDeck(BattleVars.Shared.PrimaryElement, BattleVars.Shared.SecondaryElement).SerializeCard());
                 break;
             case 5:
-                var falseGod = PlayerData.Shared.nextFalseGod;
+                var falseGod = PlayerData.Shared.NextFalseGod;
                 if (falseGod == "")
                 {
                     falseGod = _falseGodNameList[Random.Range(0, _falseGodNameList.Count)];
                 }
                 ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/{falseGod}");
-                PlayerData.Shared.nextFalseGod = "";
+                PlayerData.Shared.NextFalseGod = "";
                 break;
             case 6:
                 if (!RemoteConfigHelper.Instance.IsFeatureEnabled(FeatureType.PvpOne))
@@ -70,7 +70,7 @@ public class GameStartManager : MonoBehaviour
                     return;
                 }
                 ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/Serket");
-                PlayerData.Shared.nextFalseGod = "";
+                PlayerData.Shared.NextFalseGod = "";
                 break;
             case 7:
                 if (!RemoteConfigHelper.Instance.IsFeatureEnabled(FeatureType.PvpTwo))
@@ -81,7 +81,7 @@ public class GameStartManager : MonoBehaviour
                     return;
                 }
                 ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/Serket");
-                PlayerData.Shared.nextFalseGod = "";
+                PlayerData.Shared.NextFalseGod = "";
                 break;
             case 8:
                 if (!RemoteConfigHelper.Instance.IsFeatureEnabled(FeatureType.PvpDuel))
@@ -92,7 +92,7 @@ public class GameStartManager : MonoBehaviour
                     return;
                 }
                 ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/Serket");
-                PlayerData.Shared.nextFalseGod = "";
+                PlayerData.Shared.NextFalseGod = "";
                 break;
             case 9:
                 if (!RemoteConfigHelper.Instance.IsFeatureEnabled(FeatureType.Arena))
@@ -103,7 +103,7 @@ public class GameStartManager : MonoBehaviour
                     return;
                 }
                 ai = Resources.Load<EnemyAi>($@"EnemyAi/Level5/Serket");
-                PlayerData.Shared.nextFalseGod = "";
+                PlayerData.Shared.NextFalseGod = "";
                 break;
             case 10:
                 if (!RemoteConfigHelper.Instance.IsFeatureEnabled(FeatureType.T50Arena))
@@ -125,13 +125,13 @@ public class GameStartManager : MonoBehaviour
                 break;
         }
 
-        if (PlayerData.Shared.electrum < ai.costToPlay)
+        if (PlayerData.Shared.Electrum < ai.costToPlay)
         {
             errorMessageManager.DisplayAnimatedError("Insufficient Electrum");
         }
         else
         {
-            PlayerData.Shared.electrum -= ai.costToPlay;
+            PlayerData.Shared.Electrum -= ai.costToPlay;
             BattleVars.Shared.EnemyAiData = ai;
             SceneTransitionManager.Instance.LoadScene("Battlefield");
         }

@@ -24,12 +24,12 @@ public class BazaarPlayerDataManager : MonoBehaviour
 
         _shopInventoryManager.SetupInitialCardView();
         deckCount.text = $"( {PlayerData.Shared.GetInventory().Count} )";
-        GetComponent<BazaarTransactionManager>().SetupTransactionManager(PlayerData.Shared.electrum);
+        GetComponent<BazaarTransactionManager>().SetupTransactionManager(PlayerData.Shared.Electrum);
     }
 
     public bool CanBuyCard(int buyPrice)
     {
-        return PlayerData.Shared.electrum >= buyPrice;
+        return PlayerData.Shared.Electrum >= buyPrice;
     }
 
     public void ModifyPlayerCardInventory(Card card, bool isAdd)

@@ -12,10 +12,10 @@ public class PvPLobbyConnecteduser : MonoBehaviour
     private PvpUserInfo _opponenInfo;
     public void SetupPvpScreen(PvpUserInfo opponent)
     {
-        youUsername.text = PlayerData.Shared.username;
-        youScore.text = PlayerData.Shared.playerScore.ToString();
-        youWin.text = PlayerData.Shared.gamesWon.ToString();
-        youLose.text = PlayerData.Shared.gamesLost.ToString();
+        youUsername.text = PlayerData.Shared.Username;
+        youScore.text = PlayerData.Shared.PlayerScore.ToString();
+        youWin.text = PlayerData.Shared.GamesWon.ToString();
+        youLose.text = PlayerData.Shared.GamesLost.ToString();
 
         if (opponent == null) { return; }
         oppUsername.text = opponent.Username;

@@ -15,15 +15,15 @@ public class BazaarTransactionManager : MonoBehaviour
     {
         if (isAdd)
         {
-            PlayerData.Shared.hasBoughtCardBazaar = true;
-            PlayerData.Shared.electrum -= amount;
-            coinCount.text = $"{PlayerData.Shared.electrum}";
+            PlayerData.Shared.HasBoughtCardBazaar = true;
+            PlayerData.Shared.Electrum -= amount;
+            coinCount.text = $"{PlayerData.Shared.Electrum}";
             return;
         }
 
-        PlayerData.Shared.hasSoldCardBazaar = true;
-        PlayerData.Shared.electrum += amount;
-        coinCount.text = $"{PlayerData.Shared.electrum}";
+        PlayerData.Shared.HasSoldCardBazaar = true;
+        PlayerData.Shared.Electrum += amount;
+        coinCount.text = $"{PlayerData.Shared.Electrum}";
     }
 }
 

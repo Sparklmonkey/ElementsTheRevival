@@ -34,7 +34,7 @@ public class DashQuestManager : MonoBehaviour
         selectionPanel.SetActive(false);
         questStartObject.SetActive(false);
         questCompleteObject.SetActive(false);
-        if (PlayerData.Shared.currentQuestIndex >= _quests.Count && PlayerPrefs.GetFloat("ShouldShowRareCard") != 1)
+        if (PlayerData.Shared.CurrentQuestIndex >= _quests.Count && PlayerPrefs.GetFloat("ShouldShowRareCard") != 1)
         {
             cardUpgradeObject.SetActive(true);
             return;
@@ -57,7 +57,7 @@ public class DashQuestManager : MonoBehaviour
             return;
         }
 
-        var questToDisplay = _quests[PlayerData.Shared.currentQuestIndex];
+        var questToDisplay = _quests[PlayerData.Shared.CurrentQuestIndex];
 
         if (questToDisplay.IsComplete)
         {
@@ -82,7 +82,7 @@ public class DashQuestManager : MonoBehaviour
 
     public void AddNewQuest()
     {
-        PlayerData.Shared.currentQuestIndex++;
+        PlayerData.Shared.CurrentQuestIndex++;
         dashboardPlayerData.UpdateDashboard();
         SetupQuestPanel();
         PlayerData.SaveData();

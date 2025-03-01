@@ -42,7 +42,7 @@ public class SpinManager : MonoBehaviour
     {
         var bonus = GetBonusGain();
         var coinsWon = bonus;
-        PlayerData.Shared.playerScore += BattleVars.Shared.EnemyAiData.scoreWin + bonus;
+        PlayerData.Shared.PlayerScore += BattleVars.Shared.EnemyAiData.scoreWin + bonus;
         var newScore = await ApiManager.Instance.UpdateScore(BattleVars.Shared.EnemyAiData.scoreWin + bonus);
         SessionManager.Instance.PlayerScore = newScore;
         if (BattleVars.Shared.ElementalMastery)
@@ -67,7 +67,7 @@ public class SpinManager : MonoBehaviour
         var gameTimeInSeconds = (DateTime.Now - BattleVars.Shared.GameStartInTicks).TotalSeconds;
         gameTurns.text = $"{BattleVars.Shared.TurnCount}";
         gameTime.text = $"{(int)gameTimeInSeconds}";
-        playerScore.text = $"{PlayerData.Shared.playerScore}";
+        playerScore.text = $"{PlayerData.Shared.PlayerScore}";
     }
 
     private void MoveToDashboard()
@@ -78,7 +78,7 @@ public class SpinManager : MonoBehaviour
             invetoryCards.AddRange(_cardsWon.SerializeCard());
             PlayerData.Shared.SetInventory(invetoryCards);
         }
-        PlayerData.Shared.electrum += int.Parse(electrumValue.text);
+        PlayerData.Shared.Electrum += int.Parse(electrumValue.text);
         PlayerData.SaveData();
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }

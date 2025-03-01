@@ -25,8 +25,8 @@ MonoBehaviour:
   - m_Id: 6302982144
     m_Localized: In order to further improve and expand on this project, I am migrating
       everything over to Unity Game Services, as it is more stable and robust than
-      my own implementation. You can continue with your account as is, or you can
-      link your account with Unity.
+      my own implementation. In order to continue, you'll need to migrate your save
+      data and player information over to Unity.
     m_Metadata:
       m_Items: []
   - m_Id: 766034042880

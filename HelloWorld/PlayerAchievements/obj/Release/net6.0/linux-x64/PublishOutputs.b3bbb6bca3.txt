@@ -1,0 +1,13 @@
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\PlayerAchievements.dll
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\PlayerAchievements.deps.json
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\PlayerAchievements.pdb
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\Unity.Services.CloudCode.Apis.dll
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\Unity.Services.CloudCode.Core.dll
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\Google.Protobuf.dll
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\Grpc.Core.Api.dll
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\Grpc.Net.Client.dll
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\Grpc.Net.Common.dll
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\JsonSubTypes.dll
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\juana\AppData\Local\Temp\HelloWorld\module-compilation\Newtonsoft.Json.dll

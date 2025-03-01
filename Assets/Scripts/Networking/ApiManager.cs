@@ -6,7 +6,7 @@ using Core;
 using Core.Networking.Response;
 using Networking;
 using Unity.Services.Authentication;
-using Unity.Services.Authentication.PlayerAccounts;
+using Unity.Services.CloudCode.GeneratedBindings;
 using Unity.Services.CloudCode;
 using Unity.Services.CloudSave;
 using Unity.Services.CloudSave.Models;
@@ -42,6 +42,19 @@ namespace Networking
             DontDestroyOnLoad(gameObject);
         }
 
+
+        public async Task CallModuleTest()
+        {
+            try
+            {
+                SessionManager.Instance.SetPlayerAchievementModule(
+                    new PlayerAchievementsBindings(CloudCodeService.Instance));
+            }
+            catch (CloudCodeException exception)
+            {
+                Debug.LogException(exception);
+            }
+        }
         public async Task UpdateUserEmail(string email)
         {
             if (!email.IsValidEmail()) return;
@@ -169,17 +182,7 @@ namespace Networking
                 new SaveDataRequest() { savedData = PlayerData.Shared });
             _jwtToken = response.newToken;
         }
-
-
-        public async Task LoginLegacy(LoginRequest loginRequest, LoginLegacyHandler loginSuccess, string endPoint)
-        {
-            var response = await SendPostRequest<LoginRequest, LoginResponse>(endPoint, loginRequest);
-            _jwtToken = response.token;
-            _accountId = response.accountId;
-            PlayerData.LoadFromApi(response.savedData);
-            loginSuccess(response);
-        }
-
+        
         //POST Requests
         public async Task<LoginResponse> LoginController(LoginRequest loginRequest, string endPoint)
         {
@@ -189,22 +192,10 @@ namespace Networking
             return response;
         }
 
-        public async Task<LoginResponse> RegisterController(RegisterRequest registerRequest, string endPoint)
-        {
-            var response = await SendPostRequest<RegisterRequest, LoginResponse>(endPoint, registerRequest);
-            _jwtToken = response.token;
-            _accountId = response.accountId;
-            return response;
-        }
-
-
         //GET Requests
         public async Task LogoutUser()
         {
-            var accessToken = PlayerPrefs.GetString("AccessToken");
-            PlayerPrefs.DeleteKey("AccessToken");
-            await SendPostRequest<LogoutRequest, LogoutResponse>(Endpointbuilder.Logout,
-                new LogoutRequest(accessToken));
+            AuthenticationService.Instance.SignOut(true);
         }
 
         public async Task<GetAchievementsResponse> GetPlayersAchievements()
@@ -231,7 +222,7 @@ namespace Networking
                     case LoginType.RegisterUserPass:
                         await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
                         PlayerData.Shared = new();
-                        PlayerData.Shared.username = username;
+                        PlayerData.Shared.Username = username;
                         await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
                         await SaveDataToUnity();
                         isUnityUser = true;
@@ -247,6 +238,7 @@ namespace Networking
                         break;
                 }
 
+                await CallModuleTest();
                 handler("Success");
             }
             catch (AuthenticationException ex)
@@ -314,6 +306,8 @@ namespace Networking
                 return false;
             }
             PlayerData.Shared = savedData["SAVE_DATA"].Value.GetAs<PlayerData>();
+            var newScore = await UpdateScore(0);
+            SessionManager.Instance.PlayerScore = newScore;
             return true;
         }
 
@@ -351,8 +345,8 @@ namespace Networking
     }
     public class ScoreUpdateResponse
     {
-        public int OverallScore;
-        public int SeasonalScore;
+        public int overallScore;
+        public int seasonalScore;
     }
 }
 

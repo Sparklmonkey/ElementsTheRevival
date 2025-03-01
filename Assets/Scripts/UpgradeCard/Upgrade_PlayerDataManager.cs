@@ -31,7 +31,7 @@ public class UpgradePlayerDataManager : MonoBehaviour
             return;
         }
 
-        if (PlayerData.Shared.electrum < 1500)
+        if (PlayerData.Shared.Electrum < 1500)
         {
             Debug.Log("Not Enough Gold");
             return;

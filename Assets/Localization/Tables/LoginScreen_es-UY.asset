@@ -25,8 +25,8 @@ MonoBehaviour:
   - m_Id: 6302982144
     m_Localized: "Para mejorar y ampliar a\xFAn m\xE1s este proyecto, estoy migrando
       todo a Unity Game Services, ya que es m\xE1s estable y s\xF3lido que mi propia
-      implementaci\xF3n. Puede continuar con su cuenta tal como est\xE1 o puede vincular
-      su cuenta con Unity."
+      implementaci\xF3n. Para continuar va a ser necesario migrar toda la information
+      guardado a Unity."
     m_Metadata:
       m_Items: []
   - m_Id: 766034042880

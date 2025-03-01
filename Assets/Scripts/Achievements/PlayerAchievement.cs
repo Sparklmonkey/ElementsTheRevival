@@ -6,15 +6,15 @@ namespace Achievements
     [Serializable]
     public class PlayerAchievement
     {
-        public int id;
-        public string name;
-        public string condition;
-        public string description;
-        public int completionPercent;
-        public int tierAchieved;
-        public int element;
-        public int goldReward;
-        public List<string> cardReward;
-        public bool isSelectCardReward;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Condition { get; set; }
+        public string Description { get; set; }
+        public int CompletionPercent { get; set; }
+        public int TierAchieved { get; set; }
+        public int Element { get; set; }
+        public int Category { get; set; }
+        public int GoldReward { get; set; }
+        public List<string> CardReward { get; set; }
     }
 }

@@ -134,7 +134,9 @@ public class SplashScreen : MonoBehaviour
         _isCachedLogin = AuthenticationService.Instance.SessionTokenExists;
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
-        RemoteConfigHelper.Instance.SetFeatureFlags(RemoteConfigService.Instance.appConfig.GetJson("FeatureFlags"));
+        var featureFlags = RemoteConfigService.Instance.appConfig.GetJson("FeatureFlags");
+        Debug.Log("Feature Flags: " + featureFlags);
+        RemoteConfigHelper.Instance.SetFeatureFlags(featureFlags);
         return true;
     }
     private async void LoadNextScene()
@@ -161,11 +163,12 @@ public class SplashScreen : MonoBehaviour
         }
         if (_isCachedLogin)
         {
+            await ApiManager.Instance.CallModuleTest();
             var foundSavedData = await ApiManager.Instance.LoadSomeData();
             ApiManager.Instance.isUnityUser = true;
             if (foundSavedData)
             {
-                var cardList = PlayerData.Shared.currentDeck.ConvertCardCodeToList();
+                var cardList = PlayerData.Shared.CurrentDeck.ConvertCardCodeToList();
                 SceneTransitionManager.Instance.LoadScene(
                     cardList.Count < 30 ? "DeckSelector" : "Dashboard");
                 return;
@@ -195,10 +198,10 @@ public class SplashScreen : MonoBehaviour
         if (response.errorMessage == ErrorCases.AllGood)
         {
             PlayerData.LoadFromApi(response.savedData);
-            PlayerData.Shared.email = response.emailAddress;
+            PlayerData.Shared.Email = response.emailAddress;
             PlayerPrefs.SetString("AccessToken", response.accessToken);
             PlayerData.Shared = response.savedData;
-            PlayerData.Shared.username = response.username;
+            PlayerData.Shared.Username = response.username;
             
             SceneTransitionManager.Instance.LoadScene("Dashboard");
         }

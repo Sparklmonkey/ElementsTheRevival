@@ -12,10 +12,10 @@
 
     public override void RedeemQuest()
     {
-        PlayerData.Shared.electrum += 10;
-        PlayerData.Shared.completedQuests += "_0";
+        PlayerData.Shared.Electrum += 10;
+       // PlayerData.Shared.completedQuests += "_0";
     }
 
-    public override bool RequirementCheck() => PlayerData.Shared.hasDefeatedLevel0;
+    public override bool RequirementCheck() => PlayerData.Shared.HasDefeatedLevel0;
 
 }

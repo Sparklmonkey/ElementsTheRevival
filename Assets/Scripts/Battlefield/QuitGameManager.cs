@@ -15,19 +15,19 @@ public class QuitGameManager : MonoBehaviour
         DuelManager.Instance.SetGameOver(true);
         if (BattleVars.Shared.IsArena)
         {
-            PlayerData.Shared.arenaLosses++;
+            PlayerData.Shared.ArenaLosses++;
         }
 
         coinsLost.text = $"You lost: {BattleVars.Shared.EnemyAiData.costToPlay.ToString()}";
-        coinsLeft.text = $"Electrum coins left: {PlayerData.Shared.electrum.ToString()}";
+        coinsLeft.text = $"Electrum coins left: {PlayerData.Shared.Electrum.ToString()}";
         var gameTimeInSeconds = (DateTime.Now - BattleVars.Shared.GameStartInTicks).TotalSeconds;
         gameTime.text = $"Game Time: {BattleVars.Shared.TurnCount} seconds";
         gameTurns.text = $"Game Length: {(int)gameTimeInSeconds} turns";
         
         
-        PlayerData.Shared.gamesLost++;
-        PlayerData.Shared.playerScore -= BattleVars.Shared.EnemyAiData.scoreWin / 2;
-        PlayerData.Shared.playerScore = PlayerData.Shared.playerScore < 0 ? 0 : PlayerData.Shared.playerScore;
+        PlayerData.Shared.GamesLost++;
+        PlayerData.Shared.PlayerScore -= BattleVars.Shared.EnemyAiData.scoreWin / 2;
+        PlayerData.Shared.PlayerScore = PlayerData.Shared.PlayerScore < 0 ? 0 : PlayerData.Shared.PlayerScore;
         _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"),
             GameObject.Find("QuitGameScreen").transform);
         await ApiManager.Instance.SaveGameStats(new (BattleVars.Shared.EnemyAiData, true,

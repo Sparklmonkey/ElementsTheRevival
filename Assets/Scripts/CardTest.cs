@@ -23,6 +23,11 @@ public struct AppAttributes {
     public FeatureFlags FeatureFlags;
 }
 
+public class FeatureFlagResponse
+{
+    public FeatureFlags FeatureFlags;
+}
+
 public class FeatureFlags
 {
     public bool CodeRedeem;

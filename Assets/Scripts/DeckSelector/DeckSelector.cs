@@ -47,9 +47,9 @@ public class DeckSelector : MonoBehaviour
 
     public void StartGame()
     {
-        PlayerData.Shared.markElement = _playerDeck;
+        PlayerData.Shared.MarkElement = _playerDeck;
         PlayerData.Shared.SetDeck(CardDatabase.Instance.StarterDecks.First(x => x.MarkElement.Equals(_playerDeck)).DeckList.SerializeCard());
-        PlayerData.Shared.inventoryCards = "X";
+        PlayerData.Shared.InventoryCards = "X";
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 }

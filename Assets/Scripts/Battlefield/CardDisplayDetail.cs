@@ -22,7 +22,7 @@ public class CardDisplayDetail : MonoBehaviour
         if (cardToDisplay.CardName.Contains("Pendulum"))
         {
             var pendulumElement = cardToDisplay.CostElement;
-            var markElement = belongsToPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
+            var markElement = belongsToPlayer ? PlayerData.Shared.MarkElement : BattleVars.Shared.EnemyAiData.mark;
             cardImage.sprite = cardToDisplay.IsPendulumTurn ? 
                 ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString()) : 
                 ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());

@@ -49,13 +49,16 @@ public class DashboardPlayerData : MonoBehaviour
             "RemoteConfigFeatureNotEnabledButtonTitle", DismissPopUp);
     }
 
-    public void GoToGameAchievements()
+    public async void GoToGameAchievements()
     {
+        Debug.Log(RemoteConfigHelper.Instance.IsFeatureEnabled(FeatureType.Achievements));
         if (RemoteConfigHelper.Instance.IsFeatureEnabled(FeatureType.Achievements))
         {
+            await SessionManager.Instance.GetPlayerAchievements();
             SceneTransitionManager.Instance.LoadScene("AchievementNexus");
             return;
         }
+
         popUpObject = Instantiate(popUpModal, mainPanel);
         popUpObject.GetComponent<PopUpModal>().SetupModal("Dashboard", "RemoteConfigFeatureNotEnabledTitle", 
             "RemoteConfigFeatureNotEnabledButtonTitle", DismissPopUp);
@@ -95,13 +98,13 @@ public class DashboardPlayerData : MonoBehaviour
     public async void UpdateDashboard()
     {
         versionLabel.text = $"Version {Application.version}";
-        playerOverallScore.text = SessionManager.Instance.PlayerScore.OverallScore.ToString();
-        playerSeasonScore.text = SessionManager.Instance.PlayerScore.SeasonalScore.ToString();
-        playerWins.text = PlayerData.Shared.gamesWon.ToString();
-        playerLoses.text = PlayerData.Shared.gamesLost.ToString();
-        electrumCount.text = PlayerData.Shared.electrum.ToString();
+        playerOverallScore.text = SessionManager.Instance.PlayerScore.overallScore.ToString();
+        playerSeasonScore.text = SessionManager.Instance.PlayerScore.seasonalScore.ToString();
+        playerWins.text = PlayerData.Shared.GamesWon.ToString();
+        playerLoses.text = PlayerData.Shared.GamesLost.ToString();
+        electrumCount.text = PlayerData.Shared.Electrum.ToString();
         oracleButton.interactable = false;
-        falseGobButton.interactable = PlayerData.Shared.currentQuestIndex >= 7;
+        falseGobButton.interactable = PlayerData.Shared.CurrentQuestIndex >= 7;
 
         oracleButton.interactable = await ApiManager.Instance.CheckOraclePlay();
         oracleText.text = oracleButton.interactable ? "See what the Oracle has for you today!" : "You cannot visit the Oracle yet";

@@ -35,7 +35,7 @@ public class DashAccountManagement : MonoBehaviour
             }
         }
 
-        if (currentUsernameField.text != PlayerData.Shared.username)
+        if (currentUsernameField.text != PlayerData.Shared.Username)
         {
             if (!currentUsernameField.text.UsernameCheck())
             {
@@ -49,7 +49,7 @@ public class DashAccountManagement : MonoBehaviour
 
         var response = await ApiManager.Instance.UpdateUserData(new()
         {
-            username = PlayerData.Shared.username,
+            username = PlayerData.Shared.Username,
             newUsername = newUsernameField.text,
             password = currentPasswordField.text,
             newPassword = newPasswordField.text
@@ -68,9 +68,9 @@ public class DashAccountManagement : MonoBehaviour
 
     public void UpdateFieldsWithInfo()
     {
-        currentUsernameField.text = PlayerData.Shared.username;
+        currentUsernameField.text = PlayerData.Shared.Username;
         submitButton.interactable = true;
         submitButtonText.text = "Submit";
-        emailField.text = PlayerData.Shared.email;
+        emailField.text = PlayerData.Shared.Email;
     }
 }

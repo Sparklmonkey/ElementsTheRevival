@@ -54,10 +54,10 @@ public class OracleSpinManager : MonoBehaviour
     }
     public async void SaveOracleResults()
     {
-        PlayerData.Shared.electrum += _electrumToAdd;
-        PlayerData.Shared.petName = petName.text;
-        PlayerData.Shared.petCount = 3;
-        PlayerData.Shared.nextFalseGod = nextFalseGod.text;
+        PlayerData.Shared.Electrum += _electrumToAdd;
+        PlayerData.Shared.PetName = petName.text;
+        PlayerData.Shared.PetCount = 3;
+        PlayerData.Shared.NextFalseGod = nextFalseGod.text;
         var invent = PlayerData.Shared.GetInventory();
         invent.Add(_cardToShow.Id);
         PlayerData.Shared.SetInventory(invent);
@@ -71,8 +71,8 @@ public class OracleSpinManager : MonoBehaviour
         cardName.text = _cardToShow.CardName;
         fortuneHead.text = ElementStrings.GetFortuneHeadString(_cardToShow.Type, _cardToShow.CostElement, _cardToShow.CardName);
         fortuneBody.text = ElementStrings.GetCardBodyString(_cardToShow.CardName);
-        PlayerData.Shared.playedOracleToday = true;
-        PlayerData.Shared.oracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
+        PlayerData.Shared.PlayedOracleToday = true;
+        PlayerData.Shared.OracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
         SetupResultBlock();
     }
 

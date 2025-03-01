@@ -83,9 +83,9 @@ namespace Login
                 }
                 _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
                 Destroy(_touchBlocker);
-                PlayerData.Shared.email = email.text;
-                var cardList = PlayerData.Shared.currentDeck.ConvertCardCodeToList();
-                PlayerData.Shared.username = username.text;
+                PlayerData.Shared.Email = email.text;
+                var cardList = PlayerData.Shared.CurrentDeck.ConvertCardCodeToList();
+                PlayerData.Shared.Username = username.text;
                 SceneTransitionManager.Instance.LoadScene(
                     cardList.Count < 30 ? "DeckSelector" : "Dashboard");
             }
