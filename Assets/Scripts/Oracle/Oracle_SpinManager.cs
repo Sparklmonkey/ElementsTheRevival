@@ -11,6 +11,7 @@ public class OracleSpinManager : MonoBehaviour
     private int _electrumToAdd;
 
     private Vector3 _finalRotation;
+    private GameObject _touchBlocker;
     private bool _oracleSpinStarted = false;
     private int _maxRotationCount = 3;
     [SerializeField]
@@ -54,6 +55,7 @@ public class OracleSpinManager : MonoBehaviour
     }
     public async void SaveOracleResults()
     {
+        _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
         PlayerData.Shared.Electrum += _electrumToAdd;
         PlayerData.Shared.PetName = petName.text;
         PlayerData.Shared.PetCount = 3;
@@ -63,6 +65,8 @@ public class OracleSpinManager : MonoBehaviour
         PlayerData.Shared.SetInventory(invent);
         PlayerData.SaveData();
         await ApiManager.Instance.UpdateOraclePlayed();
+        _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+        Destroy(_touchBlocker);
         SceneTransitionManager.Instance.LoadScene("Dashboard");
     }
 

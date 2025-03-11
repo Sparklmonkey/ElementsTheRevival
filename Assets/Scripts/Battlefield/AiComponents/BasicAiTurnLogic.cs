@@ -17,112 +17,155 @@ public class BasicAiTurnLogic : AiTurnBase
     
     public override void PlayCardFromHand(PlayerManager aiManager, CardType cardType)
     {
-        var card = aiManager.playerHand.GetPlayableCards(aiManager.HasSufficientQuanta).FirstOrDefault(c => c.card.Type.Equals(cardType) && !_creatureList.Contains(c.card.CardName));
-        
-        if (card.Equals(default)) return;
-        if (card.card.CardName.Contains("Chimera"))
+        var cardList = aiManager.playerHand.GetPlayableCardsOfType(aiManager.HasSufficientQuanta, cardType);
+        if (cardList.Count == 0) return;
+
+        foreach (var idCard in cardList)
         {
-            if (aiManager.playerCreatureField.GetAllValidCardIds().Count == 0)
-            {
-                _creatureList.Add(card.card.CardName);
-                return;
-            }
+            if (!aiManager.HasSufficientQuanta(idCard.card.CostElement, idCard.card.Cost)) continue;
+            if (idCard.card.CardName.Contains("Chimera") &&
+                aiManager.playerCreatureField.GetAllValidCardIds().Count == 0) continue;
+            EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(idCard.card.cardImage, idCard.card.CostElement.FastElementString(), idCard.card.CardName));
+            EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(idCard.card, idCard.id));
+            if (cardType is CardType.Shield or CardType.Weapon) return;
         }
-        EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(card.card.cardImage, card.card.CostElement.FastElementString(), card.card.CardName));
-        EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(card.card, card.id));
     }
 
     public override IEnumerator PlaySpellFromHand(PlayerManager aiManager)
     {
         var canPlaySingularity = BattleVars.Shared.IsSingularity == 0;
         var cardList = aiManager.playerHand.GetPlayableCardsOfType(aiManager.HasSufficientQuanta, CardType.Spell);
-        var spell = cardList.FirstOrDefault(s => !_skipList.Contains(nameof(s.card.Skill)) && (canPlaySingularity || s.card.Id is "6u3" or "4vj"));
-        if (spell.Equals(default)) yield break;
 
-        BattleVars.Shared.AbilityCardOrigin = spell.Item2;
-        BattleVars.Shared.AbilityIDOrigin = spell.Item1;
-        if (SkillManager.Instance.ShouldAskForTarget(spell.card))
+        if (cardList.Count == 0)
+            yield break;
+
+        foreach (var spell in cardList)
         {
-            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, spell.card, true));
-            yield return new WaitForSeconds(2f);
-            var target = _targetingAi.BestTarget(spell.card.Skill.GetTargetType(), nameof(spell.card.Skill));
-            
-            if (target.Equals(default))
+            if (!canPlaySingularity && spell.card.Id is "6u3" or "4vj") continue;
+            if (!aiManager.HasSufficientQuanta(spell.card.CostElement, spell.card.Cost)) continue;
+            BattleVars.Shared.AbilityCardOrigin = spell.card;
+            BattleVars.Shared.AbilityIDOrigin = spell.id;
+            if (SkillManager.Instance.ShouldAskForTarget(spell.card))
             {
-                _skipList.Add(nameof(spell.card.Skill));
-                DuelManager.Instance.ResetTargeting();
-                yield break;
+                EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, spell.card, true));
+                var target = _targetingAi.BestTarget(spell.card.Skill.GetTargetType(), nameof(spell.card.Skill));
+            
+                if (target.Equals(default))
+                {
+                    _skipList.Add(nameof(spell.card.Skill));
+                    DuelManager.Instance.ResetTargeting();
+                    yield break;
+                }
+            
+            
+                EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
+                EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(spell.Item2.cardImage, spell.Item2.CostElement.FastElementString(), spell.Item2.CardName));
             }
-            
-            
-            EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
-            EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(spell.Item2.cardImage, spell.Item2.CostElement.FastElementString(), spell.Item2.CardName));
-        }
-        else
-        {
-            SkillManager.Instance.SkillRoutineNoTarget(aiManager, spell.id, spell.card);
-            EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(spell.card, spell.id));
-            EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(spell.Item2.cardImage, spell.Item2.CostElement.FastElementString(), spell.Item2.CardName));
+            else
+            {
+                SkillManager.Instance.SkillRoutineNoTarget(aiManager, spell.id, spell.card);
+                EventBus<PlayCardFromHandEvent>.Raise(new PlayCardFromHandEvent(spell.card, spell.id));
+                EventBus<DisplayCardPlayedEvent>.Raise(new DisplayCardPlayedEvent(spell.Item2.cardImage, spell.Item2.CostElement.FastElementString(), spell.Item2.CardName));
+            }
         }
     }
 
     public override IEnumerator ActivateCreatureAbility(PlayerManager aiManager)
     {
-        var creature = aiManager.playerCreatureField.GetAllValidCardIds().Find(c => c.Item2.Skill is not null 
-            && !_skipList.Contains(nameof(c.card.Skill)) && aiManager.IsAbilityUsable(c.Item2));
-        if (creature.Equals(default)) yield break;
+        var cardList = aiManager.playerCreatureField.GetAllValidCardIds().FindAll(c => c.Item2.Skill is not null 
+            && aiManager.IsAbilityUsable(c.Item2));
 
-        BattleVars.Shared.AbilityIDOrigin = creature.Item1;
-        BattleVars.Shared.AbilityCardOrigin = creature.Item2;
-        if (SkillManager.Instance.ShouldAskForTarget(creature.Item2))
+        if (cardList.Count == 0)
+            yield break;
+
+        foreach (var creature in cardList)
         {
-            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, creature.card, true));
-            yield return new WaitForSeconds(1f);
-            var target = _targetingAi.BestTarget(creature.card.Skill.GetTargetType(), nameof(creature.card.Skill));
-            if (target.Equals(default))
+            if (!aiManager.IsAbilityUsable(creature.card)) continue;
+            BattleVars.Shared.AbilityIDOrigin = creature.Item1;
+            BattleVars.Shared.AbilityCardOrigin = creature.Item2;
+            if (SkillManager.Instance.ShouldAskForTarget(creature.Item2))
             {
-                _skipList.Add(nameof(creature.card.Skill));
-                DuelManager.Instance.ResetTargeting();
+                EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, creature.card, true));
+                var target = _targetingAi.BestTarget(creature.card.Skill.GetTargetType(), nameof(creature.card.Skill));
+                if (target.Equals(default))
+                {
+                    _skipList.Add(nameof(creature.card.Skill));
+                    DuelManager.Instance.ResetTargeting();
+                    yield break;
+                }
+
+                creature.Item2.AbilityUsed = true;
+            
+                EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
                 yield break;
             }
-
-            creature.Item2.AbilityUsed = true;
-            
-            EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
-            yield break;
-        }
         
-        creature.Item2.AbilityUsed = true;
-        SkillManager.Instance.SkillRoutineNoTarget(aiManager, creature.Item1, creature.Item2);
+            creature.Item2.AbilityUsed = true;
+            SkillManager.Instance.SkillRoutineNoTarget(aiManager, creature.Item1, creature.Item2);
+        }
     }
 
     public override IEnumerator ActivateArtifactAbility(PlayerManager aiManager)
     {
-        var artifact = aiManager.playerPermanentManager.GetAllValidCardIds().Find(a => a.card.Skill is not null 
-            && !_skipList.Contains(nameof(a.card.Skill)) && aiManager.IsAbilityUsable(a.card));
-        if (artifact.Equals(default))  yield break;
+        var cardList = aiManager.playerPermanentManager.GetAllValidCardIds().FindAll(c => c.Item2.Skill is not null 
+            && aiManager.IsAbilityUsable(c.Item2));
 
-        BattleVars.Shared.AbilityIDOrigin = artifact.id;
-        BattleVars.Shared.AbilityCardOrigin = artifact.card;
-        if (SkillManager.Instance.ShouldAskForTarget(artifact.card))
+        if (cardList.Count == 0)
+            yield break;
+
+        foreach (var artifact in cardList)
         {
-            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, artifact.card, true));
+            if (!aiManager.IsAbilityUsable(artifact.card)) continue;
+            BattleVars.Shared.AbilityIDOrigin = artifact.id;
+            BattleVars.Shared.AbilityCardOrigin = artifact.card;
+            if (SkillManager.Instance.ShouldAskForTarget(artifact.card))
+            {
+                EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, artifact.card, true));
+                yield return new WaitForSeconds(2f);
+                var target = _targetingAi.BestTarget(artifact.card.Skill.GetTargetType(), nameof(artifact.card.Skill));
+                if (target.Equals(default))
+                {
+                    _skipList.Add(nameof(artifact.card.Skill));
+                    DuelManager.Instance.ResetTargeting();
+                    yield break;
+                }
+
+                artifact.Item2.AbilityUsed = true;
+                EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
+                yield break;
+            }
+        
+            artifact.card.AbilityUsed = true;
+            SkillManager.Instance.SkillRoutineNoTarget(aiManager, artifact.id, artifact.card);
+        } 
+    }
+
+    public override IEnumerator ActivateWeaponAbility(PlayerManager aiManager)
+    {
+        var weapon = aiManager.playerPassiveManager.GetWeapon();
+        if (weapon.card.Id == "4t2" || !aiManager.IsAbilityUsable(weapon.card)) yield break;
+
+        BattleVars.Shared.AbilityIDOrigin = weapon.id;
+        BattleVars.Shared.AbilityCardOrigin = weapon.card;
+        if (SkillManager.Instance.ShouldAskForTarget(weapon.card))
+        {
+            EventBus<SetupAbilityTargetsEvent>.Raise(new SetupAbilityTargetsEvent(aiManager, weapon.card, true));
             yield return new WaitForSeconds(2f);
-            var target = _targetingAi.BestTarget(artifact.card.Skill.GetTargetType(), nameof(artifact.card.Skill));
+            var target = _targetingAi.BestTarget(weapon.card.Skill.GetTargetType(), nameof(weapon.card.Skill));
             if (target.Equals(default))
             {
-                _skipList.Add(nameof(artifact.card.Skill));
+                _skipList.Add(nameof(weapon.card.Skill));
                 DuelManager.Instance.ResetTargeting();
                 yield break;
             }
 
-            artifact.Item2.AbilityUsed = true;
+            weapon.Item2.AbilityUsed = true;
             EventBus<ActivateSpellOrAbilityEvent>.Raise(new ActivateSpellOrAbilityEvent(target.id, target.card));
             yield break;
         }
         
-        artifact.card.AbilityUsed = true;
-        SkillManager.Instance.SkillRoutineNoTarget(aiManager, artifact.id, artifact.card);
+        weapon.card.AbilityUsed = true;
+        SkillManager.Instance.SkillRoutineNoTarget(aiManager, weapon.id, weapon.card);
     }
     
     public override bool HasCardInHand(PlayerManager aiManager, CardType cardToCheck)

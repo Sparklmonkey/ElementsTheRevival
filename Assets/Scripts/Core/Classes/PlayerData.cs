@@ -2,32 +2,30 @@
 using System.Collections.Generic;
 using System.IO;
 using Networking;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [Serializable]
 public class PlayerData
 {
     public static PlayerData Shared;
     public int Id;
-    [FormerlySerializedAs("markElement")] public Element MarkElement;
-    [FormerlySerializedAs("currentDeck")] public string CurrentDeck;
-    [FormerlySerializedAs("arenaT50Mark")] public Element ArenaT50Mark;
-    [FormerlySerializedAs("arenaT50Deck")] public string ArenaT50Deck;
-    [FormerlySerializedAs("inventoryCards")] public string InventoryCards;
-    [FormerlySerializedAs("electrum")] public int Electrum;
-    [FormerlySerializedAs("gamesWon")] public int GamesWon;
-    [FormerlySerializedAs("gamesLost")] public int GamesLost;
-    [FormerlySerializedAs("arenaWins")] public int ArenaWins;
-    [FormerlySerializedAs("arenaLosses")] public int ArenaLosses;
-    [FormerlySerializedAs("playerScore")] public int PlayerScore;
-    [FormerlySerializedAs("username")] public string Username = "";
-    [FormerlySerializedAs("email")] public string Email = "";
+    public Element MarkElement;
+    public string CurrentDeck;
+    public Element ArenaT50Mark;
+    public string ArenaT50Deck;
+    public string InventoryCards;
+    public int Electrum;
+    public int GamesWon;
+    public int GamesLost;
+    public int ArenaWins;
+    public int ArenaLosses;
+    public int PlayerScore;
+    public string Username = "";
+    public string Email = "";
     public string CompletedQuests = "";
     internal void ResetAccount()
     {
+        Id = 0;
         MarkElement = Element.Aether;
         CurrentDeck = "";
         InventoryCards = "";
@@ -54,35 +52,35 @@ public class PlayerData
         ArenaT50Mark = Element.Aether;
     }
 
-    [FormerlySerializedAs("currentQuestIndex")] public int CurrentQuestIndex = 0;
+    public int CurrentQuestIndex = 0;
     //Saved Decks
-    [FormerlySerializedAs("savedDecks")] public List<string> SavedDecks;
+    public List<string> SavedDecks;
     //Oracle Vars
-    [FormerlySerializedAs("nextFalseGod")] public string NextFalseGod;
-    [FormerlySerializedAs("petName")] public string PetName;
-    [FormerlySerializedAs("petCount")] public int PetCount;
+    public string NextFalseGod;
+    public string PetName;
+    public int PetCount;
     //public string username;
-    [FormerlySerializedAs("playedOracleToday")] public bool PlayedOracleToday;
+    public bool PlayedOracleToday;
     
-    [FormerlySerializedAs("oracleLastPlayed")] public string OracleLastPlayed;
-    [FormerlySerializedAs("lastOracleDay")] public int LastOracleDay;
+    public string OracleLastPlayed;
+    public int LastOracleDay;
 
     //Quest 1 Flag
-    [FormerlySerializedAs("hasDefeatedLevel0")] public bool HasDefeatedLevel0;
+    public bool HasDefeatedLevel0;
 
     //Quest 2 Flag
-    [FormerlySerializedAs("removedCardFromDeck")] public bool RemovedCardFromDeck;
+    public bool RemovedCardFromDeck;
 
     //Quest 3 Flags
-    [FormerlySerializedAs("hasBoughtCardBazaar")] public bool HasBoughtCardBazaar;
+    public bool HasBoughtCardBazaar;
 
-    [FormerlySerializedAs("hasSoldCardBazaar")] public bool HasSoldCardBazaar;
+    public bool HasSoldCardBazaar;
 
     //Quest 4 Flag
-    [FormerlySerializedAs("hasDefeatedLevel1")] public bool HasDefeatedLevel1;
+    public bool HasDefeatedLevel1;
 
     //Quest 5 Flag
-    [FormerlySerializedAs("hasDefeatedLevel2")] public bool HasDefeatedLevel2;
+    public bool HasDefeatedLevel2;
 
     public static void LoadFromApi(PlayerData playerData)
     {
@@ -122,6 +120,7 @@ public class PlayerData
 
     public PlayerData()
     {
+        Id = 0;
         MarkElement = Element.Aether;
         CurrentDeck = "X";
         InventoryCards = "X";
@@ -154,12 +153,4 @@ public class DeckPreset
 {
     public string deckName;
     public string deckCode;
-}
-
-public class CustomDateTimeConverter : IsoDateTimeConverter
-{
-    public CustomDateTimeConverter()
-    {
-        base.DateTimeFormat = "dd/MM/yyyy";
-    }
 }

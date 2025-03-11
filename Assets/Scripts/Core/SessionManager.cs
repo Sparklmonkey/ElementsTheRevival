@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Achievements;
 using Networking;
-using Newtonsoft.Json;
 using Unity.Services.CloudCode.GeneratedBindings;
 using UnityEngine;
 
@@ -34,8 +35,15 @@ namespace Core
         public async Task GetPlayerAchievements()
         {
             var saveData = JsonUtility.ToJson(PlayerData.Shared);
-            var response = await _playerAchievementsBindings.GetAchievementsByCategory("Collection", saveData);
-            Achievements = JsonConvert.DeserializeObject<List<PlayerAchievement>>(response);
+            try
+            {
+                var response = await _playerAchievementsBindings.GetAchievementsByCategory("Collection", saveData);
+                Achievements = JsonHelper.FromJson<PlayerAchievement>(response.FixJson()).ToList();
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
         }
         
         public async void SetPlayerAchievementModule(PlayerAchievementsBindings playerAchievementsBindings)
@@ -44,5 +52,36 @@ namespace Core
             var result = await _playerAchievementsBindings.SayHello("World");
             Debug.Log(result);
         }
+    }
+    
+    
+}
+
+public static class JsonHelper
+{
+    public static T[] FromJson<T>(string json)
+    {
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
+        return wrapper.Items;
+    }
+
+    public static string ToJson<T>(T[] array)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.Items = array;
+        return JsonUtility.ToJson(wrapper);
+    }
+
+    public static string ToJson<T>(T[] array, bool prettyPrint)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.Items = array;
+        return JsonUtility.ToJson(wrapper, prettyPrint);
+    }
+
+    [Serializable]
+    private class Wrapper<T>
+    {
+        public T[] Items;
     }
 }

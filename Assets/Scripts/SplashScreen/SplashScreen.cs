@@ -135,7 +135,6 @@ public class SplashScreen : MonoBehaviour
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
         var featureFlags = RemoteConfigService.Instance.appConfig.GetJson("FeatureFlags");
-        Debug.Log("Feature Flags: " + featureFlags);
         RemoteConfigHelper.Instance.SetFeatureFlags(featureFlags);
         return true;
     }

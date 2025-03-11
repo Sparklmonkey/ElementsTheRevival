@@ -54,7 +54,11 @@ public class DashboardPlayerData : MonoBehaviour
         Debug.Log(RemoteConfigHelper.Instance.IsFeatureEnabled(FeatureType.Achievements));
         if (RemoteConfigHelper.Instance.IsFeatureEnabled(FeatureType.Achievements))
         {
+            _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), mainPanel);
+            _touchBlocker.transform.SetAsFirstSibling();
             await SessionManager.Instance.GetPlayerAchievements();
+            _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+            Destroy(_touchBlocker);
             SceneTransitionManager.Instance.LoadScene("AchievementNexus");
             return;
         }

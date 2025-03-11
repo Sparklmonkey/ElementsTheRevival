@@ -1,9 +1,5 @@
-// using Microsoft.AspNetCore.SignalR.Client;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class SignalRTest : MonoBehaviour
 {

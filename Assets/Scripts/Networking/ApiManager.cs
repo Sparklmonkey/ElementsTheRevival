@@ -305,7 +305,10 @@ namespace Networking
                 PlayerData.Shared = new();
                 return false;
             }
-            PlayerData.Shared = savedData["SAVE_DATA"].Value.GetAs<PlayerData>();
+
+            var data = savedData["SAVE_DATA"].Value;
+            Debug.Log(data);
+            PlayerData.Shared = data.GetAs<PlayerData>();
             var newScore = await UpdateScore(0);
             SessionManager.Instance.PlayerScore = newScore;
             return true;

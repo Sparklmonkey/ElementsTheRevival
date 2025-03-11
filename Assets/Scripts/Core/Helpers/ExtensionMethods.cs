@@ -53,6 +53,13 @@ public static class ExtensionMethods
             return false;
         }
     }
+
+    public static string FixJson(this string value)
+    {
+        value = "{\"Items\":" + value + "}";
+        return value;
+    }
+    
     public static List<(ID id, Card card)> ConvertToTuple(this Dictionary<ID, Card> dictionary)
     {
         return dictionary.Select(keyValueItem => (keyValueItem.Key, keyValueItem.Value)).ToList();

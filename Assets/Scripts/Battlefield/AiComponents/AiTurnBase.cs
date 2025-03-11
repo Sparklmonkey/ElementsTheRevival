@@ -27,6 +27,10 @@ public abstract class AiTurnBase
     {
         yield break;
     }
+    public virtual IEnumerator ActivateWeaponAbility(PlayerManager aiManager)
+    {
+        yield break;
+    }
 
     public abstract bool HasCardInHand(PlayerManager aiManager, CardType cardToCheck);
     public abstract bool HasCreatureAbilityToUse(PlayerManager aiManager);
