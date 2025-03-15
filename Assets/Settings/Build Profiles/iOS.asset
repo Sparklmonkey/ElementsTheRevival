@@ -169,6 +169,8 @@ MonoBehaviour:
         2}'
     - line: '|   - {fileID: 11400000, guid: f7944e3405c404076b86927e8708b707, type:
         2}'
+    - line: '|   - {fileID: 11400000, guid: 99f9c9493070a9d4c979a8fec7c5a8d3, type:
+        2}'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
     - line: '|   m_HolographicPauseOnTrackingLoss: 1'
@@ -198,7 +200,7 @@ MonoBehaviour:
     - line: '|     Bratwurst: 0'
     - line: '|     Standalone: 10'
     - line: '|     VisionOS: 0'
-    - line: '|     iPhone: 1'
+    - line: '|     iPhone: 5'
     - line: '|     tvOS: 0'
     - line: '|   overrideDefaultApplicationIdentifier: 1'
     - line: '|   AndroidBundleVersionCode: 173'
@@ -217,8 +219,8 @@ MonoBehaviour:
     - line: '|   StripUnusedMeshComponents: 0'
     - line: '|   strictShaderVariantMatching: 0'
     - line: '|   VertexChannelCompressionMask: 4054'
-    - line: '|   iPhoneSdkVersion: 989'
-    - line: '|   iOSSimulatorArchitecture: 2'
+    - line: '|   iPhoneSdkVersion: 988'
+    - line: '|   iOSSimulatorArchitecture: 1'
     - line: '|   iOSTargetOSVersionString: 13.0'
     - line: '|   tvOSSdkVersion: 0'
     - line: '|   tvOSSimulatorArchitecture: 0'
@@ -273,7 +275,7 @@ MonoBehaviour:
     - line: '|   iOSManualSigningProvisioningProfileID: 57f3f0cb-73b1-4ad3-9532-ef725eee5e19'
     - line: '|   tvOSManualSigningProvisioningProfileID: '
     - line: '|   VisionOSManualSigningProvisioningProfileID: '
-    - line: '|   iOSManualSigningProvisioningProfileType: 1'
+    - line: '|   iOSManualSigningProvisioningProfileType: 2'
     - line: '|   tvOSManualSigningProvisioningProfileType: 0'
     - line: '|   VisionOSManualSigningProvisioningProfileType: 0'
     - line: '|   appleEnableAutomaticSigning: 2'
@@ -675,9 +677,11 @@ MonoBehaviour:
     - line: '|   enableInternalProfiler: 0'
     - line: '|   logObjCUncaughtExceptions: 1'
     - line: '|   enableCrashReportAPI: 0'
-    - line: '|   cameraUsageDescription: '
-    - line: '|   locationUsageDescription: '
-    - line: '|   microphoneUsageDescription: '
+    - line: '|   cameraUsageDescription: Use of the camera is actively used in the
+        game yet. Ignore'
+    - line: '|     this permission'
+    - line: '|   locationUsageDescription: This is not used'
+    - line: '|   microphoneUsageDescription: This is not used'
     - line: '|   bluetoothUsageDescription: '
     - line: '|   macOSTargetOSVersion: 11.0'
     - line: '|   switchNMETAOverride: '
@@ -1109,5 +1113,5 @@ MonoBehaviour:
         m_InstallInBuildFolder: 0
         m_iOSXcodeBuildConfig: 1
         m_SymlinkSources: 0
-        m_PreferredXcode: 
+        m_PreferredXcode: 16.2_/Applications/Xcode.app
         m_SymlinkTrampoline: 0

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.Modules.Unity.Addressables", "Sirenix.OdinInspector.Modules.Unity.Addressables.csproj", "{3eae0316-67c5-692c-3bc1-0c0d732e51ef}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Services.CloudCode.GeneratedBindings", "Unity.Services.CloudCode.GeneratedBindings.csproj", "{146cd389-5eb4-cc6c-c502-34368a4a72bd}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.Modules.UnityMathematics", "Sirenix.OdinInspector.Modules.UnityMathematics.csproj", "{45042d90-614f-804c-25de-2b3da3f37ee5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.Modules.UnityLocalization", "Sirenix.OdinInspector.Modules.UnityLocalization.csproj", "{228e7d3d-7494-34ff-ca76-f25e5abf0d87}"
@@ -30,6 +32,8 @@ Global
 		{b1780e3a-4ed6-4e7e-e7ff-10458caa7ccd}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3eae0316-67c5-692c-3bc1-0c0d732e51ef}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3eae0316-67c5-692c-3bc1-0c0d732e51ef}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{146cd389-5eb4-cc6c-c502-34368a4a72bd}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{146cd389-5eb4-cc6c-c502-34368a4a72bd}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45042d90-614f-804c-25de-2b3da3f37ee5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{45042d90-614f-804c-25de-2b3da3f37ee5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{228e7d3d-7494-34ff-ca76-f25e5abf0d87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
