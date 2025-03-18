@@ -70,7 +70,7 @@ namespace Login
             _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
             _touchBlocker.transform.SetAsFirstSibling();
 
-            await ApiManager.Instance.UserLoginAsync(LoginType.RegisterUnity, HandleUserLogin, username.text, password.text);
+            await ApiManager.Instance.UserLoginAsync(LoginType.RegisterUserPass, HandleUserLogin, username.text, password.text);
         }
         
         public async void HandleUserLogin(string responseMessage)

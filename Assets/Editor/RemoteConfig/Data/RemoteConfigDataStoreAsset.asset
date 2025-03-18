@@ -12,12 +12,163 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: '[]'
-  _rsLastCachedKeyList: '[]'
-  _environments: "[\n  {\n    \"projectId\": \"ec77d6b3-4d48-4c2c-a1d4-f84f9dac7aaa\",\n   
-    \"name\": \"qa-test\",\n    \"id\": \"5cf7d5b3-137a-4b86-ae8e-afd19936f073\",\n   
-    \"isDefault\": false,\n    \"createdAt\": \"2024-12-22T22:58:21Z\",\n    \"updatedAt\":
-    \"2024-12-22T22:58:21Z\"\n  },\n  {\n    \"projectId\": \"ec77d6b3-4d48-4c2c-a1d4-f84f9dac7aaa\",\n   
-    \"name\": \"production\",\n    \"id\": \"80206c0b-5c1b-428e-8935-1132903075c2\",\n   
-    \"isDefault\": true,\n    \"createdAt\": \"2021-08-09T22:59:52Z\",\n    \"updatedAt\":
-    \"2021-08-09T22:59:52Z\"\n  }\n]"
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"dd10e887-92e3-4c94-8537-0de50c7a6425\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"EnvironmentVariables\",\r\n      \"type\":
+    \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"isMaintainence\":
+    false,\r\n        \"minAppVersion\": \"5.0.11\",\r\n        \"updateNote\": \"Added
+    Unity Player Accounts for better account management\"\r\n      }\r\n    }\r\n 
+    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"fec031b8-cb93-4b42-aa66-5a3dab4212ca\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"MinVersion\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"5.4.3\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
+    \"entityId\": \"8354048d-3603-4468-a10d-f4aaaf6c48aa\"\r\n    },\r\n    \"rs\":
+    {\r\n      \"key\": \"VersionNote\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"Integrated Unity Remote Config :)\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"483e4cb3-8bde-4826-a753-90a49660f188\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"IsMaintenance\",\r\n      \"type\": \"bool\",\r\n     
+    \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"c533adc7-09cf-4b3e-b600-26b0245e0d9b\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"GameNews\",\r\n      \"type\": \"json\",\r\n      \"schemaId\": \"template-id\",\r\n     
+    \"value\": {\r\n        \"title\": \"Game News Object\",\r\n        \"$id\":
+    \"#template-id\",\r\n        \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r\n       
+    \"description\": \"Contains Array with game news\",\r\n        \"newsList\":
+    [\r\n          {\r\n            \"newsTitle\": \"V5.5.0 Update\",\r\n           
+    \"newsSubtitle\": \"Unity Game Services\",\r\n            \"newsDescription\":
+    \"Hey Everyone! <br> Long time no update. It's been a crazy end of year. But
+    we are going to start this year on a better foot. I have managed to save enough
+    to start the Apple Developer Enrollment, and I am planning on going for Steam
+    next. <br>I also want to start work on PvP, so I am slowly migrating some of
+    the backend services I have developed over to Unity. This will help make the
+    implementation of PvP a lot smoother and easier to complete. With this Release
+    I have migrated: <br><br> - Game News, like this one :D <br> - App Controls,
+    like Maintenance checks, app update checks. <br><br><br>I hope to move Player
+    Save Data over next, and then from there I can move T50 and create a seasonal
+    system that refreshes every month, Achievements that actually work, etc. <br><br>I
+    appreciate you're patience and support in this development. And of course, any
+    doubts, concerns or feedback, feel free to let me know in discord, or via email.
+    <br><br>Sparklmonkey\",\r\n            \"topImageUrl\": \"Url for top image\",\r\n           
+    \"bottomImageUrl\": \"Url for bottom image\",\r\n            \"priority\": 0\r\n         
+    },\r\n          {\r\n            \"newsTitle\": \"Streaming\",\r\n           
+    \"newsSubtitle\": \"Come visit the Stream\",\r\n            \"newsDescription\":
+    \"I've started streaming the development of Elements the Revival. Showing the
+    process of finding bugs and fixing them while providing updates and plans. The
+    idea is to eventually start the development of the PvP features, Arena, Achievements
+    and more. Also mix in a bit of game dev for another Revival project called Spider
+    Riders: Battle for Arachna and even original games. I hope those who can and
+    want to join me and the rest of the Elementalist on this journey. <br>Thank you
+    all for your support in playing and provide feedback. It means the world to me.
+    <br> Best Regards, Sparklmonkey\",\r\n            \"topImageUrl\": \"https://elementstherevival.com/newsImages/stream-welcome.png\",\r\n           
+    \"bottomImageUrl\": \"\",\r\n            \"priority\": 1\r\n          },\r\n         
+    {\r\n            \"newsTitle\": \"Redeem Codes\",\r\n            \"newsSubtitle\":
+    \"Current Available Codes\",\r\n            \"newsDescription\": \"Hey there!
+    <br>I just wanted to share all the available redemption codes for the game. If
+    you want to get the codes earlier, join either of the discords. <br>A special
+    code is given during every stream, so tune in for that! <br>Current Codes: <br>
+    - NewUpdate ==> 3000 Electrum <br> - DragonTest ==> Pick a Dragon card <br> -
+    FreeWeapon ==> Pick a free Rare Weapon <br> - Missing Nymph ==> Free Nymph\",\r\n           
+    \"topImageUrl\": \"\",\r\n            \"bottomImageUrl\": \"\",\r\n           
+    \"priority\": 2\r\n          },\r\n          {\r\n            \"newsTitle\":
+    \"Support Development\",\r\n            \"newsSubtitle\": \"Ko-fi setup\",\r\n           
+    \"newsDescription\": \"I have setup an account with Ko-fi, for those who want
+    to help support the development and maintenance of Elements the Revival:  https://ko-fi.com/sparklmonkey
+    . All support is greatly welcome and as with how the original game managed donations,
+    there is a free code given for every USD5 donation given. Everything goes towards
+    releasing on new platforms, maintenance, and infrastructure for PvP and Arena
+    implementation. <br>Development will continue regardless, so don't feel pressured
+    :D\",\r\n            \"topImageUrl\": \"\",\r\n            \"bottomImageUrl\":
+    \"\",\r\n            \"priority\": 3\r\n          },\r\n          {\r\n           
+    \"newsTitle\": \"Special Thanks\",\r\n            \"newsSubtitle\": \"A special
+    thanks\",\r\n            \"newsDescription\": \"- Rael86 <br>- Laywan <br>- echoswarm
+    <br>- Mediocreman1 <br>- Max Stout <br>- Bossclown <br>- N0in3r <br>- Nathan
+    Leath <br>- SkunkSpam <br>- erikafhurley <br>- jeep7up <br>- bearjcc <br>- Oblivionptx
+    <br>- typhra\",\r\n            \"topImageUrl\": \"\",\r\n            \"bottomImageUrl\":
+    \"\",\r\n            \"priority\": 4\r\n          }\r\n        ]\r\n      }\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"514964cc-77fc-410a-870f-dd3944f26632\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"FeatureFlags\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"CodeRedeem\": true,\r\n       
+    \"Achievements\": true,\r\n        \"T50Arena\": true,\r\n        \"Arena\":
+    false,\r\n        \"PvpOne\": false,\r\n        \"PvpTwo\": false,\r\n       
+    \"PvpDuel\": false\r\n      }\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"dd10e887-92e3-4c94-8537-0de50c7a6425\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"EnvironmentVariables\",\r\n      \"type\":
+    \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"isMaintainence\":
+    false,\r\n        \"minAppVersion\": \"5.0.11\",\r\n        \"updateNote\": \"Added
+    Unity Player Accounts for better account management\"\r\n      }\r\n    }\r\n 
+    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"fec031b8-cb93-4b42-aa66-5a3dab4212ca\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"MinVersion\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"5.4.3\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
+    \"entityId\": \"8354048d-3603-4468-a10d-f4aaaf6c48aa\"\r\n    },\r\n    \"rs\":
+    {\r\n      \"key\": \"VersionNote\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"Integrated Unity Remote Config :)\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"483e4cb3-8bde-4826-a753-90a49660f188\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"IsMaintenance\",\r\n      \"type\": \"bool\",\r\n     
+    \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"c533adc7-09cf-4b3e-b600-26b0245e0d9b\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"GameNews\",\r\n      \"type\": \"json\",\r\n      \"schemaId\": \"template-id\",\r\n     
+    \"value\": {\r\n        \"title\": \"Game News Object\",\r\n        \"$id\":
+    \"#template-id\",\r\n        \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r\n       
+    \"description\": \"Contains Array with game news\",\r\n        \"newsList\":
+    [\r\n          {\r\n            \"newsTitle\": \"V5.5.0 Update\",\r\n           
+    \"newsSubtitle\": \"Unity Game Services\",\r\n            \"newsDescription\":
+    \"Hey Everyone! <br> Long time no update. It's been a crazy end of year. But
+    we are going to start this year on a better foot. I have managed to save enough
+    to start the Apple Developer Enrollment, and I am planning on going for Steam
+    next. <br>I also want to start work on PvP, so I am slowly migrating some of
+    the backend services I have developed over to Unity. This will help make the
+    implementation of PvP a lot smoother and easier to complete. With this Release
+    I have migrated: <br><br> - Game News, like this one :D <br> - App Controls,
+    like Maintenance checks, app update checks. <br><br><br>I hope to move Player
+    Save Data over next, and then from there I can move T50 and create a seasonal
+    system that refreshes every month, Achievements that actually work, etc. <br><br>I
+    appreciate you're patience and support in this development. And of course, any
+    doubts, concerns or feedback, feel free to let me know in discord, or via email.
+    <br><br>Sparklmonkey\",\r\n            \"topImageUrl\": \"Url for top image\",\r\n           
+    \"bottomImageUrl\": \"Url for bottom image\",\r\n            \"priority\": 0\r\n         
+    },\r\n          {\r\n            \"newsTitle\": \"Streaming\",\r\n           
+    \"newsSubtitle\": \"Come visit the Stream\",\r\n            \"newsDescription\":
+    \"I've started streaming the development of Elements the Revival. Showing the
+    process of finding bugs and fixing them while providing updates and plans. The
+    idea is to eventually start the development of the PvP features, Arena, Achievements
+    and more. Also mix in a bit of game dev for another Revival project called Spider
+    Riders: Battle for Arachna and even original games. I hope those who can and
+    want to join me and the rest of the Elementalist on this journey. <br>Thank you
+    all for your support in playing and provide feedback. It means the world to me.
+    <br> Best Regards, Sparklmonkey\",\r\n            \"topImageUrl\": \"https://elementstherevival.com/newsImages/stream-welcome.png\",\r\n           
+    \"bottomImageUrl\": \"\",\r\n            \"priority\": 1\r\n          },\r\n         
+    {\r\n            \"newsTitle\": \"Redeem Codes\",\r\n            \"newsSubtitle\":
+    \"Current Available Codes\",\r\n            \"newsDescription\": \"Hey there!
+    <br>I just wanted to share all the available redemption codes for the game. If
+    you want to get the codes earlier, join either of the discords. <br>A special
+    code is given during every stream, so tune in for that! <br>Current Codes: <br>
+    - NewUpdate ==> 3000 Electrum <br> - DragonTest ==> Pick a Dragon card <br> -
+    FreeWeapon ==> Pick a free Rare Weapon <br> - Missing Nymph ==> Free Nymph\",\r\n           
+    \"topImageUrl\": \"\",\r\n            \"bottomImageUrl\": \"\",\r\n           
+    \"priority\": 2\r\n          },\r\n          {\r\n            \"newsTitle\":
+    \"Support Development\",\r\n            \"newsSubtitle\": \"Ko-fi setup\",\r\n           
+    \"newsDescription\": \"I have setup an account with Ko-fi, for those who want
+    to help support the development and maintenance of Elements the Revival:  https://ko-fi.com/sparklmonkey
+    . All support is greatly welcome and as with how the original game managed donations,
+    there is a free code given for every USD5 donation given. Everything goes towards
+    releasing on new platforms, maintenance, and infrastructure for PvP and Arena
+    implementation. <br>Development will continue regardless, so don't feel pressured
+    :D\",\r\n            \"topImageUrl\": \"\",\r\n            \"bottomImageUrl\":
+    \"\",\r\n            \"priority\": 3\r\n          },\r\n          {\r\n           
+    \"newsTitle\": \"Special Thanks\",\r\n            \"newsSubtitle\": \"A special
+    thanks\",\r\n            \"newsDescription\": \"- Rael86 <br>- Laywan <br>- echoswarm
+    <br>- Mediocreman1 <br>- Max Stout <br>- Bossclown <br>- N0in3r <br>- Nathan
+    Leath <br>- SkunkSpam <br>- erikafhurley <br>- jeep7up <br>- bearjcc <br>- Oblivionptx
+    <br>- typhra\",\r\n            \"topImageUrl\": \"\",\r\n            \"bottomImageUrl\":
+    \"\",\r\n            \"priority\": 4\r\n          }\r\n        ]\r\n      }\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"514964cc-77fc-410a-870f-dd3944f26632\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"FeatureFlags\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"CodeRedeem\": true,\r\n       
+    \"Achievements\": true,\r\n        \"T50Arena\": true,\r\n        \"Arena\":
+    false,\r\n        \"PvpOne\": false,\r\n        \"PvpTwo\": false,\r\n       
+    \"PvpDuel\": false\r\n      }\r\n    }\r\n  }\r\n]"
+  _environments: "[\r\n  {\r\n    \"projectId\": \"ec77d6b3-4d48-4c2c-a1d4-f84f9dac7aaa\",\r\n   
+    \"name\": \"qa-test\",\r\n    \"id\": \"5cf7d5b3-137a-4b86-ae8e-afd19936f073\",\r\n   
+    \"isDefault\": false,\r\n    \"createdAt\": \"2024-12-22T22:58:21Z\",\r\n   
+    \"updatedAt\": \"2024-12-22T22:58:21Z\"\r\n  },\r\n  {\r\n    \"projectId\":
+    \"ec77d6b3-4d48-4c2c-a1d4-f84f9dac7aaa\",\r\n    \"name\": \"production\",\r\n   
+    \"id\": \"80206c0b-5c1b-428e-8935-1132903075c2\",\r\n    \"isDefault\": true,\r\n   
+    \"createdAt\": \"2021-08-09T22:59:52Z\",\r\n    \"updatedAt\": \"2021-08-09T22:59:52Z\"\r\n 
+    }\r\n]"

@@ -225,15 +225,17 @@ namespace Networking
                         PlayerData.Shared.Username = username;
                         await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
                         await SaveDataToUnity();
+                        var startScore = await UpdateScore(0);
+                        SessionManager.Instance.PlayerScore = startScore;
                         isUnityUser = true;
-                        break;
-                    case LoginType.RegisterUnity:
                         break;
                     case LoginType.LinkUserPass:
                         Debug.Log("Attempt to Link Account");
                         await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
                         await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
                         await SaveDataToUnity();
+                        var newScore = await UpdateScore(0);
+                        SessionManager.Instance.PlayerScore = newScore;
                         isUnityUser = true;
                         break;
                 }
