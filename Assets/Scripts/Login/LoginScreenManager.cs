@@ -101,12 +101,11 @@ namespace Login
     
         private void ManageResponse(LoginResponse response)
         {
-            if (response.errorMessage == ErrorCases.AllGood)
+            if (response.ErrorMessage == ErrorCases.AllGood)
             {
                 PlayerData.LoadFromApi(response.savedData);
                 PlayerData.Shared.Email = response.emailAddress;
                 PlayerPrefs.SetString("AccessToken", response.accessToken);
-                PlayerData.Shared = response.savedData;
                 PlayerData.Shared.Username = username.text;
                 
                 SceneTransitionManager.Instance.LoadScene(PlayerData.Shared.GetDeck().Count == 0
@@ -115,7 +114,7 @@ namespace Login
             }
             else
             {
-                errorMessage.text = response.errorMessage.ToLongDescription();
+                errorMessage.text = response.ErrorMessage.ToLongDescription();
             }
         }
 
@@ -132,12 +131,11 @@ namespace Login
             else
             {
                 var legacUser = await GetLegacyUser(username.text, password.text);
-                if (legacUser.errorMessage == ErrorCases.AllGood)
+                if (legacUser.ErrorMessage == ErrorCases.AllGood)
                 {
                     PlayerData.LoadFromApi(legacUser.savedData);
                     PlayerData.Shared.Email = legacUser.emailAddress;
                     PlayerPrefs.SetString("AccessToken", legacUser.accessToken);
-                    PlayerData.Shared = legacUser.savedData;
                     PlayerData.Shared.Username = username.text;
                     switch (responseMessage)
                     {
@@ -157,7 +155,7 @@ namespace Login
                 }
                 else
                 {
-                    errorMessage.text = legacUser.errorMessage.ToLongDescription();
+                    errorMessage.text = legacUser.ErrorMessage.ToLongDescription();
                 }
                 
             }

@@ -141,25 +141,25 @@ public class SplashScreen : MonoBehaviour
     private async void LoadNextScene()
     {
         await SetupRemoteConfig();
-        if (RemoteConfigHelper.Instance.IsMaintenance())
-        {
-            ShowPopUpModal("SplashScreen",
-                "SplashMaintenanceModalTitle", 
-                "SplashMaintenanceButtonTitle",
-                CloseApp);
-            return;
-        }
-        
-        RemoteConfigHelper.Instance.SetupGameNews();
-        
-        if (RemoteConfigHelper.Instance.IsForceUpdate())
-        {
-            ShowPopUpModal("SplashScreen",
-                "SplashForcedUpdateModalTitle", 
-                "SplashForcedUpdateButtonTitle",
-                GoToAppStore);
-            return;
-        }
+        // if (RemoteConfigHelper.Instance.IsMaintenance())
+        // {
+        //     ShowPopUpModal("SplashScreen",
+        //         "SplashMaintenanceModalTitle", 
+        //         "SplashMaintenanceButtonTitle",
+        //         CloseApp);
+        //     return;
+        // }
+        //
+        // RemoteConfigHelper.Instance.SetupGameNews();
+        //
+        // if (RemoteConfigHelper.Instance.IsForceUpdate())
+        // {
+        //     ShowPopUpModal("SplashScreen",
+        //         "SplashForcedUpdateModalTitle", 
+        //         "SplashForcedUpdateButtonTitle",
+        //         GoToAppStore);
+        //     return;
+        // }
         if (_isCachedLogin)
         {
             await ApiManager.Instance.CallModuleTest();
@@ -192,24 +192,6 @@ public class SplashScreen : MonoBehaviour
         popUpObject.GetComponent<PopUpModal>().SetupModal(localeTable, messageTitleKey, buttonTitleKey, actionButtonMethod);
     }
 
-    private void ManageResponse(LoginResponse response)
-    {
-        if (response.errorMessage == ErrorCases.AllGood)
-        {
-            PlayerData.LoadFromApi(response.savedData);
-            PlayerData.Shared.Email = response.emailAddress;
-            PlayerPrefs.SetString("AccessToken", response.accessToken);
-            PlayerData.Shared = response.savedData;
-            PlayerData.Shared.Username = response.username;
-            
-            SceneTransitionManager.Instance.LoadScene("Dashboard");
-        }
-        else
-        {
-            SceneTransitionManager.Instance.LoadScene("LoginScreen");
-        }
-    }
-    
     private IEnumerator StartTitleAnimation()
     {
         var shader = titleImage.material;

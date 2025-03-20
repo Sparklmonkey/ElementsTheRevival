@@ -29,8 +29,8 @@ namespace Networking
 
         // private readonly string _baseUrl =  "https://www.elementstherevival.com/api/";
 #if UNITY_EDITOR
-        private readonly string _baseUrl = "https://www.elementstherevival.com/api/";
-        // private readonly string _baseUrl =  "http://localhost:5158/api/";
+       // private readonly string _baseUrl = "https://localhost:7023/api/";
+        private readonly string _baseUrl =  "http://localhost:5158/api/";
 #else
         private readonly string _baseUrl = "https://www.elementstherevival.com/api/";
 #endif

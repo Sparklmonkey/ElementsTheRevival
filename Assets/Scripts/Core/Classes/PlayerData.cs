@@ -87,6 +87,40 @@ public class PlayerData
         Shared = playerData;
     }
     
+    public static void LoadFromApi(PlayerDataLegacy playerData)
+    {
+        Shared = new PlayerData(playerData);
+    }
+
+    public PlayerData(PlayerDataLegacy legacy)
+    {
+        Id = legacy.id;
+        MarkElement = legacy.markElement;
+        CurrentDeck = legacy.currentDeck;
+        InventoryCards = legacy.inventoryCards;
+        SavedDecks = legacy.savedDecks;
+        Electrum = legacy.electrum;
+        GamesWon = legacy.gamesWon;
+        GamesLost = legacy.gamesLost;
+        PlayerScore = legacy.playerScore;
+        CurrentQuestIndex = legacy.currentQuestIndex;
+        NextFalseGod = legacy.nextFalseGod;
+        PetName = legacy.petName;
+        CompletedQuests = legacy.completedQuests;
+        PetCount = legacy.petCount;
+        PlayedOracleToday = false; //2024-02-03T00:21:49.2289075-03:00
+        OracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
+        LastOracleDay = legacy.lastOracleDay;
+        HasDefeatedLevel0 = legacy.hasDefeatedLevel0;
+        RemovedCardFromDeck = legacy.removedCardFromDeck;
+        HasBoughtCardBazaar = legacy.hasBoughtCardBazaar;
+        HasSoldCardBazaar = legacy.hasSoldCardBazaar;
+        HasDefeatedLevel1 = legacy.hasDefeatedLevel1;
+        HasDefeatedLevel2 = legacy.hasDefeatedLevel2;
+        ArenaT50Deck = legacy.arenaT50Deck;
+        ArenaT50Mark = legacy.arenaT50Mark;
+    }
+    
     public List<string> GetDeck() => CurrentDeck.ConvertCardCodeToList();
     public List<string> GetInventory() => InventoryCards.ConvertCardCodeToList();
     public void SetInventory(List<string> cardList) => InventoryCards = cardList.ConvertListToCardCode();

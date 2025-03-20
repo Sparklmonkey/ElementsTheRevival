@@ -226,7 +226,7 @@ MonoBehaviour:
     - line: '|     iPhone: 10'
     - line: '|     tvOS: 0'
     - line: '|   overrideDefaultApplicationIdentifier: 0'
-    - line: '|   AndroidBundleVersionCode: 179'
+    - line: '|   AndroidBundleVersionCode: 180'
     - line: '|   AndroidMinSdkVersion: 24'
     - line: '|   AndroidTargetSdkVersion: 34'
     - line: '|   AndroidPreferredInstallLocation: 1'
@@ -1113,8 +1113,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 7464314417473126400
       type: {class: AndroidPlatformBuildSettings, ns: UnityEditor.Android, asm: UnityEditor.Android.Extensions}
       data:
