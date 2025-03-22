@@ -101,7 +101,7 @@ namespace Login
     
         private void ManageResponse(LoginResponse response)
         {
-            if (response.ErrorMessage == ErrorCases.AllGood)
+            if (response.errorMessage == ErrorCases.AllGood)
             {
                 PlayerData.LoadFromApi(response.savedData);
                 PlayerData.Shared.Email = response.emailAddress;
@@ -114,7 +114,7 @@ namespace Login
             }
             else
             {
-                errorMessage.text = response.ErrorMessage.ToLongDescription();
+                errorMessage.text = response.errorMessage.ToLongDescription();
             }
         }
 
@@ -131,7 +131,7 @@ namespace Login
             else
             {
                 var legacUser = await GetLegacyUser(username.text, password.text);
-                if (legacUser.ErrorMessage == ErrorCases.AllGood)
+                if (legacUser.errorMessage == ErrorCases.AllGood)
                 {
                     PlayerData.LoadFromApi(legacUser.savedData);
                     PlayerData.Shared.Email = legacUser.emailAddress;
@@ -155,7 +155,7 @@ namespace Login
                 }
                 else
                 {
-                    errorMessage.text = legacUser.ErrorMessage.ToLongDescription();
+                    errorMessage.text = legacUser.errorMessage.ToLongDescription();
                 }
                 
             }

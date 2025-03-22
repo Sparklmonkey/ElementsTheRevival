@@ -141,25 +141,25 @@ public class SplashScreen : MonoBehaviour
     private async void LoadNextScene()
     {
         await SetupRemoteConfig();
-        // if (RemoteConfigHelper.Instance.IsMaintenance())
-        // {
-        //     ShowPopUpModal("SplashScreen",
-        //         "SplashMaintenanceModalTitle", 
-        //         "SplashMaintenanceButtonTitle",
-        //         CloseApp);
-        //     return;
-        // }
-        //
-        // RemoteConfigHelper.Instance.SetupGameNews();
-        //
-        // if (RemoteConfigHelper.Instance.IsForceUpdate())
-        // {
-        //     ShowPopUpModal("SplashScreen",
-        //         "SplashForcedUpdateModalTitle", 
-        //         "SplashForcedUpdateButtonTitle",
-        //         GoToAppStore);
-        //     return;
-        // }
+        if (RemoteConfigHelper.Instance.IsMaintenance())
+        {
+            ShowPopUpModal("SplashScreen",
+                "SplashMaintenanceModalTitle", 
+                "SplashMaintenanceButtonTitle",
+                CloseApp);
+            return;
+        }
+        
+        RemoteConfigHelper.Instance.SetupGameNews();
+        
+        if (RemoteConfigHelper.Instance.IsForceUpdate())
+        {
+            ShowPopUpModal("SplashScreen",
+                "SplashForcedUpdateModalTitle", 
+                "SplashForcedUpdateButtonTitle",
+                GoToAppStore);
+            return;
+        }
         if (_isCachedLogin)
         {
             await ApiManager.Instance.CallModuleTest();

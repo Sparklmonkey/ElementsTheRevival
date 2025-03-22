@@ -10,7 +10,7 @@ namespace Networking
         public string accessToken;
         public string emailAddress;
         public PlayerDataLegacy savedData;
-        public ErrorCases ErrorMessage;
+        public ErrorCases errorMessage;
         public string token;
         public string accountId;
     }
