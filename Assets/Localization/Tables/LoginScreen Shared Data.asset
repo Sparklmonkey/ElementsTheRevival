@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: LoginScreen Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: LoginScreen
+  m_TableCollectionNameGuidString: 2a4f9caf25cd64f299443e12c473b686
+  m_Entries:
+  - m_Id: 6302982144
+    m_Key: LoginMigrateToUnityTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12929982464
+    m_Key: LoginMigrateToUnityButtonOneTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 766034042880
+    m_Key: LoginMigrateToUnityButtonTwoTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 928363454652416
+    m_Key: LoginChangePasswordUnityTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 928373999132672
+    m_Key: LoginChangePasswordUnityButtonTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1287448029028352
+    m_Key: LoginChangeUsernameUnityTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1287501254746112
+    m_Key: LoginChangeUsernameUnityButtonTitle
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 1442318801679155542
+  references:
+    version: 2
+    RefIds:
+    - rid: 1442318801679155542
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1736951615272

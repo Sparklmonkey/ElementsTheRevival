@@ -1,0 +1,12 @@
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\obj\Release\net6.0\any\PlayerAchievements.csproj.AssemblyReference.cache
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\obj\Release\net6.0\any\PlayerAchievements.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\obj\Release\net6.0\any\PlayerAchievements.AssemblyInfoInputs.cache
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\obj\Release\net6.0\any\PlayerAchievements.AssemblyInfo.cs
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\obj\Release\net6.0\any\PlayerAchievements.csproj.CoreCompileInputs.cache
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\bin\Release\net6.0\any\PlayerAchievements.deps.json
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\bin\Release\net6.0\any\PlayerAchievements.dll
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\bin\Release\net6.0\any\PlayerAchievements.pdb
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\obj\Release\net6.0\any\PlayerAchievements.dll
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\obj\Release\net6.0\any\refint\PlayerAchievements.dll
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\obj\Release\net6.0\any\PlayerAchievements.pdb
+C:\Users\juana\Documents\Sparklmonkey_Games\Elements Mobile (1)\HelloWorld\PlayerAchievements\obj\Release\net6.0\any\ref\PlayerAchievements.dll

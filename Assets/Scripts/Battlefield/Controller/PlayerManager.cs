@@ -71,8 +71,12 @@ public class PlayerManager : MonoBehaviour
         {
             case PlayerCounters.Bone:
                 playerCounters.bone += amount;
+                if (playerCounters.bone < 0)
+                {
+                    playerCounters.bone = 0;
+                    break;
+                }
                 EventBus<SetBoneCountEvent>.Raise(new SetBoneCountEvent(owner, playerCounters.bone, true));
-                if (playerCounters.bone < 0) { playerCounters.bone = 0; }
                 break;
             case PlayerCounters.Freeze:
                 playerCounters.freeze += amount;
@@ -545,7 +549,7 @@ public class PlayerManager : MonoBehaviour
         playerPassiveManager.SetOwner(owner);
         playerCreatureField.SetOwner(owner);
         playerPermanentManager.SetOwner(owner);
-        var markElement = owner.Equals(OwnerEnum.Player) ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
+        var markElement = owner.Equals(OwnerEnum.Player) ? PlayerData.Shared.MarkElement : BattleVars.Shared.EnemyAiData.mark;
 
         var mark = CardDatabase.Instance.GetCardFromId(CardDatabase.Instance.markIds[(int)markElement]);
         EventBus<PlayPassiveOnFieldEvent>.Raise(new PlayPassiveOnFieldEvent(owner, mark));

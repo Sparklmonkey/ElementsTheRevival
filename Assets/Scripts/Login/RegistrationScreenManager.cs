@@ -41,17 +41,7 @@ namespace Login
             _touchBlocker.transform.SetAsFirstSibling();
         
             PlayerData.LoadData();
-            var response = await ApiManager.Instance.RegisterController(new()
-            {
-                username = username.text,
-                password = password.text,
-                email = email.text,
-                dataToLink = PlayerData.Shared
-            }, Endpointbuilder.RegisterLinkData);
-
-            _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-            Destroy(_touchBlocker);
-            ManageResponse(response);
+            await ApiManager.Instance.UserLoginAsync(LoginType.LinkUserPass, HandleUserLogin, username.text, password.text);
         }
 
         public void AttemptToRegister()
@@ -79,35 +69,29 @@ namespace Login
         {
             _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/RegisterPanel"));
             _touchBlocker.transform.SetAsFirstSibling();
-            var response = await ApiManager.Instance.RegisterController(new()
-            {
-                dataToLink = new(),
-                username = username.text,
-                password = password.text,
-                email = email.text
-            }, Endpointbuilder.RegisterNewUser);
 
-            _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
-            Destroy(_touchBlocker);
-            ManageResponse(response);
+            await ApiManager.Instance.UserLoginAsync(LoginType.RegisterUserPass, HandleUserLogin, username.text, password.text);
         }
-
-        private void ManageResponse(LoginResponse response)
+        
+        public async void HandleUserLogin(string responseMessage)
         {
-            if (response.errorMessage == ErrorCases.AllGood)
+            if (responseMessage == "Success")
             {
-                PlayerData.LoadFromApi(response.savedData);
-                PlayerData.Shared.email = response.emailAddress;
-                PlayerData.Shared.username = username.text;
-                PlayerPrefs.SetString("AccessToken", response.accessToken);
-                PlayerData.Shared = response.savedData;
-                PlayerData.Shared.username = username.text;
-            
-                SceneTransitionManager.Instance.LoadScene(PlayerData.Shared.GetDeck().Count == 0 ? "DeckSelector" : "Dashboard");
+                if (email.text.IsValidEmail())
+                {
+                    await ApiManager.Instance.UpdateUserEmail(email.text);
+                }
+                _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+                Destroy(_touchBlocker);
+                PlayerData.Shared.Email = email.text;
+                var cardList = PlayerData.Shared.CurrentDeck.ConvertCardCodeToList();
+                PlayerData.Shared.Username = username.text;
+                SceneTransitionManager.Instance.LoadScene(
+                    cardList.Count < 30 ? "DeckSelector" : "Dashboard");
             }
             else
             {
-                serverResponse.text = response.errorMessage.ToLongDescription();
+                serverResponse.text = responseMessage;
             }
         }
     }

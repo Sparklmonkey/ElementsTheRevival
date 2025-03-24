@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: SplashScreen_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: f35a3b87f77674f798f7be440fbb4917, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 7087316992
+    m_Localized: Close App
+    m_Metadata:
+      m_Items: []
+  - m_Id: 196372062208
+    m_Localized: Update
+    m_Metadata:
+      m_Items: []
+  - m_Id: 295185670144
+    m_Localized: There is a new version. Please update in order to continue.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 252869337088
+    m_Localized: The app or server is currently under maintenance. Please try again
+      later.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 507018993664
+    m_Localized: Go To Login
+    m_Metadata:
+      m_Items: []
+  - m_Id: 587868397568
+    m_Localized: There was an unknown error. You can still try logging in and play,
+      but it may not save your progress.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -11,11 +11,11 @@
     public override string QuestReward => "Reward: 20";
 
 
-    public override bool RequirementCheck() => PlayerData.Shared.removedCardFromDeck;
+    public override bool RequirementCheck() => PlayerData.Shared.RemovedCardFromDeck;
 
     public override void RedeemQuest()
     {
-        PlayerData.Shared.electrum += 20;
-        PlayerData.Shared.completedQuests += "_1";
+        PlayerData.Shared.Electrum += 20;
+       // PlayerData.Shared.completedQuests += "_1";
     }
 }

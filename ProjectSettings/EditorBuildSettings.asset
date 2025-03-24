@@ -45,6 +45,8 @@ EditorBuildSettings:
     path: Assets/Scenes/AchievementNexus.unity
     guid: beb9ea17bb6b445388ff7fbdee5a8457
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 6616f6561bd564117b489a59f30460f1, type: 2}
     com.unity.dt.app-ui: {fileID: 11400000, guid: 99f9c9493070a9d4c979a8fec7c5a8d3, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 07e304f4734ccab44b852f22389587af, type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: f7944e3405c404076b86927e8708b707, type: 2}
   m_UseUCBPForAssetBundles: 0

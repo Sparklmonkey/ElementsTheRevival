@@ -1,12 +1,6 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using Battlefield.Abilities;
-using Battlefield.Abilities.Weapon;
 using Core.Classes;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 public class CardDatabase : SingletonMono<CardDatabase>

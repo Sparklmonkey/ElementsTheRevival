@@ -119,7 +119,7 @@ public class HandCardDisplay : CardFieldDisplay
     {
         if (isPendulum)
         {
-            var markElement = PlayerData.Shared.markElement;
+            var markElement = PlayerData.Shared.MarkElement;
             cardImage.sprite = !shouldShowMarkElement ? ImageHelper.GetPendulumImage(costElement.FastElementString(), markElement.FastElementString()) : ImageHelper.GetPendulumImage(markElement.FastElementString(), costElement.FastElementString());
         }
         else

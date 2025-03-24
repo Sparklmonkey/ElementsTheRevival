@@ -2,100 +2,131 @@
 using System.Collections.Generic;
 using System.IO;
 using Networking;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [Serializable]
 public class PlayerData
 {
     public static PlayerData Shared;
-    public int id;
-    public Element markElement;
-    public string currentDeck;
-    public Element arenaT50Mark;
-    public string arenaT50Deck;
-    public string inventoryCards;
-    public int electrum;
-    public int gamesWon;
-    public int gamesLost;
-    public int arenaWins;
-    public int arenaLosses;
-    public int playerScore;
-    public string username = "";
-    public string email = "";
-    public string completedQuests = "";
-
+    public int Id;
+    public Element MarkElement;
+    public string CurrentDeck;
+    public Element ArenaT50Mark;
+    public string ArenaT50Deck;
+    public string InventoryCards;
+    public int Electrum;
+    public int GamesWon;
+    public int GamesLost;
+    public int ArenaWins;
+    public int ArenaLosses;
+    public int PlayerScore;
+    public string Username = "";
+    public string Email = "";
+    public string CompletedQuests = "";
     internal void ResetAccount()
     {
-        markElement = Element.Aether;
-        currentDeck = "";
-        inventoryCards = "";
-        savedDecks = new();
-        electrum = 0;
-        gamesWon = 0;
-        gamesLost = 0;
-        playerScore = 0;
-        currentQuestIndex = 0;
-        nextFalseGod = "";
-        petName = "";
-        completedQuests = "";
-        petCount = 0;
-        playedOracleToday = false;
-        oracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
-        lastOracleDay = 0;
-        hasDefeatedLevel0 = false;
-        removedCardFromDeck = false;
-        hasBoughtCardBazaar = false;
-        hasSoldCardBazaar = false;
-        hasDefeatedLevel1 = false;
-        hasDefeatedLevel2 = false;
-        arenaT50Deck = "";
-        arenaT50Mark = Element.Aether;
+        Id = 0;
+        MarkElement = Element.Aether;
+        CurrentDeck = "";
+        InventoryCards = "";
+        SavedDecks = new();
+        Electrum = 0;
+        GamesWon = 0;
+        GamesLost = 0;
+        PlayerScore = 0;
+        CurrentQuestIndex = 0;
+        NextFalseGod = "";
+        PetName = "";
+        CompletedQuests = "";
+        PetCount = 0;
+        PlayedOracleToday = false;
+        OracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
+        LastOracleDay = 0;
+        HasDefeatedLevel0 = false;
+        RemovedCardFromDeck = false;
+        HasBoughtCardBazaar = false;
+        HasSoldCardBazaar = false;
+        HasDefeatedLevel1 = false;
+        HasDefeatedLevel2 = false;
+        ArenaT50Deck = "";
+        ArenaT50Mark = Element.Aether;
     }
 
-    public int currentQuestIndex = 0;
+    public int CurrentQuestIndex = 0;
     //Saved Decks
-    public List<string> savedDecks;
+    public List<string> SavedDecks;
     //Oracle Vars
-    public string nextFalseGod;
-    public string petName;
-    public int petCount;
+    public string NextFalseGod;
+    public string PetName;
+    public int PetCount;
     //public string username;
-    public bool playedOracleToday;
+    public bool PlayedOracleToday;
     
-    public string oracleLastPlayed;
-    public int lastOracleDay;
+    public string OracleLastPlayed;
+    public int LastOracleDay;
 
     //Quest 1 Flag
-    public bool hasDefeatedLevel0;
+    public bool HasDefeatedLevel0;
 
     //Quest 2 Flag
-    public bool removedCardFromDeck;
+    public bool RemovedCardFromDeck;
 
     //Quest 3 Flags
-    public bool hasBoughtCardBazaar;
+    public bool HasBoughtCardBazaar;
 
-    public bool hasSoldCardBazaar;
+    public bool HasSoldCardBazaar;
 
     //Quest 4 Flag
-    public bool hasDefeatedLevel1;
+    public bool HasDefeatedLevel1;
 
     //Quest 5 Flag
-    public bool hasDefeatedLevel2;
+    public bool HasDefeatedLevel2;
 
     public static void LoadFromApi(PlayerData playerData)
     {
         Shared = playerData;
     }
     
-    public List<string> GetDeck() => currentDeck.ConvertCardCodeToList();
-    public List<string> GetInventory() => inventoryCards.ConvertCardCodeToList();
-    public void SetInventory(List<string> cardList) => inventoryCards = cardList.ConvertListToCardCode();
-    public void SetDeck(List<string> cardList) => currentDeck = cardList.ConvertListToCardCode();
-    public List<string> GetArenaTFifty() => arenaT50Deck.ConvertCardCodeToList();
-    public void SetArenaTFifty(List<string> cardList) => arenaT50Deck = cardList.ConvertListToCardCode();
+    public static void LoadFromApi(PlayerDataLegacy playerData)
+    {
+        Shared = new PlayerData(playerData);
+    }
+
+    public PlayerData(PlayerDataLegacy legacy)
+    {
+        Id = legacy.id;
+        MarkElement = legacy.markElement;
+        CurrentDeck = legacy.currentDeck;
+        InventoryCards = legacy.inventoryCards;
+        SavedDecks = legacy.savedDecks;
+        Electrum = legacy.electrum;
+        GamesWon = legacy.gamesWon;
+        GamesLost = legacy.gamesLost;
+        PlayerScore = legacy.playerScore;
+        CurrentQuestIndex = legacy.currentQuestIndex;
+        NextFalseGod = legacy.nextFalseGod;
+        PetName = legacy.petName;
+        CompletedQuests = legacy.completedQuests;
+        PetCount = legacy.petCount;
+        PlayedOracleToday = false; //2024-02-03T00:21:49.2289075-03:00
+        OracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
+        LastOracleDay = legacy.lastOracleDay;
+        HasDefeatedLevel0 = legacy.hasDefeatedLevel0;
+        RemovedCardFromDeck = legacy.removedCardFromDeck;
+        HasBoughtCardBazaar = legacy.hasBoughtCardBazaar;
+        HasSoldCardBazaar = legacy.hasSoldCardBazaar;
+        HasDefeatedLevel1 = legacy.hasDefeatedLevel1;
+        HasDefeatedLevel2 = legacy.hasDefeatedLevel2;
+        ArenaT50Deck = legacy.arenaT50Deck;
+        ArenaT50Mark = legacy.arenaT50Mark;
+    }
+    
+    public List<string> GetDeck() => CurrentDeck.ConvertCardCodeToList();
+    public List<string> GetInventory() => InventoryCards.ConvertCardCodeToList();
+    public void SetInventory(List<string> cardList) => InventoryCards = cardList.ConvertListToCardCode();
+    public void SetDeck(List<string> cardList) => CurrentDeck = cardList.ConvertListToCardCode();
+    public List<string> GetArenaTFifty() => ArenaT50Deck.ConvertCardCodeToList();
+    public void SetArenaTFifty(List<string> cardList) => ArenaT50Deck = cardList.ConvertListToCardCode();
     
 
     public static bool LoadData()
@@ -123,30 +154,31 @@ public class PlayerData
 
     public PlayerData()
     {
-        markElement = Element.Aether;
-        currentDeck = "X";
-        inventoryCards = "X";
-        savedDecks = new();
-        electrum = 0;
-        gamesWon = 0;
-        gamesLost = 0;
-        playerScore = 0;
-        currentQuestIndex = 0;
-        nextFalseGod = "";
-        petName = "";
-        completedQuests = "";
-        petCount = 0;
-        playedOracleToday = false; //2024-02-03T00:21:49.2289075-03:00
-        oracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
-        lastOracleDay = 0;
-        hasDefeatedLevel0 = false;
-        removedCardFromDeck = false;
-        hasBoughtCardBazaar = false;
-        hasSoldCardBazaar = false;
-        hasDefeatedLevel1 = false;
-        hasDefeatedLevel2 = false;
-        arenaT50Deck = "";
-        arenaT50Mark = Element.Aether;
+        Id = 0;
+        MarkElement = Element.Aether;
+        CurrentDeck = "X";
+        InventoryCards = "X";
+        SavedDecks = new();
+        Electrum = 0;
+        GamesWon = 0;
+        GamesLost = 0;
+        PlayerScore = 0;
+        CurrentQuestIndex = 0;
+        NextFalseGod = "";
+        PetName = "";
+        CompletedQuests = "";
+        PetCount = 0;
+        PlayedOracleToday = false; //2024-02-03T00:21:49.2289075-03:00
+        OracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
+        LastOracleDay = 0;
+        HasDefeatedLevel0 = false;
+        RemovedCardFromDeck = false;
+        HasBoughtCardBazaar = false;
+        HasSoldCardBazaar = false;
+        HasDefeatedLevel1 = false;
+        HasDefeatedLevel2 = false;
+        ArenaT50Deck = "";
+        ArenaT50Mark = Element.Aether;
     }
 }
 
@@ -155,12 +187,4 @@ public class DeckPreset
 {
     public string deckName;
     public string deckCode;
-}
-
-public class CustomDateTimeConverter : IsoDateTimeConverter
-{
-    public CustomDateTimeConverter()
-    {
-        base.DateTimeFormat = "dd/MM/yyyy";
-    }
 }

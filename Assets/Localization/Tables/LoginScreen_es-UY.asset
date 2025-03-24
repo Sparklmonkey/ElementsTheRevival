@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: LoginScreen_es-UY
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: es-UY
+  m_SharedData: {fileID: 11400000, guid: 2a4f9caf25cd64f299443e12c473b686, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 12929982464
+    m_Localized: Ingresar con Unity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6302982144
+    m_Localized: "Para mejorar y ampliar a\xFAn m\xE1s este proyecto, estoy migrando
+      todo a Unity Game Services, ya que es m\xE1s estable y s\xF3lido que mi propia
+      implementaci\xF3n. Para continuar va a ser necesario migrar toda la information
+      guardado a Unity."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 766034042880
+    m_Localized: Ingresar sin Unity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 928373999132672
+    m_Localized: "Cambiar contrase\xF1a"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 928363454652416
+    m_Localized: "Tu contrase\xF1a tiene que cumplir con todas las siguientes requisitos:\n-
+      Entre 8 y 30 caracteres \n- Por lo menos 1 letra miniscula\n- Por lo menos
+      1 letra mayuscula\n- Por lo menos 1 n\xFAmero\n- Por lo menos 1 simbolo"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1287501254746112
+    m_Localized: Cambiar nombre de usuario
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1287448029028352
+    m_Localized: 'Your username is already in use, you will need to set a new username:
+
+      -
+      Between 3 and 20 characters
+
+      - Can be letters, numbers or symbols like
+      ., -, @ or _.'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

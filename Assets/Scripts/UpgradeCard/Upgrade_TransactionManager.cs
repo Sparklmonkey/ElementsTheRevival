@@ -9,12 +9,12 @@ public class UpgradeTransactionManager : MonoBehaviour
 
     public void SetupTransactionManager()
     {
-        coinCount.text = $"{PlayerData.Shared.electrum}";
+        coinCount.text = $"{PlayerData.Shared.Electrum}";
     }
 
     public void ChangeCoinCount()
     {
-        PlayerData.Shared.electrum -= 1500;
-        coinCount.text = $"{PlayerData.Shared.electrum}";
+        PlayerData.Shared.Electrum -= 1500;
+        coinCount.text = $"{PlayerData.Shared.Electrum}";
     }
 }

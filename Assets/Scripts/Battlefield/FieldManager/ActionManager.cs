@@ -30,20 +30,20 @@ public class ActionManager
     private void AddCardDrawAction(AddDrawCardActionEvent addDrawCardActionEvent)
     {
         var isPlayer = addDrawCardActionEvent.Owner.Equals(OwnerEnum.Player);
-        ElementAction action = new(isPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName, 
+        ElementAction action = new(isPlayer ? PlayerData.Shared.Username : BattleVars.Shared.EnemyAiData.opponentName, 
             "Draw", isPlayer ? addDrawCardActionEvent.CardDrawn.cardImage : null, null, false);
         ActionList.Add(action);
     }
 
     private void AddCardPlayedOnFieldAction(AddCardPlayedOnFieldActionEvent addCardPlayedOnFieldActionEvent)
     {
-        ElementAction action = new($"{(addCardPlayedOnFieldActionEvent.IsPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName)}", "Played", addCardPlayedOnFieldActionEvent.CardToPlay.cardImage, null, false);
+        ElementAction action = new($"{(addCardPlayedOnFieldActionEvent.IsPlayer ? PlayerData.Shared.Username : BattleVars.Shared.EnemyAiData.opponentName)}", "Played", addCardPlayedOnFieldActionEvent.CardToPlay.cardImage, null, false);
 
         ActionList.Add(action);
     }
     private void AddSpellPlayedAction(AddSpellActivatedActionEvent addSpellActivatedActionEvent)
     {
-        var owner = addSpellActivatedActionEvent.IsPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName;
+        var owner = addSpellActivatedActionEvent.IsPlayer ? PlayerData.Shared.Username : BattleVars.Shared.EnemyAiData.opponentName;
         var shouldShowArrow = false;
         Sprite targetId = null;
         if (addSpellActivatedActionEvent.TargetId != null)
@@ -58,7 +58,7 @@ public class ActionManager
 
     private void AddAbilityActivatedAction(AddAbilityActivatedActionEvent addAbilityActivatedActionEvent)
     {
-        var owner = addAbilityActivatedActionEvent.IsPlayer ? PlayerData.Shared.username : BattleVars.Shared.EnemyAiData.opponentName;
+        var owner = addAbilityActivatedActionEvent.IsPlayer ? PlayerData.Shared.Username : BattleVars.Shared.EnemyAiData.opponentName;
         var shouldShowArrow = false;
         Sprite targetId = null;
         if (addAbilityActivatedActionEvent.TargetId is not null)

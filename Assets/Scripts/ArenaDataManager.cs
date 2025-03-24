@@ -18,12 +18,12 @@ public class ArenaDataManager : MonoBehaviour
     // Start is called before the first frame update
     private async void Start()
     {
-        playerScore.text = PlayerData.Shared.playerScore.ToString();
-        playerWin.text = PlayerData.Shared.arenaWins.ToString();
-        playerLoss.text = PlayerData.Shared.arenaLosses.ToString();
+        playerScore.text = PlayerData.Shared.PlayerScore.ToString();
+        playerWin.text = PlayerData.Shared.ArenaWins.ToString();
+        playerLoss.text = PlayerData.Shared.ArenaLosses.ToString();
         BattleVars.Shared.ResetBattleVars();
         _enemyAi = Resources.Load<EnemyAi>("EnemyAi/Arena/Random");
-        playerMark.sprite = ImageHelper.GetElementImage(PlayerData.Shared.arenaT50Mark.ToString());
+        playerMark.sprite = ImageHelper.GetElementImage(PlayerData.Shared.ArenaT50Mark.ToString());
         _arenaResponse = await ApiManager.Instance.GetT50Opponent();
         ArenaResponseHandler(_arenaResponse);
     }
@@ -79,9 +79,9 @@ public class ArenaDataManager : MonoBehaviour
     public void PlayAgainstSelf()
     {
         BattleVars.Shared.IsTest = true;
-        var opDeck = PlayerData.Shared.arenaT50Deck.ConvertCardCodeToList();
-        _enemyAi.opponentName = PlayerData.Shared.username;
-        _enemyAi.mark = PlayerData.Shared.arenaT50Mark;
+        var opDeck = PlayerData.Shared.ArenaT50Deck.ConvertCardCodeToList();
+        _enemyAi.opponentName = PlayerData.Shared.Username;
+        _enemyAi.mark = PlayerData.Shared.ArenaT50Mark;
         _enemyAi.deck = string.Join(" ", opDeck);
         BattleVars.Shared.IsArena = true;
         BattleVars.Shared.EnemyAiData = _enemyAi;

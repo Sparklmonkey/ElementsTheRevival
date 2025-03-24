@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{9d957e90-e5aa-e4de-dc0b-aa1bd31b43e1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.Modules.UnityLocalization.Editor", "Sirenix.OdinInspector.Modules.UnityLocalization.Editor.csproj", "{342fda2f-a9df-3a1d-6382-814c01a0c1b1}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{8e60d30e-c9d2-a1da-47c4-af57a649174c}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.Modules.Unity.Addressables", "Sirenix.OdinInspector.Modules.Unity.Addressables.csproj", "{ed597840-cb63-9e26-f448-9863d156acd5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Services.CloudCode.GeneratedBindings", "Unity.Services.CloudCode.GeneratedBindings.csproj", "{9a82ea1c-1371-53ca-ad4f-23842bae678f}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.Modules.UnityMathematics", "Sirenix.OdinInspector.Modules.UnityMathematics.csproj", "{5c004456-df92-7698-7ea7-d17e9533360e}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.Modules.UnityLocalization", "Sirenix.OdinInspector.Modules.UnityLocalization.csproj", "{e9d90f54-43b0-8b21-ba34-daf757c6952d}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{ff5fc4aa-a137-b6f8-4605-f39cb8965b2c}"
 EndProject
@@ -18,10 +26,18 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9d957e90-e5aa-e4de-dc0b-aa1bd31b43e1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9d957e90-e5aa-e4de-dc0b-aa1bd31b43e1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{342fda2f-a9df-3a1d-6382-814c01a0c1b1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{342fda2f-a9df-3a1d-6382-814c01a0c1b1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8e60d30e-c9d2-a1da-47c4-af57a649174c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8e60d30e-c9d2-a1da-47c4-af57a649174c}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ed597840-cb63-9e26-f448-9863d156acd5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ed597840-cb63-9e26-f448-9863d156acd5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9a82ea1c-1371-53ca-ad4f-23842bae678f}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9a82ea1c-1371-53ca-ad4f-23842bae678f}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5c004456-df92-7698-7ea7-d17e9533360e}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5c004456-df92-7698-7ea7-d17e9533360e}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{e9d90f54-43b0-8b21-ba34-daf757c6952d}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{e9d90f54-43b0-8b21-ba34-daf757c6952d}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ff5fc4aa-a137-b6f8-4605-f39cb8965b2c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ff5fc4aa-a137-b6f8-4605-f39cb8965b2c}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{fe05fafc-f1b4-467e-2dcc-6504d6933661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

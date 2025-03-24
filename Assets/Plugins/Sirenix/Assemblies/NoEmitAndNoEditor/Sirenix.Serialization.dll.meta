@@ -66,13 +66,16 @@ PluginImporter:
       settings:
         CPU: 
     Win64:
-      enabled: 1
+      enabled: 0
       settings:
         CPU: 
     WindowsStoreApps:
       enabled: 0
       settings:
         CPU: AnyCPU
+    iOS:
+      enabled: 1
+      settings: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

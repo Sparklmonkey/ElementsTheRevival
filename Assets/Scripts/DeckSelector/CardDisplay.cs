@@ -20,7 +20,7 @@ public class CardDisplay : MonoBehaviour
         if (cardToDisplay.CardName.Contains("Pendulum") && SceneTransitionManager.Instance.GetActiveScene() == "Battlefield")
         {
             var pendulumElement = cardToDisplay.CostElement;
-            var markElement = isOwnedByPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
+            var markElement = isOwnedByPlayer ? PlayerData.Shared.MarkElement : BattleVars.Shared.EnemyAiData.mark;
             cardImage.sprite = cardToDisplay.IsPendulumTurn ? 
                 ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString()) : 
                 ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());

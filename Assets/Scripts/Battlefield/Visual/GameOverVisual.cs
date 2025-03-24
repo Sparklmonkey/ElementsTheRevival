@@ -1,4 +1,5 @@
 using System;
+using Core;
 using Networking;
 using TMPro;
 using UnityEngine;
@@ -57,37 +58,40 @@ public class GameOverVisual : MonoBehaviour
             {
                 BattleVars.Shared.ElementalMastery = true;
             }
-            PlayerData.Shared.gamesWon++;
+            PlayerData.Shared.GamesWon++;
 
             switch (BattleVars.Shared.EnemyAiData.spins)
             {
                 case 0:
-                    PlayerData.Shared.hasDefeatedLevel0 = true;
+                    PlayerData.Shared.HasDefeatedLevel0 = true;
                     break;
                 case 1:
-                    PlayerData.Shared.hasDefeatedLevel1 = true;
+                    PlayerData.Shared.HasDefeatedLevel1 = true;
                     break;
                 case 2:
-                    PlayerData.Shared.hasDefeatedLevel2 = true;
+                    PlayerData.Shared.HasDefeatedLevel2 = true;
                     break;
             }
 
             if (BattleVars.Shared.IsArena)
             {
-                PlayerData.Shared.arenaWins++;
+                PlayerData.Shared.ArenaWins++;
             }
+            
             await ApiManager.Instance.SaveGameStats(new (BattleVars.Shared.EnemyAiData, true, BattleVars.Shared.IsArena));
-            PlayerData.Shared.electrum += BattleVars.Shared.EnemyAiData.costToPlay;
+            PlayerData.Shared.Electrum += BattleVars.Shared.EnemyAiData.costToPlay;
         }
         else
         {
             if (BattleVars.Shared.IsArena)
             {
-                PlayerData.Shared.arenaLosses++;
+                PlayerData.Shared.ArenaLosses++;
             }
-            PlayerData.Shared.gamesLost++;
-            PlayerData.Shared.playerScore -= BattleVars.Shared.EnemyAiData.scoreWin / 2;
-            PlayerData.Shared.playerScore = PlayerData.Shared.playerScore < 0 ? 0 : PlayerData.Shared.playerScore;
+            PlayerData.Shared.GamesLost++;
+            PlayerData.Shared.PlayerScore -= BattleVars.Shared.EnemyAiData.scoreWin / 2;
+            PlayerData.Shared.PlayerScore = PlayerData.Shared.PlayerScore < 0 ? 0 : PlayerData.Shared.PlayerScore;
+            var newScore = await ApiManager.Instance.UpdateScore(-BattleVars.Shared.EnemyAiData.scoreWin / 2);
+            SessionManager.Instance.PlayerScore = newScore;
             await ApiManager.Instance.SaveGameStats(new (BattleVars.Shared.EnemyAiData, true, BattleVars.Shared.IsArena));
         }   
 

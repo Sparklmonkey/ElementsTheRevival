@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Core.FixedStrings;
 using Networking;
 using TMPro;
+using Unity.Services.Authentication;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 
@@ -13,10 +16,11 @@ namespace Login
         [SerializeField]
         private TMP_InputField username, password;
 
+        [SerializeField] private GameObject popUpModal, updatePasswordModal;
         [SerializeField] private TextMeshProUGUI lastUpdateNote;
         [SerializeField]
         private TextMeshProUGUI errorMessage, versionLabel;
-        private GameObject _touchBlocker;
+        private GameObject _touchBlocker, _popUpObject;
 
         public List<TMP_InputField> fields;
         private int _fieldIndexer;
@@ -51,6 +55,7 @@ namespace Login
         public void PlayAsTrainer()
         {
             PlayerPrefs.SetInt("IsTrainer", 1);
+            AuthenticationService.Instance.SignOut(true);
             PlayerData.Shared = new PlayerData();
             var simpleList = CardDatabase.Instance.TrainerCardList;
             var fullList = new List<Card>(simpleList);
@@ -63,9 +68,9 @@ namespace Login
             PlayerData.Shared.SetInventory(fullList.SerializeCard());
 
             PlayerData.Shared.SetDeck(CardDatabase.Instance.StarterDecks.First(x => x.MarkElement.Equals(Element.Darkness)).DeckList.SerializeCard());
-            PlayerData.Shared.markElement = Element.Darkness;
-            PlayerData.Shared.currentQuestIndex = 8;
-            PlayerData.Shared.electrum = 9999999;
+            PlayerData.Shared.MarkElement = Element.Darkness;
+            PlayerData.Shared.CurrentQuestIndex = 8;
+            PlayerData.Shared.Electrum = 9999999;
             SceneTransitionManager.Instance.LoadScene("Dashboard");
         }
 
@@ -88,7 +93,7 @@ namespace Login
         {
             _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
             _touchBlocker.transform.SetAsFirstSibling();
-
+            Debug.Log("Attempting To Login");
             await ApiManager.Instance.UserLoginAsync(LoginType.UserPass, HandleUserLogin, username.text, password.text);
             
         }
@@ -99,10 +104,9 @@ namespace Login
             if (response.errorMessage == ErrorCases.AllGood)
             {
                 PlayerData.LoadFromApi(response.savedData);
-                PlayerData.Shared.email = response.emailAddress;
+                PlayerData.Shared.Email = response.emailAddress;
                 PlayerPrefs.SetString("AccessToken", response.accessToken);
-                PlayerData.Shared = response.savedData;
-                PlayerData.Shared.username = username.text;
+                PlayerData.Shared.Username = username.text;
                 
                 SceneTransitionManager.Instance.LoadScene(PlayerData.Shared.GetDeck().Count == 0
                     ? "DeckSelector"
@@ -113,30 +117,110 @@ namespace Login
                 errorMessage.text = response.errorMessage.ToLongDescription();
             }
         }
-        
-        public void HandleUserLogin(string responseMessage)
+
+        private async void HandleUserLogin(string responseMessage)
         {
             if (responseMessage == "Success")
             {
                 _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
                 Destroy(_touchBlocker);
-                if (PlayerData.Shared.currentDeck.DecompressDeckCode().Count < 30)
-                {
-                    GetComponent<DashboardSceneManager>().LoadNewScene("DeckSelector");
-                }
-                else
-                {
-                    GetComponent<DashboardSceneManager>().LoadNewScene("Dashboard");
-                }
+                var cardList = PlayerData.Shared.CurrentDeck.ConvertCardCodeToList();
+                SceneTransitionManager.Instance.LoadScene(
+                    cardList.Count < 30 ? "DeckSelector" : "Dashboard");
             }
             else
             {
-                HandleUserLoginWithLegacyFallback();
+                var legacUser = await GetLegacyUser(username.text, password.text);
+                if (legacUser.errorMessage == ErrorCases.AllGood)
+                {
+                    PlayerData.LoadFromApi(legacUser.savedData);
+                    PlayerData.Shared.Email = legacUser.emailAddress;
+                    PlayerPrefs.SetString("AccessToken", legacUser.accessToken);
+                    PlayerData.Shared.Username = username.text;
+                    switch (responseMessage)
+                    {
+                        case "WRONG_USERNAME_PASSWORD":
+                            ShowLinkPopUp();
+                            break; 
+                        case "INVALID_PASSWORD":
+                            ShowChangePasswordPopup();
+                            break;
+                        case "ENTITY_EXISTS":
+                            ShowChangeUsernamePopup();
+                            break;
+                        default:
+                            Debug.Log(responseMessage);
+                            break;
+                    }
+                }
+                else
+                {
+                    errorMessage.text = legacUser.errorMessage.ToLongDescription();
+                }
+                
             }
         }
+
+        private void ShowChangePasswordPopup()
+        {
+            _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+            Destroy(_touchBlocker);
+            _popUpObject = Instantiate(updatePasswordModal, transform);
+            _popUpObject.GetComponent<TextInputPopupModal>().SetupTextInputModal("LoginScreen", "LoginChangePasswordUnityTitle", 
+                "LoginChangePasswordUnityButtonTitle", LinkUnityWithNewPassword);
+        }
+
+        private void ShowChangeUsernamePopup()
+        {
+            _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+            Destroy(_touchBlocker);
+            _popUpObject = Instantiate(updatePasswordModal, transform);
+            _popUpObject.GetComponent<TextInputPopupModal>().SetupTextInputModal("LoginScreen", "LoginChangeUsernameUnityTitle", 
+                "LoginChangeUsernameUnityButtonTitle", LinkUnityWithNewPassword);
+        }
         
+        private void ShowLinkPopUp()
+        {
+            _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
+            Destroy(_touchBlocker);
+            _popUpObject = Instantiate(popUpModal, transform);
+            _popUpObject.GetComponent<PopUpModal>().SetupModal("LoginScreen", "LoginMigrateToUnityTitle", 
+                "LoginMigrateToUnityButtonOneTitle",
+                LinkDataWithUnity);
+        }
+        
+        
+        private async void LinkUnityWithNewPassword(string newPassword)
+        {
+            Destroy(_popUpObject);
+            _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+            _touchBlocker.transform.SetAsFirstSibling();
+            password.text = newPassword;
+            await ApiManager.Instance.UserLoginAsync(LoginType.LinkUserPass, HandleUserLogin, username.text,
+                newPassword);
+        }
+        
+        private async void LinkUnityWithNewUsername(string newUsername)
+        {
+            Debug.Log("Attempt to Link With Unity");
+            _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+            _touchBlocker.transform.SetAsFirstSibling();
+            username.text = newUsername;
+            await ApiManager.Instance.UserLoginAsync(LoginType.LinkUserPass, HandleUserLogin, newUsername,
+                password.text);
+        }
+        
+        private async void LinkDataWithUnity()
+        {
+            Destroy(_popUpObject);
+            _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
+            _touchBlocker.transform.SetAsFirstSibling();
+            await ApiManager.Instance.UserLoginAsync(LoginType.LinkUserPass, HandleUserLogin, username.text,
+                password.text);
+        }
         private async void HandleUserLoginWithLegacyFallback()
         {
+            Destroy(_popUpObject);
             var response = await ApiManager.Instance.LoginController(new LoginRequest()
             {
                 username = username.text,
@@ -145,6 +229,16 @@ namespace Login
         
             Destroy(_touchBlocker);
             ManageResponse(response);
+        }
+
+        private async Task<LoginResponse> GetLegacyUser(string username, string password)
+        {
+            var response = await ApiManager.Instance.LoginController(new LoginRequest()
+            {
+                username = username,
+                password = password
+            }, Endpointbuilder.UserCredentialLogin);
+            return response;
         }
     }
 }

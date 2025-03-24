@@ -30,6 +30,9 @@ MonoBehaviour:
     - Name: TurnEndAbility
       Entry: 6
       Data: 
+    - Name: PreAttackAbility
+      Entry: 6
+      Data: 
     - Name: WeaponPassive
       Entry: 6
       Data: 
@@ -70,7 +73,7 @@ MonoBehaviour:
   CardElement: 11
   CostElement: 11
   Rarity: 17
-  Desc: Deals 2 damage to every creature on the field. Gain <sprite=11><sprite=11> 
+  Desc: Deals 2 damage to every enemy creature on the field. Gain <sprite=11><sprite=11> 
     for every creature damaged. Removes Invisibility.
   Type: 2
   Atk: 0

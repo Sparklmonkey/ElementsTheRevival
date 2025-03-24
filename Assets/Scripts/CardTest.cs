@@ -20,7 +20,25 @@ public struct AppAttributes {
     public bool IsMaintenance;
     public string MinVersion;
     public string GameNews;
+    public FeatureFlags FeatureFlags;
 }
+
+public class FeatureFlagResponse
+{
+    public FeatureFlags FeatureFlags;
+}
+
+public class FeatureFlags
+{
+    public bool CodeRedeem;
+    public bool Achievements;
+    public bool T50Arena;
+    public bool Arena;
+    public bool PvpOne;
+    public bool PvpTwo;
+    public bool PvpDuel;
+}
+
 public class CardTest : MonoBehaviour
 {
     // Start is called before the first frame update

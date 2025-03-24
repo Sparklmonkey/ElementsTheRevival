@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: SplashScreen_es-UY
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: es-UY
+  m_SharedData: {fileID: 11400000, guid: f35a3b87f77674f798f7be440fbb4917, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 7087316992
+    m_Localized: Cerrar App
+    m_Metadata:
+      m_Items: []
+  - m_Id: 196372062208
+    m_Localized: Actualizar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 252869337088
+    m_Localized: La applicacion esta en mantenimiento. Por favor vuelva a intentar
+      mas tarde.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 295185670144
+    m_Localized: Hay una nueva version. Por favor actualiza para poder seguir.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 507018993664
+    m_Localized: Ir Al Login
+    m_Metadata:
+      m_Items: []
+  - m_Id: 587868397568
+    m_Localized: Hubo un error inesperadp. Puedes intentar ingresar y jugar, pero
+      puede ser que no se guarda los cambios.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

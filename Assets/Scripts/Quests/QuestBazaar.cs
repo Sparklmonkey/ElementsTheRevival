@@ -10,10 +10,10 @@
 
     public override string QuestReward => "Reward: 30";
 
-    public override bool RequirementCheck() => PlayerData.Shared.hasSoldCardBazaar && PlayerData.Shared.hasBoughtCardBazaar;
+    public override bool RequirementCheck() => PlayerData.Shared.HasSoldCardBazaar && PlayerData.Shared.HasBoughtCardBazaar;
     public override void RedeemQuest()
     {
-        PlayerData.Shared.electrum += 30;
-        PlayerData.Shared.completedQuests += "_2";
+        PlayerData.Shared.Electrum += 30;
+        //PlayerData.Shared.completedQuests += "_2";
     }
 }

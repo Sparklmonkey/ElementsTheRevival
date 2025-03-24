@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: LoginScreen_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 2a4f9caf25cd64f299443e12c473b686, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 12929982464
+    m_Localized: Link with Unity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6302982144
+    m_Localized: In order to further improve and expand on this project, I am migrating
+      everything over to Unity Game Services, as it is more stable and robust than
+      my own implementation. In order to continue, you'll need to migrate your save
+      data and player information over to Unity.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 766034042880
+    m_Localized: Continue without Linking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 928373999132672
+    m_Localized: Update password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 928363454652416
+    m_Localized: "Your pssword does not follow the necessary requirements:\n- Between
+      8 and 30 characters \n- At least 1 lowercase letter\n- At least 1 uppercase
+      letter\n- At least 1 number\n- At least 1 symbol."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1287448029028352
+    m_Localized: 'Your username is already in use, you will need to set a new username:
+
+      -
+      Between 3 and 20 characters
+
+      - Can be letters, numbers or symbols like
+      ., -, @ or _.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1287501254746112
+    m_Localized: Update username
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

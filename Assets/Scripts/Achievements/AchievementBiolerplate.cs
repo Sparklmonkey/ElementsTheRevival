@@ -15,7 +15,7 @@
             if (castValue >= aiDifficulty) { return; }
             var coinsToAdd = (aiDifficulty - castValue) * 50;
             pinfo.SetValue(AchievementManager.Instance.Achievements, aiDifficulty);
-            PlayerData.Shared.electrum += coinsToAdd;
+            PlayerData.Shared.Electrum += coinsToAdd;
         }
     }
 }

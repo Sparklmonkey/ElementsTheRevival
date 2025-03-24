@@ -60,7 +60,7 @@ public class PermanentCardDisplay : CardFieldDisplay
         if (updatePermanentCardEvent.Card.CardName.Contains("Pendulum"))
         {
             var pendulumElement = updatePermanentCardEvent.Card.CostElement;
-            var markElement = isPlayer ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
+            var markElement = isPlayer ? PlayerData.Shared.MarkElement : BattleVars.Shared.EnemyAiData.mark;
             cardImage.sprite = updatePermanentCardEvent.Card.IsPendulumTurn
                 ? ImageHelper.GetPendulumImage(pendulumElement.FastElementString(), markElement.FastElementString())
                 : ImageHelper.GetPendulumImage(markElement.FastElementString(), pendulumElement.FastElementString());
@@ -164,7 +164,7 @@ public class PermanentCardDisplay : CardFieldDisplay
     {
         if (Card.CardName.Contains("Pendulum"))
         {
-            var markElement = Id.IsOwnedBy(OwnerEnum.Player) ? PlayerData.Shared.markElement : BattleVars.Shared.EnemyAiData.mark;
+            var markElement = Id.IsOwnedBy(OwnerEnum.Player) ? PlayerData.Shared.MarkElement : BattleVars.Shared.EnemyAiData.mark;
             var pendulumElement = Card.IsPendulumTurn ? markElement : Card.CostElement;
             EventBus<QuantaChangeLogicEvent>.Raise(new QuantaChangeLogicEvent(StackCountValue, pendulumElement, Id.owner, true));
             if (Id.IsOwnedBy(OwnerEnum.Player) || !DuelManager.Instance.GetIDOwner(Id).IsPlayerInvisible())
