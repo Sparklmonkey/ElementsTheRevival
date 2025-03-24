@@ -360,6 +360,7 @@
     <Compile Include="Assets\Ai Behaviour\SetupAiManagerAction.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnEndTurnAbility.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\BonesPlayRemoveAbility.cs" />
+    <Compile Include="Assets\SpriteMover.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Abilities\OnPlayRemove\FloodingPlayRemoveAbility.cs" />
     <Compile Include="Assets\Scripts\Battlefield\FieldCardDisplay\PermanentCardDisplay.cs" />
     <Compile Include="Assets\Scripts\Settings\SettingsPanel.cs" />
@@ -527,7 +528,6 @@
     <None Include="Assets\Packages\Microsoft.AspNetCore.Http.Connections.1.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Connections.xml" />
     <None Include="Assets\Packages\Microsoft.Extensions.DependencyInjection.7.0.0\lib\netstandard2.1\Microsoft.Extensions.DependencyInjection.xml" />
     <None Include="Assets\Packages\Microsoft.AspNetCore.Authorization.Policy.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.Policy.xml" />
-    <None Include="Assets\AddressableAssetsData\link.xml" />
     <None Include="Assets\ProTips\Tooltip Prefabs\Fonts\Incosolata\OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\ProTips\Tooltip Prefabs\[NamingConventions].txt" />

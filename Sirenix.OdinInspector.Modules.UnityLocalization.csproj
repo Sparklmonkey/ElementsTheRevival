@@ -984,11 +984,11 @@
     <Reference Include="Unity.Localization">
       <HintPath>C:\Users\juana\OneDrive\Documents\GitRepos\Elements Mobile (1)\Library\ScriptAssemblies\Unity.Localization.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>C:\Users\juana\OneDrive\Documents\GitRepos\Elements Mobile (1)\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:\Users\juana\OneDrive\Documents\GitRepos\Elements Mobile (1)\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:\Users\juana\OneDrive\Documents\GitRepos\Elements Mobile (1)\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

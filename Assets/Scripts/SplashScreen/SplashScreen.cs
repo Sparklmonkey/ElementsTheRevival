@@ -13,65 +13,25 @@ using UnityEngine.UI;
 
 namespace SplashScreen
 {
+    
+    public delegate void StartNextSpriteMover();
 public class SplashScreen : MonoBehaviour
 {
-    public Transform finalImagePositionsParent;
-
-    public Transform imageObjectsParent;
-
     public Image titleImage;
-
-    public Material dissolveMat;
-
     public Sprite titleSprite;
-
     [SerializeField]
     private List<Transform> finalPositions;
     [SerializeField]
     private Transform popUpParent;
 
     [SerializeField] private GameObject popUpModal;
+    private int _currentIndex = 0;
     [SerializeField]
-    private List<GameObject> imageObjects;
+    private List<SpriteMover> spriteObjects;
 
     private bool _isLoadingNextScene = false;
     private bool _isCachedLogin = false;
     private bool _dataLoaded = false;
-
-    private IEnumerator MoveImageAround(GameObject imageToMove, int finalIndex)
-    {
-        if (finalIndex == 0)
-        {
-            while (imageToMove.transform.position != finalPositions[0].position)
-            {
-                imageToMove.transform.position = Vector3.MoveTowards(imageToMove.transform.position, finalPositions[0].position, 1500f * Time.deltaTime);
-                yield return null;
-            }
-            yield break;
-        }
-        for (var i = 0; i < finalPositions.Count; i++)
-        {
-            var whileLoopBreak = 0;
-            while (imageToMove.transform.position != finalPositions[i].position && whileLoopBreak < 16)
-            {
-                imageToMove.transform.position = Vector3.MoveTowards(imageToMove.transform.position, finalPositions[i].position, 1500f * Time.deltaTime);
-                whileLoopBreak++;
-                if (whileLoopBreak == 16)
-                {
-                    imageToMove.transform.position = finalPositions[i].position;
-                }
-                yield return null;
-            }
-            if (i == 0 && finalIndex > 0)
-            {
-                StartCoroutine(MoveImageAround(imageObjects[finalIndex - 1], finalIndex - 1));
-            }
-            if (i == finalIndex)
-            {
-                yield break;
-            }
-        }
-    }
 
     public void GoToAppStore()
     {
@@ -111,18 +71,23 @@ public class SplashScreen : MonoBehaviour
         }
 
         CardDatabase.Instance.SortCardList();
-        StartCoroutine(MoveImageAround(imageObjects[11], 12));
+        _currentIndex = 0;
+        spriteObjects[_currentIndex].SetupSpritePath(finalPositions, StartNextSprite);
         StartCoroutine(StartTitleAnimation());
     }
 
+    private void StartNextSprite()
+    {
+        Debug.Log("First Position Met");
+        _currentIndex += 1;
+        if (_currentIndex >= finalPositions.Count) return;
+        var path = finalPositions.GetRange(0, finalPositions.Count - _currentIndex);
+        spriteObjects[_currentIndex].SetupSpritePath(path, StartNextSprite);
+    }
     public async void SkipSplashAnimation()
     {
         if (PlayerPrefs.GetFloat("HasSeenSplash") != 1f || _isLoadingNextScene) return;
         StopAllCoroutines();
-        for (var i = 0; i < imageObjects.Count; i++)
-        {
-            imageObjects[i].transform.position = finalPositions[i].position;
-        }
         titleImage.material.SetFloat("_Fade", 1f);
         LoadNextScene();
     }
