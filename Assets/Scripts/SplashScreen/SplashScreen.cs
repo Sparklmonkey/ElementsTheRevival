@@ -78,7 +78,6 @@ public class SplashScreen : MonoBehaviour
 
     private void StartNextSprite()
     {
-        Debug.Log("First Position Met");
         _currentIndex += 1;
         if (_currentIndex >= finalPositions.Count) return;
         var path = finalPositions.GetRange(0, finalPositions.Count - _currentIndex);

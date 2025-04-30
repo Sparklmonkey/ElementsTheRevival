@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Networking.Response;
 using Networking;
 using TMPro;
@@ -14,57 +15,69 @@ public class DashCodeRedemption : MonoBehaviour
     [SerializeField]
     private CardDisplayDetail cardDisplayDetail;
 
+    private int _electrumAmount;
+    private List<string> _cardRewardList;
+    private string _codeName;
     public async void RedeemCode(TMP_InputField input)
     {
-        var response = await ApiManager.Instance.GetCodeDetails(input.text);
+        _codeName = input.text;
+        var response = await ApiManager.Instance.GetCodeDetails(_codeName);
         CodeRedepmtionHandler(new(response));
+    }
+
+    private async Task AcceptCodeRewards()
+    {
+        PlayerData.Shared.Electrum += _electrumAmount;
+        var invent = PlayerData.Shared.GetInventory();
+        invent.AddRange(_cardRewardList);
+        PlayerData.Shared.SetInventory(invent);
+        await ApiManager.Instance.RedeemCode(_codeName);
+        GetComponent<DashboardPlayerData>().UpdateDashboard();
+        errorMessage.text = "Code Successfully Redeemed!";
     }
 
     private async void CodeRedepmtionHandler(CodeDetails response)
     {
-        if (response.CodeName == "NotValid")
+        if (response.CodeName == "Invalid Code")
         {
-            errorMessage.text = "Code has already been used, or is invalid.";
+            errorMessage.text = "Code is invalid! Please try again.";
+            return;
+        }
+        if (response.CodeName == "Already Redeemed")
+        {
+            errorMessage.text = "Code has already been redeemed!";
             return;
         }
 
         if (response.ElectrumRewards > 0)
         {
+            _electrumAmount = response.ElectrumRewards;
             electrumRewardDisplay.SetActive(true);
-            PlayerData.Shared.Electrum += response.ElectrumRewards;
             electrumRewardAmount.text = response.ElectrumRewards.ToString();
         }
-        Debug.Log(response.CardRewards);
-        var cardList = response.CardRewards.Split(" ").ToList();
-        
-        
-        if (cardList.Count > 0)
-        {
-            if (cardList[0] != "")
-            {
-                var cards = CardDatabase.Instance.GetCardListWithID(cardList);
-                cardRewardLabel.text = "Cards Gained:";
 
+        if (response.CardRewards != null)
+        {
+            _cardRewardList = response.CardRewards.Split(" ").ToList();
+            if (_cardRewardList.Count > 0 && _cardRewardList.First() != "")
+            {
+                var cards = CardDatabase.Instance.GetCardListWithID(_cardRewardList);
+                SetupCardRewardView(cards);
                 if (response.IsCardSelect)
                 {
                     chooseCardButton.gameObject.SetActive(true);
                     cardRewardLabel.text = "Choose A Card:";
+                    return;
                 }
                 else
                 {
-                    var invent = PlayerData.Shared.GetInventory();
-                    invent.AddRange(cardList);
-                    PlayerData.Shared.SetInventory(invent);
+                    cardRewardLabel.text = "Cards Gained:";
+                    
                 }
-                SetupCardRewardView(cards);
             }
         }
-        else
-        {
-            await ApiManager.Instance.RedeemCode(response.CodeName);
-        }
-        GetComponent<DashboardPlayerData>().UpdateDashboard();
-        errorMessage.text = "Code Successfully Redeemed!";
+
+        await AcceptCodeRewards();
     }
 
     private void SetupCardRewardView(List<Card> cardObjects)
@@ -90,10 +103,9 @@ public class DashCodeRedemption : MonoBehaviour
     public async void ChooseCard()
     {
         if (ApiManager.IsTrainer) return;
-        var invent = PlayerData.Shared.GetInventory();
-        invent.Add(cardDisplayDetail.card.Id);
-        PlayerData.Shared.SetInventory(invent);
-        
+        _cardRewardList = new() { cardDisplayDetail.card.Id };
+
+        await AcceptCodeRewards();
         await ApiManager.Instance.SaveGameData();
         electrumRewardDisplay.SetActive(false);
         cardRewardObject.SetActive(false);
@@ -104,6 +116,7 @@ public class DashCodeRedemption : MonoBehaviour
 
     public void HideRedeem()
     {
+        errorMessage.text = "";
         electrumRewardDisplay.SetActive(false);
         cardRewardObject.SetActive(false);
         cardDisplayDetail.gameObject.SetActive(false);

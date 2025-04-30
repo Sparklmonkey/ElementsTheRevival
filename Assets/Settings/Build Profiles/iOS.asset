@@ -163,7 +163,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 5.5.0'
+    - line: '|   bundleVersion: 5.5.2'
     - line: '|   preloadedAssets:'
     - line: '|   - {fileID: 11400000, guid: 07e304f4734ccab44b852f22389587af, type:
         2}'

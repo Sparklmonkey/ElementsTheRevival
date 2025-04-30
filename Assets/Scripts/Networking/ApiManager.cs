@@ -104,7 +104,7 @@ namespace Networking
         }
         public async Task RedeemCode(string redeemCode)
         {
-            var arguments = new Dictionary<string, object> { { "CodeName", redeemCode } };
+            var arguments = new Dictionary<string, object> { { "code", redeemCode } };
             await CloudCodeService.Instance.CallEndpointAsync("redeem-code", arguments);
         }
 
@@ -263,7 +263,9 @@ namespace Networking
 
         public async Task<ArenaResponse> GetT50Opponent()
         {
-            return await SendGetRequest<ArenaResponse>(Endpointbuilder.ArenaT50);
+            var result = await CloudCodeService.Instance.CallEndpointAsync("get-t50-opponent");
+            var canPlayObject = JsonUtility.FromJson<ArenaResponse>(result);
+            return canPlayObject;
         }
 
         public async Task<SimpleBoolResponse> HasSeenLatestNews()
