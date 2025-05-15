@@ -29,7 +29,10 @@ public class DashCodeRedemption : MonoBehaviour
     {
         PlayerData.Shared.Electrum += _electrumAmount;
         var invent = PlayerData.Shared.GetInventory();
-        invent.AddRange(_cardRewardList);
+        if (_cardRewardList != null)
+        {
+            invent.AddRange(_cardRewardList);
+        }
         PlayerData.Shared.SetInventory(invent);
         await ApiManager.Instance.RedeemCode(_codeName);
         GetComponent<DashboardPlayerData>().UpdateDashboard();
