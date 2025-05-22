@@ -56,6 +56,7 @@ public class RemoteConfigHelper
             FeatureType.PvpOne => _featureFlags.PvpOne,
             FeatureType.PvpTwo => _featureFlags.PvpTwo,
             FeatureType.PvpDuel => _featureFlags.PvpDuel,
+            FeatureType.DeckPresets => _featureFlags.DeckPresets,
             _ => false
         };
     }
@@ -69,5 +70,6 @@ public enum FeatureType
     Arena,
     PvpOne,
     PvpTwo,
-    PvpDuel
+    PvpDuel,
+    DeckPresets
 }

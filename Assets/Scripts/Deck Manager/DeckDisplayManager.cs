@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Deck_Manager.Events;
 using Networking;
 using TMPro;
 using UnityEngine;
@@ -30,6 +31,9 @@ public class DeckDisplayManager : MonoBehaviour
     public static bool IsArena;
     private GameObject _touchBlocker;
     private List<DmCardPrefab> _inventoryDmCard;
+    
+    
+    private IEventBinding<UpdateDeckDisplayEvent> _updateDeckDisplayBinding;
 
     private int _currentFilterSelection = 14;
     // Start is called before the first frame update
@@ -52,7 +56,38 @@ public class DeckDisplayManager : MonoBehaviour
             var cardHeadObject = Instantiate(cardHeadPrefab, deckContentView);
             cardHeadObject.GetComponent<DmCardPrefab>().SetupCardHead(deckCard, this);
         }
-        
+        EventBus<UpdateCurrentDeckEvent>.Raise(new UpdateCurrentDeckEvent(playerDeck.SerializeCard(), (int)markManager.GetMarkSelected()));
+    }
+
+    private void Awake()
+    {
+        _updateDeckDisplayBinding = new EventBinding<UpdateDeckDisplayEvent>(UpdateDeckDisplay);
+        EventBus<UpdateDeckDisplayEvent>.Register(_updateDeckDisplayBinding);
+    }
+
+    private void OnDisable()
+    {
+        EventBus<UpdateDeckDisplayEvent>.Unregister(_updateDeckDisplayBinding);
+    }
+
+    private void UpdateDeckDisplay(UpdateDeckDisplayEvent updateDeckDisplayEvent)
+    {
+        RemoveAllDeckCards();
+        var idList = updateDeckDisplayEvent.DeckString;
+        foreach (var id in idList)
+        {
+            var cardIndex = playerInventory.FindIndex(x => x.Id == id);
+            if (CardDatabase.Instance.markIds.Contains(id))
+            {
+                markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).CostElement);
+            }
+            if (cardIndex == -1) { continue; }
+            playerDeck.Add(playerInventory[cardIndex]);
+            playerInventory.RemoveAt(cardIndex);
+                
+        }
+        UpdateCardView();
+        deckCodePopUpObject.SetActive(false);
     }
 
     private void SetupArenaView()
@@ -287,6 +322,7 @@ public class DeckDisplayManager : MonoBehaviour
             cardHeadObject.GetComponent<DmCardPrefab>().SetupCardHead(deckCard, this);
         }
         FilterInventoryCardsByElement(_currentFilterSelection);
+        EventBus<UpdateCurrentDeckEvent>.Raise(new UpdateCurrentDeckEvent(playerDeck.SerializeCard(), (int)markManager.GetMarkSelected()));
     }
 
     public void ChangeParentContentView(Transform transform)
@@ -335,53 +371,6 @@ public class DeckDisplayManager : MonoBehaviour
     public void HideCardDisplay()
     {
         cardDisplay.gameObject.SetActive(false);
-    }
-
-    public void GetDeckCode()
-    {
-        deckCodePopUpObject.SetActive(true);
-        var returnString = "";
-        foreach (var card in playerDeck)
-        {
-            returnString += $"{card.Id} ";
-        }
-        GetComponent<DeckCodeManager>().SetupFields(returnString, markManager.GetMarkSelected());
-    }
-
-    public void OpenDeckPreset(string deckCode)
-    {
-        RemoveAllDeckCards();
-        var idList = deckCode.DecompressDeckCode();
-        if (IsArena)
-        {
-            foreach (var id in idList)
-            {
-                var cardIndex = arenaInventory.FindIndex(x => x.Id == id);
-                if (cardIndex == -1) { continue; }
-                playerDeck.Add(arenaInventory[cardIndex]);
-                arenaInventory.RemoveAt(cardIndex);
-                if (CardDatabase.Instance.markIds.Contains(id))
-                {
-                    markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).CostElement);
-                }
-            }
-        }
-        else
-        {
-            foreach (var id in idList)
-            {
-                var cardIndex = playerInventory.FindIndex(x => x.Id == id);
-                if (cardIndex == -1) { continue; }
-                playerDeck.Add(playerInventory[cardIndex]);
-                playerInventory.RemoveAt(cardIndex);
-                if (CardDatabase.Instance.markIds.Contains(id))
-                {
-                    markManager.SetupMarkCard((int)CardDatabase.Instance.GetCardFromId(id).CostElement);
-                }
-            }
-        }
-        UpdateCardView();
-        deckCodePopUpObject.SetActive(false);
     }
 
     public void ImportLegacyDeckCode()

@@ -37,6 +37,7 @@ public class FeatureFlags
     public bool PvpOne;
     public bool PvpTwo;
     public bool PvpDuel;
+    public bool DeckPresets;
 }
 
 public class CardTest : MonoBehaviour

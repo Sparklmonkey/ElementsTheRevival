@@ -83,12 +83,7 @@ namespace Networking
         }
 
         //PUT Requests
-
-        public async Task<CodeRedemptionResponse> CheckCodeRedemption(string redeemCode)
-        {
-            return await SendPutRequest<CodeRedemptionRequest, CodeRedemptionResponse>(Endpointbuilder.RedeemCode,
-                new CodeRedemptionRequest() { redeemCode = redeemCode });
-        }
+        
         public async Task<CodeRedemptionResponse> GetCodeDetails(string redeemCode)
         {
             var arguments = new Dictionary<string, object> { { "CodeName", redeemCode } };
@@ -255,12 +250,6 @@ namespace Networking
             }
         }
 
-        public async Task GetGameNews()
-        {
-            var gameNews = await SendGetRequest<GameNewsResponse>(Endpointbuilder.GameNews);
-            SessionManager.Instance.GameNews = gameNews.newsList;
-        }
-
         public async Task<ArenaResponse> GetT50Opponent()
         {
             var result = await CloudCodeService.Instance.CallEndpointAsync("get-t50-opponent");
@@ -268,15 +257,19 @@ namespace Networking
             return canPlayObject;
         }
 
-        public async Task<SimpleBoolResponse> HasSeenLatestNews()
+        public async Task<DeckPresets> GetDeckPresets()
         {
-            return await SendPostRequest<ViewedNewsRequest, SimpleBoolResponse>(Endpointbuilder.NewsNotification, null);
+            var result = await CloudCodeService.Instance.CallEndpointAsync("get-deck-presets");
+            var canPlayObject = JsonUtility.FromJson<DeckPresets>(result);
+            return canPlayObject;
         }
 
-        public async Task<SimpleBoolResponse> UpdateSeenNews(ViewedNewsRequest request)
+        public async Task<DeckPresets> SaveDeckPresets(string deckA, string deckB, string deckC)
         {
-            return await SendPostRequest<ViewedNewsRequest, SimpleBoolResponse>(Endpointbuilder.NewsNotification,
-                request);
+            var arguments = new Dictionary<string, object> { { "deckA", deckA }, { "deckB", deckB }, { "deckC", deckC } };
+            var result = await CloudCodeService.Instance.CallEndpointAsync("save-deck-preset", arguments);
+            var canPlayObject = JsonUtility.FromJson<DeckPresets>(result);
+            return canPlayObject;
         }
 
         private async Task<TResponse> SendPostRequest<TRequest, TResponse>(string actionUrl, TRequest requestBody)
@@ -311,7 +304,6 @@ namespace Networking
             }
 
             var data = savedData["SAVE_DATA"].Value;
-            Debug.Log(data);
             PlayerData.Shared = data.GetAs<PlayerData>();
             var newScore = await UpdateScore(0);
             SessionManager.Instance.PlayerScore = newScore;
