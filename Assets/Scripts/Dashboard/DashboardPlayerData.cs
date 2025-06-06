@@ -90,7 +90,7 @@ public class DashboardPlayerData : MonoBehaviour
 
     public async void LogoutUser()
     {
-        await ApiManager.Instance.LogoutUser();
+        ApiManager.Instance.LogoutUser();
         SceneTransitionManager.Instance.LoadScene("LoginScreen");
     }
 

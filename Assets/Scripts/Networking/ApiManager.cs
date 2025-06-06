@@ -188,7 +188,7 @@ namespace Networking
         }
 
         //GET Requests
-        public async Task LogoutUser()
+        public void LogoutUser()
         {
             AuthenticationService.Instance.SignOut(true);
         }

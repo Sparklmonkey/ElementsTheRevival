@@ -100,6 +100,7 @@ public class SplashScreen : MonoBehaviour
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
         var featureFlags = RemoteConfigService.Instance.appConfig.GetJson("FeatureFlags");
         RemoteConfigHelper.Instance.SetFeatureFlags(featureFlags);
+        RemoteConfigHelper.Instance.SetFeatureFlags(featureFlags);
         return true;
     }
     private async void LoadNextScene()
@@ -142,7 +143,7 @@ public class SplashScreen : MonoBehaviour
 
     public void GoToLogin()
     {
-        SceneTransitionManager.Instance.LoadScene("LoginScreen");
+        SceneTransitionManager.Instance.LoadScene("NewLoginScreen");
     }
     
     public void CloseApp()
