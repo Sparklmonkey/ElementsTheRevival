@@ -78,7 +78,6 @@ public class SplashScreen : MonoBehaviour
 
     private void StartNextSprite()
     {
-        Debug.Log("First Position Met");
         _currentIndex += 1;
         if (_currentIndex >= finalPositions.Count) return;
         var path = finalPositions.GetRange(0, finalPositions.Count - _currentIndex);
@@ -100,6 +99,7 @@ public class SplashScreen : MonoBehaviour
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
         var featureFlags = RemoteConfigService.Instance.appConfig.GetJson("FeatureFlags");
+        RemoteConfigHelper.Instance.SetFeatureFlags(featureFlags);
         RemoteConfigHelper.Instance.SetFeatureFlags(featureFlags);
         return true;
     }
@@ -143,7 +143,7 @@ public class SplashScreen : MonoBehaviour
 
     public void GoToLogin()
     {
-        SceneTransitionManager.Instance.LoadScene("LoginScreen");
+        SceneTransitionManager.Instance.LoadScene("NewLoginScreen");
     }
     
     public void CloseApp()

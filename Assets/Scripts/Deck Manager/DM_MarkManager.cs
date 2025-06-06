@@ -1,3 +1,4 @@
+using Deck_Manager.Events;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ public class DmMarkManager : MonoBehaviour
         markImage.sprite = ImageHelper.GetElementImage(((Element)element).FastElementString());
         headBackground.sprite = ImageHelper.GetCardHeadBackground(((Element)element).FastElementString());
         markName.text = $"Mark of {_markElement}";
+        EventBus<UpdateCurrentDeckEvent>.Raise(new UpdateCurrentDeckEvent(new(), (int)_markElement));
     }
 
 }

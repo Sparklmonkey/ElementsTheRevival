@@ -1,0 +1,104 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using Networking.Networking;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace SplashScreen
+{
+    public class SplashScreenView : MonoBehaviour
+    {
+        public Image titleImage;
+        public Sprite titleSprite;
+        [SerializeField] private List<Transform> finalPositions;
+        [SerializeField] private Transform popUpParent;
+        [SerializeField] private GameObject popUpModal;
+        [SerializeField] private List<SpriteMover> spriteObjects;
+
+        private SplashScreenViewModel _viewModel;
+        private SplashScreenModel _model;
+
+        private async void Start()
+        {
+            InitializeMVVM();
+            SetupEventListeners();
+            StartCoroutine(InitializeAsync());
+            await _viewModel.Initialize();
+        }
+
+        private void InitializeMVVM()
+        {
+            _model = new SplashScreenModel();
+            _viewModel = new SplashScreenViewModel(_model, new CloudSaveManager());
+        }
+
+        private void SetupEventListeners()
+        {
+            _viewModel.OnShowPopUp += ShowPopUpModal;
+            _viewModel.OnLoadLogin += GoToLogin;
+            _viewModel.OnSetupSpritePath += HandleSpritePath;
+            _viewModel.OnTitleAnimationComplete += HandleTitleAnimationComplete;
+        }
+
+        private IEnumerator InitializeAsync()
+        {
+            SoundManager.Instance.PlayBGM("LoginScreen");
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 30;
+
+            yield return StartCoroutine(StartTitleAnimation());
+        }
+
+        private void HandleSpritePath(List<Transform> path, StartNextSpriteMover callback)
+        {
+            spriteObjects[_model.CurrentIndex].SetupSpritePath(path, callback);
+        }
+
+        public async void SkipSplashAnimation()
+        {
+            await _viewModel.SkipSplashAnimation();
+        }
+
+        private void ShowPopUpModal(string localeTable, string messageTitleKey, string buttonTitleKey, ButtonActionNoParams actionButtonMethod)
+        {
+            var popUpObject = Instantiate(popUpModal, popUpParent);
+            popUpObject.GetComponent<PopUpModal>().SetupModal(localeTable, messageTitleKey, buttonTitleKey, actionButtonMethod);
+        }
+
+        private void GoToLogin()
+        {
+            SceneTransitionManager.Instance.LoadScene("NewLoginScreen");
+        }
+
+        private IEnumerator StartTitleAnimation()
+        {
+            var shader = titleImage.material;
+            shader.SetTexture("_MainTex", titleSprite.texture);
+            shader.SetFloat("_Fade", 0f);
+            shader.SetFloat("_Scale", 150f);
+            var currentTime = 0f;
+            while (currentTime < 6f)
+            {
+                var value = currentTime / 6f;
+                currentTime += Time.deltaTime;
+                shader.SetFloat("_Fade", value);
+                yield return null;
+            }
+            shader.SetFloat("_Fade", 1f);
+        }
+
+        private void HandleTitleAnimationComplete()
+        {
+            titleImage.material.SetFloat("_Fade", 1f);
+        }
+
+        private void OnDestroy()
+        {
+            // Cleanup event listeners
+            _viewModel.OnShowPopUp -= ShowPopUpModal;
+            _viewModel.OnLoadLogin -= GoToLogin;
+            _viewModel.OnSetupSpritePath -= HandleSpritePath;
+            _viewModel.OnTitleAnimationComplete -= HandleTitleAnimationComplete;
+        }
+    }
+}

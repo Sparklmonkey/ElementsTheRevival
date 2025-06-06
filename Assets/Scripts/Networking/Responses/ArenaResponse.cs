@@ -14,4 +14,12 @@ namespace Networking
         public int arenaLoses;
         public int arenaRank;
     }
+    
+    [Serializable]
+    public class DeckPresets
+    {
+        public string deckA;
+        public string deckB;
+        public string deckC;
+    }
 }

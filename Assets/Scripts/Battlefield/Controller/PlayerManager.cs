@@ -287,8 +287,10 @@ public class PlayerManager : MonoBehaviour
             playerCounters.delay--;
         }
 
-        playerCounters.scarabOld += playerCounters.scarab;
-        playerCounters.scarab = 0;
+        if (sacrificeCount > 0)
+        {
+            sacrificeCount--;
+        }
         EventBus<UpdatePlayerCountersVisualEvent>.Raise(new UpdatePlayerCountersVisualEvent(playerID, playerCounters));
     }
 
