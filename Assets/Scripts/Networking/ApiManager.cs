@@ -168,14 +168,7 @@ namespace Networking
                 return;
             }
             
-            if (isUnityUser)
-            {
-                await SaveDataToUnity();
-                return;
-            }
-            var response = await SendPutRequest<SaveDataRequest, SaveDataResponse>(Endpointbuilder.UpdateSaveData,
-                new SaveDataRequest() { savedData = PlayerData.Shared });
-            _jwtToken = response.newToken;
+            await SaveDataToUnity();
         }
         
         //POST Requests

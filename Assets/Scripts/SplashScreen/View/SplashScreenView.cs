@@ -29,7 +29,7 @@ namespace SplashScreen
         private void InitializeMVVM()
         {
             _model = new SplashScreenModel();
-            _viewModel = new SplashScreenViewModel(_model, new CloudSaveManager());
+            _viewModel = new SplashScreenViewModel(_model, new CloudSaveManager(), finalPositions);
         }
 
         private void SetupEventListeners()
@@ -49,10 +49,11 @@ namespace SplashScreen
             yield return StartCoroutine(StartTitleAnimation());
         }
 
-        private void HandleSpritePath(List<Transform> path, StartNextSpriteMover callback)
+        private void HandleSpritePath(List<Transform> animationPath, StartNextSpriteMover callback)
         {
-            spriteObjects[_model.CurrentIndex].SetupSpritePath(path, callback);
+            spriteObjects[_model.CurrentIndex].SetupSpritePath(animationPath, callback);
         }
+        
 
         public async void SkipSplashAnimation()
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core;
 using Networking.Networking;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -13,16 +14,20 @@ namespace SplashScreen
     {
         private readonly SplashScreenModel _model;
         private readonly ICloudSaveManager _cloudSaveManager;
-        
+        private ICloudCodeManager _cloudCodeManager;
+        private List<Transform> _finalPositions;
         public event Action OnTitleAnimationComplete;
         public event Action<string, string, string, ButtonActionNoParams> OnShowPopUp;
         public event Action OnLoadLogin;
         public event Action<List<Transform>, StartNextSpriteMover> OnSetupSpritePath;
 
-        public SplashScreenViewModel(SplashScreenModel model, ICloudSaveManager cloudSaveManager)
+        public SplashScreenViewModel(SplashScreenModel model, 
+            ICloudSaveManager cloudSaveManager, 
+            List<Transform> finalPositions)
         {
             _model = model;
             _cloudSaveManager = cloudSaveManager;
+            _finalPositions = finalPositions;
         }
 
         public async Task Initialize()
@@ -36,19 +41,15 @@ namespace SplashScreen
         private void SetupInitialSprite()
         {
             _model.CurrentIndex = 0;
-            if (OnSetupSpritePath != null)
-            {
-                // Note: You'll need to pass these parameters from the View
-                //OnSetupSpritePath.Invoke(finalPositions, StartNextSprite);
-            }
+            OnSetupSpritePath?.Invoke(_finalPositions, StartNextSprite);
         }
 
-        public void StartNextSprite(List<Transform> finalPositions)
+        private void StartNextSprite()
         {
             _model.CurrentIndex += 1;
-            if (_model.CurrentIndex >= finalPositions.Count) return;
-            var path = finalPositions.GetRange(0, finalPositions.Count - _model.CurrentIndex);
-            OnSetupSpritePath?.Invoke(path, () => StartNextSprite(finalPositions));
+            if (_model.CurrentIndex >= _finalPositions.Count) return;
+            var path = _finalPositions.GetRange(0, _finalPositions.Count - _model.CurrentIndex);
+            OnSetupSpritePath?.Invoke(path, StartNextSprite);
         }
 
         public async Task SkipSplashAnimation()
@@ -60,6 +61,7 @@ namespace SplashScreen
         private async Task<bool> SetupRemoteConfig()
         {
             await UnityServices.InitializeAsync();
+            _cloudCodeManager = new CloudCodeManager();
             _model.IsCachedLogin = AuthenticationService.Instance.SessionTokenExists;
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
@@ -106,6 +108,8 @@ namespace SplashScreen
             // await ApiManager.Instance.CallModuleTest();
             var playerSavedData = await _cloudSaveManager.LoadPlayerData();
             PlayerData.Shared = playerSavedData;
+            var points = await _cloudCodeManager.UpdateScore(0);
+            SessionManager.Instance.PlayerScore = points;
             var cardList = PlayerData.Shared.CurrentDeck.ConvertCardCodeToList();
             SceneTransitionManager.Instance.LoadScene(
                 cardList.Count < 30 ? "DeckSelector" : "Dashboard");
