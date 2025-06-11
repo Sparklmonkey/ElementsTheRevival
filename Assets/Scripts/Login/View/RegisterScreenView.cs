@@ -1,31 +1,34 @@
-﻿using System.Collections.Generic;
-using Networking;
+using System.Collections.Generic;
+using Login.ViewModel;
 using Networking.Networking;
 using TMPro;
 using Unity.Services.Authentication;
-using Unity.Services.RemoteConfig;
 using UnityEngine;
 
-public class LoginScreenView : MonoBehaviour
+namespace Login.View
 {
-    [SerializeField] private TMP_InputField username, password;
-    [SerializeField] private TextMeshProUGUI lastUpdateNote;
-    [SerializeField] private TextMeshProUGUI errorMessage, versionLabel;
-    
-    public List<TMP_InputField> fields;
-    private int _fieldIndexer;
-    
-    private LoginViewModel _viewModel;
-    private GameObject _touchBlocker;
+    public class RegisterScreenView : MonoBehaviour
+    {
+        // Start is called before the first frame update
+        [SerializeField]
+        private TMP_InputField username, password;
+        [SerializeField]
+        private TextMeshProUGUI serverResponse;
+
+        [SerializeField] private GameObject linkDataPopUp;
+        private GameObject _touchBlocker;
+        public List<TMP_InputField> fields;
+        private int _fieldIndexer;
+        
+    private RegisterViewModel _viewModel;
     private GameObject _popUpObject;
 
     private void Start()
     {
-        _viewModel = new LoginViewModel(new AuthenticationManager(AuthenticationService.Instance), new CloudSaveManager(new CloudCodeManager()));
+        _viewModel = new RegisterViewModel(new AuthenticationManager(AuthenticationService.Instance), new CloudSaveManager(new CloudCodeManager()));
         fields = new List<TMP_InputField> { username, password };
         _fieldIndexer = 0;
         SetupViewModelEvents();
-        InitializeUI();
     }
 
     private void SetupViewModelEvents()
@@ -33,13 +36,6 @@ public class LoginScreenView : MonoBehaviour
         _viewModel.OnErrorMessageChanged += UpdateErrorMessage;
         _viewModel.OnProcessingChanged += UpdateProcessingState;
         _viewModel.OnSceneTransition += SceneTransitionManager.Instance.LoadScene;
-    }
-
-    private void InitializeUI()
-    {
-        lastUpdateNote.text = RemoteConfigService.Instance.appConfig.GetString("VersionNote");
-        username.text = PlayerPrefs.HasKey("SavedUser") ? PlayerPrefs.GetString("SavedUser") : "";
-        versionLabel.text = $"Version {Application.version}";
     }
 
     private void Update()
@@ -70,12 +66,12 @@ public class LoginScreenView : MonoBehaviour
 
     public async void AttemptToLoginUsernamePassword()
     {
-        await _viewModel.AttemptLogin(username.text, password.text);
+        await _viewModel.AttemptRegister(username.text, password.text);
     }
 
     private void UpdateErrorMessage(string message)
     {
-        errorMessage.text = message;
+        serverResponse.text = message;
     }
 
     private void UpdateProcessingState(bool isProcessing)
@@ -103,9 +99,6 @@ public class LoginScreenView : MonoBehaviour
         _touchBlocker.GetComponentInChildren<ServicesSpinner>().StopAllCoroutines();
         Destroy(_touchBlocker);
     }
-
-    public void PlayAsTrainer() => _viewModel.PlayAsTrainer();
-    public void PlayAsGuest() => _viewModel.PlayAsGuest();
-
-    
+        
+    }
 }

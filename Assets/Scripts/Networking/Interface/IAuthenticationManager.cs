@@ -17,6 +17,7 @@ namespace Networking.Networking
         public Task UpdateUserPassword(string oldPassword, string newPassword);
         public Task UpdateUsername(string newUsername);
         public Task<string> Login(string username, string password);
+        public Task<string> RegisterUser(string username, string password);
         public void Logout();
     }
 
@@ -44,6 +45,26 @@ namespace Networking.Networking
             _authenticationService.SignOut(true);
         }
 
+        public async Task<string> RegisterUser(string username, string password)
+        {
+            _authenticationService.SignOut();
+            try
+            {
+                await _authenticationService.SignInWithUsernamePasswordAsync(username, password);
+                return "Success";
+            }
+            catch (AuthenticationException ex)
+            {
+                var unityError = JsonUtility.FromJson<UnityResponse>(ex.GetBaseException().Message);
+                return unityError.title;
+            }
+            catch (RequestFailedException ex)
+            {
+                var unityError = JsonUtility.FromJson<UnityResponse>(ex.GetBaseException().Message);
+                return unityError.title;
+            }
+        }
+        
         public async Task<string> Login(string username, string password)
         {
             _authenticationService.SignOut();

@@ -180,6 +180,36 @@ public class PlayerData
         ArenaT50Deck = "";
         ArenaT50Mark = Element.Aether;
     }
+    
+    public PlayerData(string username)
+    {
+        Id = 0;
+        Username = username;
+        MarkElement = Element.Aether;
+        CurrentDeck = "X";
+        InventoryCards = "X";
+        SavedDecks = new();
+        Electrum = 0;
+        GamesWon = 0;
+        GamesLost = 0;
+        PlayerScore = 0;
+        CurrentQuestIndex = 0;
+        NextFalseGod = "";
+        PetName = "";
+        CompletedQuests = "";
+        PetCount = 0;
+        PlayedOracleToday = false; //2024-02-03T00:21:49.2289075-03:00
+        OracleLastPlayed = DateTime.Today.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz");
+        LastOracleDay = 0;
+        HasDefeatedLevel0 = false;
+        RemovedCardFromDeck = false;
+        HasBoughtCardBazaar = false;
+        HasSoldCardBazaar = false;
+        HasDefeatedLevel1 = false;
+        HasDefeatedLevel2 = false;
+        ArenaT50Deck = "";
+        ArenaT50Mark = Element.Aether;
+    }
 }
 
 [Serializable]

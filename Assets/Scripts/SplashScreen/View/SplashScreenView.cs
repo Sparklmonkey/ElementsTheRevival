@@ -1,12 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Networking.Networking;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace SplashScreen
 {
-    public class SplashScreenView : MonoBehaviour
+    public class SplashScreenView : MonoBehaviour, IPointerClickHandler
     {
         public Image titleImage;
         public Sprite titleSprite;
@@ -29,7 +32,7 @@ namespace SplashScreen
         private void InitializeMVVM()
         {
             _model = new SplashScreenModel();
-            _viewModel = new SplashScreenViewModel(_model, new CloudSaveManager(), finalPositions);
+            _viewModel = new SplashScreenViewModel(_model, new CloudSaveManager(new CloudCodeManager()), finalPositions);
         }
 
         private void SetupEventListeners()
@@ -37,7 +40,6 @@ namespace SplashScreen
             _viewModel.OnShowPopUp += ShowPopUpModal;
             _viewModel.OnLoadLogin += GoToLogin;
             _viewModel.OnSetupSpritePath += HandleSpritePath;
-            _viewModel.OnTitleAnimationComplete += HandleTitleAnimationComplete;
         }
 
         private IEnumerator InitializeAsync()
@@ -57,6 +59,8 @@ namespace SplashScreen
 
         public async void SkipSplashAnimation()
         {
+            StopAllCoroutines();
+            titleImage.material.SetFloat("_Fade", 1f);
             await _viewModel.SkipSplashAnimation();
         }
 
@@ -86,11 +90,7 @@ namespace SplashScreen
                 yield return null;
             }
             shader.SetFloat("_Fade", 1f);
-        }
-
-        private void HandleTitleAnimationComplete()
-        {
-            titleImage.material.SetFloat("_Fade", 1f);
+            _viewModel.StartTitleAnimation();
         }
 
         private void OnDestroy()
@@ -99,7 +99,11 @@ namespace SplashScreen
             _viewModel.OnShowPopUp -= ShowPopUpModal;
             _viewModel.OnLoadLogin -= GoToLogin;
             _viewModel.OnSetupSpritePath -= HandleSpritePath;
-            _viewModel.OnTitleAnimationComplete -= HandleTitleAnimationComplete;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            SkipSplashAnimation();
         }
     }
 }

@@ -1,18 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core;
 using Unity.Services.CloudSave;
 
 namespace Networking.Networking
 {
     public class CloudSaveManager : ICloudSaveManager
     {
+        private readonly ICloudCodeManager _cloudCodeManager;
+
+        public CloudSaveManager(ICloudCodeManager cloudCodeManager)
+        {
+            _cloudCodeManager = cloudCodeManager;
+        }
         public async Task<PlayerData> LoadPlayerData()
         {
             var savedData =
                 await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "SAVE_DATA" });
             
             var data = savedData["SAVE_DATA"].Value;
+            var score = await _cloudCodeManager.UpdateScore(0);
+            SessionManager.Instance.PlayerScore = score;
             return data.GetAs<PlayerData>();
         }
 
@@ -25,6 +34,8 @@ namespace Networking.Networking
         public async Task<PlayerData> ResetPlayerData()
         {
             await SavePlayerData(new PlayerData());
+            var points = await _cloudCodeManager.UpdateScore(0);
+            SessionManager.Instance.PlayerScore = points;
             return await LoadPlayerData();
         }
         

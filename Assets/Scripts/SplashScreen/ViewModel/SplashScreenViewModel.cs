@@ -16,7 +16,6 @@ namespace SplashScreen
         private readonly ICloudSaveManager _cloudSaveManager;
         private ICloudCodeManager _cloudCodeManager;
         private List<Transform> _finalPositions;
-        public event Action OnTitleAnimationComplete;
         public event Action<string, string, string, ButtonActionNoParams> OnShowPopUp;
         public event Action OnLoadLogin;
         public event Action<List<Transform>, StartNextSpriteMover> OnSetupSpritePath;
@@ -108,18 +107,13 @@ namespace SplashScreen
             // await ApiManager.Instance.CallModuleTest();
             var playerSavedData = await _cloudSaveManager.LoadPlayerData();
             PlayerData.Shared = playerSavedData;
-            var points = await _cloudCodeManager.UpdateScore(0);
-            SessionManager.Instance.PlayerScore = points;
             var cardList = PlayerData.Shared.CurrentDeck.ConvertCardCodeToList();
             SceneTransitionManager.Instance.LoadScene(
                 cardList.Count < 30 ? "DeckSelector" : "Dashboard");
         }
 
-        private async Task StartTitleAnimation()
+        public async Task StartTitleAnimation()
         {
-            // This will be handled by the View
-            await Task.Delay(6000); // 6 seconds
-            OnTitleAnimationComplete?.Invoke();
             await LoadNextScene();
         }
     }

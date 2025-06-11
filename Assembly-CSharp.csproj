@@ -94,6 +94,7 @@
     <Compile Include="Assets/Scripts/Networking/Interface/IAuthenticationManager.cs" />
     <Compile Include="Assets/Scripts/Events/BattlefieldEvents/QuantaChangeVisualEvent.cs" />
     <Compile Include="Assets/Scripts/Battlefield/Abilities/DeathTriggerAbility.cs" />
+    <Compile Include="Assets/DashboardSceneView.cs" />
     <Compile Include="Assets/Scripts/Battlefield/AiComponents/AiStateMachine.cs" />
     <Compile Include="Assets/Scripts/Events/EventBinding.cs" />
     <Compile Include="Assets/Scripts/DeckPresetHead.cs" />
@@ -232,11 +233,13 @@
     <Compile Include="Assets/Scripts/Events/EventBusUtil.cs" />
     <Compile Include="Assets/Scripts/Battlefield/FieldManager/CreatureManager.cs" />
     <Compile Include="Assets/Scripts/Battlefield/Abilities/Skills/No Target/DeadAlive.cs" />
+    <Compile Include="Assets/Scripts/Login/View/RegisterScreenView.cs" />
     <Compile Include="Assets/Scripts/Core/Classes/PlayerData.cs" />
     <Compile Include="Assets/Scripts/Battlefield/Abilities/Skills/Target/Readiness.cs" />
     <Compile Include="Assets/Scripts/Core/Classes/Counters.cs" />
     <Compile Include="Assets/Scripts/Battlefield/Core/InnateSkills.cs" />
     <Compile Include="Assets/Scripts/Battlefield/Abilities/Shield/FreezeSkill.cs" />
+    <Compile Include="Assets/Scripts/Login/Model/RegisterModel.cs" />
     <Compile Include="Assets/Scripts/Battlefield/Abilities/OnPlayRemove/EclipsePlayRemoveAbility.cs" />
     <Compile Include="Assets/Scripts/Battlefield/FieldManager/ActionManager.cs" />
     <Compile Include="Assets/Scripts/Core/PVP_LobbyUserList.cs" />
@@ -424,6 +427,7 @@
     <Compile Include="Assets/Scripts/Bazaar/Bazaar_ShopInventoryManager.cs" />
     <Compile Include="Assets/Scripts/SplashScreen/RemoteConfigHelper.cs" />
     <Compile Include="Assets/Scripts/Battlefield/Abilities/TargetType.cs" />
+    <Compile Include="Assets/Scripts/Login/ViewModel/RegisterViewModel.cs" />
     <Compile Include="Assets/NewsPanelManager.cs" />
     <Compile Include="Assets/BehaviorIL2CPPTypes.cs" />
     <Compile Include="Assets/Scripts/Events/BattlefieldEvents/ModifyPlayerHealthVisualEvent.cs" />
