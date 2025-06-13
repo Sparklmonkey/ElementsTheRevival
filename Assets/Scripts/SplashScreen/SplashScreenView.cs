@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 namespace SplashScreen
 {
+    public delegate void StartNextSpriteMover();
     public class SplashScreenView : MonoBehaviour, IPointerClickHandler
     {
         public Image titleImage;
