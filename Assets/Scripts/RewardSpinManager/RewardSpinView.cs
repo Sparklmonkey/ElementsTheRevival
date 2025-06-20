@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RewardSpinManager
 {
@@ -11,7 +12,7 @@ namespace RewardSpinManager
     {
         [SerializeField] private CardSpinAnimation spinOne, spinTwo, spinThree;
         [SerializeField] private CardDisplayDetail cardWonOne, cardWonTwo, cardWonThree;
-        [SerializeField] private GameObject spinAllButton;
+        [SerializeField] private Button spinButton, spinAllButton;
         [SerializeField] private GameObject elementalMasteryLabel;
         [SerializeField] private TextMeshProUGUI spinCount, buttonText, electrumValue, gameTime, gameTurns, playerScore;
 
@@ -23,6 +24,33 @@ namespace RewardSpinManager
             InitializeModel();
             InitializeViewModel();
             SubscribeToEvents();
+            SetupButtonCommands();
+            CompleteUISetup();
+        }
+
+        private void CompleteUISetup()
+        {
+            electrumValue.text = _model.ElectrumValue.ToString();
+            elementalMasteryLabel.SetActive(_model.ElementalMasteryActive);
+            spinCount.text = _model.SpinCount.ToString();
+            gameTime.text = $"{_model.GameTimeInSeconds}";
+            gameTurns.text = $"{_model.GameTurns}";
+        }
+
+        private void SetupButtonCommands()
+        {
+            // Connect the buttons to the commands
+            spinButton.onClick.AddListener(() => 
+            {
+                if (_viewModel.SpinCommand.CanExecute(null))
+                    _viewModel.SpinCommand.Execute(null);
+            });
+
+            spinAllButton.onClick.AddListener(() =>
+            {
+                if (_viewModel.SpinAllCommand.CanExecute(null))
+                    _viewModel.SpinAllCommand.Execute(null);
+            });
         }
 
         private void InitializeModel()
@@ -71,16 +99,8 @@ namespace RewardSpinManager
                     spinCount.text = _viewModel.SpinCountText;
                     break;
                 case nameof(RewardSpinViewModel.CanSpinAll):
-                    spinAllButton.SetActive(_viewModel.CanSpinAll);
+                    spinAllButton.gameObject.SetActive(_viewModel.CanSpinAll);
                     break; 
-                case nameof(RewardSpinModel.ElectrumValue):
-                    electrumValue.text = _model.ElectrumValue.ToString();
-                    break;
-                case nameof(RewardSpinModel.ElementalMasteryActive):
-                    elementalMasteryLabel.SetActive(_model.ElementalMasteryActive);
-                    break;
-                case nameof(RewardSpinModel.GameTurns):
-                    break;
             }
         }
 
@@ -104,10 +124,12 @@ namespace RewardSpinManager
             spinOne.isUpgraded = spinResult[0].Id.IsUpgraded();
             StartCoroutine(spinOne.DissolveAnimation(tempList));
             yield return new WaitForSeconds(0.5f);
+            
             tempList = new List<Sprite>(_model.SpriteList) { spinResult[1].cardImage };
             spinTwo.isUpgraded = spinResult[1].Id.IsUpgraded();
             StartCoroutine(spinTwo.DissolveAnimation(tempList));
             yield return new WaitForSeconds(0.5f);
+            
             tempList = new List<Sprite>(_model.SpriteList) { spinResult[2].cardImage };
             spinThree.isUpgraded = spinResult[2].Id.IsUpgraded();
             yield return StartCoroutine(spinThree.DissolveAnimation(tempList));
@@ -124,6 +146,8 @@ namespace RewardSpinManager
                     electrumValue.text = _model.ElectrumValue.ToString();
                     break;
             }
+
+            _model.CanSpin = true;
         }
         
         private void UpdateCardsWonSection()

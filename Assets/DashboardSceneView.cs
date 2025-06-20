@@ -1,5 +1,6 @@
 using System;
 using Core;
+using Networking.Networking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,10 +20,17 @@ public class DashboardSceneView : MonoBehaviour
     private DashboardSceneViewModel _viewModel;
     private void Awake()
     {
-        _viewModel = new DashboardSceneViewModel();
+        _model = new DashboardSceneModel();
+        _model.OnOraclePlayableChanged += UpdateOracleButton;
+        _viewModel = new DashboardSceneViewModel(_model, new CloudCodeManager());
         SetupUI();
     }
 
+    private void UpdateOracleButton(bool isEnabled)
+    {
+        oracleButton.interactable = isEnabled;
+        oracleText.text = oracleButton.interactable ? "See what the Oracle has for you today!" : "You cannot visit the Oracle yet";
+    }
     private void SetupUI()
     {
         playerOverallScore.text = _model.PlayerOverallScore.ToString();
@@ -33,15 +41,26 @@ public class DashboardSceneView : MonoBehaviour
         versionLabel.text = _model.Version;
         oracleButton.interactable = false;
         falseGobButton.interactable = _model.IsFalseGodEnabled;
-
-        // oracleButton.interactable = await ApiManager.Instance.CheckOraclePlay();
-        oracleText.text = oracleButton.interactable ? "See what the Oracle has for you today!" : "You cannot visit the Oracle yet";
     }
 }
 
 public class DashboardSceneViewModel
 {
     private readonly DashboardSceneModel _model;
+    private readonly CloudCodeManager _cloudCodeManager;
+    
+    public DashboardSceneViewModel(DashboardSceneModel model, CloudCodeManager cloudCodeManager)
+    {
+        _model = model;
+        _cloudCodeManager = cloudCodeManager;
+        UpdateModel();
+    }
+
+    private async void UpdateModel()
+    {
+        _model.IsOraclePlayable = await _cloudCodeManager.CheckOraclePlay();
+        SessionManager.Instance.Achievements = await _cloudCodeManager.GetPlayersAchievements();
+    }
     
 }
 
@@ -53,7 +72,15 @@ public class DashboardSceneModel
     public int PlayerLoses => PlayerData.Shared.GamesLost;
     public int Electrum => PlayerData.Shared.Electrum;
     public string Version => Application.version;
-    public bool IsOrablePlayable;
+    public bool IsOraclePlayable { 
+        get => _isOraclePlayable;
+        set {
+            _isOraclePlayable = value;
+            OnOraclePlayableChanged?.Invoke(value);
+        }
+    }
+    private bool _isOraclePlayable;
+    public event Action<bool> OnOraclePlayableChanged;
     public bool IsFalseGodEnabled => PlayerData.Shared.CurrentQuestIndex >= 7;
     public bool IsAchievementsEnabled => RemoteConfigHelper.Instance.IsFeatureEnabled(FeatureType.Achievements);
 }

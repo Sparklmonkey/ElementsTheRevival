@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Networking.Networking;
+using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -30,8 +31,9 @@ namespace SplashScreen
             await _viewModel.Initialize();
         }
 
-        private void InitializeMVVM()
+        private async void InitializeMVVM()
         {
+            await UnityServices.InitializeAsync();
             _model = new SplashScreenModel();
             _viewModel = new SplashScreenViewModel(_model, new CloudSaveManager(new CloudCodeManager()), finalPositions);
         }
@@ -104,7 +106,7 @@ namespace SplashScreen
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            SkipSplashAnimation();
+            // SkipSplashAnimation();
         }
     }
 }

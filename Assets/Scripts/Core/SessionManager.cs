@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Achievements;
 using Networking;
+using Unity.Services.CloudCode;
 using Unity.Services.CloudCode.GeneratedBindings;
 using UnityEngine;
 
@@ -34,10 +35,15 @@ namespace Core
 
         public async Task GetPlayerAchievements()
         {
+            if (_playerAchievementsBindings is null)
+            {
+                await SetPlayerAchievementModule();
+            }
             var saveData = JsonUtility.ToJson(PlayerData.Shared);
             try
             {
                 var response = await _playerAchievementsBindings.GetAchievementsByCategory("Collection", saveData);
+                Debug.Log(response);
                 Achievements = JsonHelper.FromJson<PlayerAchievement>(response.FixJson()).ToList();
             }
             catch (Exception e)
@@ -46,9 +52,9 @@ namespace Core
             }
         }
         
-        public async void SetPlayerAchievementModule(PlayerAchievementsBindings playerAchievementsBindings)
+        public async Task SetPlayerAchievementModule()
         {
-            _playerAchievementsBindings = playerAchievementsBindings;
+            _playerAchievementsBindings = new PlayerAchievementsBindings(CloudCodeService.Instance);
             var result = await _playerAchievementsBindings.SayHello("World");
             Debug.Log(result);
         }

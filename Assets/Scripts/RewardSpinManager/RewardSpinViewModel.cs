@@ -131,7 +131,6 @@ namespace RewardSpinManager
                 OnPropertyChanged(nameof(SpinCountText));
                 OnPropertyChanged(nameof(CanSpinAll));
                 OnPropertyChanged(nameof(ElectrumValueText));
-                OnPropertyChanged(nameof(ElementalMasteryVisible));
             }
         }
 
@@ -146,12 +145,13 @@ namespace RewardSpinManager
                 OnSpinResultsReady?.Invoke(spinResults);
                 _model.SpinCount--;
                 OnPropertyChanged(nameof(SpinCountText));
-                await Task.Delay(500); // Delay between spins
+                await Task.Delay(5000); 
             }
 
             ButtonText = "Continue";
             _model.CanSpin = true;
             OnPropertyChanged(nameof(ButtonText));
+            OnPropertyChanged(nameof(CanSpinAll));
         }
 
         private List<Card> GetSpinResults()

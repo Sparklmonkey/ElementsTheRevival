@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Achievements;
 using Unity.Services.CloudCode;
+using UnityEngine;
 
 namespace Networking.Networking
 {
@@ -39,7 +42,9 @@ namespace Networking.Networking
 
         public async Task<bool> CheckOraclePlay()
         {
-            return await _cloudCodeProcessor.CallCloudCodeWithResponse<bool>("validate-oracle-usable");
+            var response = await _cloudCodeProcessor.CallCloudCodeWithResponse<CanOracle>("validate-oracle-usable");
+            Debug.Log(response.canOpenOracle);
+            return response.canOpenOracle;
         }
 
         public async Task<ScoreUpdateResponse> UpdateScore(int score)
@@ -51,6 +56,14 @@ namespace Networking.Networking
         public async Task UpdateOraclePlayed()
         {
             await _cloudCodeProcessor.CallCloudCode("update-oracle-date");
+        }
+        
+        public async Task<List<PlayerAchievement>> GetPlayersAchievements()
+        {
+            var saveData = JsonUtility.ToJson(PlayerData.Shared);
+            var response = await _cloudCodeProcessor.GetAchievementsByCategory("Collection", saveData);
+            Debug.Log(response);
+            return JsonHelper.FromJson<PlayerAchievement>(response.FixJson()).ToList();
         }
     }
 }

@@ -42,19 +42,6 @@ namespace Networking
             DontDestroyOnLoad(gameObject);
         }
 
-
-        public async Task CallModuleTest()
-        {
-            try
-            {
-                SessionManager.Instance.SetPlayerAchievementModule(
-                    new PlayerAchievementsBindings(CloudCodeService.Instance));
-            }
-            catch (CloudCodeException exception)
-            {
-                Debug.LogException(exception);
-            }
-        }
         public async Task UpdateUserEmail(string email)
         {
             if (!email.IsValidEmail()) return;
@@ -107,7 +94,7 @@ namespace Networking
         {
             var result = await CloudCodeService.Instance.CallEndpointAsync("validate-oracle-usable");
             var canPlayObject = JsonUtility.FromJson<CanOracle>(result);
-            return canPlayObject.CanOpenOracle;
+            return canPlayObject.canOpenOracle;
         }
 
         public async Task<ScoreUpdateResponse> UpdateScore(int score)
@@ -228,7 +215,6 @@ namespace Networking
                         break;
                 }
 
-                await CallModuleTest();
                 handler("Success");
             }
             catch (AuthenticationException ex)
@@ -333,8 +319,9 @@ namespace Networking
 
     public class CanOracle
     {
-        public bool CanOpenOracle;
+        public bool canOpenOracle;
     }
+    [Serializable]
     public class ScoreUpdateResponse
     {
         public int overallScore;

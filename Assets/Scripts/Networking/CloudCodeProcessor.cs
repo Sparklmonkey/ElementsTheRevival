@@ -30,7 +30,6 @@ namespace Networking.Networking
                 var response = JsonUtility.FromJson<T>(result);
                 if (response == null)
                     throw new InvalidOperationException("Failed to deserialize response");
-
                 return response;
             }
             catch (Exception ex) when (ex is not InvalidOperationException)
@@ -54,6 +53,18 @@ namespace Networking.Networking
             {
                 throw new Exception($"Error calling cloud code endpoint '{endpoint}'", ex);
             }
+        }
+        
+        public async Task<string> GetAchievementsByCategory(string category, string saveData)
+        {
+            return await _cloudCodeService.CallModuleEndpointAsync<string>(
+                "PlayerAchievements",
+                "GetAchievementsByCategory",
+                new Dictionary<string, object>()
+                {
+                    {"category", category},
+                    {"saveData", saveData},
+                });
         }
     }
 }
