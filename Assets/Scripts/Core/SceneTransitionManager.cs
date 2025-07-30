@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Runtime.InteropServices;
 
 public class SceneTransitionManager : SingletonMono<SceneTransitionManager>
 {

@@ -14,19 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Localization-Locales
   m_GUID: 00ad80e2eb71f4ce2bd416f070c6b58d
-  m_SerializeEntries:
-  - m_GUID: 5b5d8bfdd5420463abc05b52d3f587b1
-    m_Address: English (en)
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8e6f45c5f4bb0491dbb15e1e85c9a76b
-    m_Address: Spanish (Uruguay) (es-UY)
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 6b97274a8d00e460d8ed266d89527547, type: 2}
   m_SchemaSet:

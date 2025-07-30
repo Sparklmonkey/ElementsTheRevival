@@ -25,6 +25,9 @@ namespace SplashScreen
 
         private async void Start()
         {
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+    WebGLInput.captureAllKeyboardInput = false;
+#endif
             InitializeMVVM();
             SetupEventListeners();
             StartCoroutine(InitializeAsync());

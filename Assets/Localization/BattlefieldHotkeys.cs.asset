@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: BattlefieldHotkeys.cs
   m_EditorClassIdentifier: 
   m_StartupSelectors:
-  - rid: 1442318801679155510
-  - rid: 1442318801679155511
   - rid: 1442318801679155512
   m_AvailableLocales:
     rid: 1442318801679155513
@@ -23,7 +21,11 @@ MonoBehaviour:
   m_StringDatabase:
     rid: 1442318801679155515
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 1799939559703969923
+    - rid: 1799939559703969922
+    - rid: 1799939559703969921
+    - rid: 1799939559703969920
   m_ProjectLocaleIdentifier:
     m_Code: en
   m_PreloadBehavior: 1
@@ -33,13 +35,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1442318801679155510
-      type: {class: CommandLineLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data:
-        m_CommandLineArgument: -language=
-    - rid: 1442318801679155511
-      type: {class: SystemLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data: 
     - rid: 1442318801679155512
       type: {class: SpecificLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
       data:
@@ -205,3 +200,222 @@ MonoBehaviour:
         - default
         - d
         - 
+    - rid: 1799939559703969920
+      type: {class: AdaptiveIconsInfo, ns: UnityEngine.Localization.Platform.Android, asm: Unity.Localization}
+      data:
+        m_Adaptive_idpi:
+          m_Background:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+          m_Foreground:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+        m_Adaptive_mdpi:
+          m_Background:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+          m_Foreground:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+        m_Adaptive_hdpi:
+          m_Background:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+          m_Foreground:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+        m_Adaptive_xhdpi:
+          m_Background:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+          m_Foreground:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+        m_Adaptive_xxhdpi:
+          m_Background:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+          m_Foreground:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+        m_Adaptive_xxxhdpi:
+          m_Background:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+          m_Foreground:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+    - rid: 1799939559703969921
+      type: {class: AppInfo, ns: UnityEngine.Localization.Platform.Android, asm: Unity.Localization}
+      data:
+        m_DisplayName:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+    - rid: 1799939559703969922
+      type: {class: RoundIconsInfo, ns: UnityEngine.Localization.Platform.Android, asm: Unity.Localization}
+      data:
+        m_Round_idpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+        m_Round_mdpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+        m_Round_hdpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+        m_Round_xhdpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+        m_Round_xxhdpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+        m_Round_xxxhdpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+    - rid: 1799939559703969923
+      type: {class: LegacyIconsInfo, ns: UnityEngine.Localization.Platform.Android, asm: Unity.Localization}
+      data:
+        m_Legacy_idpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+        m_Legacy_mdpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+        m_Legacy_hdpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+        m_Legacy_xhdpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+        m_Legacy_xxhdpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+        m_Legacy_xxxhdpi:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0

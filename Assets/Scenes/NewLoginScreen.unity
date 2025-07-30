@@ -1954,7 +1954,7 @@ MonoBehaviour:
   username: {fileID: 616278081}
   password: {fileID: 607025526}
   lastUpdateNote: {fileID: 1791290813}
-  errorMessage: {fileID: 0}
+  errorMessage: {fileID: 1791290813}
   versionLabel: {fileID: 1189403038}
   fields: []
 --- !u!114 &331831951
@@ -3764,8 +3764,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LoginScreen_SetupManager, Assembly-CSharp
+      - m_Target: {fileID: 331831950}
+        m_TargetAssemblyTypeName: LoginScreenView, Assembly-CSharp
         m_MethodName: PlayAsGuest
         m_Mode: 1
         m_Arguments:
@@ -5246,8 +5246,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LoginScreen_RegisterManager, Assembly-CSharp
+      - m_Target: {fileID: 1679866472}
+        m_TargetAssemblyTypeName: Login.RegistrationScreenManager, Assembly-CSharp
         m_MethodName: AttemptToRegister
         m_Mode: 1
         m_Arguments:
@@ -7550,6 +7550,7 @@ GameObject:
   - component: {fileID: 1679866469}
   - component: {fileID: 1679866471}
   - component: {fileID: 1679866470}
+  - component: {fileID: 1679866472}
   m_Layer: 5
   m_Name: RegisterSection
   m_TagString: Untagged
@@ -7624,6 +7625,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679866468}
   m_CullTransparentMesh: 1
+--- !u!114 &1679866472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679866468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a731f7414bbd84c9b32e0a4c6fd5a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  username: {fileID: 1350169363}
+  password: {fileID: 515305870}
+  email: {fileID: 585586893}
+  serverResponse: {fileID: 450914780}
+  linkDataPopUp: {fileID: 58284137}
+  fields:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1692883666
 GameObject:
   m_ObjectHideFlags: 0

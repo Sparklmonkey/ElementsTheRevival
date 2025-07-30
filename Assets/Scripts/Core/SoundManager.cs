@@ -10,6 +10,21 @@ public class SoundManager : SingletonMono<SoundManager>
     
     private EventBinding<PlaySoundEffectEvent> _playSoundEffectBinding;
     
+    void OnApplicationFocus(bool hasFocus)
+    {
+        Silence(!hasFocus);
+    }
+
+    void OnApplicationPause(bool isPaused)
+    {
+        Silence(isPaused);
+    }
+
+    private void Silence(bool silence)
+    {
+        backgroundMusic.mute = silence;
+        soundFX.mute = silence;
+    }
     private void OnDisable() {
         EventBus<PlaySoundEffectEvent>.Unregister(_playSoundEffectBinding);
     }

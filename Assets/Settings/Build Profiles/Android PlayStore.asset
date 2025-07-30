@@ -189,11 +189,13 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 5.5.3'
+    - line: '|   bundleVersion: 5.5.4'
     - line: '|   preloadedAssets:'
     - line: '|   - {fileID: 11400000, guid: 07e304f4734ccab44b852f22389587af, type:
         2}'
     - line: '|   - {fileID: 11400000, guid: f7944e3405c404076b86927e8708b707, type:
+        2}'
+    - line: '|   - {fileID: 11400000, guid: 99f9c9493070a9d4c979a8fec7c5a8d3, type:
         2}'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
@@ -226,7 +228,7 @@ MonoBehaviour:
     - line: '|     iPhone: 10'
     - line: '|     tvOS: 0'
     - line: '|   overrideDefaultApplicationIdentifier: 0'
-    - line: '|   AndroidBundleVersionCode: 182'
+    - line: '|   AndroidBundleVersionCode: 173'
     - line: '|   AndroidMinSdkVersion: 24'
     - line: '|   AndroidTargetSdkVersion: 34'
     - line: '|   AndroidPreferredInstallLocation: 1'
@@ -320,7 +322,7 @@ MonoBehaviour:
     - line: '|   AndroidTargetArchitectures: 3'
     - line: '|   AndroidSplashScreenScale: 0'
     - line: '|   androidSplashScreen: {instanceID: 0}'
-    - line: '|   AndroidKeystoreName: C:/Users/juana/OneDrive/Documents/GitRepos/AndroidKeystores/elements-release.keystore'
+    - line: '|   AndroidKeystoreName: C:/Users/juana/Documents/AndroidKeystores/elements-release.keystore'
     - line: '|   AndroidKeyaliasName: release'
     - line: '|   AndroidEnableArmv9SecurityFeatures: 0'
     - line: '|   AndroidEnableArm64MTE: 0'
@@ -662,8 +664,8 @@ MonoBehaviour:
     - line: '|     m_APIs: 10000000'
     - line: '|     m_Automatic: 1'
     - line: '|   - m_BuildTarget: AndroidPlayer'
-    - line: '|     m_APIs: 150000000b000000'
-    - line: '|     m_Automatic: 1'
+    - line: '|     m_APIs: 0b000000'
+    - line: '|     m_Automatic: 0'
     - line: '|   - m_BuildTarget: WebGLSupport'
     - line: '|     m_APIs: 0b000000'
     - line: '|     m_Automatic: 0'
@@ -687,6 +689,9 @@ MonoBehaviour:
     - line: '|   m_BuildTargetGroupLoadStoreDebugModeSettings: []'
     - line: '|   m_BuildTargetNormalMapEncoding: []'
     - line: '|   m_BuildTargetDefaultTextureCompressionFormat:'
+    - line: '|   - serializedVersion: 3'
+    - line: '|     m_BuildTarget: WebGL'
+    - line: '|     m_Formats: 05000000'
     - line: '|   - serializedVersion: 3'
     - line: '|     m_BuildTarget: Android'
     - line: '|     m_Formats: 01000000'
@@ -1129,7 +1134,7 @@ MonoBehaviour:
         m_InstallInBuildFolder: 0
         m_BuildSubtarget: 0
         m_BuildSystem: 1
-        m_ExportAsGoogleAndroidProject: 0
+        m_ExportAsGoogleAndroidProject: 1
         m_DebugSymbolLevel: 1
         m_DebugSymbolFormat: 5
         m_CurrentDeploymentTargetId: __builtin__target_all

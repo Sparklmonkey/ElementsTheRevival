@@ -47,7 +47,9 @@
     <Analyzer Include="C:\Users\juana\OneDrive\Documents\GitRepos\Elements Mobile (1)\Library\PackageCache\com.unity.dt.app-ui@8a9a484df850\Runtime\SourceGenerators\netstandard2.0\EnumToLowerCase.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\XCodePostBuild.cs" />
     <Compile Include="Assets\ProTips\Scripts\Editor\TooltipTriggerEditor.cs" />
+    <Compile Include="Assets\Editor\Build.cs" />
     <Compile Include="Assets\ProTips\Scripts\Editor\QuickSetupMenuItem.cs" />
     <Compile Include="Assets\Editor\ElementalCardsMenu.cs" />
     <Reference Include="UnityEngine">

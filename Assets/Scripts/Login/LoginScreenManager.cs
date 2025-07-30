@@ -94,6 +94,14 @@ namespace Login
             _touchBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/TouchBlocker"), transform.Find("Background/MainPanel"));
             _touchBlocker.transform.SetAsFirstSibling();
             Debug.Log("Attempting To Login");
+            if (username.text is "" or " ")
+            {
+                return;
+            }
+            if (password.text is "" or " ")
+            {
+                return;
+            }
             await ApiManager.Instance.UserLoginAsync(LoginType.UserPass, HandleUserLogin, username.text, password.text);
             
         }

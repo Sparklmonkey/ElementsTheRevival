@@ -186,14 +186,6 @@ namespace Networking
             {
                 switch (loginType)
                 {
-                    case LoginType.Unity:
-                        isUnityUser = true;
-                        break;
-                    case LoginType.UserPass:
-                        await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
-                        await LoadSomeData();
-                        isUnityUser = true;
-                        break;
                     case LoginType.RegisterUserPass:
                         await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
                         PlayerData.Shared = new();

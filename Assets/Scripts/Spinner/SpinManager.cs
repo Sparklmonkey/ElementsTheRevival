@@ -18,6 +18,7 @@ public class SpinManager : MonoBehaviour
     [SerializeField]
     private GameObject elementalMasteryLabel;
 
+    [SerializeField] private Button spinOnceButton, spinAllBtn;
     [SerializeField]
     private TextMeshProUGUI spinCount, buttonText, electrumValue, gameTime, gameTurns, playerScore;
     private bool _shouldWinCoins = false, _shouldWinCard = false, _canSpin = true;
@@ -68,7 +69,16 @@ public class SpinManager : MonoBehaviour
         gameTurns.text = $"{BattleVars.Shared.TurnCount}";
         gameTime.text = $"{(int)gameTimeInSeconds}";
         playerScore.text = $"{PlayerData.Shared.PlayerScore}";
+        spinOnceButton.interactable = true;
+        spinAllBtn.interactable = true;
     }
+    
+    private void Awake()
+    {
+        spinOnceButton.interactable = false;
+        spinAllBtn.interactable = false;
+    }
+
 
     private void MoveToDashboard()
     {
