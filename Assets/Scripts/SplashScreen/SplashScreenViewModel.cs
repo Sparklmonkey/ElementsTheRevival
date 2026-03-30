@@ -15,40 +15,21 @@ namespace SplashScreen
         private readonly SplashScreenModel _model;
         private readonly ICloudSaveManager _cloudSaveManager;
         private ICloudCodeManager _cloudCodeManager;
-        private List<Transform> _finalPositions;
         public event Action<string, string, string, ButtonActionNoParams> OnShowPopUp;
         public event Action OnLoadLogin;
-        public event Action<List<Transform>, StartNextSpriteMover> OnSetupSpritePath;
 
         public SplashScreenViewModel(SplashScreenModel model, 
-            ICloudSaveManager cloudSaveManager, 
-            List<Transform> finalPositions)
+            ICloudSaveManager cloudSaveManager)
         {
             _model = model;
             _cloudSaveManager = cloudSaveManager;
-            _finalPositions = finalPositions;
+            _model.OnAnimationCompleteChanged += HandleAnimationChange;
         }
 
-        public async Task Initialize()
+        public void Initialize()
         {
             _model.InitializePlayerPrefs();
             CardDatabase.Instance.SortCardList();
-            SetupInitialSprite();
-            await StartTitleAnimation();
-        }
-
-        private void SetupInitialSprite()
-        {
-            _model.CurrentIndex = 0;
-            OnSetupSpritePath?.Invoke(_finalPositions, StartNextSprite);
-        }
-
-        private void StartNextSprite()
-        {
-            _model.CurrentIndex += 1;
-            if (_model.CurrentIndex >= _finalPositions.Count) return;
-            var path = _finalPositions.GetRange(0, _finalPositions.Count - _model.CurrentIndex);
-            OnSetupSpritePath?.Invoke(path, StartNextSprite);
         }
 
         public async Task SkipSplashAnimation()
@@ -104,15 +85,25 @@ namespace SplashScreen
 
         private async Task HandleCachedLogin()
         {
-            // await ApiManager.Instance.CallModuleTest();
             var playerSavedData = await _cloudSaveManager.LoadPlayerData();
+            if (playerSavedData is null)
+            {
+                OnLoadLogin?.Invoke();
+                return;
+            }
             PlayerData.Shared = playerSavedData;
             var cardList = PlayerData.Shared.CurrentDeck.ConvertCardCodeToList();
             SceneTransitionManager.Instance.LoadScene(
                 cardList.Count < 30 ? "DeckSelector" : "Dashboard");
         }
 
-        public async Task StartTitleAnimation()
+        private void HandleAnimationChange(bool isAnimationComplete)
+        {
+            if (!isAnimationComplete) return;
+            StartTitleAnimation();
+        }
+
+        private async void StartTitleAnimation()
         {
             await LoadNextScene();
         }

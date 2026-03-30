@@ -1,3 +1,4 @@
+using Core;
 using UnityEngine;
 
 public interface IQuest
@@ -109,7 +110,7 @@ public class ScoreOneQuest : IQuest
 
     public string QuestReward => "Reward: 150";
 
-    public bool IsComplete => PlayerData.Shared.PlayerScore >= 150;
+    public bool IsComplete => SessionManager.Instance.PlayerScore.overallScore >= 150;
 
     public void RewardPlayer()
     {
@@ -127,7 +128,7 @@ public class ScoreTwoQuest : IQuest
 
     public string QuestReward => "Reward: A rare card";
 
-    public bool IsComplete => PlayerData.Shared.PlayerScore >= 500;
+    public bool IsComplete => SessionManager.Instance.PlayerScore.overallScore >= 500;
 
     public void RewardPlayer()
     {

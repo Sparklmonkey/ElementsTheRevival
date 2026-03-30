@@ -4,9 +4,9 @@ AssetOrigin:
   serializedVersion: 1
   productId: 89041
   packageName: Odin Inspector and Serializer
-  packageVersion: 3.3.1.11
+  packageVersion: 4.0.1.2
   assetPath: Assets/Plugins/Sirenix/Assemblies/NoEmitAndNoEditor/Sirenix.Serialization.dll
-  uploadId: 712389
+  uploadId: 835510
 PluginImporter:
   externalObjects: {}
   serializedVersion: 3
@@ -66,16 +66,13 @@ PluginImporter:
       settings:
         CPU: 
     Win64:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: 
     WindowsStoreApps:
       enabled: 0
       settings:
         CPU: AnyCPU
-    iOS:
-      enabled: 1
-      settings: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

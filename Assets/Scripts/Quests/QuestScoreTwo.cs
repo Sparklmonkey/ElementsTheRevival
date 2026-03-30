@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Core;
+using UnityEngine;
 
 public class QuestScoreTwo : QuestBiolerplate
 {
@@ -12,7 +13,7 @@ public class QuestScoreTwo : QuestBiolerplate
 
     public override string QuestReward => "Reward: A rare card";
 
-    public override bool RequirementCheck() => PlayerData.Shared.PlayerScore >= 500;
+    public override bool RequirementCheck() => SessionManager.Instance.PlayerScore.overallScore >= 500;
 
     public override void RedeemQuest()
     {

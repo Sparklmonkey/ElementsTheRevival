@@ -1,0 +1,5 @@
+C:/Users/juana/OneDrive/Documents/GitRepos/Elements Mobile (1)/.utmp/RelWithDebInfo/5f2f13z2/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/juana/OneDrive/Documents/GitRepos/Elements Mobile (1)/.utmp/RelWithDebInfo/5f2f13z2/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+C:/Users/juana/OneDrive/Documents/GitRepos/Elements Mobile (1)/.utmp/RelWithDebInfo/5f2f13z2/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/Users/juana/OneDrive/Documents/GitRepos/Elements Mobile (1)/.utmp/RelWithDebInfo/5f2f13z2/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
+C:/Users/juana/OneDrive/Documents/GitRepos/Elements Mobile (1)/.utmp/RelWithDebInfo/5f2f13z2/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir

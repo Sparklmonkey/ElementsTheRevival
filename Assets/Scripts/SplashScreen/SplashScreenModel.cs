@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace SplashScreen
 {
@@ -7,6 +8,26 @@ namespace SplashScreen
         public bool IsLoadingNextScene { get; set; }
         public bool IsCachedLogin { get; set; }
         public bool DataLoaded { get; set; }
+        public int AnimationCompletedCount;
+        public bool IsAnimationComplete { 
+            get => _isAnimationComplete;
+            set
+            {
+                if (_isAnimationComplete != value)
+                {
+                    _isAnimationComplete = value;
+                    OnAnimationCompleteChanged?.Invoke(value);
+                }
+            }
+        }
+        private bool _isAnimationComplete;
+        public event Action<bool> OnAnimationCompleteChanged;
+
+        public void CompleteAnimation()
+        {
+            Debug.Log(OnAnimationCompleteChanged);
+            OnAnimationCompleteChanged?.Invoke(true);
+        }
         public int CurrentIndex { get; set; }
         
         public bool HasSeenSplash
@@ -14,6 +35,7 @@ namespace SplashScreen
             get => PlayerPrefs.GetInt("HasSeenSplash") == 1;
             set => PlayerPrefs.SetInt("HasSeenSplash", value ? 1 : 0);
         }
+
 
         public void InitializePlayerPrefs()
         {

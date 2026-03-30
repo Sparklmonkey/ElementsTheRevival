@@ -24,3 +24,5 @@ MonoBehaviour:
   m_SaveFolderEnum: 
   m_AutoOpenNodeScriptsInExternalEditor: 1
   m_Namespace: 
+  m_AllowDisabledAgentDebugging: 0
+  m_IgnoreMissingManagedReferencesInBuild: 0

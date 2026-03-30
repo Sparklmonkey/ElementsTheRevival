@@ -1,30 +1,33 @@
 ﻿using System.Collections.Generic;
 
-public class PlayerDataModel
+
+public class PlayerGameStatsDataModel
 {
-    public Element MarkElement;
-    public string CurrentDeck;
-    public Element ArenaT50Mark;
-    public string ArenaT50Deck;
-    public string InventoryCards;
-    public int Electrum;
     public int GamesWon;
     public int GamesLost;
+    public int OverallScore;
+    public int CurrentSeasonScore;
+}
+
+public class PlayerArenaDataModel
+{
+    public Deck ArenaT50Deck;
     public int ArenaWins;
     public int ArenaLosses;
-    public int PlayerScore;
-    public string Username = "";
-    public string Email = "";
+}
+
+public class PlayerOracleDataModel
+{
+    public string NextFalseGod;
+    public string PetId;
+    public int PetCount;
+    public string OracleLastPlayed;
+}
+
+public class PlayerQuestDataModel
+{
     public string CompletedQuests = "";
     public int CurrentQuestIndex = 0;
-    public List<string> SavedDecks;
-    public string NextFalseGod;
-    public string PetName;
-    public int PetCount;
-    public bool PlayedOracleToday;
-    public string OracleLastPlayed;
-    public int LastOracleDay;
-    
     //Quest Specific Flags
     //TODO: Move to API calls
     public bool HasDefeatedLevel0;
@@ -33,4 +36,28 @@ public class PlayerDataModel
     public bool RemovedCardFromDeck;
     public bool HasBoughtCardBazaar;
     public bool HasSoldCardBazaar;
+}
+
+public class PlayerAchievementDataModel
+{
+    
+}
+
+public class PlayerDataModel
+{
+    public string CardInventory;
+    public Deck CurrentDeck;
+    public int Electrum;
+    public List<Deck> SavedDecks;
+    
+    
+    public string Username = "";
+    public string Email = "";
+    
+}
+
+public class Deck
+{
+    public Element Mark;
+    public string CardString;
 }

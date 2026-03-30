@@ -6,22 +6,21 @@ using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
+using V3.Scripts;
 
 namespace SplashScreen
 {
     public delegate void StartNextSpriteMover();
     public class SplashScreenView : MonoBehaviour, IPointerClickHandler
     {
-        public Image titleImage;
-        public Sprite titleSprite;
-        [SerializeField] private List<Transform> finalPositions;
         [SerializeField] private Transform popUpParent;
-        [SerializeField] private GameObject popUpModal;
-        [SerializeField] private List<SpriteMover> spriteObjects;
+        [SerializeField] private GameObject popUpModal, elementAnimationPrefab;
 
         private SplashScreenViewModel _viewModel;
         private SplashScreenModel _model;
+        private ElementAnimationController _elementAnimationController;
 
         private async void Start()
         {
@@ -29,44 +28,47 @@ namespace SplashScreen
     WebGLInput.captureAllKeyboardInput = false;
 #endif
             InitializeMVVM();
-            SetupEventListeners();
-            StartCoroutine(InitializeAsync());
-            await _viewModel.Initialize();
         }
 
         private async void InitializeMVVM()
         {
-            await UnityServices.InitializeAsync();
-            _model = new SplashScreenModel();
-            _viewModel = new SplashScreenViewModel(_model, new CloudSaveManager(new CloudCodeManager()), finalPositions);
+            Debug.Log(" --------------Game START --------------");
+            try
+            {
+                await UnityServices.InitializeAsync();
+                Debug.Log(" --------------Initialize Complete --------------");
+                _model = new SplashScreenModel();
+                _viewModel = new SplashScreenViewModel(_model, new CloudSaveManager(new CloudCodeManager()));
+                SetupEventListeners();
+                InitializeAsync();
+                _viewModel.Initialize();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error initializing Unity Services: " + e.Message);
+                // Handle specific exceptions here
+            }
         }
 
         private void SetupEventListeners()
         {
             _viewModel.OnShowPopUp += ShowPopUpModal;
             _viewModel.OnLoadLogin += GoToLogin;
-            _viewModel.OnSetupSpritePath += HandleSpritePath;
         }
 
-        private IEnumerator InitializeAsync()
+        private void InitializeAsync()
         {
             SoundManager.Instance.PlayBGM("LoginScreen");
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 30;
-
-            yield return StartCoroutine(StartTitleAnimation());
+            _elementAnimationController = Instantiate(elementAnimationPrefab, new Vector3(0,1,0), Quaternion.identity).GetComponent<ElementAnimationController>();
+            _elementAnimationController.SetupAnimationController(_model);
         }
-
-        private void HandleSpritePath(List<Transform> animationPath, StartNextSpriteMover callback)
-        {
-            spriteObjects[_model.CurrentIndex].SetupSpritePath(animationPath, callback);
-        }
-        
 
         public async void SkipSplashAnimation()
         {
             StopAllCoroutines();
-            titleImage.material.SetFloat("_Fade", 1f);
+            _elementAnimationController.EndAnimation();
             await _viewModel.SkipSplashAnimation();
         }
 
@@ -78,25 +80,8 @@ namespace SplashScreen
 
         private void GoToLogin()
         {
+            Debug.Log("Just before Scene Change");
             SceneTransitionManager.Instance.LoadScene("NewLoginScreen");
-        }
-
-        private IEnumerator StartTitleAnimation()
-        {
-            var shader = titleImage.material;
-            shader.SetTexture("_MainTex", titleSprite.texture);
-            shader.SetFloat("_Fade", 0f);
-            shader.SetFloat("_Scale", 150f);
-            var currentTime = 0f;
-            while (currentTime < 6f)
-            {
-                var value = currentTime / 6f;
-                currentTime += Time.deltaTime;
-                shader.SetFloat("_Fade", value);
-                yield return null;
-            }
-            shader.SetFloat("_Fade", 1f);
-            _viewModel.StartTitleAnimation();
         }
 
         private void OnDestroy()
@@ -104,12 +89,11 @@ namespace SplashScreen
             // Cleanup event listeners
             _viewModel.OnShowPopUp -= ShowPopUpModal;
             _viewModel.OnLoadLogin -= GoToLogin;
-            _viewModel.OnSetupSpritePath -= HandleSpritePath;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            // SkipSplashAnimation();
+            SkipSplashAnimation();
         }
     }
 }

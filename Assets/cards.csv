@@ -1,0 +1,461 @@
+card_background, Card_Name, Amount, Quanta_Element, Card_Image, Creature_Value, Card_Type
+Death.png,Arsenic,2,Death,205.png, ,Weapon
+Other.png,Dirk,0,Other,200.png, ,Weapon
+Entropy.png,Discord,3,Entropy,204.png, ,Weapon
+Air.png,Eagle's Eye,5,Air,212.png, ,Weapon
+Aether.png,Electrocuter,3,Aether,215.png, ,Weapon
+Time.png,Eternity,5,Time,213.png, ,Weapon
+Fire.png,Fahrenheit,3,Fire,209.png, ,Weapon
+Other.png,Hammer,2,Other,202.png, ,Weapon
+Life.png,Jade Staff,2,Life,208.png, ,Weapon
+Other.png,Long Sword,1,Other,201.png, ,Weapon
+Other.png,Longbow,2,Other,203.png, ,Weapon
+Light.png,Morning Glory,5,Light,211.png, ,Weapon
+Water.png,Poseidon,3,Water,210.png, ,Weapon
+Earth.png,Pulverizer,4,Earth,207.png, ,Weapon
+Gravity.png,Titan,5,Gravity,206.png, ,Weapon
+Darkness.png,Vampire Dagger,2,Darkness,214.png, ,Weapon
+Death.png,Arsenic,2,Death,205.png, ,Weapon
+Other.png,Dagger,0,Other,200.png, ,Weapon
+Entropy.png,Discord,3,Entropy,204.png, ,Weapon
+Life.png,Druidic Staff,2,Life,208.png, ,Weapon
+Time.png,Eternity,6,Time,213.png, ,Weapon
+Fire.png,Fahrenheit,3,Fire,209.png, ,Weapon
+Other.png,Hammer,2,Other,202.png, ,Weapon
+Aether.png,Lobotomizer,3,Aether,215.png, ,Weapon
+Light.png,Morning Star,5,Light,211.png, ,Weapon
+Air.png,Owl's Eye,5,Air,212.png, ,Weapon
+Earth.png,Pulverizer,4,Earth,207.png, ,Weapon
+Other.png,Short Bow,2,Other,203.png, ,Weapon
+Other.png,Short Sword,1,Other,201.png, ,Weapon
+Gravity.png,Titan,5,Gravity,206.png, ,Weapon
+Water.png,Trident,3,Water,210.png, ,Weapon
+Darkness.png,Vampire Stiletto,1,Darkness,214.png, ,Weapon
+Other.png,Weapon (slot),0,Other,218.png, ,Weapon
+Gravity.png,Acceleration,3,Gravity,593.png, ,Spell
+Life.png,Adrenaline,4,Life,571.png, ,Spell
+Death.png,Aflatoxin,6,Death,602.png, ,Spell
+Entropy.png,Antimatter,8,Entropy,613.png, ,Spell
+Earth.png,Basilisk's Blood,2,Earth,585.png, ,Spell
+Gravity.png,Black Hole,4,Gravity,592.png, ,Spell
+Light.png,Blessing,3,Light,541.png, ,Spell
+Entropy.png,Butterfly Effect,5,Entropy,614.png, ,Spell
+Entropy.png,Chaos Seed,1,Entropy,610.png, ,Spell
+Fire.png,Deflagration,3,Fire,561.png, ,Spell
+Darkness.png,Drain Life,3,Darkness,511.png, ,Spell
+Earth.png,Earthquake,3,Earth,583.png, ,Spell
+Earth.png,Enchant Artifact,2,Earth,582.png, ,Spell
+Fire.png,Fire Bolt,3,Fire,560.png, ,Spell
+Air.png,Flying Weapon,1,Air,532.png, ,Spell
+Aether.png,Fractal,10,Aether,503.png, ,Spell
+Water.png,Freeze,1,Water,550.png, ,Spell
+Earth.png,Granite Skin,1,Earth,584.png, ,Spell
+Gravity.png,Gravity Pull,2,Gravity,591.png, ,Spell
+Life.png,Heal,3,Life,570.png, ,Spell
+Light.png,Holy Light,1,Light,540.png, ,Spell
+Water.png,Ice Bolt,2,Water,551.png, ,Spell
+Fire.png,Immolation,0,Fire,563.png, ,Spell
+Aether.png,Lightning,2,Aether,500.png, ,Spell
+Darkness.png,Liquid Shadow,4,Darkness,512.png, ,Spell
+Light.png,Luciferin,2,Other,543.png, ,Spell
+Light.png,Miracle,15,Light,542.png, ,Spell
+Life.png,Mitosis,5,Life,572.png, ,Spell
+Gravity.png,Momentum,2,Gravity,590.png, ,Spell
+Entropy.png,Mutation,2,Entropy,612.png, ,Spell
+Darkness.png,Nightmare,2,Darkness,513.png, ,Spell
+Entropy.png,Nova,0,Entropy,611.png, ,Spell
+Water.png,Nymph's Tears,7,Water,553.png, ,Spell
+Entropy.png,Pandemonium,3,Entropy,615.png, ,Spell
+Aether.png,Parallel Universe,7,Aether,501.png, ,Spell
+Death.png,Plague,4,Death,601.png, ,Spell
+Earth.png,Plate Armor,1,Earth,581.png, ,Spell
+Death.png,Poison,1,Death,600.png, ,Spell
+Time.png,Precognition,2,Time,522.png, ,Spell
+Water.png,Purify,2,Water,552.png, ,Spell
+Aether.png,Quintessence,4,Aether,502.png, ,Spell
+Fire.png,Rage Potion,3,Fire,564.png, ,Spell
+Fire.png,Rain of Fire,7,Fire,562.png, ,Spell
+Time.png,Reverse Time,2,Time,521.png, ,Spell
+Fire.png,Shard of Bravery,2,Fire,565.png, ,Spell
+Light.png,Shard of Divinity,3,Light,544.png, ,Spell
+Time.png,Shard of Readiness,3,Time,520.png, ,Spell
+Death.png,Shard of Sacrifice,2,Death,603.png, ,Spell
+Entropy.png,Shard of Serendipity,3,Entropy,616.png, ,Spell
+Aether.png,Shard of Wisdom,3,Aether,505.png, ,Spell
+Air.png,Shockwave,2,Air,533.png, ,Spell
+Aether.png,Silence,3,Aether,504.png, ,Spell
+Air.png,Sky Blitz,9,Air,530.png, ,Spell
+Darkness.png,Steal,4,Darkness,510.png, ,Spell
+Earth.png,Stone Skin,2,Earth,584.png, ,Spell
+Air.png,Thunderstorm,2,Air,531.png, ,Spell
+Death.png,Aflatoxin,5,Death,602.png, ,Spell
+Air.png,Animate Weapon,1,Other,532.png, ,Spell
+Earth.png,Basilisk's Blood,1,Earth,585.png, ,Spell
+Gravity.png,Black Hole,3,Gravity,592.png, ,Spell
+Entropy.png,Butterfly Effect,4,Entropy,614.png, ,Spell
+Entropy.png,Chaos Power,1,Entropy,610.png, ,Spell
+Water.png,Congeal,1,Water,550.png, ,Spell
+Fire.png,Cremation,0,Fire,563.png, ,Spell
+Death.png,Deadly Poison,2,Death,600.png, ,Spell
+Life.png,Epinephrine,3,Life,571.png, ,Spell
+Fire.png,Explosion,2,Fire,561.png, ,Spell
+Fire.png,Fire Lance,1,Fire,560.png, ,Spell
+Fire.png,Firestorm,5,Fire,562.png, ,Spell
+Aether.png,Fractal,9,Aether,503.png, ,Spell
+Gravity.png,Gravity Force,1,Gravity,591.png, ,Spell
+Earth.png,Heavy Armor,1,Earth,581.png, ,Spell
+Light.png,Holy Flash,0,Light,540.png, ,Spell
+Water.png,Ice Lance,1,Water,551.png, ,Spell
+Entropy.png,Improved Antimatter,6,Entropy,613.png, ,Spell
+Light.png,Improved Blessing,2,Light,541.png, ,Spell
+Life.png,Improved Heal,2,Life,570.png, ,Spell
+Light.png,Improved Miracle,12,Light,542.png, ,Spell
+Entropy.png,Improved Mutation,3,Entropy,612.png, ,Spell
+Death.png,Improved Plague,2,Death,601.png, ,Spell
+Darkness.png,Improved Steal,3,Darkness,510.png, ,Spell
+Air.png,Lightning Storm,1,Air,531.png, ,Spell
+Darkness.png,Liquid Shadow,3,Darkness,512.png, ,Spell
+Light.png,Luciferaze,1,Other,543.png, ,Spell
+Life.png,Mitosis,4,Life,572.png, ,Spell
+Darkness.png,Nightmare,1,Darkness,513.png, ,Spell
+Water.png,Nymph's Tears,6,Water,553.png, ,Spell
+Gravity.png,Overdrive,4,Gravity,593.png, ,Spell
+Entropy.png,Pandemonium,5,Entropy,615.png, ,Spell
+Time.png,Precognition,1,Time,522.png, ,Spell
+Earth.png,Protect Artifact,1,Earth,582.png, ,Spell
+Water.png,Purify,1,Water,552.png, ,Spell
+Earth.png,Quicksand,2,Earth,583.png, ,Spell
+Aether.png,Quintessence,3,Aether,502.png, ,Spell
+Fire.png,Rage Elixir,3,Fire,564.png, ,Spell
+Time.png,Rewind,1,Time,521.png, ,Spell
+Fire.png,Shard of Bravery,1,Fire,565.png, ,Spell
+Light.png,Shard of Divinity,2,Light,544.png, ,Spell
+Time.png,Shard of Readiness,2,Time,520.png, ,Spell
+Death.png,Shard of Sacrifice,2,Death,603.png, ,Spell
+Entropy.png,Shard of Serendipity,3,Entropy,616.png, ,Spell
+Aether.png,Shard of Wisdom,2,Aether,505.png, ,Spell
+Air.png,Shockwave,1,Air,533.png, ,Spell
+Aether.png,Silence,2,Aether,504.png, ,Spell
+Darkness.png,Siphon Life,1,Darkness,511.png, ,Spell
+Air.png,Sky Blitz,8,Air,530.png, ,Spell
+Entropy.png,Supernova,2,Entropy,611.png, ,Spell
+Aether.png,Thunderbolt,1,Aether,500.png, ,Spell
+Aether.png,Twin Universe,6,Aether,501.png, ,Spell
+Gravity.png,Unstoppable,1,Gravity,590.png, ,Spell
+Death.png,Bone Wall,7,Death,303.png, ,Shield
+Aether.png,Dimensional Shield,6,Aether,317.png, ,Shield
+Entropy.png,Dissipation Shield,3,Entropy,301.png, ,Shield
+Darkness.png,Dusk Mantle,6,Darkness,316.png, ,Shield
+Life.png,Emerald Shield,5,Life,307.png, ,Shield
+Fire.png,Fire Shield,6,Fire,308.png, ,Shield
+Air.png,Fog Shield,2,Air,313.png, ,Shield
+Gravity.png,Gravity Shield,5,Gravity,304.png, ,Shield
+Light.png,Hope,7,Light,312.png, ,Shield
+Water.png,Ice Shield,6,Water,309.png, ,Shield
+Time.png,Procrastination,6,Time,315.png, ,Shield
+Light.png,Reflective Shield,1,Light,311.png, ,Shield
+Other.png,Shield (slot),0,Other,219.png, ,Shield
+Other.png,Shield,1,Other,300.png, ,Shield
+Death.png,Skull Shield,3,Death,302.png, ,Shield
+Light.png,Solar Shield,3,Light,310.png, ,Shield
+Life.png,Thorn Carapace,7,Life,306.png, ,Shield
+Earth.png,Titanium Shield,4,Earth,305.png, ,Shield
+Air.png,Wings,4,Air,314.png, ,Shield
+Death.png,Bone Wall,5,Death,303.png, ,Shield
+Earth.png,Diamond Shield,6,Earth,305.png, ,Shield
+Entropy.png,Dissipation Field,3,Entropy,301.png, ,Shield
+Fire.png,Fire Buckler,4,Fire,308.png, ,Shield
+Gravity.png,Gravity Shield,3,Gravity,304.png, ,Shield
+Light.png,Hope,8,Light,312.png, ,Shield
+Darkness.png,Improved Dusk,4,Darkness,316.png, ,Shield
+Air.png,Improved Fog,1,Air,313.png, ,Shield
+Life.png,Jade Shield,7,Life,307.png, ,Shield
+Light.png,Mirror Shield,2,Light,311.png, ,Shield
+Water.png,Permafrost Shield,7,Water,309.png, ,Shield
+Aether.png,Phase Shield,5,Aether,317.png, ,Shield
+Death.png,Skull Buckler,2,Death,302.png, ,Shield
+Light.png,Solar Buckler,2,Light,310.png, ,Shield
+Life.png,Spine Carapace,7,Life,306.png, ,Shield
+Other.png,Tower Shield,5,Other,300.png, ,Shield
+Time.png,Turtle Shield,4,Time,315.png, ,Shield
+Air.png,Wings,3,Air,314.png, ,Shield
+Aether.png,Aether Pillar,0,Aether,11.png, ,Pillar
+Entropy.png,Amethyst Pillar,0,Entropy,1.png, ,Pillar
+Death.png,Bone Pillar,0,Death,2.png, ,Pillar
+Fire.png,Burning Pillar,0,Fire,6.png, ,Pillar
+Life.png,Emerald Pillar,0,Life,5.png, ,Pillar
+Gravity.png,Gravity Pillar,0,Gravity,3.png, ,Pillar
+Light.png,Light Pillar,0,Light,8.png, ,Pillar
+Darkness.png,Obsidian Pillar,0,Darkness,12.png, ,Pillar
+Other.png,Quantum Pillar,0,Other,0.png, ,Pillar
+Earth.png,Stone Pillar,0,Earth,4.png, ,Pillar
+Time.png,Time Factory,0,Time,10.png, ,Pillar
+Water.png,Water Pillar,0,Water,7.png, ,Pillar
+Air.png,Wind Pillar,0,Air,9.png, ,Pillar
+Aether.png,Aether Tower,0,Aether,11.png, ,Pillar
+Entropy.png,Amethyst Tower,0,Entropy,1.png, ,Pillar
+Death.png,Bone Tower,0,Death,2.png, ,Pillar
+Fire.png,Burning Tower,0,Fire,6.png, ,Pillar
+Life.png,Emerald Tower,0,Life,5.png, ,Pillar
+Gravity.png,Gravity Tower,0,Gravity,3.png, ,Pillar
+Light.png,Light Tower,0,Light,8.png, ,Pillar
+Darkness.png,Obsidian Tower,0,Darkness,12.png, ,Pillar
+Other.png,Quantum Tower,0,Other,0.png, ,Pillar
+Earth.png,Stone Tower,0,Earth,4.png, ,Pillar
+Time.png,Time Tower,0,Time,10.png, ,Pillar
+Water.png,Water Tower,0,Water,7.png, ,Pillar
+Air.png,Wind Tower,0,Air,9.png, ,Pillar
+Aether.png,Aether Pendulum,0,Aether,900.png, ,Pillar
+Air.png,Air Pendulum,0,Air,901.png, ,Pillar
+Darkness.png,Dark Pendulum,0,Darkness,902.png, ,Pillar
+Death.png,Death Pendulum,0,Death,904.png, ,Pillar
+Earth.png,Earth Pendulum,0,Earth,905.png, ,Pillar
+Entropy.png,Entropy Pendulum,0,Entropy,906.png, ,Pillar
+Fire.png,Fire Pendulum,0,Fire,908.png, ,Pillar
+Gravity.png,Gravity Pendulum,0,Gravity,909.png, ,Pillar
+Life.png,Life Pendulum,0,Life,910.png, ,Pillar
+Light.png,Light Pendulum,0,Light,903.png, ,Pillar
+Time.png,Time Pendulum,0,Time,907.png, ,Pillar
+Water.png,Water Pendulum,0,Water,911.png, ,Pillar
+Aether.png,Aether Pendulum,0,Aether,900.png, ,Pillar
+Air.png,Air Pendulum,0,Air,901.png, ,Pillar
+Darkness.png,Dark Pendulum,0,Darkness,902.png, ,Pillar
+Death.png,Death Pendulum,0,Death,904.png, ,Pillar
+Earth.png,Earth Pendulum,0,Earth,905.png, ,Pillar
+Entropy.png,Entropy Pendulum,0,Entropy,906.png, ,Pillar
+Fire.png,Fire Pendulum,0,Fire,908.png, ,Pillar
+Gravity.png,Gravity Pendulum,0,Gravity,909.png, ,Pillar
+Life.png,Life Pendulum,0,Life,910.png, ,Pillar
+Light.png,Light Pendulum,0,Light,903.png, ,Pillar
+Time.png,Time Pendulum,0,Time,907.png, ,Pillar
+Water.png,Water Pendulum,0,Water,911.png, ,Pillar
+Aether.png,Mark of Aether,0,Aether,Aether.png, ,Mark
+Air.png,Mark of Air,0,Air,Air.png, ,Mark
+Darkness.png,Mark of Darkness,0,Darkness,Darkness.png, ,Mark
+Death.png,Mark of Death,0,Death,Death.png, ,Mark
+Earth.png,Mark of Earth,0,Earth,Earth.png, ,Mark
+Entropy.png,Mark of Entropy,0,Entropy,Entropy.png, ,Mark
+Fire.png,Mark of Fire,0,Fire,Fire.png, ,Mark
+Gravity.png,Mark of Gravity,0,Gravity,Gravity.png, ,Mark
+Life.png,Mark of Life,0,Life,Life.png, ,Mark
+Light.png,Mark of Light,0,Light,Light.png, ,Mark
+Time.png,Mark of Time,0,Time,Time.png, ,Mark
+Water.png,Mark of Water,0,Water,Water.png, ,Mark
+Entropy.png,Abomination,5,Entropy,161.png,5|5,Creature
+Gravity.png,Amber Nymph,9,Gravity,138.png,1|3,Creature
+Earth.png,Antlion,2,Earth,111.png,2|3,Creature
+Time.png,Anubis,8,Time,44.png,5|8,Creature
+Water.png,Arctic Squid,3,Water,82.png,1|2,Creature
+Gravity.png,Armagio,5,Gravity,131.png,1|25,Creature
+Fire.png,Ash Eater,1,Fire,90.png,2|1,Creature
+Fire.png,Ash,7,Fire,96.png,0|5,Creature
+Earth.png,Auburn Nymph,8,Earth,110.png,4|8,Creature
+Air.png,Azure Dragon,10,Air,62.png,9|6,Creature
+Darkness.png,Black Dragon,10,Darkness,20.png,10|5,Creature
+Darkness.png,Black Nymph,8,Darkness,27.png,3|5,Creature
+Water.png,Blue Crawler,2,Water,81.png,3|3,Creature
+Air.png,Blue Nymph,8,Air,65.png,6|5,Creature
+Death.png,Bone Dragon,10,Death,156.png,10|5,Creature
+Gravity.png,Chimera,7,Gravity,137.png,0|0,Creature
+Water.png,Chrysaora,1,Water,80.png,0|2,Creature
+Life.png,Cockatrice,3,Life,105.png,4|4,Creature
+Gravity.png,Colossal Dragon,10,Gravity,134.png,7|15,Creature
+Fire.png,Crimson Dragon,10,Fire,91.png,12|3,Creature
+Light.png,Crusader,5,Light,75.png,2|4,Creature
+Death.png,Deathstalker,2,Death,155.png,0|1,Creature
+Time.png,Deja Vu,1,Time,40.png,1|1,Creature
+Time.png,Devonian Dragon,10,Time,43.png,10|5,Creature
+Darkness.png,Devourer,2,Darkness,26.png,0|2,Creature
+Air.png,Dragonfly,1,Air,60.png,1|1,Creature
+Time.png,Dune Scorpion,3,Time,47.png,0|1,Creature
+Life.png,Emerald Dragon,10,Life,100.png,10|6,Creature
+Entropy.png,Fallen Elf,4,Entropy,165.png,3|2,Creature
+Time.png,Fate Egg,3,Time,41.png,0|1,Creature
+Fire.png,Fire Spirit,2,Fire,93.png,0|2,Creature
+Air.png,Firefly Queen,6,Air,64.png,3|7,Creature
+Air.png,Firefly,3,Air,66.png,3|2,Creature
+Death.png,Flesh Spider,3,Death,151.png,3|3,Creature
+Life.png,Forest Scorpion,3,Life,107.png,1|2,Creature
+Life.png,Forest Spirit,2,Life,106.png,1|1,Creature
+Darkness.png,Gargoyle,5,Darkness,24.png,5|3,Creature
+Time.png,Ghost of the Past,6,Time,48.png,7|4,Creature
+Earth.png,Gnome Rider,1,Earth,115.png,1|2,Creature
+Light.png,Golden Dragon,12,Light,71.png,10|10,Creature
+Time.png,Golden Nymph,8,Time,49.png,6|8,Creature
+Earth.png,Graboid,3,Earth,116.png,2|3,Creature
+Gravity.png,Graviton Fire Eater,2,Gravity,136.png,0|5,Creature
+Gravity.png,Graviton Mercenary,3,Gravity,133.png,3|5,Creature
+Death.png,Grey Nymph,8,Death,158.png,7|8,Creature
+Light.png,Guardian Angel,3,Light,74.png,1|6,Creature
+Earth.png,Hematite Golem,4,Earth,112.png,4|6,Creature
+Light.png,Holy Cow,9,Light,172.png,4|1,Creature
+Life.png,Horned Frog,2,Life,102.png,3|3,Creature
+Water.png,Ice Dragon,10,Water,83.png,9|6,Creature
+Aether.png,Immortal,6,Aether,33.png,4|3,Creature
+Earth.png,Iridium Warden,1,Earth,118.png,0|3,Creature
+Fire.png,Lava Golem,5,Fire,94.png,5|1,Creature
+Entropy.png,Lycanthrope,2,Entropy,164.png,1|1,Creature
+Death.png,Malignant Cell,0,Other,170.png,1|1,Creature
+Entropy.png,Maxwell's Demon,5,Entropy,160.png,3|2,Creature
+Water.png,Mind Flayer,2,Water,85.png,2|2,Creature
+Darkness.png,Minor Vampire,3,Darkness,23.png,2|2,Creature
+Death.png,Mummy,4,Death,154.png,5|3,Creature
+Water.png,Nymph Queen,8,Water,89.png,5|6,Creature
+Gravity.png,Otyugh,4,Gravity,139.png,0|3,Creature
+Darkness.png,Parasite,2,Darkness,22.png,1|1,Creature
+Light.png,Pegasus,4,Light,73.png,3|2,Creature
+Time.png,Pharaoh,9,Time,46.png,3|8,Creature
+Aether.png,Phase Dragon,13,Aether,34.png,8|6,Creature
+Aether.png,Phase Spider,3,Aether,30.png,4|2,Creature
+Fire.png,Phoenix,7,Fire,95.png,7|1,Creature
+Light.png,Photon,0,Light,70.png,1|1,Creature
+Aether.png,Psion,4,Aether,31.png,4|4,Creature
+Entropy.png,Purple Dragon,10,Entropy,162.png,10|5,Creature
+Entropy.png,Purple Nymph,9,Entropy,167.png,3|1,Creature
+Fire.png,Red Nymph,8,Fire,98.png,1|6,Creature
+Life.png,Rustler,1,Life,103.png,1|1,Creature
+Gravity.png,Sapphire Charger,5,Gravity,130.png,4|5,Creature
+Time.png,Scarab,2,Time,45.png,2|0,Creature
+Entropy.png,Schrodinger's Cat,1,Entropy,166.png,1|1,Creature
+Fire.png,Seraph,9,Fire,97.png,10|1,Creature
+Earth.png,Shard Golem,5,Earth,119.png,1|1,Creature
+Gravity.png,Shard of Focus,6,Gravity,140.png,0|1,Creature
+Earth.png,Shard of Integrity,2,Earth,580.png,1|4,Creature
+Earth.png,Shrieker,8,Earth,117.png,8|3,Creature
+Entropy.png,Singularity,10,Entropy,617.png,-1|3,Creature
+Death.png,Skeleton,1,Death,153.png,1|1,Creature
+Aether.png,Spark,0,Aether,36.png,3|0,Creature
+Water.png,Steam Machine,4,Water,87.png,0|6,Creature
+Earth.png,Stone Dragon,10,Earth,113.png,8|10,Creature
+Water.png,Toadfish,5,Water,84.png,6|4,Creature
+Aether.png,Turquoise Nymph,8,Aether,32.png,7|4,Creature
+Death.png,Virus,1,Death,150.png,1|1,Creature
+Darkness.png,Voodoo Doll,2,Darkness,25.png,0|16,Creature
+Death.png,Vulture,3,Death,152.png,0|1,Creature
+Light.png,White Nymph,9,Light,76.png,6|9,Creature
+Air.png,Wyrm,4,Air,61.png,3|3,Creature
+Water.png,Abyss Crawler,4,Water,81.png,6|6,Creature
+Aether.png,Aether Nymph,8,Aether,32.png,8|5,Creature
+Air.png,Air Nymph,8,Air,65.png,7|6,Creature
+Entropy.png,Amethyst Dragon,11,Entropy,163.png,12|6,Creature
+Light.png,Archangel,6,Light,74.png,7|7,Creature
+Water.png,Arctic Dragon,11,Water,83.png,13|5,Creature
+Water.png,Arctic Octopus,3,Water,82.png,1|2,Creature
+Fire.png,Ash,2,Fire,96.png,0|5,Creature
+Aether.png,Ball Lightning,0,Aether,36.png,5|0,Creature
+Earth.png,Basalt Dragon,12,Earth,114.png,10|12,Creature
+Darkness.png,Bloodsucker,2,Darkness,22.png,3|1,Creature
+Fire.png,Brimstone Eater,1,Fire,90.png,2|1,Creature
+Gravity.png,Chimera,6,Gravity,137.png,0|0,Creature
+Death.png,Condor,3,Death,152.png,1|2,Creature
+Light.png,Crusader,5,Light,75.png,3|5,Creature
+Air.png,Damselfly,0,Air,60.png,2|1,Creature
+Darkness.png,Dark Nymph,8,Darkness,27.png,5|5,Creature
+Death.png,Death Nymph,8,Death,158.png,8|9,Creature
+Death.png,Deathstalker,2,Death,155.png,0|3,Creature
+Time.png,Dune Scorpion,3,Time,47.png,0|3,Creature
+Earth.png,Earth Nymph,8,Earth,110.png,5|9,Creature
+Earth.png,Elite Antlion,2,Earth,111.png,4|4,Creature
+Time.png,Elite Anubis,8,Time,44.png,5|8,Creature
+Gravity.png,Elite Armagio,5,Gravity,132.png,2|30,Creature
+Gravity.png,Elite Charger,5,Gravity,130.png,7|5,Creature
+Life.png,Elite Cockatrice,3,Life,105.png,5|5,Creature
+Time.png,Elite Deja Vu,1,Time,40.png,2|2,Creature
+Air.png,Elite Firefly,3,Air,66.png,4|2,Creature
+Earth.png,Elite Graboid,3,Earth,116.png,2|3,Creature
+Aether.png,Elite Immortal,7,Aether,33.png,5|4,Creature
+Death.png,Elite Mummy,3,Death,154.png,5|3,Creature
+Gravity.png,Elite Otyugh,5,Gravity,135.png,0|5,Creature
+Light.png,Elite Pegasus,4,Light,73.png,4|4,Creature
+Aether.png,Elite Phase Dragon,14,Aether,35.png,10|6,Creature
+Air.png,Elite Queen,6,Air,64.png,3|7,Creature
+Time.png,Elite Scarab,2,Time,45.png,3|1,Creature
+Earth.png,Elite Shrieker,8,Earth,117.png,10|4,Creature
+Death.png,Elite Skeleton,1,Death,153.png,2|2,Creature
+Air.png,Elite Wyrm,4,Air,61.png,5|3,Creature
+Entropy.png,Fallen Druid,5,Entropy,165.png,3|3,Creature
+Time.png,Fate Egg,3,Time,41.png,0|1,Creature
+Fire.png,Fire Nymph,8,Fire,98.png,1|7,Creature
+Fire.png,Fire Spectre,3,Fire,93.png,2|3,Creature
+Death.png,Flesh Recluse,3,Death,151.png,6|3,Creature
+Life.png,Forest Spectre,3,Life,106.png,2|3,Creature
+Darkness.png,Gargoyle,5,Darkness,24.png,7|3,Creature
+Time.png,Ghost of the Past,7,Time,48.png,9|4,Creature
+Life.png,Giant Frog,2,Life,102.png,5|3,Creature
+Earth.png,Gnome Gemfinder,0,Earth,115.png,1|2,Creature
+Time.png,Golden Nymph,8,Time,49.png,7|9,Creature
+Gravity.png,Graviton Firemaster,1,Gravity,136.png,0|6,Creature
+Gravity.png,Graviton Guard,2,Gravity,133.png,4|7,Creature
+Gravity.png,Gravity Nymph,9,Gravity,138.png,1|4,Creature
+Light.png,Holy Cow,9,Light,172.png,4|1,Creature
+Death.png,Ivory Dragon,10,Death,157.png,11|5,Creature
+Life.png,Jade Dragon,12,Life,101.png,12|9,Creature
+Fire.png,Lava Destroyer,5,Fire,94.png,7|1,Creature
+Life.png,Leaf Dragon,1,Life,104.png,1|3,Creature
+Life.png,Life Nymph,8,Life,108.png,3|7,Creature
+Light.png,Light Dragon,13,Light,72.png,12|12,Creature
+Light.png,Light Nymph,9,Light,76.png,7|9,Creature
+Death.png,Malignant Cell,0,Other,170.png,1|1,Creature
+Gravity.png,Massive Dragon,11,Gravity,134.png,8|30,Creature
+Entropy.png,Maxwell's Demon,5,Entropy,160.png,3|5,Creature
+Entropy.png,Micro Abomination,1,Entropy,161.png,2|4,Creature
+Fire.png,Minor Phoenix,2,Fire,95.png,4|1,Creature
+Darkness.png,Obsidian Dragon,12,Darkness,21.png,12|6,Creature
+Darkness.png,Pest,2,Darkness,26.png,0|4,Creature
+Time.png,Pharaoh,9,Time,42.png,3|8,Creature
+Aether.png,Phase Recluse,4,Aether,30.png,7|2,Creature
+Water.png,Physalia,1,Water,80.png,2|2,Creature
+Aether.png,Psion,4,Aether,31.png,5|5,Creature
+Water.png,Puffer Fish,5,Water,84.png,3|5,Creature
+Entropy.png,Purple Nymph,9,Entropy,167.png,3|2,Creature
+Light.png,Ray of Light,0,Light,70.png,1|1,Creature
+Death.png,Retrovirus,2,Death,150.png,1|1,Creature
+Fire.png,Ruby Dragon,12,Fire,92.png,15|2,Creature
+Entropy.png,Schrodinger's Cat,1,Entropy,166.png,1|3,Creature
+Life.png,Scorpion,3,Life,107.png,2|2,Creature
+Fire.png,Seraph,9,Fire,97.png,12|1,Creature
+Gravity.png,Shard of Focus,4,Gravity,140.png,0|1,Creature
+Earth.png,Shard of Integrity,1,Earth,580.png,2|5,Creature
+Time.png,Silurian Dragon,12,Time,50.png,13|4,Creature
+Entropy.png,Singularity,10,Entropy,617.png,-7|5,Creature
+Air.png,Sky Dragon,12,Air,63.png,13|7,Creature
+Water.png,Steam Machine,5,Water,88.png,0|15,Creature
+Earth.png,Steel Golem,4,Earth,120.png,6|9,Creature
+Water.png,Ulitharid,3,Water,86.png,3|4,Creature
+Darkness.png,Vampire,5,Darkness,23.png,4|3,Creature
+Earth.png,Vanadium Warden,1,Earth,118.png,0|6,Creature
+Darkness.png,Voodoo Doll,2,Darkness,25.png,0|20,Creature
+Water.png,Water Nymph,8,Water,89.png,6|7,Creature
+Entropy.png,Werewolf,2,Entropy,164.png,1|1,Creature
+Death.png,Boneyard,3,Death,400.png, ,Artifact
+Gravity.png,Catapult,3,Gravity,402.png, ,Artifact
+Darkness.png,Cloak,4,Darkness,408.png, ,Artifact
+Life.png,Empathic Bond,5,Life,403.png, ,Artifact
+Water.png,Flooding,3,Water,554.png, ,Artifact
+Time.png,Golden Hourglass,4,Time,405.png, ,Artifact
+Aether.png,Mindgate,5,Aether,409.png, ,Artifact
+Darkness.png,Nightfall,3,Darkness,407.png, ,Artifact
+Light.png,Sanctuary,4,Light,404.png, ,Artifact
+Air.png,Shard of Freedom,2,Air,412.png, ,Artifact
+Life.png,Shard of Gratitude,3,Life,410.png, ,Artifact
+Water.png,Shard of Patience,3,Water,412.png, ,Artifact
+Darkness.png,Shard of Void,2,Darkness,411.png, ,Artifact
+Death.png,Soul Catcher,0,Death,401.png, ,Artifact
+Time.png,Sundial,1,Time,406.png, ,Artifact
+Air.png,Unstable Gas,6,Air,414.png, ,Artifact
+Darkness.png,Cloak,3,Darkness,408.png, ,Artifact
+Darkness.png,Eclipse,4,Darkness,407.png, ,Artifact
+Time.png,Electrum Hourglass,4,Time,405.png, ,Artifact
+Life.png,Feral Bond,4,Life,403.png, ,Artifact
+Death.png,Graveyard,5,Death,400.png, ,Artifact
+Water.png,Inundation,2,Water,554.png, ,Artifact
+Aether.png,Mindgate,4,Aether,409.png, ,Artifact
+Light.png,Sanctuary,3,Light,404.png, ,Artifact
+Air.png,Shard of Freedom,1,Air,412.png, ,Artifact
+Life.png,Shard of Gratitude,2,Life,410.png, ,Artifact
+Water.png,Shard of Patience,2,Water,412.png, ,Artifact
+Darkness.png,Shard of Void,1,Darkness,411.png, ,Artifact
+Death.png,Soul Catcher,0,Death,401.png, ,Artifact
+Time.png,Sundial,0,Time,406.png, ,Artifact
+Gravity.png,Trebuchet,3,Gravity,402.png, ,Artifact
+Air.png,Unstable Gas,5,Air,414.png, ,Artifact

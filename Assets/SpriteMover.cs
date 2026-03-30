@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,29 +8,28 @@ namespace SplashScreen
 public class SpriteMover : MonoBehaviour
 {
     private List<Transform> _path;
-    private StartNextSpriteMover _completion;
-    private bool _isFirstPosition = true;
+    private int _currentPathIndex;
+    private int _spriteIndex;
+    private bool _startAnimation;
+    public Action<int> StartNextSpriteAnimation;
 
-    public void SetupSpritePath(List<Transform> path, StartNextSpriteMover completion)
+    public void SetPath(List<Transform> path, int spriteIndex)
     {
         _path = path;
-        _completion = completion;
-        StartCoroutine(MoveSpriteAlongPath());
+        _startAnimation = true;
+        _spriteIndex = spriteIndex;
     }
 
-    private IEnumerator MoveSpriteAlongPath()
+    void Update()
     {
-        foreach (var t in _path)
+        if (!_startAnimation) return;
+        if (_currentPathIndex >= _path.Count) return;
+        transform.position = Vector3.MoveTowards(transform.position, _path[_currentPathIndex].position, 10 * Time.deltaTime);
+        if (transform.position != _path[_currentPathIndex].position) return;
+        _currentPathIndex++;
+        if (_currentPathIndex == 1)
         {
-            while (transform.position != t.position)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, t.position, 3000f * Time.deltaTime);
-                yield return null;
-            }
-
-            if (!_isFirstPosition) continue;
-            _completion();
-            _isFirstPosition = false;
+            StartNextSpriteAnimation?.Invoke(_spriteIndex);
         }
     }
 }

@@ -61,4 +61,18 @@ public static class ImageHelper
         var rarity = achievementDataRarity == 2 ? "Hard" : achievementDataRarity == 1 ? "Medium" : "Normal";
         return Resources.Load<Sprite>($"Sprites/AchievementFrame/" + rarity);
     }
+    
+    public static Color32 HexToColor32(string hex)
+    {
+        // Remove # if present
+        hex = hex.Replace("#", "");
+        
+        // Parse the hex values
+        byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+        byte g = byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+        byte b = byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+        byte a = hex.Length >= 8 ? byte.Parse(hex.Substring(6, 2), System.Globalization.NumberStyles.HexNumber) : (byte)255;
+    
+        return new Color32(r, g, b, a);
+    }
 }

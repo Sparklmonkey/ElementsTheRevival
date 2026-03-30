@@ -32,6 +32,8 @@ namespace Core
         public List<PlayerAchievement> Achievements = new();
         public ScoreUpdateResponse PlayerScore;
         private PlayerAchievementsBindings _playerAchievementsBindings;
+        
+        
 
         public async Task GetPlayerAchievements()
         {
@@ -61,6 +63,35 @@ namespace Core
     }
     
     
+}
+
+public class PlayerDataViewModel
+{
+    public PlayerDataModel PlayerDataModel { get; set; }
+
+    public void GetPlayerData()
+    {
+        //GetNewPlayerData Object
+    }
+
+    public void AddCardStringToInventory(string cardCode)
+    {
+        PlayerDataModel.CardInventory.DecompressDeckCode().AddRange(cardCode.DecompressDeckCode());
+    }
+    public void UpdatePlayerDeck(Element deckMark, string deckCode)
+    {
+        PlayerDataModel.CurrentDeck = new Deck
+        {
+            CardString = deckCode,
+            Mark = deckMark
+        };
+        SavePlayerData();
+    }
+    
+    private void SavePlayerData()
+    {
+        
+    }
 }
 
 public static class JsonHelper

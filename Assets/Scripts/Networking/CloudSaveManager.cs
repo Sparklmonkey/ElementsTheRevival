@@ -19,11 +19,15 @@ namespace Networking.Networking
         {
             var savedData =
                 await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "SAVE_DATA" });
-            
-            var data = savedData["SAVE_DATA"].Value;
-            var score = await _cloudCodeManager.UpdateScore(0);
-            SessionManager.Instance.PlayerScore = score;
-            return data.GetAs<PlayerData>();
+
+            if (savedData.TryGetValue("SAVE_DATA", out var value))
+            {
+                var data = value.Value;
+                var score = await _cloudCodeManager.UpdateScore(0);
+                SessionManager.Instance.PlayerScore = score;
+                return data.GetAs<PlayerData>();
+            }
+            return null;
         }
 
         public async Task SavePlayerData(PlayerData playerData)

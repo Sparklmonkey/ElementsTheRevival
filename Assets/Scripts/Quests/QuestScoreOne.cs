@@ -1,4 +1,6 @@
-﻿public class QuestScoreOne : QuestBiolerplate
+﻿using Core;
+
+public class QuestScoreOne : QuestBiolerplate
 {
     public override int QuestIndex => 5;
 
@@ -10,7 +12,7 @@
 
     public override string QuestReward => "Reward: 150";
 
-    public override bool RequirementCheck() => PlayerData.Shared.PlayerScore >= 150;
+    public override bool RequirementCheck() => SessionManager.Instance.PlayerScore.overallScore >= 150;
 
     public override void RedeemQuest()
     {
